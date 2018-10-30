@@ -1,0 +1,212 @@
+﻿Aerobatics 1.png	Aerobatics 1	If unit's HP = 100%, unit can move to a space adjacent to any infantry, armored, or cavalry ally within 2 spaces.	60	No
+Aerobatics 2.png	Aerobatics 2	If unit's HP ≥ 50%, unit can move to a space adjacent to any infantry, armored, or cavalry ally within 2 spaces.	120	No
+Aerobatics 3.png	Aerobatics 3	Unit can move to a space adjacent to any infantry, armored, or cavalry ally within 2 spaces.	240	No
+Atk Def Link 1.png	Atk/Def Link 1	If a movement Assist skill (like Reposition, Shove, Pivot, etc.) is used by unit or targets unit, grants Atk/Def+2 to unit and target ally or unit and targeting ally for 1 turn.	60	No
+Atk Def Link 2.png	Atk/Def Link 2	If a movement Assist skill (like Reposition, Shove, Pivot, etc.) is used by unit or targets unit, grants Atk/Def+4 to unit and target ally or unit and targeting ally for 1 turn.	120	No
+Atk Def Link 3.png	Atk/Def Link 3	If a movement Assist skill (like Reposition, Shove, Pivot, etc.) is used by unit or targets unit, grants Atk/Def+6 to unit and target ally or unit and targeting ally for 1 turn.	240	No
+Atk Spd Link 1.png	Atk/Spd Link 1	If a movement Assist skill (like Reposition, Shove, Pivot, etc.) is used by unit or targets unit, grants Atk/Spd+2 to unit and target ally or unit and targeting ally for 1 turn.	60	No
+Atk Spd Link 2.png	Atk/Spd Link 2	If a movement Assist skill (like Reposition, Shove, Pivot, etc.) is used by unit or targets unit, grants Atk/Spd+4 to unit and target ally or unit and targeting ally for 1 turn.	120	No
+Atk Spd Link 3.png	Atk/Spd Link 3	If a movement Assist skill (like Reposition, Shove, Pivot, etc.) is used by unit or targets unit, grants Atk/Spd+6 to unit and target ally or unit and targeting ally for 1 turn.	240	No
+Axebreaker 1.png	Axebreaker 1	If unit's HP ≥ 90% in combat against an axe foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	50	No
+Axebreaker 2.png	Axebreaker 2	If unit's HP ≥ 70% in combat against an axe foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	100	No
+Axebreaker 3.png	Axebreaker 3	If unit's HP ≥ 50% in combat against an axe foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	200	No
+B Tomebreaker 1.png	B Tomebreaker 1	If unit's HP ≥ 90% in combat against a blue tome foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	50	No
+B Tomebreaker 2.png	B Tomebreaker 2	If unit's HP ≥ 70% in combat against a blue tome foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	100	No
+B Tomebreaker 3.png	B Tomebreaker 3	If unit's HP ≥ 50% in combat against a blue tome foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	200	No
+Beorc's Blessing.png	Beorc's Blessing	Neutralizes cavalry and flying foe's bonuses (from skills like Fortify, Rally, etc.) during combat.
+(Skill cannot be inherited.)	300	Yes
+Binding Shield.png	Binding Shield	In combat against a dragon foe, unit makes a guaranteed follow-up attack and foe cannot counterattack or make a follow-up attack.	300	Yes
+Blaze Dance 1.png	Blaze Dance 1	If Sing or Dance is used, grants Atk+2 to target.	50	No
+Blaze Dance 2.png	Blaze Dance 2	If Sing or Dance is used, grants Atk+3 to target.	100	No
+Blaze Dance 3.png	Blaze Dance 3	If Sing or Dance is used, grants Atk+4 to target.	200	No
+Bold Fighter 1.png	Bold Fighter 1	If unit's HP = 100% and unit initiates combat, unit makes a guaranteed follow-up attack.
+Grants Special cooldown charge +1 per attack. (Does not stack.)	60	No
+Bold Fighter 2.png	Bold Fighter 2	If unit's HP ≥ 50% and unit initiates combat, unit makes a guaranteed follow-up attack.
+Grants Special cooldown charge +1 per attack. (Does not stack.)	120	No
+Bold Fighter 3.png	Bold Fighter 3	If unit initiates combat, unit makes a guaranteed follow-up attack.
+Grants Special cooldown charge +1 per attack. (Does not stack.)	240	No
+Bowbreaker 1.png	Bowbreaker 1	If unit's HP ≥ 90% in combat against a colorless bow foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	50	No
+Bowbreaker 2.png	Bowbreaker 2	If unit's HP ≥ 70% in combat against a colorless bow foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	100	No
+Bowbreaker 3.png	Bowbreaker 3	If unit's HP ≥ 50% in combat against a colorless bow foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	200	No
+Brash Assault 1.png	Brash Assault 1	If unit initiates combat against a foe that can counter and unit's HP ≤ 30%, unit makes a guaranteed follow-up attack.	50	No
+Brash Assault 2.png	Brash Assault 2	If unit initiates combat against a foe that can counter and unit's HP ≤ 40%, unit makes a guaranteed follow-up attack.	100	No
+Brash Assault 3.png	Brash Assault 3	If unit initiates combat against a foe that can counter and unit's HP ≤ 50%, unit makes a guaranteed follow-up attack.	200	No
+Bushido.png	Bushido	Deals +10 damage when Special triggers.	300	Yes
+Cancel Affinity 1.png	Cancel Affinity 1	Neutralizes all weapon-triangle advantage granted by unit's and foe's skills.	50	No
+Cancel Affinity 2.png	Cancel Affinity 2	Neutralizes weapon-triangle advantage granted by unit's skills. If unit has weapon-triangle disadvantage, neutralizes weapon-triangle advantage granted by foe's skills.	100	No
+Cancel Affinity 3.png	Cancel Affinity 3	Neutralizes weapon-triangle advantage granted by unit's skills. If unit has weapon-triangle disadvantage, reverses weapon-triangle advantage granted by foe's skills.	200	No
+Chill Atk 1.png	Chill Atk 1	At the start of each turn, inflicts Atk-3 on foe on the enemy team with the highest Atk through its next action.	60	No
+Chill Atk 2.png	Chill Atk 2	At the start of each turn, inflicts Atk-5 on foe on the enemy team with the highest Atk through its next action.	120	No
+Chill Atk 3.png	Chill Atk 3	At the start of each turn, inflicts Atk-7 on foe on the enemy team with the highest Atk through its next action.	240	No
+Chill Def 1.png	Chill Def 1	At the start of each turn, inflicts Def-3 on foe on the enemy team with the highest Def through its next action.	60	No
+Chill Def 2.png	Chill Def 2	At the start of each turn, inflicts Def-5 on foe on the enemy team with the highest Def through its next action.	120	No
+Chill Def 3.png	Chill Def 3	At the start of each turn, inflicts Def-7 on foe on the enemy team with the highest Def through its next action.	240	No
+Chill Res 1.png	Chill Res 1	At the start of each turn, inflicts Res-3 on foe on the enemy team with the highest Res through its next action.	60	No
+Chill Res 2.png	Chill Res 2	At the start of each turn, inflicts Res-5 on foe on the enemy team with the highest Res through its next action.	120	No
+Chill Res 3.png	Chill Res 3	At the start of each turn, inflicts Res-7 on foe on the enemy team with the highest Res through its next action.	240	No
+Chill Spd 1.png	Chill Spd 1	At start of turn, inflicts Spd-3 on foe on the enemy team with the highest Spd through its next action.	60	No
+Chill Spd 2.png	Chill Spd 2	At start of turn, inflicts Spd-5 on foe on the enemy team with the highest Spd through its next action.	120	No
+Chill Spd 3.png	Chill Spd 3	At start of turn, inflicts Spd-7 on foe on the enemy team with the highest Spd through its next action.	240	No
+Chilling Seal.png	Chilling Seal	At start of turn, if unit's HP ≥ 50%, inflicts Atk/Spd-6 on foe on the enemy team with the lowest Def through its next action.
+(Skill cannot be inherited.)	300	Yes
+Crusader's Ward.png	Crusader's Ward	If unit receives consecutive attacks and foe's Range = 2, reduces damage from foe's second attack onward by 80%. (Skill cannot be inherited.)	300	Yes
+Daggerbreaker 1.png	Daggerbreaker 1	If unit's HP ≥ 90% in combat against a colorless dagger foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	50	No
+Daggerbreaker 2.png	Daggerbreaker 2	If unit's HP ≥ 70% in combat against a colorless dagger foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	100	No
+Daggerbreaker 3.png	Daggerbreaker 3	If unit's HP ≥ 50% in combat against a colorless dagger foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	200	No
+Dazzling Staff 1.png	Dazzling Staff 1	At start of combat, if unit's HP = 100%, foe cannot counterattack.	60	No
+Dazzling Staff 2.png	Dazzling Staff 2	At start of combat, if unit's HP ≥ 50%, foe cannot counterattack.	120	No
+Dazzling Staff 3.png	Dazzling Staff 3	Foe cannot counterattack.	240	No
+Def Feint 1.png	Def Feint 1	If a Rally Assist skill is used by unit or targets unit, inflicts Def-3 on foes in cardinal directions of unit through their next actions.	60	No
+Def Feint 2.png	Def Feint 2	If a Rally Assist skill is used by unit or targets unit, inflicts Def-5 on foes in cardinal directions of unit through their next actions.	120	No
+Def Feint 3.png	Def Feint 3	If a Rally Assist skill is used by unit or targets unit, inflicts Def-7 on foes in cardinal directions of unit through their next actions.	240	No
+Def Res Link 1.png	Def/Res Link 1	If a movement Assist skill (like Reposition, Shove, Pivot, etc.) is used by unit or targets unit, grants Def/Res+2 to unit and target ally or unit and targeting ally for 1 turn.	60	No
+Def Res Link 2.png	Def/Res Link 2	If a movement Assist skill (like Reposition, Shove, Pivot, etc.) is used by unit or targets unit, grants Def/Res+4 to unit and target ally or unit and targeting ally for 1 turn.	120	No
+Def Res Link 3.png	Def/Res Link 3	If a movement Assist skill (like Reposition, Shove, Pivot, etc.) is used by unit or targets unit, grants Def/Res+6 to unit and target ally or unit and targeting ally for 1 turn.	240	No
+Deluge Dance 1.png	Deluge Dance 1	If Sing or Dance is used, grants Spd+2 and Res+3 to target.	120	No
+Deluge Dance 2.png	Deluge Dance 2	If Sing or Dance is used, grants Spd+3 and Res+4 to target.	240	No
+Desperation 1.png	Desperation 1	If unit’s HP ≤ 25% and unit initiates combat, unit can make a follow-up attack before foe can counterattack.	50	No
+Desperation 2.png	Desperation 2	If unit’s HP ≤ 50% and unit initiates combat, unit can make a follow-up attack before foe can counterattack.	100	No
+Desperation 3.png	Desperation 3	If unit’s HP ≤ 75% and unit initiates combat, unit can make a follow-up attack before foe can counterattack.	200	No
+Double Lion.png	Double Lion	If unit's HP = 100% at start of combat and unit initiates combat, unit attacks twice, but deals 1 damage to unit after combat. (Does not stack.)	300	Yes
+Drag Back.png	Drag Back	If unit initiates combat, unit moves 1 space away after combat.
+Target foe moves to unit's previous space.	150	No
+Dull Close 1.png	Dull Close 1	At start of combat, if unit's HP = 100% and foe uses sword, lance, axe, or dragonstone, neutralizes foe's bonuses (from skills like Fortify, Rally, etc.) during combat.	60	No
+Dull Close 2.png	Dull Close 2	At start of combat, if unit's HP ≥ 50% and foe uses sword, lance, axe, or dragonstone, neutralizes foe's bonuses (from skills like Fortify, Rally, etc.) during combat.	120	No
+Dull Close 3.png	Dull Close 3	If foe uses sword, lance, axe, or dragonstone, neutralizes foe's bonuses (from skills like Fortify, Rally, etc.) during combat.	240	No
+Dull Ranged 1.png	Dull Ranged 1	At start of combat, if unit's HP = 100% and foe uses bow, dagger, magic, or staff, neutralizes foe's bonuses (from skills like Fortify, Rally, etc.) during combat.	60	No
+Dull Ranged 2.png	Dull Ranged 2	At start of combat, if unit's HP ≥ 50% and foe uses bow, dagger, magic, or staff, neutralizes foe's bonuses (from skills like Fortify, Rally, etc.) during combat.	120	No
+Dull Ranged 3.png	Dull Ranged 3	If foe uses bow, dagger, magic, or staff, neutralizes foe's bonuses (from skills like Fortify, Rally, etc.) during combat.	240	No
+Earth Dance 1.png	Earth Dance 1	If Sing or Dance is used, grants Def+3 to target.	50	No
+Earth Dance 2.png	Earth Dance 2	If Sing or Dance is used, grants Def+4 to target.	100	No
+Earth Dance 3.png	Earth Dance 3	If Sing or Dance is used, grants Def+5 to target.	200	No
+Escape Route 1.png	Escape Route 1	If unit’s HP ≤ 30%, unit can move to a space adjacent to any ally.	60	No
+Escape Route 2.png	Escape Route 2	If unit’s HP ≤ 40%, unit can move to a space adjacent to any ally.	120	No
+Escape Route 3.png	Escape Route 3	If unit’s HP ≤ 50%, unit can move to a space adjacent to any ally.	240	No
+Fireflood Dance 1.png	Fireflood Dance 1	If Sing or Dance is used, grants Atk+2 and Res+3 to target.	120	No
+Fireflood Dance 2.png	Fireflood Dance 2	If Sing or Dance is used, grants Atk+3 and Res+4 to target.	240	No
+Firestorm Dance 1.png	Firestorm Dance 1	If Sing or Dance is used, grants Atk/Spd+2 to target.	120	No
+Firestorm Dance 2.png	Firestorm Dance 2	If Sing or Dance is used, grants Atk/Spd+3 to target.	240	No
+Flier Formation 1.png	Flier Formation 1	If unit HP = 100%, unit can move to a space adjacent to a flying ally within 2 spaces.	60	No
+Flier Formation 2.png	Flier Formation 2	If unit HP ≥ 50%, unit can move to a space adjacent to a flying ally within 2 spaces.	120	No
+Flier Formation 3.png	Flier Formation 3	Unit can move to a space adjacent to a flying ally within 2 spaces.	240	No
+Follow-Up Ring.png	Follow-Up Ring	At start of combat, if unit's HP ≥ 50%, unit makes a guaranteed follow-up attack.
+(Skill cannot be inherited.)	200	Yes
+G Tomebreaker 1.png	G Tomebreaker 1	If unit's HP ≥ 90% in combat against a green tome foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	50	No
+G Tomebreaker 2.png	G Tomebreaker 2	If unit's HP ≥ 70% in combat against a green tome foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	100	No
+G Tomebreaker 3.png	G Tomebreaker 3	If unit's HP ≥ 50% in combat against a green tome foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	200	No
+Gale Dance 1.png	Gale Dance 1	If Sing or Dance is used, grants Spd+2 to target.	50	No
+Gale Dance 2.png	Gale Dance 2	If Sing or Dance is used, grants Spd+3 to target.	100	No
+Gale Dance 3.png	Gale Dance 3	If Sing or Dance is used, grants Spd+4 to target.	200	No
+Geyser Dance 1.png	Geyser Dance 1	If Sing or Dance is used, grants Def/Res+3 to target.	120	No
+Geyser Dance 2.png	Geyser Dance 2	If Sing or Dance is used, grants Def/Res+4 to target.	240	No
+Guard 1.png	Guard 1	At start of combat, if unit's HP = 100%, inflicts Special cooldown charge -1 on foe per attack. (Only highest value applied. Does not stack.)	50	No
+Guard 2.png	Guard 2	At start of combat, if unit's HP ≥ 90%, inflicts Special cooldown charge -1 on foe per attack. (Only highest value applied. Does not stack.)	100	No
+Guard 3.png	Guard 3	At start of combat, if unit's HP ≥ 80%, inflicts Special cooldown charge -1 on foe per attack. (Only highest value applied. Does not stack.)	200	No
+Hit and Run.png	Hit and Run	If unit initiates combat, unit moves 1 space away after combat.	150	No
+Knock Back.png	Knock Back	If unit initiates combat, target foe moves 1 space away after combat.	150	No
+Lancebreaker 1.png	Lancebreaker 1	If unit's HP ≥ 90% in combat against a lance foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	50	No
+Lancebreaker 2.png	Lancebreaker 2	If unit's HP ≥ 70% in combat against a lance foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	100	No
+Lancebreaker 3.png	Lancebreaker 3	If unit's HP ≥ 50% in combat against a lance foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	200	No
+Live for Bounty.png	Live for Bounty	If unit survives, get 1.5x shards/crystals from a Training Tower map.
+(Only highest value applied. Does not stack.)	100	No
+Live for Honor.png	Live for Honor	If unit survives, get 1.5x badges from a Training Tower map.
+(Only highest value applied. Does not stack.)	100	No
+Live to Serve 1.png	Live to Serve 1	When healing an ally with a staff, restores HP to unit = 50% of HP restored to target.	40	No
+Live to Serve 2.png	Live to Serve 2	When healing an ally with a staff, restores HP to unit = 75% of HP restored to target.	80	No
+Live to Serve 3.png	Live to Serve 3	When healing an ally with a staff, restores HP to unit = HP restored to target.	160	No
+Lunge.png	Lunge	If unit initiates combat, unit and target foe swap spaces after combat.	150	No
+Obstruct 1.png	Obstruct 1	If unit's HP ≥ 90%, foes cannot move through spaces adjacent to unit.
+(Does not affect foes with Pass skills.)	50	No
+Obstruct 2.png	Obstruct 2	If unit's HP ≥ 70%, foes cannot move through spaces adjacent to unit.
+(Does not affect foes with Pass skills.)	100	No
+Obstruct 3.png	Obstruct 3	If unit's HP ≥ 50%, foes cannot move through spaces adjacent to unit.
+(Does not affect foes with Pass skills.)	200	No
+Pass 1.png	Pass 1	If unit’s HP ≥ 75%, unit can move through foes’ spaces.	50	No
+Pass 2.png	Pass 2	If unit’s HP ≥ 50%, unit can move through foes’ spaces.	100	No
+Pass 3.png	Pass 3	If unit’s HP ≥ 25%, unit can move through foes’ spaces.	200	No
+Poison Strike 1.png	Poison Strike 1	If unit initiates combat, deals 4 damage to foe after combat.	60	No
+Poison Strike 2.png	Poison Strike 2	If unit initiates combat, deals 7 damage to foe after combat.	120	No
+Poison Strike 3.png	Poison Strike 3	If unit initiates combat, deals 10 damage to foe after combat.	240	No
+Quick Riposte 1.png	Quick Riposte 1	If unit's HP ≥ 90% and foe initiates combat, unit makes a guaranteed follow-up attack.	60	No
+Quick Riposte 2.png	Quick Riposte 2	If unit's HP ≥ 80% and foe initiates combat, unit makes a guaranteed follow-up attack.	120	No
+Quick Riposte 3.png	Quick Riposte 3	If unit's HP ≥ 70% and foe initiates combat, unit makes a guaranteed follow-up attack.	240	No
+R Tomebreaker 1.png	R Tomebreaker 1	If unit's HP ≥ 90% in combat against a red tome foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	50	No
+R Tomebreaker 2.png	R Tomebreaker 2	If unit's HP ≥ 70% in combat against a red tome foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	100	No
+R Tomebreaker 3.png	R Tomebreaker 3	If unit's HP ≥ 50% in combat against a red tome foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	200	No
+Recover Ring.png	Recover Ring	At start of turn, restores 10 HP.
+(Skill cannot be inherited.)	200	Yes
+Renewal 1.png	Renewal 1	At the start of every fourth turn, restores 10 HP.	60	No
+Renewal 2.png	Renewal 2	At the start of every third turn, restores 10 HP.	120	No
+Renewal 3.png	Renewal 3	At the start of every second turn, restores 10 HP.	240	No
+Rockslide Dance 1.png	Rockslide Dance 1	If Sing or Dance is used, grants Spd+2 and Def+3 to target.	120	No
+Rockslide Dance 2.png	Rockslide Dance 2	If Sing or Dance is used, grants Spd+3 and Def+4 to target.	240	No
+S Drink.png	S Drink	At the start of turn 1, restores 99 HP and grants Special cooldown count-1.	300	Yes
+Sacae's Blessing.png	Sacae's Blessing	If foe uses sword, lance, or axe, foe cannot counterattack.
+(Skill cannot be inherited.)	300	Yes
+Seal Atk 1.png	Seal Atk 1	Inflicts Atk-3 on foe through its next action after combat.	40	No
+Seal Atk 2.png	Seal Atk 2	Inflicts Atk-5 on foe through its next action after combat.	80	No
+Seal Atk 3.png	Seal Atk 3	Inflicts Atk-7 on foe through its next action after combat.	160	No
+Seal Atk Def 1.png	Seal Atk/Def 1	Inflicts Atk/Def-3 on foe through its next action after combat.	100	No
+Seal Atk Def 2.png	Seal Atk/Def 2	Inflicts Atk/Def-5 on foe through its next action after combat.	200	No
+Seal Atk Spd 1.png	Seal Atk/Spd 1	Inflicts Atk/Spd-3 on foe through its next action after combat.	100	No
+Seal Atk Spd 2.png	Seal Atk/Spd 2	Inflicts Atk/Spd-5 on foe through its next action after combat.	200	No
+Seal Def 1.png	Seal Def 1	Inflicts Def-3 on foe through its next action after combat.	40	No
+Seal Def 2.png	Seal Def 2	Inflicts Def-5 on foe through its next action after combat.	80	No
+Seal Def 3.png	Seal Def 3	Inflicts Def-7 on foe through its next action after combat.	160	No
+Seal Def Res 1.png	Seal Def/Res 1	Inflicts Def/Res-3 on foe through its next action after combat.	100	No
+Seal Def Res 2.png	Seal Def/Res 2	Inflicts Def/Res-5 on foe through its next action after combat.	200	No
+Seal Res 1.png	Seal Res 1	Inflicts Res-3 on foe through its next action after combat.	40	No
+Seal Res 2.png	Seal Res 2	Inflicts Res-5 on foe through its next action after combat.	80	No
+Seal Res 3.png	Seal Res 3	Inflicts Res-7 on foe through its next action after combat.	160	No
+Seal Spd 1.png	Seal Spd 1	Inflicts Spd-3 on foe through its next action after combat.	40	No
+Seal Spd 2.png	Seal Spd 2	Inflicts Spd-5 on foe through its next action after combat.	80	No
+Seal Spd 3.png	Seal Spd 3	Inflicts Spd-7 on foe through its next action after combat.	160	No
+Shield Pulse 1.png	Shield Pulse 1	At start of turn 1, if foe's attack triggers Special, grants Special cooldown count-1.	60	No
+Shield Pulse 2.png	Shield Pulse 2	At start of turn 1, if foe's attack triggers Special, grants Special cooldown count-1. Reduces damage dealt to unit by 5 when Special triggers.	120	No
+Shield Pulse 3.png	Shield Pulse 3	At start of turn 1, if foe's attack triggers Special, grants Special cooldown count-2. Reduces damage dealt to unit by 5 when Special triggers.	240	No
+Solar Brace.png	Solar Brace	Restores HP = 30% of damage dealt when Special triggers.
+(Stacks with effects of skills like Sol.)	300	Yes
+Spd Feint 1.png	Spd Feint 1	If a Rally Assist skill is used by unit or targets unit, inflicts Spd-3 on foes in cardinal directions of unit through their next actions.	60	No
+Spd Feint 2.png	Spd Feint 2	If a Rally Assist skill is used by unit or targets unit, inflicts Spd-5 on foes in cardinal directions of unit through their next actions.	120	No
+Spd Feint 3.png	Spd Feint 3	If a Rally Assist skill is used by unit or targets unit, inflicts Spd-7 on foes in cardinal directions of unit through their next actions.	240	No
+Spd Res Link 1.png	Spd/Res Link 1	If a movement Assist skill (like Reposition, Shove, Pivot, etc.) is used by unit or targets unit, grants Spd/Res+2 to unit and target ally or unit and targeting ally for 1 turn.	60	No
+Spd Res Link 2.png	Spd/Res Link 2	If a movement Assist skill (like Reposition, Shove, Pivot, etc.) is used by unit or targets unit, grants Spd/Res+4 to unit and target ally or unit and targeting ally for 1 turn.	120	No
+Spd Res Link 3.png	Spd/Res Link 3	If a movement Assist skill (like Reposition, Shove, Pivot, etc.) is used by unit or targets unit, grants Spd/Res+6 to unit and target ally or unit and targeting ally for 1 turn.	240	No
+Special Fighter 1.png	Special Fighter 1	At start of combat, if unit's HP ≥ 90%, grants Special cooldown charge +1 to unit and inflicts Special cooldown charge -1 on foe per attack. (Only highest value applied. Does not stack.)	60	No
+Special Fighter 2.png	Special Fighter 2	At start of combat, if unit's HP ≥ 70%, grants Special cooldown charge +1 to unit and inflicts Special cooldown charge -1 on foe per attack. (Only highest value applied. Does not stack.)	120	No
+Special Fighter 3.png	Special Fighter 3	At start of combat, if unit's HP ≥ 50%, grants Special cooldown charge +1 to unit and inflicts Special cooldown charge -1 on foe per attack. (Only highest value applied. Does not stack.)	240	No
+Special Spiral 1.png	Special Spiral 1	If unit initiates combat and unit's Special triggers before or during combat, grants Special cooldown count-1 after combat.	60	No
+Special Spiral 2.png	Special Spiral 2	If Special triggers before or during combat, grants Special cooldown count-1 after combat.	120	No
+Special Spiral 3.png	Special Spiral 3	If Special triggers before or during combat, grants Special cooldown count-2 after combat.	240	No
+Swordbreaker 1.png	Swordbreaker 1	If unit's HP ≥ 90% in combat against a sword foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	50	No
+Swordbreaker 2.png	Swordbreaker 2	If unit's HP ≥ 70% in combat against a sword foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	100	No
+Swordbreaker 3.png	Swordbreaker 3	If unit's HP ≥ 50% in combat against a sword foe, unit makes a guaranteed follow-up attack and foe cannot make a follow-up attack.	200	No
+Torrent Dance 1.png	Torrent Dance 1	If Sing or Dance is used, grants Res+3 to target.	50	No
+Vantage 1.png	Vantage 1	If unit’s HP ≤ 25% and foe initiates combat, unit can counterattack before foe’s first attack.	50	No
+Vantage 2.png	Vantage 2	If unit’s HP ≤ 50% and foe initiates combat, unit can counterattack before foe’s first attack.	100	No
+Vantage 3.png	Vantage 3	If unit’s HP ≤ 75% and foe initiates combat, unit can counterattack before foe’s first attack.	200	No
+Vengeful Fighter 1.png	Vengeful Fighter 1	If unit's HP ≥ 90% and foe initiates combat, unit makes a guaranteed follow-up attack.
+Grants Special cooldown charge +1 per attack. (Does not stack.)	60	No
+Vengeful Fighter 2.png	Vengeful Fighter 2	If unit's HP ≥ 70% and foe initiates combat, unit makes a guaranteed follow-up attack.
+Grants Special cooldown charge +1 per attack. (Does not stack.)	120	No
+Vengeful Fighter 3.png	Vengeful Fighter 3	If unit's HP ≥ 50% and foe initiates combat, unit makes a guaranteed follow-up attack.
+Grants Special cooldown charge +1 per attack. (Does not stack.)	240	No
+Warp Powder.png	Warp Powder	If unit's HP ≥ 80%, unit can move to a space adjacent to any ally within 2 spaces.	300	Yes
+Wary Fighter 1.png	Wary Fighter 1	If unit's HP ≥ 90%, unit and foe cannot make a follow-up attack.	60	No
+Wary Fighter 2.png	Wary Fighter 2	If unit's HP ≥ 70%, unit and foe cannot make a follow-up attack.	120	No
+Wary Fighter 3.png	Wary Fighter 3	If unit's HP ≥ 50%, unit and foe cannot make a follow-up attack.	240	No
+Watersweep 1.png	Watersweep 1	If unit initiates combat, unit cannot make a follow-up attack. If unit's Spd ≥ foe's Spd+5 and foe uses magic, staff, or dragonstone, foe cannot counterattack.	60	No
+Watersweep 2.png	Watersweep 2	If unit initiates combat, unit cannot make a follow-up attack. If unit's Spd ≥ foe's Spd+3 and foe uses magic, staff, or dragonstone, foe cannot counterattack.	120	No
+Watersweep 3.png	Watersweep 3	If unit initiates combat, unit cannot make a follow-up attack. If unit's Spd ≥ foe's Spd and foe uses magic, staff, or dragonstone, foe cannot counterattack.	240	No
+Windsweep 1.png	Windsweep 1	If unit initiates combat, unit cannot make a follow-up attack. If unit's Spd ≥ foe's Spd+5 and foe uses sword, lance, axe, bow, or dagger, foe cannot counterattack.	60	No
+Windsweep 2.png	Windsweep 2	If unit initiates combat, unit cannot make a follow-up attack. If unit's Spd ≥ foe's Spd+3 and foe uses sword, lance, axe, bow, or dagger, foe cannot counterattack.	120	No
+Windsweep 3.png	Windsweep 3	If unit initiates combat, unit cannot make a follow-up attack. If unit's Spd ≥ foe's Spd and foe uses sword, lance, axe, bow, or dagger, foe cannot counterattack.	240	No
+Wings of Mercy 1.png	Wings of Mercy 1	If an ally's HP ≤ 30%, unit can move to a space adjacent to that ally.	60	No
+Wings of Mercy 2.png	Wings of Mercy 2	If an ally's HP ≤ 40%, unit can move to a space adjacent to that ally.	120	No
+Wings of Mercy 3.png	Wings of Mercy 3	If an ally's HP ≤ 50%, unit can move to a space adjacent to that ally.	240	No
+Wrath 1.png	Wrath 1	At start of turn, if unit's HP ≤ 25% and unit's attack triggers Special, grants Special cooldown count-1. Deals +10 damage when Special triggers.	60	No
+Wrath 2.png	Wrath 2	At start of turn, if unit's HP ≤ 50% and unit's attack triggers Special, grants Special cooldown count-1. Deals +10 damage when Special triggers.	120	No
+Wrath 3.png	Wrath 3	At start of turn, if unit's HP ≤ 75% and unit's attack triggers Special, grants Special cooldown count-1. Deals +10 damage when Special triggers.	240	No
+Wrathful Staff 1.png	Wrathful Staff 1	At start of combat, if unit's HP = 100%, calculates damage from staff like other weapons.	60	No
+Wrathful Staff 2.png	Wrathful Staff 2	At start of combat, if unit's HP ≥ 50%, calculates damage from staff like other weapons.	120	No
+Wrathful Staff 3.png	Wrathful Staff 3	Calculates damage from staff like other weapons.	240	No

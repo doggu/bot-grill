@@ -1,0 +1,54 @@
+﻿Aura	14	2	If unit initiates combat, restores 5 HP to adjacent allies after combat.	400	Yes
+Blárblade	9	2	Slows Special trigger (cooldown count+1).
+Adds total bonuses on unit to damage dealt.	200	No
+Blárblade+	13	2	Slows Special trigger (cooldown count+1).
+Adds total bonuses on unit to damage dealt.	300	No
+Blárowl	6	2	During combat, boosts unit's Atk/Spd/Def/Res by number of adjacent allies × 2.	200	No
+Blárowl+	10	2	During combat, boosts unit's Atk/Spd/Def/Res by number of adjacent allies × 2.	300	No
+Blárraven	7	2	Grants weapon-triangle advantage against colorless foes,
+and inflicts weapon-triangle disadvantage on colorless foes during combat.	200	No
+Blárraven+	11	2	Grants weapon-triangle advantage against colorless foes,
+and inflicts weapon-triangle disadvantage on colorless foes during combat.	300	No
+Blárserpent	8	2	If foe initiates combat and uses bow, dagger, magic, or staff, grants Def/Res+6 during combat.	200	No
+Blárserpent+	12	2	If foe initiates combat and uses bow, dagger, magic, or staff, grants Def/Res+6 during combat.	300	No
+Blárwolf	6	2	Effective against cavalry foes.	200	No
+Blárwolf+	10	2	Effective against cavalry foes.	300	No
+Blessed Bouquet	8	2	If unit initiates combat, grants Def/Res+2 to allies within 2 spaces for 1 turn after combat.	300	No
+Blessed Bouquet+	12	2	If unit initiates combat, grants Def/Res+2 to allies within 2 spaces for 1 turn after combat.	300	No
+Blue Egg	7	2	If unit initiates combat, restores 4 HP after combat.	200	No
+Blue Egg+	11	2	If unit initiates combat, restores 4 HP after combat.	300	No
+Blue Gift	8	2	If foe uses bow, dagger, magic, or staff, neutralizes foe's bonuses (from skills like Fortify, Rally, etc.) during combat.	200	No
+Blue Gift+	12	2	If foe uses bow, dagger, magic, or staff, neutralizes foe's bonuses (from skills like Fortify, Rally, etc.) during combat.	300	No
+Dancer's Score	8	2	If unit initiates combat, restores 7 HP to adjacent allies after combat.	200	No
+Dancer's Score+	12	2	If unit initiates combat, restores 7 HP to adjacent allies after combat.	300	No
+Dark Aura	14	2	At start of turn, if adjacent allies use sword, axe, lance, or dragonstone, grants Atk+6 to those allies for 1 turn.	400	Yes
+Dire Thunder	9	2	Inflicts Spd-5. If unit initiates combat, unit attacks twice.	400	Yes
+Ellight	6	2		100	No
+Elthunder	6	2		100	No
+Fresh Bouquet	8	2	At start of turn, if unit is adjacent to an ally, grants Spd+4 to unit and adjacent allies for 1 turn.	200	No
+Fresh Bouquet+	12	2	At start of turn, if unit is adjacent to an ally, grants Spd+4 to unit and adjacent allies for 1 turn.	300	No
+Huginn's Egg	14	2	Grants Res+3. At start of turn, if unit's HP ≥ 50%, inflicts Atk/Def-5 on foe on the enemy team with the lowest Res through it's next action.	400	Yes
+Ivaldi	14	2	Grants Def+3. At start of combat, if foe's HP = 100%, grants Atk/Spd+3 during combat.	400	Yes
+Juicy Wave	8	2	If unit’s HP ≤ 75% and unit initiates combat, unit can make a follow-up attack before foe can counterattack.	200	No
+Juicy Wave+	12	2	If unit’s HP ≤ 75% and unit initiates combat, unit can make a follow-up attack before foe can counterattack.	300	No
+Keen Blárwolf	8	2	Effective against cavalry foes.	200	No
+Keen Blárwolf+	12	2	Effective against cavalry foes.	300	No
+Light	4	2		50	No
+Missiletainn (tome)	14	2	Accelerates Special trigger (cooldown count-1). At the start of turn 1, grants Special cooldown count-1 to unit for each magic ally on your team (including unit).	400	Yes
+Mjölnir	14	2	Accelerates Special trigger (cooldown count-1).
+If unit initiates combat, grants Spd+6 during combat.	400	Yes
+Odin's Grimoire	14	2	Adds total bonuses on unit to damage dealt.	400	Yes
+Sagittae	14	2	Grants Def+3.
+At start of combat, if foe's Atk ≥ unit's Atk+5, grants Atk/Spd/Def/Res+5 during combat.	400	Yes
+Sealife Tome	8	2	Grants Atk/Spd+1 to allies within 2 spaces during combat.	200	No
+Sealife Tome+	12	2	Grants Atk/Spd+1 to allies within 2 spaces during combat.	300	No
+Shine	9	2		200	No
+Shine+	13	2		300	No
+Thani	14	2	Effective against armored and cavalry foes.
+Grants Res+3. If armored or cavalry foe uses bow, dagger, magic, or staff, reduces damage from foe's first attack by 30%.	400	Yes
+Thoron	9	2		200	No
+Thoron+	13	2		300	No
+Thunder	4	2		50	No
+Valaskjálf	14	2	If unit’s HP ≤ 50% and foe initiates combat, unit can counterattack before foe’s first attack.	400	Yes
+Wargod's Tome	14	2	At start of turn, inflicts Atk/Res-4 on foes in cardinal directions with Res < unit's Res through their next actions.	400	Yes
+Weirding Tome	14	2	Grants Spd+3. At start of turn, inflicts Spd-5 on foes in cardinal directions with Res < unit's Res through their next actions.	400	Yes

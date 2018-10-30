@@ -1,0 +1,79 @@
+﻿Alondite	16	1	Unit can counterattack regardless of foe's range.	400	Yes
+Amiti	11	1	Inflicts Spd-2. If unit initiates combat, unit attacks twice.	400	Yes
+Armorslayer	8	1	Effective against armored foes.	200	No
+Armorslayer+	12	1	Effective against armored foes.	300	No
+Armorsmasher	10	1	Effective against armored foes.	200	No
+Armorsmasher+	14	1	Effective against armored foes.	300	No
+Audhulma	16	1	Accelerates Special trigger (cooldown count-1).
+Grants Res+5.	400	Yes
+Ayra's Blade	16	1	Grants Spd+3. If unit's Spd > foe's Spd, grants Special cooldown charge +1 per attack. (Only highest value applied. Does not stack.)	400	Yes
+Barrier Blade	10	1	If foe initiates combat, grants Res+7 during combat.	200	No
+Barrier Blade+	14	1	If foe initiates combat, grants Res+7 during combat.	300	No
+Beloved Zofia	16	1	Grants Def+3. At start of combat, if unit's HP = 100%, grants Atk/Spd/Def/Res+4, but after combat, if unit attacked, deals 4 damage to unit.	400	Yes
+Binding Blade	16	1	If foe initiates combat, grants Def/Res+2 during combat.	400	Yes
+Blazing Durandal	16	1	Grants Atk+3. If unit's Atk > foe's Atk, grants Special cooldown charge +1 per attack.
+(Only highest value applied. Does not stack.)	400	Yes
+Brave Sword	5	1	Inflicts Spd-5. If unit initiates combat, unit attacks twice.	200	No
+Brave Sword+	8	1	Inflicts Spd-5. If unit initiates combat, unit attacks twice.	300	No
+Dark Greatsword	16	1	If unit initiates combat, grants Atk/Spd+4 during combat.	400	Yes
+Dark Mystletainn	16	1	Accelerates Special trigger (cooldown count-1).
+If Special triggers before or during combat, grants Special cooldown count-2 after combat.	400	Yes
+Divine Tyrfing	16	1	Grants Res+3. Reduces damage from magic foe's first attack by 50%.	400	Yes
+Durandal	16	1	If unit initiates combat, grants Atk+4 during combat.	400	Yes
+Eckesachs	16	1	At start of turn, inflicts Def-4 on foes within 2 spaces through their next actions.	400	Yes
+Exalted Falchion	16	1	Effective against dragon foes. Grants Spd+3.
+Grants bonus to Atk/Spd/Def/Res during combat = current bonus on each of unit's stats. Calculates each stat bonus independently.	400	Yes
+Falchion (Awakening)	16	1	Effective against dragon foes.
+At the start of every third turn, restores 10 HP.	400	Yes
+Falchion (Gaiden)	16	1	Effective against dragon foes. 
+At the start of every third turn, restores 10 HP.	400	Yes
+Falchion (Mystery)	16	1	Effective against dragon foes.
+At the start of every third turn, restores 10 HP.	400	Yes
+Firesweep Sword	11	1	Unit and foe cannot counterattack.	200	No
+Firesweep Sword+	15	1	Unit and foe cannot counterattack.	300	No
+Fólkvangr	16	1	At start of turn, if unit's HP ≤ 50%, grants Atk+5 for 1 turn.	400	Yes
+Iron Sword	6	1		50	No
+Kadomatsu	10	1	Grants Def/Res+2 to allies within 2 spaces during combat.	200	No
+Kadomatsu+	14	1	Grants Def/Res+2 to allies within 2 spaces during combat.	300	No
+Killing Edge	7	1	Accelerates Special trigger (cooldown count-1).	200	No
+Killing Edge+	11	1	Accelerates Special trigger (cooldown count-1).	300	No
+Laevatein (weapon)	16	1	Grants Atk+3. Adds total bonuses on unit to damage dealt.	400	Yes
+Light Brand	16	1	Grants Def+3. If foe's Def ≥ foe's Res+5, deals +7 damage.	400	Yes
+Meisterschwert	11	1	Inflicts Spd-5. Unit attacks twice.
+(Even if foe initiates combat, unit attacks twice.)	400	Yes
+Missiletainn (sword)	16	1	Accelerates Special trigger (cooldown count-1).
+Grants Special cooldown charge +1 per foe's attack during combat. (Only highest value applied. Does not stack. Special cooldown charge granted even if foe's attack deals 0 damage.)	400	Yes
+Mystletainn	16	1	Accelerates Special trigger (cooldown count-1).	400	Yes
+Nameless Blade	16	1	Accelerates Special trigger (cooldown count -1).	400	Yes
+Níu	16	1	Grants Spd+3. Adds 50% of total bonuses on foe to unit's Atk/Spd/Def/Res during combat.	400	Yes
+Ragnell	16	1	Unit can counterattack regardless of foe's range.	400	Yes
+Raijinto	16	1	Unit can counterattack regardless of foe's range.	400	Yes
+Regal Blade	16	1	At start of combat, if foe's HP = 100%, grants Atk/Spd+2 during combat.	400	Yes
+Resolute Blade	16	1	Grants Atk+3. Deals +10 damage when Special triggers.	400	Yes
+Royal Sword	16	1	Grants Spd+3. If unit is within 2 spaces of an ally, grants unit Special cooldown charge +1 per unit's attack (Only highest value applied. Does not stack.)	400	Yes
+Ruby Sword	8	1	If unit has weapon-triangle advantage, boosts Atk by 20%.
+If unit has weapon-triangle disadvantage, reduces Atk by 20%.	200	No
+Ruby Sword+	12	1	If unit has weapon-triangle advantage, boosts Atk by 20%.
+If unit has weapon-triangle disadvantage, reduces Atk by 20%.	300	No
+Safeguard	10	1	If foe initiates combat, grants Def+7 during combat.	200	No
+Safeguard+	14	1	If foe initiates combat, grants Def+7 during combat.	300	No
+Sealed Falchion	16	1	Effective against dragon foes.
+At start of combat, if unit's HP < 100%, grants Atk/Spd/Def/Res+5 during combat.	400	Yes
+Siegfried	16	1	Unit can counterattack regardless of foe's range.	400	Yes
+Sieglinde	16	1	At start of turn, grants Atk+3 to adjacent allies for 1 turn.	400	Yes
+Silver Sword	11	1		200	No
+Silver Sword+	15	1		300	No
+Skuld	16	1	If Sing or Dance is used, grants Atk/Spd/Def/Res+3 to target.	400	Yes
+Slaying Edge	10	1	Accelerates Special trigger (cooldown count-1).	200	No
+Slaying Edge+	14	1	Accelerates Special trigger (cooldown count-1).	300	No
+Sol Katti	16	1	If unit's HP ≤ 50% and unit initiates combat, unit can make a follow-up attack before foe can counterattack.	400	Yes
+Solitary Blade	16	1	Accelerates Special trigger (cooldown count-1).	400	Yes
+Steel Sword	8	1		100	No
+Tyrfing	16	1	If unit's HP ≤ 50%, grants Def+4 during combat.	400	Yes
+Vassal's Blade	16	1	Accelerates Special trigger (cooldown count-1). If unit's Spd > foe's Spd, boosts damage dealt by 70% of difference between stats. (Maximum bonus of +7 damage. Combos with Phantom Spd.)	400	Yes
+Wing Sword	16	1	Effective against armored and cavalry foes.	400	Yes
+Wo Dao	9	1	Deals +10 damage when Special triggers.	200	No
+Wo Dao+	13	1	Deals +10 damage when Special triggers.	300	No
+Yato	16	1	If unit initiates combat, grants Spd+4 during combat	400	Yes
+Zanbato	10	1	Effective against cavalry foes.	200	No
+Zanbato+	14	1	Effective against cavalry foes.	300	No

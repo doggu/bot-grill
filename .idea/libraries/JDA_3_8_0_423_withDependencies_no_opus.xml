@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="JDA-3.8.0_423-withDependencies-no-opus">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/JDA-3.8.0_423-withDependencies-no-opus.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

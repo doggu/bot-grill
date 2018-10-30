@@ -1,0 +1,287 @@
+﻿Armor March 1.png	Armor March 1	At start of turn, if unit's HP = 100% and unit is adjacent to an armored ally, unit and adjacent armored allies can move 1 extra space.
+(That turn only. Does not stack.)	60	No
+Armor March 2.png	Armor March 2	At start of turn, if unit's HP ≥ 50% HP and unit is adjacent to an armored ally, unit and adjacent armored allies can move 1 extra space.
+(That turn only. Does not stack.)	120	No
+Armor March 3.png	Armor March 3	At start of turn, if unit is adjacent to an armored ally, unit and adjacent armored allies can move 1 extra space.
+(That turn only. Does not stack.)	240	No
+Atk Ploy 1.png	Atk Ploy 1	At start of turn, inflicts Atk-3 on foes in cardinal directions with Res < unit's Res through their next actions.	60	No
+Atk Ploy 2.png	Atk Ploy 2	At start of turn, inflicts Atk-4 on foes in cardinal directions with Res < unit's Res through their next actions.	120	No
+Atk Ploy 3.png	Atk Ploy 3	At start of turn, inflicts Atk-5 on foes in cardinal directions with Res < unit's Res through their next actions.	240	No
+Atk Smoke 1.png	Atk Smoke 1	Inflicts Atk-3 on foes within 2 spaces of target through their next actions after combat.	60	No
+Atk Smoke 2.png	Atk Smoke 2	Inflicts Atk-5 on foes within 2 spaces of target through their next actions after combat.	120	No
+Atk Smoke 3.png	Atk Smoke 3	Inflicts Atk-7 on foes within 2 spaces of target through their next actions after combat.	240	No
+Atk Tactic 1.png	Atk Tactic 1	At start of turn, grants Atk+2 to allies within 2 spaces for 1 turn. Granted only if number of that ally's movement type on current team ≤ 2.	60	No
+Atk Tactic 2.png	Atk Tactic 2	At start of turn, grants Atk+4 to allies within 2 spaces for 1 turn. Granted only if number of that ally's movement type on current team ≤ 2.	120	No
+Atk Tactic 3.png	Atk Tactic 3	At start of turn, grants Atk+6 to allies within 2 spaces for 1 turn. Granted only if number of that ally's movement type on current team ≤ 2.	240	No
+Axe Experience 1.png	Axe Experience 1	While unit lives and uses an axe, unit gets 1.5x EXP.
+(Only highest value applied. Does not stack.)	30	No
+Axe Experience 2.png	Axe Experience 2	While unit lives, all axe allies on team get 1.5x EXP.
+(Only highest value applied. Does not stack.)	60	No
+Axe Experience 3.png	Axe Experience 3	While unit lives, all axe allies on team get 2x EXP.
+(Only highest value applied. Does not stack.)	120	No
+Axe Valor 1.png	Axe Valor 1	While unit lives and uses an axe, unit gets 1.5x SP.
+(Only highest value applied. Does not stack.)	30	No
+Axe Valor 2.png	Axe Valor 2	While unit lives, all axe allies on team get 1.5x SP.
+(Only highest value applied. Does not stack.)	60	No
+Axe Valor 3.png	Axe Valor 3	While unit lives, all axe allies on team get 2x SP.
+(Only highest value applied. Does not stack.)	120	No
+B Tome Exp. 1.png	B Tome Exp. 1	While unit lives and uses a blue tome, unit gets 1.5x EXP.
+(Only highest value applied. Does not stack.)	30	No
+B Tome Exp. 2.png	B Tome Exp. 2	While unit lives, all blue tome allies on team get 1.5x EXP.
+(Only highest value applied. Does not stack.)	60	No
+B Tome Exp. 3.png	B Tome Exp. 3	While unit lives, all blue tome allies on team get 2x EXP.
+(Only highest value applied. Does not stack.)	120	No
+B Tome Valor 1.png	B Tome Valor 1	While unit lives and uses a blue tome, unit gets 1.5x SP.
+(Only highest value applied. Does not stack.)	30	No
+B Tome Valor 2.png	B Tome Valor 2	While unit lives, all blue tome allies on team get 1.5x SP.
+(Only highest value applied. Does not stack.)	60	No
+B Tome Valor 3.png	B Tome Valor 3	While unit lives, all blue tome allies on team get 2x SP.
+(Only highest value applied. Does not stack.)	120	No
+Bow Exp. 1.png	Bow Exp. 1	While unit lives and uses a bow, unit gets 1.5x EXP.
+(Only highest value applied. Does not stack.)	30	No
+Bow Exp. 2.png	Bow Exp. 2	While unit lives, all bow allies on team get 1.5x EXP.
+(Only highest value applied. Does not stack.)	60	No
+Bow Exp. 3.png	Bow Exp. 3	While unit lives, all bow allies on team get 2x EXP.
+(Only highest value applied. Does not stack.)	120	No
+Bow Valor 1.png	Bow Valor 1	While unit lives and uses a bow, unit gets 1.5x SP. (Only highest value applied. Does not stack.)	30	No
+Bow Valor 2.png	Bow Valor 2	While unit lives, all bow allies on team get 1.5x SP. (Only highest value applied. Does not stack.)	60	No
+Bow Valor 3.png	Bow Valor 3	While unit lives, all bow allies on team get 2x SP. (Only highest value applied. Does not stack.)	120	No
+Breath of Life 1.png	Breath of Life 1	If unit initiates combat, restores 3 HP to adjacent allies after combat.	50	No
+Breath of Life 2.png	Breath of Life 2	If unit initiates combat, restores 5 HP to adjacent allies after combat.	100	No
+Breath of Life 3.png	Breath of Life 3	If unit initiates combat, restores 7 HP to adjacent allies after combat.	200	No
+Close Guard 2.png	Close Guard 2	Allies within 2 spaces gain: "If foe uses sword, lance, axe, or dragonstone, grants Def/Res+3 during combat."	120	No
+Close Guard 3.png	Close Guard 3	Allies within 2 spaces gain: "If foe uses sword, lance, axe, or dragonstone, grants Def/Res+4 during combat."	240	No
+Close Guard.png	Close Guard	Allies within 2 spaces gain: "If foe uses sword, lance, axe, or dragonstone, grants Def/Res+2 during combat."	60	No
+Dagger Valor 1.png	Dagger Valor 1	While unit lives and uses a dagger, unit gets 1.5x SP.
+(Only highest value applied. Does not stack.)	30	No
+Dagger Valor 2.png	Dagger Valor 2	While unit lives, all dagger allies on team get 1.5x SP.
+(Only highest value applied. Does not stack.)	60	No
+Dagger Valor 3.png	Dagger Valor 3	While unit lives, all dagger allies on team get 2x SP.
+(Only highest value applied. Does not stack.)	120	No
+Def Ploy 1.png	Def Ploy 1	At start of turn, inflicts Def-3 on foes in cardinal directions with Res < unit's Res through their next actions.	60	No
+Def Ploy 2.png	Def Ploy 2	At start of turn, inflicts Def-4 on foes in cardinal directions with Res < unit's Res through their next actions.	120	No
+Def Ploy 3.png	Def Ploy 3	At start of turn, inflicts Def-5 on foes in cardinal directions with Res < unit's Res through their next actions.	240	No
+Def Smoke 1.png	Def Smoke 1	Inflicts Def-3 on foes within 2 spaces of target through their next actions after combat.	60	No
+Def Smoke 2.png	Def Smoke 2	Inflicts Def-5 on foes within 2 spaces of target through their next actions after combat.	120	No
+Def Smoke 3.png	Def Smoke 3	Inflicts Def-7 on foes within 2 spaces of target through their next actions after combat.	240	No
+Def Tactic 1.png	Def Tactic 1	At start of turn, grants Def+2 to allies within 2 spaces for 1 turn. Granted only if number of that ally's movement type on current team ≤ 2.	60	No
+Def Tactic 2.png	Def Tactic 2	At start of turn, grants Def+4 to allies within 2 spaces for 1 turn. Granted only if number of that ally's movement type on current team ≤ 2.	120	No
+Def Tactic 3.png	Def Tactic 3	At start of turn, grants Def+6 to allies within 2 spaces for 1 turn. Granted only if number of that ally's movement type on current team ≤ 2.	240	No
+Distant Guard 1.png	Distant Guard 1	Allies within 2 spaces gain: "If foe uses bow, dagger, magic, or staff, grants Def/Res+2 during combat."	60	No
+Distant Guard 2.png	Distant Guard 2	Allies within 2 spaces gain: "If foe uses bow, dagger, magic, or staff, grants Def/Res+3 during combat."	120	No
+Distant Guard 3.png	Distant Guard 3	Allies within 2 spaces gain: "If foe uses bow, dagger, magic, or staff, grants Def/Res+4 during combat."	240	No
+Dragon Valor 1.png	Dragon Valor 1	While unit lives and uses a dragonstone, unit gets 1.5x SP.
+(Only highest value applied. Does not stack.)	30	No
+Dragon Valor 2.png	Dragon Valor 2	While unit lives, all dragonstone allies on team get 1.5x SP.
+(Only highest value applied. Does not stack.)	60	No
+Dragon Valor 3.png	Dragon Valor 3	While unit lives, all dragonstone allies on team get 2x SP.
+(Only highest value applied. Does not stack.)	120	No
+Drive Atk 1.png	Drive Atk 1	Grants Atk+2 to allies within 2 spaces during combat.	120	No
+Drive Atk 2.png	Drive Atk 2	Grants Atk+3 to allies within 2 spaces during combat.	240	No
+Drive Def 1.png	Drive Def 1	Grants Def+2 to allies within 2 spaces during combat.	120	No
+Drive Def 2.png	Drive Def 2	Grants Def+3 to allies within 2 spaces during combat.	240	No
+Drive Res 1.png	Drive Res 1	Grants Res+2 to allies within 2 spaces during combat.	120	No
+Drive Res 2.png	Drive Res 2	Grants Res+3 to allies within 2 spaces during combat.	240	No
+Drive Spd 1.png	Drive Spd 1	Grants Spd+2 to allies within 2 spaces during combat.	120	No
+Drive Spd 2.png	Drive Spd 2	Grants Spd+3 to allies within 2 spaces during combat.	240	No
+Even Atk Wave 1.png	Even Atk Wave 1	At start of even-numbered turns, grants Atk+2 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	60	No
+Even Atk Wave 2.png	Even Atk Wave 2	At start of even-numbered turns, grants Atk+4 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	120	No
+Even Atk Wave 3.png	Even Atk Wave 3	At start of even-numbered turns, grants Atk+6 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	240	No
+Even Def Wave 1.png	Even Def Wave 1	At start of even-numbered turns, grants Def+2 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	60	No
+Even Def Wave 2.png	Even Def Wave 2	At start of even-numbered turns, grants Def+4 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	120	No
+Even Def Wave 3.png	Even Def Wave 3	At start of even-numbered turns, grants Def+6 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	240	No
+Even Res Wave 1.png	Even Res Wave 1	At start of even-numbered turns, grants Res+2 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	60	No
+Even Res Wave 2.png	Even Res Wave 2	At start of even-numbered turns, grants Res+4 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	120	No
+Even Res Wave 3.png	Even Res Wave 3	At start of even-numbered turns, grants Res+6 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	240	No
+Even Spd Wave 1.png	Even Spd Wave 1	At start of even-numbered turns, grants Spd+2 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	60	No
+Even Spd Wave 2.png	Even Spd Wave 2	At start of even-numbered turns, grants Spd+4 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	120	No
+Even Spd Wave 3.png	Even Spd Wave 3	At start of even-numbered turns, grants Spd+6 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	240	No
+Flier Guidance 1.png	Flier Guidance 1	If unit's HP = 100%, flying allies within 2 spaces can move to a space adjacent to unit.	60	No
+Flier Guidance 2.png	Flier Guidance 2	If unit's HP ≥ 50% HP, flying allies within 2 spaces can move to a space adjacent to unit.	120	No
+Flier Guidance 3.png	Flier Guidance 3	Flying allies within 2 spaces can move to a space adjacent to unit.	240	No
+Fortify Armor.png	Fortify Armor	At start of turn, grants Def/Res+6 to adjacent armored allies for 1 turn.	200	No
+Fortify Cavalry.png	Fortify Cavalry	At start of turn, grants Def/Res+6 to adjacent cavalry allies for 1 turn.	200	No
+Fortify Def 1.png	Fortify Def 1	At start of turn, grants Def+2 to adjacent allies for 1 turn.	50	No
+Fortify Def 2.png	Fortify Def 2	At start of turn, grants Def+3 to adjacent allies for 1 turn.	100	No
+Fortify Def 3.png	Fortify Def 3	At start of turn, grants Def+4 to adjacent allies for 1 turn.	200	No
+Fortify Dragons.png	Fortify Dragons	At start of turn, grants Def/Res+6 to adjacent dragon allies for 1 turn.	200	No
+Fortify Fliers.png	Fortify Fliers	At start of turn, grants Def/Res+6 to adjacent flying allies for 1 turn.	200	No
+Fortify Res 1.png	Fortify Res 1	At start of turn, grants Res+2 to adjacent allies for 1 turn.	50	No
+Fortify Res 2.png	Fortify Res 2	At start of turn, grants Res+3 to adjacent allies for 1 turn.	100	No
+Fortify Res 3.png	Fortify Res 3	At start of turn, grants Res+4 to adjacent allies for 1 turn.	200	No
+G Tome Exp. 1.png	G Tome Exp. 1	While unit lives and uses a green tome, unit gets 1.5x EXP.
+(Only highest value applied. Does not stack.)	30	No
+G Tome Exp. 2.png	G Tome Exp. 2	While unit lives, all green tome allies on team get 1.5x EXP.
+(Only highest value applied. Does not stack.)	60	No
+G Tome Exp. 3.png	G Tome Exp. 3	While unit lives, all green tome allies on team get 2x EXP.
+(Only highest value applied. Does not stack.)	120	No
+G Tome Valor 1.png	G Tome Valor 1	While unit lives and uses a green tome, unit gets 1.5x SP.
+(Only highest value applied. Does not stack.)	30	No
+G Tome Valor 2.png	G Tome Valor 2	While unit lives, all green tome allies on team get 1.5x SP.
+(Only highest value applied. Does not stack.)	60	No
+G Tome Valor 3.png	G Tome Valor 3	While unit lives, all green tome allies on team get 2x SP.
+(Only highest value applied. Does not stack.)	120	No
+Goad Armor.png	Goad Armor	Grants Atk/Spd+4 to armored allies within 2 spaces during combat.	200	No
+Goad Cavalry.png	Goad Cavalry	Grants Atk/Spd+4 to cavalry allies within 2 spaces during combat.	200	No
+Goad Dragons.png	Goad Dragons	Grants Atk/Spd+4 to dragon allies within 2 spaces during combat.	200	No
+Goad Fliers.png	Goad Fliers	Grants Atk/Spd+4 to flying allies within 2 spaces during combat.	200	No
+Guidance 1.png	Guidance 1	If unit's HP = 100%, infantry and armored allies within 2 spaces can move to a space adjacent to unit.	60	No
+Guidance 2.png	Guidance 2	If unit's HP ≥ 50% HP, infantry and armored allies within 2 spaces can move to a space adjacent to unit.	120	No
+Guidance 3.png	Guidance 3	Infantry and armored allies within 2 spaces can move to a space adjacent to unit.	240	No
+Hone Armor.png	Hone Armor	At start of turn, grants Atk/Spd+6 to adjacent armored allies for 1 turn.	200	No
+Hone Atk 1.png	Hone Atk 1	At start of turn, grants Atk+2 to adjacent allies for 1 turn.	50	No
+Hone Atk 2.png	Hone Atk 2	At start of turn, grants Atk+3 to adjacent allies for 1 turn.	100	No
+Hone Atk 3.png	Hone Atk 3	At start of turn, grants Atk+4 to adjacent allies for 1 turn.	200	No
+Hone Cavalry.png	Hone Cavalry	At start of turn, grants Atk/Spd+6 to adjacent cavalry allies for 1 turn.	200	No
+Hone Dragons.png	Hone Dragons	At start of turn, grants Atk/Spd+6 to adjacent dragon allies for 1 turn.	200	No
+Hone Fliers.png	Hone Fliers	At start of turn, grants Atk/Spd+6 to adjacent flying allies for 1 turn.	200	No
+Hone Spd 1.png	Hone Spd 1	At start of turn, grants Spd+2 to adjacent allies for 1 turn.	50	No
+Hone Spd 2.png	Hone Spd 2	At start of turn, grants Spd+3 to adjacent allies for 1 turn.	100	No
+Hone Spd 3.png	Hone Spd 3	At start of turn, grants Spd+4 to adjacent allies for 1 turn.	200	No
+Infantry Flash 1.png	Infantry Flash 1	Infantry allies within 2 spaces gain: "If unit's Spd ≥ foe's Spd+5, grants Special cooldown charge +1 per unit's attack. (Only highest value applied. Does not stack.)"	60	No
+Infantry Flash 2.png	Infantry Flash 2	Infantry allies within 2 spaces gain: "If unit's Spd ≥ foe's Spd+3, grants Special cooldown charge +1 per unit's attack. (Only highest value applied. Does not stack.)"	120	No
+Infantry Flash 3.png	Infantry Flash 3	Infantry allies within 2 spaces gain: "If unit's Spd > foe's Spd, grants Special cooldown charge +1 per attack. (Only highest value applied. Does not stack.)"	240	No
+Infantry Pulse 1.png	Infantry Pulse 1	At the start of turn 1, grants Special cooldown count-1 to all infantry allies on team with HP ≤ unit's HP-5. (Stacks with similar skills.)	60	No
+Infantry Pulse 2.png	Infantry Pulse 2	At the start of turn 1, grants Special cooldown count-1 to all infantry allies on team with HP ≤ unit's HP-3. (Stacks with similar skills.)	120	No
+Infantry Pulse 3.png	Infantry Pulse 3	At the start of turn 1, grants Special cooldown count-1 to all infantry allies on team with HP < unit's HP. (Stacks with similar skills.)	240	No
+Infantry Rush 1.png	Infantry Rush 1	Infantry allies within 2 spaces gain: "If unit's Atk ≥ foe's Atk+5, grants Special cooldown charge +1 per attack. (Only highest value applied. Does not stack.)"	60	No
+Infantry Rush 2.png	Infantry Rush 2	Infantry allies within 2 spaces gain: "If unit's Atk ≥ foe's Atk+3, grants Special cooldown charge +1 per attack. (Only highest value applied. Does not stack.)"	120	No
+Infantry Rush 3.png	Infantry Rush 3	Infantry allies within 2 spaces gain: "If unit's Atk ≥ foe's Atk+1, grants Special cooldown charge +1 per attack. (Only highest value applied. Does not stack.)"	240	No
+Lance Valor 1.png	Lance Valor 1	While unit lives and uses a lance, unit gets 1.5x SP.
+(Only highest value applied. Does not stack.)	30	No
+Lance Valor 2.png	Lance Valor 2	While unit lives, all lance allies on team get 1.5x SP.
+(Only highest value applied. Does not stack.)	60	No
+Lance Valor 3.png	Lance Valor 3	While unit lives, all lance allies on team get 2x SP.
+(Only highest value applied. Does not stack.)	120	No
+Odd Atk Wave 1.png	Odd Atk Wave 1	At start of odd-numbered turns, grants Atk+2 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	60	No
+Odd Atk Wave 2.png	Odd Atk Wave 2	At start of odd-numbered turns, grants Atk+4 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	120	No
+Odd Atk Wave 3.png	Odd Atk Wave 3	At start of odd-numbered turns, grants Atk+6 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	240	No
+Odd Def Wave 1.png	Odd Def Wave 1	At start of odd-numbered turns, grants Def+2 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	60	No
+Odd Def Wave 2.png	Odd Def Wave 2	At start of odd-numbered turns, grants Def+4 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	120	No
+Odd Def Wave 3.png	Odd Def Wave 3	At start of odd-numbered turns, grants Def+6 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	240	No
+Odd Res Wave 1.png	Odd Res Wave 1	At start of odd-numbered turns, grants Res+2 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	60	No
+Odd Res Wave 2.png	Odd Res Wave 2	At start of odd-numbered turns, grants Res+4 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	120	No
+Odd Res Wave 3.png	Odd Res Wave 3	At start of odd-numbered turns, grants Res+6 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	240	No
+Odd Spd Wave 1.png	Odd Spd Wave 1	At start of odd-numbered turns, grants Spd+2 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	60	No
+Odd Spd Wave 2.png	Odd Spd Wave 2	At start of odd-numbered turns, grants Spd+4 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	120	No
+Odd Spd Wave 3.png	Odd Spd Wave 3	At start of odd-numbered turns, grants Spd+6 to unit and adjacent allies for 1 turn.
+(Bonus granted to unit even if no allies are adjacent.)	240	No
+Ostia's Pulse.png	Ostia's Pulse	At the start of turn 1, grants Special cooldown count-1 to all allies. Granted only if number of those allies' movement types on current team ≤ 2.	300	Yes
+Panic Ploy 1.png	Panic Ploy 1	At start of turn, converts bonuses on foes in cardinal directions with HP ≤ unit's HP-5 into penalties through their next actions.	60	No
+Panic Ploy 2.png	Panic Ploy 2	At start of turn, converts bonuses on foes in cardinal directions with HP ≤ unit's HP-3 into penalties through their next actions.	120	No
+Panic Ploy 3.png	Panic Ploy 3	At start of turn, converts bonuses on foes in cardinal directions with HP < unit's HP into penalties through their next actions.	240	No
+R Tome Exp. 1.png	R Tome Exp. 1	While unit lives and uses a red tome, unit gets 1.5x EXP.
+(Only highest value applied. Does not stack.)	30	No
+R Tome Exp. 2.png	R Tome Exp. 2	While unit lives, all red tome allies on team get 1.5x EXP.
+(Only highest value applied. Does not stack.)	60	No
+R Tome Exp. 3.png	R Tome Exp. 3	While unit lives, all red tome allies on team get 2x EXP.
+(Only highest value applied. Does not stack.)	120	No
+R Tome Valor 1.png	R Tome Valor 1	While unit lives and uses a red tome, unit gets 1.5x SP.
+(Only highest value applied. Does not stack.)	30	No
+R Tome Valor 2.png	R Tome Valor 2	While unit lives, all red tome allies on team get 1.5x SP.
+(Only highest value applied. Does not stack.)	60	No
+R Tome Valor 3.png	R Tome Valor 3	While unit lives, all red tome allies on team get 2x SP.
+(Only highest value applied. Does not stack.)	120	No
+Res Ploy 1.png	Res Ploy 1	At start of turn, inflicts Res-3 on foes in cardinal directions with Res < unit's Res through their next actions.	60	No
+Res Ploy 2.png	Res Ploy 2	At start of turn, inflicts Res-4 on foes in cardinal directions with Res < unit's Res through their next actions.	120	No
+Res Ploy 3.png	Res Ploy 3	At start of turn, inflicts Res-5 on foes in cardinal directions with Res < unit's Res through their next actions.	240	No
+Res Smoke 1.png	Res Smoke 1	Inflicts Res-3 on foes within 2 spaces of target through their next actions after combat.	60	No
+Res Smoke 2.png	Res Smoke 2	Inflicts Res-5 on foes within 2 spaces of target through their next actions after combat.	120	No
+Res Smoke 3.png	Res Smoke 3	Inflicts Res-7 on foes within 2 spaces of target through their next actions after combat.	240	No
+Res Tactic 1.png	Res Tactic 1	At start of turn, grants Res+2 to allies within 2 spaces for 1 turn. Granted only if number of that ally's movement type on current team ≤ 2.	60	No
+Res Tactic 2.png	Res Tactic 2	At start of turn, grants Res+4 to allies within 2 spaces for 1 turn. Granted only if number of that ally's movement type on current team ≤ 2.	120	No
+Res Tactic 3.png	Res Tactic 3	At start of turn, grants Res+6 to allies within 2 spaces for 1 turn. Granted only if number of that ally's movement type on current team ≤ 2.	240	No
+Savage Blow 1.png	Savage Blow 1	If unit initiates combat, deals 3 damage to foes within 2 spaces of target after combat.	50	No
+Savage Blow 2.png	Savage Blow 2	If unit initiates combat, deals 5 damage to foes within 2 spaces of target after combat.	100	No
+Savage Blow 3.png	Savage Blow 3	If unit initiates combat, deals 7 damage to foes within 2 spaces of target after combat.	200	No
+Spd Ploy 1.png	Spd Ploy 1	At start of turn, inflicts Spd-3 on foes in cardinal directions with Res < unit's Res through their next actions.	60	No
+Spd Ploy 2.png	Spd Ploy 2	At start of turn, inflicts Spd-4 on foes in cardinal directions with Res < unit's Res through their next actions.	120	No
+Spd Ploy 3.png	Spd Ploy 3	At start of turn, inflicts Spd-5 on foes in cardinal directions with Res < unit's Res through their next actions.	240	No
+Spd Smoke 1.png	Spd Smoke 1	Inflicts Spd-3 on foes within 2 spaces of target through their next actions after combat.	60	No
+Spd Smoke 2.png	Spd Smoke 2	Inflicts Spd-5 on foes within 2 spaces of target through their next actions after combat.	120	No
+Spd Smoke 3.png	Spd Smoke 3	Inflicts Spd-7 on foes within 2 spaces of target through their next actions after combat.	240	No
+Spd Tactic 1.png	Spd Tactic 1	At start of turn, grants Spd+2 to allies within 2 spaces for 1 turn. Granted only if number of that ally's movement type on current team ≤ 2.	60	No
+Spd Tactic 2.png	Spd Tactic 2	At start of turn, grants Spd+4 to allies within 2 spaces for 1 turn. Granted only if number of that ally's movement type on current team ≤ 2.	120	No
+Spd Tactic 3.png	Spd Tactic 3	At start of turn, grants Spd+6 to allies within 2 spaces for 1 turn. Granted only if number of that ally's movement type on current team ≤ 2.	240	No
+Spur Atk 1.png	Spur Atk 1	Grants Atk+2 to adjacent allies during combat.	50	No
+Spur Atk 2.png	Spur Atk 2	Grants Atk+3 to adjacent allies during combat.	100	No
+Spur Atk 3.png	Spur Atk 3	Grants Atk+4 to adjacent allies during combat.	200	No
+Spur Atk Def 1.png	Spur Atk/Def 1	Grants Atk/Def+2 to adjacent allies during combat.	120	No
+Spur Atk Def 2.png	Spur Atk/Def 2	Grants Atk/Def+3 to adjacent allies during combat.	240	No
+Spur Atk Res 1.png	Spur Atk/Res 1	Grants Atk/Res+2 to adjacent allies during combat.	120	No
+Spur Atk Res 2.png	Spur Atk/Res 2	Grants Atk/Res+3 to adjacent allies during combat.	240	No
+Spur Atk Spd 1.png	Spur Atk/Spd 1	Grants Atk/Spd+2 to adjacent allies during combat.	120	No
+Spur Atk Spd 2.png	Spur Atk/Spd 2	Grants Atk/Spd+3 to adjacent allies during combat.	240	No
+Spur Def 1.png	Spur Def 1	Grants Def+2 to adjacent allies during combat.	50	No
+Spur Def 2.png	Spur Def 2	Grants Def+3 to adjacent allies during combat.	100	No
+Spur Def 3.png	Spur Def 3	Grants Def+4 to adjacent allies during combat.	200	No
+Spur Def Res 1.png	Spur Def/Res 1	Grants Def/Res +2 to adjacent allies during combat.	120	No
+Spur Def Res 2.png	Spur Def/Res 2	Grants Def/Res +3 to adjacent allies during combat.	240	No
+Spur Res 1.png	Spur Res 1	Grants Res+2 to adjacent allies during combat.	50	No
+Spur Res 2.png	Spur Res 2	Grants Res+3 to adjacent allies during combat.	100	No
+Spur Res 3.png	Spur Res 3	Grants Res+4 to adjacent allies during combat.	200	No
+Spur Spd 1.png	Spur Spd 1	Grants Spd+2 to adjacent allies during combat.	50	No
+Spur Spd 2.png	Spur Spd 2	Grants Spd+3 to adjacent allies during combat.	100	No
+Spur Spd 3.png	Spur Spd 3	Grants Spd+4 to adjacent allies during combat.	200	No
+Spur Spd Def 1.png	Spur Spd/Def 1	Grants Spd/Def+2 to adjacent allies during combat.	120	No
+Spur Spd Def 2.png	Spur Spd/Def 2	Grants Spd/Def+3 to adjacent allies during combat.	240	No
+Spur Spd Res 1.png	Spur Spd/Res 1	Grants Spd/Res+2 to adjacent allies during combat.	120	No
+Spur Spd Res 2.png	Spur Spd/Res 2	Grants Spd/Res+3 to adjacent allies during combat.	240	No
+Staff Valor 1.png	Staff Valor 1	While unit lives and uses a staff, unit gets 1.5x SP after combat or after using a healing Assist skill.
+(Only highest value applied. Does not stack.)	30	No
+Staff Valor 2.png	Staff Valor 2	While unit lives, all staff allies on team get 1.5x SP after combat or after using healing Assist skills.
+(Only highest value applied. Does not stack.)	60	No
+Staff Valor 3.png	Staff Valor 3	While unit lives, all staff allies on team get 2x SP after combat or after using healing Assist skills.
+(Only highest value applied. Does not stack.)	120	No
+Sword Exp. 1.png	Sword Exp. 1	While unit lives and uses a sword, unit gets 1.5x EXP.
+(Only highest value applied. Does not stack.)	30	No
+Sword Exp. 2.png	Sword Exp. 2	While unit lives, all sword allies on team get 1.5x EXP.
+(Only highest value applied. Does not stack.)	60	No
+Sword Exp. 3.png	Sword Exp. 3	While unit lives, all sword allies on team get 2x EXP.
+(Only highest value applied. Does not stack.)	120	No
+Sword Valor 1.png	Sword Valor 1	While unit lives and uses a sword, unit gets 1.5x SP.
+(Only highest value applied. Does not stack.)	30	No
+Sword Valor 2.png	Sword Valor 2	While unit lives, all sword allies on team get 1.5x SP.
+(Only highest value applied. Does not stack.)	60	No
+Sword Valor 3.png	Sword Valor 3	While unit lives, all sword allies on team get 2x SP.
+(Only highest value applied. Does not stack.)	120	No
+Threaten Atk 1.png	Threaten Atk 1	At start of turn, inflicts Atk-3 on foes within 2 spaces through their next actions.	50	No
+Threaten Atk 2.png	Threaten Atk 2	At start of turn, inflicts Atk-4 on foes within 2 spaces through their next actions.	100	No
+Threaten Atk 3.png	Threaten Atk 3	At start of turn, inflicts Atk-5 on foes within 2 spaces through their next actions.	200	No
+Threaten Def 1.png	Threaten Def 1	At start of turn, inflicts Def-3 on foes within 2 spaces through their next actions.	50	No
+Threaten Def 2.png	Threaten Def 2	At start of turn, inflicts Def-4 on foes within 2 spaces through their next actions.	100	No
+Threaten Def 3.png	Threaten Def 3	At start of turn, inflicts Def-5 on foes within 2 spaces through their next actions.	200	No
+Threaten Res 1.png	Threaten Res 1	At start of turn, inflicts Res-3 on foes within 2 spaces through their next actions.	50	No
+Threaten Res 2.png	Threaten Res 2	At start of turn, inflicts Res-4 on foes within 2 spaces through their next actions.	100	No
+Threaten Res 3.png	Threaten Res 3	At start of turn, inflicts Res-5 on foes within 2 spaces through their next actions.	200	No
+Threaten Spd 1.png	Threaten Spd 1	At start of turn, inflicts Spd-3 on foes within 2 spaces through their next actions.	50	No
+Threaten Spd 2.png	Threaten Spd 2	At start of turn, inflicts Spd-4 on foes within 2 spaces through their next actions.	100	No
+Threaten Spd 3.png	Threaten Spd 3	At start of turn, inflicts Spd-5 on foes within 2 spaces through their next actions.	200	No
+Ward Armor.png	Ward Armor	Grants Def/Res+4 to armored allies within 2 spaces during combat.	200	No
+Ward Cavalry.png	Ward Cavalry	Grants Def/Res+4 to cavalry allies within 2 spaces during combat.	200	No
+Ward Dragons.png	Ward Dragons	Grants Def/Res+4 to dragon allies within 2 spaces during combat.	200	No
+Ward Fliers.png	Ward Fliers	Grants Def/Res+4 to flying allies within 2 spaces during combat.	200	No
+With Everyone!.png	With Everyone!	At start of turn, if unit is adjacent to an ally, grants Def/Res+5 to unit and adjacent allies for 1 turn.	300	Yes

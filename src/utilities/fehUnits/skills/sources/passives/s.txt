@@ -1,0 +1,81 @@
+﻿Armored Boots.png	Armored Boots	At start of turn, if unit's HP = 100%, unit can move 1 extra space.
+(That turn only. Does not stack.)	100	No
+Deflect Magic 1.png	Deflect Magic 1	If unit receives consecutive attacks and foe uses magic, reduces damage from foe's second attack onward by 30%.	50	No
+Deflect Magic 2.png	Deflect Magic 2	If unit receives consecutive attacks and foe uses magic, reduces damage from foe's second attack onward by 50%.	100	No
+Deflect Magic 3.png	Deflect Magic 3	If unit receives consecutive attacks and foe uses magic, reduces damage from foe's second attack onward by 80%.	200	No
+Deflect Melee 1.png	Deflect Melee 1	If unit receives consecutive attacks and foe uses a sword, lance, or axe, reduces damage from foe's second attack onward by 30%.	50	No
+Deflect Melee 2.png	Deflect Melee 2	If unit receives consecutive attacks and foe uses a sword, lance, or axe, reduces damage from foe's second attack onward by 50%.	100	No
+Deflect Melee 3.png	Deflect Melee 3	If unit receives consecutive attacks and foe uses a sword, lance, or axe, reduces damage from foe's second attack onward by 80%.	200	No
+Deflect Missile 1.png	Deflect Missile 1	If unit receives consecutive attacks and foe uses bow or dagger, reduces damage from foe's second attack onward by 30%.	50	No
+Deflect Missile 2.png	Deflect Missile 2	If unit receives consecutive attacks and foe uses bow or dagger, reduces damage from foe's second attack onward by 50%.	100	No
+Deflect Missile 3.png	Deflect Missile 3	If unit receives consecutive attacks and foe uses bow or dagger, reduces damage from foe's second attack onward by 80%.	200	No
+Embla's Ward.png	Embla's Ward	Reduces damage dealt to unit to 0.	0	No
+Hardy Bearing 1.png	Hardy Bearing 1	Disables unit's skills that change attack priority.
+At start of combat, if unit's HP = 100%, disables foe's skills that change attack priority.	50	No
+Hardy Bearing 2.png	Hardy Bearing 2	Disables unit's skills that change attack priority. At start of combat, if unit's HP ≥ 50%, disables foe's skills that change attack priority.	100	No
+Hardy Bearing 3.png	Hardy Bearing 3	Disables unit's and foe's skills that change attack priority.	200	No
+Initiate Seal Atk 1.png	Initiate Seal Atk 1	Grants Atk+1.	30	No
+Initiate Seal Atk 2.png	Initiate Seal Atk 2	Grants Atk+2.	60	No
+Initiate Seal Atk 3.png	Initiate Seal Atk 3	Grants Atk+3.	120	No
+Initiate Seal Def 1.png	Initiate Seal Def 1	Grants Def+1.	30	No
+Initiate Seal Def 2.png	Initiate Seal Def 2	Grants Def+2.	60	No
+Initiate Seal Def 3.png	Initiate Seal Def 3	Grants Def+3.	120	No
+Initiate Seal HP 1.png	Initiate Seal HP 1	Grants HP+3.	40	No
+Initiate Seal HP 2.png	Initiate Seal HP 2	Grants HP+4.	80	No
+Initiate Seal HP 3.png	Initiate Seal HP 3	Grants HP+5.	160	No
+Initiate Seal Res 1.png	Initiate Seal Res 1	Grants Res+1.	30	No
+Initiate Seal Res 2.png	Initiate Seal Res 2	Grants Res+2.	60	No
+Initiate Seal Res 3.png	Initiate Seal Res 3	Grants Res+3.	120	No
+Initiate Seal Spd 1.png	Initiate Seal Spd 1	Grants Spd+1.	30	No
+Initiate Seal Spd 2.png	Initiate Seal Spd 2	Grants Spd+2.	60	No
+Initiate Seal Spd 3.png	Initiate Seal Spd 3	Grants Spd+3.	120	No
+Múspellflame.png	Múspellflame	Reduces damage dealt to unit to 0.	0	No
+Phantom Spd 1.png	Phantom Spd 1	If a skill compares unit's Spd to a foe's or ally's Spd, treats unit's Spd as if granted +5.	50	No
+Phantom Spd 2.png	Phantom Spd 2	If a skill compares unit's Spd to a foe's or ally's Spd, treats unit's Spd as if granted +8.	100	No
+Phantom Spd 3.png	Phantom Spd 3	If a skill compares unit's Spd to a foe's or ally's Spd, treats unit's Spd as if granted +10.	200	No
+Quickened Pulse.png	Quickened Pulse	At the start of turn 1, grants Special cooldown count-1.	100	No
+Squad Ace A 1.png	Squad Ace A 1	Grants HP+3.	40	No
+Squad Ace A 2.png	Squad Ace A 2	Grants HP+4.	80	No
+Squad Ace A 3.png	Squad Ace A 3	Grants HP+5.	160	No
+Squad Ace B 1.png	Squad Ace B 1	Grants Def+1.	30	No
+Squad Ace B 2.png	Squad Ace B 2	Grants Def+2.	60	No
+Squad Ace B 3.png	Squad Ace B 3	Grants Def+3.	120	No
+Squad Ace C 1.png	Squad Ace C 1	Grants Res+1.	30	No
+Squad Ace C 2.png	Squad Ace C 2	Grants Res+2.	60	No
+Squad Ace C 3.png	Squad Ace C 3	Grants Res+3.	120	No
+Squad Ace D 1.png	Squad Ace D 1	Grants Spd+1.	30	No
+Squad Ace D 2.png	Squad Ace D 2	Grants Spd+2.	60	No
+Squad Ace D 3.png	Squad Ace D 3	Grants Spd+3.	120	No
+Squad Ace E 1.png	Squad Ace E 1	Grants Atk+1.	30	No
+Squad Ace E 2.png	Squad Ace E 2	Grants Atk+2.	60	No
+Squad Ace E 3.png	Squad Ace E 3	Grants Atk+3.	120	No
+Squad Ace F 1.png	Squad Ace F 1	Grants HP+3.	40	No
+Squad Ace F 2.png	Squad Ace F 2	Grants HP+4.	80	No
+Squad Ace F 3.png	Squad Ace F 3	Grants HP+5.	160	No
+Squad Ace B 1.png	Squad Ace G 1	Grants Def+1.	30	No
+Squad Ace B 2.png	Squad Ace G 2	Grants Def+2.	60	No
+Squad Ace B 3.png	Squad Ace G 3	Grants Def+3.	120	No
+Squad Ace H 1.png	Squad Ace H 1	Grants Res+1.	30	No
+Squad Ace H 2.png	Squad Ace H 2	Grants Res+2.	60	No
+Squad Ace H 3.png	Squad Ace H 3	Grants Res+3.	120	No
+Squad Ace D 1.png	Squad Ace I 1	Grants Spd+1.	30	No
+Squad Ace D 2.png	Squad Ace I 2	Grants Spd+2.	60	No
+Squad Ace D 3.png	Squad Ace I 3	Grants Spd+3.	120	No
+Squad Ace J 1.png	Squad Ace J 1	Grants Atk+1.	30	No
+Squad Ace J 2.png	Squad Ace J 2	Grants Atk+2.	60	No
+Squad Ace J 3.png	Squad Ace J 3	Grants Atk+3.	120	No
+Squad Ace K 1.png	Squad Ace K 1	Grants HP+3.	40	No
+Squad Ace K 2.png	Squad Ace K 2	Grants HP+4.	80	No
+Squad Ace K 3.png	Squad Ace K 3	Grants HP+5.	160	No
+Squad Ace B 1.png	Squad Ace L 1	Grants Def+1.	30	No
+Squad Ace B 2.png	Squad Ace L 2	Grants Def+2.	60	No
+Squad Ace B 3.png	Squad Ace L 3	Grants Def+3.	120	No
+Squad Ace C 1.png	Squad Ace M 1	Grants Res+1.	30	No
+Squad Ace C 2.png	Squad Ace M 2	Grants Res+2.	60	No
+Squad Ace C 3.png	Squad Ace M 3	Grants Res+3.	120	No
+Squad Ace D 1.png	Squad Ace N 1	Grants Spd+1.	30	No
+Squad Ace D 2.png	Squad Ace N 2	Grants Spd+2.	60	No
+Squad Ace D 3.png	Squad Ace N 3	Grants Spd+3.	120	No
+Squad Ace O 1.png	Squad Ace O 1	Grants Atk+1.	30	No
+Squad Ace O 2.png	Squad Ace O 2	Grants Atk+2.	60	No
+Squad Ace O 3.png	Squad Ace O 3	Grants Atk+3.	120	No

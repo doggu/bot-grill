@@ -1,0 +1,23 @@
+﻿Absorb	4	2	Restores HP = 50% of damage dealt.	150	No
+Absorb+	7	2	Restores HP = 50% of damage dealt.
+After combat, if unit attacked, restores 7 HP to allies within 2 spaces of unit.	300	No
+Assault	10	2		50	No
+Candlelight	7	2	After combat, if unit attacked, inflicts status on foe preventing counterattacks through its next action.	150	No
+Candlelight+	11	2	After combat, if unit attacked, inflicts status on target and foes within 2 spaces of target preventing counterattacks through their next actions.	300	No
+Fear	5	2	After combat, if unit attacked, inflicts Atk-6 on foe through its next action.	150	No
+Fear+	12	2	After combat, if unit attacked, inflicts Atk-7 on target and foes within 2 spaces of target through their next actions.	300	No
+Gravity	6	2	After combat, if unit attacked, inflicts status on foe restricting movement to 1 space through its next action.	150	No
+Gravity+	10	2	After combat, if unit attacked, inflicts status on target and foes within 1 space of target restricting movement to 1 space through their next actions.	300	No
+Hliðskjálf	14	2	Foe cannot counterattack. After combat, if unit attacked, inflicts Atk/Spd/Def/Res-4 on target and foes within 2 spaces of target through their next actions, and grants Atk/Spd/Def/Res+4 to unit and allies within 2 spaces for 1 turn.	400	Yes
+Pain	3	2	After combat, if unit attacked, deals 10 damage to foe.	150	No
+Pain+	10	2	Deals 10 damage to target and foes within 2 spaces of target after combat.	300	No
+Panic	7	2	After combat, if unit attacked, converts bonuses on foe into penalties through its next action.	150	No
+Panic+	11	2	After combat, if unit attacked, converts bonuses on target and foes within 2 spaces of target into penalties through their next actions.	300	No
+Slow	5	2	After combat, if unit attacked, inflicts Spd-6 on foe through its next action.	150	No
+Slow+	12	2	After combat, if unit attacked, inflicts Spd-7 on target and foes within 2 spaces of target through their next actions.	300	No
+Thökk	14	2	Calculates damage from staff like other weapons.
+At start of turn, if foe's HP ≤ unit's HP-3 and foe is in cardinal direction and uses bow, dagger, magic, or staff, foe cannot move more than 1 space through its action.	400	Yes
+Trilemma	8	2	After combat, if unit attacked, inflicts the following status on foe through its next action: "If unit has weapon-triangle advantage, boosts Atk by 20%. If unit has weapon-triangle disadvantage, reduces Atk by 20%."	200	No
+Trilemma+	12	2	After combat, if unit attacked, inflicts the following status on target and foes within 2 spaces of target through their next actions: "If unit has weapon-triangle advantage, boosts Atk by 20%. If unit has weapon-triangle disadvantage, reduces Atk by 20%."	300	No
+Witchy Wand	5	2	After combat, if unit attacked, resets Special cooldown of target and foes within 2 spaces of target, and inflicts the following status on target and foes within 2 spaces of target through their next actions: "Inflicts Special cooldown charge -1 per attack during combat. (Only highest value applied. Does not stack.)" (Neutralizes Special cooldown count reductions after combat, but skills that Accelerate and Slow Special are still effective.)	150	No
+Witchy Wand+	12	2	After combat, if unit attacked, resets Special cooldown of target and foes within 2 spaces of target, and inflicts the following status on target and foes within 2 spaces of target through their next actions: "Inflicts Special cooldown charge -1 per attack during combat. (Only highest value applied. Does not stack.)" (Neutralizes Special cooldown count reductions after combat, but skills that Accelerate and Slow Special are still effective.)	300	No

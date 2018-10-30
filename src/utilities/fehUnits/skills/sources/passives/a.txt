@@ -1,0 +1,231 @@
+﻿Armored Blow 1.png	Armored Blow 1	If unit initiates combat, grants Def+2 during combat.	50	No
+Armored Blow 2.png	Armored Blow 2	If unit initiates combat, grants Def+4 during combat.	100	No
+Armored Blow 3.png	Armored Blow 3	If unit initiates combat, grants Def+6 during combat.	200	No
+Attack Def Plus 1.png	Attack/Def +1	Grants Atk/Def+1.	80	No
+Attack Def Plus 2.png	Attack/Def +2	Grants Atk/Def+2.	160	No
+Atk Def Bond 1.png	Atk/Def Bond 1	If unit is adjacent to an ally, grants Atk/Def+3 during combat.	60	No
+Atk Def Bond 2.png	Atk/Def Bond 2	If unit is adjacent to an ally, grants Atk/Def+4 during combat.	120	No
+Atk Def Bond 3.png	Atk/Def Bond 3	If unit is adjacent to an ally, grants Atk/Def+5 during combat.	240	No
+Attack Res 1.png	Attack/Res 1	Grants Atk/Res+1.	80	No
+Attack Res 2.png	Attack/Res 2	Grants Atk/Res+2.	160	No
+Atk Res Bond 1.png	Atk/Res Bond 1	If unit is adjacent to an ally, grants Atk/Res+3 during combat.	60	No
+Atk Res Bond 2.png	Atk/Res Bond 2	If unit is adjacent to an ally, grants Atk/Res+4 during combat.	120	No
+Atk Res Bond 3.png	Atk/Res Bond 3	If unit is adjacent to an ally, grants Atk/Res+5 during combat.	240	No
+Atk Res Solo 1.png	Atk/Res Solo 1	If unit is not adjacent to an ally, grants Atk/Res+2 during combat.	60	No
+Atk Res Solo 2.png	Atk/Res Solo 2	If unit is not adjacent to an ally, grants Atk/Res+4 during combat.	120	No
+Atk Res Solo 3.png	Atk/Res Solo 3	If unit is not adjacent to an ally, grants Atk/Res+6 during combat.	240	No
+Atk Spd 1.png	Atk/Spd 1	Grants Atk/Spd+1.	80	No
+Atk Spd 2.png	Atk/Spd 2	Grants Atk/Spd+2.	160	No
+Atk Spd Bond 1.png	Atk/Spd Bond 1	If unit is adjacent to an ally, grants Atk/Spd+3 during combat.	60	No
+Atk Spd Bond 2.png	Atk/Spd Bond 2	If unit is adjacent to an ally, grants Atk/Spd+4 during combat.	120	No
+Atk Spd Bond 3.png	Atk/Spd Bond 3	If unit is adjacent to an ally, grants Atk/Spd+5 during combat.	240	No
+Atk Spd Push 1.png	Atk/Spd Push 1	At start of combat, if unit's HP = 100%, grants Atk/Spd+3, but if unit attacked, deals 1 damage to unit after combat.	60	No
+Atk Spd Push 2.png	Atk/Spd Push 2	At start of combat, if unit's HP = 100%, grants Atk/Spd+4, but if unit attacked, deals 1 damage to unit after combat.	120	No
+Atk Spd Push 3.png	Atk/Spd Push 3	At start of combat, if unit's HP = 100%, grants Atk/Spd+5, but if unit attacked, deals 1 damage to unit after combat.	240	No
+Attack Plus 1.png	Attack +1	Grants Atk+1.	30	No
+Attack Plus 2.png	Attack +2	Grants Atk+2.	60	No
+Attack Plus 3.png	Attack +3	Grants Atk+3.	120	No
+Bracing Blow 1.png	Bracing Blow 1	If unit initiates combat, grants Def/Res+2 during combat.	120	No
+Bracing Blow 2.png	Bracing Blow 2	If unit initiates combat, grants Def/Res+4 during combat.	240	No
+Bracing Stance 1.png	Bracing Stance 1	If foe initiates combat, grants Def/Res+2 during combat.	120	No
+Bracing Stance 2.png	Bracing Stance 2	If foe initiates combat, grants Def/Res+4 during combat.	240	No
+Brazen Atk Def 1.png	Brazen Atk/Def 1	At start of combat, if unit's HP ≤ 80%, grants Atk/Def+3 during combat.	60	No
+Brazen Atk Def 2.png	Brazen Atk/Def 2	At start of combat, if unit's HP ≤ 80%, grants Atk/Def+5 during combat.	120	No
+Brazen Atk Def 3.png	Brazen Atk/Def 3	At start of combat, if unit's HP ≤ 80%, grants Atk/Def+7 during combat.	240	No
+Brazen Atk Res 1.png	Brazen Atk/Res 1	At start of combat, if unit's HP ≤ 80%, grants Atk/Res+3 during combat.	60	No
+Brazen Atk Res 2.png	Brazen Atk/Res 2	At start of combat, if unit's HP ≤ 80%, grants Atk/Res+5 during combat.	120	No
+Brazen Atk Res 3.png	Brazen Atk/Res 3	At start of combat, if unit's HP ≤ 80%, grants Atk/Res+7 during combat.	240	No
+Brazen Atk Spd 1.png	Brazen Atk/Spd 1	At start of combat, if unit's HP ≤ 80%, grants Atk/Spd+3 during combat.	60	No
+Brazen Atk Spd 2.png	Brazen Atk/Spd 2	At start of combat, if unit's HP ≤ 80%, grants Atk/Spd+5 during combat.	120	No
+Brazen Atk Spd 3.png	Brazen Atk/Spd 3	At start of combat, if unit's HP ≤ 80%, grants Atk/Spd+7 during combat.	240	No
+Brazen Def Res 1.png	Brazen Def/Res 1	At start of combat, if unit's HP ≤ 80%, grants Def/Res+3 during combat.	60	No
+Brazen Def Res 2.png	Brazen Def/Res 2	At start of combat, if unit's HP ≤ 80%, grants Def/Res+5 during combat.	120	No
+Brazen Def Res 3.png	Brazen Def/Res 3	At start of combat, if unit's HP ≤ 80%, grants Def/Res+7 during combat.	240	No
+C Duel Infantry 1.png	C Duel Infantry 1	Grants HP+3. If unit is 5★ and level 40 and unit's stats total less than 160, treats unit's stats as 160 in modes like Arena.
+(Higher-scoring opponents will appear.
+Stat total calculation excludes any values added by merges and skills.)	70	No
+C Duel Infantry 2.png	C Duel Infantry 2	Grants HP+4. If unit is 5★ and level 40 and unit's stats total less than 165, treats unit's stats as 165 in modes like Arena.
+(Higher-scoring opponents will appear.
+Stat total calculation excludes any values added by merges and skills.)	150	No
+C Duel Infantry 3.png	C Duel Infantry 3	Grants HP+5. If unit is 5★ and level 40 and unit's stats total less than 170, treats unit's stats as 170 in modes like Arena.
+(Higher-scoring opponents will appear.
+Stat total calculation excludes any values added by merges and skills.)	300	No
+Close Counter.png	Close Counter	Unit can counterattack regardless of foe's range.	300	No
+Close Def 1.png	Close Def 1	If foe initiates combat and uses sword, lance, axe, or dragonstone, grants Def/Res+2 during combat.	60	No
+Close Def 2.png	Close Def 2	If foe initiates combat and uses sword, lance, axe, or dragonstone, grants Def/Res+4 during combat.	120	No
+Close Def 3.png	Close Def 3	If foe initiates combat and uses sword, lance, axe, or dragonstone, grants Def/Res+6 during combat.	240	No
+Darting Blow 1.png	Darting Blow 1	If unit initiates combat, grants Spd+2 during combat.	50	No
+Darting Blow 2.png	Darting Blow 2	If unit initiates combat, grants Spd+4 during combat.	100	No
+Darting Blow 3.png	Darting Blow 3	If unit initiates combat, grants Spd+6 during combat.	200	No
+Darting Stance 1.png	Darting Stance 1	If foe initiates combat, grants Spd+2 during combat.	50	No
+Darting Stance 2.png	Darting Stance 2	If foe initiates combat, grants Spd+4 during combat.	100	No
+Darting Stance 3.png	Darting Stance 3	If foe initiates combat, grants Spd+6 during combat.	200	No
+Death Blow 1.png	Death Blow 1	If unit initiates combat, grants Atk+2 during combat.	50	No
+Death Blow 2.png	Death Blow 2	If unit initiates combat, grants Atk+4 during combat.	100	No
+Death Blow 3.png	Death Blow 3	If unit initiates combat, grants Atk+6 during combat.	200	No
+Death Blow 4.png	Death Blow 4	If unit initiates combat, grants Atk+8 during combat.	300	No
+Def Res 1.png	Def/Res 1	Grants Def/Res+1.	80	No
+Def Res 2.png	Def/Res 2	Grants Def/Res+2.	160	No
+Defense Plus 1.png	Defense +1	Grants Def+1.	30	No
+Defense Plus 2.png	Defense +2	Grants Def+2.	60	No
+Defense Plus 3.png	Defense +3	Grants Def+3.	120	No
+Defiant Atk 1.png	Defiant Atk 1	At start of turn, if unit's HP ≤ 50%, grants Atk+3 for 1 turn.	40	No
+Defiant Atk 2.png	Defiant Atk 2	At start of turn, if unit's HP ≤ 50%, grants Atk+5 for 1 turn.	80	No
+Defiant Atk 3.png	Defiant Atk 3	At start of turn, if unit's HP ≤ 50%, grants Atk+7 for 1 turn.	160	No
+Defiant Def 1.png	Defiant Def 1	At start of turn, if unit's HP ≤ 50%, grants Def+3 for 1 turn.	40	No
+Defiant Def 2.png	Defiant Def 2	At start of turn, if unit's HP ≤ 50%, grants Def+5 for 1 turn.	80	No
+Defiant Def 3.png	Defiant Def 3	At start of turn, if unit's HP ≤ 50%, grants Def+7 for 1 turn.	160	No
+Defiant Res 1.png	Defiant Res 1	At start of turn, if unit's HP ≤ 50%, grants Res+3 for 1 turn.	40	No
+Defiant Res 2.png	Defiant Res 2	At start of turn, if unit's HP ≤ 50%, grants Res+5 for 1 turn.	80	No
+Defiant Res 3.png	Defiant Res 3	At start of turn, if unit's HP ≤ 50%, grants Res+7 for 1 turn.	160	No
+Defiant Spd 1.png	Defiant Spd 1	At start of turn, if unit's HP ≤ 50%, grants Spd+3 for 1 turn.	40	No
+Defiant Spd 2.png	Defiant Spd 2	At start of turn, if unit's HP ≤ 50%, grants Spd+5 for 1 turn.	80	No
+Defiant Spd 3.png	Defiant Spd 3	At start of turn, if unit's HP ≤ 50%, grants Spd+7 for 1 turn.	160	No
+Distant Counter.png	Distant Counter	Unit can counterattack regardless of foe's range.	300	No
+Distant Def 1.png	Distant Def 1	If foe initiates combat and uses bow, dagger, magic, or staff, grants Def/Res+2 during combat.	60	No
+Distant Def 2.png	Distant Def 2	If foe initiates combat and uses bow, dagger, magic, or staff, grants Def/Res+4 during combat.	120	No
+Distant Def 3.png	Distant Def 3	If foe initiates combat and uses bow, dagger, magic, or staff, grants Def/Res+6 during combat.	240	No
+Dragonskin.png	Dragonskin	Neutralizes "effective against flying" bonuses.
+If foe initiates combat, grants Def/Res+4 during combat.	300	Yes
+Earth Boost 1.png	Earth Boost 1	At start of combat, if unit's HP ≥ foe's HP+3, grants Def+2 during combat.	50	No
+Earth Boost 2.png	Earth Boost 2	At start of combat, if unit's HP ≥ foe's HP+3, grants Def+4 during combat.	100	No
+Earth Boost 3.png	Earth Boost 3	At start of combat, if unit's HP ≥ foe's HP+3, grants Def+6 during combat.	200	No
+Fierce Breath.png	Fierce Breath	If foe initiates combat, grants Atk+4 during combat and Special cooldown charge +1 per attack. (Only highest value applied. Does not stack.)	240	No
+Fierce Stance 1.png	Fierce Stance 1	If foe initiates combat, grants Atk+2 during combat.	50	No
+Fierce Stance 2.png	Fierce Stance 2	If foe initiates combat, grants Atk+4 during combat.	100	No
+Fierce Stance 3.png	Fierce Stance 3	If foe initiates combat, grants Atk+6 during combat.	200	No
+Fire Boost 1.png	Fire Boost 1	At start of combat, if unit's HP ≥ foe's HP+3, grants Atk+2 during combat.	50	No
+Fire Boost 2.png	Fire Boost 2	At start of combat, if unit's HP ≥ foe's HP+3, grants Atk+4 during combat.	100	No
+Fire Boost 3.png	Fire Boost 3	At start of combat, if unit's HP ≥ foe's HP+3, grants Atk+6 during combat.	200	No
+Flashing Blade 1.png	Flashing Blade 1	If unit's Spd ≥ foe's Spd+5, grants Special cooldown charge +1 per attack.
+(Only highest value applied. Does not stack.)	60	No
+Flashing Blade 2.png	Flashing Blade 2	If unit's Spd ≥ foe's Spd+3, grants Special cooldown charge +1 per attack.
+(Only highest value applied. Does not stack.)	120	No
+Flashing Blade 3.png	Flashing Blade 3	If unit's Spd > foe's Spd, grants Special cooldown charge +1 per attack.
+(Only highest value applied. Does not stack.)	240	No
+Fort. Def Res 1.png	Fort. Def/Res 1	Grants Def/Res+3.
+Inflicts Atk-3.	100	No
+Fort. Def Res 2.png	Fort. Def/Res 2	Grants Def/Res+4.
+Inflicts Atk-3.	200	No
+Fort. Def Res 3.png	Fort. Def/Res 3	Grants Def/Res+6.
+Inflicts Atk-2.	300	No
+Fortress Def 1.png	Fortress Def 1	Grants Def+3.
+Inflicts Atk-3.	40	No
+Fortress Def 2.png	Fortress Def 2	Grants Def+4.
+Inflicts Atk-3.	80	No
+Fortress Def 3.png	Fortress Def 3	Grants Def+5.
+Inflicts Atk-3.	160	No
+Fortress Res 1.png	Fortress Res 1	Grants Res+3.
+Inflicts Atk-3.	40	No
+Fortress Res 2.png	Fortress Res 2	Grants Res+4.
+Inflicts Atk-3.	80	No
+Fortress Res 3.png	Fortress Res 3	Grants Res+5.
+Inflicts Atk-3.	160	No
+Fury 1.png	Fury 1	Grants Atk/Spd/Def/Res+1.
+After combat, deals 2 damage to unit.	50	No
+Fury 2.png	Fury 2	Grants Atk/Spd/Def/Res+2.
+After combat, deals 4 damage to unit.	100	No
+Fury 3.png	Fury 3	Grants Atk/Spd/Def/Res+3.
+After combat, deals 6 damage to unit.	200	No
+G Duel Infantry 1.png	G Duel Infantry 1	Grants HP+3. If unit is 5★ and level 40 and unit's stats total less than 160, treats unit's stats as 160 in modes like Arena.
+(Higher-scoring opponents will appear.
+Stat total calculation excludes any values added by merges and skills.)	70	No
+G Duel Infantry 2.png	G Duel Infantry 2	Grants HP+4. If unit is 5★ and level 40 and unit's stats total less than 165, treats unit's stats as 165 in modes like Arena.
+(Higher-scoring opponents will appear.
+Stat total calculation excludes any values added by merges and skills.)	150	No
+G Duel Infantry 3.png	G Duel Infantry 3	Grants HP+5. If unit is 5★ and level 40 and unit's stats total less than 170, treats unit's stats as 170 in modes like Arena.
+(Higher-scoring opponents will appear.
+Stat total calculation excludes any values added by merges and skills.)	300	No
+Grani's Shield.png	Grani's Shield	Neutralizes "effective against cavalry" bonuses.	200	No
+Heavy Blade 1.png	Heavy Blade 1	If unit's Atk ≥ foe's Atk+5, grants Special cooldown charge +1 per attack. (Only highest value applied. Does not stack.)	60	No
+Heavy Blade 2.png	Heavy Blade 2	If unit's Atk ≥ foe's Atk+3, grants Special cooldown charge +1 per attack. (Only highest value applied. Does not stack.)	120	No
+Heavy Blade 3.png	Heavy Blade 3	If unit's Atk > foe's Atk, grants Special cooldown charge +1 per attack. (Only highest value applied. Does not stack.)	240	No
+HP Atk 1.png	HP/Atk 1	Grants HP+3, Atk+1.	100	No
+HP Atk 2.png	HP/Atk 2	Grants HP+4, Atk+2.	200	No
+HP Def 1.png	HP/Def 1	Grants HP+3, Def+1.	100	No
+HP Def 2.png	HP/Def 2	Grants HP+4, Def+2.	200	No
+HP Plus 3.png	HP +3	Grants HP+3.	40	No
+HP Plus 4.png	HP +4	Grants HP+4.	80	No
+HP Plus 5.png	HP +5	Grants HP+5.	160	No
+HP Res 1.png	HP/Res 1	Grants HP+3, Res+1.	100	No
+HP Res 2.png	HP/Res 2	Grants HP+4, Res+2.	200	No
+HP Spd 1.png	HP/Spd 1	Grants HP+3, Spd+1.	100	No
+HP Spd 2.png	HP/Spd 2	Grants HP+4, Spd+2.	200	No
+Iote's Shield.png	Iote's Shield	Neutralizes "effective against flying" bonuses.	200	No
+Kestrel Stance 1.png	Kestrel Stance 1	If foe initiates combat, grants Atk/Spd+2 during combat.	120	No
+Kestrel Stance 2.png	Kestrel Stance 2	If foe initiates combat, grants Atk/Spd+4 during combat.	240	No
+Laws of Sacae.png	Laws of Sacae	If foe initiates combat and the number of allies within 2 spaces ≥ 2, grants Atk/Spd/Def/Res+4 during combat.	300	Yes
+Life and Death 1.png	Life and Death 1	Grants Atk/Spd+3.
+Inflicts Def/Res-3.	50	No
+Life and Death 2.png	Life and Death 2	Grants Atk/Spd+4.
+Inflicts Def/Res-4.	100	No
+Life and Death 3.png	Life and Death 3	Grants Atk/Spd+5.
+Inflicts Def/Res-5.	200	No
+Mirror Stance 1.png	Mirror Stance 1	If foe initiates combat, grants Atk/Res+2 during combat.	120	No
+Mirror Stance 2.png	Mirror Stance 2	If foe initiates combat, grants Atk/Res+4 during combat.	240	No
+Mirror Strike 1.png	Mirror Strike 1	If unit initiates combat, grants Atk/Res+2 during combat.	120	No
+Mirror Strike 2.png	Mirror Strike 2	If unit initiates combat, grants Atk/Res+4 during combat.	240	No
+Ostian Counter.png	Ostian Counter	Unit can counterattack regardless of foe's range. If foe initiates combat, grants Atk/Def+4 during combat.	350	Yes
+R Duel Flying 1.png	R Duel Flying 1	Grants HP+3. If unit is 5★ and level 40 and unit's stats total less than 160, treats unit's stats as 160 in modes like Arena.
+(Higher-scoring opponents will appear.
+Stat total calculation excludes any values added by merges and skills.)	70	No
+R Duel Flying 2.png	R Duel Flying 2	Grants HP+4. If unit is 5★ and level 40 and unit's stats total less than 165, treats unit's stats as 165 in modes like Arena.
+(Higher-scoring opponents will appear.
+Stat total calculation excludes any values added by merges and skills.)	150	No
+R Duel Flying 3.png	R Duel Flying 3	Grants HP+5. If unit is 5★ and level 40 and unit's stats total less than 170, treats unit's stats as 170 in modes like Arena.
+(Higher-scoring opponents will appear.
+Stat total calculation excludes any values added by merges and skills.)	300	No
+Resistance Plus 1.png	Resistance +1	Grants Res+1.	30	No
+Resistance Plus 2.png	Resistance +2	Grants Res+2.	60	No
+Resistance Plus 3.png	Resistance +3	Grants Res+3.	120	No
+Spd Def 1.png	Spd/Def 1	Grants Spd/Def+1.	80	No
+Spd Def 2.png	Spd/Def 2	Grants Spd/Def+2.	160	No
+Spd Def Bond 1.png	Spd/Def Bond 1	If unit is adjacent to an ally, grants Spd/Def+3 during combat.	60	No
+Spd Def Bond 2.png	Spd/Def Bond 2	If unit is adjacent to an ally, grants Spd/Def+4 during combat.	120	No
+Spd Def Bond 3.png	Spd/Def Bond 3	If unit is adjacent to an ally, grants Spd/Def+5 during combat.	240	No
+Spd Res 1.png	Spd/Res 1	Grants Spd/Res+1.	80	No
+Spd Res 2.png	Spd/Res 2	Grants Spd/Res+2.	160	No
+Spd Res Bond 1.png	Spd/Res Bond 1	If unit is adjacent to an ally, grants Spd/Res+3 during combat.	60	No
+Spd Res Bond 2.png	Spd/Res Bond 2	If unit is adjacent to an ally, grants Spd/Res+4 during combat.	120	No
+Spd Res Bond 3.png	Spd/Res Bond 3	If unit is adjacent to an ally, grants Spd/Res+5 during combat.	240	No
+Speed Plus 1.png	Speed +1	Grants Spd+1.	30	No
+Speed Plus 2.png	Speed +2	Grants Spd+2.	60	No
+Speed Plus 3.png	Speed +3	Grants Spd+3.	120	No
+Steady Blow 1.png	Steady Blow 1	If unit initiates combat, grants Spd/Def+2 during battle.	120	No
+Steady Blow 2.png	Steady Blow 2	If unit initiates combat, grants Spd/Def+4 during battle.	240	No
+Steady Breath.png	Steady Breath	If foe initiates combat, grants Def+4 during combat and Special cooldown charge +1 per attack. (Only highest value applied. Does not stack.)	240	No
+Steady Posture 1.png	Steady Posture 1	If foe initiates combat, grants Spd/Def+2 during combat.	120	No
+Steady Posture 2.png	Steady Posture 2	If foe initiates combat, grants Spd/Def+4 during combat.	240	No
+Steady Stance 1.png	Steady Stance 1	If foe initiates combat, grants Def+2 during combat.	50	No
+Steady Stance 2.png	Steady Stance 2	If foe initiates combat, grants Def+4 during combat.	100	No
+Steady Stance 3.png	Steady Stance 3	If foe initiates combat, grants Def+6 during combat.	200	No
+Sturdy Blow 1.png	Sturdy Blow 1	If unit initiates combat, grants Atk/Def+2 during combat.	120	No
+Sturdy Blow 2.png	Sturdy Blow 2	If unit initiates combat, grants Atk/Def+4 during combat.	240	No
+Sturdy Stance 1.png	Sturdy Stance 1	If foe initiates combat, grants Atk/Def+2 during combat.	120	No
+Sturdy Stance 2.png	Sturdy Stance 2	If foe initiates combat, grants Atk/Def+4 during combat.	240	No
+Svalinn Shield.png	Svalinn Shield	Neutralizes "effective against armored" bonuses.	200	No
+Swift Sparrow 1.png	Swift Sparrow 1	If unit initiates combat, grants Atk/Spd+2 during combat.	120	No
+Swift Sparrow 2.png	Swift Sparrow 2	If unit initiates combat, grants Atk/Spd+4 during combat.	240	No
+Swift Stance 1.png	Swift Stance 1	If foe initiates combat, grants Spd/Res+2 during combat.	120	No
+Swift Stance 2.png	Swift Stance 2	If foe initiates combat, grants Spd/Res+4 during combat.	240	No
+Swift Strike 1.png	Swift Strike 1	If unit initiates combat, grants Spd/Res+2 during combat.	120	No
+Swift Strike 2.png	Swift Strike 2	If unit initiates combat, grants Spd/Res+4 during combat.	240	No
+Triangle Adept 1.png	Triangle Adept 1	If unit has weapon-triangle advantage, boosts Atk by 10%.
+If unit has weapon-triangle disadvantage, reduces Atk by 10%.	50	No
+Triangle Adept 2.png	Triangle Adept 2	If unit has weapon-triangle advantage, boosts Atk by 15%.
+If unit has weapon-triangle disadvantage, reduces Atk by 15%.	100	No
+Triangle Adept 3.png	Triangle Adept 3	If unit has weapon-triangle advantage, boosts Atk by 20%.
+If unit has weapon-triangle disadvantage, reduces Atk by 20%.	200	No
+Warding Blow 1.png	Warding Blow 1	If unit initiates combat, grants Res+2 during combat.	50	No
+Warding Blow 2.png	Warding Blow 2	If unit initiates combat, grants Res+4 during combat.	100	No
+Warding Blow 3.png	Warding Blow 3	If unit initiates combat, grants Res+6 during combat.	200	No
+Warding Breath.png	Warding Breath	If foe initiates combat, grants Res+4 during combat and Special cooldown charge +1 per attack. (Only highest value applied. Does not stack.)	240	No
+Warding Stance 1.png	Warding Stance 1	If foe initiates combat, grants Res+2 during combat.	50	No
+Warding Stance 2.png	Warding Stance 2	If foe initiates combat, grants Res+4 during combat.	100	No
+Warding Stance 3.png	Warding Stance 3	If foe initiates combat, grants Res+6 during combat.	200	No
+Water Boost 1.png	Water Boost 1	At start of combat, if unit's HP ≥ foe's HP+3, grants Res+2 during combat.	50	No
+Water Boost 2.png	Water Boost 2	At start of combat, if unit's HP ≥ foe's HP+3, grants Res+4 during combat.	100	No
+Water Boost 3.png	Water Boost 3	At start of combat, if unit's HP ≥ foe's HP+3, grants Res+6 during combat.	200	No
+Wind Boost 1.png	Wind Boost 1	At start of combat, if unit's HP ≥ foe's HP+3, grants Spd+2 during combat.	50	No
+Wind Boost 2.png	Wind Boost 2	At start of combat, if unit's HP ≥ foe's HP+3, grants Spd+4 during combat.	100	No
+Wind Boost 3.png	Wind Boost 3	At start of combat, if unit's HP ≥ foe's HP+3, grants Spd+6 during combat.	200	No

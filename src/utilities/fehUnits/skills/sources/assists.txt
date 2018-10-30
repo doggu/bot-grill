@@ -1,0 +1,52 @@
+﻿Ardent Sacrifice	Restores 10 HP to target ally.
+Unit loses 10 HP but cannot go below 1.	150	1
+Dance	Grants another action to target ally.
+(Cannot target an ally with Sing or Dance.)	150	1
+Draw Back	Unit moves 1 space away from target ally.
+Ally moves to unit’s previous space.	150	1
+Future Vision	Unit and target ally swap spaces. Grants another action to unit. (Additional action granted once per turn only.)	400	1
+Harsh Command	Converts penalties on target into bonuses.	150	1
+Heal	Restores 5 HP to target ally.	50	1
+Martyr+	Restores HP = damage dealt to unit +50% of Atk. (Minimum of 7 HP.)
+Restores HP to unit = half damage dealt to unit.	300	1
+Martyr	Slows Special trigger (cooldown count+1).
+Restores X HP to target (X = damage dealt to unit + 7).
+Restores Y HP to unit (Y = half damage dealt to unit).	200	1
+Mend	Restores 10 HP to target ally.	100	1
+Physic+	Restores HP = 50% of Atk. (Minimum of 8 HP.) Range = 2.	300	2
+Physic	Restores 8 HP to target ally. Range = 2.	200	2
+Pivot	Unit moves to opposite side of target ally.	150	1
+Rally Atk/Def	Grants Atk/Def+3 to target ally for 1 turn.	300	1
+Rally Atk/Res	Grants Atk/Res+3 to an adjacent ally until the end of the turn.	300	1
+Rally Atk/Spd	Grants Atk/Spd+3 to target ally for 1 turn.	300	1
+Rally Attack	Grants Atk+4 to target ally for 1 turn.	150	1
+Rally Def/Res	Grants Def/Res+3 to target ally for 1 turn.	300	1
+Rally Defense	Grants Def+4 to target ally for 1 turn.	150	1
+Rally Resistance	Grants Res+4 to target ally for 1 turn.	150	1
+Rally Spd/Def+	Grants Spd/Def+6 to target ally for 1 turn.	400	1
+Rally Spd/Def	Grants Spd/Def+3 to target ally for 1 turn.	300	1
+Rally Spd/Res	Grants Spd/Res+3 to target ally for 1 turn.	300	1
+Rally Speed	Grants Spd+4 to target ally for 1 turn.	150	1
+Rally Up Atk+	Grants Atk+6 to target ally and allies within 2 spaces of target (excluding unit) for 1 turn.	400	1
+Rally Up Atk	Grants Atk+3 to target ally and allies within 2 spaces of target (excluding unit) for 1 turn.	300	1
+Reciprocal Aid	Unit and target ally swap HP.
+(Neither can go above their max HP.)	150	1
+Reconcile	Restores 7 HP to unit and target ally.	100	1
+Recover+	Restores HP = 50% of Atk +10. (Minimum of 15 HP.)	300	1
+Recover	Slows Special trigger (cooldown count+1).
+Restores 15 HP to target ally.	200	1
+Rehabilitate+	Restores HP = 50% of Atk -10. (Minimum of 7 HP.)
+If target's HP is ≤ 50%, the lower the target's HP, the more HP is restored.	300	1
+Rehabilitate	Slows Special trigger (cooldown count+1).
+If target's HP is ≤ 50%, the lower the target's HP, the more HP is restored. (Minimum of 7 HP.)	200	1
+Reposition	Target ally moves to opposite side of unit.	150	1
+Restore+	Restores HP = 50% of Atk. (Minimum of 8 HP.)
+Neutralizes ally's penalties (from skills like Panic, Threaten, etc.) and negative status effects (preventing counterattacks, restricting movement, etc.) that last through ally's next action.	300	1
+Restore	Restores 8 HP.
+Neutralizes ally's penalties (from skills like Panic, Threaten, etc.) and negative status effects (preventing counterattacks, restricting movement, etc.) that last through ally's next action.	200	1
+Sacrifice	Converts penalties on target into bonuses. Restores HP to target = unit's current HP-1. Reduces unit's HP by amount restored.	400	1
+Shove	Pushes target ally 1 space away.	150	1
+Sing	Grants another action to target ally.
+(Cannot target an ally with Sing or Dance.)	150	1
+Smite	Pushes target ally 2 spaces away.	150	1
+Swap	Unit and target ally swap spaces.	150	1

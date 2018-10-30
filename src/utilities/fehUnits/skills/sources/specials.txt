@@ -1,0 +1,64 @@
+﻿Aegis	If foe's Range = 2, reduces damage from that foe's attack by 50%.	200	3
+Aether	Treats foe’s Def/Res as if reduced by 50% during combat.
+Restores HP = half of damage dealt.	500	5
+Astra	Boosts damage dealt by 150%.	200	4
+Black Luna	Treats foe's Def/Res as if reduced by 80% during combat.
+(Skill cannot be inherited.)	500	3
+Blazing Flame	Before combat this unit initiates, foes in an area near target take damage equal to 1.5 x (unit's Atk minus foe's Def or Res).	300	4
+Blazing Light	Before combat this unit initiates, foes in an area near target take damage equal to 1.5 x (unit's Atk minus foe's Def or Res).	300	4
+Blazing Thunder	Before combat this unit initiates, foes in an area near target take damage equal to 1.5 x (unit's Atk minus foe's Def or Res).	300	4
+Blazing Wind	Before combat this unit initiates, foes in an area near target take damage equal to 1.5 x (unit's Atk minus foe's Def or Res).	300	4
+Blue Flame	Boosts damage by 10. If unit is adjacent to an ally, boosts damage by 25 instead.	500	3
+Bonfire	Boosts damage by 50% of unit's Def.	200	3
+Buckler	Reduces damage from an adjacent foe's attack by 30%.	100	3
+Chilling Wind	Boosts damage by 50% of unit's Res.	100	4
+Daylight	Restores HP = 30% of damage dealt.	100	3
+Draconic Aura	Boosts damage by 30% of unit's Atk.	200	3
+Dragon Fang	Boosts damage by 50% of unit's Atk.	200	4
+Dragon Gaze	Boosts damage by 30% of unit's Atk.	100	4
+Earthwater Balm	When healing an ally with a staff, grants Def/Res+4 to all allies for 1 turn.	200	1
+Earthwater Balm+	When healing an ally with a staff, grants Def/Res+6 to all allies for 1 turn.	300	1
+Escutcheon	Reduces damage from an adjacent foe's attack by 30%.	200	2
+Fire Emblem	Boosts damage by 30% of unit's Spd.
+Grants Atk/Spd/Def/Res+4 to unit and all allies for 1 turn after combat. (Bonus granted to allies even if unit's HP reaches 0.)	500	2
+Galeforce	If unit initiates combat, grants unit another action after combat.
+(Once per turn.)	500	5
+Glacies	Boosts damage by 80% of unit's Res.	200	4
+Glimmer	Boosts damage dealt by 50%.	200	2
+Glowing Ember	Boosts damage by 50% of unit's Def.	100	4
+Growing Flame	Before combat this unit initiates, foes in a wide area around target take damage equal to (unit's Atk minus foe's Def or Res).	300	4
+Growing Light	Before combat this unit initiates, foes in a wide area near target take damage equal to (unit's Atk minus foe's Def or Res).	300	4
+Growing Thunder	Before combat this unit initiates, foes in a wide area around target take damage equal to (unit's Atk minus foe's Def or Res).	300	4
+Growing Wind	Before combat this unit initiates, foes in a wide area near target take damage equal to (unit's Atk minus foe's Def or Res).	300	4
+Heavenly Light	When healing an ally with a staff, restores 10 HP to all allies.	150	2
+Holy Vestments	If foe's Range = 2, reduces damage from that foe's attack by 30%.	100	3
+Ice Mirror	If foe's Range = 2, reduces damage from foe's attacks by 30%. Boosts unit's next attack by total damage reduced (by any source, including other skills) when Special triggers. Resets at end of combat. (Skill cannot be inherited.)	500	2
+Iceberg	Boosts damage by 50% of unit's Res.	200	3
+Ignis	Boosts damage by 80% of unit's Def.	200	4
+Imbue	When healing an ally with a staff, restores an additional 10 HP to target ally.	50	1
+Kindled-Fire Balm	When healing an ally with a staff, grants Atk+4 to all allies for 1 turn.	150	1
+Luna	Treats foe’s Def/Res as if reduced by 50% during combat.	200	3
+Miracle	If unit’s HP > 1 and foe would reduce unit’s HP to 0, unit survives with 1 HP.	200	5
+Moonbow	Treats foe’s Def/Res as if reduced by 30% during combat.	200	2
+New Moon	Treats foe’s Def/Res as if reduced by 30% during combat.	100	3
+Night Sky	Boosts damage dealt by 50%.	100	3
+Noontime	Restores HP = 30% of damage dealt.	200	2
+Pavise	Reduces damage from an adjacent foe's attack by 50%.	200	3
+Radiant Aether	During combat, treats foe's Def/Res as if reduced by 50%.
+Restores HP = 50% of damage dealt.	500	4
+Regnal Astra	Boosts damage by 40% of unit's Spd.
+(Skill cannot be inherited.)	500	2
+Reprisal	Boosts damage by 30% of damage dealt to unit.	200	2
+Retribution	Boosts damage by 30% of damage dealt to unit.	100	3
+Rising Flame	Before combat this unit initiates, foes in an area near target take damage equal to (unit's Atk minus foe's Def or Res).	150	4
+Rising Light	Before combat this unit initiates, foes in an area near target take damage equal to (unit's Atk minus foe's Def or Res).	150	4
+Rising Thunder	Before combat this unit initiates, foes in an area near target take damage equal to (unit's Atk minus foe's Def or Res).	150	4
+Rising Wind	Before combat this unit initiates, foes in an area near target take damage equal to (unit's Atk minus foe's Def or Res).	150	4
+Sacred Cowl	If foe's Range = 2, reduces damage from that foe's attack by 30%.	200	2
+Sol	Restores HP = 50% of damage dealt.	200	3
+Solid-Earth Balm	When healing an ally with a staff, grants Def+4 to all allies for 1 turn.	150	1
+Still-Water Balm	When healing an ally with a staff, grants Res+4 to all allies for 1 turn.	150	1
+Swift-Winds Balm	When healing an ally with a staff, grants Spd+4 to all allies for 1 turn.	150	1
+Vengeance	Boosts damage by 50% of damage dealt to unit.	200	3
+Windfire Balm	When healing an ally with a staff, grants Atk/Spd+4 to all allies for 1 turn.	200	1
+Windfire Balm+	When healing an ally with a staff, grants Atk/Spd+6 to all allies for 1 turn.	300	1

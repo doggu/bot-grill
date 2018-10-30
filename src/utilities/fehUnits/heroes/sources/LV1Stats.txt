@@ -1,0 +1,306 @@
+﻿Abel The Panther Face FC.png	Abel: The Panther	Icon Class Blue Lance.png	Icon Move Cavalry.png	17	7	8	8	6	46
+Alfonse Prince of Askr Face FC.png	Alfonse: Prince of Askr	Icon Class Red Sword.png	Icon Move Infantry.png	19	9	6	8	5	47
+Alfonse Spring Prince Face FC.png	Alfonse: Spring Prince	Icon Class Green Axe.png	Icon Move Cavalry.png	19	9	7	6	5	46
+Alm Hero of Prophecy Face FC.png	Alm: Hero of Prophecy	Icon Class Red Sword.png	Icon Move Infantry.png	21	9	6	6	5	47
+Amelia Rose of the War Face FC.png	Amelia: Rose of the War	Icon Class Green Axe.png	Icon Move Armored.png	19	6	8	9	4	46
+Anna Commander Face FC.png	Anna: Commander	Icon Class Green Axe.png	Icon Move Infantry.png	19	7	10	5	6	47
+Arden Strong and Tough Face FC.png	Arden: Strong and Tough	Icon Class Red Sword.png	Icon Move Armored.png	25	10	3	13	3	54
+Ares Black Knight Face FC.png	Ares: Black Knight	Icon Class Red Sword.png	Icon Move Cavalry.png	18	8	8	7	5	46
+Arthur Hapless Hero Face FC.png	Arthur: Hapless Hero	Icon Class Green Axe.png	Icon Move Infantry.png	19	8	7	8	5	47
+Arvis Emperor of Flame Face FC.png	Arvis: Emperor of Flame	Icon Class Red Tome.png	Icon Move Infantry.png	18	8	7	4	7	44
+Athena Borderland Sword Face FC.png	Athena: Borderland Sword	Icon Class Red Sword.png	Icon Move Infantry.png	17	7	10	8	5	47
+Aversa Dark One Face FC.png	Aversa: Dark One	Icon Class Red Tome.png	Icon Move Flying.png	18	7	8	4	7	44
+Ayra Astras Wielder Face FC.png	Ayra: Astra's Wielder	Icon Class Red Sword.png	Icon Move Infantry.png	19	7	11	7	4	48
+Azama Carefree Monk Face FC.png	Azama: Carefree Monk	Icon Class Colorless Staff.png	Icon Move Infantry.png	19	4	7	8	6	44
+Azura Celebratory Spirit Face FC.png	Azura: Celebratory Spirit	Icon Class Green Axe.png	Icon Move Flying.png	15	6	9	5	4	39
+Azura Lady of Ballads Face FC.png	Azura: Lady of Ballads	Icon Class Green Axe.png	Icon Move Infantry.png	16	6	8	3	6	39
+Azura Lady of the Lake Face FC.png	Azura: Lady of the Lake	Icon Class Blue Lance.png	Icon Move Infantry.png	17	5	7	4	6	39
+Barst The Hatchet Face FC.png	Barst: The Hatchet	Icon Class Green Axe.png	Icon Move Infantry.png	20	9	8	6	4	47
+Bartre Fearless Warrior Face FC.png	Bartre: Fearless Warrior	Icon Class Green Axe.png	Icon Move Infantry.png	21	10	6	7	3	47
+Berkut Prideful Prince Face FC.png	Berkut: Prideful Prince	Icon Class Blue Lance.png	Icon Move Cavalry.png	19	8	5	7	7	46
+Beruka Quiet Assassin Face FC.png	Beruka: Quiet Assassin	Icon Class Green Axe.png	Icon Move Flying.png	20	7	6	9	5	47
+Black Knight Sinister General Face FC.png	Black Knight: Sinister General	Icon Class Red Sword.png	Icon Move Armored.png	22	10	8	9	5	54
+Boey Skillful Survivor Face FC.png	Boey: Skillful Survivor	Icon Class Green Tome.png	Icon Move Infantry.png	19	7	5	8	5	44
+Caeda Talyss Bride Face FC.png	Caeda: Talys's Bride	Icon Class Blue Tome.png	Icon Move Infantry.png	16	7	9	4	8	44
+Caeda Talyss Heart Face FC.png	Caeda: Talys's Heart	Icon Class Red Sword.png	Icon Move Flying.png	17	6	9	5	10	47
+Cain The Bull Face FC.png	Cain: The Bull	Icon Class Red Sword.png	Icon Move Cavalry.png	18	8	6	8	6	46
+Camilla Bewitching Beauty Face FC.png	Camilla: Bewitching Beauty	Icon Class Green Axe.png	Icon Move Flying.png	18	8	8	6	7	47
+Camilla Holiday Traveler Face FC.png	Camilla: Holiday Traveler	Icon Class Red Sword.png	Icon Move Flying.png	18	9	9	7	4	47
+Camilla Spring Princess Face FC.png	Camilla: Spring Princess	Icon Class Green Tome.png	Icon Move Flying.png	17	9	6	8	4	44
+Camilla Tropical Beauty Face FC.png	Camilla: Tropical Beauty	Icon Class Blue Tome.png	Icon Move Flying.png	17	7	10	6	4	44
+Camus Sable Knight Face FC.png	Camus: Sable Knight	Icon Class Blue Lance.png	Icon Move Cavalry.png	18	8	9	7	4	46
+Canas Wisdom Seeker Face FC.png	Canas: Wisdom Seeker	Icon Class Red Tome.png	Icon Move Infantry.png	17	10	5	4	9	45
+Catria Middle Whitewing Face FC.png	Catria: Middle Whitewing	Icon Class Blue Lance.png	Icon Move Flying.png	17	7	10	7	6	47
+Catria Spring Whitewing Face FC.png	Catr    ia: Spring Whitewing	Icon Class Blue Tome.png	Icon Move Cavalry.png	17	6	9	5	6	43
+Cecilia Etrurian General Face FC.png	Cecilia: Etrurian General	Icon Class Green Tome.png	Icon Move Cavalry.png	17	8	6	5	7	43
+Celica Caring Princess Face FC.png	Celica: Caring Princess	Icon Class Red Tome.png	Icon Move Infantry.png	17	8	7	5	7	44
+Celica Imprisoned Soul Face FC.png	Celica: Imprisoned Soul	Icon Class Red Sword.png	Icon Move Infantry.png	18	9	9	5	7	48
+Celica Warrior Priestess Face FC.png	Celica: Warrior Priestess	Icon Class Red Sword.png	Icon Move Infantry.png	16	7	11	7	7	48
+Charlotte Money Maiden Face FC.png	Charlotte: Money Maiden	Icon Class Blue Lance.png	Icon Move Infantry.png	20	10	8	5	4	47
+Cherche Wyvern Friend Face FC.png	Cherche: Wyvern Friend	Icon Class Green Axe.png	Icon Move Flying.png	20	10	6	8	3	47
+Chrom Exalted Prince Face FC.png	Chrom: Exalted Prince	Icon Class Red Sword.png	Icon Move Infantry.png	21	9	6	7	4	47
+Chrom Gifted Leader Face FC.png	Chrom: Gifted Leader	Icon Class Green Axe.png	Icon Move Armored.png	25	12	4	9	5	55
+Chrom Knight Exalt Face FC.png	Chrom: Knight Exalt	Icon Class Red Sword.png	Icon Move Cavalry.png	19	9	6	8	4	46
+Chrom Spring Exalt Face FC.png	Chrom: Spring Exalt	Icon Class Green Axe.png	Icon Move Infantry.png	19	9	8	6	5	47
+Clair Highborn Flier Face FC.png	Clair: Highborn Flier	Icon Class Blue Lance.png	Icon Move Flying.png	18	7	8	5	9	47
+Clarine Refined Noble Face FC.png	Clarine: Refined Noble	Icon Class Colorless Staff.png	Icon Move Cavalry.png	16	6	9	5	7	43
+Clarisse Sniper in the Dark Face FC.png	Clarisse: Sniper in the Dark	Icon Class Colorless Bow.png	Icon Move Infantry.png	18	7	8	6	5	44
+Clive Idealistic Knight Face FC.png	Clive: Idealistic Knight	Icon Class Blue Lance.png	Icon Move Cavalry.png	19	9	6	8	4	46
+Cordelia Knight Paradise Face FC.png	Cordelia: Knight Paradise	Icon Class Blue Lance.png	Icon Move Cavalry.png	17	8	10	6	5	46
+Cordelia Knight Paragon Face FC.png	Cordelia: Knight Paragon	Icon Class Blue Lance.png	Icon Move Flying.png	18	9	9	5	6	47
+Cordelia Perfect Bride Face FC.png	Cordelia: Perfect Bride	Icon Class Colorless Bow.png	Icon Move Infantry.png	17	9	9	4	5	44
+Corrin Enjoying Tradition Face FC.png	Corrin: Enjoying Tradition	Icon Class Colorless Bow.png	Icon Move Infantry.png	18	8	8	6	5	45
+Corrin Fateful Prince Face FC.png	Corrin: Fateful Prince	Icon Class Red Sword.png	Icon Move Infantry.png	20	8	8	6	5	47
+Corrin Fateful Princess Face FC.png	Corrin: Fateful Princess	Icon Class Blue Breath.png	Icon Move Infantry.png	19	8	6	8	6	47
+Corrin Novice Vacationer Face FC.png	Corrin: Novice Vacationer	Icon Class Blue Tome.png	Icon Move Flying.png	17	7	8	5	7	44
+Deirdre Lady of the Forest Face FC.png	Deirdre: Lady of the Forest	Icon Class Green Tome.png	Icon Move Infantry.png	17	9	6	3	9	44
+Delthea Free Spirit Face FC.png	Delthea: Free Spirit	Icon Class Blue Tome.png	Icon Move Infantry.png	16	10	8	3	7	44
+Donnel Village Hero Face FC.png	Donnel: Village Hero	Icon Class Blue Lance.png	Icon Move Infantry.png	17	7	5	6	4	39
+Dorcas Pumpkin Smasher Face FC.png	Dorcas: Pumpkin Smasher	Icon Class Green Axe.png	Icon Move Armored.png	23	11	6	9	6	55
+Dorcas Serene Warrior Face FC.png	Dorcas: Serene Warrior	Icon Class Green Axe.png	Icon Move Infantry.png	19	9	6	9	5	48
+Draug Gentle Giant Face FC.png	Draug: Gentle Giant	Icon Class Red Sword.png	Icon Move Armored.png	24	8	6	13	3	54
+Effie Army of One Face FC.png	Effie: Army of One	Icon Class Blue Lance.png	Icon Move Armored.png	22	12	5	11	4	54
+Eirika Anamnesis Lady Face FC.png	Eirika: Anamnesis Lady	Icon Class Red Tome.png	Icon Move Cavalry.png	17	7	9	5	5	43
+Eirika Restoration Lady Face FC.png	Eirika: Restoration Lady	Icon Class Red Sword.png	Icon Move Infantry.png	18	7	9	7	6	47
+Eldigan Lionheart Face FC.png	Eldigan: Lionheart	Icon Class Red Sword.png	Icon Move Cavalry.png	19	8	5	8	6	46
+Elincia Estival Princess Face FC.png	Elincia: Estival Princess	Icon Class Green Dagger.png	Icon Move Infantry.png	15	5	7	5	4	36
+Elincia Lost Princess Face FC.png	Elincia: Lost Princess	Icon Class Red Sword.png	Icon Move Flying.png	16	8	10	5	8	47
+Elise Budding Flower Face FC.png	Elise: Budding Flower	Icon Class Colorless Staff.png	Icon Move Cavalry.png	15	8	8	4	8	43
+Elise Tropical Flower Face FC.png	Elise: Tropical Flower	Icon Class Green Tome.png	Icon Move Infantry.png	17	10	8	3	6	44
+Eliwood Devoted Love Face FC.png	Eliwood: Devoted Love	Icon Class Blue Lance.png	Icon Move Armored.png	23	10	8	7	7	55
+Eliwood Knight of Lycia Face FC.png	Eliwood: Knight of Lycia	Icon Class Red Sword.png	Icon Move Cavalry.png	17	7	8	6	8	46
+Ephraim Legendary Lord Face FC.png	Ephraim: Legendary Lord	Icon Class Blue Lance.png	Icon Move Cavalry.png	19	10	5	9	3	46
+Ephraim Restoration Lord Face FC.png	Ephraim: Restoration Lord	Icon Class Blue Lance.png	Icon Move Infantry.png	19	9	6	8	5	47
+Ephraim Sacred Twin Lord Face FC.png	Ephraim: Sacred Twin Lord	Icon Class Green Axe.png	Icon Move Armored.png	22	10	5	11	7	55
+Est Junior Whitewing Face FC.png	Est: Junior Whitewing	Icon Class Blue Lance.png	Icon Move Flying.png	17	9	8	5	8	47
+Ethlyn Spirited Princess Face FC.png	Ethlyn: Spirited Princess	Icon Class Colorless Staff.png	Icon Move Cavalry.png	16	6	10	4	7	43
+Fae Divine Dragon Face FC.png	Fae: Divine Dragon	Icon Class Green Breath.png	Icon Move Infantry.png	16	5	4	6	8	39
+Faye Devoted Heart Face FC.png	Faye: Devoted Heart	Icon Class Colorless Bow.png	Icon Move Infantry.png	16	6	3	4	7	36
+Felicia Maid Mayhem Face FC.png	Felicia: Maid Mayhem	Icon Class Colorless Dagger.png	Icon Move Infantry.png	15	6	11	3	9	44
+Finn Lance of Legend Face FC.png	Finn: Lance of Legend	Icon Class Blue Lance.png	Icon Move Cavalry.png	18	8	9	8	3	46
+Fir Sword Student Face FC.png	Fir: Sword Student	Icon Class Red Sword.png	Icon Move Infantry.png	19	6	10	5	7	47
+Fjorm Princess of Ice Face FC.png	Fjorm: Princess of Ice	Icon Class Blue Lance.png	Icon Move Infantry.png	17	8	7	8	8	48
+Flora Cold as Ice Face FC.png	Flora: Cold as Ice	Icon Class Red Dagger.png	Icon Move Infantry.png	16	8	6	5	10	45
+Florina Lovely Flier Face FC.png	Florina: Lovely Flier	Icon Class Blue Lance.png	Icon Move Flying.png	18	7	8	6	8	47
+Frederick Horizon Watcher Face FC.png	Frederick: Horizon Watcher	Icon Class Colorless Dagger.png	Icon Move Infantry.png	18	8	7	6	5	44
+Frederick Polite Knight Face FC.png	Frederick: Polite Knight	Icon Class Green Axe.png	Icon Move Cavalry.png	19	9	6	8	4	46
+Gaius Candy Stealer Face FC.png	Gaius: Candy Stealer	Icon Class Colorless Dagger.png	Icon Move Infantry.png	18	7	10	5	4	44
+Gaius Thief Exposed Face FC.png	Gaius: Thief Exposed	Icon Class Colorless Bow.png	Icon Move Infantry.png	17	8	9	4	6	44
+Garon King of Nohr Face FC.png	Garon: King of Nohr	Icon Class Red Breath.png	Icon Move Infantry.png	17	9	5	9	8	48
+Genny Endearing Ally Face FC.png	Genny: Endearing Ally	Icon Class Colorless Staff.png	Icon Move Infantry.png	17	9	6	4	8	44
+Gerome Masked Rider Face FC.png	Gerome: Masked Rider	Icon Class Green Axe.png	Icon Move Flying.png	19	10	6	8	4	47
+Gordin Altean Archer Face FC.png	Gordin: Altean Archer	Icon Class Colorless Bow.png	Icon Move Infantry.png	19	7	6	8	4	44
+Gray Wry Comrade Face FC.png	Gray: Wry Comrade	Icon Class Red Sword.png	Icon Move Infantry.png	17	7	6	6	3	39
+Gunnthrá Voice of Dreams Face FC.png	Gunnthrá: Voice of Dreams	Icon Class Green Tome.png	Icon Move Cavalry.png	15	7	9	6	6	43
+Gunter Inveterate Soldier Face FC.png	Gunter: Inveterate Soldier	Icon Class Green Axe.png	Icon Move Cavalry.png	21	10	7	11	5	54
+Gwendolyn Adorable Knight Face FC.png	Gwendolyn: Adorable Knight	Icon Class Blue Lance.png	Icon Move Armored.png	23	8	5	12	6	54
+Hana Focused Samurai Face FC.png	Hana: Focused Samurai	Icon Class Red Sword.png	Icon Move Infantry.png	18	9	10	6	4	47
+Hardin Dark Emperor Face FC.png	Hardin: Dark Emperor	Icon Class Blue Lance.png	Icon Move Armored.png	23	8	6	10	8	55
+Hawkeye Desert Guardian Face FC.png	Hawkeye: Desert Guardian	Icon Class Green Axe.png	Icon Move Infantry.png	21	9	5	6	6	47
+Hector Brave Warrior Face FC.png	Hector: Brave Warrior	Icon Class Blue Lance.png	Icon Move Armored.png	24	11	5	9	6	55
+Hector General of Ostia Face FC.png	Hector: General of Ostia	Icon Class Green Axe.png	Icon Move Armored.png	24	10	5	11	4	54
+Hector Just Here to Fight Face FC.png	Hector: Just Here to Fight	Icon Class Green Axe.png	Icon Move Armored.png	24	8	4	12	7	55
+Hector Marquess of Ostia Face FC.png	Hector: Marquess of Ostia	Icon Class Green Axe.png	Icon Move Armored.png	23	10	6	12	4	55
+Helbindi Savage Scourge Face FC.png	Helbindi: Savage Scourge	Icon Class Green Axe.png	Icon Move Infantry.png	18	9	5	9	7	48
+Henry Happy Vampire Face FC.png	Henry: Happy Vampire	Icon Class Green Tome.png	Icon Move Armored.png	17	9	10	4	12	52
+Henry Twisted Mind Face FC.png	Henry: Twisted Mind	Icon Class Red Tome.png	Icon Move Infantry.png	19	6	5	8	6	44
+Hinata Wild Samurai Face FC.png	Hinata: Wild Samurai	Icon Class Red Sword.png	Icon Move Infantry.png	21	8	5	10	3	47
+Hinoka Blue Sky Warrior Face FC.png	Hinoka: Blue Sky Warrior	Icon Class Colorless Bow.png	Icon Move Flying.png	18	6	9	4	7	44
+Hinoka Warrior Princess Face FC.png	Hinoka: Warrior Princess	Icon Class Blue Lance.png	Icon Move Flying.png	19	7	8	6	7	47
+Ike Brave Mercenary Face FC.png	Ike: Brave Mercenary	Icon Class Green Axe.png	Icon Move Infantry.png	17	10	6	9	5	47
+Ike Vanguard Legend Face FC.png	Ike: Vanguard Legend	Icon Class Red Sword.png	Icon Move Infantry.png	19	10	6	9	4	48
+Ike Young Mercenary Face FC.png	Ike: Young Mercenary	Icon Class Red Sword.png	Icon Move Infantry.png	18	9	7	8	5	47
+Inigo Indigo Dancer Face FC.png	Inigo: Indigo Dancer	Icon Class Green Tome.png	Icon Move Infantry.png	15	6	7	5	3	36
+Innes Flawless Form Face FC.png	Innes: Flawless Form	Icon Class Green Axe.png	Icon Move Flying.png	18	9	9	6	5	47
+Innes Regal Strategician Face FC.png	Innes: Regal Strategician	Icon Class Colorless Bow.png	Icon Move Infantry.png	16	9	8	4	7	44
+Ishtar Thunder Goddess Face FC.png	Ishtar: Thunder Goddess	Icon Class Blue Tome.png	Icon Move Infantry.png	16	8	10	4	7	45
+Jaffar Angel of Death Face FC.png	Jaffar: Angel of Death	Icon Class Colorless Dagger.png	Icon Move Infantry.png	17	7	9	6	5	44
+Jagen Veteran Knight Face FC.png	Jagen: Veteran Knight	Icon Class Blue Lance.png	Icon Move Cavalry.png	20	8	7	8	11	54
+Jakob Devoted Monster Face FC.png	Jakob: Devoted Monster	Icon Class Colorless Bow.png	Icon Move Armored.png	20	9	6	9	8	52
+Jakob Devoted Servant Face FC.png	Jakob: Devoted Servant	Icon Class Colorless Dagger.png	Icon Move Infantry.png	17	7	9	6	5	44
+Jamke Prince of Verdane Face FC.png	Jamke: Prince of Verdane	Icon Class Colorless Bow.png	Icon Move Infantry.png	16	8	10	7	4	45
+Jeorge Perfect Shot Face FC.png	Jeorge: Perfect Shot	Icon Class Colorless Bow.png	Icon Move Infantry.png	18	8	8	5	5	44
+Joshua Tempest King Face FC.png	Joshua: Tempest King	Icon Class Red Sword.png	Icon Move Infantry.png	18	7	9	8	6	48
+Julia Nagas Blood Face FC.png	Julia: Naga's Blood	Icon Class Green Tome.png	Icon Move Infantry.png	16	9	7	4	8	44
+Julius Scion of Darkness Face FC.png	Julius: Scion of Darkness	Icon Class Red Tome.png	Icon Move Infantry.png	16	9	8	3	9	45
+Kagero Beverage Ninja Face FC.png	Kagero: Beverage Ninja	Icon Class Green Dagger.png	Icon Move Armored.png	19	12	4	8	9	52
+Kagero Honorable Ninja Face FC.png	Kagero: Honorable Ninja	Icon Class Colorless Dagger.png	Icon Move Infantry.png	16	9	8	5	6	44
+Kagero Spring Ninja Face FC.png	Kagero: Spring Ninja	Icon Class Colorless Dagger.png	Icon Move Flying.png	17	9	8	5	5	44
+Kana Dragon Princess Face FC.png	Kana: Dragon Princess	Icon Class Green Breath.png	Icon Move Infantry.png	18	8	8	7	7	48
+Kana Dragon Spawn Face FC.png	Kana: Dragon Spawn	Icon Class Blue Breath.png	Icon Move Infantry.png	18	9	7	7	7	48
+Karel Sword Demon Face FC.png	Karel: Sword Demon	Icon Class Red Sword.png	Icon Move Infantry.png	19	8	9	6	5	47
+Karla Sword Vassal Face FC.png	Karla: Sword Vassal	Icon Class Red Sword.png	Icon Move Infantry.png	18	7	10	6	7	48
+Katarina Wayward One Face FC.png	Katarina: Wayward One	Icon Class Red Tome.png	Icon Move Infantry.png	17	6	8	5	8	44
+Kaze Easygoing Ninja Face FC.png	Kaze: Easygoing Ninja	Icon Class Colorless Dagger.png	Icon Move Infantry.png	17	6	10	4	8	45
+Klein Silver Nobleman Face FC.png	Klein: Silver Nobleman	Icon Class Colorless Bow.png	Icon Move Infantry.png	18	9	7	5	5	44
+Kliff Curious Spirit Face FC.png	Kliff: Curious Spirit	Icon Class Blue Tome.png	Icon Move Infantry.png	15	6	4	3	9	37
+LArachel Princess of Light Face FC.png	L'Arachel: Princess of Light	Icon Class Blue Tome.png	Icon Move Cavalry.png	16	9	7	4	7	43
+Lachesis Lionhearts Sister Face FC.png	Lachesis: Lionheart's Sister	Icon Class Colorless Staff.png	Icon Move Infantry.png	17	6	8	5	8	44
+Laegjarn Sheathed Steel Face FC.png	Laegjarn: Sheathed Steel	Icon Class Red Sword.png	Icon Move Flying.png	17	8	10	8	4	47
+Laevatein Searing Steel Face FC.png	Laevatein: Searing Steel	Icon Class Red Sword.png	Icon Move Infantry.png	17	11	7	8	5	48
+Laslow Dancing Duelist Face FC.png	Laslow: Dancing Duelist	Icon Class Red Sword.png	Icon Move Infantry.png	20	9	7	6	5	47
+Legault The Hurricane Face FC.png	Legault: The Hurricane	Icon Class Colorless Dagger.png	Icon Move Infantry.png	17	7	10	7	4	45
+Legion Masked Maniac Face FC.png	Legion: Masked Maniac	Icon Class Green Axe.png	Icon Move Infantry.png	20	10	9	5	3	47
+Leif Prince of Leonster Face FC.png	Leif: Prince of Leonster	Icon Class Red Sword.png	Icon Move Infantry.png	18	6	10	8	6	48
+Lene Yearning Dancer Face FC.png	Lene: Yearning Dancer	Icon Class Red Sword.png	Icon Move Infantry.png	16	6	7	4	6	39
+Leo Seashores Prince Face FC.png	Leo: Seashore's Prince	Icon Class Red Tome.png	Icon Move Infantry.png	18	8	5	6	7	44
+Leo Sorcerous Prince Face FC.png	Leo: Sorcerous Prince	Icon Class Red Tome.png	Icon Move Cavalry.png	17	7	5	6	8	43
+Leon True of Heart Face FC.png	Leon: True of Heart	Icon Class Colorless Bow.png	Icon Move Infantry.png	17	8	6	8	5	44
+Lewyn Guiding Breeze Face FC.png	Lewyn: Guiding Breeze	Icon Class Green Tome.png	Icon Move Infantry.png	16	8	11	4	6	45
+Libra Fetching Friar Face FC.png	Libra: Fetching Friar	Icon Class Green Axe.png	Icon Move Infantry.png	18	9	8	6	7	48
+Lilina Blush of Youth Face FC.png	Lilina: Blush of Youth	Icon Class Green Tome.png	Icon Move Cavalry.png	17	9	8	5	4	43
+Lilina Delightful Noble Face FC.png	Lilina: Delightful Noble	Icon Class Red Tome.png	Icon Move Infantry.png	16	9	6	4	9	44
+Linde Light Mage Face FC.png	Linde: Light Mage	Icon Class Blue Tome.png	Icon Move Infantry.png	16	9	10	4	5	44
+Linde Summer Rays Face FC.png	Linde: Summer Rays	Icon Class Colorless Dagger.png	Icon Move Cavalry.png	16	8	9	3	7	43
+Linus Mad Dog Face FC.png	Linus: Mad Dog	Icon Class Green Axe.png	Icon Move Infantry.png	18	9	9	8	4	48
+Lissa Pure Joy Face FC.png	Lissa: Pure Joy	Icon Class Green Axe.png	Icon Move Armored.png	21	9	8	9	8	55
+Lissa Sprightly Cleric Face FC.png	Lissa: Sprightly Cleric	Icon Class Colorless Staff.png	Icon Move Infantry.png	17	7	6	6	8	44
+Lloyd White Wolf Face FC.png	Lloyd: White Wolf	Icon Class Red Sword.png	Icon Move Infantry.png	17	8	9	5	8	47
+Loki The Trickster Face FC.png	Loki: The Trickster	Icon Class Colorless Staff.png	Icon Move Infantry.png	18	9	9	3	6	45
+Lonqu Solitary Blade Face FC.png	Lon'qu: Solitary Blade	Icon Class Red Sword.png	Icon Move Infantry.png	19	7	11	5	5	47
+Lucina Brave Princess Face FC.png	Lucina: Brave Princess	Icon Class Blue Lance.png	Icon Move Infantry.png	17	8	10	8	4	47
+Lucina Future Witness Face FC.png	Lucina: Future Witness	Icon Class Red Sword.png	Icon Move Infantry.png	19	8	10	6	4	47
+Lucina Glorious Archer Face FC.png	Lucina: Glorious Archer	Icon Class Blue Bow.png	Icon Move Infantry.png	17	8	9	6	5	45
+Lucina Spring Exalt Face FC.png	Lucina: Spring Exalt	Icon Class Blue Tome.png	Icon Move Infantry.png	16	7	10	5	6	44
+Lucius The Light Face FC.png	Lucius: The Light	Icon Class Colorless Staff.png	Icon Move Infantry.png	18	6	8	3	9	44
+Lukas Sharp Soldier Face FC.png	Lukas: Sharp Soldier	Icon Class Blue Lance.png	Icon Move Infantry.png	19	9	5	10	4	47
+Luke Rowdy Squire Face FC.png	Luke: Rowdy Squire	Icon Class Red Sword.png	Icon Move Cavalry.png	19	8	6	8	5	46
+Lute Prodigy Face FC.png	Lute: Prodigy	Icon Class Blue Tome.png	Icon Move Infantry.png	16	10	8	3	8	45
+Lyn Brave Lady Face FC.png	Lyn: Brave Lady	Icon Class Colorless Bow.png	Icon Move Cavalry.png	16	7	9	5	6	43
+Lyn Bride of the Plains Face FC.png	Lyn: Bride of the Plains	Icon Class Colorless Staff.png	Icon Move Infantry.png	17	6	10	6	5	44
+Lyn Lady of the Plains Face FC.png	Lyn: Lady of the Plains	Icon Class Red Sword.png	Icon Move Infantry.png	18	6	11	7	5	47
+Lyn Lady of the Wind Face FC.png	Lyn: Lady of the Wind	Icon Class Green Bow.png	Icon Move Infantry.png	17	9	10	4	5	45
+Lyn Winds Embrace Face FC.png	Lyn: Wind's Embrace	Icon Class Blue Tome.png	Icon Move Armored.png	18	9	10	5	10	52
+Lyon Shadow Prince Face FC.png	Lyon: Shadow Prince	Icon Class Red Tome.png	Icon Move Infantry.png	19	10	4	4	8	45
+Mae Bundle of Energy Face FC.png	Mae: Bundle of Energy	Icon Class Blue Tome.png	Icon Move Infantry.png	16	10	7	3	8	44
+Maria Minervas Sister Face FC.png	Maria: Minerva's Sister	Icon Class Colorless Staff.png	Icon Move Infantry.png	17	5	8	4	10	44
+Maribelle Dire Damsel Face FC.png	Maribelle: Dire Damsel	Icon Class Colorless Staff.png	Icon Move Cavalry.png	17	9	9	3	5	43
+Marisa Crimson Flash Face FC.png	Marisa: Crimson Flash	Icon Class Red Sword.png	Icon Move Infantry.png	18	8	10	6	6	48
+Marth Altean Groom Face FC.png	Marth: Altean Groom	Icon Class Green Axe.png	Icon Move Cavalry.png	18	7	10	6	5	46
+Marth Altean Prince Face FC.png	Marth: Altean Prince	Icon Class Red Sword.png	Icon Move Infantry.png	19	7	8	7	6	47
+Marth Enigmatic Blade Face FC.png	Marth: Enigmatic Blade	Icon Class Red Sword.png	Icon Move Infantry.png	19	8	10	6	4	47
+Marth Hero-King Face FC.png	Marth: Hero-King	Icon Class Red Sword.png	Icon Move Infantry.png	18	8	10	8	4	48
+Mathilda Legendary Knight Face FC.png	Mathilda: Legendary Knight	Icon Class Blue Lance.png	Icon Move Cavalry.png	16	7	8	7	8	46
+Matthew Faithful Spy Face FC.png	Matthew: Faithful Spy	Icon Class Colorless Dagger.png	Icon Move Infantry.png	17	6	10	6	5	44
+Merric Wind Mage Face FC.png	Merric: Wind Mage	Icon Class Green Tome.png	Icon Move Infantry.png	19	7	8	6	4	44
+Mia Lady of Blades Face FC.png	Mia: Lady of Blades	Icon Class Red Sword.png	Icon Move Infantry.png	16	8	12	6	6	48
+Mia Moonlit Witch Face FC.png	Mia: Moonlit Witch	Icon Class Colorless Staff.png	Icon Move Flying.png	17	6	10	5	6	44
+Micaiah Priestess of Dawn Face FC.png	Micaiah: Priestess of Dawn	Icon Class Blue Tome.png	Icon Move Infantry.png	16	9	6	5	9	45
+Micaiah Summers Dawn Face FC.png	Micaiah: Summer's Dawn	Icon Class Red Tome.png	Icon Move Infantry.png	14	8	5	3	6	36
+Michalis Ambitious King Face FC.png	Michalis: Ambitious King	Icon Class Green Axe.png	Icon Move Flying.png	19	8	7	9	4	47
+Minerva Red Dragoon Face FC.png	Minerva: Red Dragoon	Icon Class Green Axe.png	Icon Move Flying.png	18	7	9	8	5	47
+Mist Helpful Sister Face FC.png	Mist: Helpful Sister	Icon Class Colorless Staff.png	Icon Move Infantry.png	17	8	6	5	8	44
+Morgan Lad from Afar Face FC.png	Morgan: Lad from Afar	Icon Class Red Tome.png	Icon Move Infantry.png	18	7	8	5	7	45
+Morgan Lass from Afar Face FC.png	Morgan: Lass from Afar	Icon Class Blue Tome.png	Icon Move Flying.png	18	8	6	3	9	44
+Myrrh Great Dragon Face FC.png	Myrrh: Great Dragon	Icon Class Green Breath.png	Icon Move Flying.png	16	7	6	3	7	39
+Myrrh Spooky Monster Face FC.png	Myrrh: Spooky Monster	Icon Class Red Breath.png	Icon Move Armored.png	20	8	4	7	8	47
+Nanna Nordion Princess Face FC.png	Nanna: Nordion Princess	Icon Class Colorless Staff.png	Icon Move Cavalry.png	17	5	8	6	7	43
+Narcian Wyvern General Face FC.png	Narcian: Wyvern General	Icon Class Green Axe.png	Icon Move Flying.png	18	7	7	8	7	47
+Navarre Scarlet Sword Face FC.png	Navarre: Scarlet Sword	Icon Class Red Sword.png	Icon Move Infantry.png	18	7	11	6	5	47
+Nephenee Fierce Halberdier Face FC.png	Nephenee: Fierce Halberdier	Icon Class Blue Lance.png	Icon Move Infantry.png	18	7	9	8	5	47
+Niles Cruel to Be Kind Face FC.png	Niles: Cruel to Be Kind	Icon Class Colorless Bow.png	Icon Move Infantry.png	18	6	8	4	8	44
+Niles Forbidden Tease Face FC.png	Niles: Forbidden Tease	Icon Class Blue Bow.png	Icon Move Armored.png	18	10	11	6	7	52
+Nina Eye Spy Face FC.png	Nina: Eye Spy	Icon Class Colorless Bow.png	Icon Move Infantry.png	16	8	11	3	7	45
+Ninian Bright-Eyed Bride Face FC.png	Ninian: Bright-Eyed Bride	Icon Class Blue Tome.png	Icon Move Flying.png	15	6	7	3	5	36
+Ninian Oracle of Destiny Face FC.png	Ninian: Oracle of Destiny	Icon Class Blue Breath.png	Icon Move Infantry.png	16	5	7	6	5	39
+Nino Pale Flower Face FC.png	Nino: Pale Flower	Icon Class Green Tome.png	Icon Move Flying.png	17	7	10	4	6	44
+Nino Pious Mage Face FC.png	Nino: Pious Mage	Icon Class Green Tome.png	Icon Move Infantry.png	16	7	10	4	7	44
+Noire Shade Seeker Face FC.png	Noire: Shade Seeker	Icon Class Colorless Bow.png	Icon Move Infantry.png	17	8	10	5	5	45
+Nowi Eternal Witch Face FC.png	Nowi: Eternal Witch	Icon Class Red Tome.png	Icon Move Flying.png	17	8	6	5	8	44
+Nowi Eternal Youth Face FC.png	Nowi: Eternal Youth	Icon Class Blue Breath.png	Icon Move Infantry.png	17	6	5	6	5	39
+Oboro Fierce Fighter Face FC.png	Oboro: Fierce Fighter	Icon Class Blue Lance.png	Icon Move Infantry.png	18	8	7	9	5	47
+Odin Potent Force Face FC.png	Odin: Potent Force	Icon Class Blue Tome.png	Icon Move Infantry.png	19	5	8	6	6	44
+Ogma Loyal Blade Face FC.png	Ogma: Loyal Blade	Icon Class Red Sword.png	Icon Move Infantry.png	21	7	10	6	3	47
+Oliver Admirer of Beauty Face FC.png	Oliver: Admirer of Beauty	Icon Class Blue Tome.png	Icon Move Infantry.png	18	8	5	6	8	45
+Olivia Blushing Beauty Face FC.png	Olivia: Blushing Beauty	Icon Class Red Sword.png	Icon Move Infantry.png	17	6	7	5	4	39
+Olivia Festival Dancer Face FC.png	Olivia: Festival Dancer	Icon Class Colorless Dagger.png	Icon Move Infantry.png	15	6	8	3	4	36
+Olivia Sky-High Dancer Face FC.png	Olivia: Sky-High Dancer	Icon Class Red Sword.png	Icon Move Flying.png	17	6	8	4	4	39
+Olwen Blue Mage Knight Face FC.png	Olwen: Blue Mage Knight	Icon Class Blue Tome.png	Icon Move Cavalry.png	17	7	8	5	6	43
+Olwen Righteous Knight Face FC.png	Olwen: Righteous Knight	Icon Class Green Tome.png	Icon Move Cavalry.png	17	8	9	4	5	43
+Ophelia Dramatic Heroine Face FC.png	Ophelia: Dramatic Heroine	Icon Class Blue Tome.png	Icon Move Infantry.png	16	7	9	5	8	45
+Oscar Agile Horseman Face FC.png	Oscar: Agile Horseman	Icon Class Blue Lance.png	Icon Move Cavalry.png	18	7	8	7	6	46
+Owain Chosen One Face FC.png	Owain: Chosen One	Icon Class Red Sword.png	Icon Move Infantry.png	17	8	9	7	7	48
+Palla Eldest Whitewing Face FC.png	Palla: Eldest Whitewing	Icon Class Red Sword.png	Icon Move Flying.png	18	7	9	6	7	47
+Peri Playful Slayer Face FC.png	Peri: Playful Slayer	Icon Class Blue Lance.png	Icon Move Cavalry.png	16	9	9	6	6	46
+Priscilla Delicate Princess Face FC.png	Priscilla: Delicate Princess	Icon Class Colorless Staff.png	Icon Move Cavalry.png	17	7	7	4	8	43
+Quan Luminous Lancer Face FC.png	Quan: Luminous Lancer	Icon Class Blue Lance.png	Icon Move Cavalry.png	20	11	5	7	3	46
+Raigh Dark Child Face FC.png	Raigh: Dark Child	Icon Class Red Tome.png	Icon Move Infantry.png	17	8	7	5	7	44
+Raven Peerless Fighter Face FC.png	Raven: Peerless Fighter	Icon Class Green Axe.png	Icon Move Infantry.png	19	8	9	6	5	47
+Rebecca Wildflower Face FC.png	Rebecca: Wildflower	Icon Class Colorless Bow.png	Icon Move Infantry.png	18	7	8	6	5	44
+Reinhardt Thunders Fist Face FC.png	Reinhardt: Thunder's Fist	Icon Class Blue Tome.png	Icon Move Cavalry.png	16	8	6	5	8	43
+Reinhardt Thunders Sword Face FC.png	Reinhardt: Thunder's Sword	Icon Class Red Sword.png	Icon Move Cavalry.png	18	9	6	7	6	46
+Rhajat Black Magician Face FC.png	Rhajat: Black Magician	Icon Class Green Tome.png	Icon Move Infantry.png	17	9	8	4	7	45
+Robin Fell Reincarnation Face FC.png	Robin: Fell Reincarnation	Icon Class Green Breath.png	Icon Move Armored.png	24	10	7	9	5	55
+Robin Fell Vessel Face FC.png	Robin: Fell Vessel	Icon Class Colorless Breath.png	Icon Move Flying.png	16	8	9	8	6	47
+Robin Festive Tactician Face FC.png	Robin: Festive Tactician	Icon Class Blue Lance.png	Icon Move Armored.png	23	9	8	9	6	55
+Robin High Deliverer Face FC.png	Robin: High Deliverer	Icon Class Blue Tome.png	Icon Move Infantry.png	18	7	7	7	5	44
+Robin Mystery Tactician Face FC.png	Robin: Mystery Tactician	Icon Class Green Tome.png	Icon Move Infantry.png	18	7	7	7	5	44
+Robin Seaside Tactician Face FC.png	Robin: Seaside Tactician	Icon Class Blue Lance.png	Icon Move Infantry.png	18	8	8	6	7	47
+Roderick Steady Squire Face FC.png	Roderick: Steady Squire	Icon Class Blue Lance.png	Icon Move Cavalry.png	18	7	8	6	7	46
+Roy Brave Lion Face FC.png	Roy: Brave Lion	Icon Class Red Sword.png	Icon Move Cavalry.png	16	8	8	7	7	46
+Roy Young Lion Face FC.png	Roy: Young Lion	Icon Class Red Sword.png	Icon Move Infantry.png	20	8	9	6	4	47
+Roy Youthful Gifts Face FC.png	Roy: Youthful Gifts	Icon Class Colorless Bow.png	Icon Move Cavalry.png	17	9	6	5	6	43
+Ryoma Dancing Samurai Face FC.png	Ryoma: Dancing Samurai	Icon Class Blue Dagger.png	Icon Move Infantry.png	14	6	8	4	4	36
+Ryoma Peerless Samurai Face FC.png	Ryoma: Peerless Samurai	Icon Class Red Sword.png	Icon Move Infantry.png	19	8	11	5	4	47
+Ryoma Supreme Samurai Face FC.png	Ryoma: Supreme Samurai	Icon Class Red Sword.png	Icon Move Flying.png	17	8	11	6	5	47
+Saber Driven Mercenary Face FC.png	Saber: Driven Mercenary	Icon Class Red Sword.png	Icon Move Infantry.png	18	7	9	8	5	47
+Saias Bishop of Flame Face FC.png	Saias: Bishop of Flame	Icon Class Blue Tome.png	Icon Move Infantry.png	17	7	8	5	8	45
+Saizo Angry Ninja Face FC.png	Saizo: Angry Ninja	Icon Class Colorless Dagger.png	Icon Move Infantry.png	17	7	8	9	3	44
+Sakura Gentle Nekomata Face FC.png	Sakura: Gentle Nekomata	Icon Class Colorless Dagger.png	Icon Move Infantry.png	16	8	8	4	8	44
+Sakura Loving Priestess Face FC.png	Sakura: Loving Priestess	Icon Class Colorless Staff.png	Icon Move Infantry.png	17	6	8	5	8	44
+Sanaki Apostle in White Face FC.png	Sanaki: Apostle in White	Icon Class Green Tome.png	Icon Move Flying.png	16	10	8	3	7	44
+Sanaki Begnions Apostle Face FC.png	Sanaki: Begnion's Apostle	Icon Class Red Tome.png	Icon Move Infantry.png	16	9	7	4	8	44
+Selena Cutting Wit Face FC.png	Selena: Cutting Wit	Icon Class Red Sword.png	Icon Move Infantry.png	18	6	9	8	6	47
+Seliph Heir of Light Face FC.png	Seliph: Heir of Light	Icon Class Red Sword.png	Icon Move Infantry.png	19	8	7	8	5	47
+Serra Outspoken Cleric Face FC.png	Serra: Outspoken Cleric	Icon Class Colorless Staff.png	Icon Move Infantry.png	16	6	9	4	9	44
+Seth Silver Knight Face FC.png	Seth: Silver Knight	Icon Class Red Sword.png	Icon Move Cavalry.png	18	8	7	8	5	46
+Setsuna Absent Archer Face FC.png	Setsuna: Absent Archer	Icon Class Colorless Bow.png	Icon Move Infantry.png	18	6	9	5	6	44
+Shanna Sprightly Flier Face FC.png	Shanna: Sprightly Flier	Icon Class Blue Lance.png	Icon Move Flying.png	17	8	9	6	7	47
+Sharena Princess of Askr Face FC.png	Sharena: Princess of Askr	Icon Class Blue Lance.png	Icon Move Infantry.png	19	8	8	7	5	47
+Sharena Spring Princess Face FC.png	Sharena: Spring Princess	Icon Class Green Tome.png	Icon Move Infantry.png	18	8	10	3	6	45
+Sheena Princess of Gra Face FC.png	Sheena: Princess of Gra	Icon Class Green Axe.png	Icon Move Armored.png	21	8	6	12	7	54
+Shigure Dark Sky Singer Face FC.png	Shigure: Dark Sky Singer	Icon Class Blue Tome.png	Icon Move Infantry.png	15	7	5	4	5	36
+Shigure Uplifting Artist Face FC.png	Shigure: Uplifting Artist	Icon Class Blue Lance.png	Icon Move Flying.png	18	7	9	5	8	47
+Shiro Raw Talent Face FC.png	Shiro: Raw Talent	Icon Class Blue Lance.png	Icon Move Infantry.png	19	9	6	9	5	48
+Siegbert Future King Face FC.png	Siegbert: Future King	Icon Class Red Sword.png	Icon Move Cavalry.png	19	8	9	7	3	46
+Sigurd Holy Knight Face FC.png	Sigurd: Holy Knight	Icon Class Red Sword.png	Icon Move Cavalry.png	19	9	8	6	4	46
+Silas Loyal Knight Face FC.png	Silas: Loyal Knight	Icon Class Blue Lance.png	Icon Move Cavalry.png	18	9	5	10	4	46
+Silvia Traveling Dancer Face FC.png	Silvia: Traveling Dancer	Icon Class Red Sword.png	Icon Move Infantry.png	16	5	8	4	6	39
+Soleil Adorable Adorer Face FC.png	Soleil: Adorable Adorer	Icon Class Red Sword.png	Icon Move Infantry.png	18	10	9	6	5	48
+Sonya Vengeful Mage Face FC.png	Sonya: Vengeful Mage	Icon Class Green Tome.png	Icon Move Infantry.png	17	7	7	5	8	44
+Sophia Nabata Prophet Face FC.png	Sophia: Nabata Prophet	Icon Class Red Tome.png	Icon Move Infantry.png	18	9	4	6	7	44
+Soren Shrewd Strategist Face FC.png	Soren: Shrewd Strategist	Icon Class Green Tome.png	Icon Move Infantry.png	17	7	9	4	7	44
+Sothe Zephyr Face FC.png	Sothe: Zephyr	Icon Class Colorless Dagger.png	Icon Move Infantry.png	17	10	9	5	4	45
+Stahl Viridian Knight Face FC.png	Stahl: Viridian Knight	Icon Class Red Sword.png	Icon Move Cavalry.png	19	7	7	8	5	46
+Subaki Perfect Expert Face FC.png	Subaki: Perfect Expert	Icon Class Blue Lance.png	Icon Move Flying.png	18	6	9	9	5	47
+Sully Crimson Knight Face FC.png	Sully: Crimson Knight	Icon Class Blue Lance.png	Icon Move Cavalry.png	18	7	8	7	6	46
+Sumia Maid of Flowers Face FC.png	Sumia: Maid of Flowers	Icon Class Blue Lance.png	Icon Move Flying.png	17	6	11	7	6	47
+Tailtiu Thunder Noble Face FC.png	Tailtiu: Thunder Noble	Icon Class Blue Tome.png	Icon Move Infantry.png	17	8	9	4	6	44
+Takumi Empty Vessel Face FC.png	Takumi: Empty Vessel	Icon Class Colorless Bow.png	Icon Move Infantry.png	15	9	10	6	5	45
+Takumi Prince at Play Face FC.png	Takumi: Prince at Play	Icon Class Colorless Bow.png	Icon Move Flying.png	18	9	7	6	4	44
+Takumi Prince of Soup Face FC.png	Takumi: Prince of Soup	Icon Class Colorless Dagger.png	Icon Move Infantry.png	18	8	10	4	5	45
+Takumi Wild Card Face FC.png	Takumi: Wild Card	Icon Class Colorless Bow.png	Icon Move Infantry.png	18	8	7	6	5	44
+Tana Noble and Nimble Face FC.png	Tana: Noble and Nimble	Icon Class Red Tome.png	Icon Move Flying.png	16	7	10	5	6	44
+Tana Winged Princess Face FC.png	Tana: Winged Princess	Icon Class Blue Lance.png	Icon Move Flying.png	17	8	10	6	6	47
+Tharja Normal Girl Face FC.png	Tharja: "Normal Girl"	Icon Class Red Tome.png	Icon Move Armored.png	19	10	5	8	10	52
+Tharja Dark Shadow Face FC.png	Tharja: Dark Shadow	Icon Class Red Tome.png	Icon Move Infantry.png	17	8	8	6	5	44
+Tharja Obsessive Bride Face FC.png	Tharja: Obsessive Bride	Icon Class Red Tome.png	Icon Move Infantry.png	17	9	9	6	4	45
+Tiki Beachside Scion Face FC.png	Tiki: Beachside Scion	Icon Class Red Breath.png	Icon Move Flying.png	16	7	4	8	4	39
+Tiki Dragon Scion Face FC.png	Tiki: Dragon Scion	Icon Class Red Breath.png	Icon Move Infantry.png	15	5	4	8	7	39
+Tiki Legendary Dragon Face FC.png	Tiki: Legendary Dragon	Icon Class Blue Breath.png	Icon Move Armored.png	17	10	11	4	5	47
+Tiki Nagas Voice Face FC.png	Tiki: Naga's Voice	Icon Class Red Breath.png	Icon Move Infantry.png	18	7	6	9	7	47
+Tiki Summering Scion Face FC.png	Tiki: Summering Scion	Icon Class Green Axe.png	Icon Move Infantry.png	18	8	6	8	7	47
+Titania Mighty Mercenary Face FC.png	Titania: Mighty Mercenary	Icon Class Green Axe.png	Icon Move Cavalry.png	18	6	8	6	8	46
+Tobin The Clueless One Face FC.png	Tobin: The Clueless One	Icon Class Red Sword.png	Icon Move Infantry.png	18	7	5	5	4	39
+Ursula Blue Crow Face FC.png	Ursula: Blue Crow	Icon Class Blue Tome.png	Icon Move Cavalry.png	16	7	8	4	8	43
+Valter Dark Moonstone Face FC.png	Valter: Dark Moonstone	Icon Class Blue Lance.png	Icon Move Flying.png	18	8	9	8	4	47
+Veronica Brave Princess Face FC.png	Veronica: Brave Princess	Icon Class Colorless Staff.png	Icon Move Cavalry.png	17	8	10	4	4	43
+Virion Elite Archer Face FC.png	Virion: Elite Archer	Icon Class Colorless Bow.png	Icon Move Infantry.png	20	7	7	7	3	44
+Walhart The Conqueror Face FC.png	Walhart: The Conqueror	Icon Class Green Axe.png	Icon Move Cavalry.png	19	11	5	8	3	46
+Wrys Kindly Priest Face FC.png	Wrys: Kindly Priest	Icon Class Colorless Staff.png	Icon Move Infantry.png	18	5	6	5	10	44
+Xander Dancing Knight Face FC.png	Xander: Dancing Knight	Icon Class Colorless Dagger.png	Icon Move Infantry.png	16	7	4	6	3	36
+Xander Paragon Knight Face FC.png	Xander: Paragon Knight	Icon Class Red Sword.png	Icon Move Cavalry.png	20	8	5	9	4	46
+Xander Spring Prince Face FC.png	Xander: Spring Prince	Icon Class Blue Lance.png	Icon Move Cavalry.png	18	6	6	9	7	46
+Xander Student Swimmer Face FC.png	Xander: Student Swimmer	Icon Class Green Axe.png	Icon Move Infantry.png	19	8	6	8	6	47
+Zelgius Jet-Black General Face FC.png	Zelgius: Jet-Black General	Icon Class Red Sword.png	Icon Move Armored.png	22	10	7	10	6	55
+Zephiel The Liberator Face FC.png	Zephiel: The Liberator	Icon Class Red Sword.png	Icon Move Armored.png	25	9	3	12	5	54

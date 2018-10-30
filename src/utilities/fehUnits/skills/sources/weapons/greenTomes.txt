@@ -1,0 +1,43 @@
+﻿Blizzard	14	2	Grants Res+3. Grants bonus to unit's Atk = total penalties on foe during combat.	400	Yes
+Dancer's Ring	8	2	If unit initiates combat, restores 7 HP to adjacent allies after combat.	200	No
+Dancer's Ring+	12	2	If unit initiates combat, restores 7 HP to adjacent allies after combat.	300	No
+Dark Excalibur	14	2	Deals +10 damage when Special triggers.	400	Yes
+Divine Naga	14	2	Effective against dragon foes.
+Neutralizes foe's bonuses (from skills like Fortify, Rally, etc.) during combat.	400	Yes
+Élivágar	14	2	If unit initiates combat, converts bonuses on foes within 2 spaces of target into penalties through their next actions.	400	Yes
+Elwind	6	2		100	No
+Excalibur	14	2	Effective against flying foes.	400	Yes
+Forseti	14	2	Grants Spd+3. If unit's HP ≥ 50% and unit initiates combat, unit can make a follow-up attack before foe can counterattack.	400	Yes
+Giga Excalibur	14	2	Grants Spd+3. If unit's Spd > foe's Spd, boosts damage dealt by 70% of difference between stats. (Maximum bonus of +7 damage. Combos with Phantom Spd.)	400	Yes
+Green Egg	7	2	If unit initiates combat, restores 4 HP after combat.	200	No
+Green Egg+	11	2	If unit initiates combat, restores 4 HP after combat.	300	No
+Green Gift	8	2	If foe uses bow, dagger, magic, or staff, neutralizes foe's bonuses (from skills like Fortify, Rally, etc.) during combat.	200	No
+Green Gift+	12	2	If foe uses bow, dagger, magic, or staff, neutralizes foe's bonuses (from skills like Fortify, Rally, etc.) during combat.	300	No
+Gronnblade	9	2	Slows Special trigger (cooldown count+1).
+Adds total bonuses on unit to damage dealt.	200	No
+Gronnblade+	13	2	Slows Special trigger (cooldown count+1).
+Adds total bonuses on unit to damage dealt.	300	No
+Gronnowl	6	2	During combat, boosts unit's Atk/Spd/Def/Res by number of adjacent allies × 2.	200	No
+Gronnowl+	10	2	During combat, boosts unit's Atk/Spd/Def/Res by number of adjacent allies × 2.	300	No
+Gronnraven	7	2	Grants weapon-triangle advantage against colorless foes,
+and inflicts weapon-triangle disadvantage on colorless foes during combat.	200	No
+Gronnraven+	11	2	Grants weapon-triangle advantage against colorless foes,
+and inflicts weapon-triangle disadvantage on colorless foes during combat.	300	No
+Gronnwolf	6	2	Effective against cavalry foes.	200	No
+Gronnwolf+	10	2	Effective against cavalry foes.	300	No
+Hibiscus Tome	8	2	Grants Atk/Spd+1 to allies within 2 spaces during combat.	200	No
+Hibiscus Tome+	12	2	Grants Atk/Spd+1 to allies within 2 spaces during combat.	300	No
+Keen Gronnwolf	8	2	Effective against cavalry foes.	200	No
+Keen Gronnwolf+	12	2	Effective against cavalry foes.	300	No
+Muninn's Egg	14	2	Grants Res+3. At start of turn, if unit's HP ≥ 50%, inflicts Atk/Res-5 on foe on the enemy team with the lowest Spd through it's next action.	400	Yes
+Naga	14	2	Effective against dragon foes.
+If foe initiates combat, grants Def/Res+2 during combat.	400	Yes
+Nifl Frostflowers	14	2	Grants Atk+3. During combat, boosts unit's Atk/Spd by number of allies within 2 spaces × 2.
+(Maximum bonus of +6 to each stat.)	400	Yes
+Rexcalibur	9	2		200	No
+Rexcalibur+	13	2		300	No
+Spectral Tome	8	2	After combat, if unit attacked, converts bonuses on foes within 2 spaces of target into penalties through their next actions.	200	No
+Spectral Tome+	12	2	After combat, if unit attacked, converts bonuses on foes within 2 spaces of target into penalties through their next actions.	300	No
+Thunderhead	14	2	Adds total bonuses on unit to damage dealt.	400	Yes
+Wind	4	2		50	No
+Wind's Brand	14	2	At start of turn, inflicts Atk-7 on foe on the enemy team with the highest Atk through its next action.	400	Yes

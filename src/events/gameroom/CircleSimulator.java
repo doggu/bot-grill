@@ -20,17 +20,16 @@ public class CircleSimulator extends ReactionListener {
     private final List<Orb> orbs;
     private final List<Emote> stones;
 
-    public CircleSimulator(Message message, User summoner) {
+    public CircleSimulator(Message message, User summoner, Banner banner) {
         super();
         this.circleMessage = message;
         this.summoner = summoner;
-        List<Banner> list = BannerDatabase.getList();
-        this.banner = list.get(list.size()-1); //temp
+        this.banner = banner;
         this.orbs = generateOrbs();
 
         List<Emote> stones = new ArrayList<>();
-        int rOrbs = 1, bOrbs = 1, gOrbs = 1, cOrbs = 1;
 
+        int rOrbs = 1, bOrbs = 1, gOrbs = 1, cOrbs = 1;
         for (Orb x:orbs) {
             Emote stone;
             switch (x.getColor()) {

@@ -155,16 +155,16 @@ public class SkillDatabase {
     }
 
     public static List<Skill> getList() {
-        File swordsFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\swords.txt");
-        File lancesFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\lances.txt");
-        File axesFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\axes.txt");
-        File redTomesFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\redTomes.txt");
-        File blueTomesFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\blueTomes.txt");
-        File greenTomesFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\greenTomes.txt");
-        File bowsFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\bows.txt");
-        File breathsFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\breaths.txt");
-        File daggersFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\daggers.txt");
-        File stavesFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\staves.txt");
+        File swordsFile = new File("./src/utilities/fehUnits/skills/sources/weapons/swords.txt");
+        File lancesFile = new File("./src/utilities/fehUnits/skills/sources/weapons/lances.txt");
+        File axesFile = new File("./src/utilities/fehUnits/skills/sources/weapons/axes.txt");
+        File redTomesFile = new File("./src/utilities/fehUnits/skills/sources/weapons/redTomes.txt");
+        File blueTomesFile = new File("./src/utilities/fehUnits/skills/sources/weapons/blueTomes.txt");
+        File greenTomesFile = new File("./src/utilities/fehUnits/skills/sources/weapons/greenTomes.txt");
+        File bowsFile = new File("./src/utilities/fehUnits/skills/sources/weapons/bows.txt");
+        File breathsFile = new File("./src/utilities/fehUnits/skills/sources/weapons/breaths.txt");
+        File daggersFile = new File("./src/utilities/fehUnits/skills/sources/weapons/daggers.txt");
+        File stavesFile = new File("./src/utilities/fehUnits/skills/sources/weapons/staves.txt");
         //middle button selection is a life saver
         Scanner swords;
         try {
@@ -237,12 +237,12 @@ public class SkillDatabase {
             throw new Error();
         }
 
-        File assistsFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\assists.txt");
-        File specialsFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\specials.txt");
-        File passivesAFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\passives\\a.txt");
-        File passivesBFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\passives\\b.txt");
-        File passivesCFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\passives\\c.txt");
-        File passivesSFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\passives\\s.txt");
+        File assistsFile = new File("./src/utilities/fehUnits/skills/sources/assists.txt");
+        File specialsFile = new File("./src/utilities/fehUnits/skills/sources/specials.txt");
+        File passivesAFile = new File("./src/utilities/fehUnits/skills/sources/passives/a.txt");
+        File passivesBFile = new File("./src/utilities/fehUnits/skills/sources/passives/b.txt");
+        File passivesCFile = new File("./src/utilities/fehUnits/skills/sources/passives/c.txt");
+        File passivesSFile = new File("./src/utilities/fehUnits/skills/sources/passives/s.txt");
 
         Scanner assists;
         try {

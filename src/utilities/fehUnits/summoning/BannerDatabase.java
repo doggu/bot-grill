@@ -91,7 +91,7 @@ public class BannerDatabase {
     public static List<Banner> getList() {
         Scanner archive;
         try {
-            archive = new Scanner(new File(".\\src\\utilities\\fehUnits\\summoning\\archive.txt"));
+            archive = new Scanner(new File("./src/utilities/fehUnits/summoning/archive.txt"));
         } catch (FileNotFoundException g) {
             throw new Error();
         }

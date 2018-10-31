@@ -191,9 +191,9 @@ public class UnitDatabase {
     }
 
     private static ArrayList<Character> getList() {
-        File growthsFile = new File(".\\src\\utilities\\fehUnits\\heroes\\sources\\UnitGrowths.txt");
-        File lv1StatsFile = new File(".\\src\\utilities\\fehUnits\\heroes\\sources\\LV1Stats.txt");
-        File heroListFile = new File(".\\src\\utilities\\fehUnits\\heroes\\sources\\UnitTyping.txt");
+        File growthsFile = new File("./src/utilities/fehUnits/heroes/sources/UnitGrowths.txt");
+        File lv1StatsFile = new File("./src/utilities/fehUnits/heroes/sources/LV1Stats.txt");
+        File heroListFile = new File("./src/utilities/fehUnits/heroes/sources/UnitTyping.txt");
 
         Scanner growths;
         try {

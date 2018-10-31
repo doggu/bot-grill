@@ -23,9 +23,9 @@ public abstract class ReactionListener extends ListenerAdapter {
     protected abstract boolean isCommand();
     protected abstract void onCommand();
 
-    protected void sendMessage(String message) {
+    protected Message sendMessage(String message) {
         MessageAction g = e.getChannel().sendMessage(message);
-        g.queue();
+        return g.complete();
     }
 
     void addReaction(Emote emote) {

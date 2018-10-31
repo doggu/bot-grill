@@ -65,7 +65,7 @@ public class Banner {
         for (Character x:summonableCharacters) {
             GregorianCalendar characterReleaseDate = x.getReleaseDate();
 
-            if (characterReleaseDate.compareTo(poolCutoff)>0) {
+            //if (characterReleaseDate.compareTo(poolCutoff)>0) {
                 switch (x.getRarity()) {
                     case 1:
                     case 2:
@@ -81,7 +81,7 @@ public class Banner {
                         rarity5Pool.add(x);
                         break;
                 }
-            }
+            //}
         }
 
         return pools;

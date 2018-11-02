@@ -95,6 +95,8 @@ public class Banner {
     }
 
     public String getName() { return name; }
+    public GregorianCalendar getStartDate() { return startDate; }
+    public GregorianCalendar getEndDate() { return endDate; }
 
     public List<Character> getRarityFPool() { return new ArrayList<>(rarityFPool); }
     public List<Character> getRarity5Pool() { return new ArrayList<>(rarity5Pool); }

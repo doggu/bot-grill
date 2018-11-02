@@ -9,10 +9,6 @@ public class BannerDatabase {
     private static List<Banner> processFiles(Scanner archive) {
         List<Banner> banners = new ArrayList<>();
 
-        //TODO: not written
-        //TODO: NOTE: Month is zero based; January = 0, etc.
-
-
         while (archive.hasNextLine()) {
             String name;
             List<Character> focusUnits = new ArrayList<>();
@@ -47,7 +43,8 @@ public class BannerDatabase {
                 focusUnits.add(focusUnit);
                 bannerLines.remove(0);
             }
-            
+
+            //NOTE: Month is zero based; January = 0, etc. (accounted for in Object classes)
             String  startDateData = bannerLines.get(0), 
                     endDateData = bannerLines.get(1);
             String[] startDateArr = startDateData.substring(startDateData.indexOf("\t")+1).split("-");
@@ -72,26 +69,21 @@ public class BannerDatabase {
         return banners;
     }
 
-    //TODO: not written
-    //TODO: not written
-    //TODO: not written
-    //TODO: not written
-    //TODO: not written
-    //TODO: not written
-    //TODO: not written
-    //TODO: not written
-    //TODO: not written
-    //TODO: not written
-    //TODO: not written
-    //TODO: not written
-    //TODO: not written
-    //TODO: not written
 
 
     public static List<Banner> getList() {
+        String[] archivePath = {
+                ".",
+                "src",
+                "utilities",
+                "fehUnits",
+                "summoning",
+                "archive.txt"
+        };
+        File archiveFile = new File("./src/utilities/fehUnits/summoning/archive.txt");
         Scanner archive;
         try {
-            archive = new Scanner(new File("./src/utilities/fehUnits/summoning/archive.txt"));
+            archive = new Scanner(archiveFile);
         } catch (FileNotFoundException g) {
             throw new Error();
         }

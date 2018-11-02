@@ -23,7 +23,7 @@ public class Orb {
     }
 
     private Unit generateUnit() {
-        //TODO: actually like, make (Character, IVs)
+        //TODO: actually like, make (Character, IVs, correct summoning rates)
         Unit hero;
 
         Character character;
@@ -32,22 +32,23 @@ public class Orb {
         if (r<0.03) {
             rarity = 5;
             character = banner.getRarityFPool().get((int)(Math.random()*banner.getRarityFPool().size()));
-            System.out.println(banner.getRarityFPool().size());
+            //System.out.println(banner.getRarityFPool().size());
         } else if (r<0.06) {
             rarity = 5;
             character = banner.getRarity5Pool().get((int)(Math.random()*banner.getRarity5Pool().size()));
-            System.out.println(banner.getRarity5Pool().size());
+            //System.out.println(banner.getRarity5Pool().size());
         } else if (r<0.50) {
             rarity = 4;
             character = banner.getRarity4Pool().get((int)(Math.random()*banner.getRarity4Pool().size()));
-            System.out.println(banner.getRarity4Pool().size());
+            //System.out.println(banner.getRarity4Pool().size());
         } else {
             rarity = 3;
             character = banner.getRarity3Pool().get((int)(Math.random()*banner.getRarity3Pool().size()));
-            System.out.println(banner.getRarity3Pool().size());
+            //System.out.println(banner.getRarity3Pool().size());
         }
 
-        hero = new Unit(character, rarity,2, 0);
+        //TODO: implement actual IVs (and print them somehow when summoning)
+        hero = new Unit(character, rarity);
 
         return hero;
     }

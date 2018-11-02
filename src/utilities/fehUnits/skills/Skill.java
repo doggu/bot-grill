@@ -1,6 +1,6 @@
 package utilities.fehUnits.skills;
 
-public class Skill {
+public abstract class Skill {
     //0 = weapon, 1 = assist, 2 = special,
     //3 = a passive, 4 = b passive, 5 = c passive, 6 = seal
     final String name, description;

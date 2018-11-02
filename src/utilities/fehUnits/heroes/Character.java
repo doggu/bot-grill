@@ -68,7 +68,7 @@ public class Character {
         }
 
         //there's probably a way to clone this, my brain is just too small
-        Character j = list.get(0);
+        Character j = correctName.get(0);
         this.name = j.getName();
         this.epithet = j.getEpithet();
         this.origin = j.getOrigin();

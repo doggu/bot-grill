@@ -124,6 +124,7 @@ public class CircleSimulator extends ReactionListener {
                     return;
                 }
 
+                //summoner.openPrivateChannel().complete().sendMessage(FEHRetriever.printUnit(hero, true)).complete();
                 sendMessage(FEHRetriever.printUnit(hero, true));
             }
         }

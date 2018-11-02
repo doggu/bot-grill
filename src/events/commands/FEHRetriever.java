@@ -353,7 +353,13 @@ public class FEHRetriever extends Command {
 
         if (skillList.length()>0) sendMessage(skillList.toString());
 
-        log("i did it");
+        StringBuilder report = new StringBuilder("found skills for doggu:");
+
+        for (Skill x:candidates) {
+            report.append("\n\t\t\t\t\t\t").append(x.getName());
+        }
+
+        log(report.toString());
     }
 
     private List<Emote> moveTypeEmotes;
@@ -381,9 +387,7 @@ public class FEHRetriever extends Command {
 
         //TODO: overhaul emote grabbing in general
         try { //get relevant data for calling the movement type emote
-            String[] nameArr = x.getMoveType().split(" ");
-            StringBuilder name = new StringBuilder("Icon_Move");
-            for (String a:nameArr) name.append("_").append(a);
+            String name = "Icon_Move_"+x.getMoveType();
             moveType = fehIconEmotes.get(0);
             for (Emote e:fehIconEmotes) {
                 moveType = e;
@@ -404,7 +408,6 @@ public class FEHRetriever extends Command {
                 if (e.getName().equals(name))
                     break;
             }
-            weaponType = fehIconEmotes.get(0);
         } catch (IndexOutOfBoundsException kjsgf) {
             //log("an emote is missing or unimplemented!");
             //TODO: make question mark icon or something

@@ -1,5 +1,7 @@
 package utilities.fehUnits.heroes;
 
+import utilities.ScannerUtil;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -184,16 +186,24 @@ public class UnitDatabase {
         while(!character.equals("quit")) {
             for (Character x:characters)
                 if (x.getName().toLowerCase().equals(character))
-                    System.out.println(x.toString());
+                    System.out.println(x.getName());
 
-            character = console.nextLine();
+            character = console.nextLine().toLowerCase();
         }
     }
 
     private static ArrayList<Character> getList() {
-        File growthsFile = new File("./src/utilities/fehUnits/heroes/sources/UnitGrowths.txt");
-        File lv1StatsFile = new File("./src/utilities/fehUnits/heroes/sources/LV1Stats.txt");
-        File heroListFile = new File("./src/utilities/fehUnits/heroes/sources/UnitTyping.txt");
+        //i oughta just keep this info elsewhere
+        String[] growthsPath = {
+                ".", "src", "utilities", "fehUnits", "heroes", "sources", "UnitGrowths.txt"};
+        String[] lv1StatsPath = {
+                ".", "src", "utilities", "fehUnits", "heroes", "sources", "LV1Stats.txt"};
+        String[] heroListPath = {
+                ".", "src", "utilities", "fehUnits", "heroes", "sources", "UnitTyping.txt"};
+
+        File growthsFile = ScannerUtil.createFile(growthsPath);
+        File lv1StatsFile = ScannerUtil.createFile(lv1StatsPath);
+        File heroListFile = ScannerUtil.createFile(heroListPath);
 
         Scanner growths;
         try {

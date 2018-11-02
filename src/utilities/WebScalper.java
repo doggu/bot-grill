@@ -10,6 +10,7 @@ import java.net.URLConnection;
 
 public class WebScalper {
 
+    //TODO: one day
     public static void main(String[] args) throws IOException {
 
         // Make a URL to the web page

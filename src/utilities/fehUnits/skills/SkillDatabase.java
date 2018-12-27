@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class SkillDatabase {
+    private static final boolean TESTING = false;
     //currently only for basic info, such as SP cost and description
     private static List<Skill> processFiles(
                 Scanner swords, Scanner lances, Scanner axes,
@@ -34,7 +35,6 @@ public class SkillDatabase {
         };
 
         List<Weapon> weapons = new ArrayList<>();
-        //int TEST_VALUE = 0;
         for (Scanner wepTypeScanner:weaponScanners) {
             while (wepTypeScanner.hasNextLine()) {
                 Scanner line = new Scanner(wepTypeScanner.nextLine());
@@ -47,7 +47,6 @@ public class SkillDatabase {
                     line = new Scanner(wepTypeScanner.nextLine());
                     line.useDelimiter("\t");
                     description+= " "+line.next();
-                    //TEST_VALUE++; System.out.println("woah i did line "+TEST_VALUE+" (desc. addition)");
                 }
 
                 int cost = Integer.parseInt(line.next());
@@ -56,7 +55,6 @@ public class SkillDatabase {
                 Weapon weapon = new Weapon(name, description, 'W', cost, exclusive, mt, rng);
 
                 weapons.add(weapon);
-                //TEST_VALUE++; System.out.println("woah i did line "+TEST_VALUE);
             }
         }
 
@@ -96,13 +94,16 @@ public class SkillDatabase {
                 line.useDelimiter("\t");
                 description+= " "+line.next();
             }
+
+            if (TESTING) System.out.println(description);
+
             int cost = Integer.parseInt(line.next());
             int cd = Integer.parseInt(line.next());
             boolean exclusive = cost>300;       // TODO: same here
                                                 // (doesn't work for galeforce and aether)
 
 
-            Special special = new Special(name, description, 'A', cost, exclusive, cd);
+            Special special = new Special(name, description, 'S', cost, exclusive, cd);
             specialSkills.add(special);
         }
 
@@ -125,7 +126,6 @@ public class SkillDatabase {
     private static List<Skill> processPassives(Scanner list, char slot) {
         List<Skill> passives = new ArrayList<>();
 
-        boolean TESTING = false;
         int TEST_VALUE = 0;
         while (list.hasNextLine()) {
             Scanner line = new Scanner(list.nextLine());
@@ -138,17 +138,15 @@ public class SkillDatabase {
                 line = new Scanner(list.nextLine());
                 line.useDelimiter("\t");
                 description+= " "+line.next();
-
-                if (TESTING) { TEST_VALUE++; System.out.println("woah i did line "+TEST_VALUE); }
             }
+
+            if (TESTING) System.out.println(description);
 
             int cost = Integer.parseInt(line.next());
             boolean exclusive = line.next().equals("Yes");
 
             Skill skill = new Passive(name, description, slot, cost, exclusive);
             passives.add(skill);
-
-            if (TESTING) { TEST_VALUE++; System.out.println("woah i did line "+TEST_VALUE); }
         }
 
         return passives;

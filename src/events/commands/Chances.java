@@ -5,7 +5,7 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 public class Chances extends Command {
     public void onCommand() {
-        int r = (int)(Math.random()*100+1);
+        int r = (int)(java.lang.Math.random()*100+1);
         sendMessage(r+"%");
 
         String log = "determined";

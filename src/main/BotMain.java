@@ -24,7 +24,7 @@ public class BotMain {
 
     public static void main(String[] args) throws Exception {
         bot_grill = new JDABuilder(AccountType.BOT)
-                .setToken("NDMzMDk5ODY3ODA0NDAxNjc0.DptCmw.WcO4_vqaoDtuyS1oU-rRygjQ-6w")
+                .setToken("NTA4Mzg5NTE3MzIyMDkyNTY2.Dr-iOQ.ZV6is6H3qK60MraMmxlBlvmNJY8")
                 .build();
 
         bot_grill.awaitReady();
@@ -48,6 +48,7 @@ public class BotMain {
         addListener(listenerDevTools);
         addListener(summonSimulator);
         addListener(new Reactions());
+        addListener(new Maffs());
 
         //ex:
         //removeListener(listenerChances);
@@ -58,6 +59,10 @@ public class BotMain {
             boolean kill = false;
             String command = console.nextLine();
             switch (command) {
+                case "getListeners":
+                    for (Object x:bot_grill.getRegisteredListeners()) {
+                        System.out.println(x);
+                    }
                 case "refresh":
                     removeListener(listenerChances);
                     removeListener(listenerFEHRetriever);

@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Banner {
     private final String name;
-    private final List<Character> characters = UnitDatabase.characters;
+    private final List<Character> characters = new ArrayList<>(UnitDatabase.characters);
     private final List<Character> rarityFPool;
     private final List<Character> rarity5Pool;
     private final List<Character> rarity4Pool;
@@ -45,6 +45,8 @@ public class Banner {
      * directly modifies rarity pool fields
      */
     private List<List<Character>> generatePools() {
+        //System.out.println("\nGenerating pools for: "+this.getName());
+
         List<Character> rarity5Pool = new ArrayList<>();
         List<Character> rarity4Pool = new ArrayList<>();
         List<Character> rarity3Pool = new ArrayList<>();
@@ -57,41 +59,87 @@ public class Banner {
         GregorianCalendar poolCutoff = (GregorianCalendar) startDate.clone();
 
         //creates a list of characters that could be summoned in normal pools
-        List<Character> summonableCharacters = new ArrayList<>();
-        for (Character x:characters)
-            if (x.isInNormalPool())
-                summonableCharacters.add(x);
+        for (Character x:characters) {
+            GregorianCalendar characterReleaseDate = (GregorianCalendar) x.getReleaseDate().clone();
+            characterReleaseDate.add(GregorianCalendar.DAY_OF_MONTH, 20); //TODO: this value is not always correct
+            //if character is summonable
+            if (!x.isInNormalPool()) {
+                //System.out.println("skipped (not normal pool): " + x.getName()+": " + x.getEpithet());
+                continue;
+            }
 
-        for (Character x:summonableCharacters) {
-            GregorianCalendar characterReleaseDate = x.getReleaseDate();
-
-            //if (characterReleaseDate.compareTo(poolCutoff)>0) {
-                switch (x.getRarity()) {
-                    case 1:
-                    case 2:
-                    case 3:
-                        rarity3Pool.add(x);
-                        rarity4Pool.add(x);
-                        break;
-                    case 4:
-                        rarity4Pool.add(x);
-                        rarity5Pool.add(x);
-                        break;
-                    case 5:
-                        rarity5Pool.add(x);
-                        break;
+            // compareTo returns:
+            // if this is the same date as arg, 0
+            // if this is before arg, -1
+            // if this is after arg, 1
+            // if character's banner ended after this banner's start
+            GregorianCalendar gameRelease =
+                    new GregorianCalendar(2017,2,2);
+            gameRelease.add(GregorianCalendar.DAY_OF_MONTH, 20);
+            if (characterReleaseDate.compareTo(gameRelease)==0) {
+                //it's k
+            } else {
+                if (characterReleaseDate.compareTo(poolCutoff)>=0) {
+                    //System.out.println("skipped (too new): " + x.getName()+": " + x.getEpithet());
+                    continue;
                 }
-            //}
+            }
+
+            //System.out.println("added (" + x.getRarity() + "): " + x.getName() + ": " + x.getEpithet());
+
+            switch (x.getRarity()) {
+                case 1:
+                case 2:
+                case 3:
+                    rarity3Pool.add(x);
+                    rarity4Pool.add(x);
+                    break;
+                case 4:
+                    rarity4Pool.add(x);
+                    rarity5Pool.add(x);
+                    break;
+                case 5:
+                    rarity5Pool.add(x);
+                    break;
+                default:
+                    System.out.println("ahHHhHHhhhHHh");
+                    throw new Error();
+            }
         }
 
         return pools;
     }
 
     private void generateRates() {
+        String[] args = getName().split(" ");
+        switch(args[0]) {
+            default:
+            case "Focus:":
+                rarityFrate = 3;
+                rarity5rate = 3;
+                rarity4rate = 58;
+                rarity3rate = 36;
+                break;
+            //the banner feat. marth, lucina, robin, tiki doesn't register due "legendary" being args[1]
+            case "Legendary":
+                rarityFrate = 8;
+                rarity5rate = 0;
+                rarity4rate = 58;
+                rarity3rate = 34;
+                break;
+            //"Hero" works for hero fest since it's the only banner starting with "Hero"
+            case "Hero":
+                rarityFrate = 5;
+                rarity5rate = 3;
+                rarity4rate = 58;
+                rarity3rate = 34;
+                break;
+        }
+
+        //TODO: create new class for banner instances? (for storing pity, summoner data, etc.)
+
         //TODO: KEEP NOTE: pity rates are added based on the ratio between focus and normal 5* pool (always 0.50% total)
         //TODO: e.x. Hero Fest (the only real example here): 5%, 3% --->
-
-
     }
 
     public String getName() { return name; }
@@ -102,6 +150,11 @@ public class Banner {
     public List<Character> getRarity5Pool() { return new ArrayList<>(rarity5Pool); }
     public List<Character> getRarity4Pool() { return new ArrayList<>(rarity4Pool); }
     public List<Character> getRarity3Pool() { return new ArrayList<>(rarity3Pool); }
+
+    public double getRarityFRate() { return rarityFrate; }
+    public double getRarity5Rate() { return rarity5rate; }
+    public double getRarity4Rate() { return rarity4rate; }
+    public double getRarity3Rate() { return rarity3rate; }
 
 
 
@@ -124,10 +177,8 @@ public class Banner {
         Banner g = new Banner(name, focuses, start, end);
 
         int i;
-        for (i=0; true; i++) {
-            int value = end.compareTo(start);
-            //System.out.println(end.compareTo(start));
-            if (value<=0) break;
+        for (i=0; end.compareTo(start)<=0; i++) {
+            System.out.println(end.compareTo(start));
             start.add(Calendar.DAY_OF_MONTH, 1);
         }
 

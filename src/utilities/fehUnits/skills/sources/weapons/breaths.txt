@@ -1,23 +1,26 @@
 ﻿Breath of Blight	16	1	Neutralizes "effective against dragons" bonuses. At the start of turn 4, deals 10 damage to foes within 3 spaces, and restores HP to unit = number of foes within 3 spaces × 5. If foe's Range = 2, calculates damage using the lower of foe's Def or Res.	400	Yes
 Breath of Fog	16	1	Effective against dragon foes. At the start of every second turn, restores 10 HP. If foe's Range = 2, calculates damage using the lower of foe's Def or Res.	400	Yes
-Dark Breath	9	1	If unit initiates combat, inflicts Atk/Spd-5 on foes within 2 spaces of target through their next actions after combat.	200	No
 Dark Breath+	13	1	If unit initiates combat, inflicts Atk/Spd-5 on foes within 2 spaces of target through their next actions after combat.	300	No
+Dark Breath	9	1	If unit initiates combat, inflicts Atk/Spd-5 on foes within 2 spaces of target through their next actions after combat.	200	No
 Divine Mist	16	1	Effective against dragon foes. Unit can counterattack regardless of foe's range. If foe's Range = 2, calculates damage using the lower of foe's Def or Res.	400	Yes
+Draconic Rage	16	1	Accelerates Special trigger (cooldown count-1). If the number of allies within 2 spaces (excluding unit) > the number of foes within 2 spaces (excluding target), grants Atk/Spd+5 during combat. If foe's Range = 2, calculates damage using the lower of foe's Def or Res.	400	Yes
 Expiration	16	1	Unit can counterattack regardless of foe's range. If foe's Range = 2, calculates damage using the lower of foe's Def or Res.	400	Yes
-Fire Breath	6	1		50	No
 Fire Breath+	8	1		100	No
-Flametongue	11	1		200	No
+Fire Breath	6	1		50	No
 Flametongue+	15	1		300	No
-Great Flame	16	1	Grants Atk+3. If unit’s Def ≥ foe’s Def+5, foe cannot make a follow-up attack. If foe's Range = 2, calculates damage using the lower of foe's Def or Res.	400	Yes
-Light Breath	9	1	If unit initiates combat, grants Def/Res+4 to adjacent allies for 1 turn after combat.	200	No
+Flametongue	11	1		200	No
+Glittering Breath+	14	1	During combat, boosts unit's Def/Res by number of allies within 2 spaces × 2. (Maximum bonus of +6 to each stat.) If foe's Range = 2, calculates damage using the lower of foe's Def or Res.	300	No
+Glittering Breath	10	1	During combat, boosts unit's Def/Res by number of allies within 2 spaces × 2. (Maximum bonus of +6 to each stat.) If foe's Range = 2, calculates damage using the lower of foe's Def or Res.	200	No
+Great Flame	16	1	Grants Atk+3. If unit's Def ≥ foe's Def+5, foe cannot make a follow-up attack. If foe's Range = 2, calculates damage using the lower of foe's Def or Res.	400	Yes
 Light Breath+	13	1	If unit initiates combat, grants Def/Res+4 to adjacent allies for 1 turn after combat.	300	No
-Lightning Breath	7	1	Slows Special trigger (cooldown count+1).
-Unit can counterattack regardless of foe's range.	200	No
+Light Breath	9	1	If unit initiates combat, grants Def/Res+4 to adjacent allies for 1 turn after combat.	200	No
 Lightning Breath+	11	1	Slows Special trigger (cooldown count+1).
 Unit can counterattack regardless of foe's range.	300	No
-Spirit Breath	16	1	Grants Def+3. If unit initiates combat and unit’s Def ≥ foe’s Def+5, unit makes a guaranteed follow-up attack. If foe's Range = 2, calculates damage using the lower of foe's Def or Res.	400	Yes
+Lightning Breath	7	1	Slows Special trigger (cooldown count+1).
+Unit can counterattack regardless of foe's range.	200	No
+Spirit Breath	16	1	Grants Def+3. If unit initiates combat and unit's Def ≥ foe's Def+5, unit makes a guaranteed follow-up attack. If foe's Range = 2, calculates damage using the lower of foe's Def or Res.	400	Yes
 Summer's Breath	16	1	Effective against dragon foes. Grants Def+3. If foe initiates combat, grants Special cooldown charge +1 per attack during combat. (Only highest value applied. Does not stack.) If foe's Range = 2, calculates damage using the lower of foe's Def or Res.	400	Yes
-Water Breath	10	1	If foe initiates combat, grants Def/Res+4 during combat.
-If foe's Range = 2, calculates damage using the lower of foe's Def or Res.	200	No
 Water Breath+	14	1	If foe initiates combat, grants Def/Res+4 during combat.
 If foe's Range = 2, calculates damage using the lower of foe's Def or Res.	300	No
+Water Breath	10	1	If foe initiates combat, grants Def/Res+4 during combat.
+If foe's Range = 2, calculates damage using the lower of foe's Def or Res.	200	No

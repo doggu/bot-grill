@@ -27,6 +27,8 @@ public abstract class MessageListener extends ListenerAdapter {
             onCommand();
     }
 
+    //prolly wanna avoid using this first one for habitual reasons
+    protected Message sendMessage(StringBuilder message) { return sendMessage(message.toString()); }
     protected Message sendMessage(String message) {
         return e.getChannel().sendMessage(message).complete();
     }

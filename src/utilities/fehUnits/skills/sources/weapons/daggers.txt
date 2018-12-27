@@ -1,56 +1,60 @@
-﻿Barb Shuriken	8	2	Accelerates Special trigger (cooldown count-1).
-After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	200	No
-Barb Shuriken+	12	2	Accelerates Special trigger (cooldown count-1).
+﻿Barb Shuriken+	12	2	Accelerates Special trigger (cooldown count-1).
 After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces of target through their next actions.	300	No
-Bottled Juice	8	2	Inflicts Special cooldown charge -1 on foe per attack during combat. (Only highest value applied. Does not stack.) After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces of target through their next actions.	200	No
+Barb Shuriken	8	2	Accelerates Special trigger (cooldown count-1).
+After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	200	No
 Bottled Juice+	12	2	Inflicts Special cooldown charge -1 on foe per attack during combat. (Only highest value applied. Does not stack.) After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces of target through their next actions.	300	No
-Cloud Maiougi	8	2	Effective against dragon foes. Disables unit's and foe's skills that change attack priority. After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	200	No
+Bottled Juice	8	2	Inflicts Special cooldown charge -1 on foe per attack during combat. (Only highest value applied. Does not stack.) After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	200	No
 Cloud Maiougi+	12	2	Effective against dragon foes. Disables unit's and foe's skills that change attack priority. After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces of target through their next actions.	300	No
-Dancer's Fan	7	2	If unit initiates combat, restores 7 HP to adjacent allies after combat.
-After combat, if unit attacked, inflicts Def/Res-5 on foe through its next action.	200	No
+Cloud Maiougi	8	2	Effective against dragon foes. Disables unit's and foe's skills that change attack priority. After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	200	No
 Dancer's Fan+	10	2	If unit initiates combat, restores 7 HP to adjacent allies after combat.
 After combat, if unit attacked, inflicts Def/Res-7 on foe through its next action.	300	No
+Dancer's Fan	7	2	If unit initiates combat, restores 7 HP to adjacent allies after combat.
+After combat, if unit attacked, inflicts Def/Res-5 on foe through its next action.	200	No
 Deathly Dagger	11	2	After combat, if unit attacked, inflicts Def/Res-7 on foe through its next action.
 If unit initiates combat, deals 7 damage to foe after combat.	400	Yes
-Dusk Uchiwa	8	2	Effective against cavalry foes. Disables unit's and foe's skills that change attack priority. After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	200	No
 Dusk Uchiwa+	12	2	Effective against cavalry foes. Disables unit's and foe's skills that change attack priority. After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces of target through their next actions.	300	No
+Dusk Uchiwa	8	2	Effective against cavalry foes. Disables unit's and foe's skills that change attack priority. After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	200	No
 Felicia's Plate	14	2	After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces through their next actions.
 Calculates damage using the lower of foe's Def or Res.	400	Yes
+Goodie Boot+	12	2	During combat, boosts unit's Def/Res by number of allies within 2 spaces × 2. (Maximum bonus of +6 to each stat.)
+After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces of target through their next actions.	300	No
+Goodie Boot	8	2	During combat, boosts unit's Def/Res by number of allies within 2 spaces × 2. (Maximum bonus of +6 to each stat.)
+After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	200	No
 Hoarfrost Knife	14	2	Accelerates Special trigger (cooldown count-1). If unit initiates combat and foe uses sword, lance, axe, or dragonstone, grants Def+20 during combat, and if foe can counter, unit makes a guaranteed follow-up attack. After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces of target through their next actions.	400	Yes
 Iron Dagger	3	2	After combat, if unit attacked, inflicts Def/Res-3 on foe through its next action.	50	No
-Kagami Mochi	8	2	Accelerates Special trigger (cooldown count-1).
-After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	200	No
 Kagami Mochi+	12	2	Accelerates Special trigger (cooldown count-1).
 After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces of target through their next actions.	300	No
-Kitty Paddle	5	2	Effective against magic foes.
-After combat, if unit attacked and if foe uses magic, inflicts Def/Res-5 on foe through its next action.	200	No
+Kagami Mochi	8	2	Accelerates Special trigger (cooldown count-1).
+After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	200	No
 Kitty Paddle+	8	2	Effective against magic foes.
 After combat, if unit attacked and if foe uses magic, inflicts Def/Res-7 on foe through its next action.	300	No
-Lethal Carrot	8	2	Deals +10 damage when Special triggers.
-After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	300	No
+Kitty Paddle	5	2	Effective against magic foes.
+After combat, if unit attacked and if foe uses magic, inflicts Def/Res-5 on foe through its next action.	200	No
 Lethal Carrot+	12	2	Deals +10 damage when Special triggers.
 After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces of target through their next actions.	300	No
+Lethal Carrot	8	2	Deals +10 damage when Special triggers.
+After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	300	No
+Lyfjaberg	14	2	Grants Res+3. At start of combat, if unit's HP ≥ 50%, grants Atk/Spd+4 during combat, and if unit initiates combat, foe cannot make a follow-up attack. After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces of target through their next actions, and if bonus was granted to unit, deals 4 damage to unit.	400	Yes
 Peshkatz	14	2	After combat, if unit attacked, inflicts Atk/Spd/Def/Res-4 on target and foes within 2 spaces of target through their next actions, and grants Atk/Spd/Def/Res+4 to unit and allies within 2 spaces for 1 turn.	400	Yes
-Poison Dagger	2	2	Effective against infantry foes.
-After combat, if unit attacked, inflicts Def/Res-4 on infantry foe through its next action.	200	No
 Poison Dagger+	5	2	Effective against infantry foes.
 After combat, if unit attacked, inflicts Def/Res-6 on infantry foe through its next action.	300	No
-Rogue Dagger	4	2	After combat, if unit attacked, inflicts Def/Res-3 on foe through its next action.
-Grants unit Def/Res+3 for 1 turn.	200	No
-Rogue Dagger+	7	2	After combat, if unit attacked, inflicts Def/Res-5 on foe through its next action.
-Grants unit Def/Res+5 for 1 turn.	300	No
-Seashell	7	2	At start of combat, if unit's HP = 100%, grants Atk/Spd/Def/Res+2, but after combat, if unit attacked, deals 2 damage to unit.
-After combat, if unit attacked, inflicts Def/Res-5 on foe through its next action.	200	No
+Poison Dagger	2	2	Effective against infantry foes.
+After combat, if unit attacked, inflicts Def/Res-4 on infantry foe through its next action.	200	No
+Rogue Dagger+	7	2	After combat, if unit attacked, inflicts Def/Res-5 on foe through its next action. Grants unit Def/Res+5 for 1 turn.	300	No
+Rogue Dagger	4	2	After combat, if unit attacked, inflicts Def/Res-3 on foe through its next action. Grants unit Def/Res+3 for 1 turn.	200	No
 Seashell+	10	2	At start of combat, if unit's HP = 100%, grants Atk/Spd/Def/Res+2, but after combat, if unit attacked, deals 2 damage to unit.
 After combat, if unit attacked, inflicts Def/Res-7 on foe through its next action.	300	No
-Silver Dagger	7	2	After combat, if unit attacked, inflicts Def/Res-5 on foe through its next action.	200	No
+Seashell	7	2	At start of combat, if unit's HP = 100%, grants Atk/Spd/Def/Res+2, but after combat, if unit attacked, deals 2 damage to unit.
+After combat, if unit attacked, inflicts Def/Res-5 on foe through its next action.	200	No
 Silver Dagger+	10	2	After combat, if unit attacked, inflicts Def/Res-7 on foe through its next action.	300	No
-Sky Maiougi	8	2	Effective against armored foes. Disables unit's and foe's skills that change attack priority. After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	200	No
+Silver Dagger	7	2	After combat, if unit attacked, inflicts Def/Res-5 on foe through its next action.	200	No
 Sky Maiougi+	12	2	Effective against armored foes. Disables unit's and foe's skills that change attack priority. After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces of target through their next actions.	300	No
-Smoke Dagger	6	2	After combat, if unit attacked, inflicts Def/Res-4 on foes within 2 spaces of target through their next actions.	200	No
+Sky Maiougi	8	2	Effective against armored foes. Disables unit's and foe's skills that change attack priority. After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	200	No
 Smoke Dagger+	9	2	After combat, if unit attacked, inflicts Def/Res-6 on foes within 2 spaces of target through their next actions.	300	No
-Starfish	8	2	If unit’s HP ≤ 75% and unit initiates combat, unit can make a follow-up attack before foe can counterattack. After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces of target through their next actions.	200	No
-Starfish+	12	2	If unit’s HP ≤ 75% and unit initiates combat, unit can make a follow-up attack before foe can counterattack. After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces of target through their next actions.	300	No
+Smoke Dagger	6	2	After combat, if unit attacked, inflicts Def/Res-4 on foes within 2 spaces of target through their next actions.	200	No
+Starfish+	12	2	If unit's HP ≤ 75% and unit initiates combat, unit can make a follow-up attack before foe can counterattack. After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces of target through their next actions.	300	No
+Starfish	8	2	If unit's HP ≤ 75% and unit initiates combat, unit can make a follow-up attack before foe can counterattack. After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	200	No
 Steel Dagger	5	2	After combat, if unit attacked, inflicts Def/Res-3 on foe through its next action.	100	No
-The Cleaner	8	2	Adds total bonuses on foe to damage dealt during combat. After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	200	No
+Sylgr	14	2	Grants Spd+3. At start of combat, if unit's Spd > foe's Spd, grants Atk/Spd+4 during combat. After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces of target through their next actions.	400	Yes
 The Cleaner+	12	2	Adds total bonuses on foe to damage dealt during combat. After combat, if unit attacked, inflicts Def/Res-7 on target and foes within 2 spaces of target through their next actions.	300	No
+The Cleaner	8	2	Adds total bonuses on foe to damage dealt during combat. After combat, if unit attacked, inflicts Def/Res-5 on target and foes within 2 spaces of target through their next actions.	200	No

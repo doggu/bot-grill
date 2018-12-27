@@ -24,19 +24,19 @@ public class UnitDatabase {
 
             //heroList - name, epithet, origin, color, wep type, move type, rarity, obtain method, release date
             if (heroList.hasNextLine()) {
-                Scanner line = new Scanner(heroList.nextLine());
-                line.useDelimiter("\t");
-                line.next(); //remove image data
+                Scanner line = new Scanner(heroList.nextLine())
+                        .useDelimiter("\t");
 
+                line.next(); //remove image data
                 name = line.next();
-                //if (name.split(" ").length>1) System.out.println(name);
-                epithet = line.next();
+                //System.out.println(name);
+                epithet = name.substring(name.indexOf(": ")+2);
+                name = name.substring(0, name.indexOf(": "));
                 origin = line.next();
 
                 Scanner weaponTypeData = new Scanner(line.next());
                 weaponTypeData.next();
                 weaponTypeData.next(); //get rid of "Icon Class"
-
                 color = weaponTypeData.next();
                 weaponType = weaponTypeData.next();
                 weaponType = weaponType.substring(0, weaponType.indexOf('.'));
@@ -46,6 +46,7 @@ public class UnitDatabase {
 
                 String rarityDataStr = line.next();
                 if (!line.hasNext()) {
+                    //System.out.println(rarityDataStr);
                     line = new Scanner(heroList.nextLine());
                     line.useDelimiter("\t");
                     rarityDataStr+= "\t"+line.next();
@@ -86,7 +87,7 @@ public class UnitDatabase {
                 Scanner dateReleaseData = new Scanner(line.next());
                 dateReleaseData.useDelimiter("-");
                 int year = Integer.parseInt(dateReleaseData.next());
-                int month = Integer.parseInt(dateReleaseData.next());
+                int month = Integer.parseInt(dateReleaseData.next())-1; //NOTE: month is 0-based (January = 0, etc.)
                 int day = Integer.parseInt(dateReleaseData.next());
 
                 dateReleased = new GregorianCalendar(year, month, day);
@@ -178,20 +179,6 @@ public class UnitDatabase {
 
 	 */
 
-    public static void main(String[] args) {
-        ArrayList<Character> characters = getList();
-
-        Scanner console = new Scanner(System.in);
-        String character = console.nextLine().toLowerCase();
-        while(!character.equals("quit")) {
-            for (Character x:characters)
-                if (x.getName().toLowerCase().equals(character))
-                    System.out.println(x.getName());
-
-            character = console.nextLine().toLowerCase();
-        }
-    }
-
     private static ArrayList<Character> getList() {
         //i oughta just keep this info elsewhere
         String[] growthsPath = {
@@ -231,5 +218,21 @@ public class UnitDatabase {
         }
 
         return processFiles(heroList, lv1Stats, growths);
+    }
+
+
+
+    public static void main(String[] args) {
+        ArrayList<Character> characters = getList();
+
+        Scanner console = new Scanner(System.in);
+        String character = console.nextLine().toLowerCase();
+        while(!character.equals("quit")) {
+            for (Character x:characters)
+                if (x.getName().toLowerCase().equals(character))
+                    System.out.println(x.getName());
+
+            character = console.nextLine().toLowerCase();
+        }
     }
 }

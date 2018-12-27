@@ -27,9 +27,9 @@ Glacies	Boosts damage by 80% of unit's Res.	200	4
 Glimmer	Boosts damage dealt by 50%.	200	2
 Glowing Ember	Boosts damage by 50% of unit's Def.	100	4
 Growing Flame	Before combat this unit initiates, foes in a wide area around target take damage equal to (unit's Atk minus foe's Def or Res).	300	4
-Growing Light	Before combat this unit initiates, foes in a wide area near target take damage equal to (unit's Atk minus foe's Def or Res).	300	4
+Growing Light	Before combat this unit initiates, foes in a wide area around target take damage equal to (unit's Atk minus foe's Def or Res).	300	4
 Growing Thunder	Before combat this unit initiates, foes in a wide area around target take damage equal to (unit's Atk minus foe's Def or Res).	300	4
-Growing Wind	Before combat this unit initiates, foes in a wide area near target take damage equal to (unit's Atk minus foe's Def or Res).	300	4
+Growing Wind	Before combat this unit initiates, foes in a wide area around target take damage equal to (unit's Atk minus foe's Def or Res).	300	4
 Heavenly Light	When healing an ally with a staff, restores 10 HP to all allies.	150	2
 Holy Vestments	If foe's Range = 2, reduces damage from that foe's attack by 30%.	100	3
 Ice Mirror	If foe's Range = 2, reduces damage from foe's attacks by 30%. Boosts unit's next attack by total damage reduced (by any source, including other skills) when Special triggers. Resets at end of combat. (Skill cannot be inherited.)	500	2

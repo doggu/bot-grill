@@ -11,28 +11,15 @@ public abstract class Skill {
         this.name = name;
         this.description = description;
 
+        //probably a convoluted system
         switch(slot) {
-            case 'W':
-                this.slot = 0;
-                break;
-            case 'A':
-                this.slot = 1;
-                break;
-            case 'S':
-                this.slot = 2;
-                break;
-            case 'a':
-                this.slot = 3;
-                break;
-            case 'b':
-                this.slot = 4;
-                break;
-            case 'c':
-                this.slot = 5;
-                break;
-            case 's':
-                this.slot = 6;
-                break;
+            case 'W': this.slot = 0; break;
+            case 'A': this.slot = 1; break;
+            case 'S': this.slot = 2; break;
+            case 'a': this.slot = 3; break;
+            case 'b': this.slot = 4; break;
+            case 'c': this.slot = 5; break;
+            case 's': this.slot = 6; break;
             default:
                 System.out.println("this skill has an undefined slot");
                 throw new Error();
@@ -41,19 +28,13 @@ public abstract class Skill {
         this.exclusive = exclusive;
     }
 
-    public Skill() {
-        this.name = "";
-        this.description = "";
-        this.slot = 0;
-        this.cost = 0;
-        this.exclusive = false;
-    }
-
 
 
     public String getName() { return name; }
     public String getDescription() { return description; }
-    //TODO: literally type the rest later it's fuckin late
+    public int getCost() { return cost; }
+    public int getSlot() { return slot; }
+    public boolean isExclusive() { return exclusive; }
 
 
 
@@ -96,12 +77,5 @@ public abstract class Skill {
                 + "```";
 
         return info;
-    }
-
-
-
-
-    public static void main(String[] args) {
-
     }
 }

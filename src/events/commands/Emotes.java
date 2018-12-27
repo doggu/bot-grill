@@ -10,7 +10,7 @@ public class Emotes extends Command {
             List<Emote> emotes = e.getJDA().getEmotes();
             String list = "";
             for (int i = 0; i < emotes.size(); i++) {
-                list += "<:" + emotes.get(i).getName() + ":" + emotes.get(i).getId() + ">";
+                list += "<"+(emotes.get(i).isAnimated()?"a":"")+":" + emotes.get(i).getName() + ":" + emotes.get(i).getId() + ">";
                 if ((i + 1) % 40 == 0) {
                     sendMessage(list);
                     list = "";
@@ -28,7 +28,7 @@ public class Emotes extends Command {
                 log("could not find "+args[1]);
                 return;
             }
-            sendMessage("<:"+emote.get(0).getName()+":"+emote.get(0).getId()+">");
+            sendMessage("<"+(emote.get(0).isAnimated()?"a":"")+":"+emote.get(0).getName()+":"+emote.get(0).getId()+">");
             log("sent emote \""+args[1]+"\"");
         }
     }

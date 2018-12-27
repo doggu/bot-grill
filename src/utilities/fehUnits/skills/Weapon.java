@@ -11,6 +11,8 @@ public class Weapon extends Skill {
         this.rng = rng;
     }
 
+    public int getMt() { return mt; }
+
     public String toString() {
         String info = name+"\n"
                 + "```\n"

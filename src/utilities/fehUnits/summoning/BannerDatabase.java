@@ -3,9 +3,12 @@ package utilities.fehUnits.summoning;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+
 import utilities.fehUnits.heroes.Character;
 
 public class BannerDatabase {
+    public static final List<Banner> banners = getList();
+
     private static List<Banner> processFiles(Scanner archive) {
         List<Banner> banners = new ArrayList<>();
 
@@ -44,18 +47,18 @@ public class BannerDatabase {
                 bannerLines.remove(0);
             }
 
-            //NOTE: Month is zero based; January = 0, etc. (accounted for in Object classes)
+            //NOTE: Month is zero based; January = 0, etc.
             String  startDateData = bannerLines.get(0), 
                     endDateData = bannerLines.get(1);
             String[] startDateArr = startDateData.substring(startDateData.indexOf("\t")+1).split("-");
             String[] endDateArr = endDateData.substring(endDateData.indexOf("\t")+1).split("-");
             startDate = new GregorianCalendar(
                     Integer.parseInt(startDateArr[0]),  //year
-                    Integer.parseInt(startDateArr[1]),  //month
+                    Integer.parseInt(startDateArr[1])-1,  //month
                     Integer.parseInt(startDateArr[2])); //day
             endDate = new GregorianCalendar(
                     Integer.parseInt(endDateArr[0]),
-                    Integer.parseInt(endDateArr[1]),
+                    Integer.parseInt(endDateArr[1])-1,
                     Integer.parseInt(endDateArr[2]));
 
             bannerLines.remove(0);
@@ -71,7 +74,7 @@ public class BannerDatabase {
 
 
 
-    public static List<Banner> getList() {
+    private static List<Banner> getList() {
         String[] archivePath = {
                 ".",
                 "src",
@@ -94,9 +97,35 @@ public class BannerDatabase {
         List<Banner> banners = getList();
 
         System.out.println(banners.size());
-        for (Banner x:banners) {
-            System.out.println(x.getName());
 
+        Scanner input = new Scanner(System.in);
+
+        String command = input.nextLine();
+        while (!command.equalsIgnoreCase("quit")) {
+            String[] arghs = command.split(" ");
+
+            List<Banner> requested = new ArrayList<>();
+
+            for (Banner x:banners) {
+                if (x.getName().contains(arghs[0])) {
+                    requested.add(x);
+                }
+            }
+
+            for (Banner x:requested) {
+                System.out.print(x.getName()+": ");
+                GregorianCalendar startDate = (GregorianCalendar) x.getStartDate().clone();
+                GregorianCalendar endDate = (GregorianCalendar) x.getEndDate().clone();
+
+                int i = 0;
+                while (startDate.compareTo(endDate)<0) {
+                    i++;
+                    startDate.add(Calendar.DAY_OF_MONTH, 1);
+                }
+                System.out.println(i);
+            }
+
+            command = input.nextLine();
         }
         /* gotta remember this shit
         GregorianCalendar g = new GregorianCalendar(2018, 3, 17);

@@ -31,9 +31,9 @@ Infantry	44	240%	44, 240%	35%	60%	55%	30%	60%	2017-10-18
 Athena Borderland Sword Face FC.png	Athena: Borderland Sword	Icon Class Red Sword.png
 Red Sword	Icon Move Infantry.png
 Infantry	47	255%	47, 255%	45%	55%	65%	45%	45%	2017-06-14
-Aversa Chosen One Face FC.png	Aversa: Chosen One	Icon Class Red Tome.png
+Aversa Dark One Face FC.png	Aversa: Dark One	Icon Class Red Tome.png
 Red Tome	Icon Move Flying.png
-Flying	47	245%	44, 245%	55%	60%	60%	30%	40% 2018-10-25
+Flying	44	245%	44, 245%	55%	60%	60%	30%	40%	2018-10-25
 Ayra Astras Wielder Face FC.png	Ayra: Astra's Wielder	Icon Class Red Sword.png
 Red Sword	Icon Move Infantry.png
 Infantry	48	265%	48, 265%	50%	60%	60%	55%	40%	2017-10-19
@@ -49,6 +49,9 @@ Infantry	39	255%	39, 255%	45%	60%	60%	40%	50%	2017-09-29
 Azura Lady of the Lake Face FC.png	Azura: Lady of the Lake	Icon Class Blue Lance.png
 Blue Lance	Icon Move Infantry.png
 Infantry	39	255%	39, 255%	45%	60%	60%	40%	50%	2017-02-02
+Azura Young Songstress Face FC.png	Azura: Young Songstress	Icon Class Green Tome.png
+Green Tome	Icon Move Infantry.png
+Infantry	36	240%	36, 240%	50%	60%	55%	30%	45%	2018-11-12
 Barst The Hatchet Face FC.png	Barst: The Hatchet	Icon Class Green Axe.png
 Green Axe	Icon Move Infantry.png
 Infantry	47	255%	47, 255%	60%	55%	55%	55%	30%	2017-02-02
@@ -79,6 +82,9 @@ Cavalry	46	250%	46, 250%	55%	55%	60%	45%	35%	2017-02-02
 Camilla Bewitching Beauty Face FC.png	Camilla: Bewitching Beauty	Icon Class Green Axe.png
 Green Axe	Icon Move Flying.png
 Flying	47	255%	47, 255%	45%	50%	55%	50%	55%	2017-02-02
+Camilla Flower of Fantasy Face FC.png	Camilla: Flower of Fantasy	Icon Class Red Tome.png
+Red Tome	Icon Move Flying.png
+Flying	44	245%	44, 245%	45%	65%	50%	30%	55%	2018-11-09
 Camilla Holiday Traveler Face FC.png	Camilla: Holiday Traveler	Icon Class Red Sword.png
 Red Sword	Icon Move Flying.png
 Flying	47	265%	47, 265%	50%	55%	60%	55%	45%	2017-12-31
@@ -103,6 +109,9 @@ Cavalry	43	235%	43, 235%	45%	60%	60%	30%	40%	2018-03-22
 Cecilia Etrurian General Face FC.png	Cecilia: Etrurian General	Icon Class Green Tome.png
 Green Tome	Icon Move Cavalry.png
 Cavalry	43	235%	43, 235%	45%	55%	45%	40%	50%	2017-02-02
+Cecilia Festive Instructor Face FC.png	Cecilia: Festive Instructor	Icon Class Colorless Dagger.png
+Colorless Dagger	Icon Move Armored.png
+Armored	52	260%	52, 260%	50%	55%	40%	55%	60%	2018-12-18
 Celica Caring Princess Face FC.png	Celica: Caring Princess	Icon Class Red Tome.png
 Red Tome	Icon Move Infantry.png
 Infantry	44	240%	44, 240%	50%	55%	60%	40%	35%	2017-05-15
@@ -151,6 +160,12 @@ Flying	47	255%	47, 255%	50%	60%	60%	40%	45%	2017-02-02
 Cordelia Perfect Bride Face FC.png	Cordelia: Perfect Bride	Icon Class Colorless Bow.png
 Colorless Bow	Icon Move Infantry.png
 Infantry	44	240%	44, 240%	45%	60%	60%	35%	40%	2017-05-30
+Corrin Dream Prince Face FC.png	Corrin: Dream Prince	Icon Class Blue Breath.png
+Blue Breath	Icon Move Infantry.png
+Infantry	40	295%	40, 295%	60%	65%	65%	60%	45%	2018-11-09
+Corrin Dream Princess Face FC.png	Corrin: Dream Princess	Icon Class Green Breath.png
+Green Breath	Icon Move Infantry.png
+Infantry	40	295%	40, 295%	60%	55%	70%	60%	50%	2018-11-09
 Corrin Enjoying Tradition Face FC.png	Corrin: Enjoying Tradition	Icon Class Colorless Bow.png
 Colorless Bow	Icon Move Infantry.png
 Infantry	45	245%	45, 245%	45%	55%	50%	65%	30%	2018-01-16
@@ -184,9 +199,18 @@ Armored	54	265%	54, 265%	60%	50%	60%	60%	35%	2017-02-02
 Effie Army of One Face FC.png	Effie: Army of One	Icon Class Blue Lance.png
 Blue Lance	Icon Move Armored.png
 Armored	54	265%	54, 265%	65%	65%	40%	50%	45%	2017-02-02
+Eir Merciful Death Face FC.png	Eir: Merciful Death	Icon Class Colorless Dagger.png
+Colorless Dagger	Icon Move Flying.png
+Flying	44	245%	44, 245%	45%	55%	65%	25%	55%	2018-12-11
 Eirika Anamnesis Lady Face FC.png	Eirika: Anamnesis Lady	Icon Class Red Tome.png
 Red Tome	Icon Move Cavalry.png
 Cavalry	43	235%	43, 235%	45%	55%	60%	35%	40%	2018-01-25
+Eirika Gentle as Snow Face FC.png	Eirika: Gentle as Snow	Icon Class Colorless Staff.png
+Colorless Staff	Icon Move Armored.png
+Armored	52	260%	52, 260%	55%	60%	40%	50%	55%	2018-12-18
+Eirika Graceful Resolve Face FC.png	Eirika: Graceful Resolve	Icon Class Red Sword.png
+Red Sword	Icon Move Cavalry.png
+Cavalry	46	255%	46, 255%	50%	60%	65%	45%	35%	2018-10-31
 Eirika Restoration Lady Face FC.png	Eirika: Restoration Lady	Icon Class Red Sword.png
 Red Sword	Icon Move Infantry.png
 Infantry	47	255%	47, 255%	55%	45%	60%	45%	50%	2017-02-15
@@ -220,6 +244,9 @@ Infantry	47	255%	47, 255%	60%	60%	45%	55%	35%	2017-02-15
 Ephraim Sacred Twin Lord Face FC.png	Ephraim: Sacred Twin Lord	Icon Class Green Axe.png
 Green Axe	Icon Move Armored.png
 Armored	55	275%	55, 275%	55%	65%	50%	60%	45%	2018-08-21
+Ephraim Sparkling Gallantly Face FC.png	Ephraim: Sparkling Gallantly	Icon Class Blue Lance.png
+Blue Lance	Icon Move Armored.png
+Armored	55	275%	55, 275%	55%	70%	40%	60%	50%	2018-12-18
 Est Junior Whitewing Face FC.png	Est: Junior Whitewing	Icon Class Blue Lance.png
 Blue Lance	Icon Move Flying.png
 Flying	47	255%	47, 255%	45%	60%	50%	45%	55%	2017-02-02
@@ -229,6 +256,9 @@ Cavalry	43	235%	43, 235%	50%	50%	55%	50%	30%	2018-09-11
 Fae Divine Dragon Face FC.png	Fae: Divine Dragon	Icon Class Green Breath.png
 Green Breath	Icon Move Infantry.png
 Infantry	39	285%	39, 285%	70%	65%	55%	45%	50%	2017-02-02
+Fae Holiday Dear Face FC.png	Fae: Holiday Dear	Icon Class Green Breath.png
+Green Breath	Icon Move Armored.png
+Armored	47	305%	47, 305%	65%	60%	50%	55%	75%	2018-12-18
 Faye Devoted Heart Face FC.png	Faye: Devoted Heart	Icon Class Colorless Bow.png
 Colorless Bow	Icon Move Infantry.png
 Infantry	36	270%	36, 270%	60%	55%	50%	50%	55%	2017-04-14
@@ -271,6 +301,9 @@ Infantry	44	240%	44, 240%	35%	60%	45%	40%	60%	2017-05-15
 Gerome Masked Rider Face FC.png	Gerome: Masked Rider	Icon Class Green Axe.png
 Green Axe	Icon Move Flying.png
 Flying	47	265%	47, 265%	60%	65%	45%	60%	35%	2018-03-15
+Gharnef Dark Pontifex Face FC.png	Gharnef: Dark Pontifex	Icon Class Red Tome.png
+Red Tome	Icon Move Infantry.png
+Infantry	45	245%	45, 245%	50%	50%	55%	50%	40%	2018-11-23
 Gordin Altean Archer Face FC.png	Gordin: Altean Archer	Icon Class Colorless Bow.png
 Colorless Bow	Icon Move Infantry.png
 Infantry	44	240%	44, 240%	55%	55%	45%	55%	30%	2017-02-02
@@ -325,6 +358,9 @@ Flying	44	245%	44, 245%	45%	60%	60%	30%	50%	2018-04-24
 Hinoka Warrior Princess Face FC.png	Hinoka: Warrior Princess	Icon Class Blue Lance.png
 Blue Lance	Icon Move Flying.png
 Flying	47	255%	47, 255%	50%	65%	55%	45%	40%	2017-02-02
+Hríd Icy Blade Face FC.png	Hríd: Icy Blade	Icon Class Red Sword.png
+Red Sword	Icon Move Cavalry.png
+Cavalry	46	255%	46, 255%	50%	70%	30%	55%	50%	2018-11-28
 Ike Brave Mercenary Face FC.png	Ike: Brave Mercenary	Icon Class Green Axe.png
 Green Axe	Icon Move Infantry.png
 Infantry	47	265%	47, 265%	60%	60%	50%	60%	35%	2017-08-31
@@ -472,12 +508,12 @@ Infantry	44	240%	44, 240%	50%	45%	45%	50%	50%	2017-02-02
 Lloyd White Wolf Face FC.png	Lloyd: White Wolf	Icon Class Red Sword.png
 Red Sword	Icon Move Infantry.png
 Infantry	47	255%	47, 255%	55%	55%	60%	35%	50%	2017-05-19
-Lonqu Solitary Blade Face FC.png	Lon'qu: Solitary Blade	Icon Class Red Sword.png
-Red Sword	Icon Move Infantry.png
-Infantry	47	255%	47, 255%	60%	50%	65%	40%	40%	2017-02-02
 Loki The Trickster Face FC.png	Loki: The Trickster	Icon Class Colorless Staff.png
 Colorless Staff	Icon Move Infantry.png
 Infantry	45	245%	45, 245%	55%	55%	60%	30%	45%	2018-10-23
+Lonqu Solitary Blade Face FC.png	Lon'qu: Solitary Blade	Icon Class Red Sword.png
+Red Sword	Icon Move Infantry.png
+Infantry	47	255%	47, 255%	60%	50%	65%	40%	40%	2017-02-02
 Lucina Brave Princess Face FC.png	Lucina: Brave Princess	Icon Class Blue Lance.png
 Blue Lance	Icon Move Infantry.png
 Infantry	47	255%	47, 255%	55%	60%	60%	45%	35%	2017-08-31
@@ -568,6 +604,9 @@ Infantry	36	240%	36, 240%	45%	60%	35%	35%	65%	2018-08-10
 Michalis Ambitious King Face FC.png	Michalis: Ambitious King	Icon Class Green Axe.png
 Green Axe	Icon Move Flying.png
 Flying	47	255%	47, 255%	55%	60%	45%	60%	35%	2017-03-20
+Mikoto Caring Mother Face FC.png	Mikoto: Caring Mother	Icon Class Colorless Staff.png
+Colorless Staff	Icon Move Infantry.png
+Infantry	45	245%	45, 245%	50%	60%	55%	35%	45%	2018-11-09
 Minerva Red Dragoon Face FC.png	Minerva: Red Dragoon	Icon Class Green Axe.png
 Green Axe	Icon Move Flying.png
 Flying	47	255%	47, 255%	50%	55%	55%	55%	40%	2017-02-02
@@ -829,6 +868,9 @@ Cavalry	46	250%	46, 250%	55%	45%	60%	40%	50%	2017-02-02
 Sumia Maid of Flowers Face FC.png	Sumia: Maid of Flowers	Icon Class Blue Lance.png
 Blue Lance	Icon Move Flying.png
 Flying	47	265%	47, 265%	50%	55%	65%	50%	45%	2018-07-20
+Surtr Ruler of Flame Face FC.png	Surtr: Ruler of Flame	Icon Class Green Axe.png
+Green Axe	Icon Move Armored.png
+Armored	47	305%	47, 305%	75%	70%	30%	70%	60%	2018-11-21
 Tailtiu Thunder Noble Face FC.png	Tailtiu: Thunder Noble	Icon Class Blue Tome.png
 Blue Tome	Icon Move Infantry.png
 Infantry	44	240%	44, 240%	50%	55%	60%	30%	45%	2017-10-16
@@ -910,6 +952,9 @@ Cavalry	46	250%	46, 250%	50%	45%	50%	60%	45%	2017-03-30
 Xander Student Swimmer Face FC.png	Xander: Student Swimmer	Icon Class Green Axe.png
 Green Axe	Icon Move Infantry.png
 Infantry	47	255%	47, 255%	55%	55%	55%	65%	25%	2017-07-28
+Ylgr Fresh Snowfall Face FC.png	Ylgr: Fresh Snowfall	Icon Class Blue Dagger.png
+Blue Dagger	Icon Move Infantry.png
+Infantry	45	245%	45, 245%	50%	60%	65%	35%	35%	2018-11-21
 Zelgius Jet-Black General Face FC.png	Zelgius: Jet-Black General	Icon Class Red Sword.png
 Red Sword	Icon Move Armored.png
 Armored	55	275%	55, 275%	55%	60%	60%	65%	35%	2018-01-12

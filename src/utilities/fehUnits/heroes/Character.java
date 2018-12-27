@@ -125,102 +125,61 @@ public class Character {
     public boolean isInNormalPool() { return isInNormalPool; }
     public GregorianCalendar getReleaseDate() { return dateReleased; }
 
+    public boolean hasSuperBoon() { return hasEccentricStat(true); }
+    public boolean hasSuperBane() { return hasEccentricStat(false); }
+
+    public boolean hasEccentricStat(boolean boon) {
+        int[][] stats = getAllStats(false, 5);
+        int row = (boon?0:2);
+        for (int i=0; i<stats[2].length; i++)
+            if (Math.abs(stats[1][row]-stats[2][row])>3)
+                return true;
+        return false;
+    }
+
     //TODO: fix somehow
-    //public String toString() { return getAllStats(false, 5); }
+    public String toString() { return this.getName()+": "+this.getEpithet(); }
 
-    public int[][] getAllStats(boolean lv1, int rarity) {
-        int[][] finalStats = {
-                stats.clone(),
-                stats.clone(),
-                stats.clone(),
-        };
-
-        for (int i=0; i<3; i++) {
-            finalStats[i][0]+= (i-1);
-            finalStats[i][1]+= (i-1);
-            finalStats[i][2]+= (i-1);
-            finalStats[i][3]+= (i-1);
-            finalStats[i][4]+= (i-1);
+    public int[] getStats(boolean lv1, int rarity, char boon, char bane) {
+        int boonN = 0, baneN = 0;
+        switch (boon) {
+            case 'r': boonN++;
+            case 'd': boonN++;
+            case 's': boonN++;
+            case 'a': boonN++;
+            case 'h': break;
+            default: throw new Error();
+        }
+        switch (bane) {
+            case 'r': baneN++;
+            case 'd': baneN++;
+            case 's': baneN++;
+            case 'a': baneN++;
+            case 'h': break;
+            default: throw new Error();
         }
 
-        int[] statsSorted = {1, 2, 3, 4};
-
-        for (int i=0; i<4; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (stats[statsSorted[j]]<stats[statsSorted[j+1]]) {
-                    int t = statsSorted[j+1];
-                    statsSorted[j+1] = statsSorted[j];
-                    statsSorted[j] = t;
-                }
-            }
-        }
-
-
-
-        //for (int i:statsSorted) System.out.println(i);
-
-
-
-        switch (rarity) {
-            case 1:
-                //two highest non-hp stats
-                for (int i=0; i<3; i++) {
-                    finalStats[i][statsSorted[0]]--;
-                    finalStats[i][statsSorted[1]]--;
-                }
-            case 2:
-                //hp & two lowest stats
-                for (int i=0; i<3; i++) {
-                    finalStats[i][0]--;
-                    finalStats[i][statsSorted[2]]--;
-                    finalStats[i][statsSorted[3]]--;
-                }
-            case 3:
-                //two highest non-hp stats
-                for (int i=0; i<3; i++) {
-                    finalStats[i][statsSorted[0]]--;
-                    finalStats[i][statsSorted[1]]--;
-                }
-            case 4:
-                //hp & two lowest stats
-                for (int i=0; i<3; i++) {
-                    finalStats[i][0]--;
-                    finalStats[i][statsSorted[2]]--;
-                    finalStats[i][statsSorted[3]]--;
-                }
-            case 5:
-                //nothin'
-                break;
-        }
-
-        if (!lv1) {
-            int rarityFactor;
-            switch (rarity) {
-                case 1: rarityFactor = 86; break;
-                case 2: rarityFactor = 93; break;
-                case 3: rarityFactor = 100; break;
-                case 4: rarityFactor = 107; break;
-                case 5: rarityFactor = 114; break;
-                default:
-                    System.out.println("rarity is not within bounds");
-                    return null;
-            }
-
-            for (int i=0; i<3; i++) {
-                for (int j=0; j<5; j++) {
-                    //TODO: expand with steps
-                    finalStats[i][j]+= (int)(0.39*(int)((this.statGrowths[j]+5*(i-1))*rarityFactor/100.0));
-                }
+        return getStats(lv1, rarity, boonN, baneN);
+    }
+    public int[] getStats(boolean lv1, int rarity, int boon, int bane) { return getStats(lv1, rarity, boon, bane, 0); }
+    public int[] getStats(boolean lv1, int rarity, int boon, int bane, int merges) {
+        //duplicate
+        int[][] rawStats = getAllStats(lv1, rarity, merges);
+        int[] finalStats = new int[5];
+        for (int i=0; i<5; i++) {
+            if (i==boon) {
+                finalStats[i] = rawStats[2][i];
+            } else if (i==bane) {
+                finalStats[i] = rawStats[0][i];
+            } else {
+                finalStats[i] = rawStats[1][i];
             }
         }
 
         return finalStats;
-    }
 
-
-
-    public int[] getStats(boolean lv1, int rarity, int boon, int bane) {
-        //duplicate
+        //#obsoleted lmao i'm fuckin dumb
+        /*
         int[] finalStats = stats.clone();
 
         int[] statsSorted = {1, 2, 3, 4};
@@ -292,6 +251,103 @@ public class Character {
                     finalStats[i]+= (int) (0.39 * (int) ((this.statGrowths[i]-5) * rarityFactor / 100.0));
                 else
                     finalStats[i]+= (int) (0.39 * (int) (this.statGrowths[i] * rarityFactor / 100.0));
+            }
+        }
+
+        return finalStats;
+        */
+    }
+
+    public int[][] getAllStats(boolean lv1, int rarity) { return getAllStats(lv1, rarity, 0); }
+    public int[][] getAllStats(boolean lv1, int rarity, int merges) {
+        int[][] finalStats = {
+                stats.clone(),
+                stats.clone(),
+                stats.clone(),
+        };
+
+        for (int i=0; i<3; i++) {
+            finalStats[i][0]+= (i-1);
+            finalStats[i][1]+= (i-1);
+            finalStats[i][2]+= (i-1);
+            finalStats[i][3]+= (i-1);
+            finalStats[i][4]+= (i-1);
+        }
+
+        int[] statsSorted = {0, 1, 2, 3, 4};
+
+        for (int i=0; i<5; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (stats[statsSorted[j]]<stats[statsSorted[j+1]]) {
+                    int t = statsSorted[j+1];
+                    statsSorted[j+1] = statsSorted[j];
+                    statsSorted[j] = t;
+                }
+            }
+        }
+
+
+
+        //for (int i:statsSorted) System.out.println(i);
+
+
+
+        switch (rarity) {
+            case 1:
+                //two highest non-hp stats
+                for (int i=0; i<3; i++) {
+                    finalStats[i][statsSorted[1]]--;
+                    finalStats[i][statsSorted[2]]--;
+                }
+            case 2:
+                //hp & two lowest stats
+                for (int i=0; i<3; i++) {
+                    finalStats[i][statsSorted[0]]--;
+                    finalStats[i][statsSorted[3]]--;
+                    finalStats[i][statsSorted[4]]--;
+                }
+            case 3:
+                //two highest non-hp stats
+                for (int i=0; i<3; i++) {
+                    finalStats[i][statsSorted[1]]--;
+                    finalStats[i][statsSorted[2]]--;
+                }
+            case 4:
+                //hp & two lowest stats
+                for (int i=0; i<3; i++) {
+                    finalStats[i][statsSorted[0]]--;
+                    finalStats[i][statsSorted[3]]--;
+                    finalStats[i][statsSorted[4]]--;
+                }
+            case 5:
+                //nothin'
+                break;
+        }
+
+        for (int i=0; i<merges*2; i++) {
+            for (int j=0; j<3; j++) {
+                finalStats[j][statsSorted[i%5]]++;
+            }
+        }
+
+        if (!lv1) {
+            int rarityFactor;
+            switch (rarity) {
+                case 1: rarityFactor = 86; break;
+                case 2: rarityFactor = 93; break;
+                case 3: rarityFactor = 100; break;
+                case 4: rarityFactor = 107; break;
+                case 5: rarityFactor = 114; break;
+                default:
+                    System.out.println("rarity is not within bounds");
+                    return null;
+            }
+
+            for (int i=0; i<3; i++) {
+                for (int j=0; j<5; j++) {
+                    //TODO: expand with steps
+                    finalStats[i][j]+= (int)(0.39*(int)((this.statGrowths[j]+5*(i-1))*rarityFactor/100.0));
+                }
             }
         }
 

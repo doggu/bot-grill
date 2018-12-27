@@ -1,6 +1,6 @@
 ﻿Armor March 1.png	Armor March 1	At start of turn, if unit's HP = 100% and unit is adjacent to an armored ally, unit and adjacent armored allies can move 1 extra space.
 (That turn only. Does not stack.)	60	No
-Armor March 2.png	Armor March 2	At start of turn, if unit's HP ≥ 50% HP and unit is adjacent to an armored ally, unit and adjacent armored allies can move 1 extra space.
+Armor March 2.png	Armor March 2	At start of turn, if unit's HP ≥ 50% and unit is adjacent to an armored ally, unit and adjacent armored allies can move 1 extra space.
 (That turn only. Does not stack.)	120	No
 Armor March 3.png	Armor March 3	At start of turn, if unit is adjacent to an armored ally, unit and adjacent armored allies can move 1 extra space.
 (That turn only. Does not stack.)	240	No
@@ -109,7 +109,7 @@ Even Spd Wave 2.png	Even Spd Wave 2	At start of even-numbered turns, grants Spd+
 Even Spd Wave 3.png	Even Spd Wave 3	At start of even-numbered turns, grants Spd+6 to unit and adjacent allies for 1 turn.
 (Bonus granted to unit even if no allies are adjacent.)	240	No
 Flier Guidance 1.png	Flier Guidance 1	If unit's HP = 100%, flying allies within 2 spaces can move to a space adjacent to unit.	60	No
-Flier Guidance 2.png	Flier Guidance 2	If unit's HP ≥ 50% HP, flying allies within 2 spaces can move to a space adjacent to unit.	120	No
+Flier Guidance 2.png	Flier Guidance 2	If unit's HP ≥ 50%, flying allies within 2 spaces can move to a space adjacent to unit.	120	No
 Flier Guidance 3.png	Flier Guidance 3	Flying allies within 2 spaces can move to a space adjacent to unit.	240	No
 Fortify Armor.png	Fortify Armor	At start of turn, grants Def/Res+6 to adjacent armored allies for 1 turn.	200	No
 Fortify Cavalry.png	Fortify Cavalry	At start of turn, grants Def/Res+6 to adjacent cavalry allies for 1 turn.	200	No
@@ -138,7 +138,7 @@ Goad Cavalry.png	Goad Cavalry	Grants Atk/Spd+4 to cavalry allies within 2 spaces
 Goad Dragons.png	Goad Dragons	Grants Atk/Spd+4 to dragon allies within 2 spaces during combat.	200	No
 Goad Fliers.png	Goad Fliers	Grants Atk/Spd+4 to flying allies within 2 spaces during combat.	200	No
 Guidance 1.png	Guidance 1	If unit's HP = 100%, infantry and armored allies within 2 spaces can move to a space adjacent to unit.	60	No
-Guidance 2.png	Guidance 2	If unit's HP ≥ 50% HP, infantry and armored allies within 2 spaces can move to a space adjacent to unit.	120	No
+Guidance 2.png	Guidance 2	If unit's HP ≥ 50%, infantry and armored allies within 2 spaces can move to a space adjacent to unit.	120	No
 Guidance 3.png	Guidance 3	Infantry and armored allies within 2 spaces can move to a space adjacent to unit.	240	No
 Hone Armor.png	Hone Armor	At start of turn, grants Atk/Spd+6 to adjacent armored allies for 1 turn.	200	No
 Hone Atk 1.png	Hone Atk 1	At start of turn, grants Atk+2 to adjacent allies for 1 turn.	50	No
@@ -152,13 +152,13 @@ Hone Spd 2.png	Hone Spd 2	At start of turn, grants Spd+3 to adjacent allies for 
 Hone Spd 3.png	Hone Spd 3	At start of turn, grants Spd+4 to adjacent allies for 1 turn.	200	No
 Infantry Flash 1.png	Infantry Flash 1	Infantry allies within 2 spaces gain: "If unit's Spd ≥ foe's Spd+5, grants Special cooldown charge +1 per unit's attack. (Only highest value applied. Does not stack.)"	60	No
 Infantry Flash 2.png	Infantry Flash 2	Infantry allies within 2 spaces gain: "If unit's Spd ≥ foe's Spd+3, grants Special cooldown charge +1 per unit's attack. (Only highest value applied. Does not stack.)"	120	No
-Infantry Flash 3.png	Infantry Flash 3	Infantry allies within 2 spaces gain: "If unit's Spd > foe's Spd, grants Special cooldown charge +1 per attack. (Only highest value applied. Does not stack.)"	240	No
+Infantry Flash 3.png	Infantry Flash 3	Infantry allies within 2 spaces gain: "If unit's Spd > foe's Spd, grants Special cooldown charge +1 per unit's attack. (Only highest value applied. Does not stack.)"	240	No
 Infantry Pulse 1.png	Infantry Pulse 1	At the start of turn 1, grants Special cooldown count-1 to all infantry allies on team with HP ≤ unit's HP-5. (Stacks with similar skills.)	60	No
 Infantry Pulse 2.png	Infantry Pulse 2	At the start of turn 1, grants Special cooldown count-1 to all infantry allies on team with HP ≤ unit's HP-3. (Stacks with similar skills.)	120	No
 Infantry Pulse 3.png	Infantry Pulse 3	At the start of turn 1, grants Special cooldown count-1 to all infantry allies on team with HP < unit's HP. (Stacks with similar skills.)	240	No
-Infantry Rush 1.png	Infantry Rush 1	Infantry allies within 2 spaces gain: "If unit's Atk ≥ foe's Atk+5, grants Special cooldown charge +1 per attack. (Only highest value applied. Does not stack.)"	60	No
-Infantry Rush 2.png	Infantry Rush 2	Infantry allies within 2 spaces gain: "If unit's Atk ≥ foe's Atk+3, grants Special cooldown charge +1 per attack. (Only highest value applied. Does not stack.)"	120	No
-Infantry Rush 3.png	Infantry Rush 3	Infantry allies within 2 spaces gain: "If unit's Atk ≥ foe's Atk+1, grants Special cooldown charge +1 per attack. (Only highest value applied. Does not stack.)"	240	No
+Infantry Rush 1.png	Infantry Rush 1	Infantry allies within 2 spaces gain: "If unit's Atk ≥ foe's Atk+5, grants Special cooldown charge +1 per unit's attack. (Only highest value applied. Does not stack.)"	60	No
+Infantry Rush 2.png	Infantry Rush 2	Infantry allies within 2 spaces gain: "If unit's Atk ≥ foe's Atk+3, grants Special cooldown charge +1 per unit's attack. (Only highest value applied. Does not stack.)"	120	No
+Infantry Rush 3.png	Infantry Rush 3	Infantry allies within 2 spaces gain: "If unit's Atk > foe's Atk, grants Special cooldown charge +1 per unit's attack. (Only highest value applied. Does not stack.)"	240	No
 Lance Valor 1.png	Lance Valor 1	While unit lives and uses a lance, unit gets 1.5x SP.
 (Only highest value applied. Does not stack.)	30	No
 Lance Valor 2.png	Lance Valor 2	While unit lives, all lance allies on team get 1.5x SP.
@@ -189,7 +189,7 @@ Odd Spd Wave 2.png	Odd Spd Wave 2	At start of odd-numbered turns, grants Spd+4 t
 (Bonus granted to unit even if no allies are adjacent.)	120	No
 Odd Spd Wave 3.png	Odd Spd Wave 3	At start of odd-numbered turns, grants Spd+6 to unit and adjacent allies for 1 turn.
 (Bonus granted to unit even if no allies are adjacent.)	240	No
-Ostia's Pulse.png	Ostia's Pulse	At the start of turn 1, grants Special cooldown count-1 to all allies. Granted only if number of those allies' movement types on current team ≤ 2.	300	Yes
+Ostias Pulse.png	Ostia's Pulse	At the start of turn 1, grants Special cooldown count-1 to all allies. Granted only if number of those allies' movement types on current team ≤ 2.	300	Yes
 Panic Ploy 1.png	Panic Ploy 1	At start of turn, converts bonuses on foes in cardinal directions with HP ≤ unit's HP-5 into penalties through their next actions.	60	No
 Panic Ploy 2.png	Panic Ploy 2	At start of turn, converts bonuses on foes in cardinal directions with HP ≤ unit's HP-3 into penalties through their next actions.	120	No
 Panic Ploy 3.png	Panic Ploy 3	At start of turn, converts bonuses on foes in cardinal directions with HP < unit's HP into penalties through their next actions.	240	No
@@ -217,6 +217,7 @@ Res Tactic 3.png	Res Tactic 3	At start of turn, grants Res+6 to allies within 2 
 Savage Blow 1.png	Savage Blow 1	If unit initiates combat, deals 3 damage to foes within 2 spaces of target after combat.	50	No
 Savage Blow 2.png	Savage Blow 2	If unit initiates combat, deals 5 damage to foes within 2 spaces of target after combat.	100	No
 Savage Blow 3.png	Savage Blow 3	If unit initiates combat, deals 7 damage to foes within 2 spaces of target after combat.	200	No
+Sparkling Boost.png	Sparkling Boost	At start of turn, restores 10 HP to ally that has been dealt the most damage. (Excludes unit.)	300	Yes
 Spd Ploy 1.png	Spd Ploy 1	At start of turn, inflicts Spd-3 on foes in cardinal directions with Res < unit's Res through their next actions.	60	No
 Spd Ploy 2.png	Spd Ploy 2	At start of turn, inflicts Spd-4 on foes in cardinal directions with Res < unit's Res through their next actions.	120	No
 Spd Ploy 3.png	Spd Ploy 3	At start of turn, inflicts Spd-5 on foes in cardinal directions with Res < unit's Res through their next actions.	240	No
@@ -256,6 +257,7 @@ Staff Valor 2.png	Staff Valor 2	While unit lives, all staff allies on team get 1
 (Only highest value applied. Does not stack.)	60	No
 Staff Valor 3.png	Staff Valor 3	While unit lives, all staff allies on team get 2x SP after combat or after using healing Assist skills.
 (Only highest value applied. Does not stack.)	120	No
+Surtrs Menace.png	Surtr's Menace	At start of turn, if unit is within 2 spaces of a foe, grants Atk/Spd/Def/Res+4 for 1 turn and inflicts Atk/Spd/Def/Res-4 on foes within 2 spaces through their next actions.	300	Yes
 Sword Exp. 1.png	Sword Exp. 1	While unit lives and uses a sword, unit gets 1.5x EXP.
 (Only highest value applied. Does not stack.)	30	No
 Sword Exp. 2.png	Sword Exp. 2	While unit lives, all sword allies on team get 1.5x EXP.
@@ -284,4 +286,4 @@ Ward Armor.png	Ward Armor	Grants Def/Res+4 to armored allies within 2 spaces dur
 Ward Cavalry.png	Ward Cavalry	Grants Def/Res+4 to cavalry allies within 2 spaces during combat.	200	No
 Ward Dragons.png	Ward Dragons	Grants Def/Res+4 to dragon allies within 2 spaces during combat.	200	No
 Ward Fliers.png	Ward Fliers	Grants Def/Res+4 to flying allies within 2 spaces during combat.	200	No
-With Everyone!.png	With Everyone!	At start of turn, if unit is adjacent to an ally, grants Def/Res+5 to unit and adjacent allies for 1 turn.	300	Yes
+With Everyone.png	With Everyone!	At start of turn, if unit is adjacent to an ally, grants Def/Res+5 to unit and adjacent allies for 1 turn.	300	Yes

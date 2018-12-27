@@ -13,10 +13,6 @@ public class Orb {
     private boolean isPulled;
 
     public Orb(Banner banner) {
-        //TODO: must generate unit based on banner's pools
-
-        //generate unit
-
         this.banner = banner;
         hero = generateUnit();
         isPulled = false;
@@ -27,17 +23,22 @@ public class Orb {
         Unit hero;
 
         Character character;
-        double r = Math.random();
+        double r = Math.random()*100;
         int rarity;
-        if (r<0.03) {
+        double  rarityFRate = banner.getRarityFRate(),
+                rarity5Rate = rarityFRate+banner.getRarity5Rate(),
+                rarity4Rate = rarity5Rate+banner.getRarity4Rate()/*,
+                rarity3Rate = rarity4Rate+banner.getRarity3Rate()*/; //not necessary due to being the leftover category
+
+        if (r<banner.getRarityFRate()) {
             rarity = 5;
             character = banner.getRarityFPool().get((int)(Math.random()*banner.getRarityFPool().size()));
             //System.out.println(banner.getRarityFPool().size());
-        } else if (r<0.06) {
+        } else if (r<rarity5Rate) {
             rarity = 5;
             character = banner.getRarity5Pool().get((int)(Math.random()*banner.getRarity5Pool().size()));
             //System.out.println(banner.getRarity5Pool().size());
-        } else if (r<0.50) {
+        } else if (r<rarity4Rate) {
             rarity = 4;
             character = banner.getRarity4Pool().get((int)(Math.random()*banner.getRarity4Pool().size()));
             //System.out.println(banner.getRarity4Pool().size());
@@ -47,7 +48,7 @@ public class Orb {
             //System.out.println(banner.getRarity3Pool().size());
         }
 
-        //TODO: implement actual IVs (and print them somehow when summoning)
+        //Unit class generates random IVs for us TODO: might wanna reorganize this
         hero = new Unit(character, rarity);
 
         return hero;
@@ -63,6 +64,7 @@ public class Orb {
 
     public String getColor() { return hero.getColor(); }
 
+    // i just leave my testing strewn all over the place don't i
     public static void main(String[] args) {
         System.out.println(Color.black);
     }

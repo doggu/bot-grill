@@ -4,27 +4,34 @@ import java.util.GregorianCalendar;
 
 public class Unit extends Character {
     private final int rarity, boon, bane;
+    private final char supportStatus;
 
     //TODO: create character class
+
 
     /**
      * creates a new unit based on a character;
      * accepts IVs. NOTE: IVs must not be of the same stat
      *
-     * @param unit - character which corresponds with the summoned hero.
+     * @param character - character which corresponds with the summoned hero.
      * @param boon - positive variance of specific unit.
      * @param bane - negative variance of specific unit.
      */
-    public Unit(Character unit, int rarity, int boon, int bane) {
-        super(unit);
+    public Unit(Character character, int rarity, int boon, int bane, char supportStatus) {
+        super(character);
         this.rarity = rarity;
         this.boon = boon;
         this.bane = bane;
+        this.supportStatus = supportStatus;
+    }
+    public Unit(Character character, int rarity, int boon, int bane) {
+        this(character, rarity, boon, bane, 'd');
     }
 
     /**
      * creates a new unit based on a character;
      * generates IVs randomly
+     * no summoner support, as this is a "new" instance (subject to change)
      *
      * @param unit - name of hero. must follow EXACT format:
      *             "[name]: [epithet]"
@@ -72,11 +79,13 @@ public class Unit extends Character {
 
         this.boon = boon;
         this.bane = bane;
+        supportStatus = 'd';
     }
 
     public int getBoon() { return boon; }
     public int getBane() { return bane; }
     public int getRarity() { return rarity; }
+    public int getSupportStatus() { return supportStatus; }
 
     public int[] getIVs() {
         int[] stats = super.getStats();

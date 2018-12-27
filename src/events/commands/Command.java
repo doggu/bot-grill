@@ -19,7 +19,7 @@ public abstract class Command extends MessageListener {
 
         switch(args[0]) {
             case "chances":
-                int r = (int)(Math.random()*100);
+                int r = (int)(Maffs.random()*100);
                 event.getChannel().sendMessage(r+"%").queue();
                 String log = "";
                 for (String x:args) {

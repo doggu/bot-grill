@@ -3,6 +3,7 @@ package events.gameroom;
 import events.ReactionListener;
 import events.commands.FEHRetriever;
 import net.dv8tion.jda.core.entities.Emote;
+import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 import utilities.fehUnits.heroes.Unit;
@@ -16,13 +17,16 @@ import java.util.List;
 public class CircleSimulator extends ReactionListener {
     private final Message circleMessage;
     private final User summoner;
+    private final Guild server;
     private final Banner banner;
     private final List<Orb> orbs;
     private final List<Emote> stones;
+    private int pulls = 0;
 
     public CircleSimulator(Message message, User summoner, Banner banner) {
         super();
         this.circleMessage = message;
+        this.server = circleMessage.getGuild();
         this.summoner = summoner;
         this.banner = banner;
         this.orbs = generateOrbs();
@@ -36,28 +40,28 @@ public class CircleSimulator extends ReactionListener {
                 case "Red":
                     stone = circleMessage.getJDA()
                             .getEmotesByName("r_orb_"+rOrbs, true).get(0);
-                    circleMessage.addReaction(stone).complete();
+                    circleMessage.addReaction(stone).queue();
                     stones.add(stone);
                     rOrbs++;
                     break;
                 case "Blue":
                     stone = circleMessage.getJDA()
                             .getEmotesByName("b_orb_"+bOrbs, true).get(0);
-                    circleMessage.addReaction(stone).complete();
+                    circleMessage.addReaction(stone).queue();
                     stones.add(stone);
                     bOrbs++;
                     break;
                 case "Green":
                     stone = circleMessage.getJDA()
                             .getEmotesByName("g_orb_"+gOrbs, true).get(0);
-                    circleMessage.addReaction(stone).complete();
+                    circleMessage.addReaction(stone).queue();
                     stones.add(stone);
                     gOrbs++;
                     break;
                 case "Colorless":
                     stone = circleMessage.getJDA()
                             .getEmotesByName("c_orb_"+cOrbs, true).get(0);
-                    circleMessage.addReaction(stone).complete();
+                    circleMessage.addReaction(stone).queue();
                     stones.add(stone);
                     cOrbs++;
                     break;
@@ -81,6 +85,9 @@ public class CircleSimulator extends ReactionListener {
     }
 
 
+
+    public User getSummoner() { return summoner; }
+    public Guild getServer() { return server; }
 
     public boolean canClose() {
         for (Orb x:orbs)
@@ -111,8 +118,13 @@ public class CircleSimulator extends ReactionListener {
     protected void onCommand() {
         //the summoner has selected a stone, and a unit must be presented
 
+        // is not a custom emote (i hope)
+        if (!e.getReaction().getReactionEmote().isEmote()) {
+            System.out.println("what the fuck is this shit");
+            return;
+        }
         String stoneId = e.getReaction().getReactionEmote().getId();
-        for (int i=0; i<stones.size(); i++) {
+        for (int i = 0; i < stones.size(); i++) {
             Emote stone = stones.get(i);
             if (stoneId.equals(stone.getId())) {
                 Unit hero;
@@ -129,7 +141,24 @@ public class CircleSimulator extends ReactionListener {
             }
         }
 
-        //interesting bit of code
-        //e.getJDA().removeEventListener(this);
+        //remove my own reaction so they can't double up (even though there's protection already)
+        //TODO: may want to keep self-reactions for historical purposes (user could remove their reactions)
+        //e.getReaction().removeReaction(e.getJDA().getSelfUser()).queue();
+
+        //there's a more efficient way to do this but this is absolute
+
+        boolean circleComplete = true;
+        for (Orb x : orbs) {
+            if (!x.isPulled()) {
+                circleComplete = false;
+                break;
+            }
+        }
+
+        if (circleComplete) {
+            //interesting bit of code
+            //e.getJDA().addEventListener();
+            e.getJDA().removeEventListener(this);
+        }
     }
 }

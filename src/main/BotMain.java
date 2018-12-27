@@ -24,7 +24,7 @@ public class BotMain {
 
     public static void main(String[] args) throws Exception {
         bot_grill = new JDABuilder(AccountType.BOT)
-                .setToken("NTA4Mzg5NTE3MzIyMDkyNTY2.Dr-iOQ.ZV6is6H3qK60MraMmxlBlvmNJY8")
+                .setToken("")
                 .build();
 
         bot_grill.awaitReady();

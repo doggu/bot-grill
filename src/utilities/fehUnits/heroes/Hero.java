@@ -1,13 +1,11 @@
 package utilities.fehUnits.heroes;
 
-import net.dv8tion.jda.core.entities.Emote;
-
 import java.util.*;
 
 //TODO: create basic layout for a general character
 //Include base skills
 
-public class Character {
+public class Hero {
     private final String name, epithet, origin, color, weaponType, moveType;
     //these stats are 1* lv1 (regardless of obtainable rarities)
     private final int[] stats, statGrowths;
@@ -17,11 +15,11 @@ public class Character {
     private final GregorianCalendar dateReleased;
 
 
-    public Character(String name, String epithet, String origin,
-                     String color, String weaponType, String moveType,
-                     int rarity, boolean summonable, boolean isInNormalPool,
-                     GregorianCalendar dateReleased,
-                     int[] stats, int[] statGrowths) {
+    public Hero(String name, String epithet, String origin,
+                String color, String weaponType, String moveType,
+                int rarity, boolean summonable, boolean isInNormalPool,
+                GregorianCalendar dateReleased,
+                int[] stats, int[] statGrowths) {
         this.name = name;
         this.epithet = epithet;
         this.origin = origin;
@@ -37,10 +35,10 @@ public class Character {
     }
 
     /**
-     * creates a Character according to the heroes currently in Fire Emblem Heroes
+     * creates a Hero according to the heroes currently in Fire Emblem Heroes
      * @param name - name of hero; MUST be in exact format: "[name]: [epithet]" (e.x. "Bartre: Fearless Warrior")
      */
-    public Character(String name) {
+    public Hero(String name) {
         String epithet;
         try {
             epithet = name.substring(name.indexOf(':')+2);
@@ -49,10 +47,10 @@ public class Character {
             throw new Error();
         }
         name = name.substring(0, name.indexOf(':'));
-        ArrayList<Character> list = UnitDatabase.characters;
-        ArrayList<Character> correctName = new ArrayList<>();
+        ArrayList<Hero> list = UnitDatabase.HEROES;
+        ArrayList<Hero> correctName = new ArrayList<>();
 
-        for (Character j:list)
+        for (Hero j:list)
             if (j.getName().equals(name)&&j.getEpithet().equals(epithet))
                 correctName.add(j);
 
@@ -68,7 +66,7 @@ public class Character {
         }
 
         //there's probably a way to clone this, my brain is just too small
-        Character j = correctName.get(0);
+        Hero j = correctName.get(0);
         this.name = j.getName();
         this.epithet = j.getEpithet();
         this.origin = j.getOrigin();
@@ -83,7 +81,7 @@ public class Character {
         this.dateReleased = j.getReleaseDate();
     }
 
-    public Character(Character j) {
+    public Hero(Hero j) {
         this.name = j.getName();
         this.epithet = j.getEpithet();
         this.origin = j.getOrigin();
@@ -363,12 +361,12 @@ public class Character {
         /*
         Scanner console = new Scanner(System.in);
 
-        //test creating characters
+        //test creating HEROES
         String name = console.nextLine();
         while (!name.equals("quit")) {
-            Character x;
+            Hero x;
             try {
-                x = new Character(name);
+                x = new Hero(name);
             } catch (Exception g) {
                 System.out.println("invalid character name; try again:");
                 name = console.nextLine();

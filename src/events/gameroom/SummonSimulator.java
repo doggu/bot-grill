@@ -1,7 +1,6 @@
 package events.gameroom;
 
-import javafx.scene.shape.Circle;
-import utilities.fehUnits.heroes.Character;
+import utilities.fehUnits.heroes.Hero;
 import utilities.fehUnits.summoning.Banner;
 import utilities.fehUnits.summoning.BannerDatabase;
 
@@ -121,7 +120,7 @@ public class SummonSimulator extends Gameroom {
         String message = "your summons for: \n"+banner.getName();
         if (ambiguousName) {
             message+= " (feat. ";
-            for (utilities.fehUnits.heroes.Character x:banner.getRarityFPool()) //Character is not a good name for a class
+            for (Hero x:banner.getRarityFPool()) //Hero is not a good name for a class
                 message+= x.getName()+", ";
             message = message.substring(0,message.length()-2);
             message+= ")";
@@ -162,7 +161,7 @@ public class SummonSimulator extends Gameroom {
                 "5* rate: "+banner.getRarity5Rate()+"%\n\t\t\t\t\t\t";
         StringBuilder featuredUnitsSB = new StringBuilder("featured units: ");
         for (int i=0; i<banner.getRarityFPool().size(); i++) {
-            Character x = banner.getRarityFPool().get(i);
+            Hero x = banner.getRarityFPool().get(i);
             featuredUnitsSB
                     .append(x.getName())
                     .append(": ")

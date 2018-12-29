@@ -1,8 +1,6 @@
 package utilities.fehUnits.heroes;
 
-import java.util.GregorianCalendar;
-
-public class Unit extends Character {
+public class Unit extends Hero {
     private final int rarity, boon, bane;
     private final char supportStatus;
 
@@ -10,22 +8,22 @@ public class Unit extends Character {
 
 
     /**
-     * creates a new unit based on a character;
+     * creates a new unit based on a hero;
      * accepts IVs. NOTE: IVs must not be of the same stat
      *
-     * @param character - character which corresponds with the summoned hero.
+     * @param hero - hero which corresponds with the summoned hero.
      * @param boon - positive variance of specific unit.
      * @param bane - negative variance of specific unit.
      */
-    public Unit(Character character, int rarity, int boon, int bane, char supportStatus) {
-        super(character);
+    public Unit(Hero hero, int rarity, int boon, int bane, char supportStatus) {
+        super(hero);
         this.rarity = rarity;
         this.boon = boon;
         this.bane = bane;
         this.supportStatus = supportStatus;
     }
-    public Unit(Character character, int rarity, int boon, int bane) {
-        this(character, rarity, boon, bane, 'd');
+    public Unit(Hero hero, int rarity, int boon, int bane) {
+        this(hero, rarity, boon, bane, 'd');
     }
 
     /**
@@ -37,7 +35,7 @@ public class Unit extends Character {
      *             "[name]: [epithet]"
      * @param rarity - rarity of hero.
      */
-    public Unit(Character unit, int rarity) {
+    public Unit(Hero unit, int rarity) {
         super(unit);
         this.rarity = rarity;
 

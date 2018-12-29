@@ -1,9 +1,8 @@
 package utilities.fehUnits.summoning;
 
-import utilities.fehUnits.heroes.Character;
+import utilities.fehUnits.heroes.Hero;
 import utilities.fehUnits.heroes.UnitDatabase;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -11,11 +10,11 @@ import java.util.List;
 
 public class Banner {
     private final String name;
-    private final List<Character> characters = new ArrayList<>(UnitDatabase.characters);
-    private final List<Character> rarityFPool;
-    private final List<Character> rarity5Pool;
-    private final List<Character> rarity4Pool;
-    private final List<Character> rarity3Pool;
+    private final List<Hero> heroes = new ArrayList<>(UnitDatabase.HEROES);
+    private final List<Hero> rarityFPool;
+    private final List<Hero> rarity5Pool;
+    private final List<Hero> rarity4Pool;
+    private final List<Hero> rarity3Pool;
 
     private double rarityFrate;
     private double rarity5rate;
@@ -25,13 +24,13 @@ public class Banner {
     private final GregorianCalendar startDate, endDate;
 
     //TODO: generate banner type based on name or request info?
-    public Banner(String name, List<Character> focusUnits, GregorianCalendar startDate, GregorianCalendar endDate) {
+    public Banner(String name, List<Hero> focusUnits, GregorianCalendar startDate, GregorianCalendar endDate) {
         this.name = name;
         this.rarityFPool = focusUnits;
         this.startDate = startDate;
         this.endDate = endDate;
 
-        List<List<Character>> pools = generatePools();
+        List<List<Hero>> pools = generatePools();
         rarity5Pool = pools.get(0);
         rarity4Pool = pools.get(1);
         rarity3Pool = pools.get(2);
@@ -44,13 +43,13 @@ public class Banner {
      *
      * directly modifies rarity pool fields
      */
-    private List<List<Character>> generatePools() {
+    private List<List<Hero>> generatePools() {
         //System.out.println("\nGenerating pools for: "+this.getName());
 
-        List<Character> rarity5Pool = new ArrayList<>();
-        List<Character> rarity4Pool = new ArrayList<>();
-        List<Character> rarity3Pool = new ArrayList<>();
-        List<List<Character>> pools = new ArrayList<>();
+        List<Hero> rarity5Pool = new ArrayList<>();
+        List<Hero> rarity4Pool = new ArrayList<>();
+        List<Hero> rarity3Pool = new ArrayList<>();
+        List<List<Hero>> pools = new ArrayList<>();
         pools.add(rarity5Pool);
         pools.add(rarity4Pool);
         pools.add(rarity3Pool);
@@ -58,8 +57,8 @@ public class Banner {
         //must have this date to accurately represent summoning pools for historical banners
         GregorianCalendar poolCutoff = (GregorianCalendar) startDate.clone();
 
-        //creates a list of characters that could be summoned in normal pools
-        for (Character x:characters) {
+        //creates a list of HEROES that could be summoned in normal pools
+        for (Hero x: heroes) {
             GregorianCalendar characterReleaseDate = (GregorianCalendar) x.getReleaseDate().clone();
             characterReleaseDate.add(GregorianCalendar.DAY_OF_MONTH, 20); //TODO: this value is not always correct
             //if character is summonable
@@ -146,10 +145,10 @@ public class Banner {
     public GregorianCalendar getStartDate() { return startDate; }
     public GregorianCalendar getEndDate() { return endDate; }
 
-    public List<Character> getRarityFPool() { return new ArrayList<>(rarityFPool); }
-    public List<Character> getRarity5Pool() { return new ArrayList<>(rarity5Pool); }
-    public List<Character> getRarity4Pool() { return new ArrayList<>(rarity4Pool); }
-    public List<Character> getRarity3Pool() { return new ArrayList<>(rarity3Pool); }
+    public List<Hero> getRarityFPool() { return new ArrayList<>(rarityFPool); }
+    public List<Hero> getRarity5Pool() { return new ArrayList<>(rarity5Pool); }
+    public List<Hero> getRarity4Pool() { return new ArrayList<>(rarity4Pool); }
+    public List<Hero> getRarity3Pool() { return new ArrayList<>(rarity3Pool); }
 
     public double getRarityFRate() { return rarityFrate; }
     public double getRarity5Rate() { return rarity5rate; }
@@ -160,10 +159,10 @@ public class Banner {
 
     public static void main(String[] args) {
         String name = "New Heroes: Farfetched Heroes";
-        List<Character> focuses = new ArrayList<>();
-        focuses.add(new Character("Mia: Lady of Blades"));
-        focuses.add(new Character("Lute: Prodigy"));
-        focuses.add(new Character("Dorcas: Serene Warrior"));
+        List<Hero> focuses = new ArrayList<>();
+        focuses.add(new Hero("Mia: Lady of Blades"));
+        focuses.add(new Hero("Lute: Prodigy"));
+        focuses.add(new Hero("Dorcas: Serene Warrior"));
         /*
         GregorianCalendar start = new GregorianCalendar(2017,10,15),
                 end = new GregorianCalendar(2017,11,4);

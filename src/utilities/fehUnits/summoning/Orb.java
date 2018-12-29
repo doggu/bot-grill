@@ -1,9 +1,7 @@
 package utilities.fehUnits.summoning;
 
-import net.dv8tion.jda.core.entities.Emote;
-import utilities.fehUnits.heroes.Character;
+import utilities.fehUnits.heroes.Hero;
 import utilities.fehUnits.heroes.Unit;
-import utilities.fehUnits.heroes.UnitDatabase;
 
 import java.awt.*;
 
@@ -19,10 +17,10 @@ public class Orb {
     }
 
     private Unit generateUnit() {
-        //TODO: actually like, make (Character, IVs, correct summoning rates)
+        //TODO: actually like, make (Hero, IVs, correct summoning rates)
         Unit hero;
 
-        Character character;
+        Hero character;
         double r = Math.random()*100;
         int rarity;
         double  rarityFRate = banner.getRarityFRate(),

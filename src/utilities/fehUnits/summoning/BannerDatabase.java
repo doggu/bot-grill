@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-import utilities.fehUnits.heroes.Character;
+import utilities.fehUnits.heroes.Hero;
 
 public class BannerDatabase {
     public static final List<Banner> banners = getList();
@@ -14,7 +14,7 @@ public class BannerDatabase {
 
         while (archive.hasNextLine()) {
             String name;
-            List<Character> focusUnits = new ArrayList<>();
+            List<Hero> focusUnits = new ArrayList<>();
             GregorianCalendar startDate, endDate;
 
             List<String> bannerLines = new ArrayList<>();
@@ -42,7 +42,7 @@ public class BannerDatabase {
             while (!bannerLines.get(0).contains("Start Date")) {
                 bannerLines.remove(0); //remove image
                 bannerLines.remove(0); //remove color/weapon/move data
-                Character focusUnit = new Character(bannerLines.get(0));
+                Hero focusUnit = new Hero(bannerLines.get(0));
                 focusUnits.add(focusUnit);
                 bannerLines.remove(0);
             }

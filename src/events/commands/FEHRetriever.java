@@ -2,7 +2,7 @@ package events.commands;
 
 import main.BotMain;
 import net.dv8tion.jda.core.entities.Emote;
-import utilities.fehUnits.heroes.Character;
+import utilities.fehUnits.heroes.Hero;
 import utilities.fehUnits.heroes.Unit;
 import utilities.fehUnits.heroes.UnitDatabase;
 import utilities.fehUnits.skills.Skill;
@@ -17,12 +17,12 @@ import java.util.Calendar;
 import java.util.List;
 
 public class FEHRetriever extends Command {
-    private final List<Character> characters;
+    private final List<Hero> heroes;
     private final List<Skill> skills;
 
     public FEHRetriever() {
         super(); //this is implicit retard
-        characters = UnitDatabase.characters;
+        heroes = UnitDatabase.HEROES;
         skills = SkillDatabase.getList();
 
         Method[] methods = FEHRetriever.class.getMethods();
@@ -70,7 +70,7 @@ public class FEHRetriever extends Command {
         if (args[0].equalsIgnoreCase("getStats")) lv1 = false;
         if (args[0].equalsIgnoreCase("getIVs")) lv1 = true;
 
-        ArrayList<Character> candidates = new ArrayList<>();
+        ArrayList<Hero> candidates = new ArrayList<>();
 
         List<String> args = new ArrayList<>(Arrays.asList(this.args));
 
@@ -188,22 +188,22 @@ public class FEHRetriever extends Command {
                 System.out.println(x);
                 epithetIncluded = true;
             }
-            //find characters of the correct name
-            for (Character c:characters) {
+            //find HEROES of the correct name
+            for (Hero c: heroes) {
                 if (c.getName().equalsIgnoreCase(x))
                     candidates.add(c);
             }
 
             if (epithetIncluded) {
-                boolean foundMatch = characters.size()==1;
-                //find characters (from list of valid names) of the correct epithet
+                boolean foundMatch = heroes.size()==1;
+                //find HEROES (from list of valid names) of the correct epithet
 
                 i++;
                 System.out.println(args);
                 while (!foundMatch&&i<args.size()) {
                     System.out.println(args.get(i));
                     for (int j = 0; j < candidates.size(); j++) {
-                        Character c = candidates.get(j);
+                        Hero c = candidates.get(j);
                         System.out.println(c.getEpithet().toLowerCase()+" "+args.get(i).toLowerCase());
                         if (!c.getEpithet().toLowerCase().contains(args.get(i).toLowerCase())) {
                             candidates.remove(j);
@@ -219,7 +219,7 @@ public class FEHRetriever extends Command {
                     }
 
                     i++;
-                    foundMatch = characters.size()==1;
+                    foundMatch = heroes.size()==1;
                 }
             }
         }
@@ -331,7 +331,7 @@ public class FEHRetriever extends Command {
                 }
 
                 for (int j=0; j<candidates.size(); j++) {
-                    Character c = candidates.get(j);
+                    Hero c = candidates.get(j);
                     if (!move.equals("na")) {
                         if (!c.getMoveType().equals(move)) {
                             candidates.remove(j);
@@ -364,7 +364,7 @@ public class FEHRetriever extends Command {
         }
 
         StringBuilder message = new StringBuilder();
-        for (Character x:candidates) {
+        for (Hero x:candidates) {
             String charString = printCharacter(x, lv1, rarity, getAll, boon, bane, merges, support);
             if (message.length()+charString.length()>2000) {
                 sendMessage(message.toString());
@@ -377,7 +377,7 @@ public class FEHRetriever extends Command {
         StringBuilder report = new StringBuilder("found stats for:");
         for (int i=0; i<candidates.size(); i++) {
             if (i%2==0) report.append("\n\t\t\t\t\t\t");
-            Character f = candidates.get(i);
+            Hero f = candidates.get(i);
             report.append(f.getName()).append(": ").append(f.getEpithet()).append(", ");
         }
         report.delete(report.length()-2, report.length());
@@ -520,7 +520,7 @@ public class FEHRetriever extends Command {
         return printCharacter(x, lv1, x.getRarity(), false, x.getBoon(), x.getBane(), 0, supportStatus);
     }
 
-    private static String printCharacter(Character x, boolean lv1, int rarity, boolean getAll, int boon, int bane, int merges, char support) {
+    private static String printCharacter(Hero x, boolean lv1, int rarity, boolean getAll, int boon, int bane, int merges, char support) {
         //import emotes from fehicons database
         //TODO: allow this to work as a static method (print emotes some other way)
         List<Emote> fehIconEmotes = BotMain.fehIcons;

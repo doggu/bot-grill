@@ -7,13 +7,13 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 public class UnitDatabase {
-    public static final ArrayList<Character> characters = getList();
+    public static final ArrayList<Hero> HEROES = getList();
 
-    private static ArrayList<Character> processFiles(Scanner heroList, Scanner LV1Stats, Scanner unitGrowths) {
-        ArrayList<Character> characters = new ArrayList<>();
+    private static ArrayList<Hero> processFiles(Scanner heroList, Scanner LV1Stats, Scanner unitGrowths) {
+        ArrayList<Hero> heroes = new ArrayList<>();
 
         while (heroList.hasNextLine()&&LV1Stats.hasNextLine()&&unitGrowths.hasNextLine()) {
-            Character x;
+            Hero x;
             String name, epithet, origin, color, weaponType, moveType;
             int rarity;
             boolean summonable, isInNormalPool;
@@ -148,18 +148,18 @@ public class UnitDatabase {
                 throw new Error();
             }
 
-            x = new Character(name, epithet, origin, color, weaponType, moveType,
+            x = new Hero(name, epithet, origin, color, weaponType, moveType,
                     rarity, summonable, isInNormalPool, dateReleased, stats, statGrowths);
 
-            characters.add(x);
+            heroes.add(x);
         }
 
 
 
-        return characters;
+        return heroes;
     }
 
-	/* General Format, Growths (two characters):
+	/* General Format, Growths (two HEROES):
 
 	Abel The Panther Face FC.png	Abel: The Panther	Icon Class Blue Lance.png
 	Blue Lance	Icon Move Cavalry.png
@@ -171,7 +171,7 @@ public class UnitDatabase {
 
 	 */
 
-	/* General Format, LV1 Stats (two characters):
+	/* General Format, LV1 Stats (two HEROES):
 
 	Abel The Panther Face FC.png	Abel: The Panther	Icon Class Blue Lance.png	Icon Move Cavalry.png	17	7	8	8	6	46
 	Alfonse Prince of Askr Face FC.png	Alfonse: Prince of Askr	Icon Class Red Sword.png	Icon Move Infantry.png	19	9	6	8	5	47
@@ -179,7 +179,7 @@ public class UnitDatabase {
 
 	 */
 
-    private static ArrayList<Character> getList() {
+    private static ArrayList<Hero> getList() {
         //i oughta just keep this info elsewhere
         String[] growthsPath = {
                 ".", "src", "utilities", "fehUnits", "heroes", "sources", "UnitGrowths.txt"};
@@ -223,12 +223,12 @@ public class UnitDatabase {
 
 
     public static void main(String[] args) {
-        ArrayList<Character> characters = getList();
+        ArrayList<Hero> heroes = getList();
 
         Scanner console = new Scanner(System.in);
         String character = console.nextLine().toLowerCase();
         while(!character.equals("quit")) {
-            for (Character x:characters)
+            for (Hero x: heroes)
                 if (x.getName().toLowerCase().equals(character))
                     System.out.println(x.getName());
 

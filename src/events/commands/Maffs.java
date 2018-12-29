@@ -1,22 +1,16 @@
 package events.commands;
 
+import utilities.ScannerUtil;
+
+import java.io.File;
 import java.util.ArrayList;
 
 public class Maffs extends Command {
-    public void onCommand() {
-        if (args.length!=2) {
-            sendMessage("incorrect format");
-            return;
-        }
+    private static ArrayList<Double> nums = new ArrayList<>();
+    private static ArrayList<Character> ops = new ArrayList<>();
 
-        /////////////////////////
-        //        parse        //
-        /////////////////////////
-
+    private void parse() {
         String problem = args[1];
-        ArrayList<Double> nums = new ArrayList<>();
-        ArrayList<Character> ops = new ArrayList<>();
-
         for (int i=0; i<problem.length(); i++) {
             switch (problem.charAt(i)) {
                 case '+':
@@ -58,11 +52,9 @@ public class Maffs extends Command {
                     return;
             }
         }
+    }
 
-        /////////////////////////
-        //        solve        //
-        /////////////////////////
-
+    private void solve() {
         //peMDas (ok, more like MDas)
         for (int i=0; i<ops.size(); i++) {
             char op = ops.get(i);
@@ -105,11 +97,44 @@ public class Maffs extends Command {
                     break;
             }
         }
+    }
 
 
+    public void onCommand() {
+        if (args.length!=2) {
+            sendMessage("incorrect format");
+            return;
+        }
+
+        for (int i=0; i<args[1].length(); i++) {
+            switch (args[1].charAt(i)) {
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                    continue;
+                default:
+                    String[] dunnoPath = { ".", "src", "events", "commands", "dunno.png" };
+                    e.getChannel().sendFile(ScannerUtil.createFile(dunnoPath)).queue();
+                    return;
+            }
+        }
+
+        parse();
+        solve();
 
         StringBuilder message = new StringBuilder();
-        for (int i=0; i<ops.size(); i++) {
+        for (int i=1; i<ops.size(); i++) {
             message.append(nums.get(i)).append(' ').append(ops.get(i)).append(' ');
         }
         message.append(nums.get(nums.size()-1));

@@ -358,10 +358,10 @@ public class Hero {
 
     public static void main(String[] args) {
         //TODO: fix name-based initializer
-        /*
+        /*ß
         Scanner console = new Scanner(System.in);
 
-        //test creating HEROES
+        //test creating heroes
         String name = console.nextLine();
         while (!name.equals("quit")) {
             Hero x;

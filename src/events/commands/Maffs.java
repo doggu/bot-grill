@@ -14,7 +14,7 @@ public class Maffs extends Command {
         /////////////////////////
 
         String problem = args[1];
-        ArrayList<Integer> nums = new ArrayList<>();
+        ArrayList<Double> nums = new ArrayList<>();
         ArrayList<Character> ops = new ArrayList<>();
 
         for (int i=0; i<problem.length(); i++) {
@@ -24,7 +24,7 @@ public class Maffs extends Command {
                 case '*':
                 case '/':
                     try {
-                        nums.add(Integer.parseInt(problem.substring(0, i)));
+                        nums.add((double)Integer.parseInt(problem.substring(0, i)));
                     } catch (NumberFormatException g) {
                         System.out.println("ah fuck");
                         return;
@@ -50,7 +50,7 @@ public class Maffs extends Command {
                     if (i>=problem.length()-1) {
                         System.out.println("parsing the last number");
                         try {
-                            nums.add(Integer.parseInt(problem));
+                            nums.add((double) Integer.parseInt(problem));
                         } catch (NumberFormatException g) {
                             System.out.println("ah fuck (end)");
                             return;

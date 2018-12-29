@@ -13,6 +13,7 @@ import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class BotMain {
 
     public static void main(String[] args) throws Exception {
         bot_grill = new JDABuilder(AccountType.BOT)
-                .setToken("")
+                .setToken(new Scanner(new File(".\\src\\token.txt")).nextLine())
                 .build();
 
         bot_grill.awaitReady();

@@ -482,10 +482,9 @@ public class FEHRetriever extends Command {
             skill.append("SP: ").append(x.getCost()).append("\n");
             if (x instanceof Special) skill.append("CD: ").append(((Special) x).getCooldown()).append("\n");
             skill.append("Inheritable: ").append(x.isExclusive()?"No":"Yes").append("\n");
-            skill.append("```\n");
+
             if (x.getDescription().length()>0)
-                    skill.append(x.getDescription());
-            skill.append("```");
+                    skill.append("```").append(x.getDescription()).append("```");
             if (skillList.length()+skill.length()>2000) {
                 sendMessage(skillList.toString());
                 skillList = new StringBuilder();
@@ -526,8 +525,11 @@ public class FEHRetriever extends Command {
         //TODO: allow this to work as a static method (print emotes some other way)
         List<Emote> fehIconEmotes = BotMain.fehIcons;
 
+        boolean fiveStarSummoned = rarity==5&&boon>0&&bane>0;
+                                              //technically only have to check one
+
         String info =
-                (rarity==5?"**":"") + x.getName() + ": " + x.getEpithet() + (rarity==5?"**":"") + "\n" + 
+                (fiveStarSummoned?"**":"") + x.getName() + ": " + x.getEpithet() + (fiveStarSummoned?"**":"") + "\n" +
                 "Appears In: *" + x.getOrigin() + "*\n" + 
                 "Date Released: "
                     + (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" //starts at 0 (january = 0)

@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class ScannerUtil {
     private static final boolean isWindows = System.getProperty("os.name").contains("Windows");
 
-    private static char getPathChar() {
+    public static char getPathChar() {
         if (isWindows) return '\\';
         else return '/';
     }

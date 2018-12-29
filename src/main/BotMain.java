@@ -1,20 +1,16 @@
 package main;
 
 import events.DevTools;
-import events.MessageListener;
 import events.Reactions;
 import events.commands.*;
 import events.gameroom.*;
-import jdk.nashorn.internal.parser.JSONParser;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import org.json.JSONObject;
 
 import java.io.File;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -28,7 +24,7 @@ public class BotMain {
 
     public static void main(String[] args) throws Exception {
         bot_grill = new JDABuilder(AccountType.BOT)
-                .setToken(new Scanner(new File(".\\src\\token.txt")).nextLine())
+                .setToken(new Scanner(new File("./src/main/token.txt")).nextLine())
                 .build();
 
         bot_grill.awaitReady();

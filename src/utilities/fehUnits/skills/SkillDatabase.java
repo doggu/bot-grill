@@ -1,5 +1,7 @@
 package utilities.fehUnits.skills;
 
+import utilities.ScannerUtil;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -75,7 +77,7 @@ public class SkillDatabase {
             int cost = Integer.parseInt(line.next());
             int rng = Integer.parseInt(line.next());
             boolean exclusive = cost>300;       // TODO: this data needs to be added into the file later
-                                                // (doesn't work for Rally Up Atk+ or Rally Spd\\Def+
+                                                // (doesn't work for Rally Up Atk+ or Rally Spd/Def+
 
             Assist assist = new Assist(name, description, 'A', cost, exclusive, rng);
             assistSkills.add(assist);
@@ -153,17 +155,29 @@ public class SkillDatabase {
     }
 
     public static List<Skill> getList() {
-        File swordsFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\swords.txt");
-        File lancesFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\lances.txt");
-        File axesFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\axes.txt");
-        File redTomesFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\redTomes.txt");
-        File blueTomesFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\blueTomes.txt");
-        File greenTomesFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\greenTomes.txt");
-        File bowsFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\bows.txt");
-        File breathsFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\breaths.txt");
-        File daggersFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\daggers.txt");
-        File stavesFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\weapons\\staves.txt");
+        String[] swordsPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "swords.txt"};
+        String[] lancesPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "lances.txt"};
+        String[] axesPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "axes.txt"};
+        String[] redTomesPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "redTomes.txt"};
+        String[] blueTomesPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "blueTomes.txt"};
+        String[] greenTomesPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "greenTomes.txt"};
+        String[] bowsPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "bows.txt"};
+        String[] breathsPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "breaths.txt"};
+        String[] daggersPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "daggers.txt"};
+        String[] stavesPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "staves.txt"};
         //middle button selection is a life saver
+
+        File swordsFile = ScannerUtil.createFile(swordsPath);
+        File lancesFile = ScannerUtil.createFile(lancesPath);
+        File axesFile = ScannerUtil.createFile(axesPath);
+        File redTomesFile = ScannerUtil.createFile(redTomesPath);
+        File blueTomesFile = ScannerUtil.createFile(blueTomesPath);
+        File greenTomesFile = ScannerUtil.createFile(greenTomesPath);
+        File bowsFile = ScannerUtil.createFile(bowsPath);
+        File breathsFile = ScannerUtil.createFile(breathsPath);
+        File daggersFile = ScannerUtil.createFile(daggersPath);
+        File stavesFile = ScannerUtil.createFile(stavesPath);
+
         Scanner swords;
         try {
             swords = new Scanner(swordsFile);
@@ -235,12 +249,19 @@ public class SkillDatabase {
             throw new Error();
         }
 
-        File assistsFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\assists.txt");
-        File specialsFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\specials.txt");
-        File passivesAFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\passives\\a.txt");
-        File passivesBFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\passives\\b.txt");
-        File passivesCFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\passives\\c.txt");
-        File passivesSFile = new File(".\\src\\utilities\\fehUnits\\skills\\sources\\passives\\s.txt");
+        String[] assistsPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "assists.txt"};
+        String[] specialsPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "specials.txt"};
+        String[] passivesAPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "passives", "a.txt"};
+        String[] passivesBPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "passives", "b.txt"};
+        String[] passivesCPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "passives", "c.txt"};
+        String[] passivesSPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "passives", "s.txt"};
+
+        File assistsFile = ScannerUtil.createFile(assistsPath);
+        File specialsFile = ScannerUtil.createFile(specialsPath);
+        File passivesAFile = ScannerUtil.createFile(passivesAPath);
+        File passivesBFile = ScannerUtil.createFile(passivesBPath);
+        File passivesCFile = ScannerUtil.createFile(passivesCPath);
+        File passivesSFile = ScannerUtil.createFile(passivesSPath);
 
         Scanner assists;
         try {

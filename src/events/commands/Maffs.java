@@ -14,7 +14,7 @@ public class Maffs extends Command {
         /////////////////////////
 
         String problem = args[1];
-        ArrayList<Integer> nums = new ArrayList<>();
+        ArrayList<Double> nums = new ArrayList<>();
         ArrayList<Character> ops = new ArrayList<>();
 
         for (int i=0; i<problem.length(); i++) {
@@ -24,16 +24,13 @@ public class Maffs extends Command {
                 case '*':
                 case '/':
                     try {
-                        nums.add(Integer.parseInt(problem.substring(0, i)));
+                        nums.add((double) Integer.parseInt(problem.substring(0, i)));
                     } catch (NumberFormatException g) {
                         System.out.println("ah fuck");
                         return;
                     }
-                    System.out.println(problem);
                     ops.add(problem.charAt(i));
                     problem = problem.substring(i+1);
-                    System.out.println(problem);
-                    System.out.println(i);
                     i = -1; //account for i++
                     break;
                 case '1':
@@ -48,9 +45,8 @@ public class Maffs extends Command {
                 case '0':
                     System.out.println(i+" "+problem.length());
                     if (i>=problem.length()-1) {
-                        System.out.println("parsing the last number");
                         try {
-                            nums.add(Integer.parseInt(problem));
+                            nums.add((double) Integer.parseInt(problem));
                         } catch (NumberFormatException g) {
                             System.out.println("ah fuck (end)");
                             return;
@@ -62,9 +58,6 @@ public class Maffs extends Command {
                     return;
             }
         }
-
-        System.out.println(nums);
-        System.out.println(ops);
 
         /////////////////////////
         //        solve        //
@@ -112,6 +105,7 @@ public class Maffs extends Command {
                     break;
             }
         }
+
 
 
         StringBuilder message = new StringBuilder();

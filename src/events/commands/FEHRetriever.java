@@ -482,10 +482,9 @@ public class FEHRetriever extends Command {
             skill.append("SP: ").append(x.getCost()).append("\n");
             if (x instanceof Special) skill.append("CD: ").append(((Special) x).getCooldown()).append("\n");
             skill.append("Inheritable: ").append(x.isExclusive()?"No":"Yes").append("\n");
-            skill.append("```\n");
+
             if (x.getDescription().length()>0)
-                    skill.append(x.getDescription());
-            skill.append("```");
+                    skill.append("```").append(x.getDescription()).append("```");
             if (skillList.length()+skill.length()>2000) {
                 sendMessage(skillList.toString());
                 skillList = new StringBuilder();

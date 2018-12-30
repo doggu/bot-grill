@@ -36,9 +36,7 @@ public class WebScalper {
         }
 
         StringBuilder text = new StringBuilder();
-        for (char x : chars) {
-            text.append(x);
-        }
+        for (char x: chars) text.append(x);
         return text.toString();
     }
 
@@ -188,6 +186,6 @@ public class WebScalper {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-        testPassives();
+        //testPassives();
     }
 }

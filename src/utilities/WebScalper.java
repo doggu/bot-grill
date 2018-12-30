@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
+import java.util.stream.IntStream;
 
 
 public class WebScalper {
@@ -42,9 +43,33 @@ public class WebScalper {
 
     private static String[][] getTables(BufferedReader br) throws IOException {
 
+        return new String[3][3];
+    }
 
-        String[][] placeholder = new String[3][3];
-        return placeholder;
+    //literally just for hero information because all their shit is on one line
+    private static ArrayList<String> getItems(IntStream source) {
+        ArrayList<String> data = new ArrayList<>();
+        int[] chars = source.toArray();
+        
+        StringBuilder datum = new StringBuilder();
+        boolean isData = false;
+        for (int i:chars) {
+            char c = (char) i;
+            if (c=='<') {
+                isData = false;
+                if (datum.length()>0) {
+                    data.add(datum.toString());
+                    datum = new StringBuilder();
+                }
+                continue;
+            }
+            if (isData) datum.append(c);
+            if (c=='>') {
+                isData = true;
+            }
+        }
+        
+        return data;
     }
 
 
@@ -165,9 +190,66 @@ public class WebScalper {
         }
     }
 
+    private static void testHeroLists() throws IOException {
+        BufferedReader lv1Stats = new BufferedReader(new InputStreamReader(new URL("https://feheroes.gamepedia.com/Level_1_stats_table").openConnection().getInputStream()));
+        BufferedReader growthRates = new BufferedReader(new InputStreamReader(new URL("https://feheroes.gamepedia.com/Growth_rate_table").openConnection().getInputStream()));
+        BufferedReader heroList = new BufferedReader(new InputStreamReader(new URL("https://feheroes.gamepedia.com/Hero_list").openConnection().getInputStream()));
+
+        IntStream lv1StatsTable = null;
+        IntStream growthRatesTable = null;
+        IntStream heroListTable = null;
+
+        //actual data
+        //lv1Stats - pic, name, weapon/color, movement, hp, atk, spd, def, res, total (lv1)
+        //growthRates - pic, name, weapon/color, movement, lv1 total stats, total growth, "[lv1 total], [total growth]", hp, atk, spd, def, res (growth), release date
+        //heroList - pic, name, origin, weapon/color, movement, rarity/status, release date
+        //html-stripped data
+        //lv1Stats -
+
+        
+        
+        String line;
+        while ((line = lv1Stats.readLine())!=null) {
+            //the entire fucking table is on one line...
+            if (line.contains("<table class=\"wikitable sortable\"")) lv1StatsTable = line.chars();
+        }
+        if (lv1StatsTable==null) {
+            System.out.println("lv1StatsTable got some issues");
+            throw new Error();
+        }
+
+        while ((line = growthRates.readLine())!=null) {
+            //same for all of em
+            if (line.contains("<table class=\"wikitable default sortable\"")) growthRatesTable = line.chars();
+        }
+        if (growthRatesTable==null) {
+            System.out.println("growthRatesTable got some issues");
+            throw new Error();
+        }
+
+        while ((line = heroList.readLine())!=null) {
+            //ugh
+            if (line.contains("<table class=\"wikitable default sortable\"")) heroListTable = line.chars();
+        }
+        if (heroListTable==null) {
+            System.out.println("heroListTable got some issues");
+            throw new Error();
+        }
+
+        
+        ArrayList<String> lv1StatsData = getItems(lv1StatsTable);
+        ArrayList<String> growthRatesData = getItems(growthRatesTable);
+        ArrayList<String> heroListData = getItems(heroListTable);
+
+        System.out.println("printing");
+        for (String x: growthRatesData)
+            System.out.println(x);
+    }
+
 
 
     public static void main(String[] args) throws IOException {
+        //source: https://stackoverflow.com/questions/6159118/using-java-to-pull-data-from-a-webpage
         // Make a URL to the web page
         URL url = new URL("https://feheroes.gamepedia.com/Passives");
 
@@ -187,5 +269,6 @@ public class WebScalper {
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
         //testPassives();
+        testHeroLists();
     }
 }

@@ -224,14 +224,25 @@ public class UnitDatabase {
 
     public static void main(String[] args) {
         ArrayList<Hero> heroes = getList();
+        HashMap<String, Hero> heroMap = new HashMap<>();
+        for (Hero x:heroes) heroMap.put(x.getName()+": "+x.getEpithet(), x);
+
+        Object[] keys = heroMap.keySet().toArray();
+        for (Object x: keys)
+            System.out.println((String)x);
 
         Scanner console = new Scanner(System.in);
         String character = console.nextLine().toLowerCase();
         while(!character.equals("quit")) {
-            for (Hero x: heroes)
-                if (x.getName().toLowerCase().equals(character))
-                    System.out.println(x.getName());
-
+            Hero x = heroMap.get(character);
+            /*
+            if (x==null) {
+                System.out.println("invalid");
+                character = console.nextLine().toLowerCase();
+                continue;
+            }
+            */
+            System.out.println(heroMap.containsKey(character));
             character = console.nextLine().toLowerCase();
         }
     }

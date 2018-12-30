@@ -13,7 +13,6 @@ import java.util.*;
 
 
 public class WebScalper {
-
     private static String stripHTML(String line) {
         char[] charArr = line.toCharArray();
         List<Character> chars = new ArrayList<>();
@@ -150,8 +149,15 @@ public class WebScalper {
 
         while (input.hasNextLine()) {
             String[] paramsStr = input.nextLine().split(" ");
-            char list = paramsStr[0].charAt(0);
-            int skill = Integer.parseInt(paramsStr[1]);
+            char list;
+            int skill;
+            try {
+                list = paramsStr[0].charAt(0);
+                skill = Integer.parseInt(paramsStr[1]);
+            } catch (IndexOutOfBoundsException | NumberFormatException g) {
+                System.out.println("incorrect syntax");
+                continue;
+            }
 
             try {
                 System.out.println(lists.get(list).get(skill).toString());

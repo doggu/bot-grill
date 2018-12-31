@@ -9,6 +9,11 @@ import java.util.*;
 public class UnitDatabase {
     public static final ArrayList<Hero> HEROES = getList();
 
+    /*
+     * one hero for each document:
+     *
+     *
+     */
     private static ArrayList<Hero> getList() {
         ArrayList<HeroConstructor> heroConstructors = new ArrayList<>();
 
@@ -23,6 +28,8 @@ public class UnitDatabase {
     }
 
     public static void main(String[] args) {
+        File lv1Stats = new File(".\\src\\utilities\\fehUnits\\heroes\\sources\\LV1Stats.txt");
 
+        lv1Stats.setLastModified(0);
     }
 }

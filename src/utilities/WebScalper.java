@@ -7,13 +7,20 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.*;
 import java.util.stream.IntStream;
 
 
-public class WebScalper {
+public abstract class WebScalper {
+    public abstract ArrayList<> getList();
+
+    public static BufferedReader readWebsite(String url) throws IOException {
+        return new BufferedReader(new InputStreamReader(new URL(url).openConnection().getInputStream()));
+    }
+
     private static String stripHTML(String line) {
         char[] charArr = line.toCharArray();
         List<Character> chars = new ArrayList<>();
@@ -203,6 +210,7 @@ public class WebScalper {
         //lv1Stats - pic, name, weapon/color, movement, hp, atk, spd, def, res, total (lv1)
         //growthRates - pic, name, weapon/color, movement, lv1 total stats, total growth, "[lv1 total], [total growth]", hp, atk, spd, def, res (growth), release date
         //heroList - pic, name, origin, weapon/color, movement, rarity/status, release date
+
         //html-stripped data
         //lv1Stats -
 
@@ -242,8 +250,18 @@ public class WebScalper {
         ArrayList<String> heroListData = getItems(heroListTable);
 
         System.out.println("printing");
-        for (String x: growthRatesData)
-            System.out.println(x);
+        ArrayList<ArrayList<String>> tablesOfTables = new ArrayList<>();
+        tablesOfTables.add(lv1StatsData);
+        tablesOfTables.add(growthRatesData);
+        tablesOfTables.add(heroListData);
+
+        for (ArrayList<String> x:tablesOfTables) {
+            System.out.println("a table\n");
+            for (int i=0; i<x.size()&&i<40; i++) {
+                System.out.println(x.get(i));
+            }
+            System.out.println('\n');
+        }
     }
 
 

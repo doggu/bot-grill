@@ -115,7 +115,7 @@ public class UnitDatabase extends WebScalper {
         }
 
         //remove initial junk data
-        for (int i=0; i<7; i++) lv1StatsTable.;
+        for (int i=0; i<7; i++) lv1Stats.readLine();
         for (int i=0; i<12; i++) growthRates.readLine();
         for (int i=0; i<7; i++) heroList.readLine();
 

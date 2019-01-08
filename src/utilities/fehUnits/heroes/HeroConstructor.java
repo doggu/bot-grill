@@ -21,7 +21,7 @@ public class HeroConstructor {
     public void setOrigin(String origin) { this.origin = origin; }
     public void setColor(String color) { this.color = color; }
     public void setWeaponType(String weaponType) { this.weaponType = weaponType; }
-    public void setMoveType(String moveType) { this.weaponType = weaponType; }
+    public void setMoveType(String moveType) { this.moveType = moveType; }
     public void setStats(int[] stats) { this.stats = stats; }
     public void setStatGrowths(int[] statGrowths) { this.statGrowths = statGrowths; }
     public void setRarity(int rarity) { this.rarity = rarity; }

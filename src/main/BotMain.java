@@ -49,6 +49,7 @@ public class BotMain {
         addListener(summonSimulator);
         addListener(new Reactions());
         addListener(new Maffs());
+        addListener(new EmbedTest());
 
         //ex:
         //removeListener(listenerChances);

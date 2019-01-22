@@ -75,13 +75,13 @@ public class UnitDatabase extends WebScalper {
 
         BufferedReader lv1Stats, growthRates, heroList;
         try {
-             lv1Stats = WebScalper.readWebsite("https://feheroes.gamepedia.com/Level_1_stats_table");
+             lv1Stats = readWebsite("https://feheroes.gamepedia.com/Level_1_stats_table");
         } catch (IOException g) { System.out.println("lv1Stats had an issue"); throw new Error(); }
         try {
-             growthRates = WebScalper.readWebsite("https://feheroes.gamepedia.com/Growth_rate_table");
+             growthRates = readWebsite("https://feheroes.gamepedia.com/Growth_rate_table");
         } catch (IOException g) { System.out.println("growthRates had an issue"); throw new Error(); }
         try {
-             heroList = WebScalper.readWebsite("https://feheroes.gamepedia.com/Hero_list");
+             heroList = readWebsite("https://feheroes.gamepedia.com/Hero_list");
         } catch (IOException g) { System.out.println("heroList had an issue"); throw new Error(); }
 
         IntStream lv1StatsTable = null, growthRatesTable = null, heroListTable = null;
@@ -114,16 +114,140 @@ public class UnitDatabase extends WebScalper {
             throw new Error();
         }
 
+        Iterator<String> lv1StatsData = getItems(lv1StatsTable).iterator();
+        Iterator<String> growthRatesData = getItems(growthRatesTable).iterator();
+        Iterator<String> heroListData = getItems(heroListTable).iterator();
+
         //remove initial junk data
-        for (int i=0; i<7; i++) lv1Stats.readLine();
-        for (int i=0; i<12; i++) growthRates.readLine();
-        for (int i=0; i<7; i++) heroList.readLine();
+        for (int i=0; i<7; i++)
+            System.out.println(lv1StatsData.next());
+        for (int i=0; i<12; i++)
+            System.out.println(growthRatesData.next());
+        for (int i=0; i<7; i++)
+            System.out.println(heroListData.next());
+
+
+        while (lv1StatsData.hasNext()&&growthRatesData.hasNext()&&heroListData.hasNext()) {
+            HeroConstructor x = new HeroConstructor();
+
+            processLv1Stats(x, lv1StatsData);
+            processGrowthRates(x, growthRatesData);
+            processHeroList(x, heroListData);
+
+            heroConstructors.add(x);
+        }
 
         ArrayList<Hero> heroes = new ArrayList<>();
-        for (HeroConstructor x:heroConstructors)
-            heroes.add(x.createHero());
+        for (HeroConstructor z:heroConstructors)
+            heroes.add(z.createHero());
         return heroes;
     }
+
+    private static void processLv1Stats(HeroConstructor x, Iterator<String> input) {
+        String identifier = input.next();
+        String name = identifier.substring(0, identifier.indexOf(": "));
+        String epithet = identifier.substring(identifier.indexOf(": ")+2);
+        x.setName(name);
+        x.setEpithet(epithet);
+
+        int[] stats = new int[5];
+        for (int i=0; i<stats.length; i++)
+            stats[i] = Integer.parseInt(input.next());
+        x.setStats(stats);
+
+        input.next(); //total lv1 stats
+    }
+
+    private static void processGrowthRates(HeroConstructor x, Iterator<String> input) {
+        String identifier = input.next();
+        String name = identifier.substring(0, identifier.indexOf(": "));
+        String epithet = identifier.substring(identifier.indexOf(": ")+2);
+        if (!name.equals(x.getName())) System.out.println("misalignment detected for "+name);
+
+        String typing = input.next();
+        String color = typing.substring(0, typing.indexOf(" "));
+        String weaponType = typing.substring(typing.indexOf(" ")+1);
+        x.setColor(color);
+        x.setWeaponType(weaponType);
+
+        String moveType = input.next();
+        x.setMoveType(moveType);
+
+        input.next(); //total lv1 stats
+        input.next(); //total stat growths
+        input.next(); //total lv1 stats and stat growths
+
+        int[] statGrowths = new int[5];
+        for (int i=0; i<statGrowths.length; i++) {
+            String growth = input.next();
+            statGrowths[i] = Integer.parseInt(growth.substring(0, growth.length()-1));
+        }
+        x.setStatGrowths(statGrowths);
+
+        String releaseDateData = input.next();
+        String[] values = releaseDateData.split(" ");
+        int year = Integer.parseInt(values[0]),
+                month = Integer.parseInt(values[1]),
+                day = Integer.parseInt(values[2]);
+        GregorianCalendar releaseDate = new GregorianCalendar(year, month, day);
+        x.setDateReleased(releaseDate);
+    }
+
+    private static void processHeroList(HeroConstructor x, Iterator<String> input) {
+        String identifier = input.next();
+        String name = identifier.substring(0, identifier.indexOf(": "));
+        String epithet = identifier.substring(identifier.indexOf(": ")+2);
+        if (!name.equals(x.getName())) System.out.println("misalignment detected for "+name);
+
+        String origin = input.next();
+        x.setOrigin(origin);
+
+        String rarity = input.next();
+
+
+
+        int lowerRarityBound = Integer.parseInt(input.next());
+        x.setRarity(lowerRarityBound);
+
+        boolean summonable, isInNormalPool;
+        String indeterminate = input.next();
+        if (indeterminate.indexOf('-')==0) {
+            int upperRarityBound = Integer.parseInt(indeterminate); //unused
+            indeterminate = input.next();
+            if (!indeterminate.contains("-")) {
+                //it's the release date
+            }
+        } else if (!indeterminate.contains("-")) {
+            String obtainType = indeterminate;
+            switch (obtainType) {
+                case "*":
+                    summonable = true;
+                    isInNormalPool = true;
+                    break;
+                case "Story":
+                case "Grand Hero Battle":
+                case "Tempest Trials":
+                    summonable = false;
+                    isInNormalPool = false;
+                    break;
+                //separate because they could be part of a summoning focus
+                case "Special":
+                case "Legendary":
+                    summonable = true;
+                    isInNormalPool = false;
+                    break;
+                default:
+                    System.out.println("obtaining method wasn't accounted for: "+obtainType);
+                    throw new Error();
+            }
+        } else {
+            //releaes date; discard
+        }
+
+
+    }
+
+
 
     public static void main(String[] args) {
         try {

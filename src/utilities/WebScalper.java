@@ -52,7 +52,7 @@ public abstract class WebScalper {
     }
 
     //literally just for hero information because all their shit is on one line
-    private static ArrayList<String> getItems(IntStream source) {
+    public static ArrayList<String> getItems(IntStream source) {
         ArrayList<String> data = new ArrayList<>();
         int[] chars = source.toArray();
         

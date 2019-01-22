@@ -119,13 +119,21 @@ public class UnitDatabase extends WebScalper {
         Iterator<String> heroListData = getItems(heroListTable).iterator();
 
         //remove initial junk data
+        /*
         for (int i=0; i<7; i++)
             System.out.println(lv1StatsData.next());
         for (int i=0; i<12; i++)
             System.out.println(growthRatesData.next());
         for (int i=0; i<7; i++)
             System.out.println(heroListData.next());
+        */
 
+        for (int i=0; i<7; i++)
+            lv1StatsData.next();
+        for (int i=0; i<12; i++)
+            growthRatesData.next();
+        for (int i=0; i<7; i++)
+            heroListData.next();
 
         while (lv1StatsData.hasNext()&&growthRatesData.hasNext()&&heroListData.hasNext()) {
             HeroConstructor x = new HeroConstructor();
@@ -145,81 +153,131 @@ public class UnitDatabase extends WebScalper {
 
     private static void processLv1Stats(HeroConstructor x, Iterator<String> input) {
         String identifier = input.next();
+
         String name = identifier.substring(0, identifier.indexOf(": "));
         String epithet = identifier.substring(identifier.indexOf(": ")+2);
+
         x.setName(name);
         x.setEpithet(epithet);
 
+
+
         int[] stats = new int[5];
+
         for (int i=0; i<stats.length; i++)
             stats[i] = Integer.parseInt(input.next());
+
         x.setStats(stats);
+
+
 
         input.next(); //total lv1 stats
     }
 
     private static void processGrowthRates(HeroConstructor x, Iterator<String> input) {
         String identifier = input.next();
+
         String name = identifier.substring(0, identifier.indexOf(": "));
         String epithet = identifier.substring(identifier.indexOf(": ")+2);
+
         if (!name.equals(x.getName())) System.out.println("misalignment detected for "+name);
 
+
+
         String typing = input.next();
+
         String color = typing.substring(0, typing.indexOf(" "));
         String weaponType = typing.substring(typing.indexOf(" ")+1);
+
         x.setColor(color);
         x.setWeaponType(weaponType);
 
+
+
         String moveType = input.next();
         x.setMoveType(moveType);
+
+
 
         input.next(); //total lv1 stats
         input.next(); //total stat growths
         input.next(); //total lv1 stats and stat growths
 
+
+
         int[] statGrowths = new int[5];
+
         for (int i=0; i<statGrowths.length; i++) {
             String growth = input.next();
             statGrowths[i] = Integer.parseInt(growth.substring(0, growth.length()-1));
         }
+
         x.setStatGrowths(statGrowths);
 
+
+
         String releaseDateData = input.next();
-        String[] values = releaseDateData.split(" ");
-        int year = Integer.parseInt(values[0]),
-                month = Integer.parseInt(values[1]),
+        String[] values = releaseDateData.split("-");
+
+        int     year = Integer.parseInt(values[0]),
+                month = Integer.parseInt(values[1])-1, //month is zero-based
                 day = Integer.parseInt(values[2]);
+
         GregorianCalendar releaseDate = new GregorianCalendar(year, month, day);
         x.setDateReleased(releaseDate);
     }
 
     private static void processHeroList(HeroConstructor x, Iterator<String> input) {
         String identifier = input.next();
-        String name = identifier.substring(0, identifier.indexOf(": "));
-        String epithet = identifier.substring(identifier.indexOf(": ")+2);
-        if (!name.equals(x.getName())) System.out.println("misalignment detected for "+name);
+        String name, epithet;
+        try {
+            name = identifier.substring(0, identifier.indexOf(": "));
+            epithet = identifier.substring(identifier.indexOf(": ") + 2);
+        } catch (StringIndexOutOfBoundsException g) {
+            System.out.println(identifier);
+            throw new Error();
+        }
+        if (!name.equals(x.getName())||!epithet.equals(x.getEpithet()))
+            System.out.println("misalignment detected for "+name);
+
+
 
         String origin = input.next();
         x.setOrigin(origin);
 
+
+
         String rarity = input.next();
-
-
-
-        int lowerRarityBound = Integer.parseInt(input.next());
+        int lowerRarityBound = Integer.parseInt(rarity);
         x.setRarity(lowerRarityBound);
 
-        boolean summonable, isInNormalPool;
+
+
+        boolean summonable = true, isInNormalPool = true;
+        GregorianCalendar releaseDate;
         String indeterminate = input.next();
-        if (indeterminate.indexOf('-')==0) {
-            int upperRarityBound = Integer.parseInt(indeterminate); //unused
+
+        /*
+         * parsing these next few lines:
+         *
+         * line 1
+         * if "-" index = 0, upper rarity bound
+         *      next
+         * if "-" is contained, release date
+         * if "-" is not contained, availability note
+         *      next
+         *      parse release date (or not)
+         */
+
+        if (indeterminate.indexOf("–")==0) {
+            int upperRarityBound = Integer.parseInt(indeterminate.substring(1));
             indeterminate = input.next();
-            if (!indeterminate.contains("-")) {
-                //it's the release date
-            }
-        } else if (!indeterminate.contains("-")) {
+        }                         //this is an em dash btw
+        if (indeterminate.contains("-")) {
+            //release date
+        } else {
             String obtainType = indeterminate;
-            switch (obtainType) {
+            switch (obtainType) { //reassigns to the same value a lot but whatever
                 case "*":
                     summonable = true;
                     isInNormalPool = true;
@@ -230,7 +288,7 @@ public class UnitDatabase extends WebScalper {
                     summonable = false;
                     isInNormalPool = false;
                     break;
-                //separate because they could be part of a summoning focus
+                    //seasonal/legendary/MyThIC heroes are not part of normal pools
                 case "Special":
                 case "Legendary":
                     summonable = true;
@@ -240,11 +298,12 @@ public class UnitDatabase extends WebScalper {
                     System.out.println("obtaining method wasn't accounted for: "+obtainType);
                     throw new Error();
             }
-        } else {
-            //releaes date; discard
+
+            input.next(); //release date
         }
 
-
+        x.setSummonable(summonable);
+        x.setInNormalPool(isInNormalPool);
     }
 
 

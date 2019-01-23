@@ -103,7 +103,7 @@ public class CircleSimulator extends ReactionListener {
         if (!summoner.equals(e.getUser())) return false;
         if (!e.getMessageId().equals(circleMessage.getId())) return false;
         if (!e.getMessageId().equals(circleMessage.getId())) return false;
-        if (e.getReaction().isSelf()) return false;
+        if (e.getReaction().isSelf()) return false; //it's for readability i swear
 
         //these are apparently equivalent
         //System.out.println(e.getReaction().getReactionEmote().getId());
@@ -118,7 +118,7 @@ public class CircleSimulator extends ReactionListener {
     protected void onCommand() {
         //the summoner has selected a stone, and a unit must be presented
 
-        // is not a custom emote (i hope)
+        //is not a custom emote (i hope)
         if (!e.getReaction().getReactionEmote().isEmote()) {
             System.out.println("what the fuck is this shit");
             return;

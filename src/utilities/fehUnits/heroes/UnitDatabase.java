@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 public class UnitDatabase extends WebScalper {
-    public static final ArrayList<Hero> HEROES = new ArrayList<>();
+    public static final ArrayList<Hero> HEROES = getList();
 
     /*
      * one hero for each document:
@@ -70,7 +70,7 @@ public class UnitDatabase extends WebScalper {
      * ...
      *
      */
-    private static ArrayList<Hero> getList() throws IOException {
+    private static ArrayList<Hero> getList() {
         ArrayList<HeroConstructor> heroConstructors = new ArrayList<>();
 
         BufferedReader lv1Stats, growthRates, heroList;
@@ -86,32 +86,36 @@ public class UnitDatabase extends WebScalper {
 
         IntStream lv1StatsTable = null, growthRatesTable = null, heroListTable = null;
 
-        String line;
-        while ((line = lv1Stats.readLine())!=null) {
-            //the entire fucking table is on one line...
-            if (line.contains("<table class=\"wikitable sortable\"")) lv1StatsTable = line.chars();
-        }
-        if (lv1StatsTable==null) {
-            System.out.println("lv1StatsTable got some issues");
-            throw new Error();
-        }
+        try {
+            String line;
+            while ((line = lv1Stats.readLine()) != null) {
+                //the entire fucking table is on one line...
+                if (line.contains("<table class=\"wikitable sortable\"")) lv1StatsTable = line.chars();
+            }
+            if (lv1StatsTable == null) {
+                System.out.println("lv1StatsTable got some issues");
+                throw new Error();
+            }
 
-        while ((line = growthRates.readLine())!=null) {
-            //same for all of em
-            if (line.contains("<table class=\"wikitable default sortable\"")) growthRatesTable = line.chars();
-        }
-        if (growthRatesTable==null) {
-            System.out.println("growthRatesTable got some issues");
-            throw new Error();
-        }
+            while ((line = growthRates.readLine()) != null) {
+                //same for all of em
+                if (line.contains("<table class=\"wikitable default sortable\"")) growthRatesTable = line.chars();
+            }
+            if (growthRatesTable == null) {
+                System.out.println("growthRatesTable got some issues");
+                throw new Error();
+            }
 
-        while ((line = heroList.readLine())!=null) {
-            //ugh
-            if (line.contains("<table class=\"wikitable default sortable\"")) heroListTable = line.chars();
-        }
-        if (heroListTable==null) {
-            System.out.println("heroListTable got some issues");
-            throw new Error();
+            while ((line = heroList.readLine()) != null) {
+                //ugh
+                if (line.contains("<table class=\"wikitable default sortable\"")) heroListTable = line.chars();
+            }
+            if (heroListTable == null) {
+                System.out.println("heroListTable got some issues");
+                throw new Error();
+            }
+        } catch (IOException g) {
+            System.out.println("table finding ran into IOException");
         }
 
         Iterator<String> lv1StatsData = getItems(lv1StatsTable).iterator();
@@ -309,8 +313,20 @@ public class UnitDatabase extends WebScalper {
 
 
     public static void main(String[] args) {
-        try {
-            getList();
-        } catch (IOException g) { System.out.println("d"); }
+        ArrayList<Hero> heroes;
+        heroes = getList();
+
+        Scanner console = new Scanner(System.in);
+
+        String input;
+        while (!(input = console.nextLine()).equals("quit")) {
+            for (Hero x:heroes) {
+                if (x.getName().equalsIgnoreCase(input)) {
+                    System.out.println(x.getName()+": "+x.getEpithet());
+                }
+            }
+        }
+
+        console.close();
     }
 }

@@ -116,6 +116,7 @@ public class UnitDatabase extends WebScalper {
             }
         } catch (IOException g) {
             System.out.println("table finding ran into IOException");
+            throw new Error();
         }
 
         Iterator<String> lv1StatsData = getItems(lv1StatsTable).iterator();

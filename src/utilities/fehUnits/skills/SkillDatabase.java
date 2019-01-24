@@ -4,6 +4,7 @@ import utilities.WebScalper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 
@@ -23,8 +24,36 @@ public class SkillDatabase extends WebScalper {
         ArrayList<Skill> allSkills = new ArrayList<>();
 
 
-
         ArrayList<Weapon> weapons = new ArrayList<>();
+        BufferedReader weaponData;
+        try {
+            weaponData = readWebsite(ASSISTS);
+
+            ArrayList<ArrayList<String>> data = new ArrayList<>();
+            ArrayList<String> table = new ArrayList<>();
+            String line;
+            boolean print = false;
+
+            while ((line = weaponData.readLine()) != null) {
+                if (line.contains("<table class=\"cargoTable sortable\">"))
+                    print = true;
+
+                if (print) {
+                    String datum = line;
+                    if (datum.length()>0) table.add(datum);
+                }
+
+                if (line.contains("</tbody></table>")) {
+                    print = false;
+                    if (table.size()>0) data.add((ArrayList<String>) table.clone());
+                    table = new ArrayList<>();
+                }
+            }
+
+            for (ArrayList<String> x:data)
+                System.out.println(x);
+        } catch (IOException g) { System.out.println("weapons had an issue"); throw new Error(); }
+
 
 
 
@@ -60,18 +89,6 @@ public class SkillDatabase extends WebScalper {
     }
 
     public static void main(String[] args) {
-        BufferedReader testReader;
-        try {
-            testReader = readWebsite(WEAPONS);
-
-            String line;
-            boolean print = false;
-            while ((line = testReader.readLine()) != null) {
-                if (line.contains("<table class=\"cargoTable sortable\">")) {
-                    ArrayList<String> items = getItems(line.chars());
-                    for (String x:items) System.out.println(x);
-                }
-            }
-        } catch (IOException g) { System.out.println("testReader had an issue"); throw new Error(); }
+        getList();
     }
 }

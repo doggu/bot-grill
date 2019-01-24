@@ -1,6 +1,7 @@
 package events.commands;
 
 import main.BotMain;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Emote;
 import utilities.fehUnits.heroes.Hero;
 import utilities.fehUnits.heroes.Unit;
@@ -10,18 +11,18 @@ import utilities.fehUnits.skills.SkillDatabase_old;
 import utilities.fehUnits.skills.Special;
 import utilities.fehUnits.skills.Weapon;
 
+import java.awt.*;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
+import java.util.*;
 import java.util.List;
+
+//TODO: split fehretriever into multiple classes/listeners
 
 public class FEHRetriever extends Command {
     private final List<Hero> heroes;
     private final List<Skill> skills;
 
     public FEHRetriever() {
-        super(); //this is implicit retard
         heroes = UnitDatabase.HEROES;
         skills = SkillDatabase_old.getList();
 
@@ -57,6 +58,8 @@ public class FEHRetriever extends Command {
                 break;
         }
     }
+
+
 
     private void getUnits() {
         boolean lv1 = false;
@@ -437,15 +440,61 @@ public class FEHRetriever extends Command {
         for (Skill x:remove)
             candidates.remove(x);
 
-        //for (Skill x:candidates) System.out.println(x.getName());
 
+
+        HashMap<Integer, String> skillIcons = new HashMap<>();
+
+        skillIcons.put(0, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/8/82/Icon_Skill_Weapon.png");
+        skillIcons.put(1, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/9/9a/Icon_Skill_Assist.png");
+        skillIcons.put(2, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/2/25/Icon_Skill_Special.png");
+        skillIcons.put(3, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/6/68/Passive_Icon_A.png");
+        skillIcons.put(4, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/6/6a/Passive_Icon_B.png");
+        skillIcons.put(5, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/8/84/Passive_Icon_C.png");
+        skillIcons.put(6, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/6/6f/Passive_Icon_S.png");
+
+        for (Skill x:candidates) {
+            EmbedBuilder skill = new EmbedBuilder();
+
+            switch (x.getSlot()) {
+                case 0:
+                    skill.setColor(new Color(0xDE1336));
+                    break;
+                case 1:
+                    skill.setColor(new Color(0x00EDB3));
+                    break;
+                case 2:
+                    skill.setColor(new Color(0xF400E5));
+                    break;
+                case 3:
+                    skill.setColor(new Color(0xFF2A2A));
+                    break;
+                case 4:
+                    skill.setColor(new Color(0x003ED3));
+                    break;
+                case 5:
+                    skill.setColor(new Color(0x09C639));
+                    break;
+                case 6:
+                    skill.setColor(new Color(0xEDE500));
+                    break;
+            }
+
+            skill.setAuthor(x.getName());
+            skill.setDescription(x.getDescription());
+
+            skill.setThumbnail(skillIcons.get(x.getSlot()));
+
+            e.getChannel().sendMessage(skill.build()).queue();
+        }
+
+        /*
         StringBuilder skillList = new StringBuilder();
         for (Skill x:candidates) {
             StringBuilder skill = new StringBuilder();
 
             //TODO: put this trash somewhere else
-            //0 - weapon | 1 - assist | 2 - special | 3-6 - passives
-            List<Emote> totalEmotes = new ArrayList<>(e.getJDA().getGuildById("508405484651544586"/*fehicons*/).getEmotes());
+            //0 - weapon | 1 - assist | 2 - special | 3-6 - passives            //fehicons
+            List<Emote> totalEmotes = new ArrayList<>(e.getJDA().getGuildById("508405484651544586").getEmotes());
             Emote[] emotes = new Emote[7];
             for (Emote y:totalEmotes) {
                 switch (y.getName()) {
@@ -495,6 +544,9 @@ public class FEHRetriever extends Command {
         if (skillList.length()>0) {
             sendMessage(skillList.toString());
         }
+        */
+
+
 
         StringBuilder report = new StringBuilder("found skill" + (candidates.size()>1?"s":"") + " for doggu:");
 
@@ -511,6 +563,8 @@ public class FEHRetriever extends Command {
 
         log(report.toString());
     }
+
+
 
     public static String printUnit(Unit x, boolean lv1) {
         return printUnit(x, lv1, 'd');
@@ -645,6 +699,8 @@ public class FEHRetriever extends Command {
                 + (!sboon&&sbane?(medium-1)+"-"+medium:"")
                 + (sboon&&sbane?(medium-1)+"-"+(medium+1):"");
     }
+
+
 
     private static String printEmote(Emote e) {
         return "<:"+e.getName()+":"+e.getId()+">";

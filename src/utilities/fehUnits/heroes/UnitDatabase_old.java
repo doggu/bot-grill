@@ -219,29 +219,4 @@ public class UnitDatabase_old {
 
         return processFiles(heroList, lv1Stats, growths);
     }
-
-
-
-    public static void main(String[] args) {
-        ArrayList<Hero> heroes = getList();
-
-        Scanner console = new Scanner(System.in);
-        String character = console.nextLine().toLowerCase();
-        while(!character.equals("quit")) {
-            ArrayList<Hero> chosenOnes = new ArrayList<>();
-            for (Hero x:heroes) {
-                if (x.getName().equalsIgnoreCase(character)) {
-                    System.out.println(x.getRarity());
-                }
-            }
-            /*
-            if (x==null) {
-                System.out.println("invalid");
-                character = console.nextLine().toLowerCase();
-                continue;
-            }
-            */
-            character = console.nextLine().toLowerCase();
-        }
-    }
 }

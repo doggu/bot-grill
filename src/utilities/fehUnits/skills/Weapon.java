@@ -3,9 +3,9 @@ package utilities.fehUnits.skills;
 public class Weapon extends Skill {
     final int mt, rng;
 
-    public Weapon(String name, String description, char slot, int cost, boolean exclusive,
+    public Weapon(String name, String description, int cost, boolean exclusive,
                   int mt, int rng) {
-        super(name, description, slot, cost, exclusive);
+        super(name, description, 'W', cost, exclusive);
 
         this.mt = mt;
         this.rng = rng;

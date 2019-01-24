@@ -4,7 +4,10 @@ import utilities.WebScalper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
 
 
 public class SkillDatabase extends WebScalper {
@@ -23,20 +26,10 @@ public class SkillDatabase extends WebScalper {
         ArrayList<Skill> allSkills = new ArrayList<>();
 
 
-
-        ArrayList<Weapon> weapons = new ArrayList<>();
-
-
-
-        ArrayList<Assist> assists = new ArrayList<>();
-
-
-
-        ArrayList<Special> specials = new ArrayList<>();
-
-
-
-        ArrayList<Passive> passives = new ArrayList<>();
+        ArrayList<Weapon> weapons = processWeapons();
+        //ArrayList<Assist> assists = processAssists();
+        //ArrayList<Special> specials = processSpecials();
+        //ArrayList<Passive> passives = processPassives();
 
         /*
         maybe? (could also be done in special function)
@@ -50,28 +43,103 @@ public class SkillDatabase extends WebScalper {
 
 
         allSkills.addAll(weapons);
-        allSkills.addAll(assists);
-        allSkills.addAll(specials);
-        allSkills.addAll(passives);
+        //allSkills.addAll(assists);
+        //allSkills.addAll(specials);
+        //allSkills.addAll(passives);
 
 
 
         return allSkills;
     }
 
-    public static void main(String[] args) {
-        BufferedReader testReader;
+    private static ArrayList<Weapon> processWeapons() {
+        ArrayList<ArrayList<String>> weaponTables;
+        BufferedReader weaponData;
         try {
-            testReader = readWebsite(WEAPONS);
+            weaponData = readWebsite(WEAPONS);
+            weaponTables = getTables(weaponData);
+        } catch (IOException g) { System.out.println("weapons had an issue"); throw new Error(); }
 
-            String line;
-            boolean print = false;
-            while ((line = testReader.readLine()) != null) {
-                if (line.contains("<table class=\"cargoTable sortable\">")) {
-                    ArrayList<String> items = getItems(line.chars());
-                    for (String x:items) System.out.println(x);
+
+
+        ArrayList<Weapon> weapons = new ArrayList<>();
+
+        //remove initial junk
+        for (ArrayList<String> x:weaponTables)
+            x.subList(0,6).clear(); //*grumble grumble* stupid indexing (this line removes 6 items, not 7)
+
+        for (ArrayList<String> x:weaponTables) System.out.println(x);
+
+        //TODO: this code currently cannot tell what kind of weapon it's reading
+        for (ArrayList<String> table:weaponTables) {
+            Iterator<String> list = table.iterator();
+            Weapon x;
+            while (list.hasNext()) {
+                String name = list.next();
+                System.out.println(name);
+                int might = Integer.parseInt(list.next());
+                int range = Integer.parseInt(list.next()); //technically the same for any given table but w/e
+                String description = "";
+                int cost = -1;
+                while (cost<0) {
+                    String line = list.next();
+                    try {
+                        cost = Integer.parseInt(line);
+                    } catch (NumberFormatException g) {
+                        if (description.length()>0) description+= " ";
+                        description+= line;
+                    }
                 }
+                boolean exclusive = "Yes".equals(list.next());
+
+                x = new Weapon(name, description, cost, exclusive, might, range);
+                weapons.add(x);
             }
-        } catch (IOException g) { System.out.println("testReader had an issue"); throw new Error(); }
+        }
+
+        return weapons;
+    }
+
+
+
+    private static ArrayList<ArrayList<String>> getTables(BufferedReader input) throws IOException {
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
+        ArrayList<String> table = new ArrayList<>();
+        String line;
+        boolean print = false;
+
+        while ((line = input.readLine()) != null) {
+            if (line.contains("<table class=\"cargoTable sortable\">"))
+                print = true;
+
+            if (print) {
+                ArrayList<String> datum = getItems(line.chars());
+                for (int i=0; i<datum.size(); i++) datum.set(i, datum.get(i).trim());
+                if (datum.size()>0) table.addAll(datum);
+            }
+
+            if (line.contains("</tbody></table>")) {
+                print = false;
+                if (table.size()>0) data.add((ArrayList<String>) table.clone());
+                table = new ArrayList<>();
+            }
+        }
+
+        return data;
+    }
+
+
+
+    public static void main(String[] args) {
+        ArrayList<Skill> skills = getList();
+
+        Scanner input = new Scanner(System.in);
+
+        String line;
+        while (!(line = input.nextLine()).equals("quit"))
+            for (Skill x:skills)
+                if (x.getName().equalsIgnoreCase(line))
+                    System.out.println(x);
+
     }
 }

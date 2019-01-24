@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
  * said components to be produced at once.
  *
  */
-public class HeroConstructor {
+class HeroConstructor {
     private String name, epithet, origin, color, weaponType, moveType;
     //these stats are 1* lv1 (regardless of obtainable rarities)
     private int[] stats, statGrowths;
@@ -16,33 +16,33 @@ public class HeroConstructor {
 
     private GregorianCalendar dateReleased;
 
-    public void setName(String name) { this.name = name; }
-    public void setEpithet(String epithet) { this.epithet = epithet; }
-    public void setOrigin(String origin) { this.origin = origin; }
-    public void setColor(String color) { this.color = color; }
-    public void setWeaponType(String weaponType) { this.weaponType = weaponType; }
-    public void setMoveType(String moveType) { this.moveType = moveType; }
-    public void setStats(int[] stats) { this.stats = stats; }
-    public void setStatGrowths(int[] statGrowths) { this.statGrowths = statGrowths; }
-    public void setRarity(int rarity) { this.rarity = rarity; }
-    public void setSummonable(boolean summonable) { this.summonable = summonable; }
-    public void setInNormalPool(boolean isInNormalPool) { this.isInNormalPool = isInNormalPool; }
-    public void setDateReleased(GregorianCalendar dateReleased) { this.dateReleased = dateReleased; }
+    void setName(String name) { this.name = name; }
+    void setEpithet(String epithet) { this.epithet = epithet; }
+    void setOrigin(String origin) { this.origin = origin; }
+    void setColor(String color) { this.color = color; }
+    void setWeaponType(String weaponType) { this.weaponType = weaponType; }
+    void setMoveType(String moveType) { this.moveType = moveType; }
+    void setStats(int[] stats) { this.stats = stats; }
+    void setStatGrowths(int[] statGrowths) { this.statGrowths = statGrowths; }
+    void setRarity(int rarity) { this.rarity = rarity; }
+    void setSummonable(boolean summonable) { this.summonable = summonable; }
+    void setInNormalPool(boolean isInNormalPool) { this.isInNormalPool = isInNormalPool; }
+    void setDateReleased(GregorianCalendar dateReleased) { this.dateReleased = dateReleased; }
 
-    public String getName() { return name; }
-    public String getEpithet() { return epithet; }
-    public String getOrigin() { return origin; }
-    public String getColor() { return color; }
-    public String getWeaponType() { return weaponType; }
-    public String getMoveType() { return moveType; }
-    public int[] getStats() { return stats; }
-    public int[] getStatGrowths() { return statGrowths; }
-    public int getRarity() { return rarity; }
-    public boolean getSummonable() { return summonable; }
-    public boolean getInNormalPool() { return isInNormalPool; }
-    public GregorianCalendar getDateReleased() { return dateReleased; }
+    String getName() { return name; }
+    String getEpithet() { return epithet; }
+    String getOrigin() { return origin; }
+    String getColor() { return color; }
+    String getWeaponType() { return weaponType; }
+    String getMoveType() { return moveType; }
+    int[] getStats() { return stats; }
+    int[] getStatGrowths() { return statGrowths; }
+    int getRarity() { return rarity; }
+    boolean getSummonable() { return summonable; }
+    boolean getInNormalPool() { return isInNormalPool; }
+    GregorianCalendar getDateReleased() { return dateReleased; }
 
-    public Hero createHero() throws Error {
+    Hero createHero() {
         if (name==null) {
             System.out.println("missing name!");
             throw new Error();

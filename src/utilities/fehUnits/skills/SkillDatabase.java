@@ -24,48 +24,10 @@ public class SkillDatabase extends WebScalper {
         ArrayList<Skill> allSkills = new ArrayList<>();
 
 
-        ArrayList<Weapon> weapons = new ArrayList<>();
-        BufferedReader weaponData;
-        try {
-            weaponData = readWebsite(ASSISTS);
-
-            ArrayList<ArrayList<String>> data = new ArrayList<>();
-            ArrayList<String> table = new ArrayList<>();
-            String line;
-            boolean print = false;
-
-            while ((line = weaponData.readLine()) != null) {
-                if (line.contains("<table class=\"cargoTable sortable\">"))
-                    print = true;
-
-                if (print) {
-                    String datum = line;
-                    if (datum.length()>0) table.add(datum);
-                }
-
-                if (line.contains("</tbody></table>")) {
-                    print = false;
-                    if (table.size()>0) data.add((ArrayList<String>) table.clone());
-                    table = new ArrayList<>();
-                }
-            }
-
-            for (ArrayList<String> x:data)
-                System.out.println(x);
-        } catch (IOException g) { System.out.println("weapons had an issue"); throw new Error(); }
-
-
-
-
-        ArrayList<Assist> assists = new ArrayList<>();
-
-
-
-        ArrayList<Special> specials = new ArrayList<>();
-
-
-
-        ArrayList<Passive> passives = new ArrayList<>();
+        ArrayList<Weapon> weapons = processWeapons();
+        //ArrayList<Assist> assists = processAssists();
+        //ArrayList<Special> specials = processSpecials();
+        //ArrayList<Passive> passives = processPassives();
 
         /*
         maybe? (could also be done in special function)
@@ -79,16 +41,77 @@ public class SkillDatabase extends WebScalper {
 
 
         allSkills.addAll(weapons);
-        allSkills.addAll(assists);
-        allSkills.addAll(specials);
-        allSkills.addAll(passives);
+        //allSkills.addAll(assists);
+        //allSkills.addAll(specials);
+        //allSkills.addAll(passives);
 
 
 
         return allSkills;
     }
 
+
+
+    private static ArrayList<Weapon> processWeapons() {
+        ArrayList<ArrayList<String>> weaponTables;
+        BufferedReader weaponData;
+        try {
+            weaponData = readWebsite(WEAPONS);
+            weaponTables = getTables(weaponData);
+        } catch (IOException g) { System.out.println("weapons had an issue"); throw new Error(); }
+
+
+
+        ArrayList<Weapon> weapons = new ArrayList<>();
+
+        //remove initial junk
+        for (ArrayList<String> x:weaponTables)
+                x.subList(0,5).remove(0);
+
+        for (ArrayList<String> x:weaponTables) System.out.println(x);
+
+
+
+        Weapon g = new Weapon("name","b",3,true,1,1);
+
+        return weapons;
+    }
+
+
+
+    private static ArrayList<ArrayList<String>> getTables(BufferedReader input) throws IOException {
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
+        ArrayList<String> table = new ArrayList<>();
+        String line;
+        boolean print = false;
+
+        while ((line = input.readLine()) != null) {
+            if (line.contains("<table class=\"cargoTable sortable\">"))
+                print = true;
+
+            if (print) {
+                ArrayList<String> datum = getItems(line.chars());
+                for (int i=0; i<datum.size(); i++) datum.set(i, datum.get(i).trim());
+                if (datum.size()>0) table.addAll(datum);
+            }
+
+            if (line.contains("</tbody></table>")) {
+                print = false;
+                if (table.size()>0) data.add((ArrayList<String>) table.clone());
+                table = new ArrayList<>();
+            }
+        }
+
+        return data;
+    }
+
+
+
     public static void main(String[] args) {
-        getList();
+        ArrayList<Skill> skills = getList();
+
+        for (Skill x:skills) {
+            System.out.println(x);
+        }
     }
 }

@@ -204,9 +204,6 @@ public class UnitDatabase extends WebScalper {
 
         String color = typing.substring(0, typing.indexOf(" "));
         String weaponType = typing.substring(typing.indexOf(" ")+1);
-        System.out.println(identifier);
-        System.out.println(color);
-        System.out.println(weaponType);
 
         x.setColor(color);
         x.setWeaponType(weaponType);

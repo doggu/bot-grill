@@ -5,6 +5,6 @@ package utilities.fehUnits.skills;
 // (such as raw stats, Special cooldown, etc.)
 public class ActionSkill extends Skill {
     public ActionSkill() {
-        super("fuck", "does shit", 'a', 44, true);
+        super("Camilla\'s Megajugs", "Grants atk/spd/def/res+69", 'a', 10000, true);
     }
 }

@@ -6,7 +6,7 @@ import utilities.fehUnits.heroes.Hero;
 import utilities.fehUnits.heroes.Unit;
 import utilities.fehUnits.heroes.UnitDatabase;
 import utilities.fehUnits.skills.Skill;
-import utilities.fehUnits.skills.SkillDatabase;
+import utilities.fehUnits.skills.SkillDatabase_old;
 import utilities.fehUnits.skills.Special;
 import utilities.fehUnits.skills.Weapon;
 
@@ -23,7 +23,7 @@ public class FEHRetriever extends Command {
     public FEHRetriever() {
         super(); //this is implicit retard
         heroes = UnitDatabase.HEROES;
-        skills = SkillDatabase.getList();
+        skills = SkillDatabase_old.getList();
 
         Method[] methods = FEHRetriever.class.getMethods();
 

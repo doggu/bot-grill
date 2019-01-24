@@ -13,6 +13,11 @@ import java.util.stream.IntStream;
 public class UnitDatabase extends WebScalper {
     public static final ArrayList<Hero> HEROES = getList();
 
+    private static final String
+            LV1_STATS = "https://feheroes.gamepedia.com/Level_1_stats_table",
+            GROWTH_RATES = "https://feheroes.gamepedia.com/Growth_rate_table",
+            HERO_LIST = "https://feheroes.gamepedia.com/Hero_list";
+
     /*
      * one hero for each document:
      *
@@ -73,16 +78,23 @@ public class UnitDatabase extends WebScalper {
     private static ArrayList<Hero> getList() {
         ArrayList<HeroConstructor> heroConstructors = new ArrayList<>();
 
+
+
         BufferedReader lv1Stats, growthRates, heroList;
+
         try {
-             lv1Stats = readWebsite("https://feheroes.gamepedia.com/Level_1_stats_table");
+             lv1Stats = readWebsite(LV1_STATS);
         } catch (IOException g) { System.out.println("lv1Stats had an issue"); throw new Error(); }
+
         try {
-             growthRates = readWebsite("https://feheroes.gamepedia.com/Growth_rate_table");
+             growthRates = readWebsite(GROWTH_RATES);
         } catch (IOException g) { System.out.println("growthRates had an issue"); throw new Error(); }
+
         try {
-             heroList = readWebsite("https://feheroes.gamepedia.com/Hero_list");
+             heroList = readWebsite(HERO_LIST);
         } catch (IOException g) { System.out.println("heroList had an issue"); throw new Error(); }
+
+
 
         IntStream lv1StatsTable = null, growthRatesTable = null, heroListTable = null;
 
@@ -193,6 +205,9 @@ public class UnitDatabase extends WebScalper {
 
         String color = typing.substring(0, typing.indexOf(" "));
         String weaponType = typing.substring(typing.indexOf(" ")+1);
+        System.out.println(identifier);
+        System.out.println(color);
+        System.out.println(weaponType);
 
         x.setColor(color);
         x.setWeaponType(weaponType);

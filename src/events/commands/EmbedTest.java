@@ -1,9 +1,8 @@
 package events.commands;
 
 import net.dv8tion.jda.core.EmbedBuilder;
-import utilities.fehUnits.heroes.UnitDatabase_old;
 import utilities.fehUnits.skills.Skill;
-import utilities.fehUnits.skills.SkillDatabase;
+import utilities.fehUnits.skills.SkillDatabase_old;
 
 import java.awt.Color;
 import java.util.HashMap;
@@ -18,42 +17,64 @@ public class EmbedTest extends Command {
     public void onCommand() {
         EmbedBuilder eb = new EmbedBuilder();
 
-        List<Skill> skillz = SkillDatabase.getList();
+        List<Skill> skillz = SkillDatabase_old.getList();
 
-        Skill ex = skillz.get((int)(Math.random()*skillz.size()));
+        for (int i=0; i<5; i++) {
+            Skill ex = skillz.get((int) (Math.random() * skillz.size()));
 
-        eb.setTitle("Description", null);
 
-        eb.setColor(Color.red);
-        eb.setColor(new Color(0xF40C0C));
-        eb.setColor(new Color(255, 0, 54));
 
-        eb.setDescription(ex.getDescription());
+            switch (ex.getSlot()) {
+                case 0:
+                    eb.setColor(new Color(0xDE1336));
+                    break;
+                case 1:
+                    eb.setColor(new Color(0x00EDB3));
+                    break;
+                case 2:
+                    eb.setColor(new Color(0xF400E5));
+                    break;
+                case 3:
+                    eb.setColor(new Color(0xFF2A2A));
+                    break;
+                case 4:
+                    eb.setColor(new Color(0x003ED3));
+                    break;
+                case 5:
+                    eb.setColor(new Color(0x09C639));
+                    break;
+                case 6:
+                    eb.setColor(new Color(0xEDE500));
+                    break;
+            }
 
-        eb.addField("Title of field", "test of field", false);
+            eb.setAuthor(ex.getName());
+            eb.setDescription(ex.getDescription());
 
-        eb.addBlankField(false);
+            //eb.addField(ex.getName(), ex.getDescription(), true);
 
-        eb.setAuthor(ex.getName());
-        //eb.setAuthor(ex.getName(), [url], [iconURL]);
+            //eb.addBlankField(false);
 
-        //eb.setFooter("FauUIAerE EmbUL HeruO", "https://github.com/zekroTJA/DiscordBot/blob/master/.websrc/zekroBot_Logo_-_round_small.png");
+            //eb.setAuthor(ex.getName(),"https://feheroes.gamepedia.com/Attack_Defense_Solo","https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/e/ed/Atk_Def_Solo_3.png");
 
-        //eb.setImage("https://github.com/zekroTJA/DiscordBot/blob/master/.websrc/logo%20-%20title.png");
+            //eb.setFooter("FauUIAerE EmbUL HeruO", "https://github.com/zekroTJA/DiscordBot/blob/master/.websrc/zekroBot_Logo_-_round_small.png");
 
-        HashMap<Integer, String> skillIcons = new HashMap<>();
+            //eb.setImage("");
 
-        skillIcons.put(0, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/8/82/Icon_Skill_Weapon.png");
-        skillIcons.put(1, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/9/9a/Icon_Skill_Assist.png");
-        skillIcons.put(2, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/2/25/Icon_Skill_Special.png");
-        skillIcons.put(3, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/6/68/Passive_Icon_A.png");
-        skillIcons.put(4, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/8/84/Passive_Icon_C.png");
-        skillIcons.put(5, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/6/6a/Passive_Icon_B.png");
-        skillIcons.put(6, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/6/6f/Passive_Icon_S.png");
+            HashMap<Integer, String> skillIcons = new HashMap<>();
 
-        eb.setThumbnail(skillIcons.get(ex.getSlot()));
+            skillIcons.put(0, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/8/82/Icon_Skill_Weapon.png");
+            skillIcons.put(1, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/9/9a/Icon_Skill_Assist.png");
+            skillIcons.put(2, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/2/25/Icon_Skill_Special.png");
+            skillIcons.put(3, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/6/68/Passive_Icon_A.png");
+            skillIcons.put(4, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/6/6a/Passive_Icon_B.png");
+            skillIcons.put(5, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/8/84/Passive_Icon_C.png");
+            skillIcons.put(6, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/6/6f/Passive_Icon_S.png");
 
-        e.getChannel().sendMessage(eb.build()).queue();
+            eb.setThumbnail(skillIcons.get(ex.getSlot()));
+
+            e.getChannel().sendMessage(eb.build()).queue();
+        }
     }
 
     private void exampleCode() {

@@ -55,16 +55,15 @@ public class BotMain {
         //removeListener(listenerChances);
 
         Scanner console = new Scanner(System.in);
-
-        while (console.hasNextLine()) {
-            boolean kill = false;
-            String command = console.nextLine();
+        
+        String command;
+        while (!(command = console.nextLine()).equals("kill")) {
             switch (command) {
                 case "getListeners":
                     for (Object x:bot_grill.getRegisteredListeners()) {
                         System.out.println(x);
                     }
-                case "refresh":
+                case "refresh": //TODO: make this based on already-present listeners (excluding CircleSimulator)
                     removeListener(listenerChances);
                     removeListener(listenerFEHRetriever);
                     removeListener(listenerEmotes);
@@ -92,8 +91,6 @@ public class BotMain {
                     System.out.println("command not found.");
                     break;
             }
-
-            if (kill) break;
         }
     }
 

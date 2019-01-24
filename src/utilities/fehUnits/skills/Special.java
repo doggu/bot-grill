@@ -3,9 +3,9 @@ package utilities.fehUnits.skills;
 public class Special extends Skill {
     private final int cd;
 
-    public Special(String name, String description, char slot, int cost, boolean exclusive,
+    public Special(String name, String description, int cost, boolean exclusive,
                   int cd) {
-        super(name, description, slot, cost, exclusive);
+        super(name, description, 'S', cost, exclusive);
 
         this.cd = cd;
     }

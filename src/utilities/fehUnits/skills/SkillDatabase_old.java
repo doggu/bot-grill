@@ -52,7 +52,7 @@ public class SkillDatabase_old {
                 int cost = Integer.parseInt(line.next());
                 boolean exclusive = line.next().equals("Yes");
 
-                Weapon weapon = new Weapon(name, description, 'W', cost, exclusive, mt, rng);
+                Weapon weapon = new Weapon(name, description, cost, exclusive, mt, rng);
 
                 weapons.add(weapon);
             }
@@ -77,7 +77,7 @@ public class SkillDatabase_old {
             boolean exclusive = cost>300;       // TODO: this data needs to be added into the file later
                                                 // (doesn't work for Rally Up Atk+ or Rally Spd/Def+
 
-            Assist assist = new Assist(name, description, 'A', cost, exclusive, rng);
+            Assist assist = new Assist(name, description, cost, exclusive, rng);
             assistSkills.add(assist);
         }
 
@@ -103,7 +103,7 @@ public class SkillDatabase_old {
                                                 // (doesn't work for galeforce and aether)
 
 
-            Special special = new Special(name, description, 'S', cost, exclusive, cd);
+            Special special = new Special(name, description, cost, exclusive, cd);
             specialSkills.add(special);
         }
 

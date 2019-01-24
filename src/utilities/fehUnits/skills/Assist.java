@@ -3,9 +3,9 @@ package utilities.fehUnits.skills;
 public class Assist extends Skill {
     final int rng;
 
-    public Assist(String name, String description, char slot, int cost, boolean exclusive,
+    public Assist(String name, String description, int cost, boolean exclusive,
                 int rng) {
-        super(name, description, slot, cost, exclusive);
+        super(name, description, 'A', cost, exclusive);
 
         this.rng = rng;
     }

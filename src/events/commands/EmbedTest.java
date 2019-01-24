@@ -1,9 +1,8 @@
 package events.commands;
 
 import net.dv8tion.jda.core.EmbedBuilder;
-import utilities.fehUnits.heroes.UnitDatabase_old;
 import utilities.fehUnits.skills.Skill;
-import utilities.fehUnits.skills.SkillDatabase;
+import utilities.fehUnits.skills.SkillDatabase_old;
 
 import java.awt.Color;
 import java.util.HashMap;
@@ -18,7 +17,7 @@ public class EmbedTest extends Command {
     public void onCommand() {
         EmbedBuilder eb = new EmbedBuilder();
 
-        List<Skill> skillz = SkillDatabase.getList();
+        List<Skill> skillz = SkillDatabase_old.getList();
 
         Skill ex = skillz.get((int)(Math.random()*skillz.size()));
 

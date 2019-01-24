@@ -6,6 +6,9 @@ import java.util.*;
 
 import utilities.fehUnits.heroes.Hero;
 
+//RARITY CHANGE DATE: APRIL 10 2018
+//TODO: this should be implemented sooner or later
+
 public class BannerDatabase {
     public static final List<Banner> banners = getList();
 

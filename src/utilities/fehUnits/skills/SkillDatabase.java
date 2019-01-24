@@ -6,6 +6,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Scanner;
 
 
 public class SkillDatabase extends WebScalper {
@@ -50,8 +52,6 @@ public class SkillDatabase extends WebScalper {
         return allSkills;
     }
 
-
-
     private static ArrayList<Weapon> processWeapons() {
         ArrayList<ArrayList<String>> weaponTables;
         BufferedReader weaponData;
@@ -66,13 +66,36 @@ public class SkillDatabase extends WebScalper {
 
         //remove initial junk
         for (ArrayList<String> x:weaponTables)
-                x.subList(0,5).remove(0);
+            x.subList(0,6).clear(); //*grumble grumble* stupid indexing (this line removes 6 items, not 7)
 
         for (ArrayList<String> x:weaponTables) System.out.println(x);
 
+        //TODO: this code currently cannot tell what kind of weapon it's reading
+        for (ArrayList<String> table:weaponTables) {
+            Iterator<String> list = table.iterator();
+            Weapon x;
+            while (list.hasNext()) {
+                String name = list.next();
+                System.out.println(name);
+                int might = Integer.parseInt(list.next());
+                int range = Integer.parseInt(list.next()); //technically the same for any given table but w/e
+                String description = "";
+                int cost = -1;
+                while (cost<0) {
+                    String line = list.next();
+                    try {
+                        cost = Integer.parseInt(line);
+                    } catch (NumberFormatException g) {
+                        if (description.length()>0) description+= " ";
+                        description+= line;
+                    }
+                }
+                boolean exclusive = "Yes".equals(list.next());
 
-
-        Weapon g = new Weapon("name","b",3,true,1,1);
+                x = new Weapon(name, description, cost, exclusive, might, range);
+                weapons.add(x);
+            }
+        }
 
         return weapons;
     }
@@ -110,8 +133,13 @@ public class SkillDatabase extends WebScalper {
     public static void main(String[] args) {
         ArrayList<Skill> skills = getList();
 
-        for (Skill x:skills) {
-            System.out.println(x);
-        }
+        Scanner input = new Scanner(System.in);
+
+        String line;
+        while (!(line = input.nextLine()).equals("quit"))
+            for (Skill x:skills)
+                if (x.getName().equalsIgnoreCase(line))
+                    System.out.println(x);
+
     }
 }

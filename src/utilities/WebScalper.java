@@ -19,7 +19,7 @@ public abstract class WebScalper {
         return new BufferedReader(new InputStreamReader(new URL(url).openConnection().getInputStream()));
     }
 
-    private static String stripHTML(String line) {
+    public static String stripHTML(String line) {
         char[] charArr = line.toCharArray();
         List<Character> chars = new ArrayList<>();
         for (char x : charArr)

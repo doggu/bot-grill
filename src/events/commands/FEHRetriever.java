@@ -8,8 +8,6 @@ import utilities.fehUnits.heroes.Unit;
 import utilities.fehUnits.heroes.UnitDatabase;
 import utilities.fehUnits.skills.Skill;
 import utilities.fehUnits.skills.SkillDatabase;
-import utilities.fehUnits.skills.Special;
-import utilities.fehUnits.skills.Weapon;
 
 import java.awt.*;
 import java.lang.reflect.Method;

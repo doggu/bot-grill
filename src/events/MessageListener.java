@@ -27,8 +27,10 @@ public abstract class MessageListener extends ListenerAdapter {
         if (message.charAt(0)!=getPrefix()) return;
         this.e = e;
         this.args = message.substring(1).split(" ");
-        if (isCommand())
+        if (isCommand()) {
+            e.getChannel().sendTyping().complete();
             onCommand();
+        }
     }
 
 

@@ -1,54 +1,31 @@
 package events;
 
-import net.dv8tion.jda.core.entities.Emote;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+public class DevTools extends MessageListener {
+    public void onCommand() {
+        System.out.println(e.getMessage().getContentRaw());
+        switch(args[0].toLowerCase()) {
+            case "kill":
+                main.BotMain.bot_grill.shutdownNow();
+                break;
+            case "sendmessage":
+                StringBuilder message = new StringBuilder();
+                for (int i=1; i<args.length; i++) {
+                    message.append(args[i]).append(" ");
+                }
 
-import java.time.OffsetDateTime;
-
-public class DevTools extends ListenerAdapter {
-    private void onCommand() {
-        sendMessage("aha");
-        log("performed debugging command");
-    }
-    private boolean isCommand() {
-        return (args[0].equals("&debug"));
-    }
-
-    private MessageReceivedEvent e;
-    private String[] args;
-
-    public void onMessageReceived(MessageReceivedEvent e) {
-        String message = e.getMessage().getContentRaw();
-        if (e.getAuthor().isBot()) return;
-        if (message.length()==0) return;
-        this.e = e;
-        this.args = message.substring(1).split(" ");
-        if (isCommand())
-            onCommand();
+                sendMessage(message.toString());
+                break;
+        }
     }
 
-    private void sendMessage(String message) {
-        e.getChannel().sendMessage(message).queue();
-    }
-    private void log(String message) {
-        OffsetDateTime g = e.getMessage().getCreationTime().minusHours(7);
-        int hour = g.getHour(),
-                minute = g.getMinute(),
-                second = g.getSecond(),
-                month = g.getMonthValue(),
-                day = g.getDayOfMonth(),
-                year = g.getYear();
-        System.out.println(
-                (Math.log10(hour)<1?"0":"")+hour+":"+
-                        (Math.log10(minute)<1?"0":"")+minute+":"+
-                        (Math.log10(second)<1?"0":"")+second+" "+
-                        (Math.log10(month)<1?"0":"")+month+"-"+
-                        (Math.log10(day)<1?"0":"")+day+"-"+
-                        (Math.log10(year)<1?"0":"")+year+": "+
-                        message);
+    public boolean isCommand() {
+        if (!e.getAuthor().getId().equals("125857288807251968")) //doggu, me
+            return false;
+
+        return true;
     }
 
-    //probably not going to come in handy here
-    private void addReaction(Emote emote) { e.getMessage().addReaction(emote).queue(); }
+    public char getPrefix() {
+        return '&';
+    }
 }

@@ -8,7 +8,6 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 import utilities.fehUnits.heroes.Unit;
 import utilities.fehUnits.summoning.Banner;
-import utilities.fehUnits.summoning.BannerDatabase;
 import utilities.fehUnits.summoning.Orb;
 
 import java.util.ArrayList;

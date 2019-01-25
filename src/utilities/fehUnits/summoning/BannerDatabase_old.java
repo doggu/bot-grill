@@ -9,7 +9,7 @@ import utilities.fehUnits.heroes.Hero;
 //RARITY CHANGE DATE: APRIL 10 2018
 //TODO: this should be implemented sooner or later
 
-public class BannerDatabase {
+public class BannerDatabase_old {
     public static final List<Banner> banners = getList();
 
     private static List<Banner> processFiles(Scanner archive) {

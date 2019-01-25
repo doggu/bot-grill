@@ -1,5 +1,6 @@
 package utilities;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import utilities.fehUnits.skills.Passive;
 import utilities.fehUnits.skills.Skill;
 
@@ -44,11 +45,6 @@ public abstract class WebScalper {
         StringBuilder text = new StringBuilder();
         for (char x: chars) text.append(x);
         return text.toString();
-    }
-
-    private static String[][] getTables(BufferedReader br) throws IOException {
-
-        return new String[3][3];
     }
 
     //literally just for hero information because all their shit is on one line
@@ -262,6 +258,23 @@ public abstract class WebScalper {
         }
     }
 
+    private static void testSummoningFocusArchive() throws IOException {
+        BufferedReader focusArchive = readWebsite("https://feheroes.gamepedia.com/Summoning_Focus_archive");
+
+        IntStream data = null;
+        String line;
+        while ((line = focusArchive.readLine()) != null) {
+            if (line.length()>100000) {
+                data = line.chars();
+                break;
+            }
+        }
+
+        if (data==null) return;
+
+        ArrayList<String> items = getItems(data);
+        for (String x:items) System.out.println(x);
+    }
 
 
     public static void main(String[] args) throws IOException {
@@ -285,6 +298,7 @@ public abstract class WebScalper {
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
         //testPassives();
-        testHeroLists();
+        //testHeroLists();
+        testSummoningFocusArchive();
     }
 }

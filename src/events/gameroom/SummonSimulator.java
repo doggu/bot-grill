@@ -2,7 +2,7 @@ package events.gameroom;
 
 import utilities.fehUnits.heroes.Hero;
 import utilities.fehUnits.summoning.Banner;
-import utilities.fehUnits.summoning.BannerDatabase_old;
+import utilities.fehUnits.summoning.BannerDatabase;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class SummonSimulator extends Gameroom {
         }
 
         List<Banner> openBanners = new ArrayList<>();
-        for (Banner x: BannerDatabase_old.banners) {
+        for (Banner x: BannerDatabase.BANNERS) {
             System.out.print(x.getName()+": ");
             if (x.getStartDate().compareTo(day)<0&&
                         x.getEndDate().compareTo(day)>0) {
@@ -79,7 +79,7 @@ public class SummonSimulator extends Gameroom {
         //"Your circle for: "+[banner title]+"\n"
         //"rates: focus = " +[focus rate]+" 5* = "+[5* rate]
 
-        List<Banner> list = BannerDatabase_old.banners;
+        List<Banner> list = BannerDatabase.BANNERS;
         Banner banner = list.get((int)(Math.random()*list.size())); //temp
 
         if (args.length>1) {

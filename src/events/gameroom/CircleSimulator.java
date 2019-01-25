@@ -22,6 +22,8 @@ public class CircleSimulator extends ReactionListener {
     private final List<Emote> stones;
     private int pulls = 0;
 
+
+
     public CircleSimulator(Message message, User summoner, Banner banner) {
         super();
         this.circleMessage = message;
@@ -73,6 +75,13 @@ public class CircleSimulator extends ReactionListener {
         this.stones = stones;
     }
 
+
+
+    public User getSummoner() { return summoner; }
+    public Guild getServer() { return server; }
+
+
+
     private List<Orb> generateOrbs() {
         List<Orb> orbs = new ArrayList<>();
 
@@ -82,11 +91,6 @@ public class CircleSimulator extends ReactionListener {
 
         return orbs;
     }
-
-
-
-    public User getSummoner() { return summoner; }
-    public Guild getServer() { return server; }
 
     public boolean canClose() {
         for (Orb x:orbs)

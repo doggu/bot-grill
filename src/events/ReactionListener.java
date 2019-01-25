@@ -14,20 +14,22 @@ public abstract class ReactionListener extends ListenerAdapter {
     protected MessageReactionAddEvent e;
 
 
+
+    protected abstract boolean isCommand();
+    protected abstract void onCommand();
+
+
+
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
         this.e = event;
         if (isCommand())
             onCommand();
     }
 
-    protected abstract boolean isCommand();
-    protected abstract void onCommand();
-
     protected Message sendMessage(String message) {
         MessageAction g = e.getChannel().sendMessage(message);
         return g.complete();
     }
-
     void addReaction(Emote emote) {
         e.getReaction()
                 .getChannel()

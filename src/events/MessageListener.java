@@ -9,12 +9,16 @@ import net.dv8tion.jda.core.requests.restaction.MessageAction;
 import java.time.OffsetDateTime;
 
 public abstract class MessageListener extends ListenerAdapter {
+    protected MessageReceivedEvent e;
+    protected String[] args;
+
+
+
     public abstract void onCommand();
     public abstract boolean isCommand();
     protected abstract char getPrefix();
 
-    protected MessageReceivedEvent e;
-    protected String[] args;
+
 
     public void onMessageReceived(MessageReceivedEvent e) {
         String message = e.getMessage().getContentRaw();
@@ -27,11 +31,19 @@ public abstract class MessageListener extends ListenerAdapter {
             onCommand();
     }
 
+
+
     //prolly wanna avoid using this first one for habitual reasons
     protected Message sendMessage(StringBuilder message) { return sendMessage(message.toString()); }
     protected Message sendMessage(String message) {
         return e.getChannel().sendMessage(message).complete();
     }
+
+    protected void addReaction(Emote emote) {
+        e.getMessage().addReaction(emote).queue();
+    }
+
+
 
     protected void log(String message) {
         OffsetDateTime g = OffsetDateTime.now();
@@ -49,9 +61,5 @@ public abstract class MessageListener extends ListenerAdapter {
                         (Math.log10(day)<1?"0":"")+day+"-"+
                         (Math.log10(year)<1?"0":"")+year+": "+
                         message);
-    }
-
-    protected void addReaction(Emote emote) {
-        e.getMessage().addReaction(emote).queue();
     }
 }

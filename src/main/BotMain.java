@@ -22,6 +22,17 @@ public class BotMain {
     public static List<Emote> stones;
     public static List<Emote> fehIcons;
 
+    private static void addListener(ListenerAdapter listener) {
+        bot_grill.addEventListener(listener);
+        listeners.add(listener);
+    }
+    private static void removeListener(ListenerAdapter listener) {
+        bot_grill.removeEventListener(listener);
+        listeners.remove(listener);
+    }
+
+
+
     public static void main(String[] args) throws Exception {
         bot_grill = new JDABuilder(AccountType.BOT)
                 .setToken(new Scanner(new File("./src/main/token.txt")).nextLine())
@@ -102,15 +113,5 @@ public class BotMain {
         }
 
         bot_grill.shutdown();
-    }
-
-    private static void addListener(ListenerAdapter listener) {
-        bot_grill.addEventListener(listener);
-        listeners.add(listener);
-    }
-
-    private static void removeListener(ListenerAdapter listener) {
-        bot_grill.removeEventListener(listener);
-        listeners.remove(listener);
     }
 }

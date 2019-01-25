@@ -15,6 +15,7 @@ public class Hero {
     private final GregorianCalendar dateReleased;
 
 
+
     public Hero(String name, String epithet, String origin,
                 String color, String weaponType, String moveType,
                 int rarity, boolean summonable, boolean isInNormalPool,
@@ -117,15 +118,12 @@ public class Hero {
         for (int i:stats) bst+=i;
         return bst;
     }
-
     public int getRarity() { return rarity; }
     public boolean isSummonable() { return summonable; }
     public boolean isInNormalPool() { return isInNormalPool; }
     public GregorianCalendar getReleaseDate() { return dateReleased; }
-
     public boolean hasSuperBoon() { return hasEccentricStat(true); }
     public boolean hasSuperBane() { return hasEccentricStat(false); }
-
     public boolean hasEccentricStat(boolean boon) {
         int[][] stats = getAllStats(false, 5);
         int row = (boon?0:2);
@@ -134,6 +132,8 @@ public class Hero {
                 return true;
         return false;
     }
+
+
 
     //TODO: fix somehow
     public String toString() { return this.getName()+": "+this.getEpithet(); }
@@ -351,8 +351,6 @@ public class Hero {
 
         return finalStats;
     }
-
-
 
 
 

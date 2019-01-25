@@ -55,7 +55,10 @@ public class Girl extends Command {
             "tropicalAttack",
             "trouble",
     };
+
     private List<Emote> girls = new ArrayList<>();
+
+
 
     public void onCommand() {
         compileList(); //create list of girls based on ID array
@@ -98,6 +101,8 @@ public class Girl extends Command {
     public boolean isCommand() {
         return args[0].equalsIgnoreCase("girl");
     }
+
+
 
     private void compileList() {
         JDA jda = e.getJDA();

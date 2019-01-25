@@ -9,6 +9,8 @@ public class Maffs extends Command {
     private static ArrayList<Double> nums = new ArrayList<>();
     private static ArrayList<Character> ops = new ArrayList<>();
 
+
+
     private void parse() {
         String problem = args[1];
         for (int i=0; i<problem.length(); i++) {
@@ -98,6 +100,7 @@ public class Maffs extends Command {
             }
         }
     }
+
 
 
     public void onCommand() {

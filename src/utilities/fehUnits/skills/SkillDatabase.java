@@ -1,15 +1,12 @@
 package utilities.fehUnits.skills;
 
 import utilities.WebScalper;
-
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
-
 
 public class SkillDatabase extends WebScalper {
     public static ArrayList<Skill> SKILLS = getList();
@@ -22,6 +19,8 @@ public class SkillDatabase extends WebScalper {
             SACRED_SEALS_ALL = "https://feheroes.gamepedia.com/Sacred_Seals",
             SKILL_CHAINS_4_STARS = "https://feheroes.gamepedia.com/Skill_Chains_4_Stars_List",
             SKILL_CHAINS_5_STARS = "https://feheroes.gamepedia.com/Skill_Chains_5_Stars_List";
+
+
 
     private static ArrayList<Skill> getList() {
         ArrayList<Skill> allSkills = new ArrayList<>();
@@ -111,7 +110,6 @@ public class SkillDatabase extends WebScalper {
 
         return weapons;
     }
-    
     private static ArrayList<Assist> processAssists() {
         ArrayList<String> assistTable;
         BufferedReader assistData;
@@ -152,7 +150,6 @@ public class SkillDatabase extends WebScalper {
 
         return assists;
     }
-    
     private static ArrayList<Special> processSpecials() {
         ArrayList<String> specialTable;
         BufferedReader specialData;
@@ -189,7 +186,6 @@ public class SkillDatabase extends WebScalper {
 
         return specials;
     }
-
     private static ArrayList<Passive> processPassives() {
         ArrayList<ArrayList<String>> passiveTables;
         BufferedReader passiveData;
@@ -237,8 +233,6 @@ public class SkillDatabase extends WebScalper {
 
         return passives;
     }
-
-
 
     private static ArrayList<ArrayList<String>> getTables(BufferedReader input) throws IOException {
         ArrayList<ArrayList<String>> data = new ArrayList<>();

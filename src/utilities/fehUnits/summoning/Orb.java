@@ -10,11 +10,15 @@ public class Orb {
     private final Unit hero;
     private boolean isPulled;
 
+
+
     public Orb(Banner banner) {
         this.banner = banner;
         hero = generateUnit();
         isPulled = false;
     }
+
+
 
     private Unit generateUnit() {
         //TODO: actually like, make (Hero, IVs, correct summoning rates)
@@ -61,9 +65,4 @@ public class Orb {
     public boolean isPulled() { return isPulled; }
 
     public String getColor() { return hero.getColor(); }
-
-    // i just leave my testing strewn all over the place don't i
-    public static void main(String[] args) {
-        System.out.println(Color.black);
-    }
 }

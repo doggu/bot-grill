@@ -20,6 +20,8 @@ public class FEHRetriever extends Command {
     private final List<Hero> heroes;
     private final List<Skill> skills;
 
+
+
     public FEHRetriever() {
         heroes = UnitDatabase.HEROES;
         skills = SkillDatabase.SKILLS;
@@ -28,32 +30,6 @@ public class FEHRetriever extends Command {
 
         for (Method method:methods) {
             //System.out.println(method.getName());
-        }
-    }
-
-    public boolean isCommand() {
-        String arg = args[0].toLowerCase();
-        switch(arg) {
-            case "getstats":
-            case "getivs":
-            case "getskill":
-            case "getskills":
-                return true;
-            default:
-                return false;
-        }
-    }
-
-    public void onCommand() {
-        switch(args[0].toLowerCase()) {
-            case "getivs":
-            case "getstats":
-                getUnits();
-                break;
-            case "getskill":
-            case "getskills":
-                getSkills();
-                break;
         }
     }
 
@@ -564,13 +540,33 @@ public class FEHRetriever extends Command {
 
 
 
-    public static String printUnit(Unit x, boolean lv1) {
-        return printUnit(x, lv1, 'd');
+    public boolean isCommand() {
+        String arg = args[0].toLowerCase();
+        switch(arg) {
+            case "getstats":
+            case "getivs":
+            case "getskill":
+            case "getskills":
+                return true;
+            default:
+                return false;
+        }
     }
 
-    public static String printUnit(Unit x, boolean lv1, char supportStatus) {
-        return printCharacter(x, lv1, x.getRarity(), false, x.getBoon(), x.getBane(), 0, supportStatus);
+    public void onCommand() {
+        switch(args[0].toLowerCase()) {
+            case "getivs":
+            case "getstats":
+                getUnits();
+                break;
+            case "getskill":
+            case "getskills":
+                getSkills();
+                break;
+        }
     }
+
+
 
     private static String printCharacter(Hero x, boolean lv1, int rarity, boolean getAll, int boon, int bane, int merges, char support) {
         //import emotes from fehicons database
@@ -654,6 +650,12 @@ public class FEHRetriever extends Command {
 
         return info;
     }
+    public static String printUnit(Unit x, boolean lv1) {
+        return printUnit(x, lv1, 'd');
+    }
+    public static String printUnit(Unit x, boolean lv1, char supportStatus) {
+        return printCharacter(x, lv1, x.getRarity(), false, x.getBoon(), x.getBane(), 0, supportStatus);
+    }
 
     private static String printStats(int[] stats) {
         StringBuilder statString = new StringBuilder();
@@ -663,7 +665,6 @@ public class FEHRetriever extends Command {
 
         return statString.toString();
     }
-
     private static String printStats(int[][] stats) {
         return  printStats(stats[0]) + 
                 printStats(stats[1]) + 
@@ -675,10 +676,9 @@ public class FEHRetriever extends Command {
         for (int i:stats) bst+= i;
         return "BST: " + bst;
     }
-
     private static String printBST(int[][] stats) {
         //TODO: technically not correct, as a unit could have a superboon with only other superbanes
-        // the real solution would be to test every scenario for stat totals
+        // the real solution would be to test every scenario (21) for stat totals
         int medium = 0; //convert to int so i can use printBST(int[] arg) here
         for (int i:stats[1]) medium+= i;
         boolean sboon = false, sbane = false;
@@ -690,6 +690,7 @@ public class FEHRetriever extends Command {
                 sbane = true;
             }
         }
+
         //"" for readability
         //who am i kidding this is stupid
         return "BST: "+(!sboon&&!sbane?medium:"")

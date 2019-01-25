@@ -5,6 +5,8 @@ public class Unit extends Hero {
     private final char supportStatus;
 
     //TODO: create character class
+    //how do i check things off 40%
+
 
 
     /**
@@ -80,11 +82,12 @@ public class Unit extends Hero {
         supportStatus = 'd';
     }
 
+
+
     public int getBoon() { return boon; }
     public int getBane() { return bane; }
     public int getRarity() { return rarity; }
     public int getSupportStatus() { return supportStatus; }
-
     public int[] getIVs() {
         int[] stats = super.getStats();
 
@@ -97,7 +100,6 @@ public class Unit extends Hero {
 
         return stats;
     }
-
     public int[] getStats() {
         return super.getStats(false, rarity, boon, bane);
     }

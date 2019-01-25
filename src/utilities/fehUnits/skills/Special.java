@@ -3,6 +3,8 @@ package utilities.fehUnits.skills;
 public class Special extends Skill {
     private final int cd;
 
+
+
     public Special(String name, String description, int cost, boolean exclusive,
                   int cd) {
         super(name, description, 'S', cost, exclusive);
@@ -10,7 +12,11 @@ public class Special extends Skill {
         this.cd = cd;
     }
 
+
+
     public int getCooldown() { return cd; }
+
+
 
     public String toString() {
         String info = name+"\n"

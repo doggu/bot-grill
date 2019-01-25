@@ -18,6 +18,8 @@ public class UnitDatabase extends WebScalper {
             GROWTH_RATES = "https://feheroes.gamepedia.com/Growth_rate_table",
             HERO_LIST = "https://feheroes.gamepedia.com/Hero_list";
 
+
+
     /*
      * one hero for each document:
      *
@@ -190,7 +192,6 @@ public class UnitDatabase extends WebScalper {
 
         input.next(); //total lv1 stats
     }
-
     private static void processGrowthRates(HeroConstructor x, Iterator<String> input) {
         String identifier = input.next();
 
@@ -243,7 +244,6 @@ public class UnitDatabase extends WebScalper {
         GregorianCalendar releaseDate = new GregorianCalendar(year, month, day);
         x.setDateReleased(releaseDate);
     }
-
     private static void processHeroList(HeroConstructor x, Iterator<String> input) {
         String identifier = input.next();
         String name, epithet;

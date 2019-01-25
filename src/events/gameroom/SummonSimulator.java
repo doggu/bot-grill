@@ -14,16 +14,7 @@ public class SummonSimulator extends Gameroom {
     private static List<Summoner> summoners = new ArrayList<>();
     private ArrayList<CircleSimulator> sessions = new ArrayList<>();
 
-    public void onCommand() {
-        switch (args[0]) {
-            case "summon":
-                createSession();
-                break;
-            case "simulateDay":
-                simulateDay();
-                break;
-        }
-    }
+
 
     private void simulateDay() {
         GregorianCalendar day;
@@ -64,15 +55,6 @@ public class SummonSimulator extends Gameroom {
             sendMessage(msg);
             log("simulated a date in FEH summoning");
         }
-    }
-
-    private GregorianCalendar parseDate(String date) throws NumberFormatException {
-        //TODO: make this less basic
-        String[] nums = date.split("-");
-        int year = Integer.parseInt(nums[2]),
-                month = Integer.parseInt(nums[0])-1, //guess i'll make this note again to drill it into my head
-                day = Integer.parseInt(nums[1]);
-        return new GregorianCalendar(year, month, day);
     }
 
     private void createSession() {
@@ -178,6 +160,17 @@ public class SummonSimulator extends Gameroom {
         log(report);
     }
 
+
+
+    private GregorianCalendar parseDate(String date) throws NumberFormatException {
+        //TODO: make this less basic
+        String[] nums = date.split("-");
+        int year = Integer.parseInt(nums[2]),
+                month = Integer.parseInt(nums[0])-1, //guess i'll make this note again to drill it into my head
+                day = Integer.parseInt(nums[1]);
+        return new GregorianCalendar(year, month, day);
+    }
+
     private static String printDate(GregorianCalendar date) {
         return "" +
                 date.get(GregorianCalendar.MONTH) +
@@ -191,7 +184,20 @@ public class SummonSimulator extends Gameroom {
                 "/" + date.getYear();
     }
 
+
+
     public boolean isCommand() {
         return args[0].equalsIgnoreCase("summon")||args[0].equalsIgnoreCase("simulateDay");
+    }
+
+    public void onCommand() {
+        switch (args[0]) {
+            case "summon":
+                createSession();
+                break;
+            case "simulateDay":
+                simulateDay();
+                break;
+        }
     }
 }

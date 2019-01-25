@@ -276,6 +276,7 @@ public abstract class WebScalper {
     }
 
 
+
     public static void main(String[] args) throws IOException {
         //source: https://stackoverflow.com/questions/6159118/using-java-to-pull-data-from-a-webpage
         // Make a URL to the web page

@@ -93,6 +93,8 @@ public class BannerDatabase extends WebScalper {
         return banners;
     }
 
+
+
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         String line;

@@ -13,8 +13,9 @@ class HeroConstructor {
     private int[] stats, statGrowths;
     private Integer rarity;
     private Boolean summonable, isInNormalPool;
-
     private GregorianCalendar dateReleased;
+
+
 
     void setName(String name) { this.name = name; }
     void setEpithet(String epithet) { this.epithet = epithet; }
@@ -29,6 +30,8 @@ class HeroConstructor {
     void setInNormalPool(boolean isInNormalPool) { this.isInNormalPool = isInNormalPool; }
     void setDateReleased(GregorianCalendar dateReleased) { this.dateReleased = dateReleased; }
 
+
+
     String getName() { return name; }
     String getEpithet() { return epithet; }
     String getOrigin() { return origin; }
@@ -41,6 +44,8 @@ class HeroConstructor {
     boolean getSummonable() { return summonable; }
     boolean getInNormalPool() { return isInNormalPool; }
     GregorianCalendar getDateReleased() { return dateReleased; }
+
+
 
     Hero createHero() {
         if (name==null) {

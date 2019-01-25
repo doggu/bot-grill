@@ -10,18 +10,22 @@ import java.util.List;
 
 public class Banner {
     private final String name;
-    private final List<Hero> heroes = new ArrayList<>(UnitDatabase.HEROES);
-    private final List<Hero> rarityFPool;
-    private final List<Hero> rarity5Pool;
-    private final List<Hero> rarity4Pool;
-    private final List<Hero> rarity3Pool;
 
-    private double rarityFrate;
-    private double rarity5rate;
-    private double rarity4rate;
-    private double rarity3rate;
+    private final List<Hero>
+            rarityFPool,
+            rarity5Pool,
+            rarity4Pool,
+            rarity3Pool;
+
+    private double
+            rarityFrate,
+            rarity5rate,
+            rarity4rate,
+            rarity3rate;
 
     private final GregorianCalendar startDate, endDate;
+
+
 
     //TODO: generate banner type based on name or request info?
     public Banner(String name, List<Hero> focusUnits, GregorianCalendar startDate, GregorianCalendar endDate) {
@@ -36,6 +40,8 @@ public class Banner {
         rarity3Pool = pools.get(2);
         generateRates();
     }
+
+
 
     /**
      * generates the summoning pools of a banner based on when the banner was released,
@@ -58,7 +64,7 @@ public class Banner {
         GregorianCalendar poolCutoff = (GregorianCalendar) startDate.clone();
 
         //creates a list of HEROES that could be summoned in normal pools
-        for (Hero x: heroes) {
+        for (Hero x: UnitDatabase.HEROES) {
             GregorianCalendar characterReleaseDate = (GregorianCalendar) x.getReleaseDate().clone();
             characterReleaseDate.add(GregorianCalendar.DAY_OF_MONTH, 20); //TODO: this value is not always correct
             //if character is summonable
@@ -141,6 +147,8 @@ public class Banner {
         //TODO: e.x. Hero Fest (the only real example here): 5%, 3% --->
     }
 
+
+
     public String getName() { return name; }
     public GregorianCalendar getStartDate() { return startDate; }
     public GregorianCalendar getEndDate() { return endDate; }
@@ -169,7 +177,6 @@ public class Banner {
         */
         GregorianCalendar start = new GregorianCalendar(2018,8,14),
                 end = new GregorianCalendar(2018,9,10);
-
 
         //TODO: NOTE: MONTH IS ZERO BASED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 

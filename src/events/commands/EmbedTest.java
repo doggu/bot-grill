@@ -13,7 +13,6 @@ public class EmbedTest extends Command {
         return args[0].equalsIgnoreCase("embedTest");
     }
 
-
     public void onCommand() {
         EmbedBuilder eb = new EmbedBuilder();
 
@@ -76,6 +75,8 @@ public class EmbedTest extends Command {
             e.getChannel().sendMessage(eb.build()).queue();
         }
     }
+
+
 
     private void exampleCode() {
         // Create the EmbedBuilder instance

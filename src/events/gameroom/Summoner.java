@@ -6,13 +6,13 @@ public class Summoner {
     private final User summoner;
     private int orbsSpent = 0;
 
+
+
     public Summoner(User summoner) {
         this.summoner = summoner;
     }
 
-    public void spendOrbs(int orbs) {
-        orbsSpent+= orbs;
-    }
+
 
     public String getName() {
         return summoner.getName();
@@ -22,5 +22,11 @@ public class Summoner {
     }
     public User getUser() {
         return summoner;
+    }
+
+
+
+    public void spendOrbs(int orbs) {
+        orbsSpent+= orbs;
     }
 }

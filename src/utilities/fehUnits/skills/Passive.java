@@ -5,6 +5,8 @@ public class Passive extends Skill {
         super(name, description, slot, cost, exclusive);
     }
 
+
+
     //TODO: implement this class and fix this toString
     public String toString() {
         String info = name+"\n"

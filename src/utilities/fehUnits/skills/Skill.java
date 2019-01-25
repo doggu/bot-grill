@@ -1,11 +1,16 @@
 package utilities.fehUnits.skills;
 
 public abstract class Skill {
+    final String name, description;
+
     //0 = weapon, 1 = assist, 2 = special,
     //3 = a passive, 4 = b passive, 5 = c passive, 6 = seal
-    final String name, description;
-    final int slot, cost;
+    final int slot;
+
+    final int cost;
     final boolean exclusive;
+
+
 
     public Skill(String name, String description, char slot, int cost, boolean exclusive) {
         this.name = name;

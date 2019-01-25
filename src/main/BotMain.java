@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BotMain {
-    private static JDA bot_grill;
+    public static JDA bot_grill;
     private static List<ListenerAdapter> listeners = new ArrayList<>();
 
     public static List<Emote> stones;
@@ -38,7 +38,10 @@ public class BotMain {
         ListenerAdapter listenerEmotes = new Emotes();
         ListenerAdapter listenerGirl = new Girl();
         ListenerAdapter listenerDevTools = new DevTools();
-        ListenerAdapter summonSimulator = new SummonSimulator();
+        ListenerAdapter listenerSummonSimulator = new SummonSimulator();
+        ListenerAdapter listenerReactions = new Reactions();
+        ListenerAdapter listenerMaffs = new Maffs();
+        ListenerAdapter listenerEmbedTest = new EmbedTest();
 
 
         addListener(listenerChances);
@@ -46,10 +49,10 @@ public class BotMain {
         addListener(listenerEmotes);
         addListener(listenerGirl);
         addListener(listenerDevTools);
-        addListener(summonSimulator);
-        addListener(new Reactions());
-        addListener(new Maffs());
-        addListener(new EmbedTest());
+        addListener(listenerSummonSimulator);
+        addListener(listenerReactions);
+        addListener(listenerMaffs);
+        addListener(listenerEmbedTest);
 
         //ex:
         //removeListener(listenerChances);
@@ -69,29 +72,36 @@ public class BotMain {
                     removeListener(listenerEmotes);
                     removeListener(listenerGirl);
                     removeListener(listenerDevTools);
-                    removeListener(summonSimulator);
+                    removeListener(listenerSummonSimulator);
+                    removeListener(listenerReactions);
+                    removeListener(listenerMaffs);
+                    removeListener(listenerEmbedTest);
                     listenerChances = new Chances();
                     listenerFEHRetriever = new FEHRetriever();
                     listenerEmotes = new Emotes();
                     listenerGirl = new Girl();
                     listenerDevTools = new DevTools();
-                    summonSimulator = new SummonSimulator();
+                    listenerSummonSimulator = new SummonSimulator();
+                    listenerReactions = new Reactions();
+                    listenerMaffs = new Maffs();
+                    listenerEmbedTest = new EmbedTest();
                     addListener(listenerChances);
                     addListener(listenerFEHRetriever);
                     addListener(listenerEmotes);
                     addListener(listenerGirl);
                     addListener(listenerDevTools);
-                    addListener(summonSimulator);
-                    break;
-                case "kill":
-                    bot_grill.shutdown();
-                    kill = true;
+                    addListener(listenerSummonSimulator);
+                    addListener(listenerReactions);
+                    addListener(listenerMaffs);
+                    addListener(listenerEmbedTest);
                     break;
                 default:
                     System.out.println("command not found.");
                     break;
             }
         }
+
+        bot_grill.shutdown();
     }
 
     private static void addListener(ListenerAdapter listener) {

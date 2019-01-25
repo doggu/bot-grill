@@ -52,7 +52,8 @@ public class SkillDatabase_old {
                 int cost = Integer.parseInt(line.next());
                 boolean exclusive = line.next().equals("Yes");
 
-                Weapon weapon = new Weapon(name, description, cost, exclusive, mt, rng);
+                Weapon weapon = new Weapon(name, description, cost, exclusive, mt, rng,
+                        "SkillDatabase_old does not support this feature any longer");
 
                 weapons.add(weapon);
             }

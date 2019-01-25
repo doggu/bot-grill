@@ -1,7 +1,7 @@
 package utilities.fehUnits.skills;
 
 public class Assist extends Skill {
-    final int rng;
+    private final int rng;
 
     public Assist(String name, String description, int cost, boolean exclusive,
                 int rng) {
@@ -9,6 +9,8 @@ public class Assist extends Skill {
 
         this.rng = rng;
     }
+
+    public int getRng() { return rng; }
 
     public String toString() {
         String info = name+"\n"

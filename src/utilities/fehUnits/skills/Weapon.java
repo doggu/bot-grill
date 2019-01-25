@@ -1,7 +1,7 @@
 package utilities.fehUnits.skills;
 
 public class Weapon extends Skill {
-    final int mt, rng;
+    private final int mt, rng;
 
     public Weapon(String name, String description, int cost, boolean exclusive,
                   int mt, int rng) {
@@ -12,6 +12,7 @@ public class Weapon extends Skill {
     }
 
     public int getMt() { return mt; }
+    public int getRng() { return rng; }
 
     public String toString() {
         String info = name+"\n"

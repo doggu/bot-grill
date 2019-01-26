@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+@Deprecated
 public class SkillDatabase_old {
     private static final boolean TESTING = false;
     //currently only for basic info, such as SP cost and description
@@ -146,8 +147,8 @@ public class SkillDatabase_old {
             int cost = Integer.parseInt(line.next());
             boolean exclusive = line.next().equals("Yes");
 
-            Skill skill = new Passive(name, description, slot, cost, exclusive);
-            passives.add(skill);
+            //Skill skill = new Passive(name, description, slot, cost, exclusive);
+            //passives.add(skill);
         }
 
         return passives;

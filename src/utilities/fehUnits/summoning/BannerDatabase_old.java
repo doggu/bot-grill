@@ -10,6 +10,7 @@ import utilities.fehUnits.heroes.Hero;
 //TODO: this should be implemented sooner or later
 //this should be in Banner tbh
 
+@Deprecated
 public class BannerDatabase_old {
     public static final List<Banner> banners = getList();
 

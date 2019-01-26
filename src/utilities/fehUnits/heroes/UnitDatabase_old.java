@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+@Deprecated
 public class UnitDatabase_old {
     public static final ArrayList<Hero> HEROES = getList();
 

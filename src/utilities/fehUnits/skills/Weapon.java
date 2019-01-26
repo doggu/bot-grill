@@ -1,6 +1,6 @@
 package utilities.fehUnits.skills;
 
-public class Weapon extends Skill {
+public class Weapon extends Skill implements ActionSkill {
     private final int mt, rng;
     private final String type;
 

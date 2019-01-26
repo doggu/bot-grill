@@ -201,12 +201,62 @@ public class SkillDatabase extends WebScalper {
         for (ArrayList<String> x:passiveTables)
             x.subList(0,5).clear();
 
-        HashMap<Integer, Character> slotNum = new HashMap<>();
-        slotNum.put(0, 'a');
-        slotNum.put(1, 'b');
-        slotNum.put(2, 'c');
-        slotNum.put(3, 's');
+        if (passiveTables.size()!=4) {
+            System.out.println("an unsolicited table has appeared in passives");
+            throw new Error();
+        }
 
+        Iterator<String>
+                passiveA = passiveTables.get(0).iterator(),
+                passiveB = passiveTables.get(1).iterator(),
+                passiveC = passiveTables.get(2).iterator(),
+                passiveS = passiveTables.get(3).iterator();
+
+        Passive x;
+        while (passiveA.hasNext()) {
+            String name = passiveA.next();
+            int cost = -1;
+            String description = "";
+            while (cost<0) {
+                String line = passiveA.next();
+                try {
+                    cost = Integer.parseInt(line);
+                } catch (NumberFormatException g) {
+                    if (description.length()>0) description+= " ";
+                    description+= line;
+                }
+            }
+            boolean exclusive = "Yes".equals(passiveA.next());
+
+
+
+            x = new PassiveA(name, description, cost, exclusive);
+            passives.add(x);
+        }
+        while (passiveB.hasNext()) {
+            String name = passiveB.next();
+            int cost = -1;
+            String description = "";
+            while (cost<0) {
+                String line = passiveB.next();
+                try {
+                    cost = Integer.parseInt(line);
+                } catch (NumberFormatException g) {
+                    if (description.length()>0) description+= " ";
+                    description+= line;
+                }
+            }
+            boolean exclusive = "Yes".equals(passiveB.next());
+
+
+
+            x = new PassiveB(name, description, cost, exclusive);
+            passives.add(x);
+        }
+
+
+
+        /*
         for (ArrayList<String> table:passiveTables) {
             Iterator<String> list = table.iterator();
             Passive x;
@@ -230,6 +280,7 @@ public class SkillDatabase extends WebScalper {
                 passives.add(x);
             }
         }
+        */
 
         return passives;
     }

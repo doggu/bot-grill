@@ -1,6 +1,6 @@
 package utilities.fehUnits.skills;
 
-public class Assist extends Skill {
+public class Assist extends Skill implements ActionSkill {
     private final int rng;
 
 

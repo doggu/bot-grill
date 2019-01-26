@@ -1,4 +1,4 @@
-package events.gameroom;
+package utilities.feh.players;
 
 import net.dv8tion.jda.core.entities.User;
 

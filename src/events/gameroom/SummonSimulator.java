@@ -1,6 +1,7 @@
 package events.gameroom;
 
 import utilities.feh.heroes.Hero;
+import utilities.feh.players.Summoner;
 import utilities.feh.summoning.Banner;
 import utilities.feh.summoning.BannerDatabase;
 

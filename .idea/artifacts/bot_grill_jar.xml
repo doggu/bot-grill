@@ -1,9 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="bot grill:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/bot_grill_jar</output-path>
-    <root id="archive" name="bot grill.jar">
-      <element id="module-output" name="bot grill" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/libs/JDA-3.8.0_423-withDependencies-no-opus.jar" path-in-jar="/" />
-    </root>
-  </artifact>
-</component>

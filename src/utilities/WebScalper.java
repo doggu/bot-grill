@@ -279,7 +279,7 @@ public abstract class WebScalper {
     public static void main(String[] args) throws IOException {
         //source: https://stackoverflow.com/questions/6159118/using-java-to-pull-data-from-a-webpage
         // Make a URL to the web page
-        URL url = new URL("https://feheroes.gamepedia.com/Passives");
+        URL url = new URL("https://docs.google.com/spreadsheets/d/1vwymjyksChc84apCilDJtU2oit2xh--tcx9neeziF1M");
 
         // Get the input stream through URL Connection
         URLConnection con = url.openConnection();
@@ -296,8 +296,13 @@ public abstract class WebScalper {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
+        String line;
+        while ((line = br.readLine()) != null) {
+            System.out.println(line);
+        }
+
         //testPassives();
         //testHeroLists();
-        testSummoningFocusArchive();
+        //testSummoningFocusArchive();
     }
 }

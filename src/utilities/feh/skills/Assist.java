@@ -1,14 +1,21 @@
-package utilities.fehUnits.skills;
+package utilities.feh.skills;
+
+public class Assist extends Skill implements ActionSkill {
+    private final int rng;
 
 
-public abstract class Passive extends Skill {
-    public Passive(String name, String description, char slot, int cost, boolean exclusive) {
-        super(name, description, slot, cost, exclusive);
+
+    public Assist(String name, String description, int cost, boolean exclusive,
+                int rng) {
+        super(name, description, 'A', cost, exclusive);
+
+        this.rng = rng;
     }
 
 
 
-    //TODO: implement this class and fix this toString
+    public int getRng() { return rng; }
+
     public String toString() {
         String info = name+"\n"
                 + "```\n"
@@ -42,6 +49,7 @@ public abstract class Passive extends Skill {
                 throw new Error();
         }
         info+= skillType+"\n"
+                + "Range: "+rng+"\n"
                 + "Cost: "+cost+"\n"
                 + "Exclusive: "+(exclusive?"Yes":"No")+"\n\n"
                 + description+"\n"

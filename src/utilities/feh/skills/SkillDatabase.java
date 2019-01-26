@@ -1,4 +1,4 @@
-package utilities.fehUnits.skills;
+package utilities.feh.skills;
 
 import utilities.WebScalper;
 import java.io.BufferedReader;

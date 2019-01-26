@@ -3,10 +3,10 @@ package events.commands;
 import main.BotMain;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Emote;
-import utilities.fehUnits.heroes.Hero;
-import utilities.fehUnits.heroes.Unit;
-import utilities.fehUnits.heroes.UnitDatabase;
-import utilities.fehUnits.skills.*;
+import utilities.feh.heroes.Hero;
+import utilities.feh.heroes.Unit;
+import utilities.feh.heroes.UnitDatabase;
+import utilities.feh.skills.*;
 
 import java.awt.*;
 import java.lang.reflect.Method;

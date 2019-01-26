@@ -6,9 +6,9 @@ import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
-import utilities.fehUnits.heroes.Unit;
-import utilities.fehUnits.summoning.Banner;
-import utilities.fehUnits.summoning.Orb;
+import utilities.feh.heroes.Unit;
+import utilities.feh.summoning.Banner;
+import utilities.feh.summoning.Orb;
 
 import java.util.ArrayList;
 import java.util.List;

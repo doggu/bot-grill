@@ -1,4 +1,4 @@
-package utilities.fehUnits.skills;
+package utilities.feh.skills;
 
 public class PassiveB extends Passive implements CooldownModifier {
     private final int cdModifier;

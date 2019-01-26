@@ -1,4 +1,4 @@
-package utilities.fehUnits.heroes;
+package utilities.feh.heroes;
 
 public class Unit extends Hero {
     private final int rarity, boon, bane;

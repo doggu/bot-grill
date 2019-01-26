@@ -1,7 +1,7 @@
-package utilities.fehUnits.summoning;
+package utilities.feh.summoning;
 
-import utilities.fehUnits.heroes.Hero;
-import utilities.fehUnits.heroes.UnitDatabase;
+import utilities.feh.heroes.Hero;
+import utilities.feh.heroes.UnitDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;

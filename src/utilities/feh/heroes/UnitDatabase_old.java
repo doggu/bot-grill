@@ -1,4 +1,4 @@
-package utilities.fehUnits.heroes;
+package utilities.feh.heroes;
 
 import utilities.ScannerUtil;
 
@@ -183,11 +183,11 @@ public class UnitDatabase_old {
     private static ArrayList<Hero> getList() {
         //i oughta just keep this info elsewhere
         String[] growthsPath = {
-                ".", "src", "utilities", "fehUnits", "heroes", "sources", "UnitGrowths.txt"};
+                ".", "src", "utilities", "feh", "heroes", "sources", "UnitGrowths.txt"};
         String[] lv1StatsPath = {
-                ".", "src", "utilities", "fehUnits", "heroes", "sources", "LV1Stats.txt"};
+                ".", "src", "utilities", "feh", "heroes", "sources", "LV1Stats.txt"};
         String[] heroListPath = {
-                ".", "src", "utilities", "fehUnits", "heroes", "sources", "UnitTyping.txt"};
+                ".", "src", "utilities", "feh", "heroes", "sources", "UnitTyping.txt"};
 
         File growthsFile = ScannerUtil.createFile(growthsPath);
         File lv1StatsFile = ScannerUtil.createFile(lv1StatsPath);

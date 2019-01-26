@@ -1,4 +1,4 @@
-package utilities.fehUnits.skills;
+package utilities.feh.skills;
 
 import utilities.ScannerUtil;
 
@@ -155,16 +155,16 @@ public class SkillDatabase_old {
     }
 
     public static List<Skill> getList() {
-        String[] swordsPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "swords.txt"};
-        String[] lancesPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "lances.txt"};
-        String[] axesPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "axes.txt"};
-        String[] redTomesPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "redTomes.txt"};
-        String[] blueTomesPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "blueTomes.txt"};
-        String[] greenTomesPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "greenTomes.txt"};
-        String[] bowsPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "bows.txt"};
-        String[] breathsPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "breaths.txt"};
-        String[] daggersPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "daggers.txt"};
-        String[] stavesPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "weapons", "staves.txt"};
+        String[] swordsPath = {".", "src", "utilities", "feh", "skills", "sources", "weapons", "swords.txt"};
+        String[] lancesPath = {".", "src", "utilities", "feh", "skills", "sources", "weapons", "lances.txt"};
+        String[] axesPath = {".", "src", "utilities", "feh", "skills", "sources", "weapons", "axes.txt"};
+        String[] redTomesPath = {".", "src", "utilities", "feh", "skills", "sources", "weapons", "redTomes.txt"};
+        String[] blueTomesPath = {".", "src", "utilities", "feh", "skills", "sources", "weapons", "blueTomes.txt"};
+        String[] greenTomesPath = {".", "src", "utilities", "feh", "skills", "sources", "weapons", "greenTomes.txt"};
+        String[] bowsPath = {".", "src", "utilities", "feh", "skills", "sources", "weapons", "bows.txt"};
+        String[] breathsPath = {".", "src", "utilities", "feh", "skills", "sources", "weapons", "breaths.txt"};
+        String[] daggersPath = {".", "src", "utilities", "feh", "skills", "sources", "weapons", "daggers.txt"};
+        String[] stavesPath = {".", "src", "utilities", "feh", "skills", "sources", "weapons", "staves.txt"};
         //middle button selection is a life saver
 
         File swordsFile = ScannerUtil.createFile(swordsPath);
@@ -249,12 +249,12 @@ public class SkillDatabase_old {
             throw new Error();
         }
 
-        String[] assistsPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "assists.txt"};
-        String[] specialsPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "specials.txt"};
-        String[] passivesAPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "passives", "a.txt"};
-        String[] passivesBPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "passives", "b.txt"};
-        String[] passivesCPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "passives", "c.txt"};
-        String[] passivesSPath = {".", "src", "utilities", "fehUnits", "skills", "sources", "passives", "s.txt"};
+        String[] assistsPath = {".", "src", "utilities", "feh", "skills", "sources", "assists.txt"};
+        String[] specialsPath = {".", "src", "utilities", "feh", "skills", "sources", "specials.txt"};
+        String[] passivesAPath = {".", "src", "utilities", "feh", "skills", "sources", "passives", "a.txt"};
+        String[] passivesBPath = {".", "src", "utilities", "feh", "skills", "sources", "passives", "b.txt"};
+        String[] passivesCPath = {".", "src", "utilities", "feh", "skills", "sources", "passives", "c.txt"};
+        String[] passivesSPath = {".", "src", "utilities", "feh", "skills", "sources", "passives", "s.txt"};
 
         File assistsFile = ScannerUtil.createFile(assistsPath);
         File specialsFile = ScannerUtil.createFile(specialsPath);

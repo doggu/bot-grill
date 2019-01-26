@@ -1,4 +1,4 @@
-package utilities.fehUnits.skills;
+package utilities.feh.skills;
 
 public abstract class Skill {
     final String name, description;

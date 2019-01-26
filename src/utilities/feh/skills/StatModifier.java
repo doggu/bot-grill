@@ -1,4 +1,4 @@
-package utilities.fehUnits.skills;
+package utilities.feh.skills;
 
 import java.util.ArrayList;
 import java.util.Arrays;

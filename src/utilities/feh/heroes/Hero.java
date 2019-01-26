@@ -1,4 +1,4 @@
-package utilities.fehUnits.heroes;
+package utilities.feh.heroes;
 
 import java.util.*;
 

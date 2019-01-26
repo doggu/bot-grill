@@ -1,8 +1,8 @@
 package events.gameroom;
 
-import utilities.fehUnits.heroes.Hero;
-import utilities.fehUnits.summoning.Banner;
-import utilities.fehUnits.summoning.BannerDatabase;
+import utilities.feh.heroes.Hero;
+import utilities.feh.summoning.Banner;
+import utilities.feh.summoning.BannerDatabase;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;

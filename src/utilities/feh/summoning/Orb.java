@@ -1,9 +1,7 @@
-package utilities.fehUnits.summoning;
+package utilities.feh.summoning;
 
-import utilities.fehUnits.heroes.Hero;
-import utilities.fehUnits.heroes.Unit;
-
-import java.awt.*;
+import utilities.feh.heroes.Hero;
+import utilities.feh.heroes.Unit;
 
 public class Orb {
     private final Banner banner;

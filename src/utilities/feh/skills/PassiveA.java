@@ -1,7 +1,4 @@
-package utilities.fehUnits.skills;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+package utilities.feh.skills;
 
 public class PassiveA extends Passive implements StatModifier {
     private final int[] statModifiers;

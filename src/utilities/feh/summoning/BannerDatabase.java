@@ -1,7 +1,7 @@
-package utilities.fehUnits.summoning;
+package utilities.feh.summoning;
 
 import utilities.WebScalper;
-import utilities.fehUnits.heroes.Hero;
+import utilities.feh.heroes.Hero;
 
 import java.io.BufferedReader;
 import java.io.IOException;

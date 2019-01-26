@@ -1,10 +1,10 @@
-package utilities.fehUnits.summoning;
+package utilities.feh.summoning;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-import utilities.fehUnits.heroes.Hero;
+import utilities.feh.heroes.Hero;
 
 //RARITY CHANGE DATE: APRIL 10 2018
 //TODO: this should be implemented sooner or later
@@ -84,11 +84,11 @@ public class BannerDatabase_old {
                 ".",
                 "src",
                 "utilities",
-                "fehUnits",
+                "feh",
                 "summoning",
                 "archive.txt"
         };
-        File archiveFile = new File("./src/utilities/fehUnits/summoning/archive.txt");
+        File archiveFile = new File("./src/utilities/feh/summoning/archive.txt");
         Scanner archive;
         try {
             archive = new Scanner(archiveFile);

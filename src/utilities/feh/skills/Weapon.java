@@ -1,4 +1,4 @@
-package utilities.fehUnits.skills;
+package utilities.feh.skills;
 
 public class Weapon extends Skill implements ActionSkill {
     private final int mt, rng;

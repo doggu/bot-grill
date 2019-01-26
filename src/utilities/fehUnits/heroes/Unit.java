@@ -101,6 +101,25 @@ public class Unit extends Hero {
         return stats;
     }
     public int[] getStats() {
-        return super.getStats(false, rarity, boon, bane);
+        int[] stats = super.getStats(false, rarity, boon, bane);
+
+        switch (supportStatus) {
+            case 's':
+                stats[1]+= 2;
+            case 'a':
+                stats[2]+= 2;
+            case 'b':
+                stats[3]+= 2;
+            case 'c':
+                stats[4]+= 2;
+            case 'd':
+                break;
+            default:
+                //technically shouldn't happen but it's okay I guess
+                System.out.println("just letting you know that I didn't get a support status");
+                break;
+        }
+
+        return stats;
     }
 }

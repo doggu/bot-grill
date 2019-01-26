@@ -39,7 +39,7 @@ public class Maffs extends Command {
                 case '8':
                 case '9':
                 case '0':
-                    System.out.println(i+" "+problem.length());
+                    //System.out.println(i+" "+problem.length());
                     if (i>=problem.length()-1) {
                         try {
                             nums.add((double) Integer.parseInt(problem));
@@ -143,7 +143,7 @@ public class Maffs extends Command {
         message.append(nums.get(nums.size()-1));
 
         sendMessage(message.toString());
-        log("did the thing");
+        log("mathed "+args[1]);
     }
 
     public boolean isCommand() { return args[0].equalsIgnoreCase("math"); }

@@ -6,8 +6,7 @@ import net.dv8tion.jda.core.entities.Emote;
 import utilities.fehUnits.heroes.Hero;
 import utilities.fehUnits.heroes.Unit;
 import utilities.fehUnits.heroes.UnitDatabase;
-import utilities.fehUnits.skills.Skill;
-import utilities.fehUnits.skills.SkillDatabase;
+import utilities.fehUnits.skills.*;
 
 import java.awt.*;
 import java.lang.reflect.Method;
@@ -457,6 +456,24 @@ public class FEHRetriever extends Command {
             skill.setDescription(x.getDescription());
 
             skill.setThumbnail(skillIcons.get(x.getSlot()));
+
+            if (x instanceof StatModifier) {
+                int[] statModifiers = ((StatModifier) x).getStatModifiers();
+                String printedStatModifiers = "```\n"+printStats(statModifiers)+"\n```";
+                skill.addField("stat modifiers", printedStatModifiers, false);
+            }
+
+            if (x instanceof Weapon||x instanceof Assist) {
+
+            }
+
+            if (x instanceof Weapon) {
+
+            }
+
+            if (x instanceof Weapon) {
+
+            }
 
             e.getChannel().sendMessage(skill.build()).queue();
         }

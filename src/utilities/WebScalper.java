@@ -14,6 +14,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 
+
 public abstract class WebScalper {
     public static BufferedReader readWebsite(String url) throws IOException {
         return new BufferedReader(new InputStreamReader(new URL(url).openConnection().getInputStream()));
@@ -73,7 +74,7 @@ public abstract class WebScalper {
     }
 
 
-
+    @Deprecated
     private static void testPassives() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(new URL("https://feheroes.gamepedia.com/Passives").openConnection().getInputStream()));
 
@@ -135,7 +136,7 @@ public abstract class WebScalper {
                         }
                         */
 
-                        ///*
+                        /*
                         String img = br.readLine();
                         String name = stripHTML(br.readLine());
                         String description = stripHTML(br.readLine());
@@ -150,7 +151,7 @@ public abstract class WebScalper {
                             System.out.println("somthin went wrang");
                             System.out.println(name);
                         }
-                        //*/
+                        */
                         skillNumber++;
                     } else {
                         //System.out.println(line);
@@ -207,8 +208,8 @@ public abstract class WebScalper {
         //html-stripped data
         //lv1Stats -
 
-        
-        
+
+
         String line;
         while ((line = lv1Stats.readLine())!=null) {
             //the entire fucking table is on one line...
@@ -237,7 +238,7 @@ public abstract class WebScalper {
             throw new Error();
         }
 
-        
+
         ArrayList<String> lv1StatsData = getItems(lv1StatsTable);
         ArrayList<String> growthRatesData = getItems(growthRatesTable);
         ArrayList<String> heroListData = getItems(heroListTable);

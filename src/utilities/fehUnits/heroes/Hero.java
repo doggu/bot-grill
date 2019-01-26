@@ -7,11 +7,12 @@ import java.util.*;
 
 public class Hero {
     private final String name, epithet, origin, color, weaponType, moveType;
+
     //these stats are 1* lv1 (regardless of obtainable rarities)
     private final int[] stats, statGrowths;
     private final int rarity;
-    private final boolean summonable, isInNormalPool;
 
+    private final boolean summonable, isInNormalPool;
     private final GregorianCalendar dateReleased;
 
 

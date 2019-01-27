@@ -1,4 +1,4 @@
-package events.gameroom;
+package events.fehGame;
 
 import events.ReactionListener;
 import events.commands.FEHRetriever;

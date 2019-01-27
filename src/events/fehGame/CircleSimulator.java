@@ -105,7 +105,7 @@ public class CircleSimulator extends ReactionListener {
     protected boolean isCommand() {
         if (!summoner.equals(e.getUser())) return false;
         if (!e.getMessageId().equals(circleMessage.getId())) return false;
-        if (!e.getMessageId().equals(circleMessage.getId())) return false;
+        if (!e.getMessageId().equals(circleMessage.getId())) return false; //what the fuck
         if (e.getReaction().isSelf()) return false; //it's for readability i swear
 
         //these are apparently equivalent

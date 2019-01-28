@@ -4,7 +4,7 @@ import events.DevTools;
 import events.Reactions;
 import events.commands.*;
 import events.fehGame.SummonSimulator;
-import events.gameroom.Vote;
+import events.Vote;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;

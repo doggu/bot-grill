@@ -20,9 +20,7 @@ public class Summoner {
     public int getOrbsSpent() {
         return orbsSpent;
     }
-    public User getUser() {
-        return summoner;
-    }
+    public User getUser() { return summoner; }
 
 
 

@@ -4,6 +4,7 @@ import events.DevTools;
 import events.Reactions;
 import events.commands.*;
 import events.fehGame.SummonSimulator;
+import events.Vote;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -64,6 +65,8 @@ public class BotMain {
         addListener(listenerReactions);
         addListener(listenerMaffs);
         addListener(listenerEmbedTest);
+
+        addListener(new Vote());
 
         //ex:
         //removeListener(listenerChances);

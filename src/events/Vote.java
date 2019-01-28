@@ -1,6 +1,5 @@
 package events;
 
-import events.MessageListener;
 import net.dv8tion.jda.core.entities.Emote;
 
 import java.util.List;

@@ -52,7 +52,6 @@ public interface StatModifier {
                 } else {
                     if (x.indexOf('.') >= 0 || x.indexOf(',') >= 0) {
                         int modifier = getModifier(x);
-                        System.out.println(modifier);
                         String[] statNames = {"HP", "Atk", "Spd", "Def", "Res"};
                                             //always 5
                         for (int i = 0; i < statNames.length; i++)

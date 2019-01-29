@@ -1,36 +1,90 @@
 package utilities.feh.heroes;
 
+import utilities.feh.heroes.charInfo.HeroName;
+
 import java.util.*;
 
 //TODO: create basic layout for a general character
 //Include base skills
 
 public class Hero {
-    private final String name, epithet, origin, color, weaponType, moveType;
+    private final HeroName name;
+    private final String origin, color;
+    private final WeaponClass weaponType;
+    private final MovementClass moveType;
 
     //these stats are 1* lv1 (regardless of obtainable rarities)
     private final int[] stats, statGrowths;
     private final int rarity;
 
-    private final boolean summonable, isInNormalPool;
+    private final HeroAvailability availability;
     private final GregorianCalendar dateReleased;
 
 
 
-    public Hero(String name, String epithet, String origin,
-                String color, String weaponType, String moveType,
-                int rarity, boolean summonable, boolean isInNormalPool,
+    public Hero(String name, String epithet, String origin, String color,
+                String weaponType, String moveType,
+                int rarity, HeroAvailability availability,
                 GregorianCalendar dateReleased,
                 int[] stats, int[] statGrowths) {
-        this.name = name;
-        this.epithet = epithet;
+        this.name = new HeroName(name, epithet);
         this.origin = origin;
         this.color = color;
-        this.weaponType = weaponType;
-        this.moveType = moveType;
+        switch(weaponType) {
+            case "Sword":
+                this.weaponType = WeaponClass.SWORD;
+                break;
+            case "Lance":
+                this.weaponType = WeaponClass.LANCE;
+                break;
+            case "Axe":
+                this.weaponType = WeaponClass.AXE;
+                break;
+            case "Red Tome":
+                this.weaponType = WeaponClass.RED_TOME;
+                break;
+            case "Blue Tome":
+                this.weaponType = WeaponClass.BLUE_TOME;
+                break;
+            case "Green Tome":
+                this.weaponType = WeaponClass.GREEN_TOME;
+                break;
+            case "Staff":
+                this.weaponType = WeaponClass.STAFF;
+                break;
+            case "Beast":
+                this.weaponType = WeaponClass.BEAST;
+                break;
+            case "Breath":
+                this.weaponType = WeaponClass.BREATH;
+                break;
+            case "Dagger":
+                this.weaponType = WeaponClass.DAGGER;
+                break;
+            case "Bow":
+                this.weaponType = WeaponClass.BOW;
+                break;
+            default:
+                throw new Error();
+        }
+        switch(moveType) {
+            case "Infantry":
+                this.moveType = MovementClass.INFANTRY;
+                break;
+            case "Armored":
+                this.moveType = MovementClass.ARMORED;
+                break;
+            case "Cavalry":
+                this.moveType = MovementClass.CAVALRY;
+                break;
+            case "Flying":
+                this.moveType = MovementClass.FLYING;
+                break;
+            default:
+                throw new Error();
+        }
         this.rarity = rarity;
-        this.summonable = summonable;
-        this.isInNormalPool = isInNormalPool;
+        this.availability = availability;
         this.dateReleased = dateReleased;
         this.stats = stats;
         this.statGrowths = statGrowths;
@@ -41,23 +95,21 @@ public class Hero {
      * @param name - name of hero; MUST be in exact format: "[name]: [epithet]" (e.x. "Bartre: Fearless Warrior")
      */
     public Hero(String name) {
-        String epithet;
         try {
-            epithet = name.substring(name.indexOf(':')+2);
+            name.substring(name.indexOf(':')+2);
         } catch (StringIndexOutOfBoundsException f) {
             System.out.println("not in correct format");
             throw new Error();
         }
-        name = name.substring(0, name.indexOf(':'));
         ArrayList<Hero> list = UnitDatabase.HEROES;
         ArrayList<Hero> correctName = new ArrayList<>();
 
         for (Hero j:list)
-            if (j.getName().equals(name)&&j.getEpithet().equals(epithet))
+            if (j.getName().equals(name))
                 correctName.add(j);
 
         if (correctName.size()==0) {
-            System.out.println("could not find "+name+": "+epithet+".");
+            System.out.println("could not find "+name+".");
             throw new Error();
         }
 
@@ -70,7 +122,6 @@ public class Hero {
         //there's probably a way to clone this, my brain is just too small
         Hero j = correctName.get(0);
         this.name = j.getName();
-        this.epithet = j.getEpithet();
         this.origin = j.getOrigin();
         this.color = j.getColor();
         this.weaponType = j.getWeaponType();
@@ -78,14 +129,12 @@ public class Hero {
         this.stats = j.getStats();
         this.statGrowths = j.getStatGrowths();
         this.rarity = j.getRarity();
-        this.summonable = j.isSummonable();
-        this.isInNormalPool = j.isInNormalPool();
+        this.availability = j.getAvailability();
         this.dateReleased = j.getReleaseDate();
     }
 
     public Hero(Hero j) {
         this.name = j.getName();
-        this.epithet = j.getEpithet();
         this.origin = j.getOrigin();
         this.color = j.getColor();
         this.weaponType = j.getWeaponType();
@@ -93,19 +142,17 @@ public class Hero {
         this.stats = j.getStats();
         this.statGrowths = j.getStatGrowths();
         this.rarity = j.getRarity();
-        this.summonable = j.isSummonable();
-        this.isInNormalPool = j.isInNormalPool();
+        this.availability = j.getAvailability();
         this.dateReleased = j.getReleaseDate();
     }
 
 
 
-    public String getName() { return name; }
-    public String getEpithet() { return epithet; }
+    public HeroName getName() { return name; }
     public String getOrigin() { return origin; }
     public String getColor() { return color; }
-    public String getWeaponType() { return weaponType; }
-    public String getMoveType() { return moveType; }
+    public WeaponClass getWeaponType() { return weaponType; }
+    public MovementClass getMoveType() { return moveType; }
     // TODO: change to lv40 stats using lv1 stats and growths
     public int[] getStats() { return stats; }
     public int[] getStatGrowths() { return statGrowths; }
@@ -120,8 +167,9 @@ public class Hero {
         return bst;
     }
     public int getRarity() { return rarity; }
-    public boolean isSummonable() { return summonable; }
-    public boolean isInNormalPool() { return isInNormalPool; }
+    public HeroAvailability getAvailability() { return availability; }
+    public boolean isSummonable() { return availability.isSummonable(); }
+    public boolean isInNormalPool() { return availability.isInNormalPool(); }
     public GregorianCalendar getReleaseDate() { return dateReleased; }
     public boolean hasSuperBoon() { return hasEccentricStat(true); }
     public boolean hasSuperBane() { return hasEccentricStat(false); }
@@ -137,7 +185,7 @@ public class Hero {
 
 
     //TODO: fix somehow
-    public String toString() { return this.getName()+": "+this.getEpithet(); }
+    public String toString() { return this.getName().toString(); }
 
     public int[] getStats(boolean lv1, int rarity, char boon, char bane) {
         int boonN = 0, baneN = 0;
@@ -383,9 +431,113 @@ public class Hero {
     }
 }
 
+enum MovementClass {
+    INFANTRY(2, false, false, false, "Infantry"),
+    ARMORED(1, false, false, false, "Armored"),
+    CAVALRY(3, false, true, true, "Cavalry"),
+    FLYING(2, true, false, false, "Flying");
 
 
-//h = hp, a = atk, s = spd, d = def, r = res
+
+    private final int range;
+    private final boolean
+            ignoreTerrain,
+            stoppedByTrees,
+            slowedByTrenches;
+    private final String name;
+
+
+
+    MovementClass(int range, boolean ignoreTerrain, boolean stoppedByTrees, boolean slowedByTrenches,
+                  String name) {
+        this.range = range;
+        this.ignoreTerrain = ignoreTerrain;
+        //technically stoppedByTrees and slowedByTrenches can be one boolean
+        this.stoppedByTrees = stoppedByTrees;
+        this.slowedByTrenches = slowedByTrenches;
+        this.name = name;
+    }
+
+
+
+    public int getRange() { return range; }
+    public boolean isIgnoreTerrain() { return ignoreTerrain; }
+    public boolean isStoppedByTrees() { return stoppedByTrees; }
+    public boolean isSlowedByTrenches() { return slowedByTrenches; }
+    //prolly goin unused since toString is exactly the same thing
+    public String getName() { return name; }
+
+
+
+    public String toString() { return name; }
+}
+
+enum WeaponClass {
+    SWORD       (1, true, ""),
+    LANCE       (1, true, ""),
+    AXE         (1, true, ""),
+    RED_TOME    (2, false, ""),
+    BLUE_TOME   (2, false, ""),
+    GREEN_TOME  (2, false, ""),
+    STAFF       (2, false, ""),
+    BEAST       (1, true, ""),
+    BREATH      (1, false, ""),
+    DAGGER      (2, true, ""),
+    BOW         (2, true, "");
+
+
+
+    private int range;
+    private boolean physical;
+    private String name;
+
+
+
+    WeaponClass(int range, boolean physical, String name) {
+        this.range = range;
+        this.physical = physical;
+        this.name = name;
+    }
+
+
+
+    public int getRange() { return range; }
+    public boolean isPhysical() { return physical; }
+    //somewhat useless
+    public String getName() { return name; }
+
+
+
+    public String toString() { return name; }
+}
+
+enum HeroAvailability {
+    NORMAL(true, true),
+    SEASONAL(true, false),
+    LEGENDARY(true, false),
+    MYTHIC(true, false),
+    GHB(false, false),
+    TT(false, false);
+
+    private final boolean
+            isSummonable,
+            isInNormalPool;
+
+
+
+    HeroAvailability(boolean isSummonable, boolean isInNormalPool) {
+        this.isSummonable = isSummonable;
+        this.isInNormalPool = isInNormalPool;
+    }
+
+
+
+    public boolean isSummonable() { return isSummonable; }
+    public boolean isInNormalPool() { return isInNormalPool; }
+}
+
+
+
 
 
 

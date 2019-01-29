@@ -1,7 +1,7 @@
 package utilities.feh.heroes;
 
 public class Unit extends Hero {
-    private final int rarity, boon, bane;
+    private final int rarity, boon, bane; //I refuse to call it asset/flaw
     private final char supportStatus;
 
     //TODO: create character class

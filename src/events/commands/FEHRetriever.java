@@ -3,7 +3,7 @@ package events.commands;
 import main.BotMain;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Emote;
-import utilities.feh.heroes.Hero;
+import utilities.feh.heroes.character.Hero;
 import utilities.feh.heroes.Unit;
 import utilities.feh.heroes.UnitDatabase;
 import utilities.feh.skills.*;
@@ -321,7 +321,7 @@ public class FEHRetriever extends Command {
                         }
                     }
                     if (!weapon.equals("na")) {
-                        if (!c.getWeaponType().equals(weapon)) {
+                        if (!c.getWeaponType().toString().equals(weapon)) {
                             candidates.remove(j);
                             j--;
                         }
@@ -354,7 +354,7 @@ public class FEHRetriever extends Command {
         for (int i=0; i<candidates.size(); i++) {
             if (i%2==0) report.append("\n\t\t\t\t\t\t");
             Hero f = candidates.get(i);
-            report.append(f.getName()).append(": ").append(f.getEpithet()).append(", ");
+            report.append(f.getFullName()).append(", ");
         }
         report.delete(report.length()-2, report.length());
 
@@ -594,7 +594,7 @@ public class FEHRetriever extends Command {
                                               //technically only have to check one
 
         String info =
-                (fiveStarSummoned?"**":"") + x.getName() + ": " + x.getEpithet() + (fiveStarSummoned?"**":"") + "\n" +
+                (fiveStarSummoned?"**":"") + x.getFullName() + (fiveStarSummoned?"**":"") + "\n" +
                 "Appears In: *" + x.getOrigin() + "*\n" + 
                 "Date Released: "
                     + (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" //starts at 0 (january = 0)

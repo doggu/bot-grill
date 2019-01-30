@@ -1,4 +1,4 @@
-package utilities.feh.heroes.charInfo;
+package utilities.feh.heroes.character;
 
 public class HeroStats {
     //these are lv1, 1* and neutral

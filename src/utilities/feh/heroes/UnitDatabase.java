@@ -1,6 +1,9 @@
 package utilities.feh.heroes;
 
 import utilities.WebScalper;
+import utilities.feh.heroes.character.Availability;
+import utilities.feh.heroes.character.Hero;
+import utilities.feh.heroes.character.HeroConstructor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +16,7 @@ public class UnitDatabase extends WebScalper {
     private static final String
             LV1_STATS = "https://feheroes.gamepedia.com/Level_1_stats_table",
             GROWTH_RATES = "https://feheroes.gamepedia.com/Growth_rate_table",
-            HERO_LIST = "https://feheroes.gamepedia.com/Hero_list";
+            HERO_LIST = "https://feheroes.gamepedia.com/List_of_Heroes";
 
 
 
@@ -156,7 +159,7 @@ public class UnitDatabase extends WebScalper {
 
             processLv1Stats(x, lv1StatsData);
             processGrowthRates(x, growthRatesData);
-            processHeroList(x, heroListData);
+            processListOfHeroes(x, heroListData);
 
             heroConstructors.add(x);
         }
@@ -241,14 +244,14 @@ public class UnitDatabase extends WebScalper {
         GregorianCalendar releaseDate = new GregorianCalendar(year, month, day);
         x.setDateReleased(releaseDate);
     }
-    private static void processHeroList(HeroConstructor x, Iterator<String> input) {
+    private static void processListOfHeroes(HeroConstructor x, Iterator<String> input) {
         String identifier = input.next();
         String name, epithet;
         try {
             name = identifier.substring(0, identifier.indexOf(": "));
             epithet = identifier.substring(identifier.indexOf(": ") + 2);
         } catch (StringIndexOutOfBoundsException g) {
-            System.out.println(identifier);
+            System.out.println(identifier+"was not a proper name");
             throw new Error();
         }
         if (!name.equals(x.getName())||!epithet.equals(x.getEpithet()))
@@ -287,37 +290,45 @@ public class UnitDatabase extends WebScalper {
             int upperRarityBound = Integer.parseInt(indeterminate.substring(1));
             indeterminate = input.next();
         }                         //this is an em dash btw
+
+        Availability availability;
+
         if (indeterminate.contains("-")) {
+            availability = Availability.NORMAL;
             //release date
         } else {
-            String obtainType = indeterminate;
-            switch (obtainType) { //reassigns to the same value a lot but whatever
+            switch (indeterminate) { //reassigns to the same value a lot but whatever
                 case "*":
-                    summonable = true;
-                    isInNormalPool = true;
+                    availability = Availability.NORMAL;
                     break;
                 case "Story":
+                    availability = Availability.STORY;
+                    break;
                 case "Grand Hero Battle":
+                    availability = Availability.GHB;
+                    break;
                 case "Tempest Trials":
-                    summonable = false;
-                    isInNormalPool = false;
+                    availability = Availability.GHB;
                     break;
                     //seasonal/legendary/MyThIC heroes are not part of normal pools
                 case "Special":
+                    availability = Availability.SEASONAL;
+                    break;
                 case "Legendary":
-                    summonable = true;
-                    isInNormalPool = false;
+                    availability = Availability.LEGENDARY;
+                    break;
+                case "Mythic": //hopefully one day
+                    availability = Availability.MYTHIC;
                     break;
                 default:
-                    System.out.println("obtaining method wasn't accounted for: "+obtainType);
+                    System.out.println("obtaining method wasn't accounted for: "+indeterminate);
                     throw new Error();
             }
 
             input.next(); //release date
         }
 
-        x.setSummonable(summonable);
-        x.setInNormalPool(isInNormalPool);
+        x.setAvailability(availability);
     }
 
 

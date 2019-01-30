@@ -1,6 +1,6 @@
-package utilities.feh.heroes;
+package utilities.feh.heroes.character;
 
-import utilities.feh.heroes.charInfo.HeroName;
+import utilities.feh.heroes.UnitDatabase;
 
 import java.util.*;
 
@@ -17,14 +17,14 @@ public class Hero {
     private final int[] stats, statGrowths;
     private final int rarity;
 
-    private final HeroAvailability availability;
+    private final Availability availability;
     private final GregorianCalendar dateReleased;
 
 
 
     public Hero(String name, String epithet, String origin, String color,
                 String weaponType, String moveType,
-                int rarity, HeroAvailability availability,
+                int rarity, Availability availability,
                 GregorianCalendar dateReleased,
                 int[] stats, int[] statGrowths) {
         this.fullName = new HeroName(name, epithet);
@@ -167,7 +167,7 @@ public class Hero {
         return bst;
     }
     public int getRarity() { return rarity; }
-    public HeroAvailability getAvailability() { return availability; }
+    public Availability getAvailability() { return availability; }
     public boolean isSummonable() { return availability.isSummonable(); }
     public boolean isInNormalPool() { return availability.isInNormalPool(); }
     public GregorianCalendar getReleaseDate() { return dateReleased; }
@@ -430,136 +430,3 @@ public class Hero {
         */
     }
 }
-
-
-
-
-
-enum MovementClass {
-    INFANTRY(2, false, false, false, "Infantry"),
-    ARMORED(1, false, false, false, "Armored"),
-    CAVALRY(3, false, true, true, "Cavalry"),
-    FLYING(2, true, false, false, "Flying");
-
-
-
-    private final int range;
-    private final boolean
-            ignoreTerrain,
-            stoppedByTrees,
-            slowedByTrenches;
-    private final String name;
-
-
-
-    MovementClass(int range, boolean ignoreTerrain, boolean stoppedByTrees, boolean slowedByTrenches,
-                  String name) {
-        this.range = range;
-        this.ignoreTerrain = ignoreTerrain;
-        //technically stoppedByTrees and slowedByTrenches can be one boolean
-        this.stoppedByTrees = stoppedByTrees;
-        this.slowedByTrenches = slowedByTrenches;
-        this.name = name;
-    }
-
-
-
-    public int getRange() { return range; }
-    public boolean isIgnoreTerrain() { return ignoreTerrain; }
-    public boolean isStoppedByTrees() { return stoppedByTrees; }
-    public boolean isSlowedByTrenches() { return slowedByTrenches; }
-    //prolly goin unused since toString is exactly the same thing
-    public String getName() { return name; }
-
-
-
-    public String toString() { return name; }
-}
-
-
-
-
-
-enum WeaponClass {
-    SWORD       (1, true, ""),
-    LANCE       (1, true, ""),
-    AXE         (1, true, ""),
-    RED_TOME    (2, false, ""),
-    BLUE_TOME   (2, false, ""),
-    GREEN_TOME  (2, false, ""),
-    STAFF       (2, false, ""),
-    BEAST       (1, true, ""),
-    BREATH      (1, false, ""),
-    DAGGER      (2, true, ""),
-    BOW         (2, true, "");
-
-
-
-    private int range;
-    private boolean physical;
-    private String name;
-
-
-
-    WeaponClass(int range, boolean physical, String name) {
-        this.range = range;
-        this.physical = physical;
-        this.name = name;
-    }
-
-
-
-    public int getRange() { return range; }
-    public boolean isPhysical() { return physical; }
-    //somewhat useless
-    public String getName() { return name; }
-
-
-
-    public String toString() { return name; }
-}
-
-
-
-
-
-enum HeroAvailability {
-    NORMAL(true, true),
-    SEASONAL(true, false),
-    LEGENDARY(true, false),
-    MYTHIC(true, false),
-    STORY(false, false),
-    GHB(false, false),
-    TT(false, false);
-
-    private final boolean
-            isSummonable,
-            isInNormalPool;
-
-
-
-    HeroAvailability(boolean isSummonable, boolean isInNormalPool) {
-        this.isSummonable = isSummonable;
-        this.isInNormalPool = isInNormalPool;
-    }
-
-
-
-    public boolean isSummonable() { return isSummonable; }
-    public boolean isInNormalPool() { return isInNormalPool; }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -1,6 +1,6 @@
 package utilities.feh.heroes.unitInfo;
 
-import utilities.feh.heroes.charInfo.HeroStats;
+import utilities.feh.heroes.character.HeroStats;
 
 public class UnitStats {
     private final HeroStats character;

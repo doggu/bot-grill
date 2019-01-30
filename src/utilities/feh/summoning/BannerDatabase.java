@@ -1,7 +1,7 @@
 package utilities.feh.summoning;
 
 import utilities.WebScalper;
-import utilities.feh.heroes.Hero;
+import utilities.feh.heroes.character.Hero;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -110,7 +110,7 @@ public class BannerDatabase extends WebScalper {
                     System.out.println(x.getName());
                     System.out.println("featuring:");
                     for (Hero y:x.getRarityFPool()) {
-                        System.out.println("\t\t"+y.getName()+": "+y.getEpithet());
+                        System.out.println("\t\t"+y.getFullName());
                     }
                 }
             }

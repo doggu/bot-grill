@@ -1,6 +1,6 @@
 package utilities.feh.summoning;
 
-import utilities.feh.heroes.Hero;
+import utilities.feh.heroes.character.Hero;
 import utilities.feh.heroes.Unit;
 
 public class Orb {

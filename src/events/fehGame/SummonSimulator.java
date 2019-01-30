@@ -1,7 +1,7 @@
 package events.fehGame;
 
 import events.gameroom.Gameroom;
-import utilities.feh.heroes.Hero;
+import utilities.feh.heroes.character.Hero;
 import utilities.feh.players.Summoner;
 import utilities.feh.summoning.Banner;
 import utilities.feh.summoning.BannerDatabase;
@@ -105,7 +105,7 @@ public class SummonSimulator extends Gameroom {
         if (ambiguousName) {
             message+= " (feat. ";
             for (Hero x:banner.getRarityFPool()) //Hero is not a good name for a class
-                message+= x.getFullName()+", ";
+                message+= x.getFullName().getName()+", ";
             message = message.substring(0,message.length()-2);
             message+= ")";
         }
@@ -147,7 +147,7 @@ public class SummonSimulator extends Gameroom {
         for (int i=0; i<banner.getRarityFPool().size(); i++) {
             Hero x = banner.getRarityFPool().get(i);
             featuredUnitsSB
-                    .append(x.getFullName())
+                    .append(x.getFullName().getName())
                     .append(", ");
             if (i%2==1&&i+1!=banner.getRarityFPool().size()) featuredUnitsSB.append("\n\t\t\t\t\t\t\t\t\t\t");
         }

@@ -331,12 +331,11 @@ public class UnitDatabase extends WebScalper {
         String input;
         while (!(input = console.nextLine()).equals("quit")) {
             for (Hero x:heroes) {
-                if (x.getName().equalsIgnoreCase(input)) {
-                    System.out.println(x.getName()+": "+x.getEpithet());
+                if (x.getFullName().getName().equalsIgnoreCase(input)) {
+                    System.out.println(x.getFullName());
                 }
             }
         }
-
         console.close();
     }
 }

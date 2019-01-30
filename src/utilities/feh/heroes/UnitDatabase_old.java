@@ -17,7 +17,7 @@ public class UnitDatabase_old {
             Hero x;
             String name, epithet, origin, color, weaponType, moveType;
             int rarity;
-            boolean summonable, isInNormalPool;
+            HeroAvailability availability;
             GregorianCalendar dateReleased;
             int[] stats, statGrowths;
 
@@ -60,29 +60,31 @@ public class UnitDatabase_old {
                 if (rarityData.hasNext()) {
                     String obtainType = rarityData.next();
                     switch (obtainType) {
-                        case "*":
-                            summonable = true;
-                            isInNormalPool = true;
+                        case "*": //TODO: expand dong
+                            availability = HeroAvailability.NORMAL;
                             break;
                         case "Story":
+                            availability = HeroAvailability.STORY;
+                            break;
                         case "Grand Hero Battle":
+                            availability = HeroAvailability.GHB;
+                            break;
                         case "Tempest Trials":
-                            summonable = false;
-                            isInNormalPool = false;
+                            availability = HeroAvailability.TT;
                             break;
                         //separate because they could be part of a summoning focus
                         case "Special":
+                            availability = HeroAvailability.SEASONAL;
+                            break;
                         case "Legendary":
-                            summonable = true;
-                            isInNormalPool = false;
+                            availability = HeroAvailability.LEGENDARY;
                             break;
                         default:
                             System.out.println("obtaining method wasn't accounted for: "+obtainType);
                             throw new Error();
                     }
                 } else {
-                    summonable = true;
-                    isInNormalPool = true;
+                    availability = HeroAvailability.NORMAL;
                 }
 
                 Scanner dateReleaseData = new Scanner(line.next());
@@ -150,7 +152,7 @@ public class UnitDatabase_old {
             }
 
             x = new Hero(name, epithet, origin, color, weaponType, moveType,
-                    rarity, summonable, isInNormalPool, dateReleased, stats, statGrowths);
+                    rarity, availability, dateReleased, stats, statGrowths);
 
             heroes.add(x);
         }

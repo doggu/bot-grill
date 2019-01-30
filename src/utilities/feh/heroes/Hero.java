@@ -8,7 +8,7 @@ import java.util.*;
 //Include base skills
 
 public class Hero {
-    private final HeroName name;
+    private final HeroName fullName;
     private final String origin, color;
     private final WeaponClass weaponType;
     private final MovementClass moveType;
@@ -27,7 +27,7 @@ public class Hero {
                 int rarity, HeroAvailability availability,
                 GregorianCalendar dateReleased,
                 int[] stats, int[] statGrowths) {
-        this.name = new HeroName(name, epithet);
+        this.fullName = new HeroName(name, epithet);
         this.origin = origin;
         this.color = color;
         switch(weaponType) {
@@ -105,7 +105,7 @@ public class Hero {
         ArrayList<Hero> correctName = new ArrayList<>();
 
         for (Hero j:list)
-            if (j.getName().equals(name))
+            if (j.getFullName().equals(name))
                 correctName.add(j);
 
         if (correctName.size()==0) {
@@ -121,7 +121,7 @@ public class Hero {
 
         //there's probably a way to clone this, my brain is just too small
         Hero j = correctName.get(0);
-        this.name = j.getName();
+        this.fullName = j.getFullName();
         this.origin = j.getOrigin();
         this.color = j.getColor();
         this.weaponType = j.getWeaponType();
@@ -134,7 +134,7 @@ public class Hero {
     }
 
     public Hero(Hero j) {
-        this.name = j.getName();
+        this.fullName = j.getFullName();
         this.origin = j.getOrigin();
         this.color = j.getColor();
         this.weaponType = j.getWeaponType();
@@ -148,7 +148,7 @@ public class Hero {
 
 
 
-    public HeroName getName() { return name; }
+    public HeroName getFullName() { return fullName; }
     public String getOrigin() { return origin; }
     public String getColor() { return color; }
     public WeaponClass getWeaponType() { return weaponType; }
@@ -185,7 +185,7 @@ public class Hero {
 
 
     //TODO: fix somehow
-    public String toString() { return this.getName().toString(); }
+    public String toString() { return this.getFullName().toString(); }
 
     public int[] getStats(boolean lv1, int rarity, char boon, char bane) {
         int boonN = 0, baneN = 0;
@@ -431,6 +431,10 @@ public class Hero {
     }
 }
 
+
+
+
+
 enum MovementClass {
     INFANTRY(2, false, false, false, "Infantry"),
     ARMORED(1, false, false, false, "Armored"),
@@ -472,6 +476,10 @@ enum MovementClass {
     public String toString() { return name; }
 }
 
+
+
+
+
 enum WeaponClass {
     SWORD       (1, true, ""),
     LANCE       (1, true, ""),
@@ -511,11 +519,16 @@ enum WeaponClass {
     public String toString() { return name; }
 }
 
+
+
+
+
 enum HeroAvailability {
     NORMAL(true, true),
     SEASONAL(true, false),
     LEGENDARY(true, false),
     MYTHIC(true, false),
+    STORY(false, false),
     GHB(false, false),
     TT(false, false);
 

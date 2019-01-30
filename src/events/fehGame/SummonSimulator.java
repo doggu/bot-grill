@@ -105,7 +105,7 @@ public class SummonSimulator extends Gameroom {
         if (ambiguousName) {
             message+= " (feat. ";
             for (Hero x:banner.getRarityFPool()) //Hero is not a good name for a class
-                message+= x.getName()+", ";
+                message+= x.getFullName()+", ";
             message = message.substring(0,message.length()-2);
             message+= ")";
         }
@@ -147,9 +147,7 @@ public class SummonSimulator extends Gameroom {
         for (int i=0; i<banner.getRarityFPool().size(); i++) {
             Hero x = banner.getRarityFPool().get(i);
             featuredUnitsSB
-                    .append(x.getName())
-                    .append(": ")
-                    .append(x.getEpithet())
+                    .append(x.getFullName())
                     .append(", ");
             if (i%2==1&&i+1!=banner.getRarityFPool().size()) featuredUnitsSB.append("\n\t\t\t\t\t\t\t\t\t\t");
         }

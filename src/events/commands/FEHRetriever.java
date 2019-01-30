@@ -166,7 +166,7 @@ public class FEHRetriever extends Command {
             }
             //find HEROES of the correct name
             for (Hero c: heroes) {
-                if (c.getName().equalsIgnoreCase(x))
+                if (c.getFullName().getName().equalsIgnoreCase(x))
                     candidates.add(c);
             }
 
@@ -180,8 +180,8 @@ public class FEHRetriever extends Command {
                     System.out.println(args.get(i));
                     for (int j = 0; j < candidates.size(); j++) {
                         Hero c = candidates.get(j);
-                        System.out.println(c.getEpithet().toLowerCase()+" "+args.get(i).toLowerCase());
-                        if (!c.getEpithet().toLowerCase().contains(args.get(i).toLowerCase())) {
+                        System.out.println(c.getFullName().getEpithet().toLowerCase()+" "+args.get(i).toLowerCase());
+                        if (!c.getFullName().getEpithet().toLowerCase().contains(args.get(i).toLowerCase())) {
                             candidates.remove(j);
                             j--;
                         }
@@ -309,7 +309,7 @@ public class FEHRetriever extends Command {
                 for (int j=0; j<candidates.size(); j++) {
                     Hero c = candidates.get(j);
                     if (!move.equals("na")) {
-                        if (!c.getMoveType().equals(move)) {
+                        if (!c.getMoveType().toString().equals(move)) {
                             candidates.remove(j);
                             j--;
                         }

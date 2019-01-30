@@ -12,7 +12,7 @@ class HeroConstructor {
     //these stats are 1* lv1 (regardless of obtainable rarities)
     private int[] stats, statGrowths;
     private Integer rarity;
-    private Boolean summonable, isInNormalPool;
+    private HeroAvailability availability;
     private GregorianCalendar dateReleased;
 
 
@@ -26,8 +26,7 @@ class HeroConstructor {
     void setStats(int[] stats) { this.stats = stats; }
     void setStatGrowths(int[] statGrowths) { this.statGrowths = statGrowths; }
     void setRarity(int rarity) { this.rarity = rarity; }
-    void setSummonable(boolean summonable) { this.summonable = summonable; }
-    void setInNormalPool(boolean isInNormalPool) { this.isInNormalPool = isInNormalPool; }
+    void setAvailability(HeroAvailability availability) { this.availability = availability; }
     void setDateReleased(GregorianCalendar dateReleased) { this.dateReleased = dateReleased; }
 
 
@@ -41,8 +40,7 @@ class HeroConstructor {
     int[] getStats() { return stats; }
     int[] getStatGrowths() { return statGrowths; }
     int getRarity() { return rarity; }
-    boolean getSummonable() { return summonable; }
-    boolean getInNormalPool() { return isInNormalPool; }
+    HeroAvailability getAvailability() { return availability; }
     GregorianCalendar getDateReleased() { return dateReleased; }
 
 
@@ -84,12 +82,8 @@ class HeroConstructor {
             System.out.println("missing rarity!");
             throw new Error();
         }
-        if (summonable==null) {
-            System.out.println("missing summonable!");
-            throw new Error();
-        }
-        if (isInNormalPool==null) {
-            System.out.println("missing isInNormalPool!");
+        if (availability==null) {
+            System.out.println("missing availability!");
             throw new Error();
         }
         if (dateReleased==null) {
@@ -99,7 +93,7 @@ class HeroConstructor {
 
         return new Hero(name, epithet, origin,
                 color, weaponType, moveType, rarity,
-                summonable, isInNormalPool, dateReleased,
+                availability, dateReleased,
                 stats, statGrowths);
     }
 }

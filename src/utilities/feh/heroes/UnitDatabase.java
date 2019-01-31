@@ -4,6 +4,7 @@ import utilities.WebScalper;
 import utilities.feh.heroes.character.Availability;
 import utilities.feh.heroes.character.Hero;
 import utilities.feh.heroes.character.HeroConstructor;
+import utilities.feh.heroes.character.HeroName;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -176,8 +177,7 @@ public class UnitDatabase extends WebScalper {
         String name = identifier.substring(0, identifier.indexOf(": "));
         String epithet = identifier.substring(identifier.indexOf(": ")+2);
 
-        x.setName(name);
-        x.setEpithet(epithet);
+        x.setFullName(new HeroName(name, epithet));
 
 
 
@@ -208,7 +208,8 @@ public class UnitDatabase extends WebScalper {
         String weaponType = typing.substring(typing.indexOf(" ")+1);
 
         x.setColor(color);
-        x.setWeaponType(weaponType);
+        x.setWeaponType(typing);    //TODO: are colored tomes their own weapon types?
+                                    //i mean, obviously, but *ideologically*
 
 
 

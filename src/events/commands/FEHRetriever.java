@@ -267,7 +267,6 @@ public class FEHRetriever extends Command {
                     default:
                         color = "na";
                         break;
-
                 }
 
                 //find weapon type hints
@@ -608,6 +607,7 @@ public class FEHRetriever extends Command {
         //TODO: overhaul emote grabbing in general
         try { //get relevant data for calling the movement type emote
             String name = "Icon_Move_" + x.getMoveType();
+            System.out.println(name);
             moveType = fehIconEmotes.get(0);
             for (Emote e:fehIconEmotes) {
                 moveType = e;

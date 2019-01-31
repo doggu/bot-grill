@@ -22,67 +22,16 @@ public class Hero {
 
 
 
-    public Hero(String name, String epithet, String origin, String color,
-                String weaponType, String moveType,
+    public Hero(HeroName fullName, String origin, String color,
+                WeaponClass weaponType, MovementClass moveType,
                 int rarity, Availability availability,
                 GregorianCalendar dateReleased,
                 int[] stats, int[] statGrowths) {
-        this.fullName = new HeroName(name, epithet);
+        this.fullName = fullName;
         this.origin = origin;
         this.color = color;
-        switch(weaponType) {
-            case "Sword":
-                this.weaponType = WeaponClass.SWORD;
-                break;
-            case "Lance":
-                this.weaponType = WeaponClass.LANCE;
-                break;
-            case "Axe":
-                this.weaponType = WeaponClass.AXE;
-                break;
-            case "Red Tome":
-                this.weaponType = WeaponClass.RED_TOME;
-                break;
-            case "Blue Tome":
-                this.weaponType = WeaponClass.BLUE_TOME;
-                break;
-            case "Green Tome":
-                this.weaponType = WeaponClass.GREEN_TOME;
-                break;
-            case "Staff":
-                this.weaponType = WeaponClass.STAFF;
-                break;
-            case "Beast":
-                this.weaponType = WeaponClass.BEAST;
-                break;
-            case "Breath":
-                this.weaponType = WeaponClass.BREATH;
-                break;
-            case "Dagger":
-                this.weaponType = WeaponClass.DAGGER;
-                break;
-            case "Bow":
-                this.weaponType = WeaponClass.BOW;
-                break;
-            default:
-                throw new Error();
-        }
-        switch(moveType) {
-            case "Infantry":
-                this.moveType = MovementClass.INFANTRY;
-                break;
-            case "Armored":
-                this.moveType = MovementClass.ARMORED;
-                break;
-            case "Cavalry":
-                this.moveType = MovementClass.CAVALRY;
-                break;
-            case "Flying":
-                this.moveType = MovementClass.FLYING;
-                break;
-            default:
-                throw new Error();
-        }
+        this.weaponType = weaponType;
+        this.moveType = moveType;
         this.rarity = rarity;
         this.availability = availability;
         this.dateReleased = dateReleased;
@@ -105,7 +54,7 @@ public class Hero {
         ArrayList<Hero> correctName = new ArrayList<>();
 
         for (Hero j:list)
-            if (j.getFullName().equals(name))
+            if (j.getFullName().toString().equals(name))
                 correctName.add(j);
 
         if (correctName.size()==0) {

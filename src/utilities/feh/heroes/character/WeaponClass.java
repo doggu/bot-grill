@@ -1,17 +1,17 @@
 package utilities.feh.heroes.character;
 
 public enum WeaponClass {
-    SWORD       (1, true, ""),
-    LANCE       (1, true, ""),
-    AXE         (1, true, ""),
-    RED_TOME    (2, false, ""),
-    BLUE_TOME   (2, false, ""),
-    GREEN_TOME  (2, false, ""),
-    STAFF       (2, false, ""),
-    BEAST       (1, true, ""),
-    BREATH      (1, false, ""),
-    DAGGER      (2, true, ""),
-    BOW         (2, true, "");
+    SWORD       (1, true, "Sword"),
+    LANCE       (1, true, "Lance"),
+    AXE         (1, true, "Axe"),
+    RED_TOME    (2, false, "Tome"),
+    BLUE_TOME   (2, false, "Tome"),
+    GREEN_TOME  (2, false, "Tome"),
+    STAFF       (2, false, "Staff"),
+    BEAST       (1, true, "Beast"),
+    BREATH      (1, false, "Breath"),
+    DAGGER      (2, true, "Dagger"),
+    BOW         (2, true, "Bow");
 
 
 

@@ -1,6 +1,7 @@
 package utilities.feh.heroes.character;
 
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 /**
  * a class which allows for the construction of an object that stores information for a hero without requiring all of
@@ -8,7 +9,10 @@ import java.util.GregorianCalendar;
  *
  */
 public class HeroConstructor {
-    private String name, epithet, origin, color, weaponType, moveType;
+    private HeroName fullName;
+    private String origin, color;
+    private WeaponClass weaponType;
+    private MovementClass moveType;
     //these stats are 1* lv1 (regardless of obtainable rarities)
     private int[] stats, statGrowths;
     private Integer rarity;
@@ -17,12 +21,80 @@ public class HeroConstructor {
 
 
 
-    public void setName(String name) { this.name = name; }
-    public void setEpithet(String epithet) { this.epithet = epithet; }
+    public void setFullName(HeroName name) { this.fullName = name; }
     public void setOrigin(String origin) { this.origin = origin; }
     public void setColor(String color) { this.color = color; }
-    public void setWeaponType(String weaponType) { this.weaponType = weaponType; }
-    public void setMoveType(String moveType) { this.moveType = moveType; }
+    public void setWeaponType(String weaponType) {
+        switch (weaponType) {
+            case "Red Sword":
+                this.weaponType = WeaponClass.SWORD;
+                break;
+            case "Blue Lance":
+                this.weaponType = WeaponClass.LANCE;
+                break;
+            case "Green Axe":
+                this.weaponType = WeaponClass.AXE;
+                break;
+            case "Red Tome":
+                this.weaponType = WeaponClass.RED_TOME;
+                break;
+            case "Blue Tome":
+                this.weaponType = WeaponClass.BLUE_TOME;
+                break;
+            case "Green Tome":
+                this.weaponType = WeaponClass.GREEN_TOME;
+                break;
+            case "Colorless Staff":
+                this.weaponType = WeaponClass.STAFF;
+                break;
+            case "Red Beast":
+            case "Blue Beast":
+            case "Green Beast":
+            case "Colorless Beast":
+                this.weaponType = WeaponClass.BEAST;
+                break;
+            case "Red Breath":
+            case "Blue Breath":
+            case "Green Breath":
+            case "Colorless Breath":
+                this.weaponType = WeaponClass.BREATH;
+                break;
+            case "Red Bow":
+            case "Blue Bow":
+            case "Green Bow":
+            case "Colorless Bow":
+                this.weaponType = WeaponClass.BOW;
+                break;
+            case "Red Dagger":
+            case "Blue Dagger":
+            case "Green Dagger":
+            case "Colorless Dagger":
+                this.weaponType = WeaponClass.DAGGER;
+                break;
+            default:
+                System.out.println("weaponType wasn't correct: "+weaponType);
+                throw new Error();
+        }
+    }
+    public void setMoveType(String moveType) {
+        switch (moveType) {
+            case "Infantry":
+                this.moveType = MovementClass.INFANTRY;
+                break;
+            case "Armored":
+                this.moveType = MovementClass.ARMORED;
+                break;
+            case "Cavalry":
+                this.moveType = MovementClass.CAVALRY;
+                break;
+            case "Flying":
+                this.moveType = MovementClass.FLYING;
+                break;
+            default:
+                System.out.println("HeroConstructor got an unidentified move type: "+moveType);
+                throw new Error();
+        }
+    }
     public void setStats(int[] stats) { this.stats = stats; }
     public void setStatGrowths(int[] statGrowths) { this.statGrowths = statGrowths; }
     public void setRarity(int rarity) { this.rarity = rarity; }
@@ -31,12 +103,13 @@ public class HeroConstructor {
 
 
 
-    public String getName() { return name; }
-    public String getEpithet() { return epithet; }
+    public HeroName getFullName() { return fullName; }
+    public String getName() { return fullName.getName(); }
+    public String getEpithet() { return fullName.getEpithet(); }
     public String getOrigin() { return origin; }
     public String getColor() { return color; }
-    public String getWeaponType() { return weaponType; }
-    public String getMoveType() { return moveType; }
+    public WeaponClass getWeaponType() { return weaponType; }
+    public MovementClass getMoveType() { return moveType; }
     public int[] getStats() { return stats; }
     public int[] getStatGrowths() { return statGrowths; }
     public int getRarity() { return rarity; }
@@ -46,12 +119,8 @@ public class HeroConstructor {
 
 
     public Hero createHero() throws Error {
-        if (name==null) {
+        if (fullName==null) {
             System.out.println("missing name!");
-            throw new Error();
-        }
-        if (epithet==null) {
-            System.out.println("missing epithet!");
             throw new Error();
         }
         if (origin==null) {
@@ -91,7 +160,7 @@ public class HeroConstructor {
             throw new Error();
         }
 
-        return new Hero(name, epithet, origin,
+        return new Hero(fullName, origin,
                 color, weaponType, moveType, rarity,
                 availability, dateReleased,
                 stats, statGrowths);

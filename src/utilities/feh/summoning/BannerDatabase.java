@@ -64,7 +64,7 @@ public class BannerDatabase extends WebScalper {
                 try {
                     featuredUnits.add(new Hero(hero));
                 } catch (Error g) {
-                    System.out.println("could not find character: "+hero);
+                    System.out.println("BannerDatabase could not find character: "+hero);
                 }
             }
 

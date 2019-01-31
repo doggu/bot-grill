@@ -46,14 +46,14 @@ public class BotMain {
 
         //in case i want to make them removable one day
         ListenerAdapter listenerChances = new Chances();
-        ListenerAdapter listenerFEHRetriever = new FEHRetriever();
+        ListenerAdapter listenerFEHRetriever = new Chances();//FEHRetriever();
         ListenerAdapter listenerEmotes = new Emotes();
         ListenerAdapter listenerGirl = new Girl();
         ListenerAdapter listenerDevTools = new DevTools();
         ListenerAdapter listenerSummonSimulator = new SummonSimulator();
         ListenerAdapter listenerReactions = new Reactions();
         ListenerAdapter listenerMaffs = new Maffs();
-        ListenerAdapter listenerEmbedTest = new EmbedTest();
+        ListenerAdapter listenerEmbedTest = new Chances();//EmbedTest();
 
 
         addListener(listenerChances);
@@ -67,6 +67,7 @@ public class BotMain {
         addListener(listenerEmbedTest);
 
         addListener(new Vote());
+        addListener(new Draw());
 
         //ex:
         //removeListener(listenerChances);

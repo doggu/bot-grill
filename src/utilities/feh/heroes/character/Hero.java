@@ -6,6 +6,7 @@ import java.util.*;
 
 //TODO: create basic layout for a general character
 //Include base skills
+//i'll be honest, this is still in progress
 
 public class Hero {
     private final HeroName fullName;
@@ -133,7 +134,6 @@ public class Hero {
 
 
 
-    //TODO: fix somehow
     public String toString() { return this.getFullName().toString(); }
 
     public int[] getStats(boolean lv1, int rarity, char boon, char bane) {
@@ -240,7 +240,6 @@ public class Hero {
 
             //incomplete
             for (int i=0; i<finalStats.length; i++) {
-                //TODO: simplify with steps
                 if (i==boon)
                     finalStats[i]+= (int) (0.39 * (int) ((this.statGrowths[i]+5) * rarityFactor / 100.0));
                 else if (i==bane)
@@ -354,7 +353,6 @@ public class Hero {
 
     public static void main(String[] args) {
         //TODO: fix name-based initializer
-        /*ß
         Scanner console = new Scanner(System.in);
 
         //test creating heroes
@@ -369,13 +367,17 @@ public class Hero {
                 continue;
             }
 
-            for (int i=1; i<=5; i++)
-                System.out.println(x.getStats(false, i, 1, 1));
+            for (int i=1; i<=5; i++) {
+                for (int j = 0; j < 5; j++)
+                    System.out.println(x.getStats(false, i, 1, 1)[j]);
+                System.out.println();
+            }
             //System.out.println(x);
+            System.out.println();
+            System.out.println();
             System.out.println();
 
             name = console.nextLine();
         }
-        */
     }
 }

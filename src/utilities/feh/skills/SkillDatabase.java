@@ -83,7 +83,6 @@ public class SkillDatabase extends WebScalper {
         weaponType.put(9, "Bow");
         weaponType.put(10, "Dagger");
 
-        //TODO: this code currently cannot tell what kind of weapon it's reading
         for (ArrayList<String> table:weaponTables) {
             Iterator<String> list = table.iterator();
             Weapon x;
@@ -144,9 +143,7 @@ public class SkillDatabase extends WebScalper {
             }
             String description = desc.toString();
             int range = Integer.parseInt(data.next());
-            boolean exclusive = cost>400;   //TODO: find an actual source for exclusivity
-                                            //Skill chain lists are a possibility
-                                            //NEW NEWS: https://feheroes.gamepedia.com/Exclusive_skills
+            boolean exclusive = cost>400;   //TODO: utilize https://feheroes.gamepedia.com/Exclusive_skills efficiently
 
             x = new Assist(name, description, cost, exclusive, range);
             assists.add(x);
@@ -183,7 +180,7 @@ public class SkillDatabase extends WebScalper {
             }
             String description = desc.toString();
             int cooldown = Integer.parseInt(data.next());
-            boolean exclusive = cost>400; //TODO: another exclusivity issue
+            boolean exclusive = cost>400; //TODO: utilize https://feheroes.gamepedia.com/Exclusive_skills efficiently
 
             x = new Special(name, description, cost, exclusive, cooldown);
             specials.add(x);

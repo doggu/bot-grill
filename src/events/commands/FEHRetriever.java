@@ -199,7 +199,6 @@ public class FEHRetriever extends Command {
             }
         }
 
-        //TODO: should i restrict this to in-game possibilities only?
         //remove units based on valid rarity/IV data
         for (int i=0; i<candidates.size(); i++) {
             if (candidates.get(i).getRarity()>rarity) {
@@ -482,65 +481,6 @@ public class FEHRetriever extends Command {
             e.getChannel().sendMessage(skill.build()).queue();
         }
 
-        /*
-        StringBuilder skillList = new StringBuilder();
-        for (Skill x:candidates) {
-            StringBuilder skill = new StringBuilder();
-
-            //TODO: put this trash somewhere else
-            //0 - weapon | 1 - assist | 2 - special | 3-6 - passives            //fehicons
-            List<Emote> totalEmotes = new ArrayList<>(e.getJDA().getGuildById("508405484651544586").getEmotes());
-            Emote[] emotes = new Emote[7];
-            for (Emote y:totalEmotes) {
-                switch (y.getName()) {
-                    case "Skill_Weapon":
-                        emotes[0] = y;
-                        break;
-                    case "Skill_Assist":
-                        emotes[1] = y;
-                        break;
-                    case "Skill_Special":
-                        emotes[2] = y;
-                        break;
-                    case "Skill_Passive_A":
-                        emotes[3] = y;
-                        break;
-                    case "Skill_Passive_B":
-                        emotes[4] = y;
-                        break;
-                    case "Skill_Passive_C":
-                        emotes[5] = y;
-                        break;
-                    case "Skill_Passive_S":
-                        emotes[6] = y;
-                        break;
-                    default:
-                        //it's not relevant
-                }
-
-
-            }
-
-            skill.append(printEmote(emotes[x.getSlot()])).append(x.getName()).append("\n");
-            if (x instanceof Weapon) skill.append("Mt: ").append(((Weapon) x).getMt()).append("\n");
-            skill.append("SP: ").append(x.getCost()).append("\n");
-            if (x instanceof Special) skill.append("CD: ").append(((Special) x).getCooldown()).append("\n");
-            skill.append("Inheritable: ").append(x.isExclusive()?"No":"Yes").append("\n");
-
-            if (x.getDescription().length()>0)
-                    skill.append("```").append(x.getDescription()).append("```");
-            if (skillList.length()+skill.length()>2000) {
-                sendMessage(skillList.toString());
-                skillList = new StringBuilder();
-            }
-            skillList.append(skill.toString());
-        }
-
-        if (skillList.length()>0) {
-            sendMessage(skillList.toString());
-        }
-        */
-
 
 
         StringBuilder report = new StringBuilder("found skill" + (candidates.size()>1?"s":"") + " for doggu:");
@@ -593,7 +533,6 @@ public class FEHRetriever extends Command {
                                          boolean getAll, int boon, int bane,
                                          int merges, char support) {
         //import emotes from fehicons database
-        //TODO: allow this to work as a static method (print emotes some other way)
         List<Emote> fehIconEmotes = BotMain.fehIcons;
 
         boolean fiveStarSummoned = rarity==5&&boon>0&&bane>0;

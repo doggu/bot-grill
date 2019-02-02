@@ -19,10 +19,9 @@ public class Orb {
 
 
     private Unit generateUnit() {
-        //TODO: actually like, make (Hero, IVs, correct summoning rates)
         Unit hero;
-
         Hero character;
+
         double r = Math.random()*100;
         int rarity;
         double  rarityFRate = banner.getRarityFRate(),

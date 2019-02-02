@@ -8,7 +8,7 @@ public abstract class Passive extends Skill {
 
 
 
-    //TODO: implement this class and fix this toString
+    //TODO: fix this toString
     public String toString() {
         String info = name+"\n"
                 + "```\n"

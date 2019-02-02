@@ -1,5 +1,6 @@
 package utilities.feh.summoning;
 
+import org.intellij.lang.annotations.JdkConstants;
 import utilities.WebScalper;
 import utilities.feh.heroes.character.Hero;
 
@@ -71,8 +72,47 @@ public class BannerDatabase extends WebScalper {
             GregorianCalendar startDate;
             if (name.equals("Start Date")) {
                 String[] startDateStr = items.next().split("-");
-                int year = Integer.parseInt(startDateStr[0]);
-                int month = Integer.parseInt(startDateStr[1]);
+                int year = Integer.parseInt(startDateStr[0]);int month;
+                //this shit so fuckin useless (other than alerting of invalid numbers)
+                switch (Integer.parseInt(startDateStr[1])) {
+                    case 0:
+                        month = Calendar.JANUARY;
+                        break;
+                    case 1:
+                        month = Calendar.FEBRUARY;
+                        break;
+                    case 2:
+                        month = Calendar.MARCH;
+                        break;
+                    case 3:
+                        month = Calendar.APRIL;
+                        break;
+                    case 4:
+                        month = Calendar.MAY;
+                        break;
+                    case 5:
+                        month = Calendar.JUNE;
+                        break;
+                    case 6:
+                        month = Calendar.JULY;
+                        break;
+                    case 7:
+                        month = Calendar.AUGUST;
+                        break;
+                    case 8:
+                        month = Calendar.SEPTEMBER;
+                        break;
+                    case 9:
+                        month = Calendar.OCTOBER;
+                        break;
+                    case 10:
+                        month = Calendar.NOVEMBER;
+                        break;
+                    case 11:
+                        month = Calendar.DECEMBER;
+                        break;
+                    default: throw new Error();
+                }
                 int day = Integer.parseInt(startDateStr[2]);
                 startDate = new GregorianCalendar(year, month, day,0,0,0);
             } else {
@@ -84,7 +124,47 @@ public class BannerDatabase extends WebScalper {
             if (items.next().equals("End Date")) {
                 String[] endDateStr = items.next().split("-");
                 int year = Integer.parseInt(endDateStr[0]);
-                int month = Integer.parseInt(endDateStr[1]);
+                int month;
+                //this shit so fuckin useless (other than alerting of invalid numbers)
+                switch (Integer.parseInt(endDateStr[1])) {
+                    case 0:
+                        month = Calendar.JANUARY;
+                        break;
+                    case 1:
+                        month = Calendar.FEBRUARY;
+                        break;
+                    case 2:
+                        month = Calendar.MARCH;
+                        break;
+                    case 3:
+                        month = Calendar.APRIL;
+                        break;
+                    case 4:
+                        month = Calendar.MAY;
+                        break;
+                    case 5:
+                        month = Calendar.JUNE;
+                        break;
+                    case 6:
+                        month = Calendar.JULY;
+                        break;
+                    case 7:
+                        month = Calendar.AUGUST;
+                        break;
+                    case 8:
+                        month = Calendar.SEPTEMBER;
+                        break;
+                    case 9:
+                        month = Calendar.OCTOBER;
+                        break;
+                    case 10:
+                        month = Calendar.NOVEMBER;
+                        break;
+                    case 11:
+                        month = Calendar.DECEMBER;
+                        break;
+                    default: throw new Error();
+                }
                 int day = Integer.parseInt(endDateStr[2]);
                 endDate = new GregorianCalendar(year, month, day, 23, 59, 59);
             } else {

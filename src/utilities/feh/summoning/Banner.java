@@ -66,7 +66,11 @@ public class Banner {
         //creates a list of HEROES that could be summoned in normal pools
         for (Hero x: UnitDatabase.HEROES) {
             GregorianCalendar characterReleaseDate = (GregorianCalendar) x.getReleaseDate().clone();
-            characterReleaseDate.add(GregorianCalendar.DAY_OF_MONTH, 20); //TODO: this value is not always correct
+            //TODO: this value is not always correct
+            // can be calculated by finding the release date of the hero (banners that do this begin with "New Heroes")
+            // however, BannerDatabase itself uses a completed hero list to create the banners and pools
+            // brain damage
+            characterReleaseDate.add(GregorianCalendar.DAY_OF_MONTH, 20);
             //if character is summonable
             if (!x.isInNormalPool()) {
                 //System.out.println("skipped (not normal pool): " + x.getName()+": " + x.getEpithet());
@@ -79,7 +83,7 @@ public class Banner {
             // if this is after arg, 1
             // if character's banner ended after this banner's start
             GregorianCalendar gameRelease =
-                    new GregorianCalendar(2017,2,2);
+                    new GregorianCalendar(2017,Calendar.FEBRUARY,2);
             gameRelease.add(GregorianCalendar.DAY_OF_MONTH, 20);
             if (characterReleaseDate.compareTo(gameRelease)==0) {
                 //it's k
@@ -144,7 +148,7 @@ public class Banner {
         //TODO: create new class for banner instances? (for storing pity, summoner data, etc.)
 
         //TODO: KEEP NOTE: pity rates are added based on the ratio between focus and normal 5* pool (always 0.50% total)
-        //TODO: e.x. Hero Fest (the only real example here): 5%, 3% --->
+        //TODO: e.x. Hero Fest (the only real example here): 5%, 3% ---> 5.3125%, 3.1875% ---> 5.625%, 3.375%, etc.
     }
 
 
@@ -175,10 +179,10 @@ public class Banner {
         GregorianCalendar start = new GregorianCalendar(2017,10,15),
                 end = new GregorianCalendar(2017,11,4);
         */
+        //NOTE: MONTH IS ZERO BASED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         GregorianCalendar start = new GregorianCalendar(2018,8,14),
                 end = new GregorianCalendar(2018,9,10);
 
-        //TODO: NOTE: MONTH IS ZERO BASED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         Banner g = new Banner(name, focuses, start, end);
 

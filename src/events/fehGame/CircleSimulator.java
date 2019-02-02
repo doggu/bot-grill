@@ -176,10 +176,6 @@ public class CircleSimulator extends ReactionListener {
             }
         }
 
-        //remove my own reaction so they can't double up (even though there's protection already)
-        //TODO: may want to keep self-reactions for historical purposes (user could remove their reactions)
-        //e.getReaction().removeReaction(e.getJDA().getSelfUser()).queue();
-
         //there's a more efficient way to do this but this is absolute
 
         boolean circleComplete = true;

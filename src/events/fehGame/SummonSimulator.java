@@ -15,6 +15,7 @@ import java.util.List;
 public class SummonSimulator extends Gameroom {
     private static List<Summoner> summoners = new ArrayList<>();
     private ArrayList<CircleSimulator> sessions = new ArrayList<>();
+    private List<Banner> BANNERS = BannerDatabase.BANNERS;
 
 
 
@@ -63,8 +64,7 @@ public class SummonSimulator extends Gameroom {
         //"Your circle for: "+[banner title]+"\n"
         //"rates: focus = " +[focus rate]+" 5* = "+[5* rate]
 
-        List<Banner> list = BannerDatabase.BANNERS;
-        Banner banner = list.get((int)(Math.random()*list.size())); //temp
+        Banner banner = BANNERS.get((int)(Math.random()*BANNERS.size())); //temp
 
         if (args.length>1) {
             StringBuilder bannerName = new StringBuilder();
@@ -73,7 +73,7 @@ public class SummonSimulator extends Gameroom {
                 if (i+1!=args.length) bannerName.append(" ");
             }
 
-            for (Banner x:list) {
+            for (Banner x:BANNERS) {
                 if (x.getName().equals(bannerName.toString())) {
                     banner = x;
                     break;

@@ -50,7 +50,7 @@ public class SkillDatabase extends WebScalper {
 
 
 
-        System.out.println("finished processing skills");
+        System.out.println("finished processing skills.");
         return allSkills;
     }
 

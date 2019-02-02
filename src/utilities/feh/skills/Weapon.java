@@ -1,8 +1,9 @@
 package utilities.feh.skills;
 
-public class Weapon extends Skill implements ActionSkill {
+public class Weapon extends Skill implements ActionSkill, StatModifier {
     private final int mt, rng;
     private final String type;
+    private final int[] statModifiers;
 
 
 
@@ -12,6 +13,9 @@ public class Weapon extends Skill implements ActionSkill {
         this.mt = mt;
         this.rng = rng;
         this.type = type;
+        int[] statModifiers = StatModifier.parseStatModifiers(description);
+        statModifiers[1]+= mt;
+        this.statModifiers = statModifiers;
     }
 
 
@@ -19,11 +23,10 @@ public class Weapon extends Skill implements ActionSkill {
     public int getMt() { return mt; }
     public int getRng() { return rng; }
     public String getType() { return type; }
-
-
+    public int[] getStatModifiers() { return statModifiers; }
 
     public String toString() {
-        String info = name+"\n"
+        return name+"\n"
                 + "```\n"
                 + "Type: "+type+"\n"
                 + "Range: "+rng+"\n"
@@ -31,7 +34,5 @@ public class Weapon extends Skill implements ActionSkill {
                 + "Exclusive: "+(exclusive?"Yes":"No")+"\n\n"
                 + description+"\n"
                 + "```";
-
-        return info;
     }
 }

@@ -465,18 +465,18 @@ public class FEHRetriever extends Command {
                 skill.addField("Might", ((Weapon) x).getMt()+"", false);
             }
 
-            if (x instanceof StatModifier) {
-                int[] statModifiers = ((StatModifier) x).getStatModifiers();
-                String printedStatModifiers = "```\n"+printStats(statModifiers)+"\n```";
-                skill.addField("stat modifiers", printedStatModifiers, false);
-            }
-
             if (x instanceof ActionSkill) { //instanceof targeting skill
                 skill.addField("Range", ""+((ActionSkill) x).getRng(), false);
             }
 
             if (x instanceof Special) {
                 skill.addField("Cooldown", ""+((Special) x).getCooldown(), false);
+            }
+
+            if (x instanceof StatModifier) {
+                int[] statModifiers = ((StatModifier) x).getStatModifiers();
+                String printedStatModifiers = "```\n"+printStats(statModifiers)+"\n```";
+                skill.addField("stat modifiers", printedStatModifiers, false);
             }
 
             e.getChannel().sendMessage(skill.build()).queue();

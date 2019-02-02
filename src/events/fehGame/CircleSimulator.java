@@ -9,13 +9,14 @@ import net.dv8tion.jda.core.entities.User;
 import utilities.feh.heroes.Unit;
 import utilities.feh.summoning.Banner;
 import utilities.feh.summoning.Orb;
+import utilities.feh.players.Summoner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CircleSimulator extends ReactionListener {
     private final Message circleMessage;
-    private final User summoner;
+    private final Summoner summoner;
     private final Guild server;
     private final Banner banner;
     private final List<Orb> orbs;
@@ -24,7 +25,7 @@ public class CircleSimulator extends ReactionListener {
 
 
 
-    public CircleSimulator(Message message, User summoner, Banner banner) {
+    public CircleSimulator(Message message, Summoner summoner, Banner banner) {
         super();
         this.circleMessage = message;
         this.server = circleMessage.getGuild();
@@ -72,12 +73,15 @@ public class CircleSimulator extends ReactionListener {
             }
         }
 
+        circleMessage.addReaction("❌").complete();
+
         this.stones = stones;
     }
 
 
 
-    public User getSummoner() { return summoner; }
+    public Summoner getSummoner() { return summoner; }
+    public User getUser() { return summoner.getUser(); }
     public Guild getServer() { return server; }
 
 
@@ -92,18 +96,23 @@ public class CircleSimulator extends ReactionListener {
         return orbs;
     }
 
-    public boolean canClose() {
+    boolean canClose() {
         for (Orb x:orbs)
             if (x.isPulled())
                 return true;
         return false;
     }
 
+    private void closeCircle() {
+
+        e.getJDA().removeEventListener(this);
+    }
+
 
 
     @Override
     protected boolean isCommand() {
-        if (!summoner.equals(e.getUser())) return false;
+        if (!summoner.getUser().equals(e.getUser())) return false;
         if (!e.getMessageId().equals(circleMessage.getId())) return false;
         if (!e.getMessageId().equals(circleMessage.getId())) return false; //what the fuck
         if (e.getReaction().isSelf()) return false; //it's for readability i swear
@@ -121,26 +130,49 @@ public class CircleSimulator extends ReactionListener {
     protected void onCommand() {
         //the summoner has selected a stone, and a unit must be presented
 
-        //is not a custom emote (i hope)
+
+
+        //is not a custom emote or stop emote (i hope)
         if (!e.getReaction().getReactionEmote().isEmote()) {
-            System.out.println("what the fuck is this shit");
-            return;
-        }
-        String stoneId = e.getReaction().getReactionEmote().getId();
-        for (int i = 0; i < stones.size(); i++) {
-            Emote stone = stones.get(i);
-            if (stoneId.equals(stone.getId())) {
-                Unit hero;
-                try {
-                    hero = orbs.get(i).pull();
-                } catch (Exception g) {
-                    sendMessage("cannot pull an orb that's already been pulled!");
-                    log("user attempted to pull an already-pulled stone");
+            if (e.getReactionEmote().toString().equals("RE:❌(null)")) {
+                if (canClose()) {
+                    e.getJDA().removeEventListener(this);
                     return;
                 }
+            } else {
+                System.out.println("what the fuck is this shit");
+                return;
+            }
+        } else {
+            String stoneId = e.getReaction().getReactionEmote().getId();
+            for (int i = 0; i < stones.size(); i++) {
+                Emote stone = stones.get(i);
+                if (stoneId.equals(stone.getId())) {
+                    Unit hero;
+                    try {
+                        hero = orbs.get(i).pull();
+                    } catch (Exception g) {
+                        sendMessage("cannot pull an orb that's already been pulled!");
+                        log("user attempted to pull an already-pulled stone");
+                        return;
+                    }
 
-                //summoner.openPrivateChannel().complete().sendMessage(FEHRetriever.printUnit(hero, true)).complete();
-                sendMessage(FEHRetriever.printUnit(hero, true));
+                    //summoner.openPrivateChannel().complete().sendMessage(FEHRetriever.printUnit(hero, true)).complete();
+                    sendMessage(FEHRetriever.printUnit(hero, true));
+                    int cost = 0;
+                    switch (pulls) {
+                        case 0: //first pull
+                            cost++;
+                        case 1:
+                        case 2:
+                        case 3:
+                            cost++;
+                        case 4: //fifth pull
+                            cost += 3;
+                            summoner.spendOrbs(cost);
+                    }
+                    pulls++;
+                }
             }
         }
 
@@ -158,9 +190,8 @@ public class CircleSimulator extends ReactionListener {
             }
         }
 
+
         if (circleComplete) {
-            //interesting bit of code
-            //e.getJDA().addEventListener();
             e.getJDA().removeEventListener(this);
         }
     }

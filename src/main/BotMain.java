@@ -3,6 +3,7 @@ package main;
 import events.DevTools;
 import events.Reactions;
 import events.commands.*;
+import events.fehGame.OrbBalance;
 import events.fehGame.SummonSimulator;
 import events.Vote;
 import net.dv8tion.jda.core.AccountType;
@@ -68,6 +69,7 @@ public class BotMain {
 
         addListener(new Vote());
         addListener(new Draw());
+        addListener(new OrbBalance());
 
         //ex:
         //removeListener(listenerChances);

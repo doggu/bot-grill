@@ -13,12 +13,12 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class SummonSimulator extends Gameroom {
-    private static List<Summoner> summoners = new ArrayList<>();
+    static List<Summoner> summoners = new ArrayList<>();
     private ArrayList<CircleSimulator> sessions = new ArrayList<>();
     private List<Banner> BANNERS = BannerDatabase.BANNERS;
 
 
-
+    //TODO: move this to a different listener (i feel like i've written this before)
     private void simulateDay() {
         GregorianCalendar day;
         try {
@@ -131,9 +131,22 @@ public class SummonSimulator extends Gameroom {
             }
         }
 
+        Summoner summoner = null;
+        String authorID = e.getAuthor().getId();
+        for (Summoner x:summoners) {
+            if (x.getUser().getId().equals(authorID)) {
+                summoner = x;
+            }
+        }
+
+        if (summoner==null) {
+            summoner = new Summoner(e.getAuthor());
+            summoners.add(summoner);
+        }
+
         CircleSimulator circle = new CircleSimulator(
                 sendMessage(message),
-                e.getAuthor(),
+                summoner,
                 banner);
 
         e.getJDA().addEventListener(circle);

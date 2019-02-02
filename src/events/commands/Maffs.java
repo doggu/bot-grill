@@ -1,7 +1,5 @@
 package events.commands;
 
-import utilities.ScannerUtil;
-
 import java.io.File;
 import java.util.ArrayList;
 
@@ -127,8 +125,7 @@ public class Maffs extends Command {
                 case '/':
                     continue;
                 default:
-                    String[] dunnoPath = { ".", "src", "events", "commands", "dunno.png" };
-                    e.getChannel().sendFile(ScannerUtil.createFile(dunnoPath)).queue();
+                    e.getChannel().sendFile(new File("./libs/heroes/Selena.png")).queue();
                     return;
             }
         }

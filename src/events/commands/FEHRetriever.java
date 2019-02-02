@@ -43,7 +43,6 @@ public class FEHRetriever extends Command {
         int merges = 0;
         char support = 'd';
 
-        if (args[0].equalsIgnoreCase("getStats")) lv1 = false;
         if (args[0].equalsIgnoreCase("getIVs")) lv1 = true;
 
         ArrayList<Hero> candidates = new ArrayList<>();
@@ -589,7 +588,9 @@ public class FEHRetriever extends Command {
 
 
 
-    private static String printCharacter(Hero x, boolean lv1, int rarity, boolean getAll, int boon, int bane, int merges, char support) {
+    private static String printCharacter(Hero x, boolean lv1, int rarity,
+                                         boolean getAll, int boon, int bane,
+                                         int merges, char support) {
         //import emotes from fehicons database
         //TODO: allow this to work as a static method (print emotes some other way)
         List<Emote> fehIconEmotes = BotMain.fehIcons;

@@ -424,6 +424,11 @@ public class FEHRetriever extends Command {
         skillIcons.put(5, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/8/84/Passive_Icon_C.png");
         skillIcons.put(6, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/6/6f/Passive_Icon_S.png");
 
+        if (candidates.size()==0) {
+            sendMessage("could not find your skill.");
+            return;
+        }
+
         for (Skill x:candidates) {
             EmbedBuilder skill = new EmbedBuilder();
 
@@ -456,22 +461,22 @@ public class FEHRetriever extends Command {
 
             skill.setThumbnail(skillIcons.get(x.getSlot()));
 
+            if (x instanceof  Weapon) {
+                skill.addField("Might", ((Weapon) x).getMt()+"", false);
+            }
+
             if (x instanceof StatModifier) {
                 int[] statModifiers = ((StatModifier) x).getStatModifiers();
                 String printedStatModifiers = "```\n"+printStats(statModifiers)+"\n```";
                 skill.addField("stat modifiers", printedStatModifiers, false);
             }
 
-            if (x instanceof Weapon||x instanceof Assist) {
-
+            if (x instanceof ActionSkill) { //instanceof targeting skill
+                skill.addField("Range", ""+((ActionSkill) x).getRng(), false);
             }
 
-            if (x instanceof Weapon) {
-
-            }
-
-            if (x instanceof Weapon) {
-
+            if (x instanceof Special) {
+                skill.addField("Cooldown", ""+((Special) x).getCooldown(), false);
             }
 
             e.getChannel().sendMessage(skill.build()).queue();
@@ -607,7 +612,6 @@ public class FEHRetriever extends Command {
         //TODO: overhaul emote grabbing in general
         try { //get relevant data for calling the movement type emote
             String name = "Icon_Move_" + x.getMoveType();
-            System.out.println(name);
             moveType = fehIconEmotes.get(0);
             for (Emote e:fehIconEmotes) {
                 moveType = e;

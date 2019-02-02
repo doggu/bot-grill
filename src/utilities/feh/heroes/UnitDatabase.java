@@ -168,6 +168,10 @@ public class UnitDatabase extends WebScalper {
         ArrayList<Hero> heroes = new ArrayList<>();
         for (HeroConstructor z:heroConstructors)
             heroes.add(z.createHero());
+
+
+
+        System.out.println("finished processing heroes.");
         return heroes;
     }
 

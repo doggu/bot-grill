@@ -18,7 +18,8 @@ public class SkillDatabase extends WebScalper {
             PASSIVES = "https://feheroes.gamepedia.com/Passives",
             SACRED_SEALS_ALL = "https://feheroes.gamepedia.com/Sacred_Seals",
             SKILL_CHAINS_4_STARS = "https://feheroes.gamepedia.com/Skill_Chains_4_Stars_List",
-            SKILL_CHAINS_5_STARS = "https://feheroes.gamepedia.com/Skill_Chains_5_Stars_List";
+            SKILL_CHAINS_5_STARS = "https://feheroes.gamepedia.com/Skill_Chains_5_Stars_List",
+            LIST_OF_UPGRADABLE_WEAPONS = "https://feheroes.gamepedia.com/List_of_upgradable_weapons";
 
 
 
@@ -49,6 +50,7 @@ public class SkillDatabase extends WebScalper {
 
 
 
+        System.out.println("finished processing skills");
         return allSkills;
     }
 
@@ -89,17 +91,18 @@ public class SkillDatabase extends WebScalper {
                 String name = list.next();
                 int might = Integer.parseInt(list.next());
                 int range = Integer.parseInt(list.next()); //technically the same for any given table but w/e
-                String description = "";
+                StringBuilder desc = new StringBuilder();
                 int cost = -1;
                 while (cost<0) {
                     String line = list.next();
                     try {
                         cost = Integer.parseInt(line);
                     } catch (NumberFormatException g) {
-                        if (description.length()>0) description+= " ";
-                        description+= line;
+                        if (desc.length()>0) desc.append(" ");
+                        desc.append(line);
                     }
                 }
+                String description = desc.toString();
                 boolean exclusive = "Yes".equals(list.next());
                 String type = weaponType.get(weaponTables.indexOf(table));
 
@@ -128,17 +131,18 @@ public class SkillDatabase extends WebScalper {
         Assist x;
         while (data.hasNext()) {
             String name = data.next();
-            String description = "";
+            StringBuilder desc = new StringBuilder();
             int cost = -1;
             while (cost<0) {
                 String line = data.next();
                 try {
                     cost = Integer.parseInt(line);
                 } catch (NumberFormatException g) {
-                    if (description.length()>0) description+= " ";
-                    description+= line;
+                    if (desc.length()>0) desc.append(" ");
+                    desc.append(line);
                 }
             }
+            String description = desc.toString();
             int range = Integer.parseInt(data.next());
             boolean exclusive = cost>400;   //TODO: find an actual source for exclusivity
                                             //Skill chain lists are a possibility
@@ -166,17 +170,18 @@ public class SkillDatabase extends WebScalper {
         Special x;
         while (data.hasNext()) {
             String name = data.next();
-            String description = "";
+            StringBuilder desc = new StringBuilder();
             int cost = -1;
             while (cost<0) {
                 String line = data.next();
                 try {
                     cost = Integer.parseInt(line);
                 } catch (NumberFormatException g) {
-                    if (description.length()>0) description+= " ";
-                    description+= line;
+                    if (desc.length()>0) desc.append(" ");
+                    desc.append(line);
                 }
             }
+            String description = desc.toString();
             int cooldown = Integer.parseInt(data.next());
             boolean exclusive = cost>400; //TODO: another exclusivity issue
 
@@ -216,71 +221,82 @@ public class SkillDatabase extends WebScalper {
         while (passiveA.hasNext()) {
             String name = passiveA.next();
             int cost = -1;
-            String description = "";
+            StringBuilder desc = new StringBuilder();
+            //while cost is not defined, the description is being presented
             while (cost<0) {
                 String line = passiveA.next();
                 try {
                     cost = Integer.parseInt(line);
                 } catch (NumberFormatException g) {
-                    if (description.length()>0) description+= " ";
-                    description+= line;
+                    if (desc.length()>0) desc.append(" ");
+                    desc.append(line);
                 }
             }
+            String description = desc.toString();
             boolean exclusive = "Yes".equals(passiveA.next());
-
-
 
             x = new PassiveA(name, description, cost, exclusive);
             passives.add(x);
         }
         while (passiveB.hasNext()) {
             String name = passiveB.next();
+            StringBuilder desc = new StringBuilder();
             int cost = -1;
-            String description = "";
             while (cost<0) {
                 String line = passiveB.next();
                 try {
                     cost = Integer.parseInt(line);
                 } catch (NumberFormatException g) {
-                    if (description.length()>0) description+= " ";
-                    description+= line;
+                    if (desc.length()>0) desc.append(" ");
+                    desc.append(line);
                 }
             }
+            String description = desc.toString();
             boolean exclusive = "Yes".equals(passiveB.next());
-
-
 
             x = new PassiveB(name, description, cost, exclusive);
             passives.add(x);
         }
-
-
-
-        /*
-        for (ArrayList<String> table:passiveTables) {
-            Iterator<String> list = table.iterator();
-            Passive x;
-            while (list.hasNext()) {
-                String name = list.next();
-                int cost = -1;
-                String description = "";
-                while (cost<0) {
-                    String line = list.next();
-                    try {
-                        cost = Integer.parseInt(line);
-                    } catch (NumberFormatException g) {
-                        if (description.length()>0) description+= " ";
-                        description+= line;
-                    }
+        while (passiveC.hasNext()) {
+            String name = passiveC.next();
+            StringBuilder desc = new StringBuilder();
+            int cost = -1;
+            while (cost<0) {
+                String line = passiveC.next();
+                try {
+                    cost = Integer.parseInt(line);
+                } catch (NumberFormatException g) {
+                    if (desc.length()>0) desc.append(" ");
+                    desc.append(line);
                 }
-                boolean exclusive = "Yes".equals(list.next());
-                char slot = slotNum.get(passiveTables.indexOf(table));
-
-                x = new Passive(name, description, slot, cost, exclusive);
-                passives.add(x);
             }
+            String description = desc.toString();
+            boolean exclusive = "Yes".equals(passiveC.next());
+
+            x = new PassiveC(name, description, cost, exclusive);
+            passives.add(x);
         }
-        */
+        while (passiveS.hasNext()) {
+            String name = passiveS.next();
+            StringBuilder desc = new StringBuilder();
+            int cost = -1;
+            while (cost<0) {
+                String line = passiveS.next();
+                try {
+                    cost = Integer.parseInt(line);
+                } catch (NumberFormatException g) {
+                    if (desc.length()>0) desc.append(" ");
+                    desc.append(line);
+                }
+            }
+            String description = desc.toString();
+            boolean exclusive = "Yes".equals(passiveS.next());
+
+            x = new PassiveS(name, description, cost, exclusive);
+            passives.add(x);
+        }
+
+
 
         return passives;
     }
@@ -314,15 +330,12 @@ public class SkillDatabase extends WebScalper {
 
 
     public static void main(String[] args) {
-        ArrayList<Skill> skills = getList();
-
         Scanner input = new Scanner(System.in);
 
         String line;
         while (!(line = input.nextLine()).equals("quit"))
-            for (Skill x:skills)
+            for (Skill x:SKILLS)
                 if (x.getName().equalsIgnoreCase(line))
                     System.out.println(x);
-
     }
 }

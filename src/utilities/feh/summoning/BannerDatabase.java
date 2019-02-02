@@ -96,6 +96,9 @@ public class BannerDatabase extends WebScalper {
             banners.add(x);
         }
 
+
+
+        System.out.println("finished processing banners.");
         return banners;
     }
 

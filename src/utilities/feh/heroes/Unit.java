@@ -9,6 +9,7 @@ public class Unit extends Hero {
     //TODO: create character class
     //how do i check things off 40%
 
+    //TODO: implement dragonflowers (lol, if i even finish everything else that came before them)
 
 
     /**

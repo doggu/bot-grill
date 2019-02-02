@@ -475,6 +475,7 @@ public class FEHRetriever extends Command {
             if (x instanceof StatModifier) {
                 int[] statModifiers = ((StatModifier) x).getStatModifiers();
                 String printedStatModifiers = "```\n"+printStats(statModifiers)+"\n```";
+                skill.addBlankField(false);
                 skill.addField("stat modifiers", printedStatModifiers, false);
             }
 

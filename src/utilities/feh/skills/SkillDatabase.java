@@ -319,7 +319,8 @@ public class SkillDatabase extends WebScalper {
 
             if (line.contains("</tbody></table>")) {
                 print = false;
-                if (table.size()>0) data.add((ArrayList<String>) table.clone());
+                                               //apparently i DONT need to clone it
+                if (table.size()>0) data.add(/*(ArrayList<String>)*/ table/*.clone()*/);
                 table = new ArrayList<>();
             }
         }

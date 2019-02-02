@@ -75,40 +75,40 @@ public class BannerDatabase extends WebScalper {
                 int year = Integer.parseInt(startDateStr[0]);int month;
                 //this shit so fuckin useless (other than alerting of invalid numbers)
                 switch (Integer.parseInt(startDateStr[1])) {
-                    case 0:
+                    case 1:
                         month = Calendar.JANUARY;
                         break;
-                    case 1:
+                    case 2:
                         month = Calendar.FEBRUARY;
                         break;
-                    case 2:
+                    case 3:
                         month = Calendar.MARCH;
                         break;
-                    case 3:
+                    case 4:
                         month = Calendar.APRIL;
                         break;
-                    case 4:
+                    case 5:
                         month = Calendar.MAY;
                         break;
-                    case 5:
+                    case 6:
                         month = Calendar.JUNE;
                         break;
-                    case 6:
+                    case 7:
                         month = Calendar.JULY;
                         break;
-                    case 7:
+                    case 8:
                         month = Calendar.AUGUST;
                         break;
-                    case 8:
+                    case 9:
                         month = Calendar.SEPTEMBER;
                         break;
-                    case 9:
+                    case 10:
                         month = Calendar.OCTOBER;
                         break;
-                    case 10:
+                    case 11:
                         month = Calendar.NOVEMBER;
                         break;
-                    case 11:
+                    case 12:
                         month = Calendar.DECEMBER;
                         break;
                     default: throw new Error();
@@ -127,40 +127,40 @@ public class BannerDatabase extends WebScalper {
                 int month;
                 //this shit so fuckin useless (other than alerting of invalid numbers)
                 switch (Integer.parseInt(endDateStr[1])) {
-                    case 0:
+                    case 1:
                         month = Calendar.JANUARY;
                         break;
-                    case 1:
+                    case 2:
                         month = Calendar.FEBRUARY;
                         break;
-                    case 2:
+                    case 3:
                         month = Calendar.MARCH;
                         break;
-                    case 3:
+                    case 4:
                         month = Calendar.APRIL;
                         break;
-                    case 4:
+                    case 5:
                         month = Calendar.MAY;
                         break;
-                    case 5:
+                    case 6:
                         month = Calendar.JUNE;
                         break;
-                    case 6:
+                    case 7:
                         month = Calendar.JULY;
                         break;
-                    case 7:
+                    case 8:
                         month = Calendar.AUGUST;
                         break;
-                    case 8:
+                    case 9:
                         month = Calendar.SEPTEMBER;
                         break;
-                    case 9:
+                    case 10:
                         month = Calendar.OCTOBER;
                         break;
-                    case 10:
+                    case 11:
                         month = Calendar.NOVEMBER;
                         break;
-                    case 11:
+                    case 12:
                         month = Calendar.DECEMBER;
                         break;
                     default: throw new Error();

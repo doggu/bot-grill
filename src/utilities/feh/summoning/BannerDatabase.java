@@ -41,11 +41,17 @@ public class BannerDatabase extends WebScalper {
 
         Banner x;
         while (items.hasNext()) {
-            String n1 = items.next();
-            String n2 = items.next();
-            while (!n1.equals(n2)) {
-                n1 = n2;
+            String n1, n2;
+            try {
+                n1 = items.next();
                 n2 = items.next();
+                while (!n1.equals(n2)) {
+                    n1 = n2;
+                    n2 = items.next();
+                }
+            } catch (NoSuchElementException endOfSite) {
+                System.out.println("fuckin markfeh");
+                continue;
             }
             String bannerName = n1;
 

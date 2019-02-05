@@ -6,6 +6,7 @@ import events.commands.*;
 import events.fehGame.OrbBalance;
 import events.fehGame.SummonSimulator;
 import events.Vote;
+import events.gameroom.CreateLobby;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -70,6 +71,7 @@ public class BotMain {
         addListener(new Vote());
         addListener(new Draw());
         addListener(new OrbBalance());
+        addListener(new CreateLobby());
 
         //ex:
         //removeListener(listenerChances);

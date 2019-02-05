@@ -116,18 +116,17 @@ public class SummonSimulator extends Gameroom {
             message+= "\n"+(x.get(Calendar.MONTH)+1)+"/"+x.get(Calendar.DAY_OF_MONTH)+"/"+x.get(Calendar.YEAR);
         }
 
-        for (CircleSimulator x:sessions) {
-            if (x.getSummoner().equals(e.getAuthor())) {
-                if (x.getServer().equals(e.getGuild())) {
-                    if (!x.canClose()) {
-                        sendMessage("you haven't pulled at least one orb " +
-                                "from your previous session! please do so " +
-                                "before beginning a new one.");
-                        log("summoner " + e.getAuthor().getName() + " attempted to start a new session " +
-                                "without finishing their previous one.");
-                        return;
-                    }
+        System.out.println(summoners);
+
+        for (Summoner x:summoners) {
+            if (x.getUser().getId().equals(e.getAuthor().getId())) {
+                System.out.println("found a registered summoner");
+                if (x.isSummoning()) {
+                    sendMessage("please close your previous session before starting a new one.");
+                    return;
                 }
+            } else {
+                System.out.println(x.getUser().getId()+" does not equal "+e.getAuthor().getId());
             }
         }
 
@@ -150,12 +149,15 @@ public class SummonSimulator extends Gameroom {
                 banner);
 
         e.getJDA().addEventListener(circle);
+        summoner.startSummoning();
         sessions.add(circle);
+
+
 
         String report = "created new summoning circle for " + e.getAuthor().getName() + "\n\t\t\t\t\t\t" +
                 "banner: " + banner.getName() + "\n\t\t\t\t\t\t" +
-                "5* focus rate: "+banner.getRarityFRate()+"%\n\t\t\t\t\t\t" +
-                "5* rate: "+banner.getRarity5Rate()+"%\n\t\t\t\t\t\t";
+                "5* focus: "+banner.getRarityFRate()+"%\n\t\t\t\t\t\t" +
+                "5* rates: "+banner.getRarity5Rate()+"%\n\t\t\t\t\t\t";
         StringBuilder featuredUnitsSB = new StringBuilder("featured units: ");
         for (int i=0; i<banner.getRarityFPool().size(); i++) {
             Hero x = banner.getRarityFPool().get(i);
@@ -166,10 +168,12 @@ public class SummonSimulator extends Gameroom {
         }
         String featuredUnits = featuredUnitsSB.substring(0, featuredUnitsSB.length()-2);
         report+= featuredUnits.toString() + "\n\t\t\t\t\t\t";
-        report+= "banner start/end: " +
+        report+= "banner date: " +
                 printDate(banner.getStartDate()) + " - "+printDate(banner.getEndDate())+"\n\t\t\t\t\t\t";
+        /*
         report+= "3* pool size: " + banner.getRarity3Pool().size() + "\n\t\t\t\t\t\t" +
                 "4* pool size: " + banner.getRarity4Pool().size();
+        */
         log(report);
     }
 

@@ -104,7 +104,7 @@ public class CircleSimulator extends ReactionListener {
     }
 
     private void closeCircle() {
-
+        summoner.stopSummoning();
         e.getJDA().removeEventListener(this);
     }
 
@@ -136,7 +136,11 @@ public class CircleSimulator extends ReactionListener {
         if (!e.getReaction().getReactionEmote().isEmote()) {
             if (e.getReactionEmote().toString().equals("RE:❌(null)")) {
                 if (canClose()) {
-                    e.getJDA().removeEventListener(this);
+                    closeCircle();
+                    return;
+                } else {
+                    e.getReaction().removeReaction(summoner.getUser()).queue();
+                    sendMessage("please choose at least one orb before closing this session.");
                     return;
                 }
             } else {
@@ -176,6 +180,10 @@ public class CircleSimulator extends ReactionListener {
             }
         }
 
+        //remove my own reaction so they can't double up (even though there's protection already)
+        //TODO: may want to keep self-reactions for historical purposes (user could remove their reactions)
+        //e.getReaction().removeReaction(e.getJDA().getSelfUser()).queue();
+
         //there's a more efficient way to do this but this is absolute
 
         boolean circleComplete = true;
@@ -187,8 +195,7 @@ public class CircleSimulator extends ReactionListener {
         }
 
 
-        if (circleComplete) {
-            e.getJDA().removeEventListener(this);
-        }
+        if (circleComplete)
+            closeCircle();
     }
 }

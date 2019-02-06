@@ -53,5 +53,7 @@ public class CacheTest {
             writer.write(x+"\n");
             //writer.append(x);
         }
+
+        writer.close();
     }
 }

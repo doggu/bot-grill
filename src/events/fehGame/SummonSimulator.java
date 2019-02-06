@@ -14,7 +14,6 @@ import java.util.List;
 
 public class SummonSimulator extends Gameroom {
     static List<Summoner> summoners = new ArrayList<>();
-    private ArrayList<CircleSimulator> sessions = new ArrayList<>();
     private List<Banner> BANNERS = BannerDatabase.BANNERS;
 
 
@@ -122,8 +121,19 @@ public class SummonSimulator extends Gameroom {
             if (x.getUser().getId().equals(e.getAuthor().getId())) {
                 System.out.println("found a registered summoner");
                 if (x.isSummoning()) {
+                    //inaccurate logic for ease of use
+                    CircleSimulator currentSession = x.getCurrentSession();
+                    if (currentSession.canClose()) {
+                        currentSession.closeCircle();
+                    } else {
+                        sendMessage("please summon at least one stone before starting a new session.");
+                        return;
+                    }
+
+                    /* more accurate
                     sendMessage("please close your previous session before starting a new one.");
                     return;
+                    */
                 }
             } else {
                 System.out.println(x.getUser().getId()+" does not equal "+e.getAuthor().getId());
@@ -149,8 +159,7 @@ public class SummonSimulator extends Gameroom {
                 banner);
 
         e.getJDA().addEventListener(circle);
-        summoner.startSummoning();
-        sessions.add(circle);
+        summoner.startSummoning(circle);
 
 
 

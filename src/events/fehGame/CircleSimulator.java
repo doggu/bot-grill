@@ -103,7 +103,7 @@ public class CircleSimulator extends ReactionListener {
         return false;
     }
 
-    private void closeCircle() {
+    void closeCircle() {
         summoner.stopSummoning();
         e.getJDA().removeEventListener(this);
     }

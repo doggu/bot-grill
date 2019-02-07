@@ -10,12 +10,14 @@ import net.dv8tion.jda.core.entities.User;
 import java.util.ArrayList;
 
 public class TicTacToe extends ReactionListener implements Lobby {
+    private final User host;
     private ArrayList<User> players = new ArrayList<>();
     private final Message joinMessage;
 
 
 
     public TicTacToe(User host, MessageChannel channel) {
+        this.host = host;
         players.add(host);
         String message =
                 "join "+host.getName()+" for a game of tic-tac-toe!\n" +
@@ -47,6 +49,9 @@ public class TicTacToe extends ReactionListener implements Lobby {
     @Override
     public void onCommand() {
         players.add(e.getUser());
+        e.getChannel().getMessageById(e.getMessageId()).complete().editMessage(
+                "join "+host.getName()+" for a game of tic-tac-toe!\n" +
+                        "current players: "+players.size()+"/2").queue();
         if (players.size()>=getMinPlayers()) {
             //the game could start if the host wants it to (idk if i'll ever program this since there's only two of us)
         }

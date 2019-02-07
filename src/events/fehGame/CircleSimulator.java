@@ -73,7 +73,7 @@ public class CircleSimulator extends ReactionListener {
             }
         }
 
-        circleMessage.addReaction("❌").complete();
+        circleMessage.addReaction("❌").queue();
 
         this.stones = stones;
     }

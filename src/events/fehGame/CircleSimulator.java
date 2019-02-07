@@ -163,6 +163,8 @@ public class CircleSimulator extends ReactionListener {
 
                     //summoner.openPrivateChannel().complete().sendMessage(FEHRetriever.printUnit(hero, true)).complete();
                     sendMessage(FEHRetriever.printUnit(hero, true));
+                    summoner.getBarracks().addUnit(hero);
+
                     int cost = 0;
                     switch (pulls) {
                         case 0: //first pull

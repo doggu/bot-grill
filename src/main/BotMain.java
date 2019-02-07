@@ -3,6 +3,7 @@ package main;
 import events.DevTools;
 import events.Reactions;
 import events.commands.*;
+import events.fehGame.Allies;
 import events.fehGame.OrbBalance;
 import events.fehGame.SummonSimulator;
 import events.Vote;
@@ -47,6 +48,7 @@ public class BotMain {
         fehIcons = bot_grill.getGuildsByName("fehicons", true).get(0).getEmotes();
 
         //in case i want to make them removable one day
+        /*
         ListenerAdapter listenerChances = new Chances();
         ListenerAdapter listenerFEHRetriever = new FEHRetriever();
         ListenerAdapter listenerEmotes = new Emotes();
@@ -56,7 +58,17 @@ public class BotMain {
         ListenerAdapter listenerReactions = new Reactions();
         ListenerAdapter listenerMaffs = new Maffs();
         ListenerAdapter listenerEmbedTest = new EmbedTest();
+        */
 
+        ListenerAdapter listenerChances = new Chances();
+        ListenerAdapter listenerFEHRetriever = new Chances();// FEHRetriever();
+        ListenerAdapter listenerEmotes = new Emotes();
+        ListenerAdapter listenerGirl = new Girl();
+        ListenerAdapter listenerDevTools = new DevTools();
+        ListenerAdapter listenerSummonSimulator = new SummonSimulator();
+        ListenerAdapter listenerReactions = new Reactions();
+        ListenerAdapter listenerMaffs = new Maffs();
+        ListenerAdapter listenerEmbedTest = new Chances();// EmbedTest();
 
         addListener(listenerChances);
         addListener(listenerFEHRetriever);
@@ -72,6 +84,7 @@ public class BotMain {
         addListener(new Draw());
         addListener(new OrbBalance());
         addListener(new CreateLobby());
+        addListener(new Allies());
 
         //ex:
         //removeListener(listenerChances);

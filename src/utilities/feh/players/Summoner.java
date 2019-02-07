@@ -2,17 +2,22 @@ package utilities.feh.players;
 
 import events.fehGame.CircleSimulator;
 import net.dv8tion.jda.core.entities.User;
+import utilities.feh.summoning.Barracks;
 
 public class Summoner {
     private final User summoner;
+    private final Barracks barracks;
     private int orbsSpent = 0;
     private boolean summoning;
     private CircleSimulator currentSession = null;
 
 
 
+    //for generating summoners from a cache
+    //public Summoner(User summoner, Barracks barracks) {}
     public Summoner(User summoner) {
         this.summoner = summoner;
+        this.barracks = new Barracks();
         summoning = false;
     }
 
@@ -27,6 +32,7 @@ public class Summoner {
     public User getUser() { return summoner; }
     public boolean isSummoning() { return summoning; }
     public CircleSimulator getCurrentSession() { return currentSession; }
+    public Barracks getBarracks() { return barracks; }
 
 
 

@@ -103,8 +103,13 @@ public class SummonSimulator extends Gameroom {
         String message = "your summons for: \n"+banner.getName();
         if (ambiguousName) {
             message+= " (feat. ";
-            for (Hero x:banner.getRarityFPool()) //Hero is not a good name for a class
-                message+= x.getFullName().getName()+", ";
+            for (Hero x:banner.getRarityFPool()) { //Character is not a good name for a class (changed to Hero)
+                if (x.getFullName().isAmbiguousName())
+                    message+= x.getFullName().toString();
+                else
+                    message+= x.getFullName().getName();
+                message+= ", ";
+            }
             message = message.substring(0,message.length()-2);
             message+= ")";
         }
@@ -170,9 +175,11 @@ public class SummonSimulator extends Gameroom {
         StringBuilder featuredUnitsSB = new StringBuilder("featured units: ");
         for (int i=0; i<banner.getRarityFPool().size(); i++) {
             Hero x = banner.getRarityFPool().get(i);
-            featuredUnitsSB
-                    .append(x.getFullName().getName())
-                    .append(", ");
+            if (x.getFullName().isAmbiguousName())
+                featuredUnitsSB.append(x.getFullName());
+            else
+                featuredUnitsSB.append(x.getFullName().getName());
+            featuredUnitsSB.append(", ");
             if (i%2==1&&i+1!=banner.getRarityFPool().size()) featuredUnitsSB.append("\n\t\t\t\t\t\t\t\t\t\t");
         }
         String featuredUnits = featuredUnitsSB.substring(0, featuredUnitsSB.length()-2);

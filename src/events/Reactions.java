@@ -16,7 +16,7 @@ public class Reactions extends ReactionListener {
     }
 
     public void onCommand() {
-        Emote baeda = e.getJDA().getEmoteById("455957293771653131");
+        Emote baeda = e.getJDA().getEmotesByName("baeda", true).get(0);
         switch(e.getReaction().getReactionEmote().getEmote().getId()) {
             case "439339083215405067": //merthH
                 addReaction(baeda);

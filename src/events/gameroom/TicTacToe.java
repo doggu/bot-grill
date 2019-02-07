@@ -1,4 +1,4 @@
-package events.gameroom.ticTacToe;
+package events.gameroom;
 
 import events.commands.Command;
 import net.dv8tion.jda.core.entities.Message;
@@ -7,7 +7,13 @@ import net.dv8tion.jda.core.entities.User;
 
 import java.util.ArrayList;
 
-public class Game extends Command {
+public class TicTacToe extends Game {
+    private static final String name = "Tic-Tac-Toe";
+    private static final int minPlayers = 2, maxPlayers = 2;
+    public String getName() { return name; }
+    public int getMinPlayers() { return minPlayers; }
+    public int getMaxPlayers() { return maxPlayers; }
+
     private final ArrayList<User> players;
     private final MessageChannel channel;
     private User activePlayer;
@@ -23,7 +29,7 @@ public class Game extends Command {
 
 
 
-    Game(ArrayList<User> players, MessageChannel channel) {
+    TicTacToe(ArrayList<User> players, MessageChannel channel) {
         this.players = players;
         this.channel = channel;
         activePlayer = players.get(0);
@@ -114,36 +120,34 @@ public class Game extends Command {
 
     @Override
     public void onCommand() {
-        //oh fuck i forgot this exists
-    }
-
-    @Override
-    public boolean isCommand() {
-        if (!players.contains(e.getAuthor())) return false;
-        if (!e.getChannel().equals(channel)) return false;
-        if (args.length==0) return false;
         switch(args[0]) {
             case "quit":
-                sendMessage(e.getAuthor().getName()+" forfeits!");
+                sendMessage(activePlayer+" forfeits!");
                 e.getJDA().removeEventListener(this);
-                return false;
+                return;
             case "mark":
-                if (!e.getAuthor().equals(activePlayer))
-                    return false;
                 if (args.length>1) {
                     if (args[1].length() != 2) {
                         sendMessage("incorrect format! please indicate row and column as two conjoined characters" +
                                 "(e.x. \"b2\"");
-                        return false;
+                        return;
                     } else playMove();
-                }
-                else {
+                } else {
                     sendMessage("please choose a location to mark!");
-                    return false;
+                    return;
                 }
             default:
-                return false;
+                return;
         }
+    }
+
+    @Override
+    public boolean isCommand() {
+        if (!e.getChannel().equals(channel)) return false;
+        if (!e.getAuthor().equals(activePlayer)) return false;
+        if (args.length==0) return false;
+
+        return true;
     }
 
     @Override

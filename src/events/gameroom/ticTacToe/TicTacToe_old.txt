@@ -1,22 +1,22 @@
 package events.gameroom.ticTacToe;
 
 import events.ReactionListener;
-import events.gameroom.Gameroom;
 import events.gameroom.Lobby;
+import events.gameroom.TicTacToe;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
 
 import java.util.ArrayList;
 
-public class TicTacToe extends ReactionListener implements Lobby {
+public class TicTacToe_old extends ReactionListener implements Lobby {
     private final User host;
     private ArrayList<User> players = new ArrayList<>();
     private final Message joinMessage;
 
 
 
-    public TicTacToe(User host, MessageChannel channel) {
+    public TicTacToe_old(User host, MessageChannel channel) {
         this.host = host;
         players.add(host);
         String message =
@@ -61,7 +61,7 @@ public class TicTacToe extends ReactionListener implements Lobby {
         }
         if (players.size()==getMaxPlayers()) {
             sendMessage("a game of tic-tac-toe begins!");
-            Game game = new Game(players, e.getChannel());
+            TicTacToe game = new TicTacToe(players, e.getChannel());
             e.getJDA().addEventListener(game);
             e.getJDA().removeEventListener(this);
         }

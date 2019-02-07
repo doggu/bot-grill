@@ -23,7 +23,7 @@ public class FEHRetriever extends Command {
 
     public FEHRetriever() {
         heroes = UnitDatabase.HEROES;
-        skills = SkillDatabase.SKILLS;
+        skills = new ArrayList<>();
 
         Method[] methods = FEHRetriever.class.getMethods();
 

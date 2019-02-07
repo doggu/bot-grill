@@ -61,14 +61,14 @@ public class BotMain {
         */
 
         ListenerAdapter listenerChances = new Chances();
-        ListenerAdapter listenerFEHRetriever = new Chances();// FEHRetriever();
+        ListenerAdapter listenerFEHRetriever = new FEHRetriever();
         ListenerAdapter listenerEmotes = new Emotes();
         ListenerAdapter listenerGirl = new Girl();
         ListenerAdapter listenerDevTools = new DevTools();
         ListenerAdapter listenerSummonSimulator = new SummonSimulator();
         ListenerAdapter listenerReactions = new Reactions();
         ListenerAdapter listenerMaffs = new Maffs();
-        ListenerAdapter listenerEmbedTest = new Chances();// EmbedTest();
+        ListenerAdapter listenerEmbedTest = new EmbedTest();
 
         addListener(listenerChances);
         addListener(listenerFEHRetriever);

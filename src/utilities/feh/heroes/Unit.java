@@ -2,6 +2,8 @@ package utilities.feh.heroes;
 
 import utilities.feh.heroes.character.Hero;
 
+import java.time.OffsetDateTime;
+
 public class Unit extends Hero {
     private final int rarity, boon, bane; //I refuse to call it asset/flaw
     private final char supportStatus;
@@ -30,6 +32,13 @@ public class Unit extends Hero {
     public Unit(Hero hero, int rarity, int boon, int bane) {
         this(hero, rarity, boon, bane, 'd');
     }
+
+    public static final int
+        HP = 1,
+        ATK = 2,
+        SPD = 3,
+        DEF = 4,
+        RES = 5;
 
     /**
      * creates a new unit based on a character;

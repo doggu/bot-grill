@@ -1,4 +1,4 @@
-package events.gameroom;
+package events.gameroom.ticTacToe;
 
 import events.commands.Command;
 import net.dv8tion.jda.core.entities.Message;
@@ -7,13 +7,7 @@ import net.dv8tion.jda.core.entities.User;
 
 import java.util.ArrayList;
 
-public class TicTacToe extends Game {
-    private static final String name = "Tic-Tac-Toe";
-    private static final int minPlayers = 2, maxPlayers = 2;
-    public String getName() { return name; }
-    public int getMinPlayers() { return minPlayers; }
-    public int getMaxPlayers() { return maxPlayers; }
-
+public class Game extends Command {
     private final ArrayList<User> players;
     private final MessageChannel channel;
     private User activePlayer;
@@ -28,8 +22,7 @@ public class TicTacToe extends Game {
 
 
 
-
-    TicTacToe(ArrayList<User> players, MessageChannel channel) {
+    public Game(ArrayList<User> players, MessageChannel channel) {
         this.players = players;
         this.channel = channel;
         activePlayer = players.get(0);

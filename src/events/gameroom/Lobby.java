@@ -4,7 +4,7 @@ import events.ReactionListener;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
 
-public class Lobby<T extends Game> extends ReactionListener {
+public abstract class Lobby extends ReactionListener {
     private final User author;
     private final MessageChannel channel;
 
@@ -13,11 +13,6 @@ public class Lobby<T extends Game> extends ReactionListener {
         this.channel = channel;
     }
 
-    public boolean isCommand() {
-        return false;
-    }
-
-    public void onCommand() {
-
-    }
+    public abstract int getMinPlayers();
+    public abstract int getMaxPlayers();
 }

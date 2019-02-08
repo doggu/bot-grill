@@ -1,6 +1,8 @@
 package events.gameroom;
 
 import events.commands.Command;
+import events.gameroom.ticTacToe.Game;
+import events.gameroom.ticTacToe.TicTacToe;
 
 public class CreateLobby extends Command {
     @Override
@@ -26,7 +28,7 @@ public class CreateLobby extends Command {
                 break;
             */
             case "tic-tac-toe":
-                lobby = new Lobby<TicTacToe>(e.getAuthor(), e.getChannel());
+                lobby = new TicTacToe(e.getAuthor(), e.getChannel());
                 break;
             default:
                 sendMessage("i don't recognize this game. sorry!");

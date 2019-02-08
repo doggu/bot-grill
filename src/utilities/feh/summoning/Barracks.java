@@ -7,15 +7,47 @@ import utilities.feh.players.Summoner;
 
 import java.util.ArrayList;
 
-public class Barracks {
-    private final ArrayList<Unit> units = new ArrayList<>();
+public class Barracks extends ArrayList<Unit> {
+    public static final int
+    NAME = 0,
+    HP = 1,
+    ATK = 2,
+    SPD = 3,
+    DEF = 4,
+    RES = 5;
 
-    public void addUnit(Unit x) { units.add(x); }
+
+
+    public Barracks() {
+        super();
+    }
 
 
 
-    public String toString() {
-        return units.toString();
+    public void sort(int type) {
+        for (int i=0; i<super.size(); i++) {
+
+        }
+    }
+
+    public void sortByAtk() {
+        while (!sortedByAtk()) {
+            for (int i = 0; i < super.size()-1; i++) {
+                if (super.get(i).getAtk()<super.get(i+1).getAtk()) {
+                    Unit temp = super.get(i);
+                    super.set(i, super.get(i+1));
+                    super.set(i+1, temp);
+                }
+            }
+        }
+    }
+    private boolean sortedByAtk() {
+        if (super.size()==1) return true;
+        for (int i=0; i<super.size()-1; i++) {
+            if (super.get(i).getAtk()<super.get(i+1).getAtk())
+                return false;
+        }
+        return true;
     }
 
 
@@ -32,7 +64,7 @@ public class Barracks {
         if (sheeda==null) return;
 
         sheeda = new Unit(sheeda, 5, Unit.SPD, Unit.HP);
-        g.addUnit((Unit) sheeda);
+        g.add((Unit) sheeda);
 
         System.out.println(g);
     }

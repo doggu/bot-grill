@@ -11,7 +11,17 @@ public class Allies extends Command {
     public void onCommand() {
         for (Summoner x:SummonSimulator.summoners) {
             if (x.getUser().getId().equals(e.getAuthor().getId())) {
-                sendMessage(x.getBarracks().toString());
+                if (args.length>1) {
+                    switch(args[1].toLowerCase()) {
+                        case "atk":
+                            x.getBarracks().sortByAtk();
+                            break;
+                        default:
+                    }
+                }
+                String message = "You have "+x.getBarracks().size()+" units.\n"+
+                        x.getBarracks().toString();
+                sendMessage(message);
                 return;
             }
         }

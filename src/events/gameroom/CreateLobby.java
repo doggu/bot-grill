@@ -1,6 +1,7 @@
 package events.gameroom;
 
 import events.commands.Command;
+import events.gameroom.mapTest.Map;
 import events.gameroom.ticTacToe.Game;
 import events.gameroom.ticTacToe.TicTacToe;
 
@@ -22,11 +23,9 @@ public class CreateLobby extends Command {
         Lobby lobby;
 
         switch (args[1].toLowerCase()) {
-            /*
             case "map":
-                lobby = new Map();
+                lobby = new Map(e.getAuthor(), e.getChannel());
                 break;
-            */
             case "tic-tac-toe":
                 lobby = new TicTacToe(e.getAuthor(), e.getChannel());
                 break;

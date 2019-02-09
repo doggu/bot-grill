@@ -80,4 +80,28 @@ public class Draw extends Command {
 
         //e.getChannel().sendFile();
     }
+
+    public static void main(String[] args) {
+        //test for drawing maps
+        int width = 384;
+        int height = 512;
+        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = bufferedImage.createGraphics();
+
+        BufferedImage heroFace;
+        //BufferedImageOp = new BufferedImageOp();
+        try {
+            heroFace = ImageIO.read(new File("./libs/heroes/Selena.png"));
+            g2d.drawImage(heroFace, null, 20, 20);
+
+        } catch (IOException g) {
+            System.out.println("uh oh");
+        }
+
+        // Disposes of this graphics context and releases any system resources that it is using.
+        g2d.dispose();
+
+        // Save as PNG
+        File file = new File("myimage.png");
+    }
 }

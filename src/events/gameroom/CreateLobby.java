@@ -32,7 +32,7 @@ public class CreateLobby extends Command {
                 break;
             default:
                 sendMessage("i don't recognize this game. sorry!");
-                log(e.getAuthor().getName()+" attempted to play unknown game \""+args[2]+"\"");
+                log(e.getAuthor().getName()+" attempted to play unknown game \""+args[1]+"\"");
                 return;
         }
 

@@ -100,9 +100,11 @@ public class Hero {
 
     public HeroName getFullName() { return fullName; }
     public String getOrigin() { return origin; }
+
     public String getColor() { return color; }
     public WeaponClass getWeaponType() { return weaponType; }
     public MovementClass getMoveType() { return moveType; }
+
     // TODO: change to lv40 stats using lv1 stats and growths
     public int[] getStats() { return stats; }
     public int[] getStatGrowths() { return statGrowths; }
@@ -116,11 +118,13 @@ public class Hero {
         for (int i:stats) bst+=i;
         return bst;
     }
+
     public int getRarity() { return rarity; }
     public Availability getAvailability() { return availability; }
     public boolean isSummonable() { return availability.isSummonable(); }
     public boolean isInNormalPool() { return availability.isInNormalPool(); }
     public GregorianCalendar getReleaseDate() { return dateReleased; }
+
     public boolean hasSuperBoon() { return hasEccentricStat(true); }
     public boolean hasSuperBane() { return hasEccentricStat(false); }
     public boolean hasEccentricStat(boolean boon) {

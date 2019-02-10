@@ -24,8 +24,10 @@ public abstract class ReactionListener extends ListenerAdapter {
     // unless creating individual listeners is correct/efficient
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
         this.e = event;
-        if (isCommand())
+        if (isCommand()) {
+            e.getChannel().sendTyping().complete();
             onCommand();
+        }
     }
 
     protected Message sendMessage(String message) {

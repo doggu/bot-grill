@@ -167,7 +167,20 @@ public class Game extends Command {
 
     @Override
     public void onCommand() {
-        //wtf am i doing
+        switch(args[0].toLowerCase()) {
+            case "addunit":
+                if (args.length>=4) {
+                    addUnit();
+                } else
+                    sendMessage("incorrect format. please try again.");
+                break;
+            case "unit":
+                if (args.length==4) {
+                    moveUnit();
+                } else
+                    sendMessage("incorrect format. please try again.");
+                break;
+        }
     }
 
     @Override
@@ -175,17 +188,8 @@ public class Game extends Command {
         if (!players.contains(e.getAuthor())) return false;
         switch(args[0].toLowerCase()) {
             case "addunit":
-                if (args.length>=4)
-                    addUnit();
-                else
-                    sendMessage("incorrect format. please try again.");
-                break;
             case "unit":
-                if (args.length==4)
-                    moveUnit();
-                else
-                    sendMessage("incorrect format. please try again.");
-                break;
+                return true;
         }
         return false;
     }

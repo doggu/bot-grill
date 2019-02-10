@@ -2,7 +2,6 @@ package events.gameroom;
 
 import events.ReactionListener;
 import events.commands.Command;
-import events.gameroom.ticTacToe.Game;
 import main.BotMain;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
@@ -65,8 +64,8 @@ public abstract class Lobby extends ReactionListener {
         if (players.size()==getMaxPlayers()) {
             sendMessage("a game of "+getName()+" begins!");
             Command game = getGame();
-            BotMain.bot_grill.addEventListener(game);
             BotMain.bot_grill.removeEventListener(this);
+            BotMain.bot_grill.addEventListener(game);
         }
     }
 

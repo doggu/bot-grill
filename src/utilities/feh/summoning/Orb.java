@@ -26,8 +26,8 @@ public class Orb {
         int rarity;
         double  rarityFRate = banner.getRarityFRate(),
                 rarity5Rate = rarityFRate+banner.getRarity5Rate(),
-                rarity4Rate = rarity5Rate+banner.getRarity4Rate()/*,
-                rarity3Rate = rarity4Rate+banner.getRarity3Rate()*/; //not necessary due to being the leftover category
+                rarity4Rate = rarity5Rate+banner.getRarity4Rate(),
+                rarity3Rate = rarity4Rate+banner.getRarity3Rate(); //not necessary but here for error checking i guess
 
         if (r<banner.getRarityFRate()) {
             rarity = 5;
@@ -41,10 +41,13 @@ public class Orb {
             rarity = 4;
             character = banner.getRarity4Pool().get((int)(Math.random()*banner.getRarity4Pool().size()));
             //System.out.println(banner.getRarity4Pool().size());
-        } else {
+        } else if (r<rarity3Rate) {
             rarity = 3;
             character = banner.getRarity3Pool().get((int)(Math.random()*banner.getRarity3Pool().size()));
             //System.out.println(banner.getRarity3Pool().size());
+        } else {
+            System.out.println("Stone ran into an issue: the rarities for "+banner.getName()+"do not add up to 100%");
+            throw new Error();
         }
 
         //Unit class generates random IVs for us TODO: might wanna reorganize this

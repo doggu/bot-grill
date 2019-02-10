@@ -42,6 +42,7 @@ public class FEHRetriever extends Command {
         int bane = -1;
         int merges = 0;
         char support = 'd';
+        boolean newestOnly = false;
 
         if (args[0].equalsIgnoreCase("getIVs")) lv1 = true;
 
@@ -51,6 +52,7 @@ public class FEHRetriever extends Command {
 
         //scalper finding parameter data
         //TODO: convert these to individual methods
+        // or at least separate the searching and printing some day please thanks
         for (int i=1; i<args.size(); i++) {
             String x = args.get(i);
             //test for argument for lv1 vs lv40 stats
@@ -141,6 +143,7 @@ public class FEHRetriever extends Command {
                 }
             }
 
+            //test for support status
             if (x.indexOf("w/")==0) {
                 switch (x.substring(2).toLowerCase()) {
                     //this is the only case
@@ -149,6 +152,13 @@ public class FEHRetriever extends Command {
                     case "ssa": support = 'a'; break;
                     case "sss": support = 's'; break;
                 }
+            }
+
+            //test for "new" keyword
+            if (x.equalsIgnoreCase("new")) {
+                newestOnly = true;
+                args.remove(i);
+                i--;
             }
         }
 
@@ -209,124 +219,136 @@ public class FEHRetriever extends Command {
 
         //whittle down candidates list based on character properties
         if (candidates.size()>1) {
-            for (String x:args) {
-                x = x.toLowerCase();
-
-                //find movement type hints
-                //TODO: use big brein to make this less "coincidental"
-                //these heroes have some of these keywords in their names:
-                //Clair: Highborn Flier, Florina: Lovely Flier, Shanna: Sprightly Flier
-                String move;
-                switch (x) {
-                    case "infantry":
-                    case "inf":
-                        move = "Infantry";
-                        break;
-                    case "armor":
-                    case "armored":
-                        move = "Armored";
-                        break;
-                    case "horse":
-                    case "cavalry":
-                    case "cav":
-                        move = "Cavalry";
-                        break;
-                    case "flying":
-                    case "flier":
-                    case "flyer": //debatable
-                        move = "Flying";
-                        break;
-                    default:
-                        move = "na";
-                        break;
-                }
-
-                String color;
-                //find color hints
-                switch (x) {
-                    case "r":
-                    case "red":
-                        color = "Red";
-                        break;
-                    case "b":
-                    case "blue":
-                        color = "Blue";
-                        break;
-                    case "g":
-                    case "green":
-                        color = "Green";
-                        break;
-                    case "c":
-                    case "gray":
-                    case "grey":
-                    case "colorless":
-                        color = "Colorless";
-                        break;
-                    default:
-                        color = "na";
-                        break;
-                }
-
-                //find weapon type hints
-                String weapon;
-                switch (x) {
-                    case "sword":
-                        weapon = "Sword";
-                        break;
-                    case "lance":
-                        weapon = "Lance";
-                        break;
-                    case "axe":
-                        weapon = "Axe";
-                        break;
-                    case "tome":
-                    case "magic":
-                        weapon = "Tome";
-                        break;
-                    case "staff":
-                    case "stave":
-                        weapon = "Staff";
-                        break;
-                    case "bow":
-                    case "archer":
-                        weapon = "Bow";
-                        break;
-                    case "dagger":
-                        weapon = "Dagger";
-                        break;
-                    case "breath":
-                    case "dragon":
-                        weapon = "Breath";
-                        break;
-                    default:
-                        weapon = "na";
-                        break;
-                }
-
-                for (int j=0; j<candidates.size(); j++) {
-                    Hero c = candidates.get(j);
-                    if (!move.equals("na")) {
-                        if (!c.getMoveType().toString().equals(move)) {
-                            candidates.remove(j);
-                            j--;
-                        }
+            if (newestOnly) {
+                Hero newestHero = candidates.get(0);
+                for (Hero x:candidates) {
+                    if (x.getReleaseDate().getTimeInMillis()>newestHero.getReleaseDate().getTimeInMillis()) {
+                        newestHero = x;
                     }
-                    if (!color.equals("na")) {
-                        if (!c.getColor().equals(color)) {
-                            candidates.remove(j);
-                            j--;
-                        }
+                }
+                candidates = new ArrayList<>();
+                candidates.add(newestHero);
+            } else {
+                for (String x : args) {
+                    x = x.toLowerCase();
+
+                    //find movement type hints
+                    //TODO: use big brein to make this less "coincidental"
+                    //these heroes have some of these keywords in their names:
+                    //Clair: Highborn Flier, Florina: Lovely Flier, Shanna: Sprightly Flier
+                    String move;
+                    switch (x) {
+                        case "infantry":
+                        case "inf":
+                            move = "Infantry";
+                            break;
+                        case "armor":
+                        case "armored":
+                            move = "Armored";
+                            break;
+                        case "horse":
+                        case "cavalry":
+                        case "cav":
+                            move = "Cavalry";
+                            break;
+                        case "flying":
+                        case "flier":
+                        case "flyer": //debatable
+                            move = "Flying";
+                            break;
+                        default:
+                            move = "na";
+                            break;
                     }
-                    if (!weapon.equals("na")) {
-                        if (!c.getWeaponType().toString().equals(weapon)) {
-                            candidates.remove(j);
-                            j--;
+
+                    String color;
+                    //find color hints
+                    switch (x) {
+                        case "r":
+                        case "red":
+                            color = "Red";
+                            break;
+                        case "b":
+                        case "blue":
+                            color = "Blue";
+                            break;
+                        case "g":
+                        case "green":
+                            color = "Green";
+                            break;
+                        case "c":
+                        case "gray":
+                        case "grey":
+                        case "colorless":
+                            color = "Colorless";
+                            break;
+                        default:
+                            color = "na";
+                            break;
+                    }
+
+                    //find weapon type hints
+                    String weapon;
+                    switch (x) {
+                        case "sword":
+                            weapon = "Sword";
+                            break;
+                        case "lance":
+                            weapon = "Lance";
+                            break;
+                        case "axe":
+                            weapon = "Axe";
+                            break;
+                        case "tome":
+                        case "magic":
+                            weapon = "Tome";
+                            break;
+                        case "staff":
+                        case "stave":
+                            weapon = "Staff";
+                            break;
+                        case "bow":
+                        case "archer":
+                            weapon = "Bow";
+                            break;
+                        case "dagger":
+                            weapon = "Dagger";
+                            break;
+                        case "breath":
+                        case "dragon":
+                            weapon = "Breath";
+                            break;
+                        default:
+                            weapon = "na";
+                            break;
+                    }
+
+                    for (int j = 0; j < candidates.size(); j++) {
+                        Hero c = candidates.get(j);
+                        if (!move.equals("na")) {
+                            if (!c.getMoveType().toString().equals(move)) {
+                                candidates.remove(j);
+                                j--;
+                            }
+                        }
+                        if (!color.equals("na")) {
+                            if (!c.getColor().equals(color)) {
+                                candidates.remove(j);
+                                j--;
+                            }
+                        }
+                        if (!weapon.equals("na")) {
+                            if (!c.getWeaponType().toString().equals(weapon)) {
+                                candidates.remove(j);
+                                j--;
+                            }
                         }
                     }
                 }
             }
-
         }
+
+
 
         //log("printin stats");
 

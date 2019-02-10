@@ -138,7 +138,7 @@ public class Banner {
                 rarity4rate = 58;
                 rarity3rate = 36;
                 break;
-            //the banner feat. marth, lucina, robin, tiki doesn't register due "legendary" being args[1]
+            //the banner feat. marth, lucina, robin, tiki doesn't register due to "legendary" being args[1]
             case "Legendary":
                 rarityFrate = 8;
                 rarity5rate = 0;

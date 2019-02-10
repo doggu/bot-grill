@@ -1,63 +1,46 @@
 package events.gameroom.mapTest;
 
 import events.commands.Command;
+import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
 import utilities.feh.heroes.UnitDatabase;
 import utilities.feh.heroes.character.Hero;
 
+import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 public class Game extends Command {
     private final ArrayList<User> players;
     private final MessageChannel channel;
 
-    private final int MAP_WIDTH = 6, MAP_HEIGHT = 8;
-    //TODO: make this based on lobby info once this actually becomes useful
-    private final char[][] board = {
-            {' ', ' ', ' ', ' ', ' ', ' '},
-            {' ', ' ', ' ', ' ', ' ', ' '},
-            {' ', ' ', ' ', ' ', ' ', ' '},
-            {' ', ' ', ' ', ' ', ' ', ' '},
-            {' ', ' ', ' ', ' ', ' ', ' '},
-            {' ', ' ', ' ', ' ', ' ', ' '},
-            {' ', ' ', ' ', ' ', ' ', ' '},
-            {' ', ' ', ' ', ' ', ' ', ' '},
-    };
-    //TODO: this should be Units eventually (with owners, identifiers, and other good stuff)
-    private Hero[][] positions = {
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null},
-            {null, null, null, null, null, null},
-    };
+    private Board board;
 
 
 
     Game(ArrayList<User> players, MessageChannel channel) {
         this.players = players;
         this.channel = channel;
+        this.board = new Board(6, 8);
         startGame();
     }
 
 
 
-    private void startGame() { sendMessage("generated a new map.\n"+printMap()); }
+    private void startGame() {
+        sendFile(board.drawBoard(),"generated a new map."); }
 
     private void addUnit() {
         String position = args[1];
-        int[] pos = getPosition(position);
+        Point pos = getPosition(position);
         if (!inBounds(pos)) { sendMessage("error: position index ("+position+") is out of bounds!"); return; }
         String name = args[2];
         for (int i = 3; i<args.length; i++) name+= " "+args[i];
-        if (positions[pos[0]][pos[1]]!=null) {
+        if (board.getUnit(pos)!=null) {
             sendMessage("cannot place a unit on top of an already existing unit!");
-            log("user attempted to place a unit on top of "+positions[pos[0]][pos[1]]);
+            log("user attempted to place a unit on top of "+board.getUnit(pos));
             return;
         }
         Hero chosen = null;
@@ -71,9 +54,9 @@ public class Game extends Command {
             sendMessage("could not find your specified hero. please try again.");
             return;
         } else {
-            positions[pos[0]][pos[1]] = chosen;
-            sendMessage(
-                    printMap()+"\n"+
+            board.addUnit(pos, chosen);
+            sendFile(
+                    board.drawBoard(),
                     "placed "+chosen+" at "+position);
             log(e.getAuthor()+" placed "+chosen+" at "+position);
             return;
@@ -85,8 +68,8 @@ public class Game extends Command {
         String destination = args[3];
         //TODO: implement point class (sorry can't right now i'm busy)
         // (i need to stop talking to myself on public internet space)
-        int[] s = getPosition(selection);
-        int[] d = getPosition(destination);
+        Point s = getPosition(selection);
+        Point d = getPosition(destination);
         if (!inBounds(s)) { sendMessage("error: selector index ("+selection+") is out of bounds!"); return; }
         if (!inBounds(d)) { sendMessage("error: destination index ("+destination+") is out of bounds!"); return; }
 
@@ -100,7 +83,7 @@ public class Game extends Command {
             return;
         }
 
-        Hero unit = positions[s[0]][s[1]];
+        Hero unit = board.getUnit(s);
         if (unit==null) {
             sendMessage("did not find a unit at your provided indices.");
             log("could not find player's unit at "+selection);
@@ -112,26 +95,24 @@ public class Game extends Command {
                     unit+" ("+unit.getMoveType().getRange()+" mov) "+distanceTraveled(s, d)+" spaces.");
             return;
         }
-        Hero target = positions[d[0]][d[1]];
+        Hero target = board.getUnit(d);
         if (target!=null) {
             sendMessage("cannot place a unit on top of another! please try again.");
             log(e.getAuthor()+" attempted to place "+unit+" on top of "+target+".");
             return;
         }
 
-        positions[d[0]][d[1]] = positions[s[0]][s[1]];
-        positions[s[0]][s[1]] = null;
+        board.moveUnit(unit, d);
 
-        sendMessage(unit+" moved from "+selection+" to "+destination+".\n"+
-                printMap());
+        sendFile(board.drawBoard(),unit+" moved from "+selection+" to "+destination+".\n");
         log(e.getAuthor()+" moved "+unit+" from "+selection+" to "+destination+".");
     }
 
 
 
+    /*
     private String printMap() {
         //stupid non-uniform spacing (these chars be pretty thicc tho)
-        /*
         String chars1 = "┏┳┓";
         String chars2 = "┣━╋━┫";
         String chars3 = "┗━┻━┛";
@@ -140,7 +121,9 @@ public class Game extends Command {
         String top = "┏━┳━┳━┳━┳━┳━┓";
         String body = "┣━╋━╋━╋━╋━╋━┫";
         String bottom = "┗━┻━┻━┻━┻━┻━┛";
-        */
+
+
+
         String top = "+ - + - + - + - + - + - +";
         String body = top;
         String bottom = top;
@@ -162,19 +145,22 @@ public class Game extends Command {
 
         return map.toString();
     }
-    private int[] getPosition(String coordinates) {
-        int[] x = { coordinates.charAt(0)-'a', coordinates.charAt(1)-'1' };
-        return x;
+    */
+
+    private Point getPosition(String coordinates) {
+        Point pos = new Point(coordinates.charAt(0)-'a', coordinates.charAt(1)-'1');
+        return pos;
     }
-    private boolean inBounds(int[] pos) {
-        for (int x:pos) if (x<0) return false;
-        if (pos[0]>=MAP_HEIGHT) return false;
-        if (pos[1]>=MAP_WIDTH) return false;
+    private boolean inBounds(Point pos) {
+        if (pos.getX()<0) return false;
+        if (pos.getY()<0) return false;
+        if (pos.getX()>=board.getWidth()) return false;
+        if (pos.getY()>=board.getHeight()) return false;
 
         return true;
     }
-    private int distanceTraveled(int[] s, int[] d) {
-        return (Math.abs(s[0]-d[0])+Math.abs(s[1]-d[1]));
+    private int distanceTraveled(Point s, Point d) {
+        return (int)(Math.abs(s.getX()-d.getX())+Math.abs(s.getY()-d.getY()));
     }
 
 
@@ -191,10 +177,14 @@ public class Game extends Command {
             case "addunit":
                 if (args.length>=4)
                     addUnit();
+                else
+                    sendMessage("incorrect format. please try again.");
                 break;
             case "unit":
                 if (args.length==4)
                     moveUnit();
+                else
+                    sendMessage("incorrect format. please try again.");
                 break;
         }
         return false;
@@ -203,5 +193,12 @@ public class Game extends Command {
     @Override
     protected Message sendMessage(String message) {
         return channel.sendMessage(message).complete();
+    }
+
+    protected Message sendFile(File file) {
+        return channel.sendFile(file).complete();
+    }
+    protected Message sendFile(File file, String message) {
+        return channel.sendFile(file, new MessageBuilder(message).build()).complete();
     }
 }

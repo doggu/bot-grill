@@ -56,7 +56,7 @@ public abstract class Lobby extends ReactionListener {
 
     private void checkLobbyReady() {
         if (players.size()>=getMinPlayers()) {
-            //the game could start if the host wants it to (idk if i'll ever program this since there's only two real users)
+            //the game could start if the host wants it to (idk if i'll ever program this since there're only two real users)
         }
         if (players.size()>getMaxPlayers()) {
             sendMessage("something went wrong");

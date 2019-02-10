@@ -25,7 +25,7 @@ public class Game extends Command {
             {' ', ' ', ' ', ' ', ' ', ' '},
             {' ', ' ', ' ', ' ', ' ', ' '},
     };
-    //TODO: this should be Units eventually (with owners and other good stuff)
+    //TODO: this should be Units eventually (with owners, identifiers, and other good stuff)
     private Hero[][] positions = {
             {null, null, null, null, null, null},
             {null, null, null, null, null, null},
@@ -83,6 +83,8 @@ public class Game extends Command {
     private void moveUnit() {
         String selection = args[1];
         String destination = args[3];
+        //TODO: implement point class (sorry can't right now i'm busy)
+        // (i need to stop talking to myself on public internet space)
         int[] s = getPosition(selection);
         int[] d = getPosition(destination);
         if (!inBounds(s)) { sendMessage("error: selector index ("+selection+") is out of bounds!"); return; }
@@ -120,7 +122,8 @@ public class Game extends Command {
         positions[d[0]][d[1]] = positions[s[0]][s[1]];
         positions[s[0]][s[1]] = null;
 
-        sendMessage(unit+" moved from "+selection+" to "+destination+".");
+        sendMessage(unit+" moved from "+selection+" to "+destination+".\n"+
+                printMap());
         log(e.getAuthor()+" moved "+unit+" from "+selection+" to "+destination+".");
     }
 

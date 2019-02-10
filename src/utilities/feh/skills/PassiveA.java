@@ -6,7 +6,7 @@ public class PassiveA extends Passive implements StatModifier {
 
 
     public PassiveA(String name, String description, int cost, boolean exclusive) {
-        super (name, description, 'c', cost, exclusive);
+        super (name, description, 'a', cost, exclusive);
         this.statModifiers = StatModifier.parseStatModifiers(description);
     }
 

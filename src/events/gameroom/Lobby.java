@@ -20,10 +20,9 @@ public abstract class Lobby extends ReactionListener {
         this.host = author;
         this.channel = channel;
         players.add(host);
-        String message =
-                "join "+host.getName()+" for a game of "+getName()+"\n" +
-                        "current players: 1/2";
-        joinMessage = channel.sendMessage(message).complete();
+        joinMessage = sendMessage(
+                "join "+host.getName() + " for a game of " + getName()+"\n" +
+                        "current players: "+players.size()+"/"+getMaxPlayers());
         joinMessage.addReaction("✅").complete();
         checkLobbyReady();
     }
@@ -56,7 +55,8 @@ public abstract class Lobby extends ReactionListener {
 
     private void checkLobbyReady() {
         if (players.size()>=getMinPlayers()) {
-            //the game could start if the host wants it to (idk if i'll ever program this since there're only two real users)
+            //the game could start if the host wants it to
+            // (idk if i'll ever program this since there're only two real users)
         }
         if (players.size()>getMaxPlayers()) {
             sendMessage("something went wrong");

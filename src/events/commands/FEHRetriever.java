@@ -170,7 +170,7 @@ public class FEHRetriever extends Command {
 
             if (x.contains(":")) {
                 x = x.substring(0, x.indexOf(":"));
-                System.out.println(x);
+                //System.out.println(x);
                 epithetIncluded = true;
             }
             //find HEROES of the correct name
@@ -184,12 +184,12 @@ public class FEHRetriever extends Command {
                 //find HEROES (from list of valid names) of the correct epithet
 
                 i++;
-                System.out.println(args);
+                //System.out.println(args);
                 while (!foundMatch&&i<args.size()) {
-                    System.out.println(args.get(i));
+                    //System.out.println(args.get(i));
                     for (int j = 0; j < candidates.size(); j++) {
                         Hero c = candidates.get(j);
-                        System.out.println(c.getFullName().getEpithet().toLowerCase()+" "+args.get(i).toLowerCase());
+                        //System.out.println(c.getFullName().getEpithet().toLowerCase()+" "+args.get(i).toLowerCase());
                         if (!c.getFullName().getEpithet().toLowerCase().contains(args.get(i).toLowerCase())) {
                             candidates.remove(j);
                             j--;

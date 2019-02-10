@@ -78,7 +78,7 @@ public class Draw extends Command {
         File file = new File("myimage.png");
         try {
             ImageIO.write(bufferedImage, "png", file);
-            e.getChannel().sendFile(file).complete();
+            sendFile(file);
         } catch (IOException g) {
             System.out.println("houston we got a problem");
         }

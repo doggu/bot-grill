@@ -6,6 +6,7 @@ import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.requests.restaction.MessageAction;
 
+import java.io.File;
 import java.time.OffsetDateTime;
 
 public abstract class MessageListener extends ListenerAdapter {
@@ -40,6 +41,8 @@ public abstract class MessageListener extends ListenerAdapter {
     protected Message sendMessage(String message) {
         return e.getChannel().sendMessage(message).complete();
     }
+
+    protected Message sendFile(File file) { return e.getChannel().sendFile(file).complete(); }
 
     protected void addReaction(Emote emote) {
         e.getMessage().addReaction(emote).queue();

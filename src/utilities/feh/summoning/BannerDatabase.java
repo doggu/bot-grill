@@ -11,10 +11,6 @@ import java.util.stream.IntStream;
 
 
 
-//RARITY CHANGE DATE: APRIL 10 2018
-//TODO: this should be implemented sooner or later
-//this should be in Banner tbh
-
 public class BannerDatabase extends WebScalper {
     public static final List<Banner> BANNERS = getList();
 

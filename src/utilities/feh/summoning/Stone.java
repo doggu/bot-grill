@@ -3,14 +3,14 @@ package utilities.feh.summoning;
 import utilities.feh.heroes.character.Hero;
 import utilities.feh.heroes.Unit;
 
-public class Orb {
+public class Stone {
     private final Banner banner;
     private final Unit hero;
     private boolean isPulled;
 
 
 
-    public Orb(Banner banner) {
+    public Stone(Banner banner) {
         this.banner = banner;
         hero = generateUnit();
         isPulled = false;

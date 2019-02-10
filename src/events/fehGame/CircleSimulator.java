@@ -8,7 +8,7 @@ import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 import utilities.feh.heroes.Unit;
 import utilities.feh.summoning.Banner;
-import utilities.feh.summoning.Orb;
+import utilities.feh.summoning.Stone;
 import utilities.feh.players.Summoner;
 
 import java.util.ArrayList;
@@ -19,8 +19,8 @@ public class CircleSimulator extends ReactionListener {
     private final Summoner summoner;
     private final Guild server;
     private final Banner banner;
-    private final List<Orb> orbs;
-    private final List<Emote> stones;
+    private final List<Stone> stones;
+    private final List<Emote> stoneEmotes;
     private int pulls = 0;
 
 
@@ -31,41 +31,41 @@ public class CircleSimulator extends ReactionListener {
         this.server = circleMessage.getGuild();
         this.summoner = summoner;
         this.banner = banner;
-        this.orbs = generateOrbs();
+        this.stones = generateStones();
 
-        List<Emote> stones = new ArrayList<>();
+        List<Emote> stoneEmotes = new ArrayList<>();
 
-        int rOrbs = 1, bOrbs = 1, gOrbs = 1, cOrbs = 1;
-        for (Orb x:orbs) {
+        int rStones = 1, bStones = 1, gStones = 1, cStones = 1;
+        for (Stone x:stones) {
             Emote stone;
             switch (x.getColor()) {
                 case "Red":
                     stone = circleMessage.getJDA()
-                            .getEmotesByName("r_orb_"+rOrbs, true).get(0);
+                            .getEmotesByName("r_stone_"+rStones, true).get(0);
                     circleMessage.addReaction(stone).queue();
-                    stones.add(stone);
-                    rOrbs++;
+                    stoneEmotes.add(stone);
+                    rStones++;
                     break;
                 case "Blue":
                     stone = circleMessage.getJDA()
-                            .getEmotesByName("b_orb_"+bOrbs, true).get(0);
+                            .getEmotesByName("b_stone_"+bStones, true).get(0);
                     circleMessage.addReaction(stone).queue();
-                    stones.add(stone);
-                    bOrbs++;
+                    stoneEmotes.add(stone);
+                    bStones++;
                     break;
                 case "Green":
                     stone = circleMessage.getJDA()
-                            .getEmotesByName("g_orb_"+gOrbs, true).get(0);
+                            .getEmotesByName("g_stone_"+gStones, true).get(0);
                     circleMessage.addReaction(stone).queue();
-                    stones.add(stone);
-                    gOrbs++;
+                    stoneEmotes.add(stone);
+                    gStones++;
                     break;
                 case "Colorless":
                     stone = circleMessage.getJDA()
-                            .getEmotesByName("c_orb_"+cOrbs, true).get(0);
+                            .getEmotesByName("c_stone_"+cStones, true).get(0);
                     circleMessage.addReaction(stone).queue();
-                    stones.add(stone);
-                    cOrbs++;
+                    stoneEmotes.add(stone);
+                    cStones++;
                     break;
                 default:
                     System.out.println("AaaAaaaaaaaaaaaAAAAAAAAAaAAAaaaaaaaaaa");
@@ -75,7 +75,7 @@ public class CircleSimulator extends ReactionListener {
 
         circleMessage.addReaction("❌").queue();
 
-        this.stones = stones;
+        this.stoneEmotes = stoneEmotes;
     }
 
 
@@ -86,18 +86,18 @@ public class CircleSimulator extends ReactionListener {
 
 
 
-    private List<Orb> generateOrbs() {
-        List<Orb> orbs = new ArrayList<>();
+    private List<Stone> generateStones() {
+        List<Stone> stones = new ArrayList<>();
 
         for (int i=0; i<5; i++) {
-            orbs.add(new Orb(banner));
+            stones.add(new Stone(banner));
         }
 
-        return orbs;
+        return stones;
     }
 
     boolean canClose() {
-        for (Orb x:orbs)
+        for (Stone x:stones)
             if (x.isPulled())
                 return true;
         return false;
@@ -149,12 +149,12 @@ public class CircleSimulator extends ReactionListener {
             }
         } else {
             String stoneId = e.getReaction().getReactionEmote().getId();
-            for (int i = 0; i < stones.size(); i++) {
-                Emote stone = stones.get(i);
+            for (int i=0; i<stoneEmotes.size(); i++) {
+                Emote stone = stoneEmotes.get(i);
                 if (stoneId.equals(stone.getId())) {
                     Unit hero;
                     try {
-                        hero = orbs.get(i).pull();
+                        hero = stones.get(i).pull();
                     } catch (Exception g) {
                         sendMessage("cannot pull an orb that's already been pulled!");
                         log("user attempted to pull an already-pulled stone");
@@ -189,7 +189,7 @@ public class CircleSimulator extends ReactionListener {
         //there's a more efficient way to do this but this is absolute
 
         boolean circleComplete = true;
-        for (Orb x : orbs) {
+        for (Stone x : stones) {
             if (!x.isPulled()) {
                 circleComplete = false;
                 break;

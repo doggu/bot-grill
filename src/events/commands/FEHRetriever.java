@@ -23,7 +23,7 @@ public class FEHRetriever extends Command {
 
     public FEHRetriever() {
         heroes = UnitDatabase.HEROES;
-        skills = new ArrayList<>();
+        skills = SkillDatabase.SKILLS;
 
         Method[] methods = FEHRetriever.class.getMethods();
 
@@ -453,25 +453,25 @@ public class FEHRetriever extends Command {
             EmbedBuilder skill = new EmbedBuilder();
 
             switch (x.getSlot()) {
-                case 0:
+                case 0: //weapon
                     skill.setColor(new Color(0xDE1336));
                     break;
-                case 1:
+                case 1: //assist
                     skill.setColor(new Color(0x00EDB3));
                     break;
-                case 2:
+                case 2: //special
                     skill.setColor(new Color(0xF400E5));
                     break;
-                case 3:
+                case 3: //a-passive
                     skill.setColor(new Color(0xFF2A2A));
                     break;
-                case 4:
+                case 4: //b-passive
                     skill.setColor(new Color(0x003ED3));
                     break;
-                case 5:
+                case 5: //c-passive
                     skill.setColor(new Color(0x09C639));
                     break;
-                case 6:
+                case 6: //sacred seal
                     skill.setColor(new Color(0xEDE500));
                     break;
             }
@@ -493,6 +493,9 @@ public class FEHRetriever extends Command {
                 skill.addField("Cooldown", ""+((Special) x).getCooldown(), false);
             }
 
+
+
+            //test displays
             if (x instanceof StatModifier) {
                 int[] statModifiers = ((StatModifier) x).getStatModifiers();
                 String printedStatModifiers = "```\n"+printStats(statModifiers)+"\n```";

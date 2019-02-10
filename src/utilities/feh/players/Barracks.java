@@ -1,9 +1,8 @@
-package utilities.feh.summoning;
+package utilities.feh.players;
 
 import utilities.feh.heroes.Unit;
 import utilities.feh.heroes.UnitDatabase;
 import utilities.feh.heroes.character.Hero;
-import utilities.feh.players.Summoner;
 
 import java.util.ArrayList;
 

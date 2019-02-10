@@ -2,7 +2,6 @@ package utilities.feh.players;
 
 import events.fehGame.CircleSimulator;
 import net.dv8tion.jda.core.entities.User;
-import utilities.feh.summoning.Barracks;
 
 public class Summoner {
     private final User summoner;

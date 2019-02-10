@@ -152,6 +152,12 @@ public class Banner {
                 rarity4rate = 58;
                 rarity3rate = 34;
                 break;
+            //surprisingly, the guaranteed summon events are the only banners with args[0] being "Special"
+            case "Special":
+                rarityFrate = 100;
+                rarity5rate = 0;
+                rarity4rate = 0;
+                rarity3rate = 0;
         }
 
         //TODO: create new class for banner instances? (for storing pity, summoner data, etc.)

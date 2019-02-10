@@ -76,6 +76,7 @@ public class BannerDatabase extends WebScalper {
                 String[] startDateStr = items.next().split("-");
                 int year = Integer.parseInt(startDateStr[0]);int month;
                 //this shit so fuckin useless (other than alerting of invalid numbers)
+                //TODO: turn into method or abandon all hope
                 switch (Integer.parseInt(startDateStr[1])) {
                     case 1:
                         month = Calendar.JANUARY;

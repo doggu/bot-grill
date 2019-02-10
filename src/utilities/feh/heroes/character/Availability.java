@@ -2,6 +2,7 @@ package utilities.feh.heroes.character;
 
 public enum Availability {
     NORMAL(true, true),
+    NORMAL_RARITY_CHANGED(true, true),
     SEASONAL(true, false),
     LEGENDARY(true, false),
     MYTHIC(true, false),

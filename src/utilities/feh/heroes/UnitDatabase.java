@@ -304,7 +304,7 @@ public class UnitDatabase extends WebScalper {
         } else {
             switch (indeterminate) { //reassigns to the same value a lot but whatever
                 case "*":
-                    availability = Availability.NORMAL;
+                    availability = Availability.NORMAL_RARITY_CHANGED;
                     break;
                 case "Story":
                     availability = Availability.STORY;
@@ -313,7 +313,7 @@ public class UnitDatabase extends WebScalper {
                     availability = Availability.GHB;
                     break;
                 case "Tempest Trials":
-                    availability = Availability.GHB;
+                    availability = Availability.TT;
                     break;
                     //seasonal/legendary/MyThIC heroes are not part of normal pools
                 case "Special":

@@ -198,9 +198,11 @@ public class SummonSimulator extends Gameroom {
     private GregorianCalendar parseDate(String date) throws NumberFormatException {
         //TODO: make this less basic
         String[] nums = date.split("-");
-        int year = Integer.parseInt(nums[2]),
-                month = Integer.parseInt(nums[0])-1, //guess i'll make this note again to drill it into my head
-                day = Integer.parseInt(nums[1]);
+        int year, month, day;
+        year = Integer.parseInt(nums[2]);
+        month = Integer.parseInt(nums[0])-1; //guess i'll make this note again to drill it into my head
+        day = Integer.parseInt(nums[1]);
+                                         //honestly am i really going to make a switch case for an int to find a field which is just another int (which is one less than the already-defined int)
         return new GregorianCalendar(year, month, day);
     }
 

@@ -1,5 +1,6 @@
 package utilities.feh.summoning;
 
+import utilities.feh.heroes.character.Availability;
 import utilities.feh.heroes.character.Hero;
 import utilities.feh.heroes.UnitDatabase;
 
@@ -96,7 +97,15 @@ public class Banner {
 
             //System.out.println("added (" + x.getRarity() + "): " + x.getName() + ": " + x.getEpithet());
 
-            switch (x.getRarity()) {
+            int bannerRarity = x.getRarity();
+
+            GregorianCalendar rarityChangeDate =
+                    new GregorianCalendar(2018, GregorianCalendar.APRIL, 10);
+            if (x.getAvailability()==Availability.NORMAL_RARITY_CHANGED &&
+                    startDate.getTimeInMillis() <= rarityChangeDate.getTimeInMillis())
+                bannerRarity++;
+
+            switch (bannerRarity) {
                 case 1:
                 case 2:
                 case 3:

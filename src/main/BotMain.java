@@ -38,6 +38,22 @@ public class BotMain {
 
 
     public static void main(String[] args) throws Exception {
+        //construct listeners beforehand so bot is ready as soon as she goes live
+        ListenerAdapter listenerChances = new Chances();
+        ListenerAdapter listenerFEHRetriever = new FEHRetriever();
+        ListenerAdapter listenerEmotes = new Emotes();
+        ListenerAdapter listenerGirl = new Girl();
+        ListenerAdapter listenerDevTools = new DevTools();
+        ListenerAdapter listenerSummonSimulator = new SummonSimulator();
+        ListenerAdapter listenerReactions = new Reactions();
+        ListenerAdapter listenerMaffs = new Maffs();
+        ListenerAdapter listenerEmbedTest = new EmbedTest();
+        ListenerAdapter listenerVote = new Vote();
+        ListenerAdapter listenerDraw = new Draw();
+        ListenerAdapter listenerOrbBalance = new OrbBalance();
+        ListenerAdapter listenerCreateLobby = new CreateLobby();
+        ListenerAdapter listenerAllies = new Allies();
+
         bot_grill = new JDABuilder(AccountType.BOT)
                 .setToken(new Scanner(new File("./src/main/token.txt")).nextLine())
                 .build();
@@ -60,16 +76,6 @@ public class BotMain {
         ListenerAdapter listenerEmbedTest = new EmbedTest();
         */
 
-        ListenerAdapter listenerChances = new Chances();
-        ListenerAdapter listenerFEHRetriever = new FEHRetriever();
-        ListenerAdapter listenerEmotes = new Emotes();
-        ListenerAdapter listenerGirl = new Girl();
-        ListenerAdapter listenerDevTools = new DevTools();
-        ListenerAdapter listenerSummonSimulator = new SummonSimulator();
-        ListenerAdapter listenerReactions = new Reactions();
-        ListenerAdapter listenerMaffs = new Maffs();
-        ListenerAdapter listenerEmbedTest = new EmbedTest();
-
         addListener(listenerChances);
         addListener(listenerFEHRetriever);
         addListener(listenerEmotes);
@@ -79,13 +85,11 @@ public class BotMain {
         addListener(listenerReactions);
         addListener(listenerMaffs);
         addListener(listenerEmbedTest);
-
-        addListener(new Vote());
-        addListener(new Draw());
-        addListener(new OrbBalance());
-        addListener(new CreateLobby());
-        addListener(new Allies());
-
+        addListener(listenerVote);
+        addListener(listenerDraw);
+        addListener(listenerOrbBalance);
+        addListener(listenerCreateLobby);
+        addListener(listenerAllies);
         //ex:
         //removeListener(listenerChances);
 

@@ -1,4 +1,4 @@
-package utilities.feh.heroes;
+package utilities.feh.heroes.unit;
 
 import utilities.feh.heroes.character.Hero;
 
@@ -7,6 +7,7 @@ import java.time.OffsetDateTime;
 public class Unit extends Hero {
     private final int rarity, boon, bane; //I refuse to call it asset/flaw
     private final char supportStatus;
+    private final int merges, dragonflowers;
 
     //TODO: create character class
     //how do i check things off 40%
@@ -22,12 +23,20 @@ public class Unit extends Hero {
      * @param boon - positive variance of specific unit.
      * @param bane - negative variance of specific unit.
      */
-    public Unit(Hero hero, int rarity, int boon, int bane, char supportStatus) {
+    public Unit(Hero hero, int rarity, int boon, int bane, char supportStatus, int merges, int dragonflowers) {
         super(hero);
         this.rarity = rarity;
         this.boon = boon;
         this.bane = bane;
         this.supportStatus = supportStatus;
+        this.merges = merges;
+        this.dragonflowers = dragonflowers;
+    }
+    public Unit(Hero hero, int rarity, int boon, int bane, char supportStatus) {
+        this(hero, rarity, boon, bane, supportStatus, 0, 0);
+    }
+    public Unit(Hero hero, int rarity, int boon, int bane, char supportStatus, int merges) {
+        this(hero, rarity, boon, bane, supportStatus, 0, 0);
     }
     public Unit(Hero hero, int rarity, int boon, int bane) {
         this(hero, rarity, boon, bane, 'd');
@@ -54,7 +63,6 @@ public class Unit extends Hero {
         this.rarity = rarity;
 
         int boon, bane;
-
         int individuality = (int)(Math.random()*21);
         if (individuality==0) {
             //neutral
@@ -92,6 +100,8 @@ public class Unit extends Hero {
         this.boon = boon;
         this.bane = bane;
         supportStatus = 'd';
+        this.merges = 0;
+        this.dragonflowers = 0;
     }
 
 
@@ -117,18 +127,21 @@ public class Unit extends Hero {
 
         switch (supportStatus) {
             case 's':
+                stats[0]+= 1;
                 stats[1]+= 2;
             case 'a':
                 stats[2]+= 2;
             case 'b':
+                stats[0]+= 1;
                 stats[3]+= 2;
             case 'c':
+                stats[0]+= 3;
                 stats[4]+= 2;
             case 'd':
                 break;
             default:
                 //technically shouldn't happen but it's okay I guess
-                System.out.println("just letting you know that I didn't get a support status");
+                System.out.println("just letting you know that I didn't get a support status for "+this.getFullName());
                 break;
         }
 

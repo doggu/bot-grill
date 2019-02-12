@@ -1,6 +1,6 @@
 package utilities.feh.players;
 
-import utilities.feh.heroes.Unit;
+import utilities.feh.heroes.unit.Unit;
 import utilities.feh.heroes.UnitDatabase;
 import utilities.feh.heroes.character.Hero;
 

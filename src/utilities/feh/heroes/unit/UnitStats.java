@@ -1,4 +1,4 @@
-package utilities.feh.heroes.unitInfo;
+package utilities.feh.heroes.unit;
 
 import utilities.feh.heroes.character.HeroStats;
 

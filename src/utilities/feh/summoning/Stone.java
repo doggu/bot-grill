@@ -1,7 +1,7 @@
 package utilities.feh.summoning;
 
 import utilities.feh.heroes.character.Hero;
-import utilities.feh.heroes.Unit;
+import utilities.feh.heroes.unit.Unit;
 
 public class Stone {
     private final Banner banner;

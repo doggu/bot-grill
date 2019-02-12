@@ -6,7 +6,7 @@ import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
-import utilities.feh.heroes.Unit;
+import utilities.feh.heroes.unit.Unit;
 import utilities.feh.summoning.Banner;
 import utilities.feh.summoning.Stone;
 import utilities.feh.players.Summoner;

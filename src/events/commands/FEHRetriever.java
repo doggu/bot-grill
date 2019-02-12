@@ -4,7 +4,7 @@ import main.BotMain;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Emote;
 import utilities.feh.heroes.character.Hero;
-import utilities.feh.heroes.Unit;
+import utilities.feh.heroes.unit.Unit;
 import utilities.feh.heroes.UnitDatabase;
 import utilities.feh.skills.*;
 

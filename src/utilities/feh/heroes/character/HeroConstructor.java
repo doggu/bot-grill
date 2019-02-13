@@ -14,7 +14,9 @@ public class HeroConstructor {
     private WeaponClass weaponType;
     private MovementClass moveType;
     //these stats are 1* lv1 (regardless of obtainable rarities)
-    private int[] stats, statGrowths;
+    private int[] statsArr;
+    private int[] growthsArr;
+    private HeroStats stats;
     private Integer rarity;
     private Availability availability;
     private GregorianCalendar dateReleased;
@@ -95,8 +97,9 @@ public class HeroConstructor {
                 throw new Error();
         }
     }
-    public void setStats(int[] stats) { this.stats = stats; }
-    public void setStatGrowths(int[] statGrowths) { this.statGrowths = statGrowths; }
+    public void setStats(HeroStats stats) { this.stats = stats; }
+    public void setStats(int[] stats) { this.statsArr = stats.clone(); }
+    public void setGrowths(int[] growths) { this.growthsArr = growths.clone(); }
     public void setRarity(int rarity) { this.rarity = rarity; }
     public void setAvailability(Availability availability) { this.availability = availability; }
     public void setDateReleased(GregorianCalendar dateReleased) { this.dateReleased = dateReleased; }
@@ -110,8 +113,7 @@ public class HeroConstructor {
     public String getColor() { return color; }
     public WeaponClass getWeaponType() { return weaponType; }
     public MovementClass getMoveType() { return moveType; }
-    public int[] getStats() { return stats; }
-    public int[] getStatGrowths() { return statGrowths; }
+    public HeroStats getStats() { return stats; }
     public int getRarity() { return rarity; }
     public Availability getAvailability() { return availability; }
     public GregorianCalendar getDateReleased() { return dateReleased; }
@@ -139,12 +141,16 @@ public class HeroConstructor {
             System.out.println("missing moveType!");
             throw new Error();
         }
-        if (stats==null) {
+        if (statsArr!=null) {
+            if (growthsArr!=null) {
+                stats = new HeroStats(statsArr[0], statsArr[1], statsArr[2], statsArr[3], statsArr[4],
+                        growthsArr[0], growthsArr[1], growthsArr[2], growthsArr[3], growthsArr[4]);
+            } else {
+                System.out.println("missing growths!");
+                throw new Error();
+            }
+        } else {
             System.out.println("missing stats!");
-            throw new Error();
-        }
-        if (statGrowths==null) {
-            System.out.println("missing statGrowths!");
             throw new Error();
         }
         if (rarity==null) {
@@ -163,6 +169,6 @@ public class HeroConstructor {
         return new Hero(fullName, origin,
                 color, weaponType, moveType, rarity,
                 availability, dateReleased,
-                stats, statGrowths);
+                stats);
     }
 }

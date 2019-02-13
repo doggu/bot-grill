@@ -104,14 +104,12 @@ public class Hero {
 
     // TODO: change to lv40 stats using lv1 stats and growths
     public HeroStats getStats() { return stats; }
+    public int[] getStatsArr() { return stats.getStatsAsArray(); }
     public int getHP() { return stats.getHp(); }
     public int getAtk() { return stats.getAtk(); }
     public int getSpd() { return stats.getSpd(); }
     public int getDef() { return stats.getDef(); }
     public int getRes() { return stats.getRes(); }
-    public int getBST() {
-        return stats.getBST();
-    }
 
     public int getRarity() { return rarity; }
     public Availability getAvailability() { return availability; }
@@ -254,9 +252,9 @@ public class Hero {
     public int[][] getAllStats(boolean lv1, int rarity) { return getAllStats(lv1, rarity, 0); }
     public int[][] getAllStats(boolean lv1, int rarity, int merges) {
         int[][] finalStats = {
-                stats.clone(),
-                stats.clone(),
-                stats.clone(),
+                { stats.getHp(), stats.getAtk(), stats.getSpd(), stats.getDef(), stats.getRes() },
+                { stats.getHp(), stats.getAtk(), stats.getSpd(), stats.getDef(), stats.getRes() },
+                { stats.getHp(), stats.getAtk(), stats.getSpd(), stats.getDef(), stats.getRes() },
         };
 
         for (int i=0; i<3; i++) {
@@ -271,7 +269,7 @@ public class Hero {
 
         for (int i=0; i<5; i++) {
             for (int j = 0; j < 4; j++) {
-                if (stats[statsSorted[j]]<stats[statsSorted[j+1]]) {
+                if (stats.getStatsAsArray()[statsSorted[j]]<stats.getStatsAsArray()[statsSorted[j+1]]) {
                     int t = statsSorted[j+1];
                     statsSorted[j+1] = statsSorted[j];
                     statsSorted[j] = t;
@@ -339,7 +337,7 @@ public class Hero {
             for (int i=0; i<3; i++) {
                 for (int j=0; j<5; j++) {
                     //TODO: expand with steps
-                    finalStats[i][j]+= (int)(0.39*(int)((this.statGrowths[j]+5*(i-1))*rarityFactor/100.0));
+                    finalStats[i][j]+= (int)(0.39*(int)((this.stats.getGrowthsAsArray()[j]+5*(i-1))*rarityFactor/100.0));
                 }
             }
         }

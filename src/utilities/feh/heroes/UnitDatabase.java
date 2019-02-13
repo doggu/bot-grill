@@ -187,8 +187,10 @@ public class UnitDatabase extends WebScalper {
 
         int[] stats = new int[5];
 
-        for (int i=0; i<stats.length; i++)
+        for (int i=0; i<stats.length; i++) {
             stats[i] = Integer.parseInt(input.next());
+            System.out.println(stats[i]);
+        }
 
         x.setStats(stats);
 
@@ -235,7 +237,7 @@ public class UnitDatabase extends WebScalper {
             statGrowths[i] = Integer.parseInt(growth.substring(0, growth.length()-1));
         }
 
-        x.setStatGrowths(statGrowths);
+        x.setGrowths(statGrowths);
 
 
 

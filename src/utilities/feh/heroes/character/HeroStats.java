@@ -33,7 +33,16 @@ public class HeroStats {
     public int getSpdGrowth() { return spdG; }
     public int getDefGrowth() { return defG; }
     public int getResGrowth() { return resG; }
-    public int getBST() {
+    public int getBST(boolean lv1, int boon, int bane) {
+        return 69;
+    }
 
+    public int[] getGrowthsAsArray() {
+        int[] growths = { this.hpG, this.atkG, this.spdG, this.defG, this.resG };
+        return growths;
+    }
+    public int[] getStatsAsArray() {
+        int[] stats = { this.hp, this.atk, this.spd, this.def, this.res };
+        return stats;
     }
 }

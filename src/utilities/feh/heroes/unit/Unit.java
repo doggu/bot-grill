@@ -111,7 +111,7 @@ public class Unit extends Hero {
     public int getRarity() { return rarity; }
     public int getSupportStatus() { return supportStatus; }
     public int[] getIVs() {
-        int[] stats = super.getStats();
+        int[] stats = super.getStats().getStatsAsArray();
 
         for (int i=0; i<stats.length; i++) {
             if (i==boon)
@@ -122,7 +122,7 @@ public class Unit extends Hero {
 
         return stats;
     }
-    public int[] getStats() {
+    public int[] getStatsArr() {
         int[] stats = super.getStats(false, rarity, boon, bane);
 
         switch (supportStatus) {

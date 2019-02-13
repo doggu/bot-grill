@@ -41,6 +41,7 @@ public class FEHRetriever extends Command {
         int boon = -1;
         int bane = -1;
         int merges = 0;
+        int dragonflowers = 0;
         char support = 'd';
         boolean newestOnly = false;
 
@@ -83,28 +84,36 @@ public class FEHRetriever extends Command {
                 i--;
             } else if (x.contains("+")||x.contains("-")) {
                 if (x.contains("+")) {
-                    //try for merge number; if not, it's probably a boon modifier
-                    //or legendary marth's fucking name god damn it
-                    try {
-                        merges = Integer.parseInt(x.substring(1));
-                    } catch (NumberFormatException g) {
-                        char boonP = x.charAt(x.indexOf('+') + 1);
-                        switch (boonP) {
-                            case 'r':   //res is the last stat in the array, so add to index for every stat before it
-                                boon++;
-                            case 'd':
-                                boon++;
-                            case 's':
-                                boon++;
-                            case 'a':
-                                boon++;
-                            case 'h':
-                                boon++;
-                                getAll = false;
-                                args.remove(x);
-                                i--;
-                            default:
-                                break;
+                    if (x.contains("df")) {
+                        try {
+                            dragonflowers = Integer.parseInt(x.substring(3));
+                        } catch (NumberFormatException g) {
+                            log("issue getting dragonflower count from string \""+x+"\"");
+                        }
+                    } else {
+                        //try for merge number; if not, it's probably a boon modifier
+                        //or legendary marth's fucking name god damn it
+                        try {
+                            merges = Integer.parseInt(x.substring(1));
+                        } catch (NumberFormatException g) {
+                            char boonP = x.charAt(x.indexOf('+') + 1);
+                            switch (boonP) {
+                                case 'r':   //res is the last stat in the array, so add to index for every stat before it
+                                    boon++;
+                                case 'd':
+                                    boon++;
+                                case 's':
+                                    boon++;
+                                case 'a':
+                                    boon++;
+                                case 'h':
+                                    boon++;
+                                    getAll = false;
+                                    args.remove(x);
+                                    i--;
+                                default:
+                                    break;
+                            }
                         }
                     }
                 }
@@ -360,7 +369,7 @@ public class FEHRetriever extends Command {
 
         StringBuilder message = new StringBuilder();
         for (Hero x:candidates) {
-            String charString = printCharacter(x, lv1, rarity, getAll, boon, bane, merges, support);
+            String charString = printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support);
             if (message.length()+charString.length()>2000) {
                 sendMessage(message.toString());
                 message = new StringBuilder();
@@ -556,7 +565,7 @@ public class FEHRetriever extends Command {
 
     private static String printCharacter(Hero x, boolean lv1, int rarity,
                                          boolean getAll, int boon, int bane,
-                                         int merges, char support) {
+                                         int merges, int dragonflowers, char support) {
         //import emotes from fehicons database
         List<Emote> fehIconEmotes = BotMain.fehIcons;
 
@@ -620,14 +629,14 @@ public class FEHRetriever extends Command {
                 info+= stats+"\n";
                 info+= printBST(x.getAllStats(lv1, rarity, merges));
             } else {
-                stats = printStats(x.getStats(lv1, rarity, boon, bane, merges));
+                stats = printStats(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers));
                 info+= stats+"\n";
-                info+= printBST(x.getStats(lv1, rarity, boon, bane, merges));
+                info+= printBST(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers));
             }
         } else {
-            stats = printStats(x.getStats(lv1, rarity, boon, bane, merges));
+            stats = printStats(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers));
             info+= stats+"\n";
-            info+= printBST(x.getStats(lv1, rarity, boon, bane, merges));
+            info+= printBST(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers));
         }
         info+= "\n";
 
@@ -641,7 +650,9 @@ public class FEHRetriever extends Command {
         return printUnit(x, lv1, 'd');
     }
     public static String printUnit(Unit x, boolean lv1, char supportStatus) {
-        return printCharacter(x, lv1, x.getRarity(), false, x.getBoon(), x.getBane(), 0, supportStatus);
+        return printCharacter(x, lv1, x.getRarity(), false,
+                x.getBoon(), x.getBane(), 0, 0,
+                supportStatus);
     }
 
     private static String printStats(int[] stats) {

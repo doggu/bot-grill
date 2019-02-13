@@ -4,17 +4,18 @@ import utilities.feh.heroes.character.HeroStats;
 
 public class UnitStats {
     private final HeroStats character;
-    private int merges;
+    private int merges, dragonflowers;
     private char supportStatus;
 
 
 
-    public UnitStats(HeroStats character) { this(character, 0, 'd'); }
-    public UnitStats(HeroStats character, int merges) { this(character, merges, 'd'); }
-    public UnitStats(HeroStats character, char supportStatus) { this(character, 0, supportStatus); }
-    public UnitStats(HeroStats character, int merges, char supportStatus) {
+    public UnitStats(HeroStats character) { this(character,0,0,'d'); }
+    public UnitStats(HeroStats character, int merges) { this(character, merges,0,'d'); }
+    public UnitStats(HeroStats character, char supportStatus) { this(character, 0,0, supportStatus); }
+    public UnitStats(HeroStats character, int merges, int dragonflowers, char supportStatus) {
         this.character = character;
         this.merges = merges;
+        this.dragonflowers = dragonflowers;
         this.supportStatus = supportStatus;
     }
 

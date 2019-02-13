@@ -15,7 +15,7 @@ public class Hero {
     private final MovementClass moveType;
 
     //these stats are 1* lv1 (regardless of obtainable rarities)
-    private final int[] stats, statGrowths;
+    private final HeroStats stats;
     private final int rarity;
 
     private final Availability availability;
@@ -27,7 +27,7 @@ public class Hero {
                 WeaponClass weaponType, MovementClass moveType,
                 int rarity, Availability availability,
                 GregorianCalendar dateReleased,
-                int[] stats, int[] statGrowths) {
+                HeroStats stats) {
         this.fullName = fullName;
         this.origin = origin;
         this.color = color;
@@ -37,7 +37,6 @@ public class Hero {
         this.availability = availability;
         this.dateReleased = dateReleased;
         this.stats = stats;
-        this.statGrowths = statGrowths;
     }
 
     /**
@@ -77,7 +76,6 @@ public class Hero {
         this.weaponType = j.getWeaponType();
         this.moveType = j.getMoveType();
         this.stats = j.getStats();
-        this.statGrowths = j.getStatGrowths();
         this.rarity = j.getRarity();
         this.availability = j.getAvailability();
         this.dateReleased = j.getReleaseDate();
@@ -90,7 +88,6 @@ public class Hero {
         this.weaponType = j.getWeaponType();
         this.moveType = j.getMoveType();
         this.stats = j.getStats();
-        this.statGrowths = j.getStatGrowths();
         this.rarity = j.getRarity();
         this.availability = j.getAvailability();
         this.dateReleased = j.getReleaseDate();
@@ -106,17 +103,14 @@ public class Hero {
     public MovementClass getMoveType() { return moveType; }
 
     // TODO: change to lv40 stats using lv1 stats and growths
-    public int[] getStats() { return stats; }
-    public int[] getStatGrowths() { return statGrowths; }
-    public int getHP() { return stats[0]; }
-    public int getAtk() { return stats[1]; }
-    public int getSpd() { return stats[2]; }
-    public int getDef() { return stats[3]; }
-    public int getRes() { return stats[4]; }
+    public HeroStats getStats() { return stats; }
+    public int getHP() { return stats.getHp(); }
+    public int getAtk() { return stats.getAtk(); }
+    public int getSpd() { return stats.getSpd(); }
+    public int getDef() { return stats.getDef(); }
+    public int getRes() { return stats.getRes(); }
     public int getBST() {
-        int bst = 0;
-        for (int i:stats) bst+=i;
-        return bst;
+        return stats.getBST();
     }
 
     public int getRarity() { return rarity; }

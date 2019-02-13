@@ -1,7 +1,7 @@
 package utilities.feh.heroes.character;
 
 public class HeroStats {
-    //these are lv1, 1* and neutral
+    //these are lv1, 3* and neutral
     private final int hp, atk, spd, def, res;
     private final int hpG, atkG, spdG, defG, resG;
 
@@ -33,4 +33,7 @@ public class HeroStats {
     public int getSpdGrowth() { return spdG; }
     public int getDefGrowth() { return defG; }
     public int getResGrowth() { return resG; }
+    public int getBST() {
+
+    }
 }

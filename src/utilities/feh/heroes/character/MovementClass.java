@@ -2,9 +2,9 @@ package utilities.feh.heroes.character;
 
 public enum MovementClass {
     INFANTRY(2, false, false, false, "Infantry"),
-    ARMORED(1, false, false, false, "Armored"),
+    ARMORED(1, false, false, false, "Armor"),
     CAVALRY(3, false, true, true, "Cavalry"),
-    FLYING(2, true, false, false, "Flying");
+    FLYING(2, true, false, false, "Flier");
 
 
 

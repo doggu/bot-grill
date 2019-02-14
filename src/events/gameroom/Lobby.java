@@ -19,6 +19,7 @@ public abstract class Lobby extends ReactionListener {
         this.host = author;
         this.channel = channel;
         players.add(host);
+        //TODO: add conditional to skip join message if max players is 1
         joinMessage = sendMessage(
                 "join "+host.getName() + " for a game of " + getName()+"\n" +
                         "current players: "+players.size()+"/"+getMaxPlayers());

@@ -37,4 +37,37 @@ public enum WeaponClass {
 
 
     public String toString() { return name; }
+
+    public static WeaponClass getType(String name) {
+        switch(name) {
+            case "Sword":
+                return SWORD;
+            case "Lance":
+                return LANCE;
+            case "Axe":
+                return AXE;
+            case "Red Tome":
+                return RED_TOME;
+            case "Blue Tome":
+                return BLUE_TOME;
+            case "Green Tome":
+                return GREEN_TOME;
+            case "Staff":
+                return STAFF;
+            case "Beast":
+                return BEAST;
+            case "Breath":
+                return BREATH;
+            case "Dagger":
+                return DAGGER;
+            case "Bow":
+                return BOW;
+
+            case "Tome":
+                System.out.println("ambiguous weapon name");
+            default:
+                System.out.println("unknown weapon type: "+name);
+                throw new Error();
+        }
+    }
 }

@@ -1,6 +1,9 @@
 package utilities.feh.skills;
 
 import utilities.WebScalper;
+import utilities.feh.heroes.character.MovementClass;
+import utilities.feh.heroes.character.WeaponClass;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,6 +13,7 @@ import java.util.Scanner;
 
 public class SkillDatabase extends WebScalper {
     public static ArrayList<Skill> SKILLS = getList();
+    public static HashMap<String, ArrayList<Skill>> HERO_SKILLS = getHeroSkills();
 
     private static final String
             WEAPONS = "https://feheroes.gamepedia.com/Weapons",
@@ -17,9 +21,12 @@ public class SkillDatabase extends WebScalper {
             SPECIALS = "https://feheroes.gamepedia.com/Specials",
             PASSIVES = "https://feheroes.gamepedia.com/Passives",
             SACRED_SEALS_ALL = "https://feheroes.gamepedia.com/Sacred_Seals",
+
             SKILL_CHAINS_4_STARS = "https://feheroes.gamepedia.com/Skill_Chains_4_Stars_List",
             SKILL_CHAINS_5_STARS = "https://feheroes.gamepedia.com/Skill_Chains_5_Stars_List",
-            LIST_OF_UPGRADABLE_WEAPONS = "https://feheroes.gamepedia.com/List_of_upgradable_weapons";
+            LIST_OF_UPGRADABLE_WEAPONS = "https://feheroes.gamepedia.com/List_of_upgradable_weapons",
+
+            HERO_BASE_SKILLS = "https://feheroes.gamepedia.com/Hero_skills_table";
 
 
 
@@ -71,11 +78,11 @@ public class SkillDatabase extends WebScalper {
             x.subList(0,6).clear(); //*grumble grumble* stupid indexing (this line removes 6 items, not 7)
 
         HashMap<Integer, String> weaponType = new HashMap<>();
-        weaponType.put(0, "Red Sword");
+        weaponType.put(0, "Sword");
         weaponType.put(1, "Red Tome");
-        weaponType.put(2, "Blue Lance");
+        weaponType.put(2, "Lance");
         weaponType.put(3, "Blue Tome");
-        weaponType.put(4, "Green Axe");
+        weaponType.put(4, "Axe");
         weaponType.put(5, "Green Tome");
         weaponType.put(6, "Staff");
         weaponType.put(7, "Beast");
@@ -103,7 +110,8 @@ public class SkillDatabase extends WebScalper {
                 }
                 String description = desc.toString();
                 boolean exclusive = "Yes".equals(list.next());
-                String type = weaponType.get(weaponTables.indexOf(table));
+                String typeStr = weaponType.get(weaponTables.indexOf(table));
+                WeaponClass type = WeaponClass.getType(typeStr);
 
                 x = new Weapon(name, description, cost, exclusive, might, range, type);
                 weapons.add(x);
@@ -203,10 +211,13 @@ public class SkillDatabase extends WebScalper {
         for (ArrayList<String> x:passiveTables)
             x.subList(0,5).clear();
 
-        if (passiveTables.size()!=4) {
+        if (passiveTables.size()<4) {
+            System.out.println("a table has gone missing from the passives website");
+            throw new Error();
+        } else if (passiveTables.size()>4) {
             System.out.println("an unsolicited table has appeared in passives");
             throw new Error();
-        }
+        } //else it's good dawg
 
         Iterator<String>
                 passiveA = passiveTables.get(0).iterator(),
@@ -298,6 +309,58 @@ public class SkillDatabase extends WebScalper {
         return passives;
     }
 
+
+
+    private static HashMap<String, ArrayList<Skill>> getHeroSkills() {
+        HashMap<String, ArrayList<Skill>> heroSkills = new HashMap<>();
+        ArrayList<String> baseSkillTable;
+        BufferedReader skillData;
+        try {
+            skillData = readWebsite(HERO_BASE_SKILLS);
+            baseSkillTable = getTable(skillData);
+        } catch (IOException g) { System.out.println("hero base skills had an issue"); throw new Error(); }
+
+
+
+        baseSkillTable.subList(0,7).clear();
+
+        Iterator<String> table = baseSkillTable.iterator();
+
+        String name = table.next();
+        while (table.hasNext()) {
+            ArrayList<String> skillNames = new ArrayList<>();
+
+            String skill;
+            while (!(skill = table.next()).contains(": ")&&table.hasNext()) {
+                skillNames.add(skill);
+            }
+
+
+            ArrayList<Skill> skills = new ArrayList<>();
+
+            //TODO: separate skill list into their respective types
+            // (or at least make the individual lists crated in getList() accessible/stored)
+            for (String skillName:skillNames)
+                for (Skill x:SKILLS)
+                    if (x.getName().equals(skillName))
+                        skills.add(x);
+
+            //Skill[] arr = new Skill[skills.size()];
+            //heroSkills.put(name, skills.toArray(arr));
+            heroSkills.put(name, skills);
+
+            //the name was hit in the while loop, and must be the name for the next hero (this is pretty stupid)
+            name = skill;
+        }
+
+
+
+        System.out.println("finished processing base skills.");
+        return heroSkills;
+    }
+
+
+
     private static ArrayList<ArrayList<String>> getTables(BufferedReader input) throws IOException {
         ArrayList<ArrayList<String>> data = new ArrayList<>();
         ArrayList<String> table = new ArrayList<>();
@@ -324,16 +387,27 @@ public class SkillDatabase extends WebScalper {
 
         return data;
     }
+    private static ArrayList<String> getTable(BufferedReader input) throws IOException {
+        ArrayList<String> table = new ArrayList<>();
 
+        String line;
+        while ((line = input.readLine()) != null) {
+            if (line.contains("<table class=\"wikitable sortable"))
+                table = getItems(line.chars());
+        }
+
+        return table;
+    }
 
 
     public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+        Scanner console = new Scanner(System.in);
 
-        String line;
-        while (!(line = input.nextLine()).equals("quit"))
-            for (Skill x:SKILLS)
-                if (x.getName().equalsIgnoreCase(line))
-                    System.out.println(x);
+        String input;
+        while ((input = console.nextLine())!=null) {
+            System.out.println(HERO_SKILLS.get(input));
+        }
+
+        console.close();
     }
 }

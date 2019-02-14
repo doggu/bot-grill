@@ -60,6 +60,44 @@ public class SummonSimulator extends Gameroom {
     }
 
     private void createSession() {
+        for (Summoner x:summoners) {
+            if (x.getUser().getId().equals(e.getAuthor().getId())) {
+                System.out.println("found a registered summoner");
+                if (x.isSummoning()) {
+                    //inaccurate logic for ease of use
+                    CircleSimulator currentSession = x.getCurrentSession();
+                    if (currentSession.canClose()) {
+                        currentSession.closeCircle();
+                    } else {
+                        sendMessage("please summon at least one stone before starting a new session.");
+                        return;
+                    }
+
+                        /* more accurate
+                        sendMessage("please close your previous session before starting a new one.");
+                        return;
+                        */
+                }
+            } else {
+                System.out.println(x.getUser().getId()+" does not equal "+e.getAuthor().getId());
+            }
+        }
+
+        Summoner summoner = null;
+        String authorID = e.getAuthor().getId();
+        for (Summoner x:summoners) {
+            if (x.getUser().getId().equals(authorID)) {
+                summoner = x;
+            }
+        }
+
+        if (summoner==null) {
+            summoner = new Summoner(e.getAuthor());
+            summoners.add(summoner);
+        }
+
+
+
         //"Your circle for: "+[banner title]+"\n"
         //"rates: focus = " +[focus rate]+" 5* = "+[5* rate]
 
@@ -80,83 +118,32 @@ public class SummonSimulator extends Gameroom {
             }
         }
 
-        boolean ambiguousName = true;
-        boolean ambiguousDate = true;
-        /*
-        boolean ambiguousName = false;
-        boolean ambiguousDate = false;
-        for (Banner x:list) {
-            if (banner!=x) {
-                if (banner.getName().equals(x.getName())) {
-                    //if the focus units are the same
-                    if (!banner.getRarityFPool().containsAll(x.getRarityFPool())) {
-                        ambiguousName = false;
-                        ambiguousDate = true;
-                    } else {
-                        ambiguousName = true;
-                        ambiguousDate = false;
-                    }
-                }
-            }
-        }
-       */
         String message = "your summons for: \n"+banner.getName();
-        if (ambiguousName) {
-            message+= " (feat. ";
-            for (Hero x:banner.getRarityFPool()) { //Character is not a good name for a class (changed to Hero)
-                if (x.getFullName().isAmbiguousName())
-                    message+= x.getFullName().toString();
-                else
-                    message+= x.getFullName().getName();
-                message+= ", ";
-            }
-            message = message.substring(0,message.length()-2);
-            message+= ")";
+        message+= " (feat. ";
+        for (Hero x:banner.getRarityFPool()) { //Character is not a good name for a class (changed to Hero)
+            if (x.getFullName().isAmbiguousName())
+                //message+= x.getFullName().toString();
+                message+= x.getFullName().getName()+" ("+x.getWeaponType()+" "+x.getMoveType()+")";
+            else
+                message+= x.getFullName().getName();
+            message+= ", ";
         }
+        message = message.substring(0,message.length()-2);
+        message+= ")";
 
-        if (ambiguousDate) {
-            GregorianCalendar x = banner.getStartDate();
-            //MONTH IS ZERO-BASED (again)
-            message+= "\n"+(x.get(Calendar.MONTH)+1)+"/"+x.get(Calendar.DAY_OF_MONTH)+"/"+x.get(Calendar.YEAR);
-        }
+        GregorianCalendar startDate = banner.getStartDate();
+        //MONTH IS ZERO-BASED (again)
+        message+= "\n"+(startDate.get(Calendar.MONTH)+1)+
+                "/"+startDate.get(Calendar.DAY_OF_MONTH)+
+                "/"+startDate.get(Calendar.YEAR);
 
-        System.out.println(summoners);
+        GregorianCalendar endDate = banner.getStartDate();
+        //MONTH IS ZERO-BASED (again)
+        message+= " - "+(endDate.get(Calendar.MONTH)+1)+
+                "/"+endDate.get(Calendar.DAY_OF_MONTH)+
+                "/"+endDate.get(Calendar.YEAR);
 
-        for (Summoner x:summoners) {
-            if (x.getUser().getId().equals(e.getAuthor().getId())) {
-                System.out.println("found a registered summoner");
-                if (x.isSummoning()) {
-                    //inaccurate logic for ease of use
-                    CircleSimulator currentSession = x.getCurrentSession();
-                    if (currentSession.canClose()) {
-                        currentSession.closeCircle();
-                    } else {
-                        sendMessage("please summon at least one stone before starting a new session.");
-                        return;
-                    }
 
-                    /* more accurate
-                    sendMessage("please close your previous session before starting a new one.");
-                    return;
-                    */
-                }
-            } else {
-                System.out.println(x.getUser().getId()+" does not equal "+e.getAuthor().getId());
-            }
-        }
-
-        Summoner summoner = null;
-        String authorID = e.getAuthor().getId();
-        for (Summoner x:summoners) {
-            if (x.getUser().getId().equals(authorID)) {
-                summoner = x;
-            }
-        }
-
-        if (summoner==null) {
-            summoner = new Summoner(e.getAuthor());
-            summoners.add(summoner);
-        }
 
         CircleSimulator circle = new CircleSimulator(
                 sendMessage(message),

@@ -311,9 +311,7 @@ public class SkillDatabase extends WebScalper {
 
 
 
-    private static HashMap<String, ArrayList<Skill>> getHeroSkills() {
-        HashMap<String, ArrayList<Skill>> heroSkills = new HashMap<>();
-        ArrayList<String> baseSkillTable;
+    private static HashMap<String, ArrayList<Skill>> getHeroSkills() {ArrayList<String> baseSkillTable;
         BufferedReader skillData;
         try {
             skillData = readWebsite(HERO_BASE_SKILLS);
@@ -325,6 +323,10 @@ public class SkillDatabase extends WebScalper {
         baseSkillTable.subList(0,7).clear();
 
         Iterator<String> table = baseSkillTable.iterator();
+
+
+
+        HashMap<String, ArrayList<Skill>> heroSkills = new HashMap<>();
 
         String name = table.next();
         while (table.hasNext()) {
@@ -352,8 +354,6 @@ public class SkillDatabase extends WebScalper {
             //the name was hit in the while loop, and must be the name for the next hero (this is pretty stupid)
             name = skill;
         }
-
-
 
         System.out.println("finished processing base skills.");
         return heroSkills;

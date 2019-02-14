@@ -1,6 +1,7 @@
 package utilities.feh.heroes.character;
 
 import utilities.feh.heroes.UnitDatabase;
+import utilities.feh.skills.Skill;
 
 import java.util.*;
 
@@ -19,13 +20,15 @@ public class Hero {
     private final Availability availability;
     private final GregorianCalendar dateReleased;
 
+    private final ArrayList<Skill> baseKit;
+
 
 
     public Hero(HeroName fullName, String origin, String color,
                 WeaponClass weaponType, MovementClass moveType,
                 int rarity, Availability availability,
                 GregorianCalendar dateReleased,
-                HeroStats stats) {
+                HeroStats stats, ArrayList<Skill> baseKit) {
         this.fullName = fullName;
         this.origin = origin;
         this.color = color;
@@ -35,6 +38,7 @@ public class Hero {
         this.availability = availability;
         this.dateReleased = dateReleased;
         this.stats = stats;
+        this.baseKit = baseKit;
     }
 
     /**
@@ -77,6 +81,7 @@ public class Hero {
         this.rarity = j.getRarity();
         this.availability = j.getAvailability();
         this.dateReleased = j.getReleaseDate();
+        this.baseKit = j.getBaseKit();
     }
 
     public Hero(Hero j) {
@@ -89,6 +94,7 @@ public class Hero {
         this.rarity = j.getRarity();
         this.availability = j.getAvailability();
         this.dateReleased = j.getReleaseDate();
+        this.baseKit = j.getBaseKit();
     }
 
 
@@ -114,6 +120,7 @@ public class Hero {
     public boolean isSummonable() { return availability.isSummonable(); }
     public boolean isInNormalPool() { return availability.isInNormalPool(); }
     public GregorianCalendar getReleaseDate() { return dateReleased; }
+    public ArrayList<Skill> getBaseKit() { return baseKit; }
 
     public boolean hasSuperBoon() { return hasEccentricStat(true); }
     public boolean hasSuperBane() { return hasEccentricStat(false); }

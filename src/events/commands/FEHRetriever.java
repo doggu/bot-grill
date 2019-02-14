@@ -643,7 +643,10 @@ public class FEHRetriever extends Command {
         if (!x.isSummonable()) info+= "this unit does not have access to IVs.\n";
         else if (merges>0&&getAll) info+= "predictions might not be 100% accurate.\n";
         info+= "```";
-
+        info+= "\nSkills: ";
+        for (Skill skill:x.getBaseKit())
+            info+= skill.toString();
+        info+= "\n";
         return info;
     }
     public static String printUnit(Unit x, boolean lv1) {

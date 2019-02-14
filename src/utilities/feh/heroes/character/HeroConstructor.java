@@ -1,5 +1,8 @@
 package utilities.feh.heroes.character;
 
+import utilities.feh.skills.Skill;
+
+import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 
@@ -20,6 +23,7 @@ public class HeroConstructor {
     private Integer rarity;
     private Availability availability;
     private GregorianCalendar dateReleased;
+    private ArrayList<Skill> baseKit;
 
 
 
@@ -103,6 +107,7 @@ public class HeroConstructor {
     public void setRarity(int rarity) { this.rarity = rarity; }
     public void setAvailability(Availability availability) { this.availability = availability; }
     public void setDateReleased(GregorianCalendar dateReleased) { this.dateReleased = dateReleased; }
+    public void setBaseKit(ArrayList<Skill> baseKit) { this.baseKit = baseKit; }
 
 
 
@@ -117,12 +122,13 @@ public class HeroConstructor {
     public int getRarity() { return rarity; }
     public Availability getAvailability() { return availability; }
     public GregorianCalendar getDateReleased() { return dateReleased; }
+    public ArrayList<Skill> getBaseKit() { return baseKit; }
 
 
 
     public Hero createHero() throws Error {
         if (fullName==null) {
-            System.out.println("missing name!");
+            System.out.println("missing name! (like seriously wtf)");
             throw new Error();
         }
         if (origin==null) {
@@ -164,10 +170,14 @@ public class HeroConstructor {
             System.out.println("missing dateReleased!");
             throw new Error();
         }
+        if (baseKit==null) {
+            System.out.println("missing base kit!");
+            throw new Error();
+        }
 
         return new Hero(fullName, origin,
                 color, weaponType, moveType, rarity,
                 availability, dateReleased,
-                stats);
+                stats, baseKit);
     }
 }

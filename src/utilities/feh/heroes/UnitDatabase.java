@@ -5,6 +5,8 @@ import utilities.feh.heroes.character.Availability;
 import utilities.feh.heroes.character.Hero;
 import utilities.feh.heroes.character.HeroConstructor;
 import utilities.feh.heroes.character.HeroName;
+import utilities.feh.skills.Skill;
+import utilities.feh.skills.SkillDatabase;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -161,6 +163,7 @@ public class UnitDatabase extends WebScalper {
             processLv1Stats(x, lv1StatsData);
             processGrowthRates(x, growthRatesData);
             processListOfHeroes(x, heroListData);
+            addBaseKit(x);
 
             heroConstructors.add(x);
         }
@@ -334,6 +337,10 @@ public class UnitDatabase extends WebScalper {
         }
 
         x.setAvailability(availability);
+    }
+    private static void addBaseKit(HeroConstructor x) {
+        ArrayList<Skill> baseKit = SkillDatabase.HERO_SKILLS.get(x.getFullName().toString());
+        x.setBaseKit(baseKit);
     }
 
 

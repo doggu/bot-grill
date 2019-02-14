@@ -20,6 +20,10 @@ public class HeroStats {
         this.defG = defG;
         this.resG = resG;
     }
+    public HeroStats(int[] stats, int[] growths) {
+        this(stats[0], stats[1], stats[2], stats[3], stats[4],
+                growths[0], growths[1], growths[2], growths[3], growths[4]);
+    }
 
 
 

@@ -4,9 +4,7 @@ import utilities.feh.heroes.UnitDatabase;
 
 import java.util.*;
 
-//TODO: create basic layout for a general character
-//Include base skills
-//i'll be honest, this is still in progress
+//TODO: include base skills
 
 public class Hero {
     private final HeroName fullName;

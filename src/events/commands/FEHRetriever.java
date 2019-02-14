@@ -569,8 +569,8 @@ public class FEHRetriever extends Command {
         //import emotes from fehicons database
         List<Emote> fehIconEmotes = BotMain.fehIcons;
 
+        //TODO: this is not correct
         boolean fiveStarSummoned = rarity==5&&boon>0&&bane>0;
-                                              //technically only have to check one
 
         String info =
                 (fiveStarSummoned?"**":"") + x.getFullName() + (fiveStarSummoned?"**":"") + "\n" +

@@ -44,6 +44,7 @@ public abstract class Skill {
 
 
     public String toString() {
+
         String info = name+"\n"
                 + "```\n"
                 + "Type: ";
@@ -81,6 +82,6 @@ public abstract class Skill {
                 + description+"\n"
                 + "```";
 
-        return info;
+        return name;
     }
 }

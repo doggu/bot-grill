@@ -1,14 +1,16 @@
 package utilities.feh.skills;
 
+import utilities.feh.heroes.character.WeaponClass;
+
 public class Weapon extends Skill implements ActionSkill, StatModifier {
     private final int mt, rng;
-    private final String type;
+    private final WeaponClass type;
     private final int[] statModifiers;
 
 
 
     public Weapon(String name, String description, int cost, boolean exclusive,
-                  int mt, int rng, String type) {
+                  int mt, int rng, WeaponClass type) {
         super(name, description, 'W', cost, exclusive);
         this.mt = mt;
         this.rng = rng;
@@ -22,17 +24,6 @@ public class Weapon extends Skill implements ActionSkill, StatModifier {
 
     public int getMt() { return mt; }
     public int getRng() { return rng; }
-    public String getType() { return type; }
+    public WeaponClass getType() { return type; }
     public int[] getStatModifiers() { return statModifiers; }
-
-    public String toString() {
-        return name+"\n"
-                + "```\n"
-                + "Type: "+type+"\n"
-                + "Range: "+rng+"\n"
-                + "Cost: "+cost+"\n"
-                + "Exclusive: "+(exclusive?"Yes":"No")+"\n\n"
-                + description+"\n"
-                + "```";
-    }
 }

@@ -644,8 +644,10 @@ public class FEHRetriever extends Command {
         else if (merges>0&&getAll) info+= "predictions might not be 100% accurate.\n";
         info+= "```";
         info+= "\nSkills: ";
-        for (Skill skill:x.getBaseKit())
-            info+= skill.toString();
+        for (int i=0; i<x.getBaseKit().size(); i++) {
+            info+= x.getBaseKit().get(i);
+            if (i+1!=x.getBaseKit().size()) info+=", ";
+        }
         info+= "\n";
         return info;
     }

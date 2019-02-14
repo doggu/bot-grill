@@ -143,8 +143,7 @@ public class HeroConstructor {
         }
         if (statsArr!=null) {
             if (growthsArr!=null) {
-                stats = new HeroStats(statsArr[0], statsArr[1], statsArr[2], statsArr[3], statsArr[4],
-                        growthsArr[0], growthsArr[1], growthsArr[2], growthsArr[3], growthsArr[4]);
+                stats = new HeroStats(statsArr, growthsArr);
             } else {
                 System.out.println("missing growths!");
                 throw new Error();

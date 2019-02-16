@@ -15,7 +15,9 @@ import java.util.stream.IntStream;
 
 public abstract class WebScalper {
     public static BufferedReader readWebsite(String url) throws IOException {
-        return new BufferedReader(new InputStreamReader(new URL(url).openConnection().getInputStream()));
+        BufferedReader website = new BufferedReader(new InputStreamReader(new URL(url).openConnection().getInputStream()));
+        System.out.println("finished reading "+url);
+        return website;
     }
 
     private static String stripHTML(String line) {

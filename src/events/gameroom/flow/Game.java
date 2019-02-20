@@ -15,6 +15,8 @@ public class Game extends Command {
         this.channel = channel;
     }
 
+
+
     public boolean isCommand() {
         if (!e.getAuthor().equals(player)) return false;
         if (!e.getChannel().equals(channel)) return false;

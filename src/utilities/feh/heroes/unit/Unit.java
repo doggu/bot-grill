@@ -109,7 +109,7 @@ public class Unit extends Hero {
     public int getBoon() { return boon; }
     public int getBane() { return bane; }
     public int getRarity() { return rarity; }
-    public int getSupportStatus() { return supportStatus; }
+    public char getSupportStatus() { return supportStatus; }
     public int[] getIVs() {
         int[] stats = super.getStats().getStatsAsArray();
 

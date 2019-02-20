@@ -1,5 +1,6 @@
-package events.commands;
+package events.fehGame;
 
+import events.commands.Command;
 import main.BotMain;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Emote;
@@ -652,12 +653,9 @@ public class FEHRetriever extends Command {
         return info;
     }
     public static String printUnit(Unit x, boolean lv1) {
-        return printUnit(x, lv1, 'd');
-    }
-    public static String printUnit(Unit x, boolean lv1, char supportStatus) {
         return printCharacter(x, lv1, x.getRarity(), false,
                 x.getBoon(), x.getBane(), 0, 0,
-                supportStatus);
+                x.getSupportStatus());
     }
 
     private static String printStats(int[] stats) {

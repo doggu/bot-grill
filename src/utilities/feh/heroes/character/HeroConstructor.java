@@ -171,8 +171,10 @@ public class HeroConstructor {
             throw new Error();
         }
         if (baseKit==null) {
-            System.out.println("missing base kit!");
-            throw new Error();
+            //System.out.println("missing base kit!");
+            //throw new Error();
+            //ah whatever
+            baseKit = new ArrayList<>();
         }
 
         return new Hero(fullName, origin,

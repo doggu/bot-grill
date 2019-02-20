@@ -1,7 +1,6 @@
 package events.fehGame;
 
 import events.ReactionListener;
-import events.commands.FEHRetriever;
 import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;

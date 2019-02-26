@@ -118,18 +118,16 @@ public class SummonSimulator extends Gameroom {
             }
         }
 
-        String message = "your summons for: \n"+banner.getName();
-        message+= " (feat. ";
+        String message = "your summons for: \n"+banner.getName()+'\n';
+        message+= "featured units: ";
         for (Hero x:banner.getRarityFPool()) { //Character is not a good name for a class (changed to Hero)
+            message+= x.getFullName().getName();
             if (x.getFullName().isAmbiguousName())
-                //message+= x.getFullName().toString();
-                message+= x.getFullName().getName()+" ("+x.getWeaponType()+" "+x.getMoveType()+")";
-            else
-                message+= x.getFullName().getName();
+                message+= " ("+x.getWeaponType()+" "+x.getMoveType()+")";
+                            //there are three axe armor hectors btw
             message+= ", ";
         }
         message = message.substring(0,message.length()-2);
-        message+= ")";
 
         GregorianCalendar startDate = banner.getStartDate();
         //MONTH IS ZERO-BASED (again)

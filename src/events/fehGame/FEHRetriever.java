@@ -23,6 +23,7 @@ public class FEHRetriever extends Command {
 
 
     public FEHRetriever() {
+        //not very useful anymore
         heroes = UnitDatabase.HEROES;
         skills = SkillDatabase.SKILLS;
 

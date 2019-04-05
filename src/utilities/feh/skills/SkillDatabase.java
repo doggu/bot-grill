@@ -368,9 +368,10 @@ public class SkillDatabase extends WebScalper {
         boolean print = false;
 
         while ((line = input.readLine()) != null) {
-            if (line.contains("<table class=\"cargoTable sortable\">"))
+            System.out.println(line);
+                                                        //TODO: NOMERGE broke shit
+            if (line.contains("<table class=\"cargoTable noMerge sortable\">"))
                 print = true;
-
             if (print) {
                 ArrayList<String> datum = getItems(line.chars());
                 for (int i=0; i<datum.size(); i++) datum.set(i, datum.get(i).trim());
@@ -380,7 +381,7 @@ public class SkillDatabase extends WebScalper {
             if (line.contains("</tbody></table>")) {
                 print = false;
                                                //apparently i DONT need to clone it
-                if (table.size()>0) data.add(/*(ArrayList<String>)*/ table/*.clone()*/);
+                if (table.size()>0) data.add(/*(ArrayList<String>) */table/*.clone()*/);
                 table = new ArrayList<>();
             }
         }

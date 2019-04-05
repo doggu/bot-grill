@@ -381,7 +381,7 @@ public class FEHRetriever extends Command {
 
         StringBuilder report = new StringBuilder("found stats for:");
         for (int i=0; i<candidates.size(); i++) {
-            if (i%2==0) report.append("\n\t\t\t\t\t\t");
+            if (i%2==0) report.append("\n\t");
             Hero f = candidates.get(i);
             report.append(f.getFullName()).append(", ");
         }
@@ -523,7 +523,7 @@ public class FEHRetriever extends Command {
         for (int i=0; i<candidates.size(); i++) {
             Skill x = candidates.get(i);
             if (i%2==0) {
-                report.append("\n\t\t\t\t\t\t");
+                report.append("\n\t");
             }
             report.append(x.getName());
             if (i!=candidates.size()-1) {

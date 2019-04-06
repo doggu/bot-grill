@@ -361,15 +361,14 @@ public class SkillDatabase extends WebScalper {
 
 
 
+    //TODO: stop ignoring tag data entirely (it contains links and other useful information)
     private static ArrayList<ArrayList<String>> getTables(BufferedReader input) throws IOException {
         ArrayList<ArrayList<String>> data = new ArrayList<>();
         ArrayList<String> table = new ArrayList<>();
         String line;
         boolean print = false;
 
-        while ((line = input.readLine()) != null) {
-            System.out.println(line);
-                                                        //TODO: NOMERGE broke shit
+        while ((line = input.readLine()) != null) {      //TODO: NOMERGE broke shit
             if (line.contains("<table class=\"cargoTable noMerge sortable\">"))
                 print = true;
             if (print) {

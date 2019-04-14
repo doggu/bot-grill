@@ -23,6 +23,8 @@ public class UnitDatabase extends WebScalper {
 
 
 
+    private static int HERO_INDEX = 1;
+
     /*
      * one hero for each document:
      *
@@ -166,6 +168,7 @@ public class UnitDatabase extends WebScalper {
             addBaseKit(x);
 
             heroConstructors.add(x);
+            HERO_INDEX++;
         }
 
         ArrayList<Hero> heroes = new ArrayList<>();
@@ -272,8 +275,15 @@ public class UnitDatabase extends WebScalper {
 
 
 
-        String rarity = input.next();
-        int lowerRarityBound = Integer.parseInt(rarity);
+        String rarity = input.next().trim(); //TODO: currently a temporary fix to Haar: Black Tempest
+        int lowerRarityBound;
+        try {
+            lowerRarityBound = Integer.parseInt(rarity);
+        } catch (NumberFormatException g) {
+            System.out.println("error for character #"+HERO_INDEX+" ("+name+")\n" +
+                    "attempted rarity: \""+rarity+"\"");
+            throw new Error();
+        }
         x.setRarity(lowerRarityBound);
 
 

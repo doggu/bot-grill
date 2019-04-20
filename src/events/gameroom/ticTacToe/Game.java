@@ -121,8 +121,8 @@ public class Game extends Command {
             case "mark":
                 if (args.length>1) {
                     if (args[1].length() != 2) {
-                        sendMessage("incorrect format! please indicate row and column as two conjoined characters" +
-                                "(e.x. \"b2\"");
+                        sendMessage("incorrect format! please indicate row and column as two conjoined characters " +
+                                "(e.x. \"b2\")");
                         return;
                     } else playMove();
                 } else {

@@ -9,6 +9,8 @@ public class Unit extends Hero {
     private final char supportStatus;
     private final int merges, dragonflowers;
 
+
+
     //TODO: create character class
     //how do i check things off 40%
 
@@ -64,37 +66,32 @@ public class Unit extends Hero {
 
         int boon, bane;
         int individuality = (int)(Math.random()*21);
-        if (individuality==0) {
-            //neutral
-            boon = -1;
-            bane = -1;
-        } else {
-            //damn this is fuckin retarded
-            switch (individuality) {
-                case 1: boon = 0; bane = 1; break;
-                case 2: boon = 0; bane = 2; break;
-                case 3: boon = 0; bane = 3; break;
-                case 4: boon = 0; bane = 4; break;
-                case 5: boon = 1; bane = 0; break;
-                case 6: boon = 1; bane = 2; break;
-                case 7: boon = 1; bane = 3; break;
-                case 8: boon = 1; bane = 4; break;
-                case 9: boon = 2; bane = 0; break;
-                case 10: boon = 2; bane = 1; break;
-                case 11: boon = 2; bane = 3; break;
-                case 12: boon = 2; bane = 4; break;
-                case 13: boon = 3; bane = 0; break;
-                case 14: boon = 3; bane = 1; break;
-                case 15: boon = 3; bane = 2; break;
-                case 16: boon = 3; bane = 4; break;
-                case 17: boon = 4; bane = 0; break;
-                case 18: boon = 4; bane = 1; break;
-                case 19: boon = 4; bane = 2; break;
-                case 20: boon = 4; bane = 3; break;
-                default:
-                    System.out.println("something hella broke");
-                    throw new Error();
-            }
+        //damn this is fuckin retarded
+        switch (individuality) {
+            case 0: boon = -1; bane = -1; break;
+            case 1: boon = 0; bane = 1; break;
+            case 2: boon = 0; bane = 2; break;
+            case 3: boon = 0; bane = 3; break;
+            case 4: boon = 0; bane = 4; break;
+            case 5: boon = 1; bane = 0; break;
+            case 6: boon = 1; bane = 2; break;
+            case 7: boon = 1; bane = 3; break;
+            case 8: boon = 1; bane = 4; break;
+            case 9: boon = 2; bane = 0; break;
+            case 10: boon = 2; bane = 1; break;
+            case 11: boon = 2; bane = 3; break;
+            case 12: boon = 2; bane = 4; break;
+            case 13: boon = 3; bane = 0; break;
+            case 14: boon = 3; bane = 1; break;
+            case 15: boon = 3; bane = 2; break;
+            case 16: boon = 3; bane = 4; break;
+            case 17: boon = 4; bane = 0; break;
+            case 18: boon = 4; bane = 1; break;
+            case 19: boon = 4; bane = 2; break;
+            case 20: boon = 4; bane = 3; break;
+            default:
+                System.out.println("something hella broke");
+                throw new Error();
         }
 
         this.boon = boon;

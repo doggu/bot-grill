@@ -13,19 +13,49 @@ public abstract class Lobby extends ReactionListener {
     protected final User host;
     protected final MessageChannel channel;
     protected ArrayList<User> players = new ArrayList<>();
-    protected final Message joinMessage;
+    protected Message joinMessage;
 
     public Lobby(User author, MessageChannel channel) {
         this.host = author;
         this.channel = channel;
         players.add(host);
-        //TODO: add conditional to skip join message if max players is 1
-        joinMessage = sendMessage(
-                "join "+host.getName() + " for a game of " + getName()+"\n" +
-                        "current players: "+players.size()+"/"+getMaxPlayers());
-        joinMessage.addReaction("✅").complete();
-        checkLobbyReady();
+        if (getMaxPlayers()==1)
+            startGame();
+        else {
+            joinMessage = sendMessage(
+                    "join " + host.getName() + " for a game of " + getName() + "!\n" +
+                            "current players: " + players.size() + "/" + getMaxPlayers());
+            joinMessage.addReaction("✅").complete();
+            checkLobbyReady();
+        }
     }
+
+
+
+    private void checkLobbyReady() {
+        if (players.size()>=getMinPlayers()) {
+            //the game could start if the host wants it to
+            // ( i'll probably never program this since there're only two real users)
+        }
+        if (players.size()>getMaxPlayers()) {
+            sendMessage("something went wrong, please start a new lobby.");
+            BotMain.bot_grill.removeEventListener(this);
+        }
+        if (players.size()==getMaxPlayers()) {
+            startGame();
+        }
+    }
+
+    private void startGame() {
+        sendMessage("a game of "+getName()+" begins!");
+        Command game = getGame();
+        BotMain.bot_grill.removeEventListener(this);
+        BotMain.bot_grill.addEventListener(game);
+    }
+
+
+
+
     public boolean isCommand() {
         if (!e.getReactionEmote().toString().equals("RE:✅(null)")) {
             System.out.println(e.getReactionEmote().toString());
@@ -50,27 +80,6 @@ public abstract class Lobby extends ReactionListener {
                         "current players: "+players.size()+"/"+getMaxPlayers()).queue();
         checkLobbyReady();
     }
-
-
-
-    private void checkLobbyReady() {
-        if (players.size()>=getMinPlayers()) {
-            //the game could start if the host wants it to
-            // (idk if i'll ever program this since there're only two real users)
-        }
-        if (players.size()>getMaxPlayers()) {
-            sendMessage("something went wrong");
-            BotMain.bot_grill.removeEventListener(this);
-        }
-        if (players.size()==getMaxPlayers()) {
-            sendMessage("a game of "+getName()+" begins!");
-            Command game = getGame();
-            BotMain.bot_grill.removeEventListener(this);
-            BotMain.bot_grill.addEventListener(game);
-        }
-    }
-
-
 
     public Message sendMessage(String message) { return channel.sendMessage(message).complete(); }
 

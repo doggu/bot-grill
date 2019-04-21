@@ -25,63 +25,61 @@ public class UnitDatabase extends WebScalper {
 
     private static int HERO_INDEX = 1;
 
-    /*
-     * one hero for each document:
-     *
-     * lv1Stats
-     *
-     * [7 lines of useless stuff]
-     * [name]: [epithet]
-     * [hp]
-     * [atk]
-     * [spd]
-     * [def]
-     * [res]
-     * [total]
-     * [name]: [epithet]
-     * [hp]
-     * [atk]
-     * ...
-     *
-     *
-     *
-     * growths
-     *
-     * [12 lines of useless stuff]
-     * [name]: [epithet]
-     * [color] [weapon]
-     * [movement]
-     * [lv1 stat total]
-     * [growth total]%
-     * [lv1 stat total], [growth total]%
-     * [hp growth]
-     * [atk]
-     * [spd]
-     * [def]
-     * [res]
-     * [release date]
-     * [name]: [epithet]
-     * [color] [weapon]
-     * ...
-     *
-     *
-     *
-     * heroList
-     *
-     * [7 lines of useless stuff]
-     * [name]: [epithet]
-     * [origin]
-     * [rarity - lower bound]
-     * -[rarity - upper bound]
-     * [special indicator (*|Story|Grand Hero Battle|Tempest Trials|Legendary)]
-     * [release date]
-     * [name]: [epithet]
-     * [origin]
-     * [rarity - lower bound]
-     * -[rarity - upper bound]
-     * ...
-     *
-     */
+    // one hero for each document:
+    //
+    // lv1Stats
+    //
+    // [7 lines of useless stuff]
+    // [name]: [epithet]
+    // [hp]
+    // [atk]
+    // [spd]
+    // [def]
+    // [res]
+    // [total]
+    // [name]: [epithet]
+    // [hp]
+    // [atk]
+    // ...
+    //
+    //
+    //
+    // growths
+    //
+    // [12 lines of useless stuff]
+    // [name]: [epithet]
+    // [color] [weapon]
+    // [movement]
+    // [lv1 stat total]
+    // [growth total]%
+    // [lv1 stat total], [growth total]%
+    // [hp growth]
+    // [atk]
+    // [spd]
+    // [def]
+    // [res]
+    // [release date]
+    // [name]: [epithet]
+    // [color] [weapon]
+    // ...
+    //
+    //
+    //
+    // heroList
+    //
+    // [7 lines of useless stuff]
+    // [name]: [epithet]
+    // [origin]
+    // [rarity - lower bound]
+    // -[rarity - upper bound]
+    // [special indicator (*|Story|Grand Hero Battle|Tempest Trials|Legendary)]
+    // [release date]
+    // [name]: [epithet]
+    // [origin]
+    // [rarity - lower bound]
+    // -[rarity - upper bound]
+    // ...
+
     private static ArrayList<Hero> getList() {
         ArrayList<HeroConstructor> heroConstructors = new ArrayList<>();
 
@@ -208,7 +206,8 @@ public class UnitDatabase extends WebScalper {
         String name = identifier.substring(0, identifier.indexOf(": "));
         String epithet = identifier.substring(identifier.indexOf(": ")+2);
 
-        if (!name.equals(x.getName())) System.out.println("misalignment detected for "+name);
+        if (!name.equals(x.getName()))
+            System.out.println("GrR: misalignment detected for unit "+HERO_INDEX+" ("+name+")");
 
 
 
@@ -266,7 +265,7 @@ public class UnitDatabase extends WebScalper {
             throw new Error();
         }
         if (!name.equals(x.getName())||!epithet.equals(x.getEpithet()))
-            System.out.println("misalignment detected for "+name);
+            System.out.println("LoH: misalignment detected for unit "+HERO_INDEX+" ("+name+")");
 
 
 
@@ -276,6 +275,7 @@ public class UnitDatabase extends WebScalper {
 
 
         String rarity = input.next().trim(); //TODO: currently a temporary fix to Haar: Black Tempest
+                                             // let alone the fact that it doesn't even record the correct rarity for him
         int lowerRarityBound;
         try {
             lowerRarityBound = Integer.parseInt(rarity);

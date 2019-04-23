@@ -66,20 +66,19 @@ public class Game extends Command {
     private void moveUnit() {
         String selection = args[1];
         String destination = args[3];
-        //TODO: implement point class (sorry can't right now i'm busy)
-        // (i need to stop talking to myself on public internet space)
         Point s = getPosition(selection);
         Point d = getPosition(destination);
         if (!inBounds(s)) { sendMessage("error: selector index ("+selection+") is out of bounds!"); return; }
         if (!inBounds(d)) { sendMessage("error: destination index ("+destination+") is out of bounds!"); return; }
 
+        //TODO: .equals()?
         if (s==d) {
-            sendMessage("you cannot move a unit to their current location! (at least not yet, there isn't any turns)");
+            sendMessage("you cannot move a unit to their current location! (at least not yet, there aren't any turns)");
             return;
         }
         for (int i=1; i<4; i++) if (args[i].length()!=2) {
             sendMessage("incorrect format! please try again.");
-            log("incorret moveUnit format: "+selection+" "+args[2]+" "+destination);
+            log("incorrect moveUnit format: "+selection+" "+args[2]+" "+destination);
             return;
         }
 

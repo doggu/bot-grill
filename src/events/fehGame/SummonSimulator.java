@@ -170,7 +170,7 @@ public class SummonSimulator extends Gameroom {
         String featuredUnits = featuredUnitsSB.substring(0, featuredUnitsSB.length()-2);
         report+= featuredUnits.toString() + "\n\t\t\t\t\t\t";
         report+= "banner date: " +
-                printDate(banner.getStartDate()) + " - "+printDate(banner.getEndDate())+"\n\t\t\t\t\t\t";
+                printDate(banner.getStartDate()) + " - "+printDate(banner.getEndDate());
         /*
         report+= "3* pool size: " + banner.getRarity3Pool().size() + "\n\t\t\t\t\t\t" +
                 "4* pool size: " + banner.getRarity4Pool().size();

@@ -1,6 +1,7 @@
 package events.fehGame;
 
 import events.ReactionListener;
+import events.fehGame.retriever.HeroRetriever;
 import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
@@ -161,7 +162,7 @@ public class CircleSimulator extends ReactionListener {
                     }
 
                     //summoner.openPrivateChannel().complete().sendMessage(FEHRetriever.printUnit(hero, true)).complete();
-                    sendMessage(FEHRetriever.printUnit(hero, true));
+                    sendMessage(HeroRetriever.printUnit(hero, true));
                     summoner.getBarracks().add(hero);
 
                     int cost = 0;

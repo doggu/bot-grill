@@ -4,10 +4,11 @@ import events.DevTools;
 import events.Reactions;
 import events.commands.*;
 import events.fehGame.Allies;
-import events.fehGame.FEHRetriever;
 import events.fehGame.OrbBalance;
 import events.fehGame.SummonSimulator;
 import events.Vote;
+import events.fehGame.retriever.HeroRetriever;
+import events.fehGame.retriever.SkillRetriever;
 import events.gameroom.CreateLobby;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -41,7 +42,8 @@ public class BotMain {
     public static void main(String[] args) throws Exception {
         //construct listeners beforehand so bot is ready as soon as she goes live
         ListenerAdapter listenerChances = new Chances();
-        ListenerAdapter listenerFEHRetriever = new FEHRetriever();
+        ListenerAdapter listenerSkillRetriever = new SkillRetriever();
+        ListenerAdapter listenerHeroRetriever = new HeroRetriever();
         ListenerAdapter listenerEmotes = new Emotes();
         ListenerAdapter listenerGirl = new Girl();
         ListenerAdapter listenerDevTools = new DevTools();
@@ -64,21 +66,9 @@ public class BotMain {
         stones = bot_grill.getGuildsByName("summonicons", true).get(0).getEmotes();
         fehIcons = bot_grill.getGuildsByName("fehicons", true).get(0).getEmotes();
 
-        //in case i want to make them removable one day
-        /*
-        ListenerAdapter listenerChances = new Chances();
-        ListenerAdapter listenerFEHRetriever = new FEHRetriever();
-        ListenerAdapter listenerEmotes = new Emotes();
-        ListenerAdapter listenerGirl = new Girl();
-        ListenerAdapter listenerDevTools = new DevTools();
-        ListenerAdapter listenerSummonSimulator = new SummonSimulator();
-        ListenerAdapter listenerReactions = new Reactions();
-        ListenerAdapter listenerMaffs = new Maffs();
-        ListenerAdapter listenerEmbedTest = new EmbedTest();
-        */
-
         addListener(listenerChances);
-        addListener(listenerFEHRetriever);
+        addListener(listenerSkillRetriever);
+        addListener(listenerHeroRetriever);
         addListener(listenerEmotes);
         addListener(listenerGirl);
         addListener(listenerDevTools);
@@ -105,7 +95,8 @@ public class BotMain {
                     }
                 case "refresh": //TODO: make this based on already-present listeners (excluding CircleSimulator)
                     removeListener(listenerChances);
-                    removeListener(listenerFEHRetriever);
+                    removeListener(listenerSkillRetriever);
+                    removeListener(listenerHeroRetriever);
                     removeListener(listenerEmotes);
                     removeListener(listenerGirl);
                     removeListener(listenerDevTools);
@@ -113,8 +104,15 @@ public class BotMain {
                     removeListener(listenerReactions);
                     removeListener(listenerMaffs);
                     removeListener(listenerEmbedTest);
+                    removeListener(listenerVote);
+                    removeListener(listenerDraw);
+                    removeListener(listenerOrbBalance);
+                    removeListener(listenerCreateLobby);
+                    removeListener(listenerAllies);
+
                     listenerChances = new Chances();
-                    listenerFEHRetriever = new FEHRetriever();
+                    listenerSkillRetriever = new SkillRetriever();
+                    listenerHeroRetriever = new HeroRetriever();
                     listenerEmotes = new Emotes();
                     listenerGirl = new Girl();
                     listenerDevTools = new DevTools();
@@ -122,8 +120,15 @@ public class BotMain {
                     listenerReactions = new Reactions();
                     listenerMaffs = new Maffs();
                     listenerEmbedTest = new EmbedTest();
+                    listenerVote = new Vote();
+                    listenerDraw = new Draw();
+                    listenerOrbBalance = new OrbBalance();
+                    listenerCreateLobby = new CreateLobby();
+                    listenerAllies = new Allies();
+
                     addListener(listenerChances);
-                    addListener(listenerFEHRetriever);
+                    addListener(listenerSkillRetriever);
+                    addListener(listenerHeroRetriever);
                     addListener(listenerEmotes);
                     addListener(listenerGirl);
                     addListener(listenerDevTools);
@@ -131,6 +136,11 @@ public class BotMain {
                     addListener(listenerReactions);
                     addListener(listenerMaffs);
                     addListener(listenerEmbedTest);
+                    addListener(listenerVote);
+                    addListener(listenerDraw);
+                    addListener(listenerOrbBalance);
+                    addListener(listenerCreateLobby);
+                    addListener(listenerAllies);
                     break;
                 default:
                     System.out.println("command not found.");

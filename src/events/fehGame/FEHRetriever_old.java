@@ -16,18 +16,18 @@ import java.util.List;
 
 //TODO: split fehretriever into multiple classes/listeners
 
-public class FEHRetriever extends Command {
+public class FEHRetriever_old extends Command {
     private final List<Hero> heroes;
     private final List<Skill> skills;
 
 
 
-    public FEHRetriever() {
+    public FEHRetriever_old() {
         //not very useful anymore
         heroes = UnitDatabase.HEROES;
         skills = SkillDatabase.SKILLS;
 
-        Method[] methods = FEHRetriever.class.getMethods();
+        Method[] methods = FEHRetriever_old.class.getMethods();
 
         for (Method method:methods) {
             //System.out.println(method.getName());

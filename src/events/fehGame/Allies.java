@@ -1,6 +1,7 @@
 package events.fehGame;
 
 import events.commands.Command;
+import events.fehGame.retriever.HeroRetriever;
 import utilities.feh.players.Barracks;
 import utilities.feh.players.Summoner;
 
@@ -21,7 +22,7 @@ public class Allies extends Command {
                             log("user provided invalid index: "+allyIndex);
                             return;
                         }
-                        sendMessage(FEHRetriever.printUnit(barracks.get(allyIndex-1),false));
+                        sendMessage(HeroRetriever.printUnit(barracks.get(allyIndex-1),false));
                         log("provided data on "+x.getName()+"\'s unit");
                         return;
                     } catch (NumberFormatException g) {

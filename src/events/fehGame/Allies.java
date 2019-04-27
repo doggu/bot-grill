@@ -21,7 +21,7 @@ public class Allies extends Command {
                             log("user provided invalid index: "+allyIndex);
                             return;
                         }
-                        sendMessage(FEHRetriever.printUnit(x.getBarracks().get(allyIndex-1),false));
+                        sendMessage(FEHRetriever.printUnit(barracks.get(allyIndex-1),false));
                         log("provided data on "+x.getName()+"\'s unit");
                         return;
                     } catch (NumberFormatException g) {
@@ -38,11 +38,16 @@ public class Allies extends Command {
                         .append(barracks.size())
                         .append(" units.\n\n");
 
-                for (int i=0; i<barracks.size(); i++)
-                    message.append((i+1))
+                for (int i=0; i<barracks.size(); i++) {
+                    message.append((i + 1))
                             .append(". ")
                             .append(barracks.get(i))
                             .append('\n');
+                    if ((i+1)%50==0) {
+                        sendMessage(message.toString());
+                        message = new StringBuilder();
+                    }
+                }
                 sendMessage(message);
                 return;
             }

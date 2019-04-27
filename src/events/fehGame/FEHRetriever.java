@@ -679,26 +679,26 @@ public class FEHRetriever extends Command {
         return "BST: " + bst;
     }
     private static String printBST(int[][] stats) {
-        //TODO: technically not correct, as a unit could have a superboon with only other superbanes
-        // the real solution would be to test every scenario (21) for stat totals
-        int medium = 0; //convert to int so i can use printBST(int[] arg) here
-        for (int i:stats[1]) medium+= i;
-        boolean sboon = false, sbane = false;
+        int bst = 0;
+        for (int i=0; i<5; i++) bst+= stats[1][i];
+        int maxBST = bst, minBST = bst;
+
+        bst = 0;
         for (int i=0; i<5; i++) {
-            if (Math.abs(stats[1][i]-stats[2][i])==4) {
-                sboon = true;
-            }
-            if (Math.abs(stats[1][i]-stats[0][i])==4) {
-                sbane = true;
+            for (int j=0; j<5; j++) {
+                if (j==i) continue;
+                for (int k=0; k<5; k++) {
+                    if (k==i) bst+= stats[0][k];
+                    else if (k==j) bst+= stats[2][k];
+                    else bst+= stats[1][k];
+                }
+                if (bst>maxBST) maxBST = bst;
+                if (bst<minBST) minBST = bst;
+                bst = 0;
             }
         }
-
-        //"" for readability
-        //who am i kidding this is stupid
-        return "BST: "+(!sboon&&!sbane?medium:"")
-                + (sboon&&!sbane?medium+"-"+(medium+1):"")
-                + (!sboon&&sbane?(medium-1)+"-"+medium:"")
-                + (sboon&&sbane?(medium-1)+"-"+(medium+1):"");
+        if (maxBST==minBST) return "BST: "+maxBST;
+        else return "BST: "+minBST+"-"+maxBST;
     }
 
 

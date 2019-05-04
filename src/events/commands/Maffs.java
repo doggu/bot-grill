@@ -4,8 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class Maffs extends Command {
-    private static ArrayList<Double> nums = new ArrayList<>();
-    private static ArrayList<Character> ops = new ArrayList<>();
+    private static ArrayList<Double> nums;
+    private static ArrayList<Character> ops;
 
 
 
@@ -125,10 +125,13 @@ public class Maffs extends Command {
                 case '/':
                     continue;
                 default:
-                    e.getChannel().sendFile(new File("./libs/heroes/Selena.png")).queue();
+                    e.getChannel().sendFile(new File("./src/events/commands/dunno.png")).queue();
                     return;
             }
         }
+
+        nums = new ArrayList<>();
+        ops = new ArrayList<>();
 
         parse();
         solve();

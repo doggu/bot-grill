@@ -1,5 +1,6 @@
 package events;
 
+import main.BotMain;
 import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageReaction;
@@ -25,7 +26,6 @@ public abstract class ReactionListener extends ListenerAdapter {
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
         this.e = event;
         if (isCommand()) {
-            e.getChannel().sendTyping().complete();
             onCommand();
         }
     }
@@ -42,6 +42,10 @@ public abstract class ReactionListener extends ListenerAdapter {
                 .addReaction(emote)
                 .queue();
     }
+
+    protected void commitSuicide() { e.getJDA().removeEventListener(this); }
+
+
 
     protected void log(String message) {
         OffsetDateTime g = OffsetDateTime.now();

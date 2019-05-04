@@ -1,5 +1,6 @@
 package events;
 
+import main.BotMain;
 import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
@@ -46,6 +47,10 @@ public abstract class MessageListener extends ListenerAdapter {
 
     protected void addReaction(Emote emote) {
         e.getMessage().addReaction(emote).queue();
+    }
+
+    protected void commitSuicide() {
+        BotMain.removeListener(this);
     }
 
 

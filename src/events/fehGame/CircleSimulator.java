@@ -103,9 +103,11 @@ public class CircleSimulator extends ReactionListener {
         return false;
     }
 
+    //for later reference, commitSuicide being called here will never cause a null pointer exception
+    //because the must have summon a stone before they may close the circle.
     void closeCircle() {
         summoner.stopSummoning();
-        e.getJDA().removeEventListener(this);
+        commitSuicide();
     }
 
 

@@ -122,7 +122,7 @@ public class SkillRetriever extends Command {
                     owners+= n+", ";
                 }
             }
-            owners = owners.substring(0,owners.length()-2);
+            if (owners.length()>0) owners = owners.substring(0,owners.length()-2);
             skill.addField("Owners", owners, false);
 
 

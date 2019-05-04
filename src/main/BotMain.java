@@ -28,11 +28,11 @@ public class BotMain {
     public static List<Emote> stones;
     public static List<Emote> fehIcons;
 
-    private static void addListener(ListenerAdapter listener) {
+    public static void addListener(ListenerAdapter listener) {
         bot_grill.addEventListener(listener);
         listeners.add(listener);
     }
-    private static void removeListener(ListenerAdapter listener) {
+    public static void removeListener(ListenerAdapter listener) {
         bot_grill.removeEventListener(listener);
         listeners.remove(listener);
     }

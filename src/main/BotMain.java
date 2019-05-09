@@ -3,6 +3,8 @@ package main;
 import events.DevTools;
 import events.Reactions;
 import events.commands.*;
+import events.commands.math.FracCalcListener;
+import events.commands.math.Maffs;
 import events.fehGame.Allies;
 import events.fehGame.OrbBalance;
 import events.fehGame.SummonSimulator;
@@ -56,6 +58,7 @@ public class BotMain {
         ListenerAdapter listenerOrbBalance = new OrbBalance();
         ListenerAdapter listenerCreateLobby = new CreateLobby();
         ListenerAdapter listenerAllies = new Allies();
+        ListenerAdapter listenerFracCalcListener = new FracCalcListener();
 
         bot_grill = new JDABuilder(AccountType.BOT)
                 .setToken(new Scanner(new File("./src/main/token.txt")).nextLine())
@@ -81,6 +84,7 @@ public class BotMain {
         addListener(listenerOrbBalance);
         addListener(listenerCreateLobby);
         addListener(listenerAllies);
+        addListener(listenerFracCalcListener);
         //ex:
         //removeListener(listenerChances);
 
@@ -109,6 +113,7 @@ public class BotMain {
                     removeListener(listenerOrbBalance);
                     removeListener(listenerCreateLobby);
                     removeListener(listenerAllies);
+                    removeListener(listenerFracCalcListener);
 
                     listenerChances = new Chances();
                     listenerSkillRetriever = new SkillRetriever();
@@ -125,6 +130,7 @@ public class BotMain {
                     listenerOrbBalance = new OrbBalance();
                     listenerCreateLobby = new CreateLobby();
                     listenerAllies = new Allies();
+                    listenerFracCalcListener = new FracCalcListener();
 
                     addListener(listenerChances);
                     addListener(listenerSkillRetriever);
@@ -141,6 +147,7 @@ public class BotMain {
                     addListener(listenerOrbBalance);
                     addListener(listenerCreateLobby);
                     addListener(listenerAllies);
+                    addListener(listenerFracCalcListener);
                     break;
                 default:
                     System.out.println("command not found.");

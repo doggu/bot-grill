@@ -1,9 +1,12 @@
-package events.commands;
+package utilities.math;
+
+import events.commands.Command;
 
 import java.io.File;
 import java.util.ArrayList;
 
-public class Maffs extends Command {
+public class MathParser {
+    String[] args = new String[2];
     private static ArrayList<Double> nums;
     private static ArrayList<Character> ops;
 
@@ -103,7 +106,7 @@ public class Maffs extends Command {
 
     public void onCommand() {
         if (args.length!=2) {
-            sendMessage("incorrect format");
+            System.out.println("incorrect format");
             return;
         }
 
@@ -125,7 +128,7 @@ public class Maffs extends Command {
                 case '/':
                     continue;
                 default:
-                    e.getChannel().sendFile(new File("./src/events/commands/dunno.png")).queue();
+                    System.out.println("id unno");
                     return;
             }
         }
@@ -142,9 +145,7 @@ public class Maffs extends Command {
         }
         message.append(nums.get(nums.size()-1));
 
-        sendMessage(message.toString());
-        log("mathed "+args[1]);
+        System.out.println(message.toString());
+        System.out.println("mathed "+args[1]);
     }
-
-    public boolean isCommand() { return args[0].equalsIgnoreCase("math"); }
 }

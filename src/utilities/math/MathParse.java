@@ -11,7 +11,9 @@ public class MathParse {
         ArrayList<Function<Double,Double>> fxns = new ArrayList<>();
         ArrayList<Character> ops = new ArrayList<>();
 
-        f = f.replaceAll("pi","π"): //.replaceAll(); other stuff later
+        f = f.replaceAll("pi","π")
+                .replaceAll("sin","s").replaceAll("cos","c")
+                .replaceAll("log","l").replaceAll("ln","n");
         String num = "";
         for (int i=0; i<f.length(); i++) {
             char c = f.charAt(i);
@@ -57,15 +59,6 @@ public class MathParse {
                 case '9':
                 case '.':
                     num+= c;
-                    if (i==f.length()-1) {
-                        try {
-                            final double n = Double.parseDouble(num);
-                            fxns.add(x -> n);
-                        } catch (NumberFormatException g) {
-                            System.out.println("incorrect number at the end somehow idk figure it out");
-                            throw new Error();
-                        }
-                    }
                     break;
                 case 'x':
                     if (val!=null) {
@@ -80,7 +73,8 @@ public class MathParse {
                         fxns.add(x -> val);
                         num = "";
                         ops.add('*');
-                    }
+                    } else if (ops.size()==fxns.size())
+                        ops.add('*');
                     fxns.add(x -> Math.E);
                     break;
                 case 'π':
@@ -88,7 +82,8 @@ public class MathParse {
                         fxns.add(x -> val);
                         num = "";
                         ops.add('*');
-                    }
+                    } else if (ops.size()==fxns.size())
+                        ops.add('*');
                     fxns.add(x -> Math.PI);
                     break;
                 case '+':
@@ -97,6 +92,8 @@ public class MathParse {
                 case '/':
                 case '^':
                 case '%':
+                case 's':
+                case 'c':
                     if (val!=null) {
                         fxns.add(x -> val);
                     }
@@ -108,14 +105,72 @@ public class MathParse {
         if (num.length()>0) {
             try {
                 final double val = Double.parseDouble(num);
-            } catch (NumberFormatException
+                fxns.add(x -> val);
+            } catch (NumberFormatException g) {
+                System.out.println("encountered incomplete statement at the end i guess");
+                throw new Error();
+            }
+        }
+        if (fxns.size()==ops.size()) ops.remove(ops.size()-1);
+
+        /*
         for (int i=0; i<fxns.size(); i++) {
             System.out.println(fxns.get(i));
             if (i<ops.size()) System.out.println(ops.get(i));
         }
 
         System.out.println(fxns);
+        */
 
+        //special functions (sin, cos, ln, etc.)
+        for (int i=0; i<ops.size(); i++) {
+            final Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
+            Function<Double,Double> newF;
+            switch(ops.get(i)) {
+                case 's':
+                    newF = y ->
+                            a.apply(y)*Math.sin(b.apply(y));
+
+                    fxns.remove(a);
+                    fxns.remove(b);
+                    ops.remove(i);
+                    fxns.add(i,newF);
+                    i--;
+                    break;
+                case 'c':
+                    newF = y ->
+                            a.apply(y)*Math.cos(b.apply(y));
+
+                    fxns.remove(a);
+                    fxns.remove(b);
+                    ops.remove(i);
+                    fxns.add(i,newF);
+                    i--;
+                    break;
+                case 'l':
+                    newF = y ->
+                            a.apply(y)*Math.log10(b.apply(y));
+
+                    fxns.remove(a);
+                    fxns.remove(b);
+                    ops.remove(i);
+                    fxns.add(i,newF);
+                    i--;
+                    break;
+                case 'n':
+                    newF = y ->
+                            a.apply(y)*Math.log(b.apply(y));
+
+                    fxns.remove(a);
+                    fxns.remove(b);
+                    ops.remove(i);
+                    fxns.add(i,newF);
+                    i--;
+                    break;
+            }
+        }
+
+        //pEmdas (parentheses handled recursively)
         for (int i=0; i<ops.size(); i++) {
             if (ops.get(i)=='^') {
                 final Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);

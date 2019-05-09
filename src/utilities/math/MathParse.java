@@ -11,6 +11,7 @@ public class MathParse {
         ArrayList<Function<Double,Double>> fxns = new ArrayList<>();
         ArrayList<Character> ops = new ArrayList<>();
 
+        f = f.replaceAll("pi","π"): //.replaceAll(); other stuff later
         String num = "";
         for (int i=0; i<f.length(); i++) {
             char c = f.charAt(i);
@@ -26,6 +27,11 @@ public class MathParse {
 
             switch(c) {
                 case '(':
+                    if (val!=null) {
+                        fxns.add(x -> val);
+                        num = "";
+                        ops.add('*');
+                    }
                     int pbalance = 0;
                     int start = i+1;
                     for (; i<f.length(); i++) {

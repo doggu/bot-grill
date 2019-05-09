@@ -42,6 +42,13 @@ public abstract class MessageListener extends ListenerAdapter {
     protected Message sendMessage(String message) {
         return e.getChannel().sendMessage(message).complete();
     }
+    protected Message sendMessage(double message) {
+        return sendMessage(""+message);
+    }
+    protected Message sendMessage(char message) {
+        return sendMessage(""+message);
+    }
+    protected Message sendMessage(boolean message) { return sendMessage(""+message); }
 
     protected Message sendFile(File file) { return e.getChannel().sendFile(file).complete(); }
 

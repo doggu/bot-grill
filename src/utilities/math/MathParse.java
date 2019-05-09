@@ -59,7 +59,6 @@ public class MathParse {
                             System.out.println("incorrect number at the end somehow idk figure it out");
                             throw new Error();
                         }
-
                     }
                     break;
                 case 'x':
@@ -70,11 +69,28 @@ public class MathParse {
                     }
                     fxns.add(x -> x);
                     break;
+                case 'e':
+                    if (val!=null) {
+                        fxns.add(x -> val);
+                        num = "";
+                        ops.add('*');
+                    }
+                    fxns.add(x -> Math.E);
+                    break;
+                case 'π':
+                    if (val!=null) {
+                        fxns.add(x -> val);
+                        num = "";
+                        ops.add('*');
+                    }
+                    fxns.add(x -> Math.PI);
+                    break;
                 case '+':
                 case '-':
                 case '*':
                 case '/':
                 case '^':
+                case '%':
                     if (val!=null) {
                         fxns.add(x -> val);
                     }
@@ -82,6 +98,11 @@ public class MathParse {
                     ops.add(c);
             }
         }
+        
+        if (num.length()>0) {
+            try {
+                final double val = Double.parseDouble(num);
+            } catch (NumberFormatException
         for (int i=0; i<fxns.size(); i++) {
             System.out.println(fxns.get(i));
             if (i<ops.size()) System.out.println(ops.get(i));
@@ -103,7 +124,7 @@ public class MathParse {
             }
         }
 
-        //peMDas
+        //peMDas (multiplication and modulo)
         for (int i=0; i<ops.size(); i++) {
             if (ops.get(i)=='*') {
                 final Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
@@ -119,6 +140,16 @@ public class MathParse {
                 final Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
                 Function<Double,Double> newF = y ->
                         a.apply(y)/b.apply(y);
+
+                fxns.remove(a);
+                fxns.remove(b);
+                ops.remove(i);
+                fxns.add(i,newF);
+                i--;
+            } else if (ops.get(i)=='%') {
+                final Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
+                Function<Double,Double> newF = y ->
+                        a.apply(y)%b.apply(y);
 
                 fxns.remove(a);
                 fxns.remove(b);

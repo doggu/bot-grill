@@ -97,13 +97,14 @@ public class Game extends Command {
 
     private String printBoard() {
         return "```\n" +
-                "   |   |   \n"+
-                " "+board[0]+" | "+board[1]+" | "+board[2]+" \n"+
-                "---+---+---\n"+
-                " "+board[3]+" | "+board[4]+" | "+board[5]+" \n"+
-                "---+---+---\n"+
-                " "+board[6]+" | "+board[7]+" | "+board[8]+" \n"+
-                "   |   |   \n"+
+                "    |   |   \n"+
+                "3 "+board[2]+" | "+board[5]+" | "+board[8]+" \n"+
+                " ---+---+---\n"+
+                "2 "+board[1]+" | "+board[4]+" | "+board[7]+" \n"+
+                " ---+---+---\n"+
+                "1 "+board[0]+" | "+board[3]+" | "+board[6]+" \n"+
+                "    |   |   \n"+
+                "  a   b   c \n"+
                 "```";
     }
 

@@ -11,9 +11,20 @@ public class MathParse {
         ArrayList<Function<Double,Double>> fxns = new ArrayList<>();
         ArrayList<Character> ops = new ArrayList<>();
 
-        f = f.replaceAll("pi","π")
-                .replaceAll("sin","s").replaceAll("cos","c")
-                .replaceAll("log","l").replaceAll("ln","n");
+                //constants
+        f = f   .replaceAll("pi","π")
+                //inverse trig functions (so the regular ones don't override them)
+                //(even though i could just have it replace "as" later
+                .replaceAll("asin","S")
+                .replaceAll("acos","C")
+                .replaceAll("atan","T")
+                //trigonometric functions
+                .replaceAll("sin","s")
+                .replaceAll("cos","c")
+                .replaceAll("tan","t")
+                //logarithmic functions
+                .replaceAll("log","l")
+                .replaceAll("ln","n");
 
         String num = "";
         for (int i=0; i<f.length(); i++) {
@@ -93,14 +104,22 @@ public class MathParse {
 
                     fxns.add(x -> Math.PI);
                     break;
+                case '-': //special for negative numbers
+                    if (fxns.size()==0) {
+                        num+= '-';
+                        break;
+                    } //else it's  an operator
                 case '+':
-                case '-':
                 case '*':
                 case '/':
                 case '^':
                 case '%':
                 case 's':
                 case 'c':
+                case 't':
+                case 'S':
+                case 'C':
+                case 'T':
                 case 'l':
                 case 'n':
                     if (val!=null) {
@@ -151,6 +170,46 @@ public class MathParse {
                 case 'c':
                     newF = y ->
                             a.apply(y)*Math.cos(b.apply(y));
+
+                    fxns.remove(a);
+                    fxns.remove(b);
+                    ops.remove(i);
+                    fxns.add(i,newF);
+                    i--;
+                    break;
+                case 't':
+                    newF = y ->
+                            a.apply(y)*Math.tan(b.apply(y));
+
+                    fxns.remove(a);
+                    fxns.remove(b);
+                    ops.remove(i);
+                    fxns.add(i,newF);
+                    i--;
+                    break;
+                case 'S':
+                    newF = y ->
+                            a.apply(y)*Math.asin(b.apply(y));
+
+                    fxns.remove(a);
+                    fxns.remove(b);
+                    ops.remove(i);
+                    fxns.add(i,newF);
+                    i--;
+                    break;
+                case 'C':
+                    newF = y ->
+                            a.apply(y)*Math.acos(b.apply(y));
+
+                    fxns.remove(a);
+                    fxns.remove(b);
+                    ops.remove(i);
+                    fxns.add(i,newF);
+                    i--;
+                    break;
+                case 'T':
+                    newF = y ->
+                            a.apply(y)*Math.atan(b.apply(y));
 
                     fxns.remove(a);
                     fxns.remove(b);

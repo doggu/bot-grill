@@ -24,12 +24,12 @@ public class Maffs extends Command {
                 sendMessage("incorrect test value! please try again.");
                 return;
             }
-            sendMessage(args[1] + " evaulated at " + args[0] + ": " + MathParse.parseProblem(args[1]).apply(tv));
+            sendMessage(args[1] + " evaulated at " + args[0] + ": " + new MathParse(args[1]).getFunction().apply(tv));
         } else if (args.length == 1) {
             if (args[0].contains("x"))
-                sendMessage(args[0] + " evaulated at 1: " + MathParse.parseProblem(args[0]).apply(1.0));
+                sendMessage(args[0] + " evaulated at 1: " + new MathParse(args[0]).getFunction().apply(1.0));
             else
-                sendMessage(MathParse.parseProblem(args[0]).apply(1.0));
+                sendMessage(new MathParse(args[0]).getFunction().apply(1.0));
         }
     }
 

@@ -14,6 +14,7 @@ public class MathParse {
         f = f.replaceAll("pi","π")
                 .replaceAll("sin","s").replaceAll("cos","c")
                 .replaceAll("log","l").replaceAll("ln","n");
+
         String num = "";
         for (int i=0; i<f.length(); i++) {
             char c = f.charAt(i);
@@ -23,6 +24,7 @@ public class MathParse {
             try {
                 v = Double.parseDouble(num);
             } catch (NumberFormatException g) {
+                //System.out.println("no num");
                 v = null;
             }
             final Double val = v;
@@ -33,7 +35,8 @@ public class MathParse {
                         fxns.add(x -> val);
                         num = "";
                         ops.add('*');
-                    }
+                    } else if (fxns.size()!=ops.size())
+                        ops.add('*');
                     int pbalance = 0;
                     int start = i+1;
                     for (; i<f.length(); i++) {
@@ -65,7 +68,9 @@ public class MathParse {
                         fxns.add(x -> val);
                         num = "";
                         ops.add('*');
-                    }
+                    } else if (fxns.size()!=ops.size())
+                        ops.add('*');
+
                     fxns.add(x -> x);
                     break;
                 case 'e':
@@ -73,8 +78,9 @@ public class MathParse {
                         fxns.add(x -> val);
                         num = "";
                         ops.add('*');
-                    } else if (ops.size()==fxns.size())
+                    } else if (fxns.size()!=ops.size())
                         ops.add('*');
+
                     fxns.add(x -> Math.E);
                     break;
                 case 'π':
@@ -82,8 +88,9 @@ public class MathParse {
                         fxns.add(x -> val);
                         num = "";
                         ops.add('*');
-                    } else if (ops.size()==fxns.size())
+                    } else if (fxns.size()!=ops.size())
                         ops.add('*');
+
                     fxns.add(x -> Math.PI);
                     break;
                 case '+':
@@ -94,8 +101,12 @@ public class MathParse {
                 case '%':
                 case 's':
                 case 'c':
+                case 'l':
+                case 'n':
                     if (val!=null) {
                         fxns.add(x -> val);
+                    } else if (ops.size()==fxns.size()) {
+                        fxns.add(x -> 1.0);
                     }
                     num = "";
                     ops.add(c);
@@ -173,7 +184,7 @@ public class MathParse {
         //pEmdas (parentheses handled recursively)
         for (int i=0; i<ops.size(); i++) {
             if (ops.get(i)=='^') {
-                final Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
+                Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
                 Function<Double,Double> newF = y ->
                         Math.pow(a.apply(y), b.apply(y));
 
@@ -188,7 +199,7 @@ public class MathParse {
         //peMDas (multiplication and modulo)
         for (int i=0; i<ops.size(); i++) {
             if (ops.get(i)=='*') {
-                final Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
+                Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
                 Function<Double,Double> newF = y ->
                         a.apply(y)*b.apply(y);
 
@@ -198,7 +209,7 @@ public class MathParse {
                 fxns.add(i,newF);
                 i--;
             } else if (ops.get(i)=='/') {
-                final Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
+                Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
                 Function<Double,Double> newF = y ->
                         a.apply(y)/b.apply(y);
 
@@ -208,7 +219,7 @@ public class MathParse {
                 fxns.add(i,newF);
                 i--;
             } else if (ops.get(i)=='%') {
-                final Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
+                Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
                 Function<Double,Double> newF = y ->
                         a.apply(y)%b.apply(y);
 
@@ -223,7 +234,7 @@ public class MathParse {
         //pemdAS
         for (int i=0; i<ops.size(); i++) {
             if (ops.get(i)=='+') {
-                final Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
+                Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
                 Function<Double,Double> newF = y ->
                         a.apply(y)+b.apply(y);
 
@@ -233,7 +244,7 @@ public class MathParse {
                 fxns.add(i,newF);
                 i--;
             } else if (ops.get(i)=='-') {
-                final Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
+                Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
                 Function<Double,Double> newF = y ->
                         a.apply(y)-b.apply(y);
 
@@ -247,7 +258,6 @@ public class MathParse {
 
         return fxns.get(0);
     }
-
 
 
     public static void main(String[] args) {

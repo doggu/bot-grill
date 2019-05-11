@@ -29,8 +29,8 @@ public class FracCalc {
     		return "undefined";
     	}
     	
-    	ArrayList<Character> operators = new ArrayList<Character>();
-    	ArrayList<int[]> operands = new ArrayList<int[]>();
+    	ArrayList<Character> operators = new ArrayList<>();
+    	ArrayList<int[]> operands = new ArrayList<>();
     	
     	//declare operands and operators
     	while (input.length()>0) {
@@ -107,8 +107,7 @@ public class FracCalc {
     	} else if (num==0) return "0";
     	
     	//fraction doesn't exist anymore
-    	if (num==0);
-    	else {
+    	if (num!=0) {
     		//simplify
     		for (int i=2; i<=num; i++) {
 	    		if (num%i==0&&den%i==0) {
@@ -153,13 +152,7 @@ public class FracCalc {
     private static int[] improperize(int[] term) {
     	if (term[0]<0) term[1]*= -1;
     	term[1]+= term[0]*term[2];
-    	int[] fraction = {
-    			term[1],
-    			term[2],
-    	};
-    	
-    	//System.out.println(fraction[0]+" "+fraction[1]);
-    	return fraction;
+    	return new int[] {term[1],term[2]};
     }
     
     //solve

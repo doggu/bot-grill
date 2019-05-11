@@ -39,21 +39,26 @@ public class MathParse {
 
 
 
+    private static final char[][] OoO /*order of operations*/ = {
+            //special functions come first, since they are the equivalent of 1*[fn](arg)
+
+            {SIN, COS, TAN, ASIN, ACOS, ATAN, SINH, LOG, LN},
+            {POWER},
+            {TIMES, DIVIDE, MODULO},
+            {PLUS, MINUS},
+    };
+
     private String f;
+    private int i = 0;
     private ArrayList<Function<Double,Double>> fxns = new ArrayList<>();
     private ArrayList<Character> ops = new ArrayList<>();
 
 
 
     public MathParse(String problem) {
-        this.f = problem;
-    }
-
-
-
-    public Function<Double,Double> getFunction() throws Error {
+        this.f = problem
                 //constants
-        f = f   .replaceAll("pi",PI+"")
+                .replaceAll("pi",PI+"")
                 //hyperbolics
                 .replaceAll("sinh", SINH+"")
                 .replaceAll("cosh", COSH+"")
@@ -70,21 +75,13 @@ public class MathParse {
                 //logarithmic functions
                 .replaceAll("log",LOG+"")
                 .replaceAll("ln",LN+"");
+    }
 
-        String num = "";
-        for (int i=0; i<f.length(); i++) {
+
+
+    public Function<Double,Double> getFunction() throws Error {
+        for (i=0; i<f.length(); i++) {
             char c = f.charAt(i);
-
-            //declare final value for lambda expression
-            Double v;
-            try {
-                v = Double.parseDouble(num);
-            } catch (NumberFormatException g) {
-                //System.out.println("no num");
-                v = null;
-            }
-            final Double val = v;
-
             switch(c) {
                 case '0':
                 case '1':
@@ -97,14 +94,10 @@ public class MathParse {
                 case '8':
                 case '9':
                 case '.':
-                    num+= c;
+                    addVal(getNum());
                     break;
                 case '(':
-                    if (val!=null) {
-                        fxns.add(x -> val);
-                        num = "";
-                        ops.add(TIMES);
-                    } else if (fxns.size()!=ops.size())
+                    if (fxns.size()>ops.size())
                         ops.add(TIMES);
                     int pbalance = 0;
                     int start = i+1;
@@ -120,38 +113,24 @@ public class MathParse {
                     fxns.add(new MathParse(f.substring(start, i)).getFunction());
                     break;
                 case VARIABLE:
-                    if (val!=null) {
-                        fxns.add(x -> val);
-                        num = "";
-                        ops.add(TIMES);
-                    } else if (fxns.size()!=ops.size())
+                    if (fxns.size()>ops.size())
                         ops.add(TIMES);
 
                     fxns.add(x -> x);
                     break;
-                case 'e':
-                    if (val!=null) {
-                        fxns.add(x -> val);
-                        num = "";
+                case E:
+                    if (fxns.size()>ops.size())
                         ops.add(TIMES);
-                    } else if (fxns.size()!=ops.size())
-                        ops.add(TIMES);
-
-                    fxns.add(x -> Math.E);
+                    addVal(Math.E);
                     break;
-                case 'π':
-                    if (val!=null) {
-                        fxns.add(x -> val);
-                        num = "";
+                case PI:
+                    if (fxns.size()>ops.size())
                         ops.add(TIMES);
-                    } else if (fxns.size()!=ops.size())
-                        ops.add(TIMES);
-
-                    fxns.add(x -> Math.PI);
+                    addVal(Math.PI);
                     break;
                 case MINUS: //special for negative numbers
                     if (fxns.size()==0) {
-                        num+= MINUS;
+                        addVal(getNum());
                         break;
                     } //else it's  an operator
                 case PLUS:
@@ -169,84 +148,64 @@ public class MathParse {
                 case COSH:
                 case LOG:
                 case LN:
-                    if (val!=null) {
-                        fxns.add(x -> val);
-                    } else if (ops.size()==fxns.size()) {
+                    if (ops.size()==fxns.size())
                         fxns.add(x -> 1.0);
-                    }
-                    num = "";
+                    System.out.println("adding "+c);
                     ops.add(c);
             }
         }
-        
-        if (num.length()>0) {
-            try {
-                final double val = Double.parseDouble(num);
-                fxns.add(x -> val);
-            } catch (NumberFormatException g) {
-                System.out.println("encountered incomplete statement at the end i guess");
-                throw new Error();
+
+        for (char[] operations:OoO) {
+            for (i=0; i<ops.size(); i++) {
+                for (char operation:operations) {
+                    if (ops.get(i)==operation) {
+                        performAction();
+                        i--;
+                        break;
+                    }
+                }
             }
         }
-        if (fxns.size()==ops.size()) ops.remove(ops.size()-1);
-
-
-
-        //special functions (sin, cos, ln, etc.)
-        for (int i=0; i<ops.size(); i++) {
-            switch(ops.get(i)) {
-                case SIN:
-                case COS:
-                case TAN:
-                case ASIN:
-                case ACOS:
-                case ATAN:
-                case SINH:
-                case LOG:
-                case LN:
-                    performAction(i);
-                    i--;
-                    break;
-            }
-        }
-
-        //pEmdas (parentheses handled recursively) (this could be a while loop)
-        for (int i=0; i<ops.size(); i++) {
-            if (ops.get(i)==POWER) {
-                performAction(i);
-                i--;
-            }
-        }
-
-        //peMDas (multiplication and modulo)
-        for (int i=0; i<ops.size(); i++) {
-            switch (ops.get(i)) {
-                case TIMES:
-                case DIVIDE:
-                case MODULO:
-                    performAction(i);
-                    i--;
-                    break;
-            }
-        }
-
-        //pemdAS
-        for (int i=0; i<ops.size(); i++) {
-            switch(ops.get(i)) {
-                case PLUS:
-                case MINUS:
-                    performAction(i);
-                    break;
-            }
-        }
-
-
 
         return fxns.get(0);
     }
 
-    private void performAction(int i) {
-        final Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
+    private double getNum() {
+        String num = "";
+        char val = f.charAt(i);
+        boolean negN = false;
+        if (val == '-') {
+            negN = true;
+            num+= val;
+            i++;
+        }
+        for (;i<f.length(); i++) {
+            val = f.charAt(i);
+            if ((val - '0' >= 0 && val - '0' <= 9) || val == '.') {
+                num += val;
+            } else {
+                i--;
+                break;
+            }
+        }
+        double n;
+        try {
+            n = Double.parseDouble(num);
+        } catch (NumberFormatException f) {
+            if (negN) n = -1;
+            else throw new Error();
+        }
+        return n;
+    }
+
+    private void addVal(double n) {
+        if (fxns.size()>ops.size())
+            ops.add(TIMES);
+        fxns.add(x -> n);
+    }
+
+    private void performAction() {
+        Function<Double,Double> a = fxns.get(i), b = fxns.get(i+1);
         char op = ops.get(i);
         Function<Double,Double> newF;
         switch (op) {
@@ -271,8 +230,8 @@ public class MathParse {
                 System.out.println("invalid operator detected");
                 throw new Error();
         }
-        fxns.remove(a);
-        fxns.remove(b);
+        fxns.remove(i);
+        fxns.remove(i);
         fxns.add(i, newF);
         ops.remove(i);
     }
@@ -280,7 +239,6 @@ public class MathParse {
 
 
     public static void main(String[] args) {
-        System.out.println(SIN+"");
         double[] TV = {0,1,2,3,4,5,6,7};
         double[] OV = new double[8];
 

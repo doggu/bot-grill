@@ -3,6 +3,8 @@ package main;
 import events.DevTools;
 import events.Reactions;
 import events.commands.*;
+import events.commands.Gamble.Chances;
+import events.commands.Gamble.Roll;
 import events.commands.math.FracCalcListener;
 import events.commands.math.Maffs;
 import events.fehGame.Allies;
@@ -44,6 +46,7 @@ public class BotMain {
     public static void main(String[] args) throws Exception {
         //construct listeners beforehand so bot is ready as soon as she goes live
         ListenerAdapter listenerChances = new Chances();
+        ListenerAdapter listenerRoll = new Roll();
         ListenerAdapter listenerSkillRetriever = new SkillRetriever();
         ListenerAdapter listenerHeroRetriever = new HeroRetriever();
         ListenerAdapter listenerEmotes = new Emotes();
@@ -70,20 +73,21 @@ public class BotMain {
         fehIcons = bot_grill.getGuildsByName("fehicons", true).get(0).getEmotes();
 
         addListener(listenerChances);
-        addListener(listenerSkillRetriever);
-        addListener(listenerHeroRetriever);
+        addListener(listenerRoll);
+        //addListener(listenerSkillRetriever);
+        //addListener(listenerHeroRetriever);
         addListener(listenerEmotes);
         addListener(listenerGirl);
         addListener(listenerDevTools);
-        addListener(listenerSummonSimulator);
+        //addListener(listenerSummonSimulator);
         addListener(listenerReactions);
         addListener(listenerMaffs);
-        addListener(listenerEmbedTest);
+        //addListener(listenerEmbedTest);
         addListener(listenerVote);
         addListener(listenerDraw);
-        addListener(listenerOrbBalance);
+        //addListener(listenerOrbBalance);
         addListener(listenerCreateLobby);
-        addListener(listenerAllies);
+        //addListener(listenerAllies);
         addListener(listenerFracCalcListener);
         //ex:
         //removeListener(listenerChances);
@@ -99,6 +103,7 @@ public class BotMain {
                     }
                 case "refresh": //TODO: make this based on already-present listeners (excluding CircleSimulator)
                     removeListener(listenerChances);
+                    removeListener(listenerRoll);
                     removeListener(listenerSkillRetriever);
                     removeListener(listenerHeroRetriever);
                     removeListener(listenerEmotes);
@@ -116,6 +121,7 @@ public class BotMain {
                     removeListener(listenerFracCalcListener);
 
                     listenerChances = new Chances();
+                    listenerRoll = new Roll();
                     listenerSkillRetriever = new SkillRetriever();
                     listenerHeroRetriever = new HeroRetriever();
                     listenerEmotes = new Emotes();
@@ -133,6 +139,7 @@ public class BotMain {
                     listenerFracCalcListener = new FracCalcListener();
 
                     addListener(listenerChances);
+                    addListener(listenerRoll);
                     addListener(listenerSkillRetriever);
                     addListener(listenerHeroRetriever);
                     addListener(listenerEmotes);

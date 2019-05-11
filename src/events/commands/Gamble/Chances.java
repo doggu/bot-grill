@@ -1,5 +1,6 @@
-package events.commands;
+package events.commands.Gamble;
 
+import events.commands.Command;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -8,10 +9,10 @@ public class Chances extends Command {
         int r = (int)(java.lang.Math.random()*100+1);
         sendMessage(r+"%");
 
-        String log = "determined";
+        StringBuilder log = new StringBuilder("determined");
         for (String x:args)
-            log+= " "+x;
-        log(log+": "+r+"%");
+            log.append(" ").append(x);
+        log(log.append(": ").append(r).append("%").toString());
     }
 
     public boolean isCommand() {

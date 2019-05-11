@@ -2,6 +2,7 @@ package events.gameroom;
 
 import events.commands.Command;
 import events.gameroom.battleship.Battleship;
+import events.gameroom.flow.Flow;
 import events.gameroom.mapTest.Map;
 import events.gameroom.ticTacToe.Game;
 import events.gameroom.ticTacToe.TicTacToe;
@@ -32,6 +33,9 @@ public class CreateLobby extends Command {
                 break;
             case "battleship":
                 lobby = new Battleship(e.getAuthor(), e.getChannel());
+                break;
+            case "flow":
+                lobby = new Flow(e.getAuthor(), e.getChannel());
                 break;
             default:
                 sendMessage("i don't recognize this game. sorry!");

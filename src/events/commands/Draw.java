@@ -36,7 +36,7 @@ public class Draw extends Command {
 
     @Override
     public boolean isCommand() {
-        return args[0].equalsIgnoreCase("Draw");
+        return args[0].equalsIgnoreCase("DrawTest");
     }
 
     public void onCommand() {

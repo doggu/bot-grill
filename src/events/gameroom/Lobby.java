@@ -76,7 +76,7 @@ public abstract class Lobby extends ReactionListener {
     public void onCommand() {
         players.add(e.getUser());
         e.getChannel().getMessageById(e.getMessageId()).complete().editMessage(
-                "join "+host.getName()+" for a game of tic-tac-toe!\n" +
+                "join "+host.getName()+" for a game of "+getName()+"\n" +
                         "current players: "+players.size()+"/"+getMaxPlayers()).queue();
         checkLobbyReady();
     }

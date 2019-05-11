@@ -80,6 +80,82 @@ public class UnitDatabase extends WebScalper {
     // -[rarity - upper bound]
     // ...
 
+    private static void updateCache() {
+        BufferedReader lv1Stats, growthRates, heroList;
+
+        try {
+            lv1Stats = readWebsite(LV1_STATS);
+        } catch (IOException g) { System.out.println("lv1Stats had an issue"); throw new Error(); }
+
+        try {
+            growthRates = readWebsite(GROWTH_RATES);
+        } catch (IOException g) { System.out.println("growthRates had an issue"); throw new Error(); }
+
+        try {
+            heroList = readWebsite(HERO_LIST);
+        } catch (IOException g) { System.out.println("heroList had an issue"); throw new Error(); }
+
+
+
+        IntStream lv1StatsTable = null, growthRatesTable = null, heroListTable = null;
+
+        try {
+            String line;
+            while ((line = lv1Stats.readLine()) != null) {
+                //the entire fucking table is on one line...
+                if (line.contains("<table class=\"wikitable sortable\"")) lv1StatsTable = line.chars();
+            }
+            if (lv1StatsTable == null) {
+                System.out.println("lv1StatsTable got some issues");
+                throw new Error();
+            }
+
+            while ((line = growthRates.readLine()) != null) {
+                //same for all of em
+                if (line.contains("<table class=\"wikitable default sortable\"")) growthRatesTable = line.chars();
+            }
+            if (growthRatesTable == null) {
+                System.out.println("growthRatesTable got some issues");
+                throw new Error();
+            }
+
+            while ((line = heroList.readLine()) != null) {
+                //ugh
+                if (line.contains("<table class=\"wikitable default sortable\"")) heroListTable = line.chars();
+            }
+            if (heroListTable == null) {
+                System.out.println("heroListTable got some issues");
+                throw new Error();
+            }
+        } catch (IOException g) {
+            System.out.println("table finding ran into IOException");
+            throw new Error();
+        }
+
+        Iterator<String> lv1StatsData = getItems(lv1StatsTable).iterator();
+        Iterator<String> growthRatesData = getItems(growthRatesTable).iterator();
+        Iterator<String> heroListData = getItems(heroListTable).iterator();
+
+        //remove initial junk data
+        /*
+        for (int i=0; i<7; i++)
+            System.out.println(lv1StatsData.next());
+        for (int i=0; i<12; i++)
+            System.out.println(growthRatesData.next());
+        for (int i=0; i<7; i++)
+            System.out.println(heroListData.next());
+        */
+
+        for (int i=0; i<7; i++)
+            lv1StatsData.next();
+        for (int i=0; i<12; i++)
+            growthRatesData.next();
+        for (int i=0; i<7; i++)
+            heroListData.next();
+
+
+    }
+
     private static ArrayList<Hero> getList() {
         ArrayList<HeroConstructor> heroConstructors = new ArrayList<>();
 

@@ -2,10 +2,13 @@ package events.commands.math;
 
 import events.commands.Command;
 
+import net.dv8tion.jda.core.entities.User;
 import utilities.math.MathParse;
 
-public class Maffs extends Command {
+import java.util.HashMap;
 
+public class Maffs extends Command {
+    private HashMap<User,Double> answers = new HashMap<>();
 
 
     public void onCommand() {
@@ -16,6 +19,7 @@ public class Maffs extends Command {
         if (args.length==0)
             return;
 
+        double value;
         if (args.length==2) {
             double tv;
             try {
@@ -24,13 +28,37 @@ public class Maffs extends Command {
                 sendMessage("incorrect test value! please try again.");
                 return;
             }
-            sendMessage(args[1] + " evaulated at " + args[0] + ": " + new MathParse(args[1]).getFunction().apply(tv));
+            if (args[1].contains("ans")) {
+                double ans;
+                try {
+                    ans = answers.get(e.getAuthor());
+                } catch (NullPointerException g) {
+                    sendMessage("no previous answer was found!");
+                    return;
+                }
+                args[1] = args[1].replace("ans",""+ans);
+            }
+            value = new MathParse(args[1]).getFunction().apply(tv);
+            sendMessage(args[1] + " evaulated at " + args[0] + ": " + value);
         } else if (args.length == 1) {
+            if (args[0].contains("ans")) {
+                double ans;
+                try {
+                    ans = answers.get(e.getAuthor());
+                } catch (NullPointerException g) {
+                    sendMessage("no previous answer was found!");
+                    return;
+                }
+                args[0] = args[0].replace("ans",""+ans);
+            }
+            value = new MathParse(args[0]).getFunction().apply(1.0);
             if (args[0].contains("x"))
-                sendMessage(args[0] + " evaulated at 1: " + new MathParse(args[0]).getFunction().apply(1.0));
+                sendMessage(args[0] + " evaulated at 1: " + value);
             else
-                sendMessage(new MathParse(args[0]).getFunction().apply(1.0));
-        }
+                sendMessage(value);
+        } else return;
+
+        answers.put(e.getAuthor(), value);
     }
 
 

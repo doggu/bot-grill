@@ -22,6 +22,7 @@ public class MathParse {
             VARIABLE = 'x',
 
             PI = 'π',
+            PHI = 'p',
             E = 'e',
 
             SIN = 's',
@@ -30,21 +31,26 @@ public class MathParse {
             ASIN = 'S',
             ACOS = 'C',
             ATAN = 'T',
-
             SINH = 'ś',
             COSH = 'ć',
             TANH = 'ţ',
+
+            SQRT = 'q',
             LOG = 'l',
             LN = 'n';
+
+    private static final double PHI_N = (1+Math.pow(5,0.5))/2;
 
 
 
     private static final char[][] OoO /*order of operations*/ = {
             //special functions come first, since they are the equivalent of 1*[fn](arg)
-
-            {SIN, COS, TAN, ASIN, ACOS, ATAN, SINH, LOG, LN},
+            {SIN, COS, TAN, ASIN, ACOS, ATAN, SINH, LOG, LN, SQRT},
+            //pEmdas
             {POWER},
+            //peMDas (multiplication and modulo)
             {TIMES, DIVIDE, MODULO},
+            //pemdAS
             {PLUS, MINUS},
     };
 
@@ -59,6 +65,7 @@ public class MathParse {
         this.f = problem
                 //constants
                 .replaceAll("pi",PI+"")
+                .replaceAll("phi",PHI+"")
                 //hyperbolics
                 .replaceAll("sinh", SINH+"")
                 .replaceAll("cosh", COSH+"")
@@ -118,21 +125,26 @@ public class MathParse {
 
                     fxns.add(x -> x);
                     break;
-                case E:
-                    if (fxns.size()>ops.size())
-                        ops.add(TIMES);
-                    addVal(Math.E);
-                    break;
                 case PI:
                     if (fxns.size()>ops.size())
                         ops.add(TIMES);
                     addVal(Math.PI);
                     break;
+                case E:
+                    if (fxns.size()>ops.size())
+                        ops.add(TIMES);
+                    addVal(Math.E);
+                    break;
+                case PHI:
+                    if (fxns.size()>ops.size())
+                        ops.add(TIMES);
+                    addVal(PHI_N);
+                    break;
                 case MINUS: //special for negative numbers
                     if (fxns.size()==0) {
                         addVal(getNum());
                         break;
-                    } //else it's  an operator
+                    } //else it's an operator
                 case PLUS:
                 case TIMES:
                 case DIVIDE:
@@ -148,9 +160,9 @@ public class MathParse {
                 case COSH:
                 case LOG:
                 case LN:
+                case SQRT:
                     if (ops.size()==fxns.size())
                         fxns.add(x -> 1.0);
-                    System.out.println("adding "+c);
                     ops.add(c);
             }
         }
@@ -226,6 +238,7 @@ public class MathParse {
             case TANH: newF = y -> a.apply(y)*Math.tanh(b.apply(y)); break;
             case LOG: newF = y -> a.apply(y)*Math.log10(b.apply(y)); break;
             case LN: newF = y -> a.apply(y)*Math.log(b.apply(y)); break;
+            case SQRT: newF = y -> a.apply(y)*Math.pow(b.apply(y),0.5); break;
             default:
                 System.out.println("invalid operator detected");
                 throw new Error();
@@ -236,11 +249,9 @@ public class MathParse {
         ops.remove(i);
     }
 
-
-
     public static void main(String[] args) {
-        double[] TV = {0,1,2,3,4,5,6,7};
-        double[] OV = new double[8];
+        double[] TV = {0,1,2,3,4,5,6,7,Math.PI,Math.E};
+        double[] OV = new double[TV.length];
 
         System.out.print("enter a function: ");
         Scanner input = new Scanner(System.in);

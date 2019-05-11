@@ -41,10 +41,13 @@ public class BotMain {
         listeners.remove(listener);
     }
 
+    public static List<ListenerAdapter> getListeners() { return listeners; }
+
 
 
     public static void main(String[] args) throws Exception {
         //construct listeners beforehand so bot is ready as soon as she goes live
+        ListenerAdapter listenerHelp = new Help();
         ListenerAdapter listenerChances = new Chances();
         ListenerAdapter listenerRoll = new Roll();
         ListenerAdapter listenerSkillRetriever = new SkillRetriever();
@@ -72,6 +75,7 @@ public class BotMain {
         stones = bot_grill.getGuildsByName("summonicons", true).get(0).getEmotes();
         fehIcons = bot_grill.getGuildsByName("fehicons", true).get(0).getEmotes();
 
+        addListener(listenerHelp);
         addListener(listenerChances);
         addListener(listenerRoll);
         //addListener(listenerSkillRetriever);
@@ -102,6 +106,7 @@ public class BotMain {
                         System.out.println(x);
                     }
                 case "refresh": //TODO: make this based on already-present listeners (excluding CircleSimulator)
+                    removeListener(listenerHelp);
                     removeListener(listenerChances);
                     removeListener(listenerRoll);
                     removeListener(listenerSkillRetriever);
@@ -120,6 +125,7 @@ public class BotMain {
                     removeListener(listenerAllies);
                     removeListener(listenerFracCalcListener);
 
+                    listenerHelp = new Help();
                     listenerChances = new Chances();
                     listenerRoll = new Roll();
                     listenerSkillRetriever = new SkillRetriever();
@@ -138,6 +144,7 @@ public class BotMain {
                     listenerAllies = new Allies();
                     listenerFracCalcListener = new FracCalcListener();
 
+                    addListener(listenerHelp);
                     addListener(listenerChances);
                     addListener(listenerRoll);
                     addListener(listenerSkillRetriever);

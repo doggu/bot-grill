@@ -8,12 +8,18 @@ public class Emotes extends Command {
     public void onCommand() {
         if (args[0].equals("getEmotes")) {
             List<Emote> emotes = e.getJDA().getEmotes();
-            String list = "";
+            StringBuilder list = new StringBuilder();
             for (int i = 0; i < emotes.size(); i++) {
-                list += "<"+(emotes.get(i).isAnimated()?"a":"")+":" + emotes.get(i).getName() + ":" + emotes.get(i).getId() + ">";
+                list.append("<")
+                        .append(emotes.get(i).isAnimated()?"a":"")
+                        .append(":")
+                        .append(emotes.get(i).getName())
+                        .append(":")
+                        .append(emotes.get(i).getId())
+                        .append(">");
                 if ((i + 1) % 40 == 0) {
-                    sendMessage(list);
-                    list = "";
+                    sendMessage(list.toString());
+                    list = new StringBuilder();
                 }
             }
 
@@ -35,5 +41,16 @@ public class Emotes extends Command {
 
     public boolean isCommand() {
         return args[0].contains("getEmote");
+    }
+
+
+
+    public String getName() { return "getEmote"; }
+    public String getDescription() { return "a tool for retrieving any emoticon i can access."; }
+    public String getFullDescription() {
+        return getDescription()+"\n" +
+                "\tSyntax: \"?getEmote [name of emoticon]\"" +
+                "I have many hidden servers dedicated to myself! " +
+                "Most of them can be found through the \"Girl\" command.";
     }
 }

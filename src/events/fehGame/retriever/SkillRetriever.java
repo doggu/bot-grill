@@ -189,4 +189,13 @@ public class SkillRetriever extends Command {
     public void onCommand() {
         getSkills();
     }
+
+
+
+    public String getName() { return "SkillRetriever"; }
+    public String getDescription() { return "Get pertinent info on skills in Fire Emblem Heroes!"; }
+    public String getFullDescription() {
+        //TODO: this also needs to be written at some point
+        return "wooooooooooooooooooweeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+    }
 }

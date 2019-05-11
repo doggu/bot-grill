@@ -11,16 +11,14 @@ import java.util.ArrayList;
 
 public class Draw extends Command {
     private static final int WIDTH = 6, HEIGHT = 8, SCALE = 64;
-    private static final ArrayList<BufferedImage> heroFaces = getFaces();
-    private static ArrayList<BufferedImage> getFaces() {
-        File folder = new File("./libs/heroes");
-        ArrayList<BufferedImage> heroFaces = getImagesFromFolder(folder);
-        return heroFaces;
-    }
+    private static final String FACE_PATH = "./libs/heroes";
+    private static final ArrayList<BufferedImage> heroFaces = getImagesFromFolder(new File(FACE_PATH));
+
     //TODO: the function below can probably be lambda'd or something
     private static ArrayList<BufferedImage> getImagesFromFolder(File folder) {
         ArrayList<BufferedImage> images = new ArrayList<>();
         File[] fileNames = folder.listFiles();
+        if (fileNames==null) throw new NullPointerException();
         for (File x:fileNames) {
             try {
                 images.add(ImageIO.read(x));
@@ -29,6 +27,7 @@ public class Draw extends Command {
                 //TODO: make recursive? probably not
             }
         }
+
         return images;
     }
 
@@ -48,16 +47,15 @@ public class Draw extends Command {
 
 
 
-        ArrayList<Integer> previousX = new ArrayList<>();
-        ArrayList<Integer> previousY = new ArrayList<>();
+        ArrayList<Point> coords = new ArrayList<>();
         for (int i=0; i<10; i++) {
             //x will always be intiialized in while loop, but y may not
-            int x, y = ((int)(Math.random()*HEIGHT))*SCALE;
-            while (previousX.contains(x = ((int)(Math.random()*WIDTH))*SCALE) &&
-                    previousY.contains(y = ((int)(Math.random()*HEIGHT))*SCALE))
-                /*restart*/;
-            previousX.add(x);
-            previousY.add(y);
+            //but it's fine because y does not have to be created until x is valid
+            Point p;
+            while (coords.contains(
+                    p = new Point(((int)(Math.random()*WIDTH))*SCALE,((int)(Math.random()*HEIGHT))*SCALE)))
+                /*do nothing*/;
+            coords.add(p);
 
             //TODO: make this less stupid when i'm less stupid
             BufferedImage face = heroFaces.get((int)(Math.random()*heroFaces.size()));
@@ -68,7 +66,7 @@ public class Draw extends Command {
                     new AffineTransformOp(
                             new AffineTransform(scale,0,0, scale,0 ,0),
                             AffineTransformOp.TYPE_BICUBIC),
-                    x, y);
+                    p.x, p.y);
         }
 
         // Disposes of this graphics context and releases any system resources that it is using.
@@ -82,5 +80,13 @@ public class Draw extends Command {
         } catch (IOException g) {
             System.out.println("houston we got a problem");
         }
+    }
+
+    public String getName() { return "Draw"; }
+    public String getDescription() { return "a test for still 2D graphics in Discord!"; }
+    public String getFullDescription() {
+        return "A small demo which allows me to draw you a picture with your chosen text.\n" +
+                "\tSyntax: \"?draw [text]\n" +
+                "any words after the initial argument (draw) will be drawn into the image!";
     }
 }

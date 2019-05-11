@@ -48,7 +48,7 @@ public abstract class Lobby extends ReactionListener {
 
     private void startGame() {
         sendMessage("a game of "+getName()+" begins!");
-        Command game = getGame();
+        TextGame game = getGame();
         BotMain.bot_grill.removeEventListener(this);
         BotMain.bot_grill.addEventListener(game);
     }
@@ -88,5 +88,5 @@ public abstract class Lobby extends ReactionListener {
     public abstract int getMinPlayers();
     public abstract int getMaxPlayers();
     public abstract String getName();
-    public abstract Command getGame();
+    public abstract TextGame getGame();
 }

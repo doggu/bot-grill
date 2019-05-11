@@ -9,4 +9,14 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 public abstract class Command extends MessageListener {
     public abstract boolean isCommand();
     protected char getPrefix() { return '?'; }
+
+    public abstract String getName();
+    public abstract String getDescription();
+    public abstract String getFullDescription();
+    public String getHelp() {
+        return getName()+": "+getDescription();
+    }
+    public String getFullHelp() {
+        return "**"+getName()+"**\n"+getFullDescription();
+    }
 }

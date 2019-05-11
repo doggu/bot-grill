@@ -1,13 +1,13 @@
 package events.gameroom.ticTacToe;
 
-import events.commands.Command;
+import events.gameroom.TextGame;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
 
 import java.util.ArrayList;
 
-public class Game extends Command {
+public class Game extends TextGame {
     private final ArrayList<User> players;
     private final MessageChannel channel;
     private User activePlayer;

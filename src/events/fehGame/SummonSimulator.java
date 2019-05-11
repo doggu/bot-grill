@@ -1,6 +1,7 @@
 package events.fehGame;
 
 import events.gameroom.Gameroom;
+import main.BotMain;
 import utilities.feh.heroes.character.Hero;
 import utilities.feh.players.Summoner;
 import utilities.feh.summoning.Banner;
@@ -148,7 +149,7 @@ public class SummonSimulator extends Gameroom {
                 summoner,
                 banner);
 
-        e.getJDA().addEventListener(circle);
+        BotMain.addListener(circle);
         summoner.startSummoning(circle);
 
 

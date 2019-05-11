@@ -45,4 +45,13 @@ public class CreateLobby extends Command {
 
         e.getJDA().addEventListener(lobby);
     }
+
+
+
+    public String getName() { return "CreateLobby"; }
+    public String getDescription() { return "Play games with other users!"; }
+    public String getFullDescription() {
+        //TODO: write another description
+        return "i got better stuff to do so ima write this later, sorry";
+    }
 }

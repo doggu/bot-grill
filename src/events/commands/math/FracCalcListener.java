@@ -23,4 +23,13 @@ public class FracCalcListener extends Command {
             log(e.getAuthor().getName()+" attempted to FracCalc \""+input+"\"");
         }
     }
+
+
+
+    public String getName() { return "FracCalc"; }
+    public String getDescription() { return "add, subtract, multiply, or divide fractions!"; }
+    public String getFullDescription() {
+        //TODO: write DESCRIPTon
+        return "fuck man it's complicated";
+    }
 }

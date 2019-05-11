@@ -1,5 +1,6 @@
 package events.commands;
 
+import events.MessageListener;
 import net.dv8tion.jda.core.EmbedBuilder;
 import utilities.feh.skills.Skill;
 import utilities.feh.skills.SkillDatabase;
@@ -8,7 +9,7 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.List;
 
-public class EmbedTest extends Command {
+public class EmbedTest extends MessageListener {
     public boolean isCommand() {
         return args[0].equalsIgnoreCase("embedTest");
     }
@@ -76,71 +77,70 @@ public class EmbedTest extends Command {
         }
     }
 
+    public char getPrefix() { return '&'; }
 
 
+    /*
     private void exampleCode() {
+        // source: https://gist.github.com/zekroTJA/c8ed671204dafbbdf89c36fc3a1827e1
+
+
+
         // Create the EmbedBuilder instance
         EmbedBuilder eb = new EmbedBuilder();
 
-        /*
-            Set the title:
-            1. Arg: title as string
-            2. Arg: URL as string or could also be null
-         */
+        // Set the title:
+        // 1. Arg: title as string
+        // 2. Arg: URL as string or could also be null
+
         eb.setTitle("Title", null);
 
-        /*
-            Set the color
-         */
+        // Set the color
+
         eb.setColor(Color.red);
         eb.setColor(new Color(0xF40C0C));
         eb.setColor(new Color(255, 0, 54));
 
-        /*
-            Set the text of the Embed:
-            Arg: text as string
-         */
+        // Set the text of the Embed:
+        // Arg: text as string
+
         eb.setDescription("Text");
 
-        /*
-            Add fields to embed:
-            1. Arg: title as string
-            2. Arg: text as string
-            3. Arg: inline mode true / false
-         */
+        // Add fields to embed:
+        // 1. Arg: title as string
+        // 2. Arg: text as string
+        // 3. Arg: inline mode true / false
+
         eb.addField("Title of field", "test of field", false);
 
-        /*
-            Add spacer like field
-            Arg: inline mode true / false
-         */
+        // Add spacer like field
+        // Arg: inline mode true / false
+
         eb.addBlankField(false);
 
-        /*
-            Add embed author:
-            1. Arg: name as string
-            2. Arg: url as string (can be null)
-            3. Arg: icon url as string (can be null)
-         */
+
+        // Add embed author:
+        // 1. Arg: name as string
+        // 2. Arg: url as string (can be null)
+        // 3. Arg: icon url as string (can be null)
+
         eb.setAuthor("name", null, "https://github.com/zekroTJA/DiscordBot/blob/master/.websrc/zekroBot_Logo_-_round_small.png");
 
-        /*
-            Set footer:
-            1. Arg: text as string
-            2. icon url as string (can be null)
-         */
+        // Set footer:
+        // 1. Arg: text as string
+        // 2. icon url as string (can be null)
+
         eb.setFooter("Text", "https://github.com/zekroTJA/DiscordBot/blob/master/.websrc/zekroBot_Logo_-_round_small.png");
 
-        /*
-            Set image:
-            Arg: image url as string
-         */
+        // Set image:
+        // Arg: image url as string
+
         eb.setImage("https://github.com/zekroTJA/DiscordBot/blob/master/.websrc/logo%20-%20title.png");
 
-        /*
-            Set thumbnail image:
-            Arg: image url as string
-         */
+        // Set thumbnail image:
+        // Arg: image url as string
+
         eb.setThumbnail("https://github.com/zekroTJA/DiscordBot/blob/master/.websrc/logo%20-%20title.png");
     }
+    */
 }

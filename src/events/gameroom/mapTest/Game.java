@@ -1,6 +1,6 @@
 package events.gameroom.mapTest;
 
-import events.commands.Command;
+import events.gameroom.TextGame;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
@@ -12,7 +12,7 @@ import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
 
-public class Game extends Command {
+public class Game extends TextGame {
     private final ArrayList<User> players;
     private final MessageChannel channel;
 

@@ -61,10 +61,18 @@ public class Maffs extends Command {
         answers.put(e.getAuthor(), value);
     }
 
-
-
     public boolean isCommand() {
         if (args[0].equalsIgnoreCase("math")) return true;
         return e.getChannel().getName().equals("math");
+    }
+
+
+
+    public String getName() { return "Math"; }
+    public String getDescription() { return "perform basic math!"; }
+    public String getFullDescription() {
+        //TODO: write DESCRIPTon
+        return getDescription()+"\n" +
+                "fuck man it's complicated";
     }
 }

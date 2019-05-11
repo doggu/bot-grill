@@ -56,4 +56,15 @@ public class Allies extends Command {
 
         sendMessage("could not find your barracks. Have you summoned yet?");
     }
+
+
+
+    public String getName() { return "Allies"; }
+    public String getDescription() { return "A place to view your barracks—all the allies you've summoned!"; }
+    public String getFullDescription() {
+        return "Currently a work in progress: " +
+                "only allows a user to view a list of names of the units they have acquired.\n\n" +
+                "In the future, this command will function similarly to the real Allies section," +
+                "providing team-building and other ally-manipulation tools.";
+    }
 }

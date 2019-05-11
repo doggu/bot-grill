@@ -538,4 +538,13 @@ public class HeroRetriever extends Command {
     public void onCommand() {
         getUnits();
     }
+
+
+
+    public String getName() { return "HeroRetriever"; }
+    public String getDescription() { return "Get pertinent info on characters from Fire Emblem Heroes!"; }
+    public String getFullDescription() {
+        //TODO: write the full description of HeroRetriever
+        return "woowee this is gonna take a long time to write";
+    }
 }

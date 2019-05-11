@@ -1,13 +1,13 @@
 package events.gameroom.flow;
 
-import events.commands.Command;
+import events.gameroom.TextGame;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
 
 import java.awt.*;
 import java.util.Iterator;
 
-public class Game extends Command {
+public class Game extends TextGame {
     //TODO: this stuff can most likely go in a Game abstract class
     private final User player;
     private final MessageChannel channel;

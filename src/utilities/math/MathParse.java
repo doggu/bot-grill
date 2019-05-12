@@ -130,18 +130,12 @@ public class MathParse {
                     fxns.add(x -> x);
                     break;
                 case PI:
-                    if (fxns.size()>ops.size())
-                        ops.add(TIMES);
                     addVal(Math.PI);
                     break;
                 case E:
-                    if (fxns.size()>ops.size())
-                        ops.add(TIMES);
                     addVal(Math.E);
                     break;
                 case PHI:
-                    if (fxns.size()>ops.size())
-                        ops.add(TIMES);
                     addVal(PHI_N);
                     break;
                 case MINUS: //special for negative numbers
@@ -199,7 +193,7 @@ public class MathParse {
         }
         for (;i<f.length(); i++) {
             val = f.charAt(i);
-            if ((val - '0' >= 0 && val - '0' <= 9) || val == '.') {
+            if ((val-'0'>=0 && val-'0'<=9) || val=='.') {
                 num += val;
             } else {
                 i--;

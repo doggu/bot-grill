@@ -1,4 +1,4 @@
-package events.commands.Gamble;
+package events.commands.gamble;
 
 import events.commands.Command;
 

@@ -76,6 +76,11 @@ public class Board {
         return true;
     }
 
+    void undo() throws IndexOutOfBoundsException {
+        if (lines.size()==0) throw new IndexOutOfBoundsException();
+        lines.remove(lines.size()-1);
+    }
+
     boolean completed() {
         return lines.size()==colors.size();
     }

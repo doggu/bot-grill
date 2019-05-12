@@ -1,12 +1,7 @@
 package events.gameroom.flow;
 
-import events.commands.Command;
-import utilities.feh.heroes.character.Hero;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -25,17 +20,17 @@ public class Board {
     };
 
     private Color[][] game;
-    private ArrayList<Color> lines = new ArrayList<>();
+    private ArrayList<ArrayList<Point>> lines = new ArrayList<>();
 
 
 
-    public Board() {
+    Board() {
         game = DOTS;
     }
 
 
 
-    public boolean drawLine(Point p, char[] dx) throws NullPointerException, IndexOutOfBoundsException {
+    boolean drawLine(Point p, char[] dx) throws NullPointerException, IndexOutOfBoundsException {
         Color start = DOTS[p.x][p.y];
 
         Point path = (Point) p.clone();
@@ -46,34 +41,47 @@ public class Board {
             switch (dx[i]) {
                 case 'u':
                 case 'y':
-                    path.y+= 1;
+                    path.x-= 1;
                     break;
                 case 'd':
                 case 'h':
-                    path.y-= 1;
+                    path.x+= 1;
                     break;
                 case 'l':
                 case 'g':
-                    path.x-= 1;
+                    path.y-= 1;
                     break;
                 case 'r':
                 case 'j':
-                    path.x+= 1;
+                    path.y+= 1;
                     break;
             }
-            if (game[path.x][path.y]!=null||groundCover.contains(path)||!game[path.x][path.y].equals(start))
+            if (game[path.x][path.y]!=null)
+                if (!game[path.x][path.y].equals(start))
                 throw new IndexOutOfBoundsException();
             groundCover.add((Point)path.clone());
         }
 
         if (!DOTS[path.x][path.y].equals(start)) return false;
         for (Point x:groundCover) game[x.x][x.y] = start;
+        lines.add(groundCover);
         return true;
     }
 
+    boolean completed() {
+        if (lines.size()!=7) return false;
+        for (Color[] row:game)
+            for (Color tile:row)
+                if (tile==null)
+                    return false;
+        return true;
+    }
+
+
+
     private static final int SCALE = 64;
 
-    public File printBoard() {
+    File printBoard() {
         BufferedImage mapState =
                 new BufferedImage(
                         SCALE*game[0].length,
@@ -82,10 +90,21 @@ public class Board {
         Graphics2D graphics = mapState.createGraphics();
         graphics.setBackground(Color.black);
 
+
+        for (int i=0; i<DOTS.length; i++) {
+            for (int j=0; j<DOTS[i].length; j++) {
+                if (DOTS[i][j]!=null) {
+                    graphics.setColor(game[i][j]);
+                    graphics.fillOval(SCALE*j+8,SCALE*i+8,SCALE*3/4,SCALE*3/4);
+                }
+            }
+        }
+
         for (int i=0; i<game.length; i++) {
             for (int j=0; j<game[i].length; j++) {
                 if (game[i][j]!=null) {
-                    graphics.draw(new Rectangle(SCALE*j,SCALE*i,SCALE,SCALE));
+                    graphics.setColor(game[i][j]);
+                    graphics.fillOval(SCALE*j+8,SCALE*i+8,SCALE*3/4,SCALE*3/4);
                 }
             }
         }

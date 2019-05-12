@@ -49,21 +49,29 @@ public class Game extends TextGame {
         try {
             completed = board.drawLine(start, dx);
         } catch (NullPointerException|IndexOutOfBoundsException g) {
-            if (g instanceof NullPointerException)
+            if (g instanceof NullPointerException) {
                 sendMessage("please start on a dot.");
-            else
+            } else {
                 sendMessage("your path ran into something! please try again.");
+            }
             return;
         }
 
-        //if (completed)
+        if (completed)
             sendFile(board.printBoard());
+        else
+            sendMessage("you did not draw a complete path! please try again.");
+
+        if (board.completed()) {
+            sendMessage("you win!");
+            commitSuicide();
+        }
     }
 
 
     private Point getCoords(String p) throws NumberFormatException {
         char c = p.charAt(0);
         int r = Integer.parseInt(p.substring(1));
-        return new Point(c-'a',r-1);
+        return new Point(r-1,c-'a');
     }
 }

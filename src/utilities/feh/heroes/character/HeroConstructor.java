@@ -4,7 +4,6 @@ import utilities.feh.skills.Skill;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
 
 /**
  * a class which allows for the construction of an object that stores information for a hero without requiring all of

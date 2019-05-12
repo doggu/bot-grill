@@ -2,10 +2,9 @@ package utilities;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.stream.IntStream;
 
 public class CacheTest {
-    private static final String TEST_URL = "https://feheroes.gamepedia.com/Assists";
+    private static final String TEST_URL = "https://feheroes.gamepedia.com/List_of_Heroes";
 
 
 
@@ -17,7 +16,8 @@ public class CacheTest {
         boolean print = false;
 
         while ((line = input.readLine()) != null) {
-            if (line.contains("<table class=\"cargoTable sortable\">"))
+            System.out.println(line);
+            if (line.contains("<table class=\"cargoTable noMerge sortable\">"))
                 print = true;
 
             if (print) {
@@ -48,6 +48,8 @@ public class CacheTest {
         File cache = new File("./src/utilities/feh/webCache/test.txt");
         FileWriter writer = new FileWriter(cache);
         System.out.println(cache.canWrite());
+
+        File g = new File("./src/utilities/feh/webCache/test.txt");
 
         for (String x:items) {
             writer.write(x+"\n");

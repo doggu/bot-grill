@@ -1,8 +1,6 @@
 package events.commands.Gamble;
 
 import events.commands.Command;
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 public class Chances extends Command {
     public void onCommand() {

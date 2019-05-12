@@ -2,15 +2,11 @@ package events.fehGame.retriever;
 
 import events.commands.Command;
 import main.BotMain;
-import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Emote;
 import utilities.feh.heroes.UnitDatabase;
 import utilities.feh.heroes.character.Hero;
 import utilities.feh.heroes.unit.Unit;
-import utilities.feh.skills.*;
 
-import java.awt.*;
-import java.lang.reflect.Method;
 import java.util.*;
 import java.util.List;
 
@@ -388,11 +384,8 @@ public class HeroRetriever extends Command {
         //import emotes from fehicons database
         List<Emote> fehIconEmotes = BotMain.fehIcons;
 
-        //TODO: this is not correct
-        boolean fiveStarSummoned = rarity==5&&boon>0&&bane>0;
-
         String info =
-                (fiveStarSummoned?"**":"") + x.getFullName() + (fiveStarSummoned?"**":"") + "\n" +
+                "**" + x.getFullName() + "**" + "\n" +
                         "Appears In: *" + x.getOrigin() + "*\n" +
                         "Date Released: "
                         + (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" //starts at 0 (january = 0)
@@ -441,32 +434,35 @@ public class HeroRetriever extends Command {
                 "hp   atk  spd  def  res\n";
 
         String stats;
+        String bst;
 
         if (getAll) {
             if (x.isSummonable()) {
                 stats = printStats(x.getAllStats(lv1, rarity, merges));
-                info+= stats+"\n";
-                info+= printBST(x.getAllStats(lv1, rarity, merges));
+                bst = printBST(x.getAllStats(lv1, rarity, merges));
             } else {
-                stats = printStats(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers));
-                info+= stats+"\n";
-                info+= printBST(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers));
+                stats = printStats(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support));
+                bst = printBST(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support));
             }
         } else {
-            stats = printStats(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers));
-            info+= stats+"\n";
-            info+= printBST(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers));
+            stats = printStats(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support));
+            bst = printBST(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support));
         }
-        info+= "\n";
+
+        info+= stats+"\n"+bst+"\n";
 
         if (!x.isSummonable()) info+= "this unit does not have access to IVs.\n";
         else if (merges>0&&getAll) info+= "predictions might not be 100% accurate.\n";
         info+= "```";
+
         info+= "\nSkills: ";
+        StringBuilder skills = new StringBuilder();
         for (int i=0; i<x.getBaseKit().size(); i++) {
-            info+= x.getBaseKit().get(i);
-            if (i+1!=x.getBaseKit().size()) info+=", ";
+            skills.append(x.getBaseKit().get(i));
+            if (i+1!=x.getBaseKit().size()) skills.append(", ");
         }
+        info+= skills.toString();
+
         info+= "\n";
         return info;
     }

@@ -30,6 +30,9 @@ public class Allies extends Command {
                             case "atk":
                                 barracks.sortByAtk();
                                 break;
+                            case "spd":
+                            case "def":
+                            case "res":
                             default:
                                 //it's sorted by however it was before i guess
                         }

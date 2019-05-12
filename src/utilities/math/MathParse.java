@@ -122,7 +122,6 @@ public class MathParse {
                 case VARIABLE:
                     if (fxns.size()>ops.size())
                         ops.add(TIMES);
-
                     fxns.add(x -> x);
                     break;
                 case PI:

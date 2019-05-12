@@ -281,7 +281,7 @@ public abstract class WebScalper {
     public static void main(String[] args) throws IOException {
         //source: https://stackoverflow.com/questions/6159118/using-java-to-pull-data-from-a-webpage
         // Make a URL to the web page
-        URL url = new URL("https://feheroes.gamepedia.com/Hero_skills_table");
+        URL url = new URL("https://feheroes.gamepedia.com/Weapon_Refinery");
 
         // Get the input stream through URL Connection
         URLConnection con = url.openConnection();
@@ -302,6 +302,7 @@ public abstract class WebScalper {
 
         String line;
         while ((line = br.readLine()) != null) {
+            System.out.println(line);
             if (line.contains("<table class=\"wikitable sortable\"")) {
                 break;
             }

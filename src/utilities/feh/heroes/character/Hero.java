@@ -108,7 +108,6 @@ public class Hero {
 
     // TODO: change to lv40 stats using lv1 stats and growths
     public HeroStats getStats() { return stats; }
-    public int[] getStatsArr() { return stats.getStatsAsArray(); }
     public int getHP() { return stats.getHp(); }
     public int getAtk() { return stats.getAtk(); }
     public int getSpd() { return stats.getSpd(); }
@@ -122,44 +121,12 @@ public class Hero {
     public GregorianCalendar getReleaseDate() { return dateReleased; }
     public ArrayList<Skill> getBaseKit() { return baseKit; }
 
-    public boolean hasSuperBoon() { return hasEccentricStat(true); }
-    public boolean hasSuperBane() { return hasEccentricStat(false); }
-    public boolean hasEccentricStat(boolean boon) {
-        int[][] stats = getAllStats(false, 5);
-        int row = (boon?0:2);
-        for (int i=0; i<stats[2].length; i++)
-            if (Math.abs(stats[1][row]-stats[2][row])>3)
-                return true;
-        return false;
-    }
-
 
 
     public String toString() { return this.getFullName().toString(); }
 
-    public int[] getStats(boolean lv1, int rarity, char boon, char bane) {
-        int boonN = 0, baneN = 0;
-        switch (boon) {
-            case 'r': boonN++;
-            case 'd': boonN++;
-            case 's': boonN++;
-            case 'a': boonN++;
-            case 'h': break;
-            default: throw new Error();
-        }
-        switch (bane) {
-            case 'r': baneN++;
-            case 'd': baneN++;
-            case 's': baneN++;
-            case 'a': baneN++;
-            case 'h': break;
-            default: throw new Error();
-        }
-
-        return getStats(lv1, rarity, boonN, baneN);
-    }
-    public int[] getStats(boolean lv1, int rarity, int boon, int bane) { return getStats(lv1, rarity, boon, bane, 0, 0); }
-    public int[] getStats(boolean lv1, int rarity, int boon, int bane, int merges, int dragonflowers) {
+    protected int[] getStats(boolean lv1, int rarity, int boon, int bane) { return getStats(lv1, rarity, boon, bane, 0, 0, 'd'); }
+    public int[] getStats(boolean lv1, int rarity, int boon, int bane, int merges, int dragonflowers, char support) {
         //duplicate
         int[][] rawStats = getAllStats(lv1, rarity, merges);
         int[] finalStats = new int[5];
@@ -173,88 +140,34 @@ public class Hero {
             }
         }
 
-        return finalStats;
-
-        //#obsoleted lmao i'm fuckin dumb
-        /*
-        int[] finalStats = stats.clone();
-
-        int[] statsSorted = {1, 2, 3, 4};
-
-        for (int i=0; i<4; i++) {
-            for (int j = 0; j < 3; j++) {
-                if (stats[statsSorted[j]]<stats[statsSorted[j+1]]) {
-                    int t = statsSorted[j+1];
-                    statsSorted[j+1] = statsSorted[j];
-                    statsSorted[j] = t;
-                }
-            }
+        for (int i=0; i<dragonflowers; i++) {
+            /*
+            something like
+            statsOrderedByLv1Value[i%5]++;
+            this should be in the unit tbh
+             */
         }
 
-
-
-        //for (int i:statsSorted) System.out.println(i);
-
-        //boon/bane lv1 changing
-        if (boon>=0&&bane>=0) {
-            finalStats[boon]++;
-            finalStats[bane]--;
-        }
-
-        switch (rarity) {
-            case 1:
-                //two highest non-hp stats
-                finalStats[statsSorted[0]]--;
-                finalStats[statsSorted[1]]--;
-            case 2:
-                //hp & two lowest stats
-                finalStats[0]--;
-                finalStats[statsSorted[2]]--;
-                finalStats[statsSorted[3]]--;
-            case 3:
-                //two highest non-hp stats
-                finalStats[statsSorted[0]]--;
-                finalStats[statsSorted[1]]--;
-            case 4:
-                //hp & two lowest stats
-                finalStats[0]--;
-                finalStats[statsSorted[2]]--;
-                finalStats[statsSorted[3]]--;
-            case 5:
-                //nothin'
+        switch(support) {
+            case 's':
+                finalStats[0]++;
+                finalStats[1]+= 2;
+            case 'a':
+                finalStats[2]+= 2;
+            case 'b':
+                finalStats[0]++;
+                finalStats[3]+= 2;
+            case 'c':
+                finalStats[0]+= 3;
+                finalStats[4]+= 2;
                 break;
-        }
-
-        if (!lv1) {
-            int rarityFactor;
-            switch (rarity) {
-                case 1: rarityFactor = 86; break;
-                case 2: rarityFactor = 93; break;
-                case 3: rarityFactor = 100; break;
-                case 4: rarityFactor = 107; break;
-                case 5: rarityFactor = 114; break;
-                default:
-                    System.out.println("rarity is not within bounds");
-                    return null;
-            }
-
-
-            //incomplete
-            for (int i=0; i<finalStats.length; i++) {
-                if (i==boon)
-                    finalStats[i]+= (int) (0.39 * (int) ((this.statGrowths[i]+5) * rarityFactor / 100.0));
-                else if (i==bane)
-                    finalStats[i]+= (int) (0.39 * (int) ((this.statGrowths[i]-5) * rarityFactor / 100.0));
-                else
-                    finalStats[i]+= (int) (0.39 * (int) (this.statGrowths[i] * rarityFactor / 100.0));
-            }
+            case 'd':
+            default:
         }
 
         return finalStats;
-        */
     }
 
-    public int[][] getAllStats(boolean lv1, int rarity) { return getAllStats(lv1, rarity, 0); }
     public int[][] getAllStats(boolean lv1, int rarity, int merges) {
         int[][] finalStats = {
                 { stats.getHp(), stats.getAtk(), stats.getSpd(), stats.getDef(), stats.getRes() },

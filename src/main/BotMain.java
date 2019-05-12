@@ -78,23 +78,21 @@ public class BotMain {
         addListener(listenerHelp);
         addListener(listenerChances);
         addListener(listenerRoll);
-        //addListener(listenerSkillRetriever);
-        //addListener(listenerHeroRetriever);
+        addListener(listenerSkillRetriever);
+        addListener(listenerHeroRetriever);
         addListener(listenerEmotes);
         addListener(listenerGirl);
         addListener(listenerDevTools);
-        //addListener(listenerSummonSimulator);
+        addListener(listenerSummonSimulator);
         addListener(listenerReactions);
         addListener(listenerMaffs);
-        //addListener(listenerEmbedTest);
+        addListener(listenerEmbedTest);
         addListener(listenerVote);
         addListener(listenerDraw);
-        //addListener(listenerOrbBalance);
+        addListener(listenerOrbBalance);
         addListener(listenerCreateLobby);
-        //addListener(listenerAllies);
+        addListener(listenerAllies);
         addListener(listenerFracCalcListener);
-        //ex:
-        //removeListener(listenerChances);
 
         Scanner console = new Scanner(System.in);
         

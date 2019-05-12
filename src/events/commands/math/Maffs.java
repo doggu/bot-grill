@@ -12,58 +12,50 @@ public class Maffs extends Command {
 
 
     public void onCommand() {
-        String[] temp = args.clone();
-        args = new String[args.length-1];
-        for (int i=0; i<args.length; i++)
-            args[i] = temp[i+1];
-        if (args.length==0)
+        if (args.length==1)
             return;
 
-        double value;
-        if (args.length==2) {
-            double tv;
+        String problem;
+        double tv;
+        if (args.length==3) {
+            problem = args[2];
             try {
-                tv = Double.parseDouble(args[0]);
+                tv = Double.parseDouble(args[1]);
             } catch (NumberFormatException g) {
                 sendMessage("incorrect test value! please try again.");
                 return;
             }
-            if (args[1].contains("ans")) {
-                double ans;
-                try {
-                    ans = answers.get(e.getAuthor());
-                } catch (NullPointerException g) {
-                    sendMessage("no previous answer was found!");
-                    return;
-                }
-                args[1] = args[1].replace("ans",""+ans);
-            }
-            value = new MathParse(args[1]).getFunction().apply(tv);
-            sendMessage(args[1] + " evaulated at " + args[0] + ": " + value);
-        } else if (args.length == 1) {
-            if (args[0].contains("ans")) {
-                double ans;
-                try {
-                    ans = answers.get(e.getAuthor());
-                } catch (NullPointerException g) {
-                    sendMessage("no previous answer was found!");
-                    return;
-                }
-                args[0] = args[0].replace("ans",""+ans);
-            }
-            value = new MathParse(args[0]).getFunction().apply(1.0);
-            if (args[0].contains("x"))
-                sendMessage(args[0] + " evaulated at 1: " + value);
-            else
-                sendMessage(value);
+        } else if (args.length==2) {
+            problem = args[1];
+            tv = 1.0;
         } else return;
+
+        if (problem.contains("ans")) {
+            double ans;
+            try {
+                ans = answers.get(e.getAuthor());
+            } catch (NullPointerException g) {
+                sendMessage("no previous answer was found!");
+                return;
+            }
+            problem = problem.replace("ans",""+ans);
+        }
+
+        double value = new MathParse(problem).getFunction().apply(tv);
+
+        if (problem.contains("x"))
+            sendMessage(problem + " evaulated at 1: " + value);
+        else
+            sendMessage(value);
 
         answers.put(e.getAuthor(), value);
     }
 
     public boolean isCommand() {
-        if (args[0].equalsIgnoreCase("math")) return true;
-        return e.getChannel().getName().equals("math");
+        if (args[0].equalsIgnoreCase("Math")) return true;
+        if (e.getChannel().getName().equalsIgnoreCase("Math")) return true;
+
+        return false;
     }
 
 
@@ -73,6 +65,6 @@ public class Maffs extends Command {
     public String getFullDescription() {
         //TODO: write DESCRIPTon
         return getDescription()+"\n" +
-                "fuck man it's complicated";
+                "it's complicated man";
     }
 }

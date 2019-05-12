@@ -9,10 +9,10 @@ public class FracCalcListener extends Command {
     }
 
     public void onCommand() {
-        String input = "";
+        StringBuilder inputSB = new StringBuilder();
         for (int i=1; i<args.length; i++)
-            input+= " "+args[i];
-        input = input.substring(1);
+            inputSB.append(" ").append(args[i]);
+        String input = inputSB.substring(1);
 
         try {
             String answer = FracCalc.produceAnswer(input);
@@ -30,6 +30,6 @@ public class FracCalcListener extends Command {
     public String getDescription() { return "add, subtract, multiply, or divide fractions!"; }
     public String getFullDescription() {
         //TODO: write DESCRIPTon
-        return "fuck man it's complicated";
+        return "it's complicated man";
     }
 }

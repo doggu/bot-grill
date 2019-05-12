@@ -86,7 +86,7 @@ public class Draw extends Command {
     public String getDescription() { return "a test for still 2D graphics in Discord!"; }
     public String getFullDescription() {
         return "A small demo which allows me to draw you a picture with your chosen text.\n" +
-                "\tSyntax: \"?draw [text]\n" +
+                "\tSyntax: \"?DrawTest [text]\n" +
                 "any words after the initial argument (draw) will be drawn into the image!";
     }
 }

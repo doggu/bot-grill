@@ -2,7 +2,6 @@ package events.fehGame.retriever;
 
 import events.commands.Command;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Emote;
 import utilities.feh.skills.*;
 
 import java.awt.*;
@@ -115,24 +114,33 @@ public class SkillRetriever extends Command {
                 skill.addField("Cooldown", ""+((Special) x).getCooldown(), false);
             }
 
-            Set<String> heroes = SkillDatabase.HERO_SKILLS.keySet();
-            String owners = "";
-            for (String n:heroes) {
-                if (SkillDatabase.HERO_SKILLS.get(n).contains(x)) {
-                    owners+= n+", ";
+            if (!(x instanceof PassiveS)) {
+                Set<String> heroes = SkillDatabase.HERO_SKILLS.keySet();
+                StringBuilder owners = new StringBuilder();
+                for (String n : heroes) {
+                    if (SkillDatabase.HERO_SKILLS.get(n).contains(x)) {
+                        owners.append(n).append(", ");
+                    }
                 }
+                if (owners.length() > 0) owners = new StringBuilder(owners.substring(0, owners.length()-2));
+                skill.addField("Owners", owners.toString(), false);
             }
-            if (owners.length()>0) owners = owners.substring(0,owners.length()-2);
-            skill.addField("Owners", owners, false);
 
 
 
             //test displays
             if (x instanceof StatModifier) {
                 int[] statModifiers = ((StatModifier) x).getStatModifiers();
-                String printedStatModifiers = "```\n"+printStats(statModifiers)+"\n```";
-                skill.addBlankField(false);
-                skill.addField("stat modifiers", printedStatModifiers, false);
+                boolean modifiesStats = false;
+                for (int stat:statModifiers) if (stat!=0) {
+                    modifiesStats = true;
+                    break;
+                }
+                if (modifiesStats) {
+                    String printedStatModifiers = "```\n" + printStats(statModifiers) + "\n```";
+                    skill.addBlankField(false);
+                    skill.addField("stat modifiers", printedStatModifiers, false);
+                }
             }
 
             e.getChannel().sendMessage(skill.build()).queue();
@@ -165,10 +173,6 @@ public class SkillRetriever extends Command {
         statString.append("\n");
 
         return statString.toString();
-    }
-
-    private static String printEmote(Emote e) {
-        return "<:"+e.getName()+":"+e.getId()+">";
     }
 
 

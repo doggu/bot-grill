@@ -72,6 +72,6 @@ public class Game extends TextGame {
     private Point getCoords(String p) throws NumberFormatException {
         char c = p.charAt(0);
         int r = Integer.parseInt(p.substring(1));
-        return new Point(r-1,c-'a');
+        return new Point(board.getDimensions().x-r,c-'a');
     }
 }

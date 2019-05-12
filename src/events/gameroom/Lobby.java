@@ -49,8 +49,8 @@ public abstract class Lobby extends ReactionListener {
     private void startGame() {
         sendMessage("a game of "+getName()+" begins!");
         TextGame game = getGame();
-        BotMain.bot_grill.removeEventListener(this);
-        BotMain.bot_grill.addEventListener(game);
+        BotMain.removeListener(this);
+        BotMain.addListener(game);
     }
 
 
@@ -62,7 +62,7 @@ public abstract class Lobby extends ReactionListener {
             return false;
         }
 
-        //if it's this bot; this kinda sucks (what if other bots want to play!?)
+        //if it's this bot; this kinda sucks (what if other bots want to play?!)
         if (e.getUser().isBot()) return false;
         //joined players (namely host, who doesn't have to react) cannot join twice
         if (players.contains(e.getUser())) return false;

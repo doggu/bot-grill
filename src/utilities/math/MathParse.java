@@ -12,32 +12,34 @@ import java.util.function.Function;
 
 public class MathParse {
     private static final char
-            PLUS = '+',
-            MINUS = '-',
-            TIMES = '*',
-            DIVIDE = '/',
-            POWER = '^',
-            MODULO = '%',
+                    PLUS = '+',
+                    MINUS = '-',
+                    TIMES = '*',
+                    DIVIDE = '/',
+                    POWER = '^',
+                    MODULO = '%',
 
-            VARIABLE = 'x',
+                    VARIABLE = 'x',
 
-            PI = 'π',
-            PHI = 'p',
-            E = 'e',
+                    PI = 'π',
+                    PHI = 'p',
+                    E = 'e',
 
-            SIN = 's',
-            COS = 'c',
-            TAN = 't',
-            ASIN = 'S',
-            ACOS = 'C',
-            ATAN = 'T',
-            SINH = 'ś',
-            COSH = 'ć',
-            TANH = 'ţ',
+                    SIN = 's',
+                    COS = 'c',
+                    TAN = 't',
+                    ASIN = 'S',
+                    ACOS = 'C',
+                    ATAN = 'T',
+                    SINH = 'ś',
+                    COSH = 'ć',
+                    TANH = 'ţ',
 
-            SQRT = 'q',
-            LOG = 'l',
-            LN = 'n';
+                    LOG = 'l',
+                    LN = 'n',
+                    SQRT = 'q',
+                    FLOOR = 'f',
+                    CEIL = 'r';
 
     private static final double PHI_N = (1+Math.pow(5,0.5))/2;
 
@@ -45,7 +47,7 @@ public class MathParse {
 
     private static final char[][] OoO /*order of operations*/ = {
             //special functions come first, since they are the equivalent of 1*[fn](arg)
-            {SIN, COS, TAN, ASIN, ACOS, ATAN, SINH, LOG, LN, SQRT},
+            {SIN, COS, TAN, ASIN, ACOS, ATAN, SINH, LOG, LN, SQRT, FLOOR, CEIL},
             //pEmdas
             {POWER},
             //peMDas (multiplication and modulo)
@@ -81,7 +83,10 @@ public class MathParse {
                 .replaceAll("tan",TAN+"")
                 //logarithmic functions
                 .replaceAll("log",LOG+"")
-                .replaceAll("ln",LN+"");
+                .replaceAll("ln",LN+"")
+                .replaceAll("sqrt",SQRT+"")
+                .replaceAll("floor",FLOOR+"")
+                .replaceAll("ceil",CEIL+"");
     }
 
 
@@ -160,6 +165,8 @@ public class MathParse {
                 case LOG:
                 case LN:
                 case SQRT:
+                case FLOOR:
+                case CEIL:
                     if (ops.size()==fxns.size())
                         fxns.add(x -> 1.0);
                     ops.add(c);
@@ -238,6 +245,8 @@ public class MathParse {
             case LOG: newF = y -> a.apply(y)*Math.log10(b.apply(y)); break;
             case LN: newF = y -> a.apply(y)*Math.log(b.apply(y)); break;
             case SQRT: newF = y -> a.apply(y)*Math.pow(b.apply(y),0.5); break;
+            case FLOOR: newF = y -> a.apply(y)*Math.floor(b.apply(y)); break;
+            case CEIL: newF = y -> a.apply(y)*Math.ceil(b.apply(y)); break;
             default:
                 System.out.println("invalid operator detected");
                 throw new Error();

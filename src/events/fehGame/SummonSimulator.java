@@ -74,10 +74,10 @@ public class SummonSimulator extends Gameroom {
                         return;
                     }
 
-                        /* more accurate
-                        sendMessage("please close your previous session before starting a new one.");
-                        return;
-                        */
+                    /* more accurate
+                    sendMessage("please close your previous session before starting a new one.");
+                    return;
+                    */
                 }
             } else {
                 System.out.println(x.getUser().getId()+" does not equal "+e.getAuthor().getId());
@@ -212,11 +212,11 @@ public class SummonSimulator extends Gameroom {
     }
 
     public void onCommand() {
-        switch (args[0]) {
+        switch (args[0].toLowerCase()) {
             case "summon":
                 createSession();
                 break;
-            case "simulateDay":
+            case "simulateday":
                 simulateDay();
                 break;
         }

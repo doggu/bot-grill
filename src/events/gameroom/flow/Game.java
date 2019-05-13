@@ -27,6 +27,20 @@ public class Game extends TextGame {
     public boolean isCommand() {
         if (!e.getAuthor().equals(player)) return false;
         if (!e.getChannel().equals(channel)) return false;
+        if (args[0].equalsIgnoreCase("quit")) {
+            commitSuicide();
+            return false;
+        }
+        if (args[0].equalsIgnoreCase("undo")) {
+            try {
+                board.undo();
+            } catch (IndexOutOfBoundsException f) {
+                sendMessage("you have no actions to undo!");
+                return false;
+            }
+            sendFile(board.printBoard());
+            return false;
+        }
         if (!args[0].equalsIgnoreCase("draw")) return false;
         if (args.length != 3) {
             sendMessage("incorrect format. please try again!");

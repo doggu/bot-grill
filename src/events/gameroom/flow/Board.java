@@ -2,6 +2,8 @@ package events.gameroom.flow;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.font.FontRenderContext;
+import java.awt.font.TextLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -92,33 +94,48 @@ public class Board {
         //gee i wonder if i got the dimension order properly huOooooDe doOO
     }
 
-    private static final int SCALE = 128;
+    //must be a number divisible by 32 and 3 (96 is the minimum)
+    private static final int SCALE = 96;
 
     File printBoard() {
         BufferedImage mapState =
                 new BufferedImage(
-                        SCALE*game[0].length,
-                        SCALE*game.length,
+                        SCALE*(game[0].length+1),
+                        SCALE*(game.length+1),
                         BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics = mapState.createGraphics();
         graphics.setBackground(Color.black);
 
 
-
-        //draw map grid
+        //draw map background
+        //grid
         graphics.setColor(Color.GRAY);
         for (int i = 0; i < DOTS[0].length+1; i++)
-            graphics.fillRect(i*SCALE-SCALE/32,0,SCALE/16, SCALE*(DOTS.length));
+            graphics.fillRect(SCALE*(1+i)-SCALE/32,0,SCALE/16, SCALE*(DOTS.length));
         for (int i = 0; i < DOTS.length+1; i++)
-            graphics.fillRect(0,i*SCALE-SCALE/32,SCALE*(DOTS[0].length), SCALE/16);
-
+            graphics.fillRect(SCALE,i*SCALE-SCALE/32,SCALE*(DOTS[0].length), SCALE/16);
+        //notation
+        graphics.setColor(Color.WHITE);
+        String name = "Courier New";
+        int style = Font.PLAIN;
+        int fontSize = 96;
+        Font font = new Font(name, style, fontSize);
+        FontRenderContext fontRenderContext = new FontRenderContext(null, true, false);
+        for (int i = 0; i < DOTS[0].length; i++)
+            new TextLayout(String.valueOf(DOTS.length-i),font, fontRenderContext)
+                    .draw(graphics,SCALE/6,SCALE*(1+i)-SCALE/6);
+            //graphics.drawString(String.valueOf((DOTS.length-i)),0,SCALE*i);
+        for (int i = 0; i < DOTS.length; i++)
+            new TextLayout(String.valueOf((char)('A'+i)),font, fontRenderContext)
+                    .draw(graphics,SCALE*7/6+SCALE*i,SCALE*(DOTS[0].length+1)-SCALE/6);
+            //graphics.drawString(String.valueOf((char)('A'+i)),SCALE+SCALE*i,SCALE*DOTS[0].length);
 
         //draw dots
         for (int i=0; i<DOTS.length; i++) {
             for (int j=0; j<DOTS[i].length; j++) {
                 if (DOTS[i][j]!=null) {
                     graphics.setColor(game[i][j]);
-                    graphics.fillOval(SCALE*j+SCALE/8,SCALE*i+SCALE/8,SCALE*3/4,SCALE*3/4);
+                    graphics.fillOval(SCALE+SCALE*j+SCALE/6,SCALE*i+SCALE/6,SCALE*2/3,SCALE*2/3);
                 }
             }
         }
@@ -135,9 +152,9 @@ public class Board {
                     start = end;
                     end = temp;
                 }
-                graphics.fillRoundRect(SCALE*start.y+SCALE/4,SCALE*start.x+SCALE/4,
-                        SCALE*(end.y-start.y)+SCALE/2,SCALE*(end.x-start.x)+SCALE/2,
-                        SCALE/2,SCALE/2);
+                graphics.fillRoundRect(SCALE+SCALE*start.y+SCALE/3,SCALE*start.x+SCALE/3,
+                        SCALE*(end.y-start.y)+SCALE/3,SCALE*(end.x-start.x)+SCALE/3,
+                        SCALE/3,SCALE/3);
             }
         }
 

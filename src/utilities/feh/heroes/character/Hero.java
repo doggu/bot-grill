@@ -5,7 +5,7 @@ import utilities.feh.skills.Skill;
 
 import java.util.*;
 
-//TODO: include base skills
+
 
 public class Hero {
     private final HeroName fullName;

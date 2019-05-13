@@ -1,5 +1,7 @@
 package events.commands;
 
+import events.MessageListener;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
@@ -9,7 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Draw extends Command {
+public class Draw extends MessageListener {
     private static final int WIDTH = 6, HEIGHT = 8, SCALE = 64;
     private static final String FACE_PATH = "./libs/heroes";
     private static final ArrayList<BufferedImage> heroFaces = getImagesFromFolder(new File(FACE_PATH));
@@ -82,11 +84,7 @@ public class Draw extends Command {
         }
     }
 
-    public String getName() { return "Draw"; }
-    public String getDescription() { return "a test for still 2D graphics in Discord!"; }
-    public String getFullDescription() {
-        return "A small demo which allows me to draw you a picture with your chosen text.\n" +
-                "\tSyntax: \"?DrawTest [text]\n" +
-                "any words after the initial argument (draw) will be drawn into the image!";
-    }
+
+
+    public char getPrefix() { return '&'; }
 }

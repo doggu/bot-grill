@@ -251,34 +251,26 @@ public class MathParse {
         ops.remove(i);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] arg) {
         double[] TV = {0,1,2,3,4,5,6,7,Math.PI,Math.E};
         double[] OV = new double[TV.length];
 
         System.out.print("enter a function: ");
         Scanner input = new Scanner(System.in);
-        String function = input.nextLine();
-        while (!function.equals("quit")) {
+        String[] args = input.nextLine().split(" ");
+        while (!args[0].equals("quit")) {
+            if (args.length<2) continue;
+            double start = Double.parseDouble(args[0]);
+            String function = args[1];
             try {
                 Function<Double,Double> f = new MathParse(function).getFunction();
-                for (int i=0; i<TV.length; i++) OV[i] = f.apply(TV[i]);
-
-                System.out.println("evaulations for test values:");
-
-                String divisor = "+-----+-----------\n";
-                String table = divisor +
-                        "|  I  |  O\n";
-                for (int i=0; i<TV.length; i++)
-                    table+= divisor +
-                            "| "+TV[i]+" | "+OV[i]+"\n";
-
-                System.out.println(table);
+                System.out.println(GradientDescent.gradientDescent(f, start));
             } catch (Error format) {
                 System.out.println("incorrect format!");
             }
 
             System.out.print("enter a function: ");
-            function = input.nextLine();
+            args = input.nextLine().split(" ");
         }
     }
 }

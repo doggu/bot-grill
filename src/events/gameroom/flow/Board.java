@@ -8,16 +8,37 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Board {
-    private static final Color[][] DOTS = {
-            {null, null, null, null, null, null, null},
-            {Color.BLUE, Color.YELLOW, null, null, null, Color.CYAN, Color.GREEN},
-            {Color.ORANGE, Color.BLUE, null, null, null, null, Color.RED},
-            {null, null, Color.YELLOW, null, null, null, null},
-            {null, null, null, null, null, Color.CYAN, null},
-            {null, null, null, Color.ORANGE, null, Color.GREEN, null},
-            {Color.RED, null, null, null, null, null, null},
+    private HashMap<Character,Color> COLOR_CODES = getColors();
+    private HashMap<Character,Color> getColors() {
+        HashMap<Character,Color> colors = new HashMap<>();
+        colors.put('a',Color.RED);
+        colors.put('b',Color.GREEN);
+        colors.put('c',Color.BLUE);
+        colors.put('d',Color.YELLOW);
+        colors.put('e',Color.ORANGE);
+        colors.put('f',Color.CYAN);
+        colors.put('g',Color.PINK);
+        colors.put('h',new Color(172, 0, 0));
+        colors.put('i',new Color(109, 0, 133));
+        return colors;
+    }
+
+
+
+    private static final Character[][] DOTS = {
+            {'n','n','n','n','n','i','c','e','n','n',},
+            {'n','n','n','n','n','n','n','n','n','n',},
+            {'n','f','n','n','n','n','n','f','n','e',},
+            {'n','n','h','c','n','n','n','n','n','n',},
+            {'b','n','n','n','n','n','n','n','g','n',},
+            {'n','d','n','n','n','n','n','n','n','n',},
+            {'n','n','n','b','a','n','n','n','g','n',},
+            {'n','n','n','n','n','n','n','h','n','n',},
+            {'n','d','n','n','i','n','n','n','n','a',},
+            {'n','n','n','n','n','n','n','n','n','n',},
     };
 
     private Color[][] game;
@@ -27,7 +48,10 @@ public class Board {
 
 
     Board() {
-        game = DOTS.clone();
+        game = new Color[DOTS.length][DOTS[0].length];
+        for (int i=0; i<DOTS.length; i++)
+            for (int j=0; j<DOTS[i].length; j++)
+                game[i][j] = COLOR_CODES.get(DOTS[i][j]);
         colors = new ArrayList<>();
         for (Color[] dots : game)
             for (Color dot : dots)
@@ -41,7 +65,7 @@ public class Board {
 
 
     boolean drawLine(Point p, char[] dx) throws NullPointerException, IndexOutOfBoundsException {
-        Color start = DOTS[p.x][p.y];
+        Color start = game[p.x][p.y];
 
         Point path = (Point) p.clone();
         ArrayList<Point> groundCover = new ArrayList<>();
@@ -73,7 +97,7 @@ public class Board {
             groundCover.add((Point)path.clone());
         }
 
-        if (!DOTS[path.x][path.y].equals(start)) return false;
+        if (!game[path.x][path.y].equals(start)) return false;
         lines.add(groundCover);
         return true;
     }
@@ -93,6 +117,8 @@ public class Board {
         return new Point(game.length, game[0].length);
         //gee i wonder if i got the dimension order properly huOooooDe doOO
     }
+
+
 
     //must be a number divisible by 32 and 3 (96 is the minimum)
     private static final int SCALE = 96;
@@ -133,7 +159,7 @@ public class Board {
         //draw dots
         for (int i=0; i<DOTS.length; i++) {
             for (int j=0; j<DOTS[i].length; j++) {
-                if (DOTS[i][j]!=null) {
+                if (game[i][j]!=null) {
                     graphics.setColor(game[i][j]);
                     graphics.fillOval(SCALE+SCALE*j+SCALE/6,SCALE*i+SCALE/6,SCALE*2/3,SCALE*2/3);
                 }
@@ -143,7 +169,7 @@ public class Board {
         //draw paths
         for (ArrayList<Point> line:lines) {
             Point dot = line.get(0);
-            graphics.setColor(DOTS[dot.x][dot.y]);
+            graphics.setColor(game[dot.x][dot.y]);
             for (int i=0; i<line.size()-1; i++) {
                 Point start = line.get(i);
                 Point end = line.get(i+1);

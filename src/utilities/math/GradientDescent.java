@@ -14,11 +14,7 @@ public class GradientDescent {
 
         while (Math.abs(previousStepSize) > precision) {
             prevX = curX;
-
-            curX -= gamma * f.apply(prevX);
-
-            double stepSize = curX - prevX;
-
+            curX -= gamma * Math.abs(f.apply(prevX));
             previousStepSize = curX - prevX;
         }
         return curX;

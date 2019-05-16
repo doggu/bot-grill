@@ -31,7 +31,7 @@ public class GradientDescentListener extends Command {
 
         double minimum = GradientDescent.gradientDescent(fxn, start);
 
-        sendMessage("the minimum for "+start+" is: "+minimum);
+        sendMessage("the minimum for f'(x)="+args[2]+" near "+start+" is: "+minimum);
     }
 
     public boolean isCommand() {

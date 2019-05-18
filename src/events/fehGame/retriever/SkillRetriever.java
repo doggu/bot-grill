@@ -8,17 +8,10 @@ import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+import static utilities.feh.skills.SkillDatabase.SKILLS;
+import static utilities.feh.skills.SkillDatabase.HERO_SKILLS;
+
 public class SkillRetriever extends Command {
-    private final List<Skill> skills;
-
-
-
-    public SkillRetriever() {
-        skills = SkillDatabase.SKILLS;
-    }
-
-
-
     private void getSkills() {
         List<String> nameArr = new ArrayList<>(Arrays.asList(args));
         nameArr.remove(0);
@@ -29,7 +22,7 @@ public class SkillRetriever extends Command {
         name.delete(name.length()-1, name.length());
 
         List<Skill> candidates = new ArrayList<>();
-        for (Skill x:skills) {
+        for (Skill x:SKILLS) {
             if (x.getName().toLowerCase().contains(name.toString().toLowerCase())) {
                 candidates.add(x);
             }
@@ -103,22 +96,22 @@ public class SkillRetriever extends Command {
             skill.setThumbnail(skillIcons.get(x.getSlot()));
 
             if (x instanceof Weapon) {
-                skill.addField("Might", ((Weapon) x).getMt()+"", false);
+                skill.addField("Might", String.valueOf(((Weapon) x).getMt()), false);
             }
 
             if (x instanceof ActionSkill) { //instanceof targeting skill
-                skill.addField("Range", ""+((ActionSkill) x).getRng(), false);
+                skill.addField("Range", String.valueOf(((ActionSkill) x).getRng()), false);
             }
 
             if (x instanceof Special) {
-                skill.addField("Cooldown", ""+((Special) x).getCooldown(), false);
+                skill.addField("Cooldown", String.valueOf(((Special) x).getCooldown()), false);
             }
 
             if (!(x instanceof PassiveS)) {
-                Set<String> heroes = SkillDatabase.HERO_SKILLS.keySet();
+                Set<String> heroes = HERO_SKILLS.keySet();
                 StringBuilder owners = new StringBuilder();
                 for (String n : heroes) {
-                    if (SkillDatabase.HERO_SKILLS.get(n).contains(x)) {
+                    if (HERO_SKILLS.get(n).contains(x)) {
                         owners.append(n).append(", ");
                     }
                 }
@@ -143,7 +136,7 @@ public class SkillRetriever extends Command {
                 }
             }
 
-            e.getChannel().sendMessage(skill.build()).queue();
+            sendMessage(skill.build());
         }
 
 
@@ -156,10 +149,8 @@ public class SkillRetriever extends Command {
                 report.append("\n\t");
             }
             report.append(x.getName());
-            if (i!=candidates.size()-1) {
-                report.append(", ");
-            }
         }
+        report.deleteCharAt(report.length()-1);
 
         log(report.toString());
     }

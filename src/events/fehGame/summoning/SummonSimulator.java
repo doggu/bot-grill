@@ -1,4 +1,4 @@
-package events.fehGame;
+package events.fehGame.summoning;
 
 import events.gameroom.Gameroom;
 import main.BotMain;
@@ -7,60 +7,27 @@ import utilities.feh.players.Summoner;
 import utilities.feh.summoning.Banner;
 import utilities.feh.summoning.BannerDatabase;
 
-import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
 public class SummonSimulator extends Gameroom {
-    static List<Summoner> summoners = new ArrayList<>();
+    public static List<Summoner> summoners = new ArrayList<>();
     private List<Banner> BANNERS = BannerDatabase.BANNERS;
 
 
-    //TODO: move this to a different listener (i feel like i've written this before)
-    private void simulateDay() {
-        GregorianCalendar day;
-        try {
-            day = parseDate(args[1]);
-        } catch (Exception g) {
-            sendMessage("incorrect date format!");
-            log("user formatted their date wrong: "+args[1]);
-            return;
-        }
 
-        List<Banner> openBanners = new ArrayList<>();
-        for (Banner x: BannerDatabase.BANNERS) {
-            System.out.print(x.getName()+": ");
-            if (x.getStartDate().compareTo(day)<0&&
-                        x.getEndDate().compareTo(day)>0) {
-                System.out.println("added");
-                openBanners.add(x);
-            } else {
-                System.out.println("rejected");
-            }
-        }
-
-        String msg = "list of open banners:\n";
-        StringBuilder bannerNames = new StringBuilder();
-        for (Banner x:openBanners) {
-            bannerNames.append(x.getName())
-                    .append("\n");
-        }
-
-        msg+= bannerNames.toString();
-
-        if (msg.length()>2000) {
-            sendMessage("sorry, there was a problem...");
-            log("damn son "+args[1]+" had a lotta banners");
-            return;
-        } else {
-            sendMessage(msg);
-            log("simulated a date in FEH summoning");
-        }
+    private static String printDate(GregorianCalendar date) {
+        return "" +
+                date.get(GregorianCalendar.MONTH) +
+                "/" + date.get(GregorianCalendar.DAY_OF_MONTH) +
+                "/" + date.get(GregorianCalendar.YEAR);
     }
 
-    private void createSession() {
+
+
+    public void onCommand() {
         for (Summoner x:summoners) {
             if (x.getUser().getId().equals(e.getAuthor().getId())) {
                 System.out.println("found a registered summoner");
@@ -125,7 +92,7 @@ public class SummonSimulator extends Gameroom {
             message+= x.getFullName().getName();
             if (x.getFullName().isAmbiguousName())
                 message+= " ("+x.getWeaponType()+" "+x.getMoveType()+")";
-                            //there are three axe armor hectors btw
+            //there are three axe armor hectors btw
             message+= ", ";
         }
         message = message.substring(0,message.length()-2);
@@ -179,46 +146,7 @@ public class SummonSimulator extends Gameroom {
         log(report);
     }
 
-
-
-    private GregorianCalendar parseDate(String date) throws NumberFormatException {
-        //TODO: make this less basic
-        String[] nums = date.split("-");
-        int year, month, day;
-        year = Integer.parseInt(nums[2]);
-        month = Integer.parseInt(nums[0])-1; //guess i'll make this note again to drill it into my head
-        day = Integer.parseInt(nums[1]);
-                                         //honestly am i really going to make a switch case for an int to find a field which is just another int (which is one less than the already-defined int)
-        return new GregorianCalendar(year, month, day);
-    }
-
-    private static String printDate(GregorianCalendar date) {
-        return "" +
-                date.get(GregorianCalendar.MONTH) +
-                "/" + date.get(GregorianCalendar.DAY_OF_MONTH) +
-                "/" + date.get(GregorianCalendar.YEAR);
-    }
-
-    private static String printDate(OffsetDateTime date) {
-        return date.getMonth() +
-                "/" + date.getDayOfMonth() +
-                "/" + date.getYear();
-    }
-
-
-
     public boolean isCommand() {
-        return args[0].equalsIgnoreCase("summon")||args[0].equalsIgnoreCase("simulateDay");
-    }
-
-    public void onCommand() {
-        switch (args[0].toLowerCase()) {
-            case "summon":
-                createSession();
-                break;
-            case "simulateday":
-                simulateDay();
-                break;
-        }
+        return args[0].equalsIgnoreCase("summon");
     }
 }

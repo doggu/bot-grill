@@ -1,4 +1,4 @@
-package events.fehGame;
+package events.fehGame.summoning;
 
 import events.ReactionListener;
 import events.fehGame.retriever.HeroRetriever;
@@ -113,22 +113,6 @@ public class CircleSimulator extends ReactionListener {
 
 
     @Override
-    protected boolean isCommand() {
-        if (!summoner.getUser().equals(e.getUser())) return false;
-        if (!e.getMessageId().equals(circleMessage.getId())) return false;
-        if (!e.getMessageId().equals(circleMessage.getId())) return false; //what the fuck
-        if (e.getReaction().isSelf()) return false; //it's for readability i swear
-
-        //these are apparently equivalent
-        //System.out.println(e.getReaction().getReactionEmote().getId());
-        //System.out.println(e.getReaction().getReactionEmote().getEmote().getId());
-
-        //ReactionPaginationAction g = event.getReaction().getUsers();
-
-        return true;
-    }
-
-    @Override
     protected void onCommand() {
         //the summoner has selected a stone, and a unit must be presented
 
@@ -201,5 +185,14 @@ public class CircleSimulator extends ReactionListener {
 
         if (circleComplete)
             closeCircle();
+    }
+
+    @Override
+    protected boolean isCommand() {
+        if (!summoner.getUser().equals(e.getUser())) return false;
+        if (!e.getMessageId().equals(circleMessage.getId())) return false;
+        if (!e.getMessageId().equals(circleMessage.getId())) return false; //what the fuck
+        if (e.getReaction().isSelf()) return false;
+        return true;
     }
 }

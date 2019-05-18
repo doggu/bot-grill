@@ -10,7 +10,8 @@ import events.commands.math.GradientDescentListener;
 import events.commands.math.Maffs;
 import events.fehGame.Allies;
 import events.fehGame.OrbBalance;
-import events.fehGame.SummonSimulator;
+import events.fehGame.summoning.SummonSimulator;
+import events.fehGame.summoning.SimulateDay;
 import events.Vote;
 import events.fehGame.retriever.HeroRetriever;
 import events.fehGame.retriever.SkillRetriever;
@@ -48,8 +49,6 @@ public class BotMain {
 
     public static void main(String[] args) throws Exception {
         //construct listeners beforehand so bot is ready as soon as she goes live
-        ListenerAdapter listenerGD = new GradientDescentListener();
-
         ListenerAdapter listenerHelp = new Help();
         ListenerAdapter listenerChances = new Chances();
         ListenerAdapter listenerRoll = new Roll();
@@ -59,8 +58,10 @@ public class BotMain {
         ListenerAdapter listenerGirl = new Girl();
         ListenerAdapter listenerDevTools = new DevTools();
         ListenerAdapter listenerSummonSimulator = new SummonSimulator();
+        ListenerAdapter listenerSimulateDay = new SimulateDay();
         ListenerAdapter listenerReactions = new Reactions();
         ListenerAdapter listenerMaffs = new Maffs();
+        ListenerAdapter listenerGD = new GradientDescentListener();
         ListenerAdapter listenerEmbedTest = new EmbedTest();
         ListenerAdapter listenerVote = new Vote();
         ListenerAdapter listenerDraw = new Draw();
@@ -78,8 +79,6 @@ public class BotMain {
         stones = bot_grill.getGuildsByName("summonicons", true).get(0).getEmotes();
         fehIcons = bot_grill.getGuildsByName("fehicons", true).get(0).getEmotes();
 
-        addListener(listenerGD);
-
         addListener(listenerHelp);
         addListener(listenerChances);
         addListener(listenerRoll);
@@ -89,8 +88,10 @@ public class BotMain {
         addListener(listenerGirl);
         addListener(listenerDevTools);
         addListener(listenerSummonSimulator);
+        addListener(listenerSimulateDay);
         addListener(listenerReactions);
         addListener(listenerMaffs);
+        addListener(listenerGD);
         addListener(listenerEmbedTest);
         addListener(listenerVote);
         addListener(listenerDraw);
@@ -98,6 +99,8 @@ public class BotMain {
         addListener(listenerCreateLobby);
         addListener(listenerAllies);
         addListener(listenerFracCalcListener);
+
+
 
         Scanner console = new Scanner(System.in);
         
@@ -108,63 +111,6 @@ public class BotMain {
                     for (Object x:bot_grill.getRegisteredListeners()) {
                         System.out.println(x);
                     }
-                case "refresh": //TODO: make this based on already-present listeners (excluding CircleSimulator)
-                    removeListener(listenerHelp);
-                    removeListener(listenerChances);
-                    removeListener(listenerRoll);
-                    removeListener(listenerSkillRetriever);
-                    removeListener(listenerHeroRetriever);
-                    removeListener(listenerEmotes);
-                    removeListener(listenerGirl);
-                    removeListener(listenerDevTools);
-                    removeListener(listenerSummonSimulator);
-                    removeListener(listenerReactions);
-                    removeListener(listenerMaffs);
-                    removeListener(listenerEmbedTest);
-                    removeListener(listenerVote);
-                    removeListener(listenerDraw);
-                    removeListener(listenerOrbBalance);
-                    removeListener(listenerCreateLobby);
-                    removeListener(listenerAllies);
-                    removeListener(listenerFracCalcListener);
-
-                    listenerHelp = new Help();
-                    listenerChances = new Chances();
-                    listenerRoll = new Roll();
-                    listenerSkillRetriever = new SkillRetriever();
-                    listenerHeroRetriever = new HeroRetriever();
-                    listenerEmotes = new Emotes();
-                    listenerGirl = new Girl();
-                    listenerDevTools = new DevTools();
-                    listenerSummonSimulator = new SummonSimulator();
-                    listenerReactions = new Reactions();
-                    listenerMaffs = new Maffs();
-                    listenerEmbedTest = new EmbedTest();
-                    listenerVote = new Vote();
-                    listenerDraw = new Draw();
-                    listenerOrbBalance = new OrbBalance();
-                    listenerCreateLobby = new CreateLobby();
-                    listenerAllies = new Allies();
-                    listenerFracCalcListener = new FracCalcListener();
-
-                    addListener(listenerHelp);
-                    addListener(listenerChances);
-                    addListener(listenerRoll);
-                    addListener(listenerSkillRetriever);
-                    addListener(listenerHeroRetriever);
-                    addListener(listenerEmotes);
-                    addListener(listenerGirl);
-                    addListener(listenerDevTools);
-                    addListener(listenerSummonSimulator);
-                    addListener(listenerReactions);
-                    addListener(listenerMaffs);
-                    addListener(listenerEmbedTest);
-                    addListener(listenerVote);
-                    addListener(listenerDraw);
-                    addListener(listenerOrbBalance);
-                    addListener(listenerCreateLobby);
-                    addListener(listenerAllies);
-                    addListener(listenerFracCalcListener);
                     break;
                 default:
                     System.out.println("command not found.");

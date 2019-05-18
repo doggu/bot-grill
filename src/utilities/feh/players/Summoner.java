@@ -1,6 +1,6 @@
 package utilities.feh.players;
 
-import events.fehGame.CircleSimulator;
+import events.fehGame.summoning.CircleSimulator;
 import net.dv8tion.jda.core.entities.User;
 
 public class Summoner {

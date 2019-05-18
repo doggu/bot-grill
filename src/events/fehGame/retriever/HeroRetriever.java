@@ -385,7 +385,7 @@ public class HeroRetriever extends Command {
         List<Emote> fehIconEmotes = BotMain.fehIcons;
 
         String info =
-                "**" + x.getFullName() + "**" + "\n" +
+                (rarity==5?"**":"") + x.getFullName() + (rarity==5?"**":"") + "\n" +
                         "Appears In: *" + x.getOrigin() + "*\n" +
                         "Date Released: "
                         + (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" //starts at 0 (january = 0)

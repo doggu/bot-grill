@@ -1,11 +1,12 @@
 package utilities.math;
 
+import java.util.Scanner;
 import java.util.function.Function;
 import java.lang.Math;
 
 public class GradientDescent {
     private static double gamma = 0.01;
-    private static double precision = 0.00001;
+    private static double precision = 0.00000001;
 
 
     public static double gradientDescent(Function<Double,Double> f, double curX) {
@@ -14,15 +15,34 @@ public class GradientDescent {
 
         while (Math.abs(previousStepSize) > precision) {
             prevX = curX;
-            curX -= gamma * Math.abs(f.apply(prevX));
+            curX -= gamma*f.apply(prevX);
             previousStepSize = curX - prevX;
         }
         return curX;
     }
 
     public static void main(String[] args) {
-        Function<Double,Double> df = x ->  4 * Math.pow(x, 3) - 9 * Math.pow(x, 2);
-        double res = gradientDescent(df, 6);
-        System.out.printf("The local minimum occurs at %f", res);
+        System.out.print("enter a function: ");
+        Scanner input = new Scanner(System.in);
+        String[] arguments = input.nextLine().split(" ");
+        while (!arguments[0].equals("quit")) {
+            if (arguments.length<2) {
+                System.out.println("incorrect format!");
+                System.out.print("enter a function: ");
+                arguments = input.nextLine().split(" ");
+                continue;
+            }
+            double start = Double.parseDouble(arguments[0]);
+            String function = arguments[1];
+            try {
+                Function<Double,Double> f = new MathParse(function).getFunction();
+                System.out.println(GradientDescent.gradientDescent(f, start));
+            } catch (Error format) {
+                System.out.println("incorrect format!");
+            }
+
+            System.out.print("enter a function: ");
+            arguments = input.nextLine().split(" ");
+        }
     }
 }

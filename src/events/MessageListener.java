@@ -3,6 +3,7 @@ package events;
 import main.BotMain;
 import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.MessageEmbed;
 import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import net.dv8tion.jda.core.requests.restaction.MessageAction;
@@ -49,6 +50,7 @@ public abstract class MessageListener extends ListenerAdapter {
         return sendMessage(""+message);
     }
     protected Message sendMessage(boolean message) { return sendMessage(""+message); }
+    protected Message sendMessage(MessageEmbed message) { return e.getChannel().sendMessage(message).complete(); }
 
     protected Message sendFile(File file) { return e.getChannel().sendFile(file).complete(); }
 

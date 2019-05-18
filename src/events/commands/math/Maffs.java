@@ -44,7 +44,7 @@ public class Maffs extends Command {
         double value = new MathParse(problem).getFunction().apply(tv);
 
         if (problem.contains("x"))
-            sendMessage(problem + " evaulated at 1: " + value);
+            sendMessage(problem + " evaulated at "+tv+": " + value);
         else
             sendMessage(value);
 

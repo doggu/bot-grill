@@ -7,6 +7,7 @@ import utilities.math.MathParse;
 import java.util.function.Function;
 
 public class GradientDescentListener extends Command {
+    private final double ACCURACY = 0.000001;
 
     public void onCommand() {
         if (args.length<2) {
@@ -29,9 +30,11 @@ public class GradientDescentListener extends Command {
             return;
         }
 
-        double minimum = GradientDescent.gradientDescent(fxn, start);
+        Function<Double,Double> fxnPrime = x -> (fxn.apply(x)-fxn.apply(x-ACCURACY))/ACCURACY;
 
-        sendMessage("the minimum for f'(x)="+args[2]+" near "+start+" is: "+minimum);
+        double minimum = GradientDescent.gradientDescent(fxnPrime, start);
+
+        sendMessage("the minimum for f(x)="+args[2]+" near "+start+" is: "+minimum);
     }
 
     public boolean isCommand() {

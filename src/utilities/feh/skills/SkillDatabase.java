@@ -1,7 +1,6 @@
 package utilities.feh.skills;
 
 import utilities.WebScalper;
-import utilities.feh.heroes.character.MovementClass;
 import utilities.feh.heroes.character.WeaponClass;
 
 import java.io.BufferedReader;
@@ -20,11 +19,11 @@ public class SkillDatabase extends WebScalper {
             ASSISTS = "https://feheroes.gamepedia.com/Assists",
             SPECIALS = "https://feheroes.gamepedia.com/Specials",
             PASSIVES = "https://feheroes.gamepedia.com/Passives",
-            SACRED_SEALS_ALL = "https://feheroes.gamepedia.com/Sacred_Seals",
+            //SACRED_SEALS_ALL = "https://feheroes.gamepedia.com/Sacred_Seals",
 
-            SKILL_CHAINS_4_STARS = "https://feheroes.gamepedia.com/Skill_Chains_4_Stars_List",
-            SKILL_CHAINS_5_STARS = "https://feheroes.gamepedia.com/Skill_Chains_5_Stars_List",
-            LIST_OF_UPGRADABLE_WEAPONS = "https://feheroes.gamepedia.com/List_of_upgradable_weapons",
+            //SKILL_CHAINS_4_STARS = "https://feheroes.gamepedia.com/Skill_Chains_4_Stars_List",
+            //SKILL_CHAINS_5_STARS = "https://feheroes.gamepedia.com/Skill_Chains_5_Stars_List",
+            //LIST_OF_UPGRADABLE_WEAPONS = "https://feheroes.gamepedia.com/List_of_upgradable_weapons",
 
             HERO_BASE_SKILLS = "https://feheroes.gamepedia.com/Hero_skills_table";
 
@@ -202,106 +201,68 @@ public class SkillDatabase extends WebScalper {
         try {
             passiveData = readWebsite(PASSIVES);
             passiveTables = getTables(passiveData);
-        } catch (IOException g) { System.out.println("passives had an issue"); throw new Error(); }
-
+        } catch (IOException g) {
+            System.out.println("passives had an issue");
+            throw new Error();
+        }
 
 
         ArrayList<Passive> passives = new ArrayList<>();
 
-        for (ArrayList<String> x:passiveTables)
-            x.subList(0,5).clear();
+        for (ArrayList<String> x : passiveTables)
+            x.subList(0, 5).clear();
 
-        if (passiveTables.size()<4) {
+        if (passiveTables.size() < 4) {
             System.out.println("a table has gone missing from the passives website");
             throw new Error();
-        } else if (passiveTables.size()>4) {
+        } else if (passiveTables.size() > 4) {
             System.out.println("an unsolicited table has appeared in passives");
             throw new Error();
         } //else it's good dawg
 
-        Iterator<String>
-                passiveA = passiveTables.get(0).iterator(),
-                passiveB = passiveTables.get(1).iterator(),
-                passiveC = passiveTables.get(2).iterator(),
-                passiveS = passiveTables.get(3).iterator();
+
 
         Passive x;
-        while (passiveA.hasNext()) {
-            String name = passiveA.next();
-            int cost = -1;
-            StringBuilder desc = new StringBuilder();
-            //while cost is not defined, the description is being presented
-            while (cost<0) {
-                String line = passiveA.next();
-                try {
-                    cost = Integer.parseInt(line);
-                } catch (NumberFormatException g) {
-                    if (desc.length()>0) desc.append(" ");
-                    desc.append(line);
-                }
-            }
-            String description = desc.toString();
-            boolean exclusive = "Yes".equals(passiveA.next());
 
-            x = new PassiveA(name, description, cost, exclusive);
-            passives.add(x);
-        }
-        while (passiveB.hasNext()) {
-            String name = passiveB.next();
-            StringBuilder desc = new StringBuilder();
-            int cost = -1;
-            while (cost<0) {
-                String line = passiveB.next();
-                try {
-                    cost = Integer.parseInt(line);
-                } catch (NumberFormatException g) {
-                    if (desc.length()>0) desc.append(" ");
-                    desc.append(line);
+        for (int i=0; i<passiveTables.size(); i++) {
+            Iterator<String> iterator = passiveTables.get(i).iterator();
+            while (iterator.hasNext()) {
+                String name = iterator.next();
+                StringBuilder desc = new StringBuilder();
+                int cost = -1;
+                //while cost is not defined, the description is being presented
+                //it's 20XX, IS has introduced skills which give heroes SP
+                while (cost < 0) {
+                    String line = iterator.next();
+                    try {
+                        cost = Integer.parseInt(line);
+                    } catch (NumberFormatException g) {
+                        desc.append(" ");
+                        desc.append(line);
+                    }
                 }
-            }
-            String description = desc.toString();
-            boolean exclusive = "Yes".equals(passiveB.next());
+                String description = desc.substring(1);
+                boolean exclusive = "Yes".equals(iterator.next());
 
-            x = new PassiveB(name, description, cost, exclusive);
-            passives.add(x);
-        }
-        while (passiveC.hasNext()) {
-            String name = passiveC.next();
-            StringBuilder desc = new StringBuilder();
-            int cost = -1;
-            while (cost<0) {
-                String line = passiveC.next();
-                try {
-                    cost = Integer.parseInt(line);
-                } catch (NumberFormatException g) {
-                    if (desc.length()>0) desc.append(" ");
-                    desc.append(line);
+                switch (i) {
+                    case 0:
+                        x = new PassiveA(name, description, cost, exclusive);
+                        break;
+                    case 1:
+                        x = new PassiveB(name, description, cost, exclusive);
+                        break;
+                    case 2:
+                        x = new PassiveC(name, description, cost, exclusive);
+                        break;
+                    case 3:
+                        x = new PassiveS(name, description, cost, exclusive);
+                        break;
+                    default:
+                        System.out.println("what the fuck");
+                        throw new Error();
                 }
+                passives.add(x);
             }
-            String description = desc.toString();
-            boolean exclusive = "Yes".equals(passiveC.next());
-
-            x = new PassiveC(name, description, cost, exclusive);
-            passives.add(x);
-        }
-        while (passiveS.hasNext()) {
-            String name = passiveS.next();
-            StringBuilder desc = new StringBuilder();
-            int cost = -1;
-            while (cost<0) {
-                String line = passiveS.next();
-                try {
-                    cost = Integer.parseInt(line);
-                } catch (NumberFormatException g) {
-                    if (desc.length()>0) desc.append(" ");
-                    desc.append(line);
-                }
-            }
-            String description = desc.toString();
-            boolean exclusive = "Yes".equals(passiveS.next());
-
-            x = new PassiveS(name, description, cost, exclusive);
-            passives.add(x);
         }
 
 

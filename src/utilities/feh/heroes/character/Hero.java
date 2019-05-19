@@ -257,7 +257,7 @@ public class Hero {
             for (int i=0; i<3; i++) {
                 for (int j=0; j<5; j++) {
                     //TODO: expand with steps
-                    finalStats[i][j]+= (int)(0.39*(int)((this.stats.getGrowthsAsArray()[j]+5*(i-1))*rarityFactor/100.0));
+                    finalStats[i][j]+= (int)(0.39*((this.stats.getGrowthsAsArray()[j]+5*(i-1))*rarityFactor/100));
                 }
             }
         }
@@ -277,8 +277,8 @@ public class Hero {
             Hero x;
             try {
                 x = new Hero(name);
-            } catch (Exception g) {
-                System.out.println("invalid character name; try again:");
+            } catch (Error g) {
+                System.out.println("invalid character name; try again: ");
                 name = console.nextLine();
                 continue;
             }

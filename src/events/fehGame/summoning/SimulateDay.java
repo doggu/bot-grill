@@ -55,6 +55,7 @@ public class SimulateDay extends Command {
         }
         day = Integer.parseInt(nums[1]);
         //honestly am i really going to make a switch case for an int to find a field which is just another int (which is one less than the already-defined int)
+                                                    //yes
         return new GregorianCalendar(year, month, day);
     }
 

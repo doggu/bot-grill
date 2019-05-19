@@ -41,6 +41,19 @@ public class Game extends TextGame {
             sendFile(board.printBoard());
             return false;
         }
+        if (args[0].equalsIgnoreCase("clear")||
+                args[0].equalsIgnoreCase("restart")) {
+            try {
+                board.clear();
+            } catch (NullPointerException f) {
+                sendMessage("you have no actions to clear!");
+                return false;
+            }
+            sendFile(board.printBoard());
+            return false;
+        }
+
+
         if (!args[0].equalsIgnoreCase("draw")) return false;
         if (args.length != 3) {
             sendMessage("incorrect format. please try again!");

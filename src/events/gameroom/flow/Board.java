@@ -107,6 +107,12 @@ public class Board {
         lines.remove(lines.size()-1);
     }
 
+    void clear() throws NullPointerException {
+        if (lines.size()==0) throw new NullPointerException();
+        else
+            lines = new ArrayList<>();
+    }
+
     boolean completed() {
         return lines.size()==colors.size();
     }

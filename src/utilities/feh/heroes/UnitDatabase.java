@@ -8,8 +8,7 @@ import utilities.feh.heroes.character.HeroName;
 import utilities.feh.skills.Skill;
 import utilities.feh.skills.SkillDatabase;
 
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -153,7 +152,46 @@ public class UnitDatabase extends WebScalper {
         for (int i=0; i<7; i++)
             heroListData.next();
 
+        File lv1StatsFile = new File("./src/utilities/feh/webCache/lv1StatsData.txt");
+        File growthRatesFile = new File("./src/utilities/feh/webCache/growthRatesData.txt");
+        File heroListFile = new File("./src/utilities/feh/webCache/heroListData.txt");
 
+
+
+        FileWriter writer;
+
+        try {
+            writer = new FileWriter(lv1StatsFile);
+            while (lv1StatsData.hasNext()) {
+                writer.write(lv1StatsData.next());
+                if (lv1StatsData.hasNext()) writer.write('\n');
+            }
+            writer.close();
+        } catch (IOException f) {
+            throw new Error("lv1StatsFile didnt exist or something");
+        }
+
+        try {
+            writer = new FileWriter(growthRatesFile);
+            while (growthRatesData.hasNext()) {
+                writer.write(growthRatesData.next());
+                if (growthRatesData.hasNext()) writer.write('\n');
+            }
+            writer.close();
+        } catch (IOException f) {
+            throw new Error("growthRatesFile didnt exist or something");
+        }
+
+        try {
+            writer = new FileWriter(heroListFile);
+            while (heroListData.hasNext()) {
+                writer.write(heroListData.next());
+                if (heroListData.hasNext()) writer.write('\n');
+            }
+            writer.close();
+        } catch (IOException f) {
+            throw new Error("heroListFile didnt exist or something");
+        }
     }
 
     private static ArrayList<Hero> getList() {
@@ -161,77 +199,31 @@ public class UnitDatabase extends WebScalper {
 
 
 
-        BufferedReader lv1Stats, growthRates, heroList;
-
-        try {
-             lv1Stats = readWebsite(LV1_STATS);
-        } catch (IOException g) { System.out.println("lv1Stats had an issue"); throw new Error(); }
-
-        try {
-             growthRates = readWebsite(GROWTH_RATES);
-        } catch (IOException g) { System.out.println("growthRates had an issue"); throw new Error(); }
-
-        try {
-             heroList = readWebsite(HERO_LIST);
-        } catch (IOException g) { System.out.println("heroList had an issue"); throw new Error(); }
+        File    lv1StatsFile = new File("./src/utilities/feh/webCache/lv1StatsData.txt"),
+                growthRatesFile = new File("./src/utilities/feh/webCache/growthRatesData.txt"),
+                heroListFile = new File("./src/utilities/feh/webCache/heroListData.txt");
 
 
 
-        IntStream lv1StatsTable = null, growthRatesTable = null, heroListTable = null;
+        Scanner lv1StatsData = null, growthRatesData = null, heroListData = null;
 
-        try {
-            String line;
-            while ((line = lv1Stats.readLine()) != null) {
-                //the entire fucking table is on one line...
-                if (line.contains("<table class=\"wikitable sortable\"")) lv1StatsTable = line.chars();
+        int tries = 0;
+        while (lv1StatsData==null||growthRatesData==null||heroListData==null) {
+            try {
+                lv1StatsData = new Scanner(lv1StatsFile);
+                growthRatesData = new Scanner(growthRatesFile);
+                heroListData = new Scanner(heroListFile);
+            } catch (FileNotFoundException f) {
+                updateCache();
+                tries++;
+                if (tries>5) {
+                    System.out.println("it's time to stop");
+                    throw new Error();
+                }
             }
-            if (lv1StatsTable == null) {
-                System.out.println("lv1StatsTable got some issues");
-                throw new Error();
-            }
-
-            while ((line = growthRates.readLine()) != null) {
-                //same for all of em
-                if (line.contains("<table class=\"wikitable default sortable\"")) growthRatesTable = line.chars();
-            }
-            if (growthRatesTable == null) {
-                System.out.println("growthRatesTable got some issues");
-                throw new Error();
-            }
-
-            while ((line = heroList.readLine()) != null) {
-                //ugh
-                if (line.contains("<table class=\"wikitable default sortable\"")) heroListTable = line.chars();
-            }
-            if (heroListTable == null) {
-                System.out.println("heroListTable got some issues");
-                throw new Error();
-            }
-        } catch (IOException g) {
-            System.out.println("table finding ran into IOException");
-            throw new Error();
         }
 
-        Iterator<String> lv1StatsData = getItems(lv1StatsTable).iterator();
-        Iterator<String> growthRatesData = getItems(growthRatesTable).iterator();
-        Iterator<String> heroListData = getItems(heroListTable).iterator();
 
-        //remove initial junk data
-        /*
-        for (int i=0; i<7; i++)
-            System.out.println(lv1StatsData.next());
-        for (int i=0; i<12; i++)
-            System.out.println(growthRatesData.next());
-        for (int i=0; i<7; i++)
-            System.out.println(heroListData.next());
-        */
-
-        for (int i=0; i<7; i++)
-            lv1StatsData.next();
-        for (int i=0; i<12; i++)
-            growthRatesData.next();
-        for (int i=0; i<7; i++)
-            heroListData.next();
 
         while (lv1StatsData.hasNext()&&growthRatesData.hasNext()&&heroListData.hasNext()) {
             HeroConstructor x = new HeroConstructor();

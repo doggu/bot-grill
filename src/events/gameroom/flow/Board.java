@@ -140,6 +140,15 @@ public class Board {
 
 
         //draw map background
+        //hue of paths
+        for (ArrayList<Point> line:lines) {
+            Point dot = line.get(0);
+            Color full = game[dot.x][dot.y];
+            Color c = new Color(full.getRed(),full.getGreen(),full.getBlue(),96);
+            graphics.setColor(c);
+            for (Point p:line)
+                graphics.fillRect(SCALE+SCALE*p.y,SCALE*p.x,SCALE,SCALE);
+        }
         //grid
         graphics.setColor(Color.GRAY);
         for (int i = 0; i < DOTS[0].length+1; i++)

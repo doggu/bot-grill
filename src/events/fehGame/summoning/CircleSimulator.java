@@ -11,6 +11,7 @@ import utilities.feh.summoning.Banner;
 import utilities.feh.summoning.Stone;
 import utilities.feh.players.Summoner;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,30 +40,34 @@ public class CircleSimulator extends ReactionListener {
         for (Stone x:stones) {
             Emote stone;
             switch (x.getColor()) {
-                case "Red":
+                case 'r':
                     stone = circleMessage.getJDA()
-                            .getEmotesByName("r_stone_"+rStones, true).get(0);
+                            .getEmotesByName("r_stone_"+rStones, true)
+                            .get(0);
                     circleMessage.addReaction(stone).queue();
                     stoneEmotes.add(stone);
                     rStones++;
                     break;
-                case "Blue":
+                case 'g':
                     stone = circleMessage.getJDA()
-                            .getEmotesByName("b_stone_"+bStones, true).get(0);
-                    circleMessage.addReaction(stone).queue();
-                    stoneEmotes.add(stone);
-                    bStones++;
-                    break;
-                case "Green":
-                    stone = circleMessage.getJDA()
-                            .getEmotesByName("g_stone_"+gStones, true).get(0);
+                            .getEmotesByName("g_stone_"+gStones, true)
+                            .get(0);
                     circleMessage.addReaction(stone).queue();
                     stoneEmotes.add(stone);
                     gStones++;
                     break;
-                case "Colorless":
+                case 'b':
                     stone = circleMessage.getJDA()
-                            .getEmotesByName("c_stone_"+cStones, true).get(0);
+                            .getEmotesByName("b_stone_"+bStones, true)
+                            .get(0);
+                    circleMessage.addReaction(stone).queue();
+                    stoneEmotes.add(stone);
+                    bStones++;
+                    break;
+                case 'c':
+                    stone = circleMessage.getJDA()
+                            .getEmotesByName("c_stone_"+cStones, true)
+                            .get(0);
                     circleMessage.addReaction(stone).queue();
                     stoneEmotes.add(stone);
                     cStones++;

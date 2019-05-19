@@ -148,9 +148,9 @@ public class SkillRetriever extends Command {
             if (i%2==0) {
                 report.append("\n\t");
             }
-            report.append(x.getName());
+            report.append(x.getName()).append(", ");
         }
-        report.deleteCharAt(report.length()-1);
+        report.delete(report.length()-2, report.length());
 
         log(report.toString());
     }

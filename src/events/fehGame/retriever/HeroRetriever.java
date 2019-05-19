@@ -131,7 +131,7 @@ public class HeroRetriever extends Command {
             //test for rarity
             if (x.contains("*")) {
                 try {
-                    rarity = Integer.parseInt(x.substring(0,1));
+                    rarity = x.charAt(0)-'0';
                     args.remove(i);
                     i--;
                 } catch (NumberFormatException g) {
@@ -257,29 +257,29 @@ public class HeroRetriever extends Command {
                             break;
                     }
 
-                    String color;
+                    char color;
                     //find color hints
                     switch (x) {
                         case "r":
                         case "red":
-                            color = "Red";
+                            color = 'r';
                             break;
                         case "b":
                         case "blue":
-                            color = "Blue";
+                            color = 'b';
                             break;
                         case "g":
                         case "green":
-                            color = "Green";
+                            color = 'g';
                             break;
                         case "c":
                         case "gray":
                         case "grey":
                         case "colorless":
-                            color = "Colorless";
+                            color = 'c';
                             break;
                         default:
-                            color = "na";
+                            color = 'n';
                             break;
                     }
 
@@ -327,8 +327,8 @@ public class HeroRetriever extends Command {
                                 j--;
                             }
                         }
-                        if (!color.equals("na")) {
-                            if (!c.getColor().equals(color)) {
+                        if (color!='n') {
+                            if (c.getColor()!=color) {
                                 candidates.remove(j);
                                 j--;
                             }
@@ -412,7 +412,24 @@ public class HeroRetriever extends Command {
         }
 
         try { //get relevant data for calling the weapon color/type emote
-            String name = "Icon_Class_" + x.getColor() + "_" + x.getWeaponType();
+            String color;
+            switch (x.getColor()) {
+                case 'r':
+                    color = "Red";
+                    break;
+                case 'g':
+                    color = "Green";
+                    break;
+                case 'b':
+                    color = "Blue";
+                    break;
+                case 'c':
+                    color = "Colorless";
+                    break;
+                default:
+                    throw new Error("did not get a valid color (honestly how is this even possible");
+            }
+            String name = "Icon_Class_" + color + "_" + x.getWeaponType();
             weaponType = fehIconEmotes.get(0);
             for (Emote e:fehIconEmotes) {
                 weaponType = e;

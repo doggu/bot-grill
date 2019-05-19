@@ -3,6 +3,8 @@ package utilities.feh.summoning;
 import utilities.feh.heroes.character.Hero;
 import utilities.feh.heroes.unit.Unit;
 
+import java.awt.*;
+
 public class Stone {
     private final Banner banner;
     private final Unit hero;
@@ -64,5 +66,5 @@ public class Stone {
 
     public boolean isPulled() { return isPulled; }
 
-    public String getColor() { return hero.getColor(); }
+    public char getColor() { return hero.getColor(); }
 }

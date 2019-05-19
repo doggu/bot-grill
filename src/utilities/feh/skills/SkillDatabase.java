@@ -341,11 +341,14 @@ public class SkillDatabase extends WebScalper {
             ArrayList<Skill> skills = new ArrayList<>();
 
             //TODO: separate skill list into their respective types
-            // (or at least make the individual lists crated in getList() accessible/stored)
+            // (or at least make the individual lists created in getList() accessible/stored)
             for (String skillName:skillNames)
                 for (Skill x:SKILLS)
                     if (x.getName().equals(skillName))
                         skills.add(x);
+
+            //TODO: Falchion is added to the normal falchion users' base kits multiple times
+
 
             //Skill[] arr = new Skill[skills.size()];
             //heroSkills.put(name, skills.toArray(arr));

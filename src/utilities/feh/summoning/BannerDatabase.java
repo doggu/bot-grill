@@ -29,7 +29,7 @@ public class BannerDatabase extends WebScalper {
             }
         } catch (IOException g) { System.out.println("banners had an issue"); throw new Error(); }
 
-        if (data==null) throw new Error();
+        if (data==null) throw new Error("getList did not find the big-ass, one-line table");
 
 
 

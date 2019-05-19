@@ -3,19 +3,21 @@ package utilities.feh.heroes.character;
 import utilities.feh.heroes.UnitDatabase;
 import utilities.feh.skills.Skill;
 
+import java.awt.*;
 import java.util.*;
 
 
 
 public class Hero {
     private final HeroName fullName;
-    private final String origin, color;
+    private final String origin;
+    private final char color;
     private final WeaponClass weaponType;
     private final MovementClass moveType;
 
     //these stats are 1* lv1 (regardless of obtainable rarities)
     private final HeroStats stats;
-    private final int rarity;
+    private final int rarity; //TODO: summonable rarity is very complicated these days
 
     private final Availability availability;
     private final GregorianCalendar dateReleased;
@@ -24,7 +26,7 @@ public class Hero {
 
 
 
-    public Hero(HeroName fullName, String origin, String color,
+    public Hero(HeroName fullName, String origin, char color,
                 WeaponClass weaponType, MovementClass moveType,
                 int rarity, Availability availability,
                 GregorianCalendar dateReleased,
@@ -102,7 +104,7 @@ public class Hero {
     public HeroName getFullName() { return fullName; }
     public String getOrigin() { return origin; }
 
-    public String getColor() { return color; }
+    public char getColor() { return color; }
     public WeaponClass getWeaponType() { return weaponType; }
     public MovementClass getMoveType() { return moveType; }
 

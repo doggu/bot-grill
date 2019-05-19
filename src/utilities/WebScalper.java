@@ -1,6 +1,7 @@
 package utilities;
 
 import utilities.feh.skills.Passive;
+import utilities.feh.skills.Skill;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -278,10 +279,51 @@ public abstract class WebScalper {
 
 
 
+
+    private static ArrayList<ArrayList<String>> getTables(BufferedReader input) throws IOException {
+        ArrayList<ArrayList<String>> data = new ArrayList<>();
+        ArrayList<String> table = new ArrayList<>();
+        String line;
+        boolean print = false;
+
+        while ((line = input.readLine()) != null) {      //TODO: NOMERGE broke shit
+            if (line.contains("<table style=\"display:inline-flex"))
+                print = true;
+            if (print) {
+                ArrayList<String> datum = getItems(line.chars());
+                for (int i=0; i<datum.size(); i++) datum.set(i, datum.get(i).trim());
+                if (datum.size()>0) table.addAll(datum);
+            }
+
+            if (line.contains("</tbody></table>")) {
+                print = false;
+                //apparently i DONT need to clone it
+                if (table.size()>0) data.add(/*(ArrayList<String>) */table/*.clone()*/);
+                table = new ArrayList<>();
+            }
+        }
+
+        return data;
+    }
+    private static ArrayList<String> getTable(BufferedReader input) throws IOException {
+        ArrayList<String> table = new ArrayList<>();
+
+        String line;
+        while ((line = input.readLine()) != null) {
+            if (line.contains("<table class=\"wikitable default"))
+                table = getItems(line.chars());
+        }
+
+        return table;
+    }
+
+
+
     public static void main(String[] args) throws IOException {
         //source: https://stackoverflow.com/questions/6159118/using-java-to-pull-data-from-a-webpage
         // Make a URL to the web page
         URL url = new URL("https://feheroes.gamepedia.com/Weapon_Refinery");
+        //SITE_LIST_OF_UPGRADABLE_WEAPONS
 
         // Get the input stream through URL Connection
         URLConnection con = url.openConnection();
@@ -300,6 +342,29 @@ public abstract class WebScalper {
 
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
+        /*
+        String line;
+        while ((line = br.readLine())!=null) {
+            System.out.println(line);
+        }
+        */
+
+        ArrayList<ArrayList<String>> tables;
+        try {
+            tables = getTables(br);
+        } catch (IOException f) {
+            System.out.println("no multitable found");
+            return;
+        }
+
+        for (ArrayList<String> table:tables) {
+            for (String datum:table) {
+                System.out.println(datum);
+            }
+            //System.out.println();
+        }
+
+        /*
         String line;
         while ((line = br.readLine()) != null) {
             System.out.println(line);
@@ -322,6 +387,7 @@ public abstract class WebScalper {
             }
             System.out.println();
         }
+        */
 
 
 

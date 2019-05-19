@@ -12,7 +12,8 @@ import java.util.GregorianCalendar;
  */
 public class HeroConstructor {
     private HeroName fullName;
-    private String origin, color;
+    private String origin;
+    private Character color;
     private WeaponClass weaponType;
     private MovementClass moveType;
     //these stats are 1* lv1 (regardless of obtainable rarities)
@@ -28,7 +29,6 @@ public class HeroConstructor {
 
     public void setFullName(HeroName name) { this.fullName = name; }
     public void setOrigin(String origin) { this.origin = origin; }
-    public void setColor(String color) { this.color = color; }
     public void setWeaponType(String weaponType) {
         switch (weaponType) {
             case "Red Sword":
@@ -80,6 +80,7 @@ public class HeroConstructor {
                 System.out.println("weaponType wasn't correct: "+weaponType);
                 throw new Error();
         }
+        this.color = weaponType.toLowerCase().charAt(0);
     }
     public void setMoveType(String moveType) {
         switch (moveType) {
@@ -114,7 +115,7 @@ public class HeroConstructor {
     public String getName() { return fullName.getName(); }
     public String getEpithet() { return fullName.getEpithet(); }
     public String getOrigin() { return origin; }
-    public String getColor() { return color; }
+    public char getColor() { return color; }
     public WeaponClass getWeaponType() { return weaponType; }
     public MovementClass getMoveType() { return moveType; }
     public HeroStats getStats() { return stats; }

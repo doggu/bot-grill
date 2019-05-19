@@ -255,103 +255,77 @@ public class UnitDatabase extends WebScalper {
         return heroes;
     }
 
-    private static void processLv1Stats(HeroConstructor x, Iterator<String> input) {
-        String identifier = input.next();
-
-        String name = identifier.substring(0, identifier.indexOf(": "));
-        String epithet = identifier.substring(identifier.indexOf(": ")+2);
-
-        x.setFullName(new HeroName(name, epithet));
+    private static void processLv1Stats(HeroConstructor x, Scanner input) {
+        String identification = input.nextLine();
+        String[] id = identification.split(": ");
+        x.setFullName(new HeroName(id[0], id[1]));
 
 
 
         int[] stats = new int[5];
 
         for (int i=0; i<stats.length; i++)
-            stats[i] = Integer.parseInt(input.next());
+            stats[i] = Integer.parseInt(input.nextLine());
 
         x.setStats(stats);
 
 
 
-        input.next(); //total lv1 stats
+        input.nextLine(); //total lv1 stats
     }
-    private static void processGrowthRates(HeroConstructor x, Iterator<String> input) {
-        String identifier = input.next();
+    private static void processGrowthRates(HeroConstructor x, Scanner input) {
+        String[] id = input.nextLine().split(": ");
 
-        String name = identifier.substring(0, identifier.indexOf(": "));
-        String epithet = identifier.substring(identifier.indexOf(": ")+2);
-
-        if (!name.equals(x.getName()))
-            System.out.println("GrR: misalignment detected for unit "+HERO_INDEX+" ("+name+")");
+        if (!id[0].equals(x.getName()))
+            System.out.println("GrR: misalignment detected for unit "+HERO_INDEX+" ("+id[0]+")");
 
 
 
-        String typing = input.next();
-
-        String color = typing.substring(0, typing.indexOf(" "));
-        String weaponType = typing.substring(typing.indexOf(" ")+1);
-
-        x.setColor(color);
-        x.setWeaponType(typing);    //TODO: are colored tomes their own weapon types?
-                                    //i mean, obviously, but *ideologically*
+        String typing = input.nextLine();
+        x.setWeaponType(typing);
 
 
 
-        String moveType = input.next();
+        String moveType = input.nextLine();
         x.setMoveType(moveType);
 
 
 
-        input.next(); //total lv1 stats
-        input.next(); //total stat growths
-        input.next(); //total lv1 stats and stat growths
+        input.nextLine(); //total lv1 stats
+        input.nextLine(); //total stat growths
+        input.nextLine(); //total lv1 stats and stat growths
 
 
 
         int[] statGrowths = new int[5];
 
         for (int i=0; i<statGrowths.length; i++) {
-            String growth = input.next();
-            statGrowths[i] = Integer.parseInt(growth.substring(0, growth.length()-1));
+            String growth = input.nextLine().replace("%", "");
+            statGrowths[i] = Integer.parseInt(growth);
         }
 
         x.setGrowths(statGrowths);
 
 
 
-        String releaseDateData = input.next();
-        String[] values = releaseDateData.split("-");
-
-        int     year = Integer.parseInt(values[0]),
-                month = Integer.parseInt(values[1])-1, //month is zero-based
-                day = Integer.parseInt(values[2]);
-
-        GregorianCalendar releaseDate = new GregorianCalendar(year, month, day);
+        GregorianCalendar releaseDate = parseDate(input.nextLine());
         x.setDateReleased(releaseDate);
     }
-    private static void processListOfHeroes(HeroConstructor x, Iterator<String> input) {
-        String identifier = input.next();
-        String name, epithet;
-        try {
-            name = identifier.substring(0, identifier.indexOf(": "));
-            epithet = identifier.substring(identifier.indexOf(": ") + 2);
-        } catch (StringIndexOutOfBoundsException g) {
-            System.out.println(identifier+"was not a proper name");
-            throw new Error();
-        }
-        if (!name.equals(x.getName())||!epithet.equals(x.getEpithet()))
-            System.out.println("LoH: misalignment detected for unit "+HERO_INDEX+" ("+name+")");
+    private static void processListOfHeroes(HeroConstructor x, Scanner input) {
+        String[] id = input.nextLine().split(": ");
+        String name = id[0];
+        if (id.length<2) throw new Error("improper name detected for unit "+HERO_INDEX);
+        if (!id[0].equals(x.getName()))
+            System.out.println("GrR: misalignment detected for unit "+HERO_INDEX+" ("+id[0]+")");
 
 
 
-        String origin = input.next();
+        String origin = input.nextLine();
         x.setOrigin(origin);
 
 
 
-        String rarity = input.next().trim(); //TODO: currently a temporary fix to Haar: Black Tempest
-                                             // let alone the fact that it doesn't even record the correct rarity for him
+        String rarity = input.nextLine();
         int lowerRarityBound;
         try {
             lowerRarityBound = Integer.parseInt(rarity);
@@ -364,25 +338,23 @@ public class UnitDatabase extends WebScalper {
 
 
 
-        boolean summonable = true, isInNormalPool = true;
-        GregorianCalendar releaseDate;
-        String indeterminate = input.next();
+        String indeterminate = input.nextLine();
 
         /*
-         * parsing these next few lines:
+         * parsing these nextLine few lines:
          *
          * line 1
          * if "-" index = 0, upper rarity bound
-         *      next
+         *      nextLine
          * if "-" is contained, release date
          * if "-" is not contained, availability note
-         *      next
+         *      nextLine
          *      parse release date (or not)
          */
 
         if (indeterminate.indexOf("–")==0) {
-            int upperRarityBound = Integer.parseInt(indeterminate.substring(1));
-            indeterminate = input.next();
+            //int upperRarityBound = Integer.parseInt(indeterminate.substring(1));
+            indeterminate = input.nextLine();
         }                         //this is an em dash btw
 
         Availability availability;
@@ -419,7 +391,7 @@ public class UnitDatabase extends WebScalper {
                     throw new Error();
             }
 
-            input.next(); //release date
+            input.nextLine(); //release date
         }
 
         x.setAvailability(availability);
@@ -431,7 +403,63 @@ public class UnitDatabase extends WebScalper {
 
 
 
+    private static GregorianCalendar parseDate(String date) throws NumberFormatException {
+        //TODO: make this less basic
+        String[] nums = date.split("[-/]");
+        int year, month, day;
+        year = Integer.parseInt(nums[0]);
+        switch (Integer.parseInt(nums[1])-1) {
+            case Calendar.JANUARY:
+                month = Calendar.JANUARY;
+                break;
+            case Calendar.FEBRUARY:
+                month = Calendar.FEBRUARY;
+                break;
+            case Calendar.MARCH:
+                month = Calendar.MARCH;
+                break;
+            case Calendar.APRIL:
+                month = Calendar.APRIL;
+                break;
+            case Calendar.MAY:
+                month = Calendar.MAY;
+                break;
+            case Calendar.JUNE:
+                month = Calendar.JUNE;
+                break;
+            case Calendar.JULY:
+                month = Calendar.JULY;
+                break;
+            case Calendar.AUGUST:
+                month = Calendar.AUGUST;
+                break;
+            case Calendar.SEPTEMBER:
+                month = Calendar.SEPTEMBER;
+                break;
+            case Calendar.OCTOBER:
+                month = Calendar.OCTOBER;
+                break;
+            case Calendar.NOVEMBER:
+                month = Calendar.NOVEMBER;
+                break;
+            case Calendar.DECEMBER:
+                month = Calendar.DECEMBER;
+                break;
+            default:
+                //well shit
+                throw new NumberFormatException("invalid integer: "+nums[0]);
+        }
+        day = Integer.parseInt(nums[2]);
+        //honestly am i really going to make a switch case for an int to find a field which is just another int (which is one less than the already-defined int)
+        //yes
+        return new GregorianCalendar(year, month, day);
+    }
+
+
+
     public static void main(String[] args) {
+        updateCache();
+        /*
         ArrayList<Hero> heroes;
         heroes = getList();
 
@@ -446,5 +474,6 @@ public class UnitDatabase extends WebScalper {
             }
         }
         console.close();
+        */
     }
 }

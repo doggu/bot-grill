@@ -3,8 +3,7 @@ package utilities.feh.skills;
 import utilities.WebScalper;
 import utilities.feh.heroes.character.WeaponClass;
 
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,6 +25,82 @@ public class SkillDatabase extends WebScalper {
             //LIST_OF_UPGRADABLE_WEAPONS = "https://feheroes.gamepedia.com/List_of_upgradable_weapons",
 
             HERO_BASE_SKILLS = "https://feheroes.gamepedia.com/Hero_skills_table";
+
+    private static final String
+            SWORDS_FILEPATH = "./src/utilities/feh/webCache/weapons/swords.txt",
+            REDTOMES_FILEPATH = "./src/utilities/feh/webCache/weapons/redTomes.txt",
+            LANCSE_FILEPATH = "./src/utilities/feh/webCache/weapons/lances.txt",
+            BLUETOMES_FILEPATH = "./src/utilities/feh/webCache/weapons/blueTomes.txt",
+            AXES_FILEPATH = "./src/utilities/feh/webCache/weapons/axes.txt",
+            GREENTOMES_FILEPATH = "./src/utilities/feh/webCache/weapons/greenTomes.txt",
+            STAFFS_FILEPATH = "./src/utilities/feh/webCache/weapons/staffs.txt",
+            BEASTS_FILEPATH = "./src/utilities/feh/webCache/weapons/beasts.txt",
+            BREATHS_FILEPATH = "./src/utilities/feh/webCache/weapons/breaths.txt",
+            BOWS_FILEPATH = "./src/utilities/feh/webCache/weapons/bows.txt",
+            DAGGERS_FILEPATH = "./src/utilities/feh/webCache/weapons/daggers.txt";
+
+
+
+    private static void updateCache() {
+        ArrayList<ArrayList<String>> weaponTables;
+        BufferedReader weaponData;
+        try {
+            weaponData = readWebsite(WEAPONS);
+            weaponTables = getTables(weaponData);
+        } catch (IOException g) { System.out.println("weapons had an issue"); throw new Error(); }
+
+
+
+        HashMap<Integer, String> weaponType = new HashMap<>();
+        weaponType.put(0, SWORDS_FILEPATH);
+        weaponType.put(1, REDTOMES_FILEPATH);
+        weaponType.put(2, LANCSE_FILEPATH);
+        weaponType.put(3, BLUETOMES_FILEPATH);
+        weaponType.put(4, AXES_FILEPATH);
+        weaponType.put(5, GREENTOMES_FILEPATH);
+        weaponType.put(6, STAFFS_FILEPATH);
+        weaponType.put(7, BEASTS_FILEPATH);
+        weaponType.put(8, BREATHS_FILEPATH);
+        weaponType.put(9, BOWS_FILEPATH);
+        weaponType.put(10, DAGGERS_FILEPATH);
+
+        //remove initial junk
+        for (ArrayList<String> x:weaponTables)
+            x.subList(0,6).clear();
+
+        for (int i=0; i<weaponTables.size(); i++) {
+
+            Iterator<String> table = weaponTables.get(i).iterator();
+
+            File file = new File(weaponType.get(i));
+
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("created new file at "+weaponType.get(i));
+                }
+            } catch (IOException f) {
+                System.out.println("was not able to create a file");
+            }
+
+            FileWriter writer;
+
+            try {
+                writer = new FileWriter(file);
+            } catch (IOException f) {
+                throw new Error("table "+i+" didnt exist or something");
+            }
+            try {
+                if (table.hasNext()) writer.write(table.next());
+                while (table.hasNext()) {
+                    writer.write('\n');
+                    writer.write(table.next());
+                }
+                writer.close();
+            } catch (IOException f) {
+                throw new Error("couldnt write for table "+i+"!");
+            }
+        }
+    }
 
 
 
@@ -61,45 +136,57 @@ public class SkillDatabase extends WebScalper {
     }
 
     private static ArrayList<Weapon> processWeapons() {
-        ArrayList<ArrayList<String>> weaponTables;
-        BufferedReader weaponData;
+        File weaponsFolder = new File("./src/utilities/feh/webCache/weapons");
+        File[] weaponTables;
         try {
-            weaponData = readWebsite(WEAPONS);
-            weaponTables = getTables(weaponData);
-        } catch (IOException g) { System.out.println("weapons had an issue"); throw new Error(); }
+            weaponTables = weaponsFolder.listFiles();
+        } catch (NullPointerException f) {
+            throw new Error();
+        }
+
+        if (weaponTables==null) {
+            updateCache();
+            return processWeapons();
+        }
 
 
 
         ArrayList<Weapon> weapons = new ArrayList<>();
 
-        //remove initial junk
-        for (ArrayList<String> x:weaponTables)
-            x.subList(0,6).clear(); //*grumble grumble* stupid indexing (this line removes 6 items, not 7)
+        HashMap<String, String> weaponType = new HashMap<>();
+        weaponType.put("axes.txt", "Sword");
+        weaponType.put("beasts.txt", "Red Tome");
+        weaponType.put("blueTomes.txt", "Lance");
+        weaponType.put("bows.txt", "Blue Tome");
+        weaponType.put("breaths.txt", "Axe");
+        weaponType.put("daggers.txt", "Green Tome");
+        weaponType.put("greenTomes.txt", "Staff");
+        weaponType.put("lances.txt", "Beast");
+        weaponType.put("redTomes.txt", "Breath");
+        weaponType.put("staffs.txt", "Bow");
+        weaponType.put("swords.txt", "Dagger");
 
-        HashMap<Integer, String> weaponType = new HashMap<>();
-        weaponType.put(0, "Sword");
-        weaponType.put(1, "Red Tome");
-        weaponType.put(2, "Lance");
-        weaponType.put(3, "Blue Tome");
-        weaponType.put(4, "Axe");
-        weaponType.put(5, "Green Tome");
-        weaponType.put(6, "Staff");
-        weaponType.put(7, "Beast");
-        weaponType.put(8, "Breath");
-        weaponType.put(9, "Bow");
-        weaponType.put(10, "Dagger");
+        for (File file:weaponTables) {
+            Scanner table;
+            try {
+                table = new Scanner(file);
+            } catch (FileNotFoundException f) {
+                //throw new Error("a file could not be read");
+                updateCache();
+                return processWeapons();
+            }
 
-        for (ArrayList<String> table:weaponTables) {
-            Iterator<String> list = table.iterator();
+
+
             Weapon x;
-            while (list.hasNext()) {
-                String name = list.next();
-                int might = Integer.parseInt(list.next());
-                int range = Integer.parseInt(list.next()); //technically the same for any given table but w/e
+            while (table.hasNextLine()) {
+                String name = table.nextLine();
+                int might = Integer.parseInt(table.nextLine());
+                int range = Integer.parseInt(table.nextLine()); //technically the same for any given table but w/e
                 StringBuilder desc = new StringBuilder();
                 int cost = -1;
                 while (cost<0) {
-                    String line = list.next();
+                    String line = table.nextLine();
                     try {
                         cost = Integer.parseInt(line);
                     } catch (NumberFormatException g) {
@@ -108,8 +195,10 @@ public class SkillDatabase extends WebScalper {
                     }
                 }
                 String description = desc.toString();
-                boolean exclusive = "Yes".equals(list.next());
-                String typeStr = weaponType.get(weaponTables.indexOf(table));
+                boolean exclusive = "Yes".equals(table.nextLine());
+                String typeStr = weaponType.get(file.getName());
+                if (typeStr==null)
+                    throw new Error("an unsolicited file was found in the weapons folder: "+file.getName());
                 WeaponClass type = WeaponClass.getType(typeStr);
 
                 x = new Weapon(name, description, cost, exclusive, might, range, type);
@@ -131,7 +220,7 @@ public class SkillDatabase extends WebScalper {
         
         ArrayList<Assist> assists = new ArrayList<>();
 
-        assistTable.subList(0,4).clear(); //*grumble grumble* stupid indexing (this line removes 6 items, not 7)
+        assistTable.subList(0,4).clear(); //*grumble grumble* stupid indexing (this line removes 4 items, not 5)
         Iterator<String> data = assistTable.iterator();
 
         Assist x;
@@ -326,6 +415,7 @@ public class SkillDatabase extends WebScalper {
 
 
     //TODO: stop ignoring tag data entirely (it contains links and other useful information)
+    // ugh but it's really efficient
     private static ArrayList<ArrayList<String>> getTables(BufferedReader input) throws IOException {
         ArrayList<ArrayList<String>> data = new ArrayList<>();
         ArrayList<String> table = new ArrayList<>();
@@ -365,6 +455,17 @@ public class SkillDatabase extends WebScalper {
 
 
     public static void main(String[] args) {
+        updateCache();
+
+        /*
+        File folder = new File("./src/utilities/feh/webCache/weapons");
+        File[] files = folder.listFiles();
+
+        for (File x:files) {
+            System.out.println(x.getName());
+        }
+
+        /*
         Scanner console = new Scanner(System.in);
 
         String input;
@@ -373,5 +474,6 @@ public class SkillDatabase extends WebScalper {
         }
 
         console.close();
+        */
     }
 }

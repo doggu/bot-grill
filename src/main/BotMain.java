@@ -1,6 +1,7 @@
 package main;
 
 import events.DevTools;
+import events.Quips;
 import events.Reactions;
 import events.commands.*;
 import events.commands.gamble.Chances;
@@ -8,6 +9,7 @@ import events.commands.gamble.Roll;
 import events.commands.math.FracCalcListener;
 import events.commands.math.GradientDescentListener;
 import events.commands.math.Maffs;
+import events.commands.math.UnitConversion;
 import events.fehGame.Allies;
 import events.fehGame.OrbBalance;
 import events.fehGame.summoning.SummonSimulator;
@@ -49,6 +51,8 @@ public class BotMain {
 
     public static void main(String[] args) throws Exception {
         //construct listeners beforehand so bot is ready as soon as she goes live
+        ListenerAdapter listenerUnitConversion = new UnitConversion();
+        ListenerAdapter listenerQuips = new Quips();
         ListenerAdapter listenerHelp = new Help();
         ListenerAdapter listenerChances = new Chances();
         ListenerAdapter listenerRoll = new Roll();
@@ -79,6 +83,8 @@ public class BotMain {
         stones = bot_grill.getGuildsByName("summonicons", true).get(0).getEmotes();
         fehIcons = bot_grill.getGuildsByName("fehicons", true).get(0).getEmotes();
 
+        addListener(listenerUnitConversion);
+        addListener(listenerQuips);
         addListener(listenerHelp);
         addListener(listenerChances);
         addListener(listenerRoll);

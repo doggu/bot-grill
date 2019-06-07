@@ -6,6 +6,7 @@ import events.Reactions;
 import events.commands.*;
 import events.commands.gamble.Chances;
 import events.commands.gamble.Roll;
+import events.commands.Help;
 import events.commands.math.FracCalcListener;
 import events.commands.math.GradientDescentListener;
 import events.commands.math.Maffs;

@@ -12,7 +12,7 @@ import static utilities.feh.skills.SkillDatabase.SKILLS;
 import static utilities.feh.skills.SkillDatabase.HERO_SKILLS;
 
 public class SkillRetriever extends Command {
-    private void getSkills() {
+    public void onCommand() {
         List<String> nameArr = new ArrayList<>(Arrays.asList(args));
         nameArr.remove(0);
 
@@ -46,6 +46,11 @@ public class SkillRetriever extends Command {
         for (Skill x:remove)
             candidates.remove(x);
 
+        if (candidates.size()==0) {
+            sendMessage("could not find your skill.");
+            return;
+        }
+
 
 
         HashMap<Integer, String> skillIcons = new HashMap<>();
@@ -57,11 +62,6 @@ public class SkillRetriever extends Command {
         skillIcons.put(4, "https://gamepedia.cursecdn.com/feheroes_gamepedia_en/c/ca/Icon_Skill_Passive_B.png");
         skillIcons.put(5, "https://gamepedia.cursecdn.com/feheroes_gamepedia_en/0/01/Icon_Skill_Passive_C.png");
         skillIcons.put(6, "https://gamepedia.cursecdn.com/feheroes_gamepedia_en/9/9c/Icon_Skill_Passive_S.png");
-
-        if (candidates.size()==0) {
-            sendMessage("could not find your skill.");
-            return;
-        }
 
         for (Skill x:candidates) {
             EmbedBuilder skill = new EmbedBuilder();
@@ -95,19 +95,18 @@ public class SkillRetriever extends Command {
 
             skill.setThumbnail(skillIcons.get(x.getSlot()));
 
-            if (x instanceof Weapon) {
-                skill.addField("Might", String.valueOf(((Weapon) x).getMt()), false);
-            }
-
             if (x instanceof ActionSkill) { //instanceof targeting skill
-                skill.addField("Range", String.valueOf(((ActionSkill) x).getRng()), false);
-            }
+                if (x instanceof Weapon) {
+                    skill.addField("Might", String.valueOf(((Weapon) x).getMt()), true);
+                }
 
-            if (x instanceof Special) {
-                skill.addField("Cooldown", String.valueOf(((Special) x).getCooldown()), false);
+                skill.addField("Range", String.valueOf(((ActionSkill) x).getRng()), true);
+            } else if (x instanceof Special) {
+                skill.addField("Cooldown", String.valueOf(((Special) x).getCooldown()), true);
             }
 
             if (!(x instanceof PassiveS)) {
+                skill.addField("Exclusive?", (x.isExclusive()?"Yes":"No"), false);
                 Set<String> heroes = HERO_SKILLS.keySet();
                 StringBuilder owners = new StringBuilder();
                 for (String n : heroes) {
@@ -116,7 +115,7 @@ public class SkillRetriever extends Command {
                     }
                 }
                 if (owners.length() > 0) owners = new StringBuilder(owners.substring(0, owners.length()-2));
-                skill.addField("Owners", owners.toString(), false);
+                skill.addField("Owner"+(x.isExclusive()?"":"s"), owners.toString(), false);
             }
 
 
@@ -179,10 +178,6 @@ public class SkillRetriever extends Command {
             default:
                 return false;
         }
-    }
-
-    public void onCommand() {
-        getSkills();
     }
 
 

@@ -84,15 +84,15 @@ public class UnitDatabase extends WebScalper {
 
         try {
             lv1Stats = readWebsite(LV1_STATS);
-        } catch (IOException g) { System.out.println("lv1Stats had an issue"); throw new Error(); }
+        } catch (IOException g) { throw new Error("lv1Stats could not read the website"); }
 
         try {
             growthRates = readWebsite(GROWTH_RATES);
-        } catch (IOException g) { System.out.println("growthRates had an issue"); throw new Error(); }
+        } catch (IOException g) { throw new Error("growthRates could not read the website"); }
 
         try {
             heroList = readWebsite(HERO_LIST);
-        } catch (IOException g) { System.out.println("heroList had an issue"); throw new Error(); }
+        } catch (IOException g) { throw new Error("heroList could not read the website"); }
 
 
 
@@ -105,8 +105,7 @@ public class UnitDatabase extends WebScalper {
                 if (line.contains("<table class=\"wikitable sortable\"")) lv1StatsTable = line.chars();
             }
             if (lv1StatsTable == null) {
-                System.out.println("lv1StatsTable got some issues");
-                throw new Error();
+                throw new Error("lv1StatsTable could not find the table");
             }
 
             while ((line = growthRates.readLine()) != null) {
@@ -114,8 +113,7 @@ public class UnitDatabase extends WebScalper {
                 if (line.contains("<table class=\"wikitable default sortable\"")) growthRatesTable = line.chars();
             }
             if (growthRatesTable == null) {
-                System.out.println("growthRatesTable got some issues");
-                throw new Error();
+                throw new Error("growthRatesTable could not find the table");
             }
 
             while ((line = heroList.readLine()) != null) {
@@ -123,12 +121,10 @@ public class UnitDatabase extends WebScalper {
                 if (line.contains("<table class=\"wikitable default sortable\"")) heroListTable = line.chars();
             }
             if (heroListTable == null) {
-                System.out.println("heroListTable got some issues");
-                throw new Error();
+                throw new Error("heroListTable could not find the table");
             }
         } catch (IOException g) {
-            System.out.println("table finding ran into IOException");
-            throw new Error();
+            throw new Error("table finding ran into an error");
         }
 
         Iterator<String> lv1StatsData = getItems(lv1StatsTable).iterator();
@@ -217,8 +213,7 @@ public class UnitDatabase extends WebScalper {
                 updateCache();
                 tries++;
                 if (tries>5) {
-                    System.out.println("it's time to stop");
-                    throw new Error();
+                    throw new Error("it's time to stop");
                 }
             }
         }
@@ -322,9 +317,8 @@ public class UnitDatabase extends WebScalper {
         try {
             lowerRarityBound = Integer.parseInt(rarity);
         } catch (NumberFormatException g) {
-            System.out.println("error for character #"+HERO_INDEX+" ("+name+")\n" +
+            throw new Error("error for character #"+HERO_INDEX+" ("+name+")\n" +
                     "attempted rarity: \""+rarity+"\"");
-            throw new Error();
         }
         x.setRarity(lowerRarityBound);
 
@@ -379,8 +373,7 @@ public class UnitDatabase extends WebScalper {
                     availability = Availability.MYTHIC;
                     break;
                 default:
-                    System.out.println("obtaining method wasn't accounted for: "+indeterminate);
-                    throw new Error();
+                    throw new Error("obtaining method wasn't accounted for: "+indeterminate);
             }
 
             input.nextLine(); //release date
@@ -389,7 +382,12 @@ public class UnitDatabase extends WebScalper {
         x.setAvailability(availability);
     }
     private static void addBaseKit(HeroConstructor x) {
-        ArrayList<Skill> baseKit = SkillDatabase.HERO_SKILLS.get(x.getFullName().toString());
+        ArrayList<Skill> baseKit;
+        try {
+            baseKit = SkillDatabase.HERO_SKILLS.get(x.getFullName().toString());
+        } catch (NoSuchElementException f) {
+            throw new Error("could not find base kit for "+x.getFullName().toString());
+        }
         x.setBaseKit(baseKit);
     }
 

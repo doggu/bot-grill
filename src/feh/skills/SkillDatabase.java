@@ -40,7 +40,14 @@ public class SkillDatabase extends WebScalper {
             BREATHS_FILEPATH = "./src/feh/webCache/weapons/breaths.txt",
             BOWS_FILEPATH = "./src/feh/webCache/weapons/bows.txt",
             DAGGERS_FILEPATH = "./src/feh/webCache/weapons/daggers.txt",
-            EXCLUSIVE_WEAPONS_FILEPATH = "./src/feh/webCache/exclusiveWeapons.txt";
+            EXCLUSIVE_WEAPONS_FILEPATH = "./src/feh/webCache/exclusiveWeapons.txt",
+
+            ASSISTS_FILEPATH = "./src/feh/webCache/assists.txt",
+            SPECIALS_FILEPATH = "./src/feh/webCache/specials.txt",
+            A_PASSIVES_FILEPATH = "./src/feh/webCache/passives/a.txt",
+            B_PASSIVES_FILEPATH = "./src/feh/webCache/passives/b.txt",
+            C_PASSIVES_FILEPATH = "./src/feh/webCache/passives/c.txt",
+            S_PASSIVES_FILEPATH = "./src/feh/webCache/passives/s.txt";
 
 
 
@@ -54,18 +61,19 @@ public class SkillDatabase extends WebScalper {
 
 
 
-        HashMap<Integer, String> weaponType = new HashMap<>();
-        weaponType.put(0, SWORDS_FILEPATH);
-        weaponType.put(1, REDTOMES_FILEPATH);
-        weaponType.put(2, LANCES_FILEPATH);
-        weaponType.put(3, BLUETOMES_FILEPATH);
-        weaponType.put(4, AXES_FILEPATH);
-        weaponType.put(5, GREENTOMES_FILEPATH);
-        weaponType.put(6, STAFFS_FILEPATH);
-        weaponType.put(7, BEASTS_FILEPATH);
-        weaponType.put(8, BREATHS_FILEPATH);
-        weaponType.put(9, BOWS_FILEPATH);
-        weaponType.put(10, DAGGERS_FILEPATH);
+        String[] weaponTypeFiles = {
+                SWORDS_FILEPATH,
+                REDTOMES_FILEPATH,
+                LANCES_FILEPATH,
+                BLUETOMES_FILEPATH,
+                AXES_FILEPATH,
+                GREENTOMES_FILEPATH,
+                STAFFS_FILEPATH,
+                BEASTS_FILEPATH,
+                BREATHS_FILEPATH,
+                BOWS_FILEPATH,
+                DAGGERS_FILEPATH,
+        };
 
         //remove initial junk
         for (ArrayList<String> x:weaponTables)
@@ -74,11 +82,11 @@ public class SkillDatabase extends WebScalper {
         for (int i=0; i<weaponTables.size(); i++) {
             Iterator<String> table = weaponTables.get(i).iterator();
 
-            File file = new File(weaponType.get(i));
+            File file = new File(weaponTypeFiles[i]);
 
             try {
                 if (file.createNewFile())
-                    System.out.println("created new file at "+weaponType.get(i));
+                    System.out.println("created new file at "+weaponTypeFiles[i]);
             } catch (IOException f) {
                 File weaponsFolder = new File("./src/feh/webCache/weapons");
                 if (weaponsFolder.mkdir())
@@ -87,7 +95,7 @@ public class SkillDatabase extends WebScalper {
 
                 try {
                     if (file.createNewFile())
-                        System.out.println("created new file at "+weaponType.get(i));
+                        System.out.println("created new file at "+weaponTypeFiles[i]);
                 } catch (IOException g) {
                     throw new Error("was not able to create a file");
                 }
@@ -114,6 +122,42 @@ public class SkillDatabase extends WebScalper {
 
 
 
+        ArrayList<String> assistTable;
+        BufferedReader assistData;
+        try {
+            assistData = readWebsite(ASSISTS);
+            assistTable = getTables(assistData).get(0);
+            System.out.println(assistTable);
+        } catch (IOException g) { System.out.println("assists had an issue"); throw new Error(); }
+
+        File assistFile = new File(ASSISTS_FILEPATH);
+
+        try {
+            if (assistFile.createNewFile()) {
+                System.out.println("created new file at "+ASSISTS_FILEPATH);
+            }
+        } catch (IOException f) {
+            System.out.println("was not able to create a file");
+        }
+
+
+        try {
+            FileWriter writer;
+            writer = new FileWriter(assistFile);
+
+            Iterator<String> table = assistTable.iterator();
+
+            while (table.hasNext()) {
+                writer.write(table.next()+'\n');
+            }
+
+            writer.close();
+        } catch (IOException f) {
+            throw new Error();
+        }
+
+
+
         ArrayList<ArrayList<String>> exclusiveTables;
         BufferedReader exclusiveData;
         try {
@@ -121,37 +165,32 @@ public class SkillDatabase extends WebScalper {
             exclusiveTables = getTables(exclusiveData);
         } catch (IOException g) { throw new Error("exclusiveTable had an issue"); }
 
-        for (ArrayList<String> x:weaponTables)
-            x.subList(0,3).clear();
-
         File file = new File(EXCLUSIVE_WEAPONS_FILEPATH);
 
-        for (int i=0; i<exclusiveTables.size(); i++) {
-            Iterator<String> table = exclusiveTables.get(i).iterator();
-
-            try {
-                if (file.createNewFile()) {
-                    System.out.println("created new file at "+weaponType.get(i));
-                }
-            } catch (IOException f) {
-                System.out.println("was not able to create a file");
+        try {
+            if (file.createNewFile()) {
+                System.out.println("created new file at "+EXCLUSIVE_WEAPONS_FILEPATH);
             }
+        } catch (IOException f) {
+            System.out.println("was not able to create a file");
+        }
 
-            FileWriter writer;
+        FileWriter writer;
+        try {
+            writer = new FileWriter(file);
 
-            try {
-                writer = new FileWriter(file);
-            } catch (IOException f) {
-                throw new Error("table "+i+" didnt exist or something");
-            }
-            try {
+            for (int i=0; i<exclusiveTables.size(); i++) {
+                System.out.print("creating table "+(i+1)+"... ");
+                Iterator<String> table = exclusiveTables.get(i).iterator();
+
                 while (table.hasNext()) {
                     writer.write(table.next()+'\n');
                 }
-                writer.close();
-            } catch (IOException f) {
-                throw new Error("couldnt write for table "+i+"!");
             }
+
+            writer.close();
+        } catch (IOException f) {
+            throw new Error();
         }
     }
 
@@ -265,28 +304,32 @@ public class SkillDatabase extends WebScalper {
         return weapons;
     }
     private static ArrayList<Assist> processAssists() {
-        System.out.println("processing assists...");
-        ArrayList<String> assistTable;
-        BufferedReader assistData;
+        File assistsFile = new File(ASSISTS_FILEPATH);
+        if (!assistsFile.exists()) {
+            updateCache();
+            return processAssists();
+        }
+
+
+        Scanner assistTable;
+
         try {
-            assistData = readWebsite(ASSISTS);
-            assistTable = getTables(assistData).get(0);
-        } catch (IOException g) { System.out.println("assists had an issue"); throw new Error(); }
-        
-        
+            assistTable = new Scanner(assistsFile);
+        } catch (FileNotFoundException f) {
+            updateCache();
+            return processAssists();
+        }
+
+        for (int i=0; i<4; i++) assistTable.nextLine();
         
         ArrayList<Assist> assists = new ArrayList<>();
-
-        assistTable.subList(0,4).clear(); //*grumble grumble* stupid indexing (this line removes 4 items, not 5)
-        Iterator<String> data = assistTable.iterator();
-
         Assist x;
-        while (data.hasNext()) {
-            String name = data.next();
+        while (assistTable.hasNextLine()) {
+            String name = assistTable.nextLine();
             StringBuilder desc = new StringBuilder();
             int cost = -1;
             while (cost<0) {
-                String line = data.next();
+                String line = assistTable.nextLine();
                 try {
                     cost = Integer.parseInt(line);
                 } catch (NumberFormatException g) {
@@ -295,7 +338,7 @@ public class SkillDatabase extends WebScalper {
                 }
             }
             String description = desc.toString();
-            int range = Integer.parseInt(data.next());
+            int range = Integer.parseInt(assistTable.nextLine());
             boolean exclusive = isExclusive(name);
 
             x = new Assist(name, description, cost, exclusive, range);
@@ -312,8 +355,10 @@ public class SkillDatabase extends WebScalper {
             specialData = readWebsite(SPECIALS);
             specialTable = getTables(specialData).get(0);
         } catch (IOException g) { System.out.println("specials had an issue"); throw new Error(); }
-        
-        
+
+
+
+        specialTable.subList(0,4).clear();
         
         ArrayList<Special> specials = new ArrayList<>();
         Iterator<String> data = specialTable.iterator();
@@ -419,7 +464,53 @@ public class SkillDatabase extends WebScalper {
         return passives;
     }
 
-    private static final ArrayList<String> EXCLUSIVE = getExclusiveList();
+    //todo oh my gufking fod why doesn't this shit fuckknginon omgwoerk
+    private static final ArrayList<String> EXCLUSIVE;
+
+    static {
+        //System.out.println("creating exclusive list...");
+        File file;
+        try {
+            file = new File(EXCLUSIVE_WEAPONS_FILEPATH);
+        } catch (NullPointerException f) {
+            throw new Error();
+            /*updateCache(); return getExclusiveList();*/
+        }
+        Scanner lines;
+        try {
+            lines = new Scanner(file);
+        } catch (IOException f) {
+            throw new Error();
+            /*updateCache(); return getExclusiveList();*/
+        }
+
+        ArrayList<String> list = new ArrayList<>();
+
+
+
+        if (!lines.hasNextLine()) {
+            throw new Error();
+            /*updateCache(); return getExclusiveList();*/
+        }
+
+
+
+        while (lines.hasNextLine()) {
+            String line = lines.nextLine();
+            if (!line.contains("+")) list.add(line);
+            while (lines.hasNextLine()) {
+                line = lines.nextLine();
+                try {
+                    Integer.parseInt(line);
+                    break;
+                } catch(NumberFormatException f) {
+                    //continue
+                }
+            }
+        }
+
+        EXCLUSIVE = list;
+    }
 
     private static ArrayList<String> getExclusiveList() {
         //System.out.println("creating exclusive list...");
@@ -445,6 +536,7 @@ public class SkillDatabase extends WebScalper {
         while (lines.hasNextLine()) {
             String line = lines.nextLine();
             if (!line.contains("+")) list.add(line);
+            /*
             while (lines.hasNextLine()) {
                 line = lines.nextLine();
                 try {
@@ -454,19 +546,21 @@ public class SkillDatabase extends WebScalper {
                     //continue
                 }
             }
+            */
         }
 
         return list;
     }
 
     private static boolean isExclusive(String name) {
-        for (String x:getExclusiveList()) if (x.equals(name)) return true;
+        for (String x : getExclusiveList()) if (x.equals(name)) return true;
         return false;
     }
 
 
 
-    private static HashMap<String, ArrayList<Skill>> getHeroSkills() {ArrayList<String> baseSkillTable;
+    private static HashMap<String, ArrayList<Skill>> getHeroSkills() {
+        ArrayList<String> baseSkillTable;
         BufferedReader skillData;
         try {
             skillData = readWebsite(HERO_BASE_SKILLS);

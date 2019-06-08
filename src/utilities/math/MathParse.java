@@ -253,14 +253,14 @@ public class MathParse {
                 for (int i=0; i<TV.length; i++)
                     OV[i] = f.apply(TV[i]);
 
-                String table = "|  I  |  O ";
+                StringBuilder table = new StringBuilder("|  I  |  O ");
                 for (int i=0; i<OV.length; i++) {
-                    table+= "\n+-----+----------------" +
-                            "\n| ";
-                    if (TV[i]==Math.PI) table+= " π ";
-                    else if (TV[i]==Math.E) table+= " e ";
-                    else table+= TV[i];
-                    table+= " | "+OV[i];
+                    table.append("\n+-----+----------------")
+                            .append("\n| ");
+                    if (TV[i]==Math.PI) table.append(" π ");
+                    else if (TV[i]==Math.E) table.append(" e ");
+                    else table.append(TV[i]);
+                    table.append(" | ").append(OV[i]);
                 }
 
                 System.out.println(table);

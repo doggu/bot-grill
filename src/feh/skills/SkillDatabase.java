@@ -29,18 +29,18 @@ public class SkillDatabase extends WebScalper {
             HERO_BASE_SKILLS = "https://feheroes.gamepedia.com/Hero_skills_table";
 
     private static final String
-            SWORDS_FILEPATH = "./src/utilities/feh/webCache/weapons/swords.txt",
-            REDTOMES_FILEPATH = "./src/utilities/feh/webCache/weapons/redTomes.txt",
-            LANCES_FILEPATH = "./src/utilities/feh/webCache/weapons/lances.txt",
-            BLUETOMES_FILEPATH = "./src/utilities/feh/webCache/weapons/blueTomes.txt",
-            AXES_FILEPATH = "./src/utilities/feh/webCache/weapons/axes.txt",
-            GREENTOMES_FILEPATH = "./src/utilities/feh/webCache/weapons/greenTomes.txt",
-            STAFFS_FILEPATH = "./src/utilities/feh/webCache/weapons/staffs.txt",
-            BEASTS_FILEPATH = "./src/utilities/feh/webCache/weapons/beasts.txt",
-            BREATHS_FILEPATH = "./src/utilities/feh/webCache/weapons/breaths.txt",
-            BOWS_FILEPATH = "./src/utilities/feh/webCache/weapons/bows.txt",
-            DAGGERS_FILEPATH = "./src/utilities/feh/webCache/weapons/daggers.txt",
-            EXCLUSIVE_WEAPONS_FILEPATH = "./src/utilities/feh/webCache/exclusiveWeapons.txt";
+            SWORDS_FILEPATH = "./src/feh/webCache/weapons/swords.txt",
+            REDTOMES_FILEPATH = "./src/feh/webCache/weapons/redTomes.txt",
+            LANCES_FILEPATH = "./src/feh/webCache/weapons/lances.txt",
+            BLUETOMES_FILEPATH = "./src/feh/webCache/weapons/blueTomes.txt",
+            AXES_FILEPATH = "./src/feh/webCache/weapons/axes.txt",
+            GREENTOMES_FILEPATH = "./src/feh/webCache/weapons/greenTomes.txt",
+            STAFFS_FILEPATH = "./src/feh/webCache/weapons/staffs.txt",
+            BEASTS_FILEPATH = "./src/feh/webCache/weapons/beasts.txt",
+            BREATHS_FILEPATH = "./src/feh/webCache/weapons/breaths.txt",
+            BOWS_FILEPATH = "./src/feh/webCache/weapons/bows.txt",
+            DAGGERS_FILEPATH = "./src/feh/webCache/weapons/daggers.txt",
+            EXCLUSIVE_WEAPONS_FILEPATH = "./src/feh/webCache/exclusiveWeapons.txt";
 
 
 
@@ -80,7 +80,7 @@ public class SkillDatabase extends WebScalper {
                 if (file.createNewFile())
                     System.out.println("created new file at "+weaponType.get(i));
             } catch (IOException f) {
-                File weaponsFolder = new File("./src/utilities/feh/webCache/weapons");
+                File weaponsFolder = new File("./src/feh/webCache/weapons");
                 if (weaponsFolder.mkdir())
                     System.out.println("created the weapons folder in the cache.");
                 else throw new Error("could not create the weapons folder");
@@ -189,7 +189,7 @@ public class SkillDatabase extends WebScalper {
 
     private static ArrayList<Weapon> processWeapons() {
         System.out.print("processing weapons... ");
-        File weaponsFolder = new File("./src/utilities/feh/webCache/weapons");
+        File weaponsFolder = new File("./src/feh/webCache/weapons");
         File[] weaponTables;
         try {
             weaponTables = weaponsFolder.listFiles();

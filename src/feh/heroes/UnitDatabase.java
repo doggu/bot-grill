@@ -148,10 +148,10 @@ public class UnitDatabase extends WebScalper {
         for (int i=0; i<7; i++)
             heroListData.next();
 
-        File lv1StatsFile = new File("./src/utilities/feh/webCache/lv1StatsData.txt");
-        File growthRatesFile = new File("./src/utilities/feh/webCache/growthRatesData.txt");
-        File heroListFile = new File("./src/utilities/feh/webCache/heroListData.txt");
-        File path = new File("./src/utilities/feh/webCache/");
+        File lv1StatsFile = new File("./src/feh/webCache/lv1StatsData.txt");
+        File growthRatesFile = new File("./src/feh/webCache/growthRatesData.txt");
+        File heroListFile = new File("./src/feh/webCache/heroListData.txt");
+        File path = new File("./src/feh/webCache/");
         if (!path.mkdirs()) throw new Error("couldn't create filepath for hero data");
         try {
             if (!lv1StatsFile.createNewFile()) throw new Error("couldn't create lv1");
@@ -211,9 +211,9 @@ public class UnitDatabase extends WebScalper {
 
 
 
-        File    lv1StatsFile = new File("./src/utilities/feh/webCache/lv1StatsData.txt"),
-                growthRatesFile = new File("./src/utilities/feh/webCache/growthRatesData.txt"),
-                heroListFile = new File("./src/utilities/feh/webCache/heroListData.txt");
+        File    lv1StatsFile = new File("./src/feh/webCache/lv1StatsData.txt"),
+                growthRatesFile = new File("./src/feh/webCache/growthRatesData.txt"),
+                heroListFile = new File("./src/feh/webCache/heroListData.txt");
 
 
 

@@ -1,8 +1,8 @@
 package events.fehGame.summoning;
 
 import events.commands.Command;
-import utilities.feh.summoning.Banner;
-import utilities.feh.summoning.BannerDatabase;
+import feh.summoning.Banner;
+import feh.summoning.BannerDatabase;
 
 import java.util.*;
 

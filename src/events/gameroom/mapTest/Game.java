@@ -5,8 +5,8 @@ import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
-import utilities.feh.heroes.UnitDatabase;
-import utilities.feh.heroes.character.Hero;
+import feh.heroes.UnitDatabase;
+import feh.heroes.character.Hero;
 
 import java.awt.*;
 import java.io.File;

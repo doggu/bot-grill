@@ -2,8 +2,8 @@ package events.commands;
 
 import events.MessageListener;
 import net.dv8tion.jda.core.EmbedBuilder;
-import utilities.feh.skills.Skill;
-import utilities.feh.skills.SkillDatabase;
+import feh.skills.Skill;
+import feh.skills.SkillDatabase;
 
 import java.awt.Color;
 import java.util.HashMap;

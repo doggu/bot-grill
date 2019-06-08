@@ -1,8 +1,5 @@
 package utilities;
 
-import utilities.feh.skills.Passive;
-import utilities.feh.skills.Skill;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

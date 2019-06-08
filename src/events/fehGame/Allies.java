@@ -3,8 +3,8 @@ package events.fehGame;
 import events.commands.Command;
 import events.fehGame.retriever.HeroRetriever;
 import events.fehGame.summoning.SummonSimulator;
-import utilities.feh.players.Barracks;
-import utilities.feh.players.Summoner;
+import feh.players.Barracks;
+import feh.players.Summoner;
 
 public class Allies extends Command {
     public boolean isCommand() {

@@ -2,10 +2,10 @@ package events.fehGame.summoning;
 
 import events.gameroom.Gameroom;
 import main.BotMain;
-import utilities.feh.heroes.character.Hero;
-import utilities.feh.players.Summoner;
-import utilities.feh.summoning.Banner;
-import utilities.feh.summoning.BannerDatabase;
+import feh.heroes.character.Hero;
+import feh.players.Summoner;
+import feh.summoning.Banner;
+import feh.summoning.BannerDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;

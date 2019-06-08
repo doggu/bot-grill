@@ -2,15 +2,15 @@ package events.fehGame.retriever;
 
 import events.commands.Command;
 import net.dv8tion.jda.core.EmbedBuilder;
-import utilities.feh.heroes.character.Hero;
-import utilities.feh.skills.*;
+import feh.heroes.character.Hero;
+import feh.skills.*;
 
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 
-import static utilities.feh.heroes.UnitDatabase.HEROES;
-import static utilities.feh.skills.SkillDatabase.SKILLS;
+import static feh.heroes.UnitDatabase.HEROES;
+import static feh.skills.SkillDatabase.SKILLS;
 
 public class SkillRetriever extends Command {
     public void onCommand() {

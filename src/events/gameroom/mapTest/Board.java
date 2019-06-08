@@ -1,7 +1,7 @@
 package events.gameroom.mapTest;
 
-import utilities.feh.heroes.unit.Unit;
-import utilities.feh.heroes.character.Hero;
+import feh.heroes.unit.Unit;
+import feh.heroes.character.Hero;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

@@ -3,9 +3,9 @@ package events.fehGame.retriever;
 import events.commands.Command;
 import main.BotMain;
 import net.dv8tion.jda.core.entities.Emote;
-import utilities.feh.heroes.UnitDatabase;
-import utilities.feh.heroes.character.Hero;
-import utilities.feh.heroes.unit.Unit;
+import feh.heroes.UnitDatabase;
+import feh.heroes.character.Hero;
+import feh.heroes.unit.Unit;
 
 import java.util.*;
 import java.util.List;

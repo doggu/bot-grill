@@ -2,7 +2,7 @@ package events.fehGame;
 
 import events.commands.Command;
 import events.fehGame.summoning.SummonSimulator;
-import utilities.feh.players.Summoner;
+import feh.players.Summoner;
 
 public class OrbBalance extends Command {
     @Override

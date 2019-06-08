@@ -1,6 +1,6 @@
 package events.gameroom.mapTest;
 
-import utilities.feh.heroes.character.Hero;
+import feh.heroes.character.Hero;
 
 public enum Tile {
     PLAINS              ("plains", true, true, true, false, false, false),

@@ -6,12 +6,11 @@ import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
-import utilities.feh.heroes.unit.Unit;
-import utilities.feh.summoning.Banner;
-import utilities.feh.summoning.Stone;
-import utilities.feh.players.Summoner;
+import feh.heroes.unit.Unit;
+import feh.summoning.Banner;
+import feh.summoning.Stone;
+import feh.players.Summoner;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

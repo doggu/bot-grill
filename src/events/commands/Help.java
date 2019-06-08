@@ -1,5 +1,6 @@
 package events.commands;
 
+import events.commands.Command;
 import main.BotMain;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 

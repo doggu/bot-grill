@@ -188,7 +188,7 @@ public class SkillDatabase extends WebScalper {
     }
 
     private static ArrayList<Weapon> processWeapons() {
-        System.out.println("processing weapons...");
+        System.out.print("processing weapons... ");
         File weaponsFolder = new File("./src/utilities/feh/webCache/weapons");
         File[] weaponTables;
         try {
@@ -220,7 +220,7 @@ public class SkillDatabase extends WebScalper {
         weaponType.put("swords.txt", "Dagger");
 
         for (File file:weaponTables) {
-            System.out.println("processing "+file.getName()+"...");
+            System.out.print(file.getName()+"... ");
             Scanner table;
             try {
                 table = new Scanner(file);
@@ -261,6 +261,7 @@ public class SkillDatabase extends WebScalper {
             }
         }
 
+        System.out.println("done!");
         return weapons;
     }
     private static ArrayList<Assist> processAssists() {
@@ -304,6 +305,7 @@ public class SkillDatabase extends WebScalper {
         return assists;
     }
     private static ArrayList<Special> processSpecials() {
+        System.out.println("processing specials...");
         ArrayList<String> specialTable;
         BufferedReader specialData;
         try {
@@ -341,6 +343,7 @@ public class SkillDatabase extends WebScalper {
         return specials;
     }
     private static ArrayList<Passive> processPassives() {
+        System.out.print("processing passives... ");
         ArrayList<ArrayList<String>> passiveTables;
         BufferedReader passiveData;
         try {
@@ -370,6 +373,7 @@ public class SkillDatabase extends WebScalper {
         Passive x;
 
         for (int i=0; i<passiveTables.size(); i++) {
+            System.out.println("table "+(i+1)+"... ");
             Iterator<String> iterator = passiveTables.get(i).iterator();
             while (iterator.hasNext()) {
                 String name = iterator.next();
@@ -411,7 +415,7 @@ public class SkillDatabase extends WebScalper {
         }
 
 
-
+        System.out.println("done!");
         return passives;
     }
 
@@ -456,8 +460,7 @@ public class SkillDatabase extends WebScalper {
     }
 
     private static boolean isExclusive(String name) {
-        ArrayList<String> list = getExclusiveList();
-        for (String x:list) if (x.equals(name)) return true;
+        for (String x:getExclusiveList()) if (x.equals(name)) return true;
         return false;
     }
 
@@ -553,29 +556,5 @@ public class SkillDatabase extends WebScalper {
         }
 
         return table;
-    }
-
-
-    public static void main(String[] args) {
-        updateCache();
-
-        /*
-        File folder = new File("./src/utilities/feh/webCache/weapons");
-        File[] files = folder.listFiles();
-
-        for (File x:files) {
-            System.out.println(x.getName());
-        }
-
-        /*
-        Scanner console = new Scanner(System.in);
-
-        String input;
-        while ((input = console.nextLine())!=null) {
-            System.out.println(HERO_SKILLS.get(input));
-        }
-
-        console.close();
-        */
     }
 }

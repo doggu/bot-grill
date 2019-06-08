@@ -2,14 +2,15 @@ package events.fehGame.retriever;
 
 import events.commands.Command;
 import net.dv8tion.jda.core.EmbedBuilder;
+import utilities.feh.heroes.character.Hero;
 import utilities.feh.skills.*;
 
 import java.awt.*;
 import java.util.*;
 import java.util.List;
 
+import static utilities.feh.heroes.UnitDatabase.HEROES;
 import static utilities.feh.skills.SkillDatabase.SKILLS;
-import static utilities.feh.skills.SkillDatabase.HERO_SKILLS;
 
 public class SkillRetriever extends Command {
     public void onCommand() {
@@ -105,12 +106,12 @@ public class SkillRetriever extends Command {
                 skill.addField("Cooldown", String.valueOf(((Special) x).getCooldown()), true);
             }
 
+            //something that a unit can possess
             if (!(x instanceof PassiveS)) {
                 skill.addField("Exclusive?", (x.isExclusive()?"Yes":"No"), false);
-                Set<String> heroes = HERO_SKILLS.keySet();
                 StringBuilder owners = new StringBuilder();
-                for (String n : heroes) {
-                    if (HERO_SKILLS.get(n).contains(x)) {
+                for (Hero n:HEROES) {
+                    if (n.getBaseKit().contains(x)) {
                         owners.append(n).append(", ");
                     }
                 }

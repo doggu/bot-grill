@@ -82,17 +82,9 @@ public class UnitDatabase extends WebScalper {
     private static void updateCache() {
         BufferedReader lv1Stats, growthRates, heroList;
 
-        try {
-            lv1Stats = readWebsite(LV1_STATS);
-        } catch (IOException g) { throw new Error("lv1Stats could not read the website"); }
-
-        try {
-            growthRates = readWebsite(GROWTH_RATES);
-        } catch (IOException g) { throw new Error("growthRates could not read the website"); }
-
-        try {
-            heroList = readWebsite(HERO_LIST);
-        } catch (IOException g) { throw new Error("heroList could not read the website"); }
+        lv1Stats = readWebsite(LV1_STATS);
+        growthRates = readWebsite(GROWTH_RATES);
+        heroList = readWebsite(HERO_LIST);
 
 
 

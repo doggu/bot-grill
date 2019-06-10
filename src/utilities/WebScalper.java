@@ -12,16 +12,31 @@ import java.util.stream.IntStream;
 
 
 public abstract class WebScalper {
-    public static BufferedReader readWebsite(String url) throws IOException {
-        BufferedReader website = new BufferedReader(new InputStreamReader(new URL(url).openConnection().getInputStream()));
-        System.out.println("finished reading "+url);
-        return website;
+    protected static BufferedReader readWebsite(String website) {
+        // courtesy of Stas Yak at:
+        // https://stackoverflow.com/questions/238547/how-do-you-programmatically-download-a-webpage-in-java
+        URL url;
+        InputStream is;
+        BufferedReader br;
+
+        try {
+            url = new URL(website);
+            is = url.openStream();
+            br = new BufferedReader(new InputStreamReader(is));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            throw new Error("could not read website "+website);
+        }
+
+        System.out.println("finished reading "+website);
+        return br;
     }
 
 
 
     //literally just for hero information because all their shit is on one line
-    public static ArrayList<String> getItems(IntStream source) {
+    //not really true anymore but who's keeping track
+    protected static ArrayList<String> getItems(IntStream source) {
         ArrayList<String> data = new ArrayList<>();
         int[] chars = source.toArray();
         

@@ -137,8 +137,13 @@ public class Banner {
                 rarity5rate = 3;
                 rarity4rate = 58;
                 rarity3rate = 36;
+                //they just had to do it to me huh
+                if (args[1].equals("Weekly")) {
+                    rarityFrate++;
+                    rarity5rate--;
+                }
                 break;
-            //the banner feat. marth, lucina, robin, tiki doesn't register due to "legendary" being args[1]
+            //the banner feat. marth, lucina, robin, tiki doesn't register due to "Legendary" being args[1]
             case "Legendary":
                 rarityFrate = 8;
                 rarity5rate = 0;

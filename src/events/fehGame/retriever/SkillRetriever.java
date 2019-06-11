@@ -42,7 +42,11 @@ public class SkillRetriever extends Command {
                     String xN = x.getName(), yN = y.getName();
                     if (xN.substring(0,xN.length()-2)
                             .equals(yN.substring(0,yN.length()-2))) {
-                        if (xN.charAt(xN.length()-1)>yN.charAt(yN.length()-1))
+                        int xLevel = Integer.parseInt(String.valueOf(xN.charAt(xN.length()-1)));
+                        int yLevel = Integer.parseInt(String.valueOf(yN.charAt(yN.length()-1)));
+
+                        if (xLevel==4||yLevel==4); //one's tier 4 which is prolly different
+                        else if (xLevel>yLevel)
                             remove.add(y);
                         else
                             remove.add(x);

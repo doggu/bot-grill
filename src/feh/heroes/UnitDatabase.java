@@ -48,9 +48,6 @@ public class UnitDatabase extends WebScalper {
     // [def]
     // [res]
     // [total]
-    // [name]: [epithet]
-    // [hp]
-    // [atk]
     // ...
     //
     //
@@ -70,8 +67,6 @@ public class UnitDatabase extends WebScalper {
     // [def]
     // [res]
     // [release date]
-    // [name]: [epithet]
-    // [color] [weapon]
     // ...
     //
     //
@@ -85,10 +80,6 @@ public class UnitDatabase extends WebScalper {
     // -[rarity - upper bound]
     // [special indicator (*|Story|Grand Hero Battle|Tempest Trials|Legendary)]
     // [release date]
-    // [name]: [epithet]
-    // [origin]
-    // [rarity - lower bound]
-    // -[rarity - upper bound]
     // ...
 
 
@@ -100,6 +91,10 @@ public class UnitDatabase extends WebScalper {
 
         HEROES = getList();
     }
+
+
+
+    private static HeroConstructor CURRENT_HERO;
 
     private static ArrayList<Hero> getList() {
         LV1_STATS_FILE = new FEHeroesCache(LV1_STATS, HERO_SUBDIR);
@@ -130,14 +125,14 @@ public class UnitDatabase extends WebScalper {
 
 
         while (lv1StatsIterator.hasNext()&&growthRatesIterator.hasNext()&&heroListIterator.hasNext()) {
-            HeroConstructor x = new HeroConstructor();
+            CURRENT_HERO = new HeroConstructor();
 
-            processLv1Stats(x, lv1StatsIterator);
-            processGrowthRates(x, growthRatesIterator);
-            processListOfHeroes(x, heroListIterator);
-            addBaseKit(x);
+            processLv1Stats(lv1StatsIterator);
+            processGrowthRates(growthRatesIterator);
+            processListOfHeroes(heroListIterator);
+            addBaseKit();
 
-            heroConstructors.add(x);
+            heroConstructors.add(CURRENT_HERO);
             HERO_INDEX++;
         }
 
@@ -151,10 +146,10 @@ public class UnitDatabase extends WebScalper {
         return heroes;
     }
 
-    private static void processLv1Stats(HeroConstructor x, ListIterator<String> input) {
+    private static void processLv1Stats(ListIterator<String> input) {
         String identification = input.next();
         String[] id = identification.split(": ");
-        x.setFullName(new HeroName(id[0], id[1]));
+        CURRENT_HERO.setFullName(new HeroName(id[0], id[1]));
 
 
 
@@ -163,29 +158,29 @@ public class UnitDatabase extends WebScalper {
         for (int i=0; i<stats.length; i++)
             stats[i] = Integer.parseInt(input.next());
 
-        x.setStats(stats);
+        CURRENT_HERO.setStats(stats);
 
 
 
         input.next(); //total lv1 stats
     }
-    private static void processGrowthRates(HeroConstructor x, ListIterator<String> input) {
+    private static void processGrowthRates(ListIterator<String> input) {
         String[] id = input.next().split(": ");
 
         boolean misaligned = false;
-        if (!id[0].equals(x.getName())) {
+        if (!id[0].equals(CURRENT_HERO.getName())) {
             misaligned = true;
             System.out.println("GrR: misalignment detected for unit " + HERO_INDEX + " (" + id[0] + ")");
         }
 
 
         String typing = input.next();
-        x.setWeaponType(typing);
+        CURRENT_HERO.setWeaponType(typing);
 
 
 
         String moveType = input.next();
-        x.setMoveType(moveType);
+        CURRENT_HERO.setMoveType(moveType);
 
 
 
@@ -202,17 +197,17 @@ public class UnitDatabase extends WebScalper {
             statGrowths[i] = Integer.parseInt(growth);
         }
 
-        x.setGrowths(statGrowths);
+        CURRENT_HERO.setGrowths(statGrowths);
 
         GregorianCalendar releaseDate = parseDate(input.next());
-        x.setDateReleased(releaseDate);
+        CURRENT_HERO.setDateReleased(releaseDate);
 
 
 
         if (misaligned) {
-            if (input.next().equals(x.getName() + ": " + x.getEpithet())) {
+            if (input.next().equals(CURRENT_HERO.getName() + ": " + CURRENT_HERO.getEpithet())) {
                 input.previous();
-                processGrowthRates(x, input);
+                processGrowthRates(input);
             } else {
                 for (int i=0; i<9; i++) {
                     input.previous();
@@ -220,19 +215,19 @@ public class UnitDatabase extends WebScalper {
             }
         }
     }
-    private static void processListOfHeroes(HeroConstructor x, ListIterator<String> input) {
+    private static void processListOfHeroes(ListIterator<String> input) {
         String[] id = input.next().split(": ");
         String name = id[0];
         if (id.length<2) throw new Error("improper name detected for unit "+HERO_INDEX+": "+name);
         boolean misaligned = false;
-        if (!id[0].equals(x.getName())) {
+        if (!id[0].equals(CURRENT_HERO.getName())) {
             misaligned = true;
             System.out.println("LoH: misalignment detected for unit "+HERO_INDEX+" ("+id[0]+")");
         }
 
 
         String origin = input.next();
-        x.setOrigin(origin);
+        CURRENT_HERO.setOrigin(origin);
 
 
 
@@ -244,7 +239,7 @@ public class UnitDatabase extends WebScalper {
             throw new Error("error for character #"+HERO_INDEX+" ("+name+")\n" +
                     "attempted rarity: \""+rarity+"\"");
         }
-        x.setRarity(lowerRarityBound);
+        CURRENT_HERO.setRarity(lowerRarityBound);
 
 
 
@@ -303,14 +298,14 @@ public class UnitDatabase extends WebScalper {
             input.next(); //release date
         }
 
-        x.setAvailability(availability);
+        CURRENT_HERO.setAvailability(availability);
 
 
 
         if (misaligned) {
-            if (input.next().equals(x.getName() + ": " + x.getEpithet())) {
+            if (input.next().equals(CURRENT_HERO.getName() + ": " + CURRENT_HERO.getEpithet())) {
                 input.previous();
-                processListOfHeroes(x, input);
+                processListOfHeroes(input);
             } else {
                 for (int i=0; i<7; i++) {
                     input.previous();
@@ -318,14 +313,14 @@ public class UnitDatabase extends WebScalper {
             }
         }
     }
-    private static void addBaseKit(HeroConstructor x) {
+    private static void addBaseKit() {
         ArrayList<Skill> baseKit;
         try {
-            baseKit = SkillDatabase.HERO_SKILLS.get(x.getFullName().toString());
+            baseKit = SkillDatabase.HERO_SKILLS.get(CURRENT_HERO.getFullName().toString());
         } catch (NoSuchElementException f) {
-            throw new Error("could not find base kit for "+x.getFullName().toString());
+            throw new Error("could not find base kit for "+CURRENT_HERO.getFullName().toString());
         }
-        x.setBaseKit(baseKit);
+        CURRENT_HERO.setBaseKit(baseKit);
     }
 
 

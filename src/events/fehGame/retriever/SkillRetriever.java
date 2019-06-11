@@ -34,14 +34,31 @@ public class SkillRetriever extends Command {
         //for (Skill x:candidates) System.out.println(x.getName());
 
         List<Skill> remove = new ArrayList<>();
+
+        //remove lower tiers of skills (the number thingy)
+        for (Skill x:candidates) {
+            for (Skill y:candidates) {
+                if (x!=y) {
+                    String xN = x.getName(), yN = y.getName();
+                    if (xN.substring(0,xN.length()-2)
+                            .equals(yN.substring(0,yN.length()-2))) {
+                        if (xN.charAt(xN.length()-1)>yN.charAt(yN.length()-1))
+                            remove.add(y);
+                        else
+                            remove.add(x);
+                    }
+                }
+            }
+        }
+
+        //remove lower tiers of weapons
         for (Skill x:candidates) {
             for (Skill y:candidates) {
                 //same objects
                 if (x!=y) {
                     if (x.getName().contains(y.getName())) {
-                        boolean legendary = false;
-                        if (x.isExclusive()||y.isExclusive()) legendary = true;
-                        if (!legendary) remove.add(y);
+                        if (x.isExclusive()||y.isExclusive()) break;
+                        remove.add(y);
                     }
                 }
             }

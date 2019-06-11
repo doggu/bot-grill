@@ -121,10 +121,10 @@ public class UnitDatabase extends WebScalper {
         growthRatesData.subList(0,12).clear();
         heroListData.subList(0,7).clear();
 
-        Iterator<String>
-                lv1StatsIterator = lv1StatsData.iterator(),
-                growthRatesIterator = growthRatesData.iterator(),
-                heroListIterator = heroListData.iterator();
+        ListIterator<String>
+                lv1StatsIterator = lv1StatsData.listIterator(),
+                growthRatesIterator = growthRatesData.listIterator(),
+                heroListIterator = heroListData.listIterator();
 
 
 
@@ -151,7 +151,7 @@ public class UnitDatabase extends WebScalper {
         return heroes;
     }
 
-    private static void processLv1Stats(HeroConstructor x, Iterator<String> input) {
+    private static void processLv1Stats(HeroConstructor x, ListIterator<String> input) {
         String identification = input.next();
         String[] id = identification.split(": ");
         x.setFullName(new HeroName(id[0], id[1]));
@@ -169,12 +169,14 @@ public class UnitDatabase extends WebScalper {
 
         input.next(); //total lv1 stats
     }
-    private static void processGrowthRates(HeroConstructor x, Iterator<String> input) {
+    private static void processGrowthRates(HeroConstructor x, ListIterator<String> input) {
         String[] id = input.next().split(": ");
 
-        if (!id[0].equals(x.getName()))
-            System.out.println("GrR: misalignment detected for unit "+HERO_INDEX+" ("+id[0]+")");
-
+        boolean misaligned = false;
+        if (!id[0].equals(x.getName())) {
+            misaligned = true;
+            System.out.println("GrR: misalignment detected for unit " + HERO_INDEX + " (" + id[0] + ")");
+        }
 
 
         String typing = input.next();
@@ -202,18 +204,31 @@ public class UnitDatabase extends WebScalper {
 
         x.setGrowths(statGrowths);
 
-
-
         GregorianCalendar releaseDate = parseDate(input.next());
         x.setDateReleased(releaseDate);
+
+
+
+        if (misaligned) {
+            if (input.next().equals(x.getName() + ": " + x.getEpithet())) {
+                input.previous();
+                processGrowthRates(x, input);
+            } else {
+                for (int i=0; i<9; i++) {
+                    input.previous();
+                }
+            }
+        }
     }
-    private static void processListOfHeroes(HeroConstructor x, Iterator<String> input) {
+    private static void processListOfHeroes(HeroConstructor x, ListIterator<String> input) {
         String[] id = input.next().split(": ");
         String name = id[0];
-        if (id.length<2) throw new Error("improper name detected for unit "+HERO_INDEX);
-        if (!id[0].equals(x.getName()))
+        if (id.length<2) throw new Error("improper name detected for unit "+HERO_INDEX+": "+name);
+        boolean misaligned = false;
+        if (!id[0].equals(x.getName())) {
+            misaligned = true;
             System.out.println("LoH: misalignment detected for unit "+HERO_INDEX+" ("+id[0]+")");
-
+        }
 
 
         String origin = input.next();
@@ -289,6 +304,19 @@ public class UnitDatabase extends WebScalper {
         }
 
         x.setAvailability(availability);
+
+
+
+        if (misaligned) {
+            if (input.next().equals(x.getName() + ": " + x.getEpithet())) {
+                input.previous();
+                processListOfHeroes(x, input);
+            } else {
+                for (int i=0; i<7; i++) {
+                    input.previous();
+                }
+            }
+        }
     }
     private static void addBaseKit(HeroConstructor x) {
         ArrayList<Skill> baseKit;

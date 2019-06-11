@@ -5,7 +5,6 @@ import events.fehGame.summoning.SummonSimulator;
 import feh.players.Summoner;
 
 public class OrbBalance extends Command {
-    @Override
     public void onCommand() {
         Summoner match = null;
         for (Summoner x: SummonSimulator.summoners) {
@@ -23,7 +22,6 @@ public class OrbBalance extends Command {
         }
     }
 
-    @Override
     public boolean isCommand() {
         return args[0].equalsIgnoreCase("getOrbsSpent");
     }
@@ -36,6 +34,6 @@ public class OrbBalance extends Command {
         return getDescription()+"\n" +
                 "\tSyntax: \"?GetOrbsSpent\"\n" +
                 "Returns the amount of orbs you've spent in the summoning simulator.\n" +
-                "WIP, currently does not hold a true balance; only expenses.";
+                "WIP, currently does not hold a true balance, only expenses.";
     }
 }

@@ -1,8 +1,6 @@
 package feh.skills.analysis;
 
-// action skills are only weapons and assists:
-// with the exception of rehabilitate, they do not modify any values on the character
-// (such as raw stats, Special cooldown, etc.)
+// action skills are only weapons and assists: they allow a unit to perform an action on another unit (enemy or not).
 public interface ActionSkill {
     int getRng();
 }

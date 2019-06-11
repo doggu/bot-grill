@@ -1,6 +1,8 @@
 package events.fehGame.retriever;
 
 import events.commands.Command;
+import feh.skills.analysis.ActionSkill;
+import feh.skills.analysis.StatModifier;
 import net.dv8tion.jda.core.EmbedBuilder;
 import feh.heroes.character.Hero;
 import feh.skills.*;

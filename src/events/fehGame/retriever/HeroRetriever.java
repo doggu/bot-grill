@@ -30,7 +30,8 @@ public class HeroRetriever extends Command {
         int merges = 0;
         int dragonflowers = 0;
         char support = 'd';
-        boolean newestOnly = false;
+        boolean newestOnly = false, oldestOnly = false;
+
 
         if (args[0].equalsIgnoreCase("getIVs")) lv1 = true;
 
@@ -155,6 +156,10 @@ public class HeroRetriever extends Command {
                 newestOnly = true;
                 args.remove(i);
                 i--;
+            } else if (x.equalsIgnoreCase("old")) {
+                oldestOnly = true;
+                args.remove(i);
+                i--;
             }
         }
 
@@ -224,6 +229,15 @@ public class HeroRetriever extends Command {
                 }
                 candidates = new ArrayList<>();
                 candidates.add(newestHero);
+            } else if (oldestOnly) {
+                Hero oldestHero = candidates.get(0);
+                for (Hero x:candidates) {
+                    if (x.getReleaseDate().getTimeInMillis()<oldestHero.getReleaseDate().getTimeInMillis()) {
+                        oldestHero = x;
+                    }
+                }
+                candidates = new ArrayList<>();
+                candidates.add(oldestHero);
             } else {
                 for (String x : args) {
                     x = x.toLowerCase();

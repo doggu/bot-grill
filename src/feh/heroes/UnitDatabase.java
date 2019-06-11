@@ -1,5 +1,6 @@
 package feh.heroes;
 
+import feh.FEHeroesCache;
 import utilities.WebScalper;
 import feh.heroes.character.Availability;
 import feh.heroes.character.Hero;
@@ -8,17 +9,28 @@ import feh.heroes.character.HeroName;
 import feh.skills.Skill;
 import feh.skills.SkillDatabase;
 
-import java.io.*;
 import java.util.*;
-import java.util.stream.IntStream;
 
 public class UnitDatabase extends WebScalper {
-    public static final ArrayList<Hero> HEROES = getList();
+    public static ArrayList<Hero> HEROES = getList();
+
+    private static final String HERO_SUBDIR = "/herodata/";
 
     private static final String
-            LV1_STATS = "https://feheroes.gamepedia.com/Level_1_stats_table",
-            GROWTH_RATES = "https://feheroes.gamepedia.com/Growth_rate_table",
-            HERO_LIST = "https://feheroes.gamepedia.com/List_of_Heroes";
+            LV1_STATS = "Level_1_stats_table",
+            GROWTH_RATES = "Growth_rate_table",
+            HERO_LIST = "List_of_Heroes";
+
+    private static FEHeroesCache
+            LV1_STATS_FILE,
+            GROWTH_RATES_FILE,
+            HERO_LIST_FILE;
+
+    private static FEHeroesCache[] HERO_FILES = {
+            LV1_STATS_FILE,
+            GROWTH_RATES_FILE,
+            HERO_LIST_FILE,
+    };
 
 
 
@@ -79,161 +91,50 @@ public class UnitDatabase extends WebScalper {
     // -[rarity - upper bound]
     // ...
 
+
+
     private static void updateCache() {
-        BufferedReader lv1Stats, growthRates, heroList;
-
-        lv1Stats = readWebsite(LV1_STATS);
-        growthRates = readWebsite(GROWTH_RATES);
-        heroList = readWebsite(HERO_LIST);
-
-
-
-        IntStream lv1StatsTable = null, growthRatesTable = null, heroListTable = null;
-
-        try {
-            String line;
-            while ((line = lv1Stats.readLine()) != null) {
-                //the entire fucking table is on one line...
-                if (line.contains("<table class=\"wikitable sortable\"")) lv1StatsTable = line.chars();
-            }
-            if (lv1StatsTable == null) {
-                throw new Error("lv1StatsTable could not find the table");
-            }
-
-            while ((line = growthRates.readLine()) != null) {
-                //same for all of em
-                if (line.contains("<table class=\"wikitable default sortable\"")) growthRatesTable = line.chars();
-            }
-            if (growthRatesTable == null) {
-                throw new Error("growthRatesTable could not find the table");
-            }
-
-            while ((line = heroList.readLine()) != null) {
-                //ugh
-                if (line.contains("<table class=\"wikitable default sortable\"")) heroListTable = line.chars();
-            }
-            if (heroListTable == null) {
-                throw new Error("heroListTable could not find the table");
-            }
-        } catch (IOException g) {
-            throw new Error("table finding ran into an error");
+        for (FEHeroesCache x:HERO_FILES) {
+            if (!x.update()) throw new Error("unable to update "+x.getName());
         }
 
-        Iterator<String> lv1StatsData = getItems(lv1StatsTable).iterator();
-        Iterator<String> growthRatesData = getItems(growthRatesTable).iterator();
-        Iterator<String> heroListData = getItems(heroListTable).iterator();
-
-        //remove initial junk data
-        /*
-        for (int i=0; i<7; i++)
-            System.out.println(lv1StatsData.next());
-        for (int i=0; i<12; i++)
-            System.out.println(growthRatesData.next());
-        for (int i=0; i<7; i++)
-            System.out.println(heroListData.next());
-        */
-
-        for (int i=0; i<7; i++)
-            lv1StatsData.next();
-        for (int i=0; i<12; i++)
-            growthRatesData.next();
-        for (int i=0; i<7; i++)
-            heroListData.next();
-
-        File lv1StatsFile = new File("./src/feh/webCache/heroes/lv1StatsData.txt");
-        File growthRatesFile = new File("./src/feh/webCache/heroes/growthRatesData.txt");
-        File heroListFile = new File("./src/feh/webCache/heroes/heroListData.txt");
-        File path = new File("./src/feh/webCache/heroes");
-        if (!path.mkdirs()) throw new Error("couldn't create filepath for hero data");
-        try {
-            if (!lv1StatsFile.createNewFile()) throw new Error("couldn't create lv1");
-        } catch (IOException f) {
-            throw new Error("IOException creating lv1");
-        }
-        try {
-            if (!growthRatesFile.createNewFile()) throw new Error("couldn't create growths");
-        } catch (IOException f) {
-            throw new Error("IOException creating growths");
-        }
-        try {
-            if (!heroListFile.createNewFile()) throw new Error("couldn't create heroList");
-        } catch (IOException f) {
-            throw new Error("IOException creating heroList");
-        }
-
-
-        FileWriter writer;
-
-        try {
-            writer = new FileWriter(lv1StatsFile);
-            while (lv1StatsData.hasNext()) {
-                writer.write(lv1StatsData.next());
-                if (lv1StatsData.hasNext()) writer.write('\n');
-            }
-            writer.close();
-        } catch (IOException f) {
-            throw new Error("lv1StatsFile didnt exist or something");
-        }
-
-        try {
-            writer = new FileWriter(growthRatesFile);
-            while (growthRatesData.hasNext()) {
-                writer.write(growthRatesData.next());
-                if (growthRatesData.hasNext()) writer.write('\n');
-            }
-            writer.close();
-        } catch (IOException f) {
-            throw new Error("growthRatesFile didnt exist or something");
-        }
-
-        try {
-            writer = new FileWriter(heroListFile);
-            while (heroListData.hasNext()) {
-                writer.write(heroListData.next());
-                if (heroListData.hasNext()) writer.write('\n');
-            }
-            writer.close();
-        } catch (IOException f) {
-            throw new Error("heroListFile didnt exist or something");
-        }
+        HEROES = getList();
     }
 
     private static ArrayList<Hero> getList() {
+        LV1_STATS_FILE = new FEHeroesCache(LV1_STATS, HERO_SUBDIR);
+        GROWTH_RATES_FILE = new FEHeroesCache(GROWTH_RATES, HERO_SUBDIR);
+        HERO_LIST_FILE = new FEHeroesCache(HERO_LIST, HERO_SUBDIR);
+
+
+
         ArrayList<HeroConstructor> heroConstructors = new ArrayList<>();
 
 
 
-        File    lv1StatsFile = new File("./src/feh/webCache/heroes/lv1StatsData.txt"),
-                growthRatesFile = new File("./src/feh/webCache/heroes/growthRatesData.txt"),
-                heroListFile = new File("./src/feh/webCache/heroes/heroListData.txt");
+        ArrayList<String>
+                lv1StatsData = LV1_STATS_FILE.getTable("<table class=\"wikitable sortable\""),
+                growthRatesData = GROWTH_RATES_FILE.getTable("<table class=\"wikitable default sortable\""),
+                heroListData = HERO_LIST_FILE.getTable("<table class=\"wikitable default sortable\"");
+
+        lv1StatsData.subList(0,7).clear();
+        growthRatesData.subList(0,12).clear();
+        heroListData.subList(0,7).clear();
+
+        Iterator<String>
+                lv1StatsIterator = lv1StatsData.iterator(),
+                growthRatesIterator = growthRatesData.iterator(),
+                heroListIterator = heroListData.iterator();
 
 
 
-        Scanner lv1StatsData = null, growthRatesData = null, heroListData = null;
 
-        int tries = 0;
-        while (lv1StatsData==null||growthRatesData==null||heroListData==null) {
-            try {
-                lv1StatsData = new Scanner(lv1StatsFile);
-                growthRatesData = new Scanner(growthRatesFile);
-                heroListData = new Scanner(heroListFile);
-            } catch (FileNotFoundException f) {
-                updateCache();
-                tries++;
-                if (tries>5) {
-                    throw new Error("it's time to stop");
-                }
-            }
-        }
-
-
-
-        while (lv1StatsData.hasNext()&&growthRatesData.hasNext()&&heroListData.hasNext()) {
+        while (lv1StatsIterator.hasNext()&&growthRatesIterator.hasNext()&&heroListIterator.hasNext()) {
             HeroConstructor x = new HeroConstructor();
 
-            processLv1Stats(x, lv1StatsData);
-            processGrowthRates(x, growthRatesData);
-            processListOfHeroes(x, heroListData);
+            processLv1Stats(x, lv1StatsIterator);
+            processGrowthRates(x, growthRatesIterator);
+            processListOfHeroes(x, heroListIterator);
             addBaseKit(x);
 
             heroConstructors.add(x);
@@ -250,8 +151,8 @@ public class UnitDatabase extends WebScalper {
         return heroes;
     }
 
-    private static void processLv1Stats(HeroConstructor x, Scanner input) {
-        String identification = input.nextLine();
+    private static void processLv1Stats(HeroConstructor x, Iterator<String> input) {
+        String identification = input.next();
         String[] id = identification.split(": ");
         x.setFullName(new HeroName(id[0], id[1]));
 
@@ -260,42 +161,42 @@ public class UnitDatabase extends WebScalper {
         int[] stats = new int[5];
 
         for (int i=0; i<stats.length; i++)
-            stats[i] = Integer.parseInt(input.nextLine());
+            stats[i] = Integer.parseInt(input.next());
 
         x.setStats(stats);
 
 
 
-        input.nextLine(); //total lv1 stats
+        input.next(); //total lv1 stats
     }
-    private static void processGrowthRates(HeroConstructor x, Scanner input) {
-        String[] id = input.nextLine().split(": ");
+    private static void processGrowthRates(HeroConstructor x, Iterator<String> input) {
+        String[] id = input.next().split(": ");
 
         if (!id[0].equals(x.getName()))
             System.out.println("GrR: misalignment detected for unit "+HERO_INDEX+" ("+id[0]+")");
 
 
 
-        String typing = input.nextLine();
+        String typing = input.next();
         x.setWeaponType(typing);
 
 
 
-        String moveType = input.nextLine();
+        String moveType = input.next();
         x.setMoveType(moveType);
 
 
 
-        input.nextLine(); //total lv1 stats
-        input.nextLine(); //total stat growths
-        input.nextLine(); //total lv1 stats and stat growths
+        input.next(); //total lv1 stats
+        input.next(); //total stat growths
+        input.next(); //total lv1 stats and stat growths
 
 
 
         int[] statGrowths = new int[5];
 
         for (int i=0; i<statGrowths.length; i++) {
-            String growth = input.nextLine().replace("%", "");
+            String growth = input.next().replace("%", "");
             statGrowths[i] = Integer.parseInt(growth);
         }
 
@@ -303,11 +204,11 @@ public class UnitDatabase extends WebScalper {
 
 
 
-        GregorianCalendar releaseDate = parseDate(input.nextLine());
+        GregorianCalendar releaseDate = parseDate(input.next());
         x.setDateReleased(releaseDate);
     }
-    private static void processListOfHeroes(HeroConstructor x, Scanner input) {
-        String[] id = input.nextLine().split(": ");
+    private static void processListOfHeroes(HeroConstructor x, Iterator<String> input) {
+        String[] id = input.next().split(": ");
         String name = id[0];
         if (id.length<2) throw new Error("improper name detected for unit "+HERO_INDEX);
         if (!id[0].equals(x.getName()))
@@ -315,12 +216,12 @@ public class UnitDatabase extends WebScalper {
 
 
 
-        String origin = input.nextLine();
+        String origin = input.next();
         x.setOrigin(origin);
 
 
 
-        String rarity = input.nextLine();
+        String rarity = input.next();
         int lowerRarityBound;
         try {
             lowerRarityBound = Integer.parseInt(rarity);
@@ -332,7 +233,7 @@ public class UnitDatabase extends WebScalper {
 
 
 
-        String indeterminate = input.nextLine();
+        String indeterminate = input.next();
 
         /*
          * parsing these nextLine few lines:
@@ -348,7 +249,7 @@ public class UnitDatabase extends WebScalper {
 
         if (indeterminate.indexOf("–")==0) {
             //int upperRarityBound = Integer.parseInt(indeterminate.substring(1));
-            indeterminate = input.nextLine();
+            indeterminate = input.next();
         }                         //this is an em dash btw
 
         Availability availability;
@@ -384,7 +285,7 @@ public class UnitDatabase extends WebScalper {
                     throw new Error("obtaining method wasn't accounted for: "+indeterminate);
             }
 
-            input.nextLine(); //release date
+            input.next(); //release date
         }
 
         x.setAvailability(availability);

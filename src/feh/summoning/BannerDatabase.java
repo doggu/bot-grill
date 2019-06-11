@@ -1,40 +1,40 @@
 package feh.summoning;
 
-
-
+import feh.FEHeroesCache;
 import utilities.WebScalper;
 import feh.heroes.character.Hero;
 
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.*;
 import java.util.stream.IntStream;
 
-
-
 public class BannerDatabase extends WebScalper {
-    public static final List<Banner> BANNERS = getList();
+    public static List<Banner> BANNERS = getList();
+
+    private static final String FOCUS_ARCHIVE = "Summoning_Focus_archive";
+
+    private static FEHeroesCache FOCUS_ARCHIVE_FILE;
+
+
+
+    private static void updateCache() {
+        if (!FOCUS_ARCHIVE_FILE.update()) throw new Error("unable to update "+FOCUS_ARCHIVE_FILE.getName());
+
+        BANNERS = getList();
+    }
 
     private static List<Banner> getList() {
-        IntStream data = null;
-
-        try {
-            BufferedReader focusArchive = readWebsite("https://feheroes.gamepedia.com/Summoning_Focus_archive");
-            String line;
-            while ((line = focusArchive.readLine()) != null) {
-                if (line.length() > 100000) { //reliable coding inc
-                    data = line.chars();
-                    break;
-                }
-            }
-        } catch (IOException g) { System.out.println("banners had an issue"); throw new Error(); }
-
-        if (data==null) throw new Error("getList did not find the big-ass, one-line table");
+        FOCUS_ARCHIVE_FILE = new FEHeroesCache(FOCUS_ARCHIVE);
 
 
+
+        String line = FOCUS_ARCHIVE_FILE.getLongAssLine(100000);
+
+        if (line==null) throw new Error("getList did not find the big-ass, one-line table");
+
+        IntStream data = line.chars();
 
         Iterator<String> items = getItems(data).iterator();
-        List<Banner> banners = new ArrayList<>();
+        ArrayList<Banner> banners = new ArrayList<>();
 
         Banner x;
         while (items.hasNext()) {
@@ -131,6 +131,8 @@ public class BannerDatabase extends WebScalper {
 
 
     public static void main(String[] args) {
+        updateCache();
+
         Scanner input = new Scanner(System.in);
         String line;
         while (!(line = input.nextLine()).equals("quit")) {

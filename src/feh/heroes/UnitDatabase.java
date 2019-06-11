@@ -140,10 +140,10 @@ public class UnitDatabase extends WebScalper {
         for (int i=0; i<7; i++)
             heroListData.next();
 
-        File lv1StatsFile = new File("./src/feh/webCache/lv1StatsData.txt");
-        File growthRatesFile = new File("./src/feh/webCache/growthRatesData.txt");
-        File heroListFile = new File("./src/feh/webCache/heroListData.txt");
-        File path = new File("./src/feh/webCache/");
+        File lv1StatsFile = new File("./src/feh/webCache/heroes/lv1StatsData.txt");
+        File growthRatesFile = new File("./src/feh/webCache/heroes/growthRatesData.txt");
+        File heroListFile = new File("./src/feh/webCache/heroes/heroListData.txt");
+        File path = new File("./src/feh/webCache/heroes");
         if (!path.mkdirs()) throw new Error("couldn't create filepath for hero data");
         try {
             if (!lv1StatsFile.createNewFile()) throw new Error("couldn't create lv1");
@@ -203,9 +203,9 @@ public class UnitDatabase extends WebScalper {
 
 
 
-        File    lv1StatsFile = new File("./src/feh/webCache/lv1StatsData.txt"),
-                growthRatesFile = new File("./src/feh/webCache/growthRatesData.txt"),
-                heroListFile = new File("./src/feh/webCache/heroListData.txt");
+        File    lv1StatsFile = new File("./src/feh/webCache/heroes/lv1StatsData.txt"),
+                growthRatesFile = new File("./src/feh/webCache/heroes/growthRatesData.txt"),
+                heroListFile = new File("./src/feh/webCache/heroes/heroListData.txt");
 
 
 
@@ -311,7 +311,7 @@ public class UnitDatabase extends WebScalper {
         String name = id[0];
         if (id.length<2) throw new Error("improper name detected for unit "+HERO_INDEX);
         if (!id[0].equals(x.getName()))
-            System.out.println("GrR: misalignment detected for unit "+HERO_INDEX+" ("+id[0]+")");
+            System.out.println("LoH: misalignment detected for unit "+HERO_INDEX+" ("+id[0]+")");
 
 
 

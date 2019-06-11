@@ -227,7 +227,7 @@ public class HeroRetriever extends Command {
                         newestHero = x;
                     }
                 }
-                candidates = new ArrayList<>();
+                candidates.clear();
                 candidates.add(newestHero);
             } else if (oldestOnly) {
                 Hero oldestHero = candidates.get(0);
@@ -236,7 +236,7 @@ public class HeroRetriever extends Command {
                         oldestHero = x;
                     }
                 }
-                candidates = new ArrayList<>();
+                candidates.clear();
                 candidates.add(oldestHero);
             } else {
                 for (String x : args) {

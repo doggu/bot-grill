@@ -1,8 +1,12 @@
 package events.gameroom.battleship;
 
 public class ShipSpace {
-    boolean hit;
+    private boolean hit;
 
-    public void hit() { this.hit = hit; }
+    ShipSpace() {
+        hit = false;
+    }
+
+    public void hit() { this.hit = true; }
     public boolean isHit() { return hit; }
 }

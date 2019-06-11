@@ -34,7 +34,7 @@ public class Board {
 
 
 
-    public Board(int width, int height) {
+    Board(int width, int height) {
         try {
             this.mapImage = ImageIO.read(new File("./src/events/gameroom/mapTest/Z0028.png"));
         } catch (IOException notFoundOrSomething) {
@@ -53,7 +53,7 @@ public class Board {
 
 
 
-    public void moveUnit(Hero unit, Point destination) {
+    void moveUnit(Hero unit, Point destination) {
         Point originalPos = unitPositions.get(unit);
         unitPositions.remove(unit);
         positionUnits.remove(originalPos);
@@ -61,7 +61,7 @@ public class Board {
         positionUnits.put(destination, unit);
     }
 
-    public void addUnit(Point pos, Hero unit) {
+    void addUnit(Point pos, Hero unit) {
         positionUnits.put(pos, unit);
         unitPositions.put(unit, pos);
     }
@@ -69,14 +69,14 @@ public class Board {
 
 
     public Point getPos(Unit unit) { return unitPositions.get(unit); }
-    public Hero getUnit(Point pos) { return positionUnits.get(pos); }
+    Hero getUnit(Point pos) { return positionUnits.get(pos); }
 
-    public int getWidth() { return width; }
-    public int getHeight() { return height; }
+    int getWidth() { return width; }
+    int getHeight() { return height; }
 
 
 
-    public File drawBoard() {
+    File drawBoard() {
         BufferedImage mapState =
                 new BufferedImage(
                         mapImage.getWidth(),
@@ -126,7 +126,7 @@ public class Board {
 
 
     //yet another HashMap object identity test because i refuse to read books properly
-    public static void main(String[] args) {
+    static void main(String[] args) {
         HashMap<Point, String> positions = new HashMap<>();
         positions.put(new Point(2,4), "i love hot girls");
         System.out.println(positions.get(new Point(2, 4)));

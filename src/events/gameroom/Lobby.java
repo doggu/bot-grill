@@ -1,7 +1,6 @@
 package events.gameroom;
 
 import events.ReactionListener;
-import events.commands.Command;
 import main.BotMain;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;

@@ -52,7 +52,6 @@ public class Game extends TextGame {
 
         if (chosen==null) {
             sendMessage("could not find your specified hero. please try again.");
-            return;
         } else {
             board.addUnit(pos, chosen);
             sendFile(
@@ -147,8 +146,7 @@ public class Game extends TextGame {
     */
 
     private Point getPosition(String coordinates) {
-        Point pos = new Point(coordinates.charAt(0)-'a', coordinates.charAt(1)-'1');
-        return pos;
+        return new Point(coordinates.charAt(0)-'a', coordinates.charAt(1)-'1');
     }
     private boolean inBounds(Point pos) {
         if (pos.getX()<0) return false;

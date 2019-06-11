@@ -29,7 +29,7 @@ public class ShipSetup extends ListenerAdapter {
 
     private String printBoardProgress() {
         String board =
-                "   | A | B | C | D | E | F | G | H | I | J |" +
+                        "   | A | B | C | D | E | F | G | H | I | J |" +
                         "---+---+---+---+---+---+---+---+---+---+---+" +
                         " 1 | n | n | n | n | n | n | n | n | n | n |" +
                         "---+---+---+---+---+---+---+---+---+---+---+" +

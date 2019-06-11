@@ -165,6 +165,8 @@ public class Banner {
                 rarity3rate = 0;
         }
 
+        //this switch statement should probably be converted to a more absolute system for future-proofing
+
         //TODO: create new class for banner instances? (for storing pity, summoner data, etc.)
 
         //TODO: KEEP NOTE: pity rates are added based on the ratio between focus and normal 5* pool (always 0.50% total)

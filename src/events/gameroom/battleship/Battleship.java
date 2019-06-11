@@ -1,6 +1,5 @@
 package events.gameroom.battleship;
 
-import events.commands.Command;
 import events.gameroom.Lobby;
 import events.gameroom.TextGame;
 import net.dv8tion.jda.core.entities.MessageChannel;

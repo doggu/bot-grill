@@ -1,6 +1,6 @@
 package events.gameroom.battleship;
 
-public class Board {
+class Board {
     private final Ship[] ships = {
 
     };

@@ -4,7 +4,6 @@ import events.commands.Command;
 import events.gameroom.battleship.Battleship;
 import events.gameroom.flow.Flow;
 import events.gameroom.mapTest.Map;
-import events.gameroom.ticTacToe.Game;
 import events.gameroom.ticTacToe.TicTacToe;
 
 public class CreateLobby extends Command {

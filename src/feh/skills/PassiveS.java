@@ -1,5 +1,7 @@
 package feh.skills;
 
+import feh.skills.analysis.StatModifier;
+
 public class PassiveS extends Passive implements StatModifier {
     private final int[] statModifiers;
 

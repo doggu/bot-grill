@@ -1,5 +1,7 @@
 package feh.skills;
 
+import feh.skills.analysis.CooldownModifier;
+
 public class PassiveB extends Passive implements CooldownModifier {
     private final int cdModifier;
 

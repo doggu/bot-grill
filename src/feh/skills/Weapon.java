@@ -1,6 +1,8 @@
 package feh.skills;
 
 import feh.heroes.character.WeaponClass;
+import feh.skills.analysis.ActionSkill;
+import feh.skills.analysis.StatModifier;
 
 public class Weapon extends Skill implements ActionSkill, StatModifier {
     private final int mt, rng;

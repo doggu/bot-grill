@@ -1,5 +1,7 @@
 package feh.skills;
 
+import feh.skills.analysis.ActionSkill;
+
 public class Assist extends Skill implements ActionSkill {
     private final int rng;
 

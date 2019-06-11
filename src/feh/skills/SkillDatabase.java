@@ -304,29 +304,10 @@ public class SkillDatabase extends WebScalper {
 
     private static ArrayList<String> getExclusiveList() {
         //System.out.println("creating exclusive list...");
-        ArrayList<String> table = EXCLUSIVE_SKILLS_FILE.getTables().get(0);
-
-
-
-        Iterator<String> iterator = table.iterator();
-
-
         ArrayList<String> list = new ArrayList<>();
-        while (iterator.hasNext()) {
-            String line = iterator.next();
-            if (!line.contains("+")) list.add(line);
-            /*
-            while (lines.hasNextLine()) {
-                line = lines.nextLine();
-                try {
-                    Integer.parseInt(line);
-                    break;
-                } catch(NumberFormatException f) {
-                    //continue
-                }
-            }
-            */
-        }
+        ArrayList<ArrayList<String>> tables = EXCLUSIVE_SKILLS_FILE.getTables();
+
+        for (ArrayList<String> table:tables) list.addAll(table);
 
         return list;
     }

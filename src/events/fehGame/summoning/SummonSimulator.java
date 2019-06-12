@@ -14,7 +14,6 @@ import java.util.List;
 
 public class SummonSimulator extends Gameroom {
     public static List<Summoner> summoners = new ArrayList<>();
-    private List<Banner> BANNERS = BannerDatabase.BANNERS;
 
 
 
@@ -69,7 +68,7 @@ public class SummonSimulator extends Gameroom {
         //"Your circle for: "+[banner title]+"\n"
         //"rates: focus = " +[focus rate]+" 5* = "+[5* rate]
 
-        Banner banner = BANNERS.get((int)(Math.random()*BANNERS.size())); //temp
+        Banner banner = BannerDatabase.BANNERS.get((int)(Math.random()*BannerDatabase.BANNERS.size())); //temp
 
         if (args.length>1) {
             StringBuilder bannerName = new StringBuilder();
@@ -78,7 +77,7 @@ public class SummonSimulator extends Gameroom {
                 if (i+1!=args.length) bannerName.append(" ");
             }
 
-            for (Banner x:BANNERS) {
+            for (Banner x:BannerDatabase.BANNERS) {
                 if (x.getName().equals(bannerName.toString())) {
                     banner = x;
                     break;
@@ -136,7 +135,7 @@ public class SummonSimulator extends Gameroom {
             if (i%2==1&&i+1!=banner.getRarityFPool().size()) featuredUnitsSB.append("\n\t\t\t\t\t\t\t\t\t\t");
         }
         String featuredUnits = featuredUnitsSB.substring(0, featuredUnitsSB.length()-2);
-        report+= featuredUnits.toString() + "\n\t\t\t\t\t\t";
+        report+= featuredUnits + "\n\t\t\t\t\t\t";
         report+= "banner date: " +
                 printDate(banner.getStartDate()) + " - "+printDate(banner.getEndDate());
         /*

@@ -164,6 +164,9 @@ public class BotMain {
                                 System.out.println("nice code dumbass");
                             }
                             break;
+                        default:
+                            System.out.println("idk what this is, sorry");
+                            break;
                     }
                     break;
                 default:

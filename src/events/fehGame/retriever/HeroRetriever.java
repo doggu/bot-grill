@@ -11,16 +11,6 @@ import java.util.*;
 import java.util.List;
 
 public class HeroRetriever extends Command {
-    private final List<Hero> heroes;
-
-
-
-    public HeroRetriever() {
-        heroes = UnitDatabase.HEROES;
-    }
-
-
-
     private void getUnits() {
         boolean lv1 = false;
         int rarity = 5;
@@ -175,13 +165,13 @@ public class HeroRetriever extends Command {
                 epithetIncluded = true;
             }
             //find HEROES of the correct name
-            for (Hero c: heroes) {
+            for (Hero c: UnitDatabase.HEROES) {
                 if (c.getFullName().getName().equalsIgnoreCase(x))
                     candidates.add(c);
             }
 
             if (epithetIncluded) {
-                boolean foundMatch = heroes.size()==1;
+                boolean foundMatch = UnitDatabase.HEROES.size()==1;
                 //find HEROES (from list of valid names) of the correct epithet
 
                 i++;
@@ -205,7 +195,7 @@ public class HeroRetriever extends Command {
                     }
 
                     i++;
-                    foundMatch = heroes.size()==1;
+                    foundMatch = UnitDatabase.HEROES.size()==1;
                 }
             }
         }
@@ -358,8 +348,6 @@ public class HeroRetriever extends Command {
             }
         }
 
-
-
         //log("printin stats");
 
         if (candidates.size()==0) {
@@ -367,6 +355,8 @@ public class HeroRetriever extends Command {
             log("couldn't find " + e.getAuthor().getName() + "'s character.");
             return;
         }
+
+
 
         StringBuilder message = new StringBuilder();
         for (Hero x:candidates) {

@@ -7,6 +7,7 @@ import feh.heroes.character.WeaponClass;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class SkillDatabase extends WebScalper {
     public static ArrayList<Skill> SKILLS = getList();
@@ -28,7 +29,8 @@ public class SkillDatabase extends WebScalper {
             //SKILL_CHAINS_5_STARS = "https://feheroes.gamepedia.com/Skill_Chains_5_Stars_List",
             //LIST_OF_UPGRADABLE_WEAPONS = "https://feheroes.gamepedia.com/List_of_upgradable_weapons",
 
-            HERO_BASE_SKILLS = "Hero_skills_table";
+            HERO_BASE_SKILLS = "Hero_skills_table",
+            WEAPON_REFINES = "Weapon_Refinery";
 
 
 
@@ -38,7 +40,8 @@ public class SkillDatabase extends WebScalper {
             SPECIALS_FILE,
             PASSIVES_FILE,
             EXCLUSIVE_SKILLS_FILE,
-            HERO_BASE_SKILLS_FILE;
+            HERO_BASE_SKILLS_FILE,
+            WEAPON_REFINES_FILE;
 
     private static FEHeroesCache[] SKILL_FILES = {
             WEAPONS_FILE,
@@ -47,6 +50,7 @@ public class SkillDatabase extends WebScalper {
             PASSIVES_FILE,
             EXCLUSIVE_SKILLS_FILE,
             HERO_BASE_SKILLS_FILE,
+            WEAPON_REFINES_FILE,
     };
 
 
@@ -70,7 +74,9 @@ public class SkillDatabase extends WebScalper {
         PASSIVES_FILE = new FEHeroesCache(PASSIVES, SKILLS_SUBDIR);
         EXCLUSIVE_SKILLS_FILE = new FEHeroesCache(EXCLUSIVE_SKILLS, SKILLS_SUBDIR);
         HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS, SKILLS_SUBDIR);
+        WEAPON_REFINES_FILE = new FEHeroesCache(WEAPON_REFINES, SKILLS_SUBDIR);
         EXCLUSIVE = getExclusiveList();
+        REFINES = getRefineableList();
 
         ArrayList<Skill> allSkills = new ArrayList<>();
 
@@ -78,15 +84,6 @@ public class SkillDatabase extends WebScalper {
         ArrayList<Assist> assists = processAssists();
         ArrayList<Special> specials = processSpecials();
         ArrayList<Passive> passives = processPassives();
-
-        /*
-        maybe? (could also be done in special function)
-
-        ArrayList<PassiveA> Apassives = new ArrayList<>();
-        ArrayList<PassiveB> Bpassives = new ArrayList<>();
-        ArrayList<PassiveC> Cpassives = new ArrayList<>();
-        ArrayList<PassiveS> Spassives = new ArrayList<>();
-         */
 
 
 
@@ -145,7 +142,9 @@ public class SkillDatabase extends WebScalper {
                 boolean exclusive = iterator.next().equals("Yes"); //EXCLUSIVE_WEAPONS.contains(name);
                 WeaponClass type = WeaponClass.getType(weaponType[i]);
 
-                x = new Weapon(name, description, cost, exclusive, might, range, type);
+                WeaponRefine refine = getRefine(name);
+
+                x = new Weapon(name, description, cost, exclusive, might, range, type, refine);
                 weapons.add(x);
             }
         }
@@ -315,6 +314,85 @@ public class SkillDatabase extends WebScalper {
     private static boolean isExclusive(String name) {
         for (String x : EXCLUSIVE) if (x.equals(name)) return true;
         return false;
+    }
+
+
+
+    private static ArrayList<WeaponRefine> REFINES;
+
+    private static ArrayList<WeaponRefine> getRefineableList() {
+        System.out.print("processing refines... ");
+        ArrayList<WeaponRefine> list = new ArrayList<>();
+        ArrayList<String> table =
+                WEAPON_REFINES_FILE //you never seen code this advanced
+                .getTable("<table style=\"display:inline-table;border:1px solid #a2a9b1;border-collapse:collapse;width:24em;margin:0.5em 0;background-color:#f8f9fa\">");
+
+        for (int i=0; i<table.size(); i++) table.set(i, table.get(i).trim());
+
+        Iterator<String> data = table.iterator();
+
+        while (data.hasNext()) {
+            data.next(); //i think there's a blank line before each name
+            String name = data.next();
+
+            data.next(); //"Might:"
+            int mt = Integer.parseInt(data.next().replace(",",""));
+
+            data.next(); //"Range:"
+            int rng = Integer.parseInt(data.next().replace(",",""));
+
+            ArrayList<String> description = new ArrayList<>();
+            int cost = -1;
+            while (data.hasNext()) {
+                String line = data.next();
+                if (line.contains("+")) {
+                    description.add(line);
+                    continue; //this is so fuckin spaghetti
+                }
+                try {
+                    cost = Integer.parseInt(line);
+                    break;
+                } catch (NumberFormatException nfe) {
+                    description.add(line);
+                }
+            }
+
+            if (cost<0) throw new Error("the description doesnt stop\n"+name);
+
+            if (description.get(0).equals("HP")) {
+                //TODO: have specific refine class handle new stat modifiers
+                description.subList(0,2).clear();
+            }
+
+            StringBuilder desc = new StringBuilder(description.get(0));
+            for (int i=1; i<description.size(); i++) {
+                desc.append(' ').append(description.get(i));
+            }
+
+            try {
+                data.next(); //"SP"
+                data.next(); //", [dew cost]" (200)
+                data.next(); //", [Medal cost]" (500)
+                data.next(); //blank line
+            } catch (NoSuchElementException nsee) {
+                System.out.println("done!");
+            }
+
+            list.add(new WeaponRefine(name, desc.toString(), cost, mt, rng));
+        }
+
+        return list;
+    }
+
+    /**
+     * Used to associate refines with their base weapons.
+     *
+     * @param name name of the weapon in question
+     * @return the Weapon object of [name]'s refine, null if no refine was found.
+     */
+    private static WeaponRefine getRefine(String name) {
+        for (WeaponRefine x:REFINES) if (name.equals(x.getName())) return x;
+        return null;
     }
 
 

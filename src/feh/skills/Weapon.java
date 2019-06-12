@@ -9,10 +9,12 @@ public class Weapon extends Skill implements ActionSkill, StatModifier {
     private final WeaponClass type;
     private final int[] statModifiers;
 
+    private final WeaponRefine refine;
+
 
 
     public Weapon(String name, String description, int cost, boolean exclusive,
-                  int mt, int rng, WeaponClass type) {
+                  int mt, int rng, WeaponClass type, WeaponRefine refine) {
         super(name, description, 'W', cost, exclusive);
         this.mt = mt;
         this.rng = rng;
@@ -20,6 +22,7 @@ public class Weapon extends Skill implements ActionSkill, StatModifier {
         int[] statModifiers = StatModifier.parseStatModifiers(description);
         statModifiers[1]+= mt;
         this.statModifiers = statModifiers;
+        this.refine = refine;
     }
 
 
@@ -28,4 +31,6 @@ public class Weapon extends Skill implements ActionSkill, StatModifier {
     public int getRng() { return rng; }
     public WeaponClass getType() { return type; }
     public int[] getStatModifiers() { return statModifiers; }
+    public boolean hasRefine() { return refine!=null; }
+    public WeaponRefine getRefine() { return refine; }
 }

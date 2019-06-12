@@ -122,6 +122,10 @@ public class SkillRetriever extends Command {
             if (x instanceof ActionSkill) { //instanceof targeting skill
                 if (x instanceof Weapon) {
                     skill.addField("Might", String.valueOf(((Weapon) x).getMt()), true);
+                    if (((Weapon) x).hasRefine()) {
+                        skill.addField("hey, i got a refine, but my programmer is lazy and just wants to test the feature",
+                                "i'm a refine boi, look at meeeeeeeee", true);
+                    }
                 }
 
                 skill.addField("Range", String.valueOf(((ActionSkill) x).getRng()), true);

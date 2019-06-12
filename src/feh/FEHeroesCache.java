@@ -125,13 +125,11 @@ public class FEHeroesCache extends WebCache {
 
 
     public static void main(String[] args) {
-        FEHeroesCache test = new FEHeroesCache("Weapons");
-        ArrayList<ArrayList<String>> tables = test.getTables();
+        FEHeroesCache test = new FEHeroesCache("Weapon_Refinery");
+        ArrayList<String> table = test.getTable("<table style=\"display:inline-table;border:1px solid #a2a9b1;border-collapse:collapse;width:24em;margin:0.5em 0;background-color:#f8f9fa\">");
 
-        for (ArrayList<String> table:tables) {
-            for (String datum:table) {
-                System.out.println(datum);
-            }
+        for (String datum:table) {
+            System.out.println(datum.trim());
         }
     }
 }

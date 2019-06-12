@@ -16,7 +16,7 @@ public class BannerDatabase extends WebScalper {
 
 
 
-    private static void updateCache() {
+    public static void updateCache() {
         if (!FOCUS_ARCHIVE_FILE.update()) throw new Error("unable to update "+FOCUS_ARCHIVE_FILE.getName());
 
         BANNERS = getList();

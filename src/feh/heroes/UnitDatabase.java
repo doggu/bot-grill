@@ -84,7 +84,7 @@ public class UnitDatabase extends WebScalper {
 
 
 
-    private static void updateCache() {
+    public static void updateCache() {
         for (FEHeroesCache x:HERO_FILES) {
             if (!x.update()) throw new Error("unable to update "+x.getName());
         }

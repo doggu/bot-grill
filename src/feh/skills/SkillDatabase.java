@@ -51,7 +51,7 @@ public class SkillDatabase extends WebScalper {
 
 
 
-    private static void updateCache() {
+    public static void updateCache() {
         for (FEHeroesCache x:SKILL_FILES) {
             if (!x.update()) throw new Error("unable to update "+x.getName());
         }

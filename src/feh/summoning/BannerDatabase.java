@@ -8,7 +8,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 public class BannerDatabase extends WebScalper {
-    public static List<Banner> BANNERS = getList();
+    public static ArrayList<Banner> BANNERS = getList();
 
     private static final String FOCUS_ARCHIVE = "Summoning_Focus_archive";
 
@@ -22,7 +22,7 @@ public class BannerDatabase extends WebScalper {
         BANNERS = getList();
     }
 
-    private static List<Banner> getList() {
+    private static ArrayList<Banner> getList() {
         FOCUS_ARCHIVE_FILE = new FEHeroesCache(FOCUS_ARCHIVE);
 
 

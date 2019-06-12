@@ -20,7 +20,10 @@ import events.fehGame.retriever.HeroRetriever;
 import events.fehGame.retriever.SkillRetriever;
 import events.gameroom.CreateLobby;
 import feh.heroes.UnitDatabase;
+import feh.heroes.character.Hero;
+import feh.skills.Skill;
 import feh.skills.SkillDatabase;
+import feh.summoning.Banner;
 import feh.summoning.BannerDatabase;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -54,6 +57,11 @@ public class BotMain {
 
 
     public static void main(String[] rgs) throws Exception {
+        //initialize lists so that they are loaded before the bot goes live
+        ArrayList<Hero> heroList = UnitDatabase.HEROES;
+        ArrayList<Skill> skillList = SkillDatabase.SKILLS;
+        ArrayList<Banner> bannerList = BannerDatabase.BANNERS;
+
         //construct listeners beforehand so bot is ready as soon as she goes live
         ListenerAdapter listenerUnitConversion = new UnitConversion();
         ListenerAdapter listenerQuips = new Quips();

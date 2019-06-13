@@ -6,6 +6,7 @@ import feh.heroes.character.Hero;
 import feh.players.Summoner;
 import feh.summoning.Banner;
 import feh.summoning.BannerDatabase;
+import net.dv8tion.jda.core.MessageBuilder;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -85,33 +86,40 @@ public class SummonSimulator extends Gameroom {
             }
         }
 
-        String message = "your summons for: \n"+banner.getName()+'\n';
-        message+= "featured units: ";
+        MessageBuilder message = new MessageBuilder("your summons for: \n")
+                .append(banner.getName())
+                .append('\n')
+                .append("featured units: ");
         for (Hero x:banner.getRarityFPool()) { //Character is not a good name for a class (changed to Hero)
-            message+= x.getFullName().getName();
+            message.append(x.getFullName().getName());
             if (x.getFullName().isAmbiguousName())
-                message+= " ("+x.getWeaponType()+" "+x.getMoveType()+")";
+                message
+                        .append(" (")
+                        .append(x.getWeaponType())
+                        .append(' ')
+                        .append(x.getMoveType())
+                        .append(')');
             //there are three axe armor hectors btw
-            message+= ", ";
+            message.append(", ");
         }
-        message = message.substring(0,message.length()-2);
+        message.replaceLast(", ", "");
 
         GregorianCalendar startDate = banner.getStartDate();
         //MONTH IS ZERO-BASED (again)
-        message+= "\n"+(startDate.get(Calendar.MONTH)+1)+
-                "/"+startDate.get(Calendar.DAY_OF_MONTH)+
-                "/"+startDate.get(Calendar.YEAR);
+        message.append("\n").append(startDate.get(Calendar.MONTH)+1)
+                .append("/").append(startDate.get(Calendar.DAY_OF_MONTH))
+                .append("/").append(startDate.get(Calendar.YEAR));
 
-        GregorianCalendar endDate = banner.getStartDate();
+        GregorianCalendar endDate = banner.getEndDate();
         //MONTH IS ZERO-BASED (again)
-        message+= " - "+(endDate.get(Calendar.MONTH)+1)+
-                "/"+endDate.get(Calendar.DAY_OF_MONTH)+
-                "/"+endDate.get(Calendar.YEAR);
+        message.append(" - ").append(endDate.get(Calendar.MONTH)+1)
+                .append("/").append(endDate.get(Calendar.DAY_OF_MONTH))
+                .append("/").append(endDate.get(Calendar.YEAR));
 
 
 
         CircleSimulator circle = new CircleSimulator(
-                sendMessage(message),
+                sendMessage(message.build()),
                 summoner,
                 banner);
 

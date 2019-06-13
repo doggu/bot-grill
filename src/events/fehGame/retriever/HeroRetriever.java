@@ -244,7 +244,7 @@ public class HeroRetriever extends Command {
                             break;
                         case "armor":
                         case "armored":
-                            move = "Armored";
+                            move = "Armor";
                             break;
                         case "horse":
                         case "cavalry":

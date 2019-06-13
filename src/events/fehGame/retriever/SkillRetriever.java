@@ -1,14 +1,19 @@
 package events.fehGame.retriever;
 
+import events.ReactionButton;
 import events.commands.Command;
+import feh.heroes.character.Hero;
+import feh.skills.*;
 import feh.skills.analysis.ActionSkill;
 import feh.skills.analysis.StatModifier;
 import net.dv8tion.jda.core.EmbedBuilder;
-import feh.heroes.character.Hero;
-import feh.skills.*;
+import net.dv8tion.jda.core.MessageBuilder;
+import net.dv8tion.jda.core.entities.Message;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static feh.heroes.UnitDatabase.HEROES;
@@ -122,10 +127,6 @@ public class SkillRetriever extends Command {
             if (x instanceof ActionSkill) { //instanceof targeting skill
                 if (x instanceof Weapon) {
                     skill.addField("Might", String.valueOf(((Weapon) x).getMt()), true);
-                    if (((Weapon) x).hasRefine()) {
-                        skill.addField("hey, i got a refine, but my programmer is lazy and just wants to test the feature",
-                                "i'm a refine boi, look at meeeeeeeee", true);
-                    }
                 }
 
                 skill.addField("Range", String.valueOf(((ActionSkill) x).getRng()), true);
@@ -163,7 +164,24 @@ public class SkillRetriever extends Command {
                 }
             }
 
-            sendMessage(skill.build());
+            Message f = sendMessage(skill.build());
+
+            if (x instanceof Weapon) {
+                if (((Weapon) x).hasRefine()) {
+                    WeaponRefine refine = ((Weapon) x).getRefine();
+                    ReactionButton refineButton = new ReactionButton(
+                            f,
+                            e.getJDA()
+                                    .getEmotesByName("Divine_Dew", false)
+                                    .get(0),
+                            new MessageBuilder(new EmbedBuilder()
+                                    .setTitle(refine.getName())
+                                    .setDescription(refine.getDescription())
+                                    .setColor(new Color(0xDE1336))
+                                    .build())
+                    );
+                }
+            }
         }
 
 

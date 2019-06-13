@@ -14,9 +14,9 @@ public class Hero {
     private final WeaponClass weaponType;
     private final MovementClass moveType;
 
-    //these stats are 1* lv1 (regardless of obtainable rarities)
+    //these stats are 3* lv1 (regardless of obtainable rarities)
     private final HeroStats stats;
-    private final int rarity; //TODO: summonable rarity is very complicated these days
+    private final int summonableRarity; //TODO: summonable rarity is very complicated these days
 
     private final Availability availability;
     private final GregorianCalendar dateReleased;
@@ -27,7 +27,7 @@ public class Hero {
 
     public Hero(HeroName fullName, String origin, char color,
                 WeaponClass weaponType, MovementClass moveType,
-                int rarity, Availability availability,
+                int summonableRarity, Availability availability,
                 GregorianCalendar dateReleased,
                 HeroStats stats, ArrayList<Skill> baseKit) {
         this.fullName = fullName;
@@ -35,7 +35,7 @@ public class Hero {
         this.color = color;
         this.weaponType = weaponType;
         this.moveType = moveType;
-        this.rarity = rarity;
+        this.summonableRarity = summonableRarity;
         this.availability = availability;
         this.dateReleased = dateReleased;
         this.stats = stats;
@@ -47,12 +47,7 @@ public class Hero {
      * @param name - name of hero; MUST be in exact format: "[name]: [epithet]" (e.x. "Bartre: Fearless Warrior")
      */
     public Hero(String name) {
-        try {
-            name.substring(name.indexOf(':')+2);
-        } catch (StringIndexOutOfBoundsException f) {
-            System.out.println("not in correct format");
-            throw new Error();
-        }
+        if (name.indexOf(':')<0) throw new Error("incorrect name format");
         ArrayList<Hero> list = UnitDatabase.HEROES;
         ArrayList<Hero> correctName = new ArrayList<>();
 
@@ -79,7 +74,7 @@ public class Hero {
         this.weaponType = j.getWeaponType();
         this.moveType = j.getMoveType();
         this.stats = j.getStats();
-        this.rarity = j.getRarity();
+        this.summonableRarity = j.getSummonableRarity();
         this.availability = j.getAvailability();
         this.dateReleased = j.getReleaseDate();
         this.baseKit = j.getBaseKit();
@@ -92,7 +87,7 @@ public class Hero {
         this.weaponType = j.getWeaponType();
         this.moveType = j.getMoveType();
         this.stats = j.getStats();
-        this.rarity = j.getRarity();
+        this.summonableRarity = j.getSummonableRarity();
         this.availability = j.getAvailability();
         this.dateReleased = j.getReleaseDate();
         this.baseKit = j.getBaseKit();
@@ -115,7 +110,7 @@ public class Hero {
     public int getDef() { return stats.getDef(); }
     public int getRes() { return stats.getRes(); }
 
-    public int getRarity() { return rarity; }
+    public int getSummonableRarity() { return summonableRarity; }
     public Availability getAvailability() { return availability; }
     public boolean isSummonable() { return availability.isSummonable(); }
     public boolean isInNormalPool() { return availability.isInNormalPool(); }
@@ -249,7 +244,7 @@ public class Hero {
                 case 4: rarityFactor = 107; break;
                 case 5: rarityFactor = 114; break;
                 default:
-                    System.out.println("rarity is not within bounds");
+                    System.out.println("summonableRarity is not within bounds");
                     return null;
             }
 

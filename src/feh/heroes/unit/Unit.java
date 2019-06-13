@@ -103,7 +103,7 @@ public class Unit extends Hero {
 
     public int getBoon() { return boon; }
     public int getBane() { return bane; }
-    public int getRarity() { return rarity; }
+    public int getSummonableRarity() { return rarity; }
     public int getMerges() { return merges; }
     public int getDragonflowers() { return dragonflowers; }
     public char getSupportStatus() { return supportStatus; }

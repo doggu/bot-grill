@@ -202,7 +202,7 @@ public class HeroRetriever extends Command {
 
         //remove units based on valid rarity/IV data
         for (int i=0; i<candidates.size(); i++) {
-            if (candidates.get(i).getRarity()>rarity) {
+            if (candidates.get(i).getSummonableRarity()>rarity) {
                 candidates.remove(i);
                 i--;
             }
@@ -470,7 +470,7 @@ public class HeroRetriever extends Command {
             bst = printBST(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support));
         }
 
-        info+= stats+"\n"+bst+"\n";
+        info+= stats+"\n\n"+bst+"\n";
 
         if (!x.isSummonable()) info+= "this unit does not have access to IVs.\n";
         else if (merges>0&&getAll) info+= "predictions might not be 100% accurate.\n";
@@ -488,7 +488,7 @@ public class HeroRetriever extends Command {
         return info;
     }
     public static String printUnit(Unit x, boolean lv1) {
-        return printCharacter(x, lv1, x.getRarity(), false,
+        return printCharacter(x, lv1, x.getSummonableRarity(), false,
                 x.getBoon(), x.getBane(), 0, 0,
                 x.getSupportStatus());
     }
@@ -497,13 +497,11 @@ public class HeroRetriever extends Command {
         StringBuilder statString = new StringBuilder();
         for (int x:stats)
             statString.append(x).append((Math.log10(x)<1?"    ":"   "));
-        statString.append("\n");
-
         return statString.toString();
     }
     private static String printStats(int[][] stats) {
-        return  printStats(stats[0]) +
-                printStats(stats[1]) +
+        return  printStats(stats[0])+'\n'+
+                printStats(stats[1])+'\n'+
                 printStats(stats[2]);
     }
 

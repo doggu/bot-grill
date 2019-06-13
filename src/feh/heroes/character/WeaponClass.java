@@ -1,6 +1,6 @@
 package feh.heroes.character;
 
-public enum WeaponClass {
+public enum WeaponClass implements HeroClass {
     SWORD       (1, true, "Sword"),
     LANCE       (1, true, "Lance"),
     AXE         (1, true, "Axe"),

@@ -1,6 +1,6 @@
 package feh.heroes.character;
 
-public enum MovementClass {
+public enum MovementClass implements HeroClass {
     INFANTRY(2, false, false, false, "Infantry"),
     ARMORED(1, false, false, false, "Armor"),
     CAVALRY(3, false, true, true, "Cavalry"),
@@ -30,9 +30,9 @@ public enum MovementClass {
 
 
     public int getRange() { return range; }
-    public boolean isIgnoreTerrain() { return ignoreTerrain; }
-    public boolean isStoppedByTrees() { return stoppedByTrees; }
-    public boolean isSlowedByTrenches() { return slowedByTrenches; }
+    public boolean ignoresTerrain() { return ignoreTerrain; }
+    public boolean stoppedByTrees() { return stoppedByTrees; }
+    public boolean slowedByTrenches() { return slowedByTrenches; }
     //prolly goin unused since toString is exactly the same thing
     public String getName() { return name; }
 

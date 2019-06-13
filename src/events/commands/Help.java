@@ -1,6 +1,8 @@
 package events.commands;
 
 import main.BotMain;
+import net.dv8tion.jda.core.MessageBuilder;
+import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ public class Help extends Command {
                 commands.add(((Command) x));
 
         if (args.length==1) {
-            StringBuilder message = new StringBuilder(
+            MessageBuilder message = new MessageBuilder(
                     "a list of things you can do!\n" +
                     "commands are called by placing a question mark before their name (e.x. \"?chances\")");
             for (int i=0; i<commands.size(); i++) {
@@ -32,7 +34,7 @@ public class Help extends Command {
                 }
             }
 
-            sendMessage(message.toString());
+            sendMessage(message.build());
         } else if (args.length==2) {
             for (Command x:commands) {
                 if (x.getName().equalsIgnoreCase(args[1])) {

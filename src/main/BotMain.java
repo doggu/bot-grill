@@ -58,9 +58,9 @@ public class BotMain {
 
     public static void main(String[] rgs) throws Exception {
         //initialize lists so that they are loaded before the bot goes live
-        ArrayList<Hero> heroList = UnitDatabase.HEROES;
-        ArrayList<Skill> skillList = SkillDatabase.SKILLS;
-        ArrayList<Banner> bannerList = BannerDatabase.BANNERS;
+        UnitDatabase.HEROES.size();
+        SkillDatabase.SKILLS.size();
+        BannerDatabase.BANNERS.size();
 
         //construct listeners beforehand so bot is ready as soon as she goes live
         ListenerAdapter listenerUnitConversion = new UnitConversion();
@@ -164,8 +164,8 @@ public class BotMain {
                             break;
                         case "all":
                             try {
-                                UnitDatabase.updateCache();
                                 SkillDatabase.updateCache();
+                                UnitDatabase.updateCache();
                                 BannerDatabase.updateCache();
                             } catch (Error f) {
                                 f.printStackTrace();

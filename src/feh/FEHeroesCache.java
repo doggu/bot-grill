@@ -40,7 +40,6 @@ public class FEHeroesCache extends WebCache {
             }
             if (print) {
                 ArrayList<String> datum = getItems(line.chars());
-                for (int i=0; i<datum.size(); i++) datum.set(i, datum.get(i).trim());
                 if (datum.size()>0) table.addAll(datum);
             }
 

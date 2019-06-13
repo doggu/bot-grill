@@ -38,18 +38,19 @@ public abstract class MessageListener extends ListenerAdapter {
 
 
     //prolly wanna avoid using this first one for habitual reasons
-    protected Message sendMessage(StringBuilder message) { return sendMessage(message.toString()); }
+    protected Message sendMessage(Message message) { return e.getChannel().sendMessage(message).complete(); }
+    protected Message sendMessage(MessageEmbed message) { return e.getChannel().sendMessage(message).complete(); }
     protected Message sendMessage(String message) {
         return e.getChannel().sendMessage(message).complete();
     }
+    protected Message sendMessage(StringBuilder message) { return sendMessage(message.toString()); }
     protected Message sendMessage(double message) {
-        return sendMessage(""+message);
+        return sendMessage(String.valueOf(message));
     }
     protected Message sendMessage(char message) {
-        return sendMessage(""+message);
+        return sendMessage(String.valueOf(message));
     }
-    protected Message sendMessage(boolean message) { return sendMessage(""+message); }
-    protected Message sendMessage(MessageEmbed message) { return e.getChannel().sendMessage(message).complete(); }
+    protected Message sendMessage(boolean message) { return sendMessage(String.valueOf(message)); }
 
     protected Message sendFile(File file) { return e.getChannel().sendFile(file).complete(); }
 

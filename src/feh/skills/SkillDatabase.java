@@ -366,7 +366,7 @@ public class SkillDatabase extends WebScalper {
 
             StringBuilder desc = new StringBuilder(description.get(0));
             for (int i=1; i<description.size(); i++) {
-                desc.append(' ').append(description.get(i));
+                desc.append('\n').append(description.get(i));
             }
 
             try {

@@ -47,6 +47,7 @@ public class SkillRetriever extends Command {
                     String xN = x.getName(), yN = y.getName();
                     if (xN.substring(0,xN.length()-2)
                             .equals(yN.substring(0,yN.length()-2))) {
+                        //TODO: falchion gets hung up here
                         int xLevel = Integer.parseInt(String.valueOf(xN.charAt(xN.length()-1)));
                         int yLevel = Integer.parseInt(String.valueOf(yN.charAt(yN.length()-1)));
 

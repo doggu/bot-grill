@@ -107,7 +107,7 @@ public class UnitDatabase extends WebScalper {
 
 
 
-        ArrayList<String>
+        ArrayList<String>                                                               //OwO
                 lv1StatsData = LV1_STATS_FILE.getTable("<table class=\"wikitable sortable\""),
                 growthRatesData = GROWTH_RATES_FILE.getTable("<table class=\"wikitable default sortable\""),
                 heroListData = HERO_LIST_FILE.getTable("<table class=\"wikitable default sortable\"");

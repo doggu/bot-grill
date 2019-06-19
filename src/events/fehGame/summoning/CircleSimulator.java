@@ -78,6 +78,7 @@ public class CircleSimulator extends ReactionListener {
         }
 
         circleMessage.addReaction("❌").queue();
+        circleMessage.addReaction("\uD83D\uDD04").queue();
 
         this.stoneEmotes = stoneEmotes;
     }
@@ -131,6 +132,14 @@ public class CircleSimulator extends ReactionListener {
                 } else {
                     e.getReaction().removeReaction(summoner.getUser()).queue();
                     sendMessage("please choose at least one orb before closing this session.");
+                    return;
+                }
+            } else if (e.getReactionEmote().toString().equals("RE:\uD83D\uDD04(null)")) {
+                if (canClose()) {
+                    closeCircle();
+                    CircleSimulator f = new CircleSimulator(circleMessage, summoner, banner);
+                } else {
+                    sendMessage("please choose at least one orb before starting a new session.");
                     return;
                 }
             } else {

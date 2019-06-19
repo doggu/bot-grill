@@ -28,6 +28,7 @@ public class SummonSimulator extends Gameroom {
 
 
     public void onCommand() {
+        //
         for (Summoner x:summoners) {
             if (x.getUser().getId().equals(e.getAuthor().getId())) {
                 System.out.println("found a registered summoner");
@@ -51,6 +52,7 @@ public class SummonSimulator extends Gameroom {
             }
         }
 
+        //find summoner corresponding to user
         Summoner summoner = null;
         String authorID = e.getAuthor().getId();
         for (Summoner x:summoners) {
@@ -59,6 +61,7 @@ public class SummonSimulator extends Gameroom {
             }
         }
 
+        //register new summoner if user has not summoned before
         if (summoner==null) {
             summoner = new Summoner(e.getAuthor());
             summoners.add(summoner);

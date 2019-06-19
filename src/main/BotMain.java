@@ -4,6 +4,7 @@ import events.DevTools;
 import events.Quips;
 import events.Reactions;
 import events.commands.*;
+import events.commands.chem.ElementRetriever;
 import events.commands.gamble.Chances;
 import events.commands.gamble.Roll;
 import events.commands.Help;
@@ -63,28 +64,7 @@ public class BotMain {
         BannerDatabase.BANNERS.size();
 
         //construct listeners beforehand so bot is ready as soon as she goes live
-        ListenerAdapter listenerUnitConversion = new UnitConversion();
-        ListenerAdapter listenerQuips = new Quips();
-        ListenerAdapter listenerHelp = new Help();
-        ListenerAdapter listenerChances = new Chances();
-        ListenerAdapter listenerRoll = new Roll();
-        ListenerAdapter listenerSkillRetriever = new SkillRetriever();
-        ListenerAdapter listenerHeroRetriever = new HeroRetriever();
-        ListenerAdapter listenerEmotes = new Emotes();
-        ListenerAdapter listenerGirl = new Girl();
-        ListenerAdapter listenerDevTools = new DevTools();
-        ListenerAdapter listenerSummonSimulator = new SummonSimulator();
-        ListenerAdapter listenerSimulateDay = new SimulateDay();
-        ListenerAdapter listenerReactions = new Reactions();
-        ListenerAdapter listenerMaffs = new Maffs();
-        ListenerAdapter listenerGD = new GradientDescentListener();
-        ListenerAdapter listenerEmbedTest = new EmbedTest();
-        ListenerAdapter listenerVote = new Vote();
-        ListenerAdapter listenerDraw = new Draw();
-        ListenerAdapter listenerOrbBalance = new OrbBalance();
-        ListenerAdapter listenerCreateLobby = new CreateLobby();
-        ListenerAdapter listenerAllies = new Allies();
-        ListenerAdapter listenerFracCalcListener = new FracCalcListener();
+
 
         bot_grill = new JDABuilder(AccountType.BOT)
                 .setToken(new Scanner(new File("./src/main/token.txt")).nextLine())
@@ -95,28 +75,31 @@ public class BotMain {
         stones = bot_grill.getGuildsByName("summonicons", true).get(0).getEmotes();
         fehIcons = bot_grill.getGuildsByName("fehicons", true).get(0).getEmotes();
 
-        addListener(listenerUnitConversion);
-        addListener(listenerQuips);
-        addListener(listenerHelp);
-        addListener(listenerChances);
-        addListener(listenerRoll);
-        addListener(listenerSkillRetriever);
-        addListener(listenerHeroRetriever);
-        addListener(listenerEmotes);
-        addListener(listenerGirl);
-        addListener(listenerDevTools);
-        addListener(listenerSummonSimulator);
-        addListener(listenerSimulateDay);
-        addListener(listenerReactions);
-        addListener(listenerMaffs);
-        addListener(listenerGD);
-        addListener(listenerEmbedTest);
-        addListener(listenerVote);
-        addListener(listenerDraw);
-        addListener(listenerOrbBalance);
-        addListener(listenerCreateLobby);
-        addListener(listenerAllies);
-        addListener(listenerFracCalcListener);
+        addListener(new ServerInput());
+        addListener(new ElementRetriever());
+
+        addListener(new UnitConversion());
+        addListener(new Quips());
+        addListener(new Help());
+        addListener(new Chances());
+        addListener(new Roll());
+        addListener(new SkillRetriever());
+        addListener(new HeroRetriever());
+        addListener(new Emotes());
+        addListener(new Girl());
+        addListener(new DevTools());
+        addListener(new SummonSimulator());
+        addListener(new SimulateDay());
+        addListener(new Reactions());
+        addListener(new Maffs());
+        addListener(new GradientDescentListener());
+        addListener(new EmbedTest());
+        addListener(new Vote());
+        addListener(new Draw());
+        addListener(new OrbBalance());
+        addListener(new CreateLobby());
+        addListener(new Allies());
+        addListener(new FracCalcListener());
 
 
 

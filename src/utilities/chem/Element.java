@@ -1,10 +1,10 @@
-package events.commands.chem;
+package utilities.chem;
 
-public class Atom {
+public class Element {
     private final String symbol, name;
     private final int number;
 
-    Atom(String symbol, String name, int number) {
+    Element(String symbol, String name, int number) {
         this.symbol = symbol;
         this.name = name;
         this.number = number;

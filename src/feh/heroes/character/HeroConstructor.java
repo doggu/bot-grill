@@ -77,8 +77,7 @@ public class HeroConstructor {
                 this.weaponType = WeaponClass.DAGGER;
                 break;
             default:
-                System.out.println("weaponType wasn't correct: "+weaponType);
-                throw new Error();
+                throw new Error("weaponType wasn't correct: "+weaponType);
         }
         this.color = weaponType.toLowerCase().charAt(0);
     }

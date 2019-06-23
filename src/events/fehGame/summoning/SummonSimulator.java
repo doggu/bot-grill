@@ -138,7 +138,7 @@ public class SummonSimulator extends Gameroom {
         StringBuilder featuredUnitsSB = new StringBuilder("featured units: ");
         for (int i=0; i<banner.getRarityFPool().size(); i++) {
             Hero x = banner.getRarityFPool().get(i);
-            if (x.getFullName().isAmbiguousName())
+            if (x.getFullName().isAmbiguousName()) //TODO: units like Olwen (same mov/weapon per alt) are not clarified
                 featuredUnitsSB.append(x.getFullName());
             else
                 featuredUnitsSB.append(x.getFullName().getName());

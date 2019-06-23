@@ -75,7 +75,6 @@ public class BotMain {
         stones = bot_grill.getGuildsByName("summonicons", true).get(0).getEmotes();
         fehIcons = bot_grill.getGuildsByName("fehicons", true).get(0).getEmotes();
 
-        addListener(new ServerInput());
         addListener(new ElementRetriever());
 
         addListener(new UnitConversion());
@@ -115,57 +114,9 @@ public class BotMain {
                         System.out.println(x);
                     }
                     break;
-                case "update":
-                    if (args.length<2) {
-                        System.out.println("please be more descriptive");
-                        continue;
-                    }
-                    switch (args[1]) {
-                        case "units":
-                            try {
-                                UnitDatabase.updateCache();
-                            } catch (Error f) {
-                                f.printStackTrace();
-                                System.out.println("nice code dumbass");
-                            }
-                            break;
-                        case "skills":
-                            try {
-                                SkillDatabase.updateCache();
-                            } catch (Error f) {
-                                f.printStackTrace();
-                                System.out.println("nice code dumbass");
-                            }
-                            break;
-                        case "banners":
-                            try {
-                                BannerDatabase.updateCache();
-                            } catch (Error f) {
-                                f.printStackTrace();
-                                System.out.println("nice code dumbass");
-                            }
-                            break;
-                        case "all":
-                            try {
-                                SkillDatabase.updateCache();
-                                UnitDatabase.updateCache();
-                                BannerDatabase.updateCache();
-                            } catch (Error f) {
-                                f.printStackTrace();
-                                System.out.println("nice code dumbass");
-                            }
-                            break;
-                        default:
-                            System.out.println("idk what this is, sorry");
-                            break;
-                    }
-                    break;
-                default:
-                    System.out.println("command not found.");
-                    break;
             }
         }
 
-        bot_grill.shutdown();
+        bot_grill.shutdownNow();
     }
 }

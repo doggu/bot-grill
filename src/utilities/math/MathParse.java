@@ -16,7 +16,7 @@ public class MathParse {
 
             VARIABLE = 'x',
 
-            PI = 'π', PHI = 'p', E = 'e', SoL = 'c',
+            PI = 'π', PHI = 'p', E = 'e', SoL = 'c', AVO = 'Ä',
 
             SIN = '∿', COS = 'Ϲ', TAN = 't',  //that is NOT a C
             ASIN = 'Ѕ', ACOS = 'Ͻ', ATAN = 'T',
@@ -26,7 +26,8 @@ public class MathParse {
 
     private static final double
             PHI_N = (1+Math.pow(5,0.5))/2,
-            SoL_N = 299792458.0; //m/s
+            SoL_N = 299792458.0, //m/s
+            AVO_N = 6.02214086E23;
 
 
 
@@ -53,6 +54,7 @@ public class MathParse {
                 //constants
                 .replaceAll("pi",String.valueOf(PI))
                 .replaceAll("phi",String.valueOf(PHI))
+                .replaceAll("N\\(A\\)", String.valueOf(AVO))
                 //hyperbolics
                 .replaceAll("sinh", String.valueOf(SINH))
                 .replaceAll("cosh", String.valueOf(COSH))
@@ -108,14 +110,13 @@ public class MathParse {
 
                     char[] recurse = new char[i-start];
                     System.arraycopy(f, start, recurse, 0, i-start);
-                    for (char x:recurse) System.out.println(x);
                     fxns.add(new MathParse(recurse).getFunction());
                     break;
                 case VARIABLE:
                     insertImplicitTimes();
                     fxns.add(x -> x);
                     break;
-                case PI: case E: case PHI: case SoL:
+                case PI: case E: case PHI: case SoL: case AVO:
                     addVal(c);
                     break;
                 case MINUS: //special for negative numbers
@@ -127,11 +128,9 @@ public class MathParse {
                 case SIN: case COS: case TAN:
                 case ASIN: case ACOS: case ATAN:
                 case SINH: case COSH: case TANH:
-                case LOG:
-                case LN:
+                case LOG: case LN:
                 case SQRT:
-                case FLOOR:
-                case CEIL:
+                case FLOOR: case CEIL:
                     if (ops.size()==fxns.size())
                         fxns.add(x -> 1.0);
                     ops.add(c);
@@ -196,6 +195,7 @@ public class MathParse {
             case E: n = Math.E; break;
             case PI: n = Math.PI; break;
             case SoL: n = SoL_N; break;
+            case AVO: n = AVO_N; break;
             default:
                 //PANIC
                 throw new Error();

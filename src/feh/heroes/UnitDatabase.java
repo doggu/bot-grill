@@ -26,12 +26,6 @@ public class UnitDatabase extends WebScalper {
             GROWTH_RATES_FILE,
             HERO_LIST_FILE;
 
-    private static FEHeroesCache[] HERO_FILES = {
-            LV1_STATS_FILE,
-            GROWTH_RATES_FILE,
-            HERO_LIST_FILE,
-    };
-
 
 
     private static int HERO_INDEX = 1;
@@ -84,16 +78,6 @@ public class UnitDatabase extends WebScalper {
 
 
 
-    public static void updateCache() {
-        for (FEHeroesCache x:HERO_FILES) {
-            if (!x.update()) throw new Error("unable to update "+x.getName());
-        }
-
-        HEROES = getList();
-    }
-
-
-
     private static HeroConstructor CURRENT_HERO;
 
     private static ArrayList<Hero> getList() {
@@ -101,9 +85,7 @@ public class UnitDatabase extends WebScalper {
         GROWTH_RATES_FILE = new FEHeroesCache(GROWTH_RATES, HERO_SUBDIR);
         HERO_LIST_FILE = new FEHeroesCache(HERO_LIST, HERO_SUBDIR);
 
-
-
-        ArrayList<HeroConstructor> heroConstructors = new ArrayList<>();
+        ArrayList<Hero> heroes = new ArrayList<>();
 
 
 
@@ -111,6 +93,32 @@ public class UnitDatabase extends WebScalper {
                 lv1StatsData = LV1_STATS_FILE.getTable("<table class=\"wikitable sortable\""),
                 growthRatesData = GROWTH_RATES_FILE.getTable("<table class=\"wikitable default sortable\""),
                 heroListData = HERO_LIST_FILE.getTable("<table class=\"wikitable default sortable\"");
+
+        if (lv1StatsData.size()==0) {
+            System.out.println("error detected with lv1StatsData");
+            if (!LV1_STATS_FILE.update()) {
+                throw new Error("could not update lv1StatsData");
+            }
+            return getList();
+        }
+        if (growthRatesData.size()==0) {
+            System.out.println("error detected with growthRatesData");
+            if (!GROWTH_RATES_FILE.update()) {
+                throw new Error("could not update growthRatesData");
+            }
+            return getList();
+        }
+        if (heroListData.size()==0) {
+            System.out.println("error detected with heroListData");
+            if (!HERO_LIST_FILE.update()) {
+                throw new Error("could not update heroListData");
+            }
+            return getList();
+        }
+
+        System.out.println(lv1StatsData.size());
+        System.out.println(growthRatesData.size());
+        System.out.println(heroListData.size());
 
         lv1StatsData.subList(0,7).clear();
         growthRatesData.subList(0,12).clear();
@@ -132,13 +140,15 @@ public class UnitDatabase extends WebScalper {
             processListOfHeroes(heroListIterator);
             addBaseKit();
 
-            heroConstructors.add(CURRENT_HERO);
+            try {
+                heroes.add(CURRENT_HERO.createHero());
+            } catch (Error e) {
+                e.printStackTrace();
+                throw new Error("missing information for "+CURRENT_HERO.getName());
+            }
+
             HERO_INDEX++;
         }
-
-        ArrayList<Hero> heroes = new ArrayList<>();
-        for (HeroConstructor z:heroConstructors)
-            heroes.add(z.createHero());
 
 
 
@@ -168,7 +178,7 @@ public class UnitDatabase extends WebScalper {
         String[] id = input.next().split(": ");
 
         boolean misaligned = false;
-        if (!id[0].equals(CURRENT_HERO.getName())) {
+        if (!id[0].equals(CURRENT_HERO.getName())||!id[1].equals(CURRENT_HERO.getEpithet())) {
             misaligned = true;
             System.out.println("GrR: misalignment detected for unit " + HERO_INDEX + " (" + id[0] + ")");
         }
@@ -220,7 +230,7 @@ public class UnitDatabase extends WebScalper {
         String name = id[0];
         if (id.length<2) throw new Error("improper name detected for unit "+HERO_INDEX+": "+name);
         boolean misaligned = false;
-        if (!id[0].equals(CURRENT_HERO.getName())) {
+        if (!id[0].equals(CURRENT_HERO.getName())||!id[1].equals(CURRENT_HERO.getEpithet())) {
             misaligned = true;
             System.out.println("LoH: misalignment detected for unit "+HERO_INDEX+" ("+id[0]+")");
         }
@@ -375,27 +385,5 @@ public class UnitDatabase extends WebScalper {
         //honestly am i really going to make a switch case for an int to find a field which is just another int (which is one less than the already-defined int)
         //yes
         return new GregorianCalendar(year, month, day);
-    }
-
-
-
-    public static void main(String[] args) {
-        updateCache();
-        /*
-        ArrayList<Hero> heroes;
-        heroes = getList();
-
-        Scanner console = new Scanner(System.in);
-
-        String input;
-        while (!(input = console.nextLine()).equals("quit")) {
-            for (Hero x:heroes) {
-                if (x.getFullName().getName().equalsIgnoreCase(input)) {
-                    System.out.println(x.getFullName());
-                }
-            }
-        }
-        console.close();
-        */
     }
 }

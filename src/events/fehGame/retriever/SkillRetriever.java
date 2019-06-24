@@ -224,7 +224,8 @@ public class SkillRetriever extends Command {
 
 
     private MessageBuilder printSkill(Skill x) {
-        MessageBuilder message = new MessageBuilder();EmbedBuilder skill = new EmbedBuilder();
+        MessageBuilder message = new MessageBuilder();
+        EmbedBuilder skill = new EmbedBuilder();
 
         switch (x.getSlot()) {
             case 0: //weapon
@@ -296,6 +297,10 @@ public class SkillRetriever extends Command {
                 skill.addField("stat modifiers", printedStatModifiers, false);
             }
         }
+
+
+
+        message.setEmbed(skill.build());
 
 
 

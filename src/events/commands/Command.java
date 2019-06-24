@@ -12,10 +12,6 @@ public abstract class Command extends MessageListener {
     public abstract String getName();
     public abstract String getDescription();
     public abstract String getFullDescription();
-    String getHelp() {
-        return getName()+": "+getDescription();
-    }
-    String getFullHelp() {
-        return "**"+getName()+"**\n"+getFullDescription();
-    }
+    String getHelp() { return getName()+": "+getDescription(); }
+    String getFullHelp() { return "**"+getName()+"**\n"+getFullDescription(); }
 }

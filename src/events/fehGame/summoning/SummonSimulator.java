@@ -38,7 +38,8 @@ public class SummonSimulator extends Gameroom {
                     if (currentSession.canClose()) {
                         currentSession.closeCircle();
                     } else {
-                        sendMessage("please summon at least one stone before starting a new session.");
+                        sendMessage("please summon at least one stone before starting a new session. " +
+                                "link: "+currentSession.getSessionMessage().getJumpUrl());
                         return;
                     }
 

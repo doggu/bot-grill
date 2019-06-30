@@ -60,10 +60,8 @@ public class SkillRetriever extends Command {
                         }
                     }
                     break;
-                case "type":
-
-                    break;
                 case "slot":
+                case "type":
                     char slot;
                     switch (params.get(x)) {
                         case "w":
@@ -272,13 +270,15 @@ public class SkillRetriever extends Command {
         if (!(x instanceof PassiveS)) {
             skill.addField("Exclusive?", (x.isExclusive()?"Yes":"No"), false);
             StringBuilder owners = new StringBuilder();
+            int ownerCount = 0;
             for (Hero n:HEROES) {
                 if (n.getBaseKit().contains(x)) {
                     owners.append(n).append(", ");
+                    ownerCount++;
                 }
             }
             if (owners.length() > 0) owners = new StringBuilder(owners.substring(0, owners.length()-2));
-            skill.addField("Owner"+(x.isExclusive()?"":"s"), owners.toString(), false);
+            skill.addField("Owner"+(ownerCount>1?"":"s"), owners.toString(), false);
         }
 
 

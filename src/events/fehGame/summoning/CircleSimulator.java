@@ -87,6 +87,7 @@ public class CircleSimulator extends ReactionListener {
 
     public Summoner getSummoner() { return summoner; }
     public User getUser() { return summoner.getUser(); }
+    public Message getSessionMessage() { return circleMessage; }
     public Guild getServer() { return server; }
 
 

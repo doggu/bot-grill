@@ -254,7 +254,7 @@ public class HeroRetriever extends Command {
                         case "flying":
                         case "flier":
                         case "flyer": //debatable
-                            move = "Flying";
+                            move = "Flier";
                             break;
                         default:
                             move = "na";

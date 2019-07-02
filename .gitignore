@@ -2,3 +2,6 @@
 token.txt
 
 /.idea/
+
+## downloaded website data ##
+/webCache/

@@ -60,7 +60,7 @@ public class BannerDatabase extends WebScalper {
             ArrayList<String> featuredUnitNames = new ArrayList<>();
             String name;
             //gather names until new data appears
-            while (!(name = items.next()).equals("Start Date")) {
+            while (!(name = items.next()).equalsIgnoreCase("Start Date")) {
                 featuredUnitNames.add(name);
             }
             ArrayList<Hero> featuredUnits = new ArrayList<>();

@@ -11,7 +11,7 @@ import events.commands.help.Help;
 import events.commands.math.FracCalcListener;
 import events.commands.math.GradientDescentListener;
 import events.commands.math.Maffs;
-import events.commands.math.UnitConversion;
+import events.commands.math.UnitConversionListener;
 import events.fehGame.Allies;
 import events.fehGame.OrbBalance;
 import events.fehGame.summoning.SummonSimulator;
@@ -74,7 +74,7 @@ public class BotMain {
 
         addListener(new ElementRetriever());
 
-        addListener(new UnitConversion());
+        addListener(new UnitConversionListener());
         addListener(new Quips());
         addListener(new Help());
         addListener(new Chances());
@@ -115,5 +115,6 @@ public class BotMain {
         }
 
         bot_grill.shutdownNow();
+        console.close();
     }
 }

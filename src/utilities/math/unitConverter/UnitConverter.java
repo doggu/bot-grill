@@ -1,82 +1,90 @@
 package utilities.math.unitConverter;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.Scanner;
+import java.util.function.Function;
 
 public class UnitConverter {
     private static final int
-            MASS = 0,
-            DISPLACEMENT = 1;
+            TIME = 0,
+            MASS = 1,
+            LENGTH = 2,
+            FORCE = 3,
+            TEMPERATURE = 4,
+            CURRENT = 5,
+            QUANTITY = 6; //(mols)
 
-    private static final String[][] UNITS = {
+    private static final String[][] SI_UNITS = {
             //indexes denotes the orders of magnitude each unit is away from each other
             { //time
-                    "ys", "","",
-                    "zs", "","",
-                    "as", "","",
-                    "fs", "","",
-                    "ps", "","",
-                    "ns", "","",
-                    "µs", "","",
+                    "ys", "", "",
+                    "zs", "", "",
+                    "as", "", "",
+                    "fs", "", "",
+                    "ps", "", "",
+                    "ns", "", "",
+                    "µs", "", "",
                     "ms",
                     "cs",
                     "ds",
                     "s",
                     "das",
                     "hs",
-                    "ks", "","",
-                    "Ms", "","",
-                    "Gs", "","",
-                    "Ts", "","",
-                    "Ps", "","",
-                    "Es", "","",
-                    "Zs", "","",
+                    "ks", "", "",
+                    "Ms", "", "",
+                    "Gs", "", "",
+                    "Ts", "", "",
+                    "Ps", "", "",
+                    "Es", "", "",
+                    "Zs", "", "",
                     "Ys",
             },
             { //mass
-                    "yg", "","",
-                    "zg", "","",
-                    "ag", "","",
-                    "fg", "","",
-                    "pg", "","",
-                    "ng", "","",
-                    "µg", "","",
+                    "yg", "", "",
+                    "zg", "", "",
+                    "ag", "", "",
+                    "fg", "", "",
+                    "pg", "", "",
+                    "ng", "", "",
+                    "µg", "", "",
                     "mg",
                     "cg",
                     "dg",
                     "g",
                     "dag",
                     "hg",
-                    "kg", "","",
-                    "Mg", "","",
-                    "Gg", "","",
-                    "Tg", "","",
-                    "Pg", "","",
-                    "Eg", "","",
-                    "Zg", "","",
+                    "kg", "", "",
+                    "Mg", "", "",
+                    "Gg", "", "",
+                    "Tg", "", "",
+                    "Pg", "", "",
+                    "Eg", "", "",
+                    "Zg", "", "",
                     "Yg",
             },
             { //length
-                    "ym", "","",
-                    "zm", "","",
-                    "am", "","",
-                    "fm", "","",
-                    "pm", "","",
-                    "nm", "","",
-                    "µm", "","",
+                    "ym", "", "",
+                    "zm", "", "",
+                    "am", "", "",
+                    "fm", "", "",
+                    "pm", "", "",
+                    "nm", "", "",
+                    "µm", "", "",
                     "mm",
                     "cm",
                     "dm",
                     "m",
                     "dam",
                     "hm",
-                    "km", "","",
-                    "Mm", "","",
-                    "Gm", "","",
-                    "Tm", "","",
-                    "Pm", "","",
-                    "Em", "","",
-                    "Zm", "","",
+                    "km", "", "",
+                    "Mm", "", "",
+                    "Gm", "", "",
+                    "Tm", "", "",
+                    "Pm", "", "",
+                    "Em", "", "",
+                    "Zm", "", "",
                     "Ym",
             },
             { //force
@@ -92,6 +100,16 @@ public class UnitConverter {
                     "mol",
             }
     };
+
+
+
+    private static final HashMap<String, Function<BigDecimal, BigDecimal>> CONVERSION_FUNCTIONS;
+
+    static {
+        CONVERSION_FUNCTIONS = new HashMap<>();
+
+    }
+
 
 
     /**
@@ -116,6 +134,24 @@ public class UnitConverter {
         }
 
         return input.multiply(new BigDecimal(Math.pow(10, u1-u2)));
+    }
+
+
+
+    private static final
+
+    public static String guessUnits(String unitsIn) {
+
+    }
+
+
+
+    private BigDecimal cToF(BigDecimal c) {
+        return c.multiply(new BigDecimal(1.8)).add(new BigDecimal(32));
+    }
+
+    private BigDecimal fToC(BigDecimal f) {
+        return f.subtract(new BigDecimal(32)).multiply(new BigDecimal(5)).divide(new BigDecimal(9));
     }
 
 

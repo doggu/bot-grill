@@ -1,4 +1,4 @@
-package events.commands;
+package events.devTools;
 
 import events.MessageListener;
 import net.dv8tion.jda.core.EmbedBuilder;
@@ -25,27 +25,13 @@ public class EmbedTest extends MessageListener {
 
 
             switch (ex.getSlot()) {
-                case 0:
-                    eb.setColor(new Color(0xDE1336));
-                    break;
-                case 1:
-                    eb.setColor(new Color(0x00EDB3));
-                    break;
-                case 2:
-                    eb.setColor(new Color(0xF400E5));
-                    break;
-                case 3:
-                    eb.setColor(new Color(0xFF2A2A));
-                    break;
-                case 4:
-                    eb.setColor(new Color(0x003ED3));
-                    break;
-                case 5:
-                    eb.setColor(new Color(0x09C639));
-                    break;
-                case 6:
-                    eb.setColor(new Color(0xEDE500));
-                    break;
+                case 0: eb.setColor(new Color(0xDE1336)); break;
+                case 1: eb.setColor(new Color(0x00EDB3)); break;
+                case 2: eb.setColor(new Color(0xF400E5)); break;
+                case 3: eb.setColor(new Color(0xFF2A2A)); break;
+                case 4: eb.setColor(new Color(0x003ED3)); break;
+                case 5: eb.setColor(new Color(0x09C639)); break;
+                case 6: eb.setColor(new Color(0xEDE500)); break;
             }
 
             eb.setAuthor(ex.getName());

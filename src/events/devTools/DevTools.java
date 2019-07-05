@@ -1,4 +1,6 @@
-package events;
+package events.devTools;
+
+import events.MessageListener;
 
 public class DevTools extends MessageListener {
     public void onCommand() {

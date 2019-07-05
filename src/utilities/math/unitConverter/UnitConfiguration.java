@@ -37,6 +37,11 @@ public class UnitConfiguration {
     }
 
     public boolean matches(UnitConfiguration units) {
-
+        for (int i=0; i<unitPositions.length; i++) {
+            if (units.unitPositions[i] != unitPositions[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -121,15 +121,17 @@ public class UnitConverter {
      */
     public static BigDecimal convert(BigDecimal input, String unitsIn, String unitsOut) throws UnknownUnitException {
         int u1 = -1, u2 = -1;
-        for (String[] units:UNITS) {
+        for (String[] units:SI_UNITS) {
             for (int i = 0; i < units.length; i++) {
-                if (unitsIn.matches(units[i])) u1 = i;
-                if (unitsOut.matches(units[i])) u2 = i;
+                if (unitsIn.equals(units[i])) u1 = i;
+                if (unitsOut.equals(units[i])) u2 = i;
             }
             if (u1>=0&&u2>=0) break;
+            u1 = -1;
+            u2 = -1;
         }
 
-        if (u1==-1||u2==-1) {
+        if (u1==-1) {
             throw new UnknownUnitException();
         }
 
@@ -138,10 +140,29 @@ public class UnitConverter {
 
 
 
-    private static final
+    private static final UnitConfiguration
+            MOMENTUM,
+            ENERGY,
+
+            DISTANCE,
+            VELOCITY,
+            ACCELERATION,
+            JERK,
+            JOUNCE;
+
+    static {
+        MOMENTUM = new UnitConfiguration(new int[] { 0,1,1,0,0,0,0 });
+        ENERGY = new UnitConfiguration(new int[] { -2,2,1,0,0,0,0 });
+
+        DISTANCE = new UnitConfiguration(new int[] { 0,1,0,0,0,0,0 });
+        VELOCITY = new UnitConfiguration(new int[] { -1,1,0,0,0,0,0 });
+        ACCELERATION = new UnitConfiguration(new int[] { -2,1,0,0,0,0,0 });
+        JERK = new UnitConfiguration(new int[] { -3,1,0,0,0,0,0 });
+        JOUNCE = new UnitConfiguration(new int[] { -4,1,0,0,0,0,0 });
+    }
 
     public static String guessUnits(String unitsIn) {
-
+        return "idk lol";
     }
 
 

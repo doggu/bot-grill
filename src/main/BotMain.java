@@ -1,6 +1,6 @@
 package main;
 
-import events.DevTools;
+import events.devTools.DevTools;
 import events.Quips;
 import events.Reactions;
 import events.commands.*;
@@ -12,6 +12,7 @@ import events.commands.math.FracCalcListener;
 import events.commands.math.GradientDescentListener;
 import events.commands.math.Maffs;
 import events.commands.math.UnitConversionListener;
+import events.devTools.EmbedTest;
 import events.fehGame.Allies;
 import events.fehGame.OrbBalance;
 import events.fehGame.summoning.SummonSimulator;
@@ -30,6 +31,8 @@ import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -56,9 +59,17 @@ public class BotMain {
 
     public static void main(String[] rgs) throws Exception {
         //initialize lists so that they are loaded before the bot goes live
+        System.out.println("computerizing FEH data...");
+        long startTime = System.nanoTime();
+
         UnitDatabase.HEROES.size();
         SkillDatabase.SKILLS.size();
         BannerDatabase.BANNERS.size();
+
+        long endTime = System.nanoTime();
+        double totalTimeInSeconds = new BigDecimal((endTime-startTime)/1000000000.0)
+                .round(new MathContext(3)).doubleValue();
+        System.out.println("finished ("+totalTimeInSeconds+" s)!");
 
         //construct listeners beforehand so bot is ready as soon as she goes live
 

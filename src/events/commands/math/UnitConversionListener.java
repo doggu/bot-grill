@@ -1,6 +1,7 @@
 package events.commands.math;
 
 import events.commands.Command;
+import utilities.math.PrettyNumber;
 import utilities.math.unitConverter.UnitConverter;
 import utilities.math.unitConverter.UnknownUnitException;
 
@@ -8,14 +9,27 @@ import java.math.BigDecimal;
 
 public class UnitConversionListener extends Command {
     public void onCommand() {
-        if (args.length!=5) {
+        boolean ginormo = true;
+
+        if (args.length<5) {
             sendMessage("incorrect format! please try again.");
             return;
+        } else if (args.length>5) {
+            for (int i=5; i<args.length; i++) {
+                switch(args[i]) {
+                    case "-sci":
+                        ginormo = false;
+                        break;
+                    case "-ginormo":
+                        ginormo = true;
+                        break;
+                }
+            }
         }
         
         BigDecimal n;
         try {
-            n = new BigDecimal(Long.parseLong(args[1]));
+            n = new BigDecimal(Double.parseDouble(args[1]));
         } catch (NumberFormatException nfe) {
             sendMessage("incorrect number format! please try again.");
             return;
@@ -32,7 +46,7 @@ public class UnitConversionListener extends Command {
             return;
         }
 
-        sendMessage(args[1]+" "+unitsIn+"\nis equivalent to "+result+" "+unitsOut);
+        sendMessage("`"+args[1]+" "+unitsIn+"`\nis equivalent to:\n`"+new PrettyNumber(result, ginormo)+" "+unitsOut+"`");
         log("converted "+n+" "+unitsIn+" to "+result+" "+unitsOut+".");
     }
 

@@ -14,15 +14,15 @@ public class MathParse {
     private static final char
             PLUS = '+', MINUS = '-', TIMES = '*', DIVIDE = '/', POWER = '^', MODULO = '%',
 
-            VARIABLE = 'x',
-
-            PI = 'π', PHI = 'p', E = 'e', SoL = 'c', AVO = 'Ä',
-
             SIN = '∿', COS = 'Ϲ', TAN = 't',  //that is NOT a C
             ASIN = 'Ѕ', ACOS = 'Ͻ', ATAN = 'T',
             SINH = 'Ѓ', COSH = 'Ͼ', TANH = 'ţ',
 
-            LOG = '㏒', LN = '㏑', SQRT = '√', FLOOR = 'f', CEIL = 'r';
+            LOG = '㏒', LN = '㏑', SQRT = '√', FLOOR = 'f', CEIL = 'r',
+
+            VARIABLE = 'x',
+
+            PI = 'π', PHI = 'p', E = 'e', SoL = 'c', AVO = 'Ä';
 
     private static final double
             PHI_N = (1+Math.pow(5,0.5))/2,
@@ -73,14 +73,12 @@ public class MathParse {
                 .replaceAll("ln",String.valueOf(LN))
                 .replaceAll("sqr?t",String.valueOf(SQRT))
                 .replaceAll("floor",String.valueOf(FLOOR))
-                .replaceAll("ceil",CEIL+"")
+                .replaceAll("ceil",String.valueOf(CEIL))
                 .toCharArray();
     }
 
     //for recursive calls which have already replaced functions with special characters
-    private MathParse(char[] problem) {
-        this.f = problem;
-    }
+    private MathParse(char[] problem) { this.f = problem; }
 
 
 
@@ -107,10 +105,7 @@ public class MathParse {
                         System.out.println("imbalanced parentheses!");
                         throw new Error();
                     }
-
-                    char[] recurse = new char[i-start];
-                    System.arraycopy(f, start, recurse, 0, i-start);
-                    fxns.add(new MathParse(recurse).getFunction());
+                    fxns.add(new MathParse(Arrays.copyOfRange(f,start,i)).getFunction());
                     break;
                 case VARIABLE:
                     insertImplicitTimes();
@@ -120,7 +115,7 @@ public class MathParse {
                     addVal(c);
                     break;
                 case MINUS: //special for negative numbers
-                    if (fxns.size()==0) {
+                    if (fxns.size()==0||ops.size()==fxns.size()) {
                         addVal(getNum());
                         break;
                     } //else it's an operator

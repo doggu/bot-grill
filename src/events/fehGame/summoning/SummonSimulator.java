@@ -28,7 +28,6 @@ public class SummonSimulator extends Gameroom {
 
 
     public void onCommand() {
-        //
         for (Summoner x:summoners) {
             if (x.getUser().getId().equals(e.getAuthor().getId())) {
                 System.out.println("found a registered summoner");

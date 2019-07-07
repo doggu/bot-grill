@@ -44,4 +44,32 @@ public class UnitConfiguration {
         }
         return true;
     }
+
+
+
+    private static final UnitConfiguration
+            DISTANCE,
+            VELOCITY,
+            ACCELERATION,
+            JERK,
+            JOUNCE,
+
+            MOMENTUM,
+            ENERGY;
+
+
+    static {
+        DISTANCE = new UnitConfiguration(new int[] { 0,1,0,0,0,0,0 });
+        VELOCITY = new UnitConfiguration(new int[] { -1,1,0,0,0,0,0 });
+        ACCELERATION = new UnitConfiguration(new int[] { -2,1,0,0,0,0,0 });
+        JERK = new UnitConfiguration(new int[] { -3,1,0,0,0,0,0 });
+        JOUNCE = new UnitConfiguration(new int[] { -4,1,0,0,0,0,0 });
+
+        MOMENTUM = new UnitConfiguration(new int[] { 0,1,1,0,0,0,0 });
+        ENERGY = new UnitConfiguration(new int[] { -2,2,1,0,0,0,0 });
+    }
+
+    public String guessUnits(String unitsIn) {
+        return "idk lol";
+    }
 }

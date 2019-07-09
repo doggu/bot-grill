@@ -131,10 +131,10 @@ public class SummonSimulator extends Gameroom {
 
 
 
-        String report = "created new summoning circle for " + e.getAuthor().getName() + "\n\t\t\t\t\t\t" +
-                "banner: " + banner.getName() + "\n\t\t\t\t\t\t" +
-                "5* focus: "+banner.getRarityFRate()+"%\n\t\t\t\t\t\t" +
-                "5* rates: "+banner.getRarity5Rate()+"%\n\t\t\t\t\t\t";
+        String report = "created new summoning circle for " + e.getAuthor().getName() + "\n\t\t" +
+                "banner: " + banner.getName() + "\n\t\t" +
+                "5* focus: "+banner.getRarityFRate()+"%\n\t\t" +
+                "5* rates: "+banner.getRarity5Rate()+"%\n\t\t";
         StringBuilder featuredUnitsSB = new StringBuilder("featured units: ");
         for (int i=0; i<banner.getRarityFPool().size(); i++) {
             Hero x = banner.getRarityFPool().get(i);
@@ -143,10 +143,10 @@ public class SummonSimulator extends Gameroom {
             else
                 featuredUnitsSB.append(x.getFullName().getName());
             featuredUnitsSB.append(", ");
-            if (i%2==1&&i+1!=banner.getRarityFPool().size()) featuredUnitsSB.append("\n\t\t\t\t\t\t\t\t\t\t");
+            if (i%2==1&&i+1!=banner.getRarityFPool().size()) featuredUnitsSB.append("\n\t\t\t\t\t");
         }
         String featuredUnits = featuredUnitsSB.substring(0, featuredUnitsSB.length()-2);
-        report+= featuredUnits + "\n\t\t\t\t\t\t";
+        report+= featuredUnits + "\n\t\t\t\t\t";
         report+= "banner date: " +
                 printDate(banner.getStartDate()) + " - "+printDate(banner.getEndDate());
         /*

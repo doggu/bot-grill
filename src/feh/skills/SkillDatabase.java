@@ -4,6 +4,8 @@ import feh.FEHeroesCache;
 import utilities.WebScalper;
 import feh.heroes.character.WeaponClass;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -36,6 +38,16 @@ public class SkillDatabase extends WebScalper {
             HERO_BASE_SKILLS = "Hero_skills_table",
             WEAPON_REFINES = "Weapon_Refinery";
 
+    private static final String[] SKILL_URLS = {
+            WEAPONS,
+            ASSISTS,
+            SPECIALS,
+            PASSIVES,
+            EXCLUSIVE_SKILLS,
+            HERO_BASE_SKILLS,
+            WEAPON_REFINES,
+    };
+
 
 
     private static FEHeroesCache
@@ -60,8 +72,13 @@ public class SkillDatabase extends WebScalper {
 
 
     public static void updateCache() {
-        for (FEHeroesCache x:SKILL_FILES) {
-            if (!x.update()) throw new Error("unable to update "+x.getName());
+        for (int i=0; i<SKILL_FILES.length; i++) {
+            try {
+                if (!SKILL_FILES[i].update()) throw new Error("unable to update " + SKILL_FILES[i].getName());
+            } catch (NullPointerException npe) {
+                SKILL_FILES[i] = new FEHeroesCache(SKILL_URLS[i]);
+                i--;
+            }
         }
 
         SKILLS = getList();
@@ -71,6 +88,11 @@ public class SkillDatabase extends WebScalper {
 
 
     private static ArrayList<Skill> getList() {
+        System.out.print("processing skills... ");
+        long start = System.nanoTime();
+
+
+
         //TODO: figure out how to get the initializers to handle this automagically
         WEAPONS_FILE = new FEHeroesCache(WEAPONS, SKILLS_SUBDIR);
         ASSISTS_FILE = new FEHeroesCache(ASSISTS, SKILLS_SUBDIR);
@@ -84,9 +106,13 @@ public class SkillDatabase extends WebScalper {
 
         ArrayList<Skill> allSkills = new ArrayList<>();
 
+        System.out.print("processing weapons... ");
         ArrayList<Weapon> weapons = processWeapons();
+        System.out.print("processing assists... ");
         ArrayList<Assist> assists = processAssists();
+        System.out.print("processing specials... ");
         ArrayList<Special> specials = processSpecials();
+        System.out.print("processing passives... ");
         ArrayList<Passive> passives = processPassives();
 
 
@@ -98,14 +124,12 @@ public class SkillDatabase extends WebScalper {
 
 
 
-        System.out.println("finished processing skills.");
+        System.out.println("done ("+new BigDecimal((System.nanoTime()-start)/1000000000.0).round(new MathContext(3))+" s)!");
         return allSkills;
     }
 
     private static ArrayList<Weapon> processWeapons() {
         ArrayList<ArrayList<String>> weaponTables = WEAPONS_FILE.getTables();
-
-        System.out.print("processing weapons... ");
 
         ArrayList<Weapon> weapons = new ArrayList<>();
 
@@ -120,13 +144,13 @@ public class SkillDatabase extends WebScalper {
         for (ArrayList<String> table:weaponTables)
             table.subList(0,6).clear();
 
+
+
         for (int i=0; i<weaponTables.size(); i++) {
-            System.out.print(weaponType[i]+"s... ");
             Iterator<String> iterator = weaponTables.get(i).iterator();
 
-
-
             Weapon x;
+
             while (iterator.hasNext()) {
                 String name = iterator.next();
                 int might = Integer.parseInt(iterator.next());
@@ -153,15 +177,12 @@ public class SkillDatabase extends WebScalper {
             }
         }
 
-        System.out.println("done!");
+
+
         return weapons;
     }
     private static ArrayList<Assist> processAssists() {
         ArrayList<String> data = ASSISTS_FILE.getTables().get(0);
-
-        System.out.print("processing assists... ");
-
-
 
         Iterator<String> iterator = data.iterator();
 
@@ -190,15 +211,12 @@ public class SkillDatabase extends WebScalper {
             assists.add(x);
         }
 
-        System.out.println("done!");
+
+
         return assists;
     }
     private static ArrayList<Special> processSpecials() {
         ArrayList<String> data = SPECIALS_FILE.getTables().get(0);
-
-        System.out.print("processing specials...");
-
-
 
         data.subList(0,4).clear();
 
@@ -227,15 +245,12 @@ public class SkillDatabase extends WebScalper {
             specials.add(x);
         }
 
-        System.out.println("done!");
+
+
         return specials;
     }
     private static ArrayList<Passive> processPassives() {
         ArrayList<ArrayList<String>> tables = PASSIVES_FILE.getTables();
-
-
-
-        System.out.print("processing passives... ");
 
         ArrayList<Passive> passives = new ArrayList<>();
 
@@ -255,7 +270,6 @@ public class SkillDatabase extends WebScalper {
         Passive x;
 
         for (int i=0; i<tables.size(); i++) {
-            System.out.print("table "+(i+1)+"... ");
             Iterator<String> iterator = tables.get(i).iterator();
             while (iterator.hasNext()) {
                 String name = iterator.next();
@@ -297,7 +311,7 @@ public class SkillDatabase extends WebScalper {
         }
 
 
-        System.out.println("done!");
+
         return passives;
     }
 
@@ -306,11 +320,12 @@ public class SkillDatabase extends WebScalper {
     private static ArrayList<String> EXCLUSIVE;
 
     private static ArrayList<String> getExclusiveList() {
-        //System.out.println("creating exclusive list...");
         ArrayList<String> list = new ArrayList<>();
         ArrayList<ArrayList<String>> tables = EXCLUSIVE_SKILLS_FILE.getTables();
 
         for (ArrayList<String> table:tables) list.addAll(table);
+
+
 
         return list;
     }
@@ -325,8 +340,11 @@ public class SkillDatabase extends WebScalper {
     private static ArrayList<WeaponRefine> REFINES;
 
     private static ArrayList<WeaponRefine> getRefineableList() {
-        System.out.print("processing refines... ");
+
+
+
         ArrayList<WeaponRefine> list = new ArrayList<>();
+
         ArrayList<String> table =
                 WEAPON_REFINES_FILE //you never seen code this advanced
                 .getTable("<table style=\"display:inline-table;border:1px solid #a2a9b1;border-collapse:collapse;width:24em;margin:0.5em 0;background-color:#f8f9fa\">");
@@ -379,11 +397,13 @@ public class SkillDatabase extends WebScalper {
                 data.next(); //", [Medal cost]" (500)
                 data.next(); //blank line
             } catch (NoSuchElementException nsee) {
-                System.out.println("done!");
+                //we gucci
             }
 
             list.add(new WeaponRefine(name, desc.toString(), cost, mt, rng));
         }
+
+
 
         return list;
     }
@@ -402,6 +422,8 @@ public class SkillDatabase extends WebScalper {
 
 
     private static HashMap<String, ArrayList<Skill>> getHeroSkills() {
+
+
         if (HERO_BASE_SKILLS_FILE==null) HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS, SKILLS_SUBDIR);
         ArrayList<String> baseSkillTable = HERO_BASE_SKILLS_FILE.getTable("<table class=\"wikitable sortable");
 
@@ -434,7 +456,7 @@ public class SkillDatabase extends WebScalper {
                     if (x.getName().equals(skillName))
                         skills.add(x);
 
-            //TODO: Falchion is added to the normal falchion users' base kits multiple times
+            //TODO: all three types of Falchion are added to all the falchion users' base kits multiple times
 
 
             //Skill[] arr = new Skill[skills.size()];
@@ -445,16 +467,19 @@ public class SkillDatabase extends WebScalper {
             name = skill;
         }
 
-        System.out.println("finished processing base skills.");
+
+
         return heroSkills;
     }
 
 
 
     public static void main(String[] args) {
-        updateCache();
-        FEHeroesCache f = new FEHeroesCache(EXCLUSIVE_SKILLS, SKILLS_SUBDIR);
+        ArrayList<Skill> mutable = new ArrayList<>(SKILLS);
 
-        System.out.println(f.getTables());
+        mutable.remove(0);
+
+        System.out.println(mutable);
+        System.out.println(SKILLS);
     }
 }

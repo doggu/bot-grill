@@ -9,6 +9,8 @@ import feh.heroes.character.HeroName;
 import feh.skills.Skill;
 import feh.skills.SkillDatabase;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.*;
 
 public class UnitDatabase extends WebScalper {
@@ -21,10 +23,24 @@ public class UnitDatabase extends WebScalper {
             GROWTH_RATES = "Growth_rate_table",
             HERO_LIST = "List_of_Heroes";
 
+    private static final String[] HERO_URLS = {
+            LV1_STATS,
+            GROWTH_RATES,
+            HERO_LIST,
+    };
+
+
+
     private static FEHeroesCache
             LV1_STATS_FILE,
             GROWTH_RATES_FILE,
             HERO_LIST_FILE;
+
+    private static FEHeroesCache[] HERO_FILES = {
+            LV1_STATS_FILE,
+            GROWTH_RATES_FILE,
+            HERO_LIST_FILE,
+    };
 
 
 
@@ -78,9 +94,27 @@ public class UnitDatabase extends WebScalper {
 
 
 
+    public static void updateCache() {
+        for (int i=0; i<HERO_FILES.length; i++) {
+            try {
+                if (!HERO_FILES[i].update()) throw new Error("unable to update "+HERO_FILES[i].getName());
+            } catch (NullPointerException npe) {
+                HERO_FILES[i] = new FEHeroesCache(HERO_URLS[i]);
+                i--;
+            }
+        }
+    }
+
+
+
     private static HeroConstructor CURRENT_HERO;
 
     private static ArrayList<Hero> getList() {
+        System.out.print("processing heroes... ");
+        long start = System.nanoTime();
+
+
+
         LV1_STATS_FILE = new FEHeroesCache(LV1_STATS, HERO_SUBDIR);
         GROWTH_RATES_FILE = new FEHeroesCache(GROWTH_RATES, HERO_SUBDIR);
         HERO_LIST_FILE = new FEHeroesCache(HERO_LIST, HERO_SUBDIR);
@@ -116,10 +150,6 @@ public class UnitDatabase extends WebScalper {
             return getList();
         }
 
-        System.out.println(lv1StatsData.size());
-        System.out.println(growthRatesData.size());
-        System.out.println(heroListData.size());
-
         lv1StatsData.subList(0,7).clear();
         growthRatesData.subList(0,12).clear();
         heroListData.subList(0,7).clear();
@@ -152,7 +182,7 @@ public class UnitDatabase extends WebScalper {
 
 
 
-        System.out.println("finished processing heroes.");
+        System.out.println("done ("+new BigDecimal((System.nanoTime()-start)/1000000000.0).round(new MathContext(3)) +" s)!");
         return heroes;
     }
 

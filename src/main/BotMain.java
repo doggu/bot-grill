@@ -64,8 +64,9 @@ public class BotMain {
         System.out.println("computerizing FEH data...");
         long startTime = System.nanoTime();
 
-        UnitDatabase.HEROES.size();
+
         SkillDatabase.SKILLS.size();
+        UnitDatabase.HEROES.size();
         BannerDatabase.BANNERS.size();
 
         long endTime = System.nanoTime();
@@ -124,6 +125,26 @@ public class BotMain {
                         System.out.println(x);
                     }
                     break;
+                case "update":
+                    if (args.length>1) {
+                        switch (args[1]) {
+                            case "heroes":
+                                UnitDatabase.updateCache();
+                                break;
+                            case "skills":
+                                SkillDatabase.updateCache();
+                                break;
+                            case "banners":
+                                BannerDatabase.updateCache();
+                                break;
+                            case "all":
+                                SkillDatabase.updateCache();
+                                UnitDatabase.updateCache();
+                                BannerDatabase.updateCache();
+                                break;
+
+                        }
+                    }
             }
         }
 

@@ -71,6 +71,7 @@ public abstract class MessageListener extends ListenerAdapter {
                 (Math.log10(month)<1?"0":"")+month+"-"+
                 (Math.log10(day)<1?"0":"")+day+"-"+
                 (Math.log10(year)<1?"0":"")+year+": ";
+        message = message.replace("\t","    ");
         message = message.replace("\n", "\n\t\t\t\t\t ");
         System.out.println(timestamp+message);
     }

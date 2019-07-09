@@ -4,6 +4,8 @@ import feh.FEHeroesCache;
 import utilities.WebScalper;
 import feh.heroes.character.Hero;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.*;
 import java.util.stream.IntStream;
 
@@ -17,12 +19,25 @@ public class BannerDatabase extends WebScalper {
 
 
     public static void updateCache() {
-        if (!FOCUS_ARCHIVE_FILE.update()) throw new Error("unable to update "+FOCUS_ARCHIVE_FILE.getName());
+        try {
+            if (!FOCUS_ARCHIVE_FILE.update()) throw new Error("unable to update " + FOCUS_ARCHIVE_FILE.getName());
+        } catch (NullPointerException npe) {
+            FOCUS_ARCHIVE_FILE = new FEHeroesCache(FOCUS_ARCHIVE);
+            updateCache();
+            return;
+        }
+
+
 
         BANNERS = getList();
     }
 
     private static ArrayList<Banner> getList() {
+        System.out.print("processing banners... ");
+        long start = System.nanoTime();
+
+
+
         FOCUS_ARCHIVE_FILE = new FEHeroesCache(FOCUS_ARCHIVE);
 
 
@@ -100,7 +115,7 @@ public class BannerDatabase extends WebScalper {
 
 
 
-        System.out.println("finished processing banners.");
+        System.out.println("done ("+new BigDecimal((System.nanoTime()-start)/1000000000.0).round(new MathContext(3)) +" s)!");
         return banners;
     }
 

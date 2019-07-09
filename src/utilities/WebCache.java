@@ -1,6 +1,8 @@
 package utilities;
 
 import java.io.*;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.net.URL;
 
 public class WebCache extends File {
@@ -73,7 +75,10 @@ public class WebCache extends File {
     /**
      * Constructs the full directory of a file based on local constants and a website URL.
      *
-     * @param website full URL of the website
+     * @param website full URL of the website.
+     * @param subdir a provided subdirectory, which may be null, in which the website directory will be contained.
+     *
+     * @return the fully generated directory.
      */
     private static String generateDirectory(String website, String subdir) {
         return DIRECTORY + //if forward slashes are missing
@@ -83,6 +88,9 @@ public class WebCache extends File {
     }
 
     private static BufferedReader readWebsite(String website) {
+        System.out.print("reading "+website+"... ");
+        long start = System.nanoTime();
+
         // courtesy of Stas Yak at:
         // https://stackoverflow.com/questions/238547/how-do-you-programmatically-download-a-webpage-in-java
         URL url;
@@ -98,7 +106,7 @@ public class WebCache extends File {
             return null;
         }
 
-        System.out.println("finished reading "+website);
+        System.out.println("done (" + new BigDecimal((System.nanoTime()-start)/1000000000.0).round(new MathContext(3)) +" s)!");
         return br;
     }
 

@@ -6,6 +6,7 @@ import events.Vote;
 import events.commands.Draw;
 import events.commands.Emotes;
 import events.commands.Girl;
+import events.commands.mcserver.ServerInput;
 import events.commands.chem.ElementRetriever;
 import events.commands.gamble.Chances;
 import events.commands.gamble.Roll;
@@ -85,6 +86,8 @@ public class BotMain {
 
         stones = bot_grill.getGuildsByName("summonicons", true).get(0).getEmotes();
         fehIcons = bot_grill.getGuildsByName("fehicons", true).get(0).getEmotes();
+
+        addListener(new ServerInput());
 
         addListener(new ElementRetriever());
 

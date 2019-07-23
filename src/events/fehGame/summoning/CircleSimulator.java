@@ -161,7 +161,8 @@ public class CircleSimulator extends ReactionListener {
                         return;
                     }
 
-                    //summoner.openPrivateChannel().complete().sendMessage(FEHRetriever.printUnit(hero, true)).complete();
+                    //summoner.openPrivateChannel().complete()
+                    // .sendMessage(FEHRetriever.printUnit(hero, true)).complete();
                     sendMessage(HeroRetriever.printUnit(hero, true));
                     summoner.getBarracks().add(hero);
 

@@ -41,7 +41,7 @@ public class Allies extends Command {
                 }
                 StringBuilder message = new StringBuilder("You have ")
                         .append(barracks.size())
-                        .append(" units.\n\n");
+                        .append(" unit").append(barracks.size()==1?"":"s").append(".\n\n");
 
                 for (int i=0; i<barracks.size(); i++) {
                     message.append((i + 1))

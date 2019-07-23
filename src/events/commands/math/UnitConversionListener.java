@@ -3,7 +3,6 @@ package events.commands.math;
 import events.commands.Command;
 import utilities.math.PrettyNumber;
 import utilities.math.unitConverter.UnitConverter;
-import utilities.math.unitConverter.UnknownUnitException;
 
 import java.math.BigDecimal;
 
@@ -38,13 +37,7 @@ public class UnitConversionListener extends Command {
         String unitsIn = args[2];
         String unitsOut = args[4];
         
-        BigDecimal result;
-        try {
-            result = UnitConverter.convert(n, unitsIn, unitsOut);
-        } catch (UnknownUnitException uue) {
-            sendMessage("sorry, i didn't understand one of your units. please try again.");
-            return;
-        }
+        BigDecimal result = UnitConverter.convert(n, unitsIn, unitsOut);
 
         sendMessage("`"+args[1]+" "+unitsIn+"`\nis equivalent to:\n`"+new PrettyNumber(result, ginormo)+" "+unitsOut+"`");
         log("converted "+n+" "+unitsIn+" to "+result+" "+unitsOut+".");

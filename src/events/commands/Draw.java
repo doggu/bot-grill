@@ -25,7 +25,7 @@ public class Draw extends MessageListener {
             try {
                 images.add(ImageIO.read(x));
             } catch (IOException notAnImageIGuess) {
-                System.out.println("ran into a file that isn't an image: "+x.getName());
+                //System.out.println("ran into a file that isn't an image: "+x.getName());
                 //TODO: make recursive? probably not
             }
         }

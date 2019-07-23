@@ -1,5 +1,10 @@
 package utilities.math.unitConverter;
 
+import utilities.math.unitConverter.units.Unit;
+import utilities.math.unitConverter.units.UnknownUnitException;
+
+import java.util.ArrayList;
+
 public class UnitConfiguration {
     public static final int
             TIME = 0,
@@ -9,6 +14,155 @@ public class UnitConfiguration {
             TEMPERATURE = 4,
             SUBSTANCE = 5,
             LUMINOSITY = 6;
+
+    private static final String[][] SI_UNITS = {
+            //indexes denotes the orders of magnitude each unit is away from each other
+            { //time
+                    "ys", "", "",
+                    "zs", "", "",
+                    "as", "", "",
+                    "fs", "", "",
+                    "ps", "", "",
+                    "ns", "", "",
+                    "µs", "", "",
+                    "ms",
+                    "cs",
+                    "ds",
+                    "s",
+                    "das",
+                    "hs",
+                    "ks", "", "",
+                    "Ms", "", "",
+                    "Gs", "", "",
+                    "Ts", "", "",
+                    "Ps", "", "",
+                    "Es", "", "",
+                    "Zs", "", "",
+                    "Ys",
+            },
+            { //length
+                    "ym", "", "",
+                    "zm", "", "",
+                    "am", "", "",
+                    "fm", "", "",
+                    "pm", "", "",
+                    "nm", "", "",
+                    "µm", "", "",
+                    "mm",
+                    "cm",
+                    "dm",
+                    "m",
+                    "dam",
+                    "hm",
+                    "km", "", "",
+                    "Mm", "", "",
+                    "Gm", "", "",
+                    "Tm", "", "",
+                    "Pm", "", "",
+                    "Em", "", "",
+                    "Zm", "", "",
+                    "Ym",
+            },
+            { //mass
+                    "yg", "", "",
+                    "zg", "", "",
+                    "ag", "", "",
+                    "fg", "", "",
+                    "pg", "", "",
+                    "ng", "", "",
+                    "µg", "", "",
+                    "mg",
+                    "cg",
+                    "dg",
+                    "g",
+                    "dag",
+                    "hg",
+                    "kg", "", "",
+                    "Mg", "", "",
+                    "Gg", "", "",
+                    "Tg", "", "",
+                    "Pg", "", "",
+                    "Eg", "", "",
+                    "Zg", "", "",
+                    "Yg",
+            },
+            { //electric current
+                    "yA", "", "",
+                    "zA", "", "",
+                    "aA", "", "",
+                    "fA", "", "",
+                    "pA", "", "",
+                    "nA", "", "",
+                    "µA", "", "",
+                    "mA",
+                    "cA",
+                    "dA",
+                    "A",
+                    "daA",
+                    "hA",
+                    "kA", "", "",
+                    "MA", "", "",
+                    "GA", "", "",
+                    "TA", "", "",
+                    "PA", "", "",
+                    "EA", "", "",
+                    "ZA", "", "",
+                    "YA",
+            },
+            { //temperature
+                    "K", // "C",
+            },
+            { //"amount of substance" (mol stuff thanks wikipedia)
+                    "ymol", "", "",
+                    "zmol", "", "",
+                    "amol", "", "",
+                    "fmol", "", "",
+                    "pmol", "", "",
+                    "nmol", "", "",
+                    "µmol", "", "",
+                    "mmol",
+                    "cmol",
+                    "dmol",
+                    "mol",
+                    "damol",
+                    "hmol",
+                    "kmol", "", "",
+                    "Mmol", "", "",
+                    "Gmol", "", "",
+                    "Tmol", "", "",
+                    "Pmol", "", "",
+                    "Emol", "", "",
+                    "Zmol", "", "",
+                    "Ymol",
+            },
+            { //luminosity
+                    "ycd", "", "",
+                    "zcd", "", "",
+                    "acd", "", "",
+                    "fcd", "", "",
+                    "pcd", "", "",
+                    "ncd", "", "",
+                    "µcd", "", "",
+                    "mcd",
+                    "ccd",
+                    "dcd",
+                    "cd",
+                    "dacd",
+                    "hcd",
+                    "kcd", "", "",
+                    "Mcd", "", "",
+                    "Gcd", "", "",
+                    "Tcd", "", "",
+                    "Pcd", "", "",
+                    "Ecd", "", "",
+                    "Zcd", "", "",
+                    "Ycd",
+            }
+    };
+
+
+
+    private ArrayList<Unit> units;
 
     private int[] unitPositions = {
             0,
@@ -20,7 +174,10 @@ public class UnitConfiguration {
             0,
     };
     
-    public UnitConfiguration() {}
+    public UnitConfiguration(String units) {
+        this.units = new ArrayList<>();
+
+    }
     public UnitConfiguration(int[] unitPositions) {
         if (unitPositions.length!=7)
             throw new IndexOutOfBoundsException("expected length: 7 given index: "+unitPositions.length);
@@ -43,6 +200,71 @@ public class UnitConfiguration {
             }
         }
         return true;
+    }
+
+
+
+    private static ArrayList<Unit> getUnitValues(String input) throws NumberFormatException {
+        ArrayList<Unit> configuration = new ArrayList<>();
+
+        String[] args = separate(input);
+
+        for (String x:args) {
+            int config = 1;
+            if (x.indexOf('^')>=0) {
+                config = Integer.parseInt(x.substring(x.indexOf('^')+1));
+                x = x.substring(0, x.indexOf('^'));
+            }
+
+            if (x.charAt(0)=='/')
+                config*= -1;
+            //otherwise it's either the first arg or '-' which is positive anyway
+
+            try {
+                configuration.add(new Unit(x));
+            } catch (UnknownUnitException uue) {
+                uue.printStackTrace();
+                break;
+            }
+        }
+
+        return configuration;
+    }
+
+    private static String[] separate(String input) {
+        String[] args = input.split("[/-]");
+
+        int fSlashI = input.indexOf('/');
+        int nDashI = input.indexOf('-');
+
+        int i = 1;
+
+        while (fSlashI>=0) {
+            if (nDashI>=0) {
+                if (nDashI<fSlashI) {
+                    args[i] = '-'+args[i];
+                    input = input.substring(nDashI+1);
+                    i++;
+                }
+            } else {
+                args[i] = '/'+args[i];
+                input = input.substring(fSlashI+1);
+                i++;
+            }
+
+            fSlashI = input.indexOf('/');
+            nDashI = input.indexOf('-');
+        }
+
+        while (nDashI>=0) {
+            args[i] = '-'+args[i];
+            input = input.substring(nDashI+1);
+            i++;
+
+            nDashI = input.indexOf('-');
+        }
+
+        return args;
     }
 
 

@@ -7,7 +7,6 @@ import feh.skills.SkillDatabase;
 
 import java.awt.Color;
 import java.util.HashMap;
-import java.util.List;
 
 public class EmbedTest extends MessageListener {
     public boolean isCommand() {
@@ -17,10 +16,10 @@ public class EmbedTest extends MessageListener {
     public void onCommand() {
         EmbedBuilder eb = new EmbedBuilder();
 
-        List<Skill> skillz = SkillDatabase.SKILLS;
+
 
         for (int i=0; i<5; i++) {
-            Skill ex = skillz.get((int) (Math.random() * skillz.size()));
+            Skill ex = SkillDatabase.SKILLS.get((int) (Math.random() * SkillDatabase.SKILLS.size()));
 
 
 

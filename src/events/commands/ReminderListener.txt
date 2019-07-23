@@ -1,0 +1,36 @@
+package events.commands;
+
+import net.dv8tion.jda.core.JDA;
+
+import java.io.File;
+import java.util.*;
+
+public class ReminderListener extends Command {
+    private final JDA jda;
+
+
+
+
+    public ReminderListener(JDA jda) {
+        this.jda = jda;
+    }
+
+
+
+    private void registerTimers() {
+        Timer timer = new Timer();
+        TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+
+
+                this.cancel();
+            }
+        };
+        switch ()
+    }
+
+    private void addTimer() {
+
+    }
+}

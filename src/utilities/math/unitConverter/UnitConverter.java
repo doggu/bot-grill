@@ -1,180 +1,10 @@
 package utilities.math.unitConverter;
 
-import net.dv8tion.jda.core.utils.tuple.Pair;
-
-import javax.annotation.RegEx;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.MathContext;
-import java.util.HashMap;
 import java.util.Scanner;
-import java.util.function.Function;
 
 public class UnitConverter {
-    private static final int
-            TIME = 0,
-            MASS = 1,
-            LENGTH = 2,
-            FORCE = 3,
-            TEMPERATURE = 4,
-            CURRENT = 5,
-            QUANTITY = 6; //(mols)
-
-    private static final String[][] SI_UNITS = {
-            //indexes denotes the orders of magnitude each unit is away from each other
-            { //time
-                    "ys", "", "",
-                    "zs", "", "",
-                    "as", "", "",
-                    "fs", "", "",
-                    "ps", "", "",
-                    "ns", "", "",
-                    "µs", "", "",
-                    "ms",
-                    "cs",
-                    "ds",
-                    "s",
-                    "das",
-                    "hs",
-                    "ks", "", "",
-                    "Ms", "", "",
-                    "Gs", "", "",
-                    "Ts", "", "",
-                    "Ps", "", "",
-                    "Es", "", "",
-                    "Zs", "", "",
-                    "Ys",
-            },
-            { //length
-                    "ym", "", "",
-                    "zm", "", "",
-                    "am", "", "",
-                    "fm", "", "",
-                    "pm", "", "",
-                    "nm", "", "",
-                    "µm", "", "",
-                    "mm",
-                    "cm",
-                    "dm",
-                    "m",
-                    "dam",
-                    "hm",
-                    "km", "", "",
-                    "Mm", "", "",
-                    "Gm", "", "",
-                    "Tm", "", "",
-                    "Pm", "", "",
-                    "Em", "", "",
-                    "Zm", "", "",
-                    "Ym",
-            },
-            { //mass
-                    "yg", "", "",
-                    "zg", "", "",
-                    "ag", "", "",
-                    "fg", "", "",
-                    "pg", "", "",
-                    "ng", "", "",
-                    "µg", "", "",
-                    "mg",
-                    "cg",
-                    "dg",
-                    "g",
-                    "dag",
-                    "hg",
-                    "kg", "", "",
-                    "Mg", "", "",
-                    "Gg", "", "",
-                    "Tg", "", "",
-                    "Pg", "", "",
-                    "Eg", "", "",
-                    "Zg", "", "",
-                    "Yg",
-            },
-            { //electric current
-                    "yA", "", "",
-                    "zA", "", "",
-                    "aA", "", "",
-                    "fA", "", "",
-                    "pA", "", "",
-                    "nA", "", "",
-                    "µA", "", "",
-                    "mA",
-                    "cA",
-                    "dA",
-                    "A",
-                    "daA",
-                    "hA",
-                    "kA", "", "",
-                    "MA", "", "",
-                    "GA", "", "",
-                    "TA", "", "",
-                    "PA", "", "",
-                    "EA", "", "",
-                    "ZA", "", "",
-                    "YA",
-            },
-            { //temperature
-                    "K", // "C",
-            },
-            { //"amount of substance" (mol stuff thanks wikipedia)
-                    "ymol", "", "",
-                    "zmol", "", "",
-                    "amol", "", "",
-                    "fmol", "", "",
-                    "pmol", "", "",
-                    "nmol", "", "",
-                    "µmol", "", "",
-                    "mmol",
-                    "cmol",
-                    "dmol",
-                    "mol",
-                    "damol",
-                    "hmol",
-                    "kmol", "", "",
-                    "Mmol", "", "",
-                    "Gmol", "", "",
-                    "Tmol", "", "",
-                    "Pmol", "", "",
-                    "Emol", "", "",
-                    "Zmol", "", "",
-                    "Ymol",
-            },
-            { //luminosity
-                    "ycd", "", "",
-                    "zcd", "", "",
-                    "acd", "", "",
-                    "fcd", "", "",
-                    "pcd", "", "",
-                    "ncd", "", "",
-                    "µcd", "", "",
-                    "mcd",
-                    "ccd",
-                    "dcd",
-                    "cd",
-                    "dacd",
-                    "hcd",
-                    "kcd", "", "",
-                    "Mcd", "", "",
-                    "Gcd", "", "",
-                    "Tcd", "", "",
-                    "Pcd", "", "",
-                    "Ecd", "", "",
-                    "Zcd", "", "",
-                    "Ycd",
-            }
-    };
-
-
-
-    private static final HashMap<String, Function<BigDecimal, BigDecimal>> CONVERSION_FUNCTIONS;
-
-    static {
-        CONVERSION_FUNCTIONS = new HashMap<>();
-    }
-
-
-
     /**
      * converts a specific quantity into different units.
      * @param input the decimal number of the quantity
@@ -182,39 +12,14 @@ public class UnitConverter {
      * @param unitsOut the desired units of the quantity
      * @return the new quantity in the desired units
      */
-    public static BigDecimal convert(BigDecimal input, String unitsIn, String unitsOut) throws UnknownUnitException {
+    public static BigDecimal convert(BigDecimal input, String unitsIn, String unitsOut) {
+
         UnitConfiguration
-                configIn = new UnitConfiguration(),
-                configOut = new UnitConfiguration();
+                configIn = new UnitConfiguration(unitsIn),
+                configOut = new UnitConfiguration(unitsOut);
 
-        String[]
-                argsIn = separate(unitsIn),
-                argsOut = separate(unitsOut);
 
-        int     u1 = -1,
-                u2 = -1;
-
-        for (String[] units:SI_UNITS) {
-            for (int i = 0; i < units.length; i++) {
-                if (unitsIn.equals(units[i])) {
-                    //configIn.add(i, 1);
-                    u1 = i;
-                }
-                if (unitsOut.equals(units[i])) {
-                    //configOut.add(i, 1);
-                    u2 = i;
-                }
-            }
-            if (u1>=0&&u2>=0) break;
-            u1 = -1;
-            u2 = -1;
-        }
-
-        if (u1==-1) {
-            throw new UnknownUnitException();
-        }
-
-        return input.multiply(new BigDecimal(Math.pow(10, u1-u2)));
+        return new BigDecimal(5);
     }
 
 
@@ -233,33 +38,7 @@ public class UnitConverter {
 
 
     private static UnitConfiguration getUnitValues(String input) throws NumberFormatException {
-        UnitConfiguration configuration = new UnitConfiguration();
-
-        String[] args = separate(input);
-
-        for (String x:args) {
-            int config = 0;
-
-            if (x.indexOf('^')>=0) {
-                config = Integer.parseInt(x.substring(x.indexOf('^')+1));
-                x = x.substring(0, x.indexOf('^'));
-            }
-
-            if (x.charAt(0)=='/')
-                config*= -1;
-            //otherwise it's either the first arg or '-' which is positive anyway
-
-            for (int i=0; i<SI_UNITS.length; i++) {
-                for (String unit:SI_UNITS[i]) {
-                    if (x.equals(unit)) {
-                        configuration.add(i, config);
-                        break;
-                    }
-                }
-            }
-        }
-
-        return configuration;
+        return new UnitConfiguration(input);
     }
 
     private static String[] separate(String input) {

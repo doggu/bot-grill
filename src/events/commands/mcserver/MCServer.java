@@ -69,7 +69,10 @@ public class MCServer implements Runnable {
     public static void main(String[] args) {
         MCServer runnable = new MCServer();
 
+
+
         Thread server = new Thread(runnable);
+        server.setDaemon(false);
         server.run();
     }
 }

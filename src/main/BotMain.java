@@ -41,11 +41,17 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BotMain {
+    private static final boolean FEHEROES_UTILS = true;
+
+
+
     public static JDA bot_grill;
     private static List<ListenerAdapter> listeners = new ArrayList<>();
 
     public static List<Emote> stones;
     public static List<Emote> fehIcons;
+
+
 
     public static void addListener(ListenerAdapter listener) {
         bot_grill.addEventListener(listener);
@@ -62,20 +68,21 @@ public class BotMain {
 
     public static void main(String[] rgs) throws Exception {
         //initialize lists so that they are loaded before the bot goes live
-        System.out.println("computerizing FEH data...");
-        long startTime = System.nanoTime();
 
 
-        SkillDatabase.SKILLS.size();
-        UnitDatabase.HEROES.size();
-        BannerDatabase.BANNERS.size();
+        if (FEHEROES_UTILS) {
+            System.out.println("computerizing FEH data...");
+            long startTime = System.nanoTime();
+            SkillDatabase.SKILLS.size();
+            UnitDatabase.HEROES.size();
+            BannerDatabase.BANNERS.size();
 
-        long endTime = System.nanoTime();
-        double totalTimeInSeconds = new BigDecimal((endTime-startTime)/1000000000.0)
-                .round(new MathContext(3)).doubleValue();
-        System.out.println("finished ("+totalTimeInSeconds+" s)!");
+            long endTime = System.nanoTime();
+            double totalTimeInSeconds = new BigDecimal((endTime-startTime)/1000000000.0)
+                    .round(new MathContext(3)).doubleValue();
+            System.out.println("finished ("+totalTimeInSeconds+" s)!");
+        }
 
-        //construct listeners beforehand so bot is ready as soon as she goes live
 
 
         bot_grill = new JDABuilder(AccountType.BOT)
@@ -96,23 +103,26 @@ public class BotMain {
         addListener(new Help());
         addListener(new Chances());
         addListener(new Roll());
-        addListener(new SkillRetriever());
-        addListener(new HeroRetriever());
         addListener(new Emotes());
         addListener(new Girl());
         addListener(new DevTools());
-        addListener(new SummonSimulator());
-        addListener(new SimulateDay());
         addListener(new Reactions());
         addListener(new Maffs());
         addListener(new GradientDescentListener());
         addListener(new EmbedTest());
         addListener(new Vote());
         addListener(new Draw());
-        addListener(new OrbBalance());
         addListener(new CreateLobby());
-        addListener(new Allies());
         addListener(new FracCalcListener());
+
+        if (FEHEROES_UTILS) {
+            addListener(new SkillRetriever());
+            addListener(new HeroRetriever());
+            addListener(new SummonSimulator());
+            addListener(new SimulateDay());
+            addListener(new Allies());
+            addListener(new OrbBalance());
+        }
 
 
 

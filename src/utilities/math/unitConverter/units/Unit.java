@@ -1,15 +1,33 @@
 package utilities.math.unitConverter.units;
 
+import java.util.HashMap;
+
 import static utilities.math.unitConverter.units.SIBase.MASS;
 
 public class Unit {
+    private final String prefix;
     private final String symbol;
     private final SIBase baseUnit;
+    private final int exponent;
 
 
 
-    public Unit(String symbol) throws UnknownUnitException {
-        this.symbol = symbol;
+    private static final HashMap<String,Double> SCALES;
+
+    static {
+        SCALES = new HashMap<>();
+        HashMap<String, Integer> prefixes = new HashMap<>();
+        prefixes.put("")
+        SCALES.put("ys", 24.0);
+        SCALES.put("zs", 21.0);
+    }
+
+
+
+    public Unit(String symbol, int exponent) throws UnknownUnitException {
+        this.prefix = symbol.substring(0,symbol.indexOf(' '));
+        this.symbol = symbol.substring(symbol.indexOf(' ')+1);
+        this.exponent = exponent;
 
 
         switch(symbol) {
@@ -25,6 +43,7 @@ public class Unit {
 
     public String getSymbol() { return symbol; }
     public SIBase getBaseUnit() { return baseUnit; }
+    public int getExponent() { return exponent; }
 
 
 

@@ -3,12 +3,7 @@ package utilities.math;
 import java.util.*;
 import java.util.function.Function;
 
-/**
- * VALUES OF CERTAIN LETTERS
- * π
- * 299792458
- *
- */
+
 
 public class MathParse {
     private static final char

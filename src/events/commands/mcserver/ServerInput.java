@@ -2,10 +2,13 @@ package events.commands.mcserver;
 
 import events.commands.Command;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 public class ServerInput extends Command {
-    private static MCServer server = null;
+    public static Thread server = null;
+    public static MCServer app = null;
 
 
 
@@ -18,31 +21,54 @@ public class ServerInput extends Command {
 
         switch(args[1].toLowerCase()) {
             case "start":
-                server = new MCServer();
-                server.run();
+                if (server!=null) {
+                    sendMessage("the server is already up!");
+                    return;
+                } else {
+                    sendMessage("initializing...");
+                    server = new Thread(new MCServer());
+                    server.start();
+                }
+                break;
+            case "world":
+                //get world name in server.properties
+                break;
             case "stop":
+                if (server==null) {
+                    sendMessage("the server was never started!");
+                    return;
+                } else {
+                    try {
+                        app.sendCommand("stop");
+                    } catch (NullPointerException npe) {
+                        npe.printStackTrace();
+                    }
+                    server = null;
+                    app = null;
+                }
+                //get world name in server.properties
+                break;
+            default:
+                //regular command
                 if (server==null)
                     sendMessage("the server was never started!");
                 else {
-                    byte[] stop = "stop\r".getBytes();
-                    try {
-                        server.getOutputStream().write(stop);
-                    } catch (IOException ioe) {
-                        ioe.printStackTrace();
-                    }
-                    server = null;
+                    StringBuilder command = new StringBuilder();
+                    for (int i=1; i<args.length; i++)
+                        command.append(args[i]).append(' ');
+                    app.sendCommand(command.substring(0,command.length()-1));
                 }
-            default:
+                break;
         }
     }
 
 
 
     public String getName() {
-        return "";
+        return "Server";
     }
     public String getDescription() {
-        return "";
+        return "Send commands to the current Minecraft server (probably more later).";
     }
     public String getFullDescription() {
         return "";

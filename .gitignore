@@ -5,3 +5,6 @@ token.txt
 
 ## downloaded website data ##
 /webCache/
+
+## server files ##
+/libs/server/

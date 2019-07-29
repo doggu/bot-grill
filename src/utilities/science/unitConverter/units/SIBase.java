@@ -1,4 +1,4 @@
-package utilities.math.unitConverter.units;
+package utilities.science.unitConverter.units;
 
 public enum SIBase {
     TIME,

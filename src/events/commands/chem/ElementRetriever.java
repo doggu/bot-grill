@@ -1,13 +1,10 @@
 package events.commands.chem;
 
 import events.commands.Command;
-import utilities.chem.Element;
-import utilities.chem.ElementDatabase;
+import utilities.science.chem.Element;
+import utilities.science.chem.ElementDatabase;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class ElementRetriever extends Command {
     private final ArrayList<Element> elementList;

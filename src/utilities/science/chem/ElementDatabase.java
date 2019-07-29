@@ -1,4 +1,4 @@
-package utilities.chem;
+package utilities.science.chem;
 
 import java.io.File;
 import java.io.IOException;

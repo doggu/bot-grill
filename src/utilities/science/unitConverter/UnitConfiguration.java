@@ -1,7 +1,7 @@
-package utilities.math.unitConverter;
+package utilities.science.unitConverter;
 
-import utilities.math.unitConverter.units.Unit;
-import utilities.math.unitConverter.units.UnknownUnitException;
+import utilities.science.unitConverter.units.Unit;
+import utilities.science.unitConverter.units.UnknownUnitException;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package utilities.math.unitConverter;
+package utilities.science.unitConverter;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

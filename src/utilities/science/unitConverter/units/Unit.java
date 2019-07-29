@@ -1,6 +1,6 @@
-package utilities.math.unitConverter.units;
+package utilities.science.unitConverter.units;
 
-import static utilities.math.unitConverter.units.SIBase.MASS;
+import static utilities.science.unitConverter.units.SIBase.MASS;
 
 public class Unit {
     private final String symbol;

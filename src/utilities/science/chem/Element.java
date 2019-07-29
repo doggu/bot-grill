@@ -1,4 +1,4 @@
-package utilities.chem;
+package utilities.science.chem;
 
 public class Element {
     private final String symbol, name;

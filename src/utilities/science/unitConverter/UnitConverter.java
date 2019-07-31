@@ -37,10 +37,6 @@ public class UnitConverter {
 
 
 
-    private static UnitConfiguration getUnitValues(String input) throws NumberFormatException {
-        return new UnitConfiguration(input);
-    }
-
     private static String[] separate(String input) {
         String[] args = input.split("[/-]");
 
@@ -88,8 +84,8 @@ public class UnitConverter {
             if (args.length!=2) continue;
 
             UnitConfiguration
-                    in = getUnitValues(args[0]),
-                    out = getUnitValues(args[0]);
+                    in = new UnitConfiguration(args[0]),
+                    out = new UnitConfiguration(args[0]);
 
             if (in.matches(out)) System.out.println("matches!");
             else System.out.println("inconversible...");

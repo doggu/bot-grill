@@ -146,8 +146,6 @@ public class BannerDatabase extends WebScalper {
 
 
     public static void main(String[] args) {
-        updateCache();
-
         Scanner input = new Scanner(System.in);
         String line;
         while (!(line = input.nextLine()).equals("quit")) {

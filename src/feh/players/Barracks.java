@@ -16,6 +16,14 @@ public class Barracks extends ArrayList<Unit> {
             DEF = 4,
             RES = 5;
 
+    private static final Unit
+            ALFONSE = new Unit(new Hero("Alfonse: Prince of Askr"),4,-1,-1),
+            SHARENA = new Unit(new Hero("Sharena: Princess of Askr"),4,-1,-1),
+            ANNA =  new Unit(new Hero("Anna: Commander"),4,-1,-1),
+            TAKUMI = new Unit(new Hero("Takumi: Wild Card"),4,-1,-1),
+            VIRION = new Unit(new Hero("Virion: Elite Archer"),4,-1,-1),
+            RAIGH = new Unit(new Hero("Raigh: Dark Child"),4,-1,-1);
+
 
 
     private HashMap<String, Unit> nicknames = new HashMap<>();
@@ -24,18 +32,12 @@ public class Barracks extends ArrayList<Unit> {
 
     public Barracks() {
         super();
-        Unit alfonse = new Unit(new Hero("Alfonse: Prince of Askr"),4,-1,-1);
-        Unit sharena = new Unit(new Hero("Sharena: Princess of Askr"),4,-1,-1);
-        Unit anna =  new Unit(new Hero("Anna: Commander"),4,-1,-1);
-        Unit takumi = new Unit(new Hero("Takumi: Wild Card"),4,-1,-1);
-        Unit virion = new Unit(new Hero("Virion: Elite Archer"),4,-1,-1);
-        Unit raigh = new Unit(new Hero("Raigh: Dark Child"),4,-1,-1);
-        super.add(alfonse);
-        super.add(sharena);
-        super.add(anna);
-        super.add(takumi);
-        super.add(virion);
-        super.add(raigh);
+        super.add(ALFONSE);
+        super.add(SHARENA);
+        super.add(ANNA);
+        super.add(TAKUMI);
+        super.add(VIRION);
+        super.add(RAIGH);
     }
 
 

@@ -5,19 +5,21 @@ import static utilities.science.unitConverter.units.SIBase.MASS;
 public class Unit {
     private final String symbol;
     private final SIBase baseUnit;
+    private final int exponent;
 
 
 
-    public Unit(String symbol) throws UnknownUnitException {
-        this.symbol = symbol;
+    public Unit(String unit, int exponent) throws UnknownUnitException {
+        this.symbol = unit;
+        this.exponent = exponent; //TODO: fuckign finish goid fucking daongmnint
 
 
-        switch(symbol) {
+        switch(unit) {
             case "g":
                 baseUnit = MASS;
                 break;
             default:
-                throw new UnknownUnitException("unknown unit: "+symbol);
+                throw new UnknownUnitException("unknown unit: "+unit);
         }
     }
 
@@ -25,6 +27,7 @@ public class Unit {
 
     public String getSymbol() { return symbol; }
     public SIBase getBaseUnit() { return baseUnit; }
+    public int getExponent() { return exponent; }
 
 
 
@@ -32,7 +35,7 @@ public class Unit {
         String AG = "Angstrom-Galicc";
         Unit f;
         try {
-            f = new Unit(AG);
+            f = new Unit(AG, 1);
         } catch (UnknownUnitException uue) {
             uue.printStackTrace();
             return;

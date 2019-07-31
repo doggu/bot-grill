@@ -5,6 +5,7 @@ import utilities.science.unitConverter.units.UnknownUnitException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TooManyListenersException;
 
 public class UnitConfiguration {
     public static final int
@@ -71,7 +72,7 @@ public class UnitConfiguration {
             }
         }
     }
-    public UnitConfiguration(int[] unitPositions) {
+    private UnitConfiguration(int[] unitPositions) {
         if (unitPositions.length!=7)
             throw new IndexOutOfBoundsException("expected length: 7 given index: "+unitPositions.length);
 
@@ -173,19 +174,54 @@ public class UnitConfiguration {
             JERK,
             JOUNCE,
 
+            ANGULAR_DISTANCE,
+            ANGULAR_VELOCITY,
+            ANGULAR_ACCELERATION,
+            ANGULAR_JERK,
+            ANGULAR_JOUNCE,
+
+            FORCE,
+            TORQUE,
+
+
             MOMENTUM,
-            ENERGY;
+            ENERGY,
+            POWER;
+
 
 
     static {
+        //TIME = 0
+        //LENGTH = 1
+        //MASS = 2
+        //CURRENT = 3
+        //TEMPERATURE = 4
+        //SUBSTANCE = 5
+        //LUMINOSITY = 6
+
         DISTANCE = new UnitConfiguration(new int[] { 0,1,0,0,0,0,0 });
         VELOCITY = new UnitConfiguration(new int[] { -1,1,0,0,0,0,0 });
         ACCELERATION = new UnitConfiguration(new int[] { -2,1,0,0,0,0,0 });
         JERK = new UnitConfiguration(new int[] { -3,1,0,0,0,0,0 });
         JOUNCE = new UnitConfiguration(new int[] { -4,1,0,0,0,0,0 });
 
+                                                              //m/m uhhhhhhhhhhhhh
+        ANGULAR_DISTANCE = new UnitConfiguration(new int[] { 0,0,0,0,0,0,0 });
+        ANGULAR_VELOCITY = new UnitConfiguration(new int[] { -1,0,0,0,0,0,0 });
+        ANGULAR_ACCELERATION = new UnitConfiguration(new int[] { -2,0,0,0,0,0,0 });
+        ANGULAR_JERK = new UnitConfiguration(new int[] { -3,0,0,0,0,0,0 });
+        ANGULAR_JOUNCE = new UnitConfiguration(new int[] { -4,0,0,0,0,0,0 });
+
+
+        FORCE = new UnitConfiguration(new int[] { -2,1,1,0,0,0,0 });
+        TORQUE = new UnitConfiguration(new int[] { -2,2,1,0,0,0,0 });
+
+
         MOMENTUM = new UnitConfiguration(new int[] { 0,1,1,0,0,0,0 });
+
+
         ENERGY = new UnitConfiguration(new int[] { -2,2,1,0,0,0,0 });
+        POWER = new UnitConfiguration(new int[] { -3,2,1,0,0,0,0 });
     }
 
     public String guessUnits(String unitsIn) {

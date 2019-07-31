@@ -30,11 +30,18 @@ public class MCServer implements Runnable {
                 f.printStackTrace();
             }
         } catch (IOException ioe) {
-            System.out.println("honestly don't expect this to work anyway");
+            ioe.printStackTrace();
+            return;
         }
 
-        ServerInput.server = null;
-        ServerInput.app = null;
+        try {
+            server.waitFor();
+        } catch (InterruptedException ie) {
+            ie.printStackTrace();
+        } finally {
+            ServerInput.server = null;
+            ServerInput.app = null;
+        }
     }
 
 
@@ -47,6 +54,7 @@ public class MCServer implements Runnable {
         try {
             writer.write(command);
             writer.flush();
+            writer.close();
             return true;
         } catch (IOException ioe) {
             ioe.printStackTrace();

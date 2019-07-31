@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class ElementDatabase {
     public static final ArrayList<Element> ELEMENTS = getList();
 
-    private static final String PERIODIC_TABLE_FILEPATH = "./src/utilities/chem/periodicTable_basic.txt";
+    private static final String PERIODIC_TABLE_FILEPATH = "./src/utilities/science/chem/periodicTable_basic.txt";
 
 
 

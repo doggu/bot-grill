@@ -1,6 +1,7 @@
 package events.commands.mcserver;
 
 import events.commands.Command;
+import main.BotMain;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -18,6 +19,9 @@ public class ServerInput extends Command {
     }
 
     public void onCommand() {
+        if (!BotMain.MCSERVER) {
+            sendMessage("server commands are unavailable at this time. sorry!");
+        }
         if (args.length<2) return;
 
         switch(args[1].toLowerCase()) {

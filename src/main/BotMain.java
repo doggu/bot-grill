@@ -41,7 +41,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BotMain {
-    private static final boolean FEHEROES_UTILS = true;
+    private static final boolean FEHEROES_UTILS = false;
+    public static final boolean MCSERVER = false;
 
 
 
@@ -91,13 +92,9 @@ public class BotMain {
 
         bot_grill.awaitReady();
 
-        stones = bot_grill.getGuildsByName("summonicons", true).get(0).getEmotes();
-        fehIcons = bot_grill.getGuildsByName("fehicons", true).get(0).getEmotes();
-
-        addListener(new ServerInput());
+        if (MCSERVER) addListener(new ServerInput());
 
         addListener(new ElementRetriever());
-
         addListener(new UnitConversionListener());
         addListener(new Quips());
         addListener(new Help());
@@ -116,6 +113,9 @@ public class BotMain {
         addListener(new FracCalcListener());
 
         if (FEHEROES_UTILS) {
+            stones = bot_grill.getGuildsByName("summonicons", true).get(0).getEmotes();
+            fehIcons = bot_grill.getGuildsByName("fehicons", true).get(0).getEmotes();
+
             addListener(new SkillRetriever());
             addListener(new HeroRetriever());
             addListener(new SummonSimulator());

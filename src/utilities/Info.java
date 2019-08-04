@@ -17,6 +17,7 @@ public class Info {
         Scanner counter;
 
         int lines = 0;
+        int chars = 0;
 
         for (File x:files) {
             try {
@@ -27,12 +28,16 @@ public class Info {
             }
 
             while (counter.hasNextLine()) {
-                counter.nextLine();
-                lines++;
+                String line = counter.nextLine();
+                if (!line.equals("")) {
+                    lines++;
+                    chars+= line.length();
+                }
             }
         }
 
-        System.out.println(lines);
+        System.out.println("lines of code (that arent blank): "+lines);
+        System.out.println("total characters: "+chars);
     }
 
     private static ArrayList<File> getFiles(ArrayList<File> origin) {

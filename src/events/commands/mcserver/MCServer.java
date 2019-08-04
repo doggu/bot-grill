@@ -16,6 +16,7 @@ public class MCServer implements Runnable {
 
 
     private Process server;
+    private BufferedWriter writer;
 
 
 
@@ -23,14 +24,12 @@ public class MCServer implements Runnable {
         try {
             server = Runtime.getRuntime().exec(COMMAND, null, new File(WORKING_DIRECTORY));
 
-            try {
-                printLinesConcurrently("serverOut: ", server.getInputStream()).run();
-                printLinesConcurrently("serverErr: ", server.getErrorStream()).run();
-            } catch (Exception f) {
-                f.printStackTrace();
-            }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
+            printLinesConcurrently("serverOut: ", server.getInputStream()).run();
+            printLinesConcurrently("serverErr: ", server.getErrorStream()).run();
+
+            writer = new BufferedWriter(new OutputStreamWriter(server.getOutputStream()));
+        } catch (Exception e) {
+            e.printStackTrace();
             return;
         }
 
@@ -41,20 +40,23 @@ public class MCServer implements Runnable {
         } finally {
             ServerInput.server = null;
             ServerInput.app = null;
+            try {
+                writer.close();
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+                System.out.println("the writer didn't close properly!");
+            }
+            writer = null;
         }
     }
 
 
 
     //true if successful, false if catch
-    public boolean sendCommand(String command) {
-        OutputStream stdin = getOutputStream();
-        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(stdin));
-
+    boolean sendCommand(String command) {
         try {
             writer.write(command);
             writer.flush();
-            writer.close();
             return true;
         } catch (IOException ioe) {
             ioe.printStackTrace();
@@ -64,12 +66,6 @@ public class MCServer implements Runnable {
 
 
 
-    public OutputStream getOutputStream() {
-        return server.getOutputStream();
-    }
-
-    //taken from https://www.journaldev.com/937/compile-run-java-program-another-java-program
-
     private static Thread printLinesConcurrently(String cmd, InputStream ins) {
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(ins));
@@ -78,7 +74,7 @@ public class MCServer implements Runnable {
             try {
                 String line;
                 while((line = in.readLine())!=null) {
-                    System.out.println(line);
+                    System.out.println(cmd+line);
                 }
             } catch (IOException ioe) {
                 ioe.printStackTrace();

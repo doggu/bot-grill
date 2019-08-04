@@ -23,9 +23,6 @@ public class WebCache extends File {
             }
         }
     }
-    public WebCache(String website) {
-        this(website, null);
-    }
 
     /**
      * Updates the contents of a file based on the internet.
@@ -108,16 +105,5 @@ public class WebCache extends File {
 
         System.out.println("done (" + new BigDecimal((System.nanoTime()-start)/1000000000.0).round(new MathContext(3)) +" s)!");
         return br;
-    }
-
-
-
-    private static final String
-            LINK = "https://feheroes.gamepedia.com/Specials",
-            SUBDIR = "/test/";
-
-    public static void main(String[] args) {
-        WebCache test = new WebCache(LINK);
-        WebCache testWithDir = new WebCache(LINK, SUBDIR);
     }
 }

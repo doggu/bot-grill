@@ -92,8 +92,7 @@ public class BotMain {
 
         bot_grill.awaitReady();
 
-        if (MCSERVER) addListener(new ServerInput());
-
+        addListener(new ServerInput());
         addListener(new ElementRetriever());
         addListener(new UnitConversionListener());
         addListener(new Quips());

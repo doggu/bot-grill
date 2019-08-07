@@ -1,5 +1,6 @@
 package events.fehGame.summoning;
 
+import events.fehGame.FEHCommand;
 import events.gameroom.Gameroom;
 import main.BotMain;
 import feh.heroes.character.Hero;
@@ -13,7 +14,7 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-public class SummonSimulator extends Gameroom {
+public class SummonSimulator extends FEHCommand {
     public static List<Summoner> summoners = new ArrayList<>();
 
 
@@ -158,5 +159,13 @@ public class SummonSimulator extends Gameroom {
 
     public boolean isCommand() {
         return args[0].equalsIgnoreCase("summon");
+    }
+
+    public String getName() { return "SummonSimulator"; }
+    public String getDescription() { return "recruit new units, it's free!"; }
+    public String getFullDescription() {
+        return getDescription()+"\n" +
+                "Syntax:\n" +
+                "\t\t\"summon [banner name]\"";
     }
 }

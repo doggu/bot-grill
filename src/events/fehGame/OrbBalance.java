@@ -1,10 +1,9 @@
 package events.fehGame;
 
-import events.commands.Command;
 import events.fehGame.summoning.SummonSimulator;
 import feh.players.Summoner;
 
-public class OrbBalance extends Command {
+public class OrbBalance extends FEHCommand {
     public void onCommand() {
         Summoner match = null;
         for (Summoner x: SummonSimulator.summoners) {

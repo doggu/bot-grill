@@ -1,12 +1,11 @@
 package events.fehGame;
 
-import events.commands.Command;
 import events.fehGame.retriever.HeroRetriever;
 import events.fehGame.summoning.SummonSimulator;
 import feh.players.Barracks;
 import feh.players.Summoner;
 
-public class Allies extends Command {
+public class Allies extends FEHCommand {
     public boolean isCommand() {
         return args[0].equalsIgnoreCase("getAllies");
     }

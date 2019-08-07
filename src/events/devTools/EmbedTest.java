@@ -2,7 +2,7 @@ package events.devTools;
 
 import events.MessageListener;
 import net.dv8tion.jda.core.EmbedBuilder;
-import feh.skills.Skill;
+import feh.skills.skillTypes.Skill;
 import feh.skills.SkillDatabase;
 
 import java.awt.Color;

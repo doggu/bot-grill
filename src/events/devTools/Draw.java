@@ -1,6 +1,8 @@
-package events.commands;
+package events.devTools;
 
 import events.MessageListener;
+import feh.heroes.UnitDatabase;
+import feh.heroes.character.Hero;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,29 +11,12 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class Draw extends MessageListener {
     private static final int WIDTH = 6, HEIGHT = 8, SCALE = 64;
     private static final String FACE_PATH = "./libs/heroes";
-    private static final ArrayList<BufferedImage> heroFaces = getImagesFromFolder(new File(FACE_PATH));
-
-    //TODO: the function below can probably be lambda'd or something
-    private static ArrayList<BufferedImage> getImagesFromFolder(File folder) {
-        ArrayList<BufferedImage> images = new ArrayList<>();
-        File[] fileNames = folder.listFiles();
-        if (fileNames==null) throw new NullPointerException();
-        for (File x:fileNames) {
-            try {
-                images.add(ImageIO.read(x));
-            } catch (IOException notAnImageIGuess) {
-                //System.out.println("ran into a file that isn't an image: "+x.getName());
-                //TODO: make recursive? probably not
-            }
-        }
-
-        return images;
-    }
 
 
 
@@ -60,7 +45,14 @@ public class Draw extends MessageListener {
             coords.add(p);
 
             //TODO: make this less stupid when i'm less stupid
-            BufferedImage face = heroFaces.get((int)(Math.random()*heroFaces.size()));
+            Hero r = UnitDatabase.HEROES.get((int) (Math.random()*UnitDatabase.HEROES.size()));
+            BufferedImage face;
+            try {
+                face = ImageIO.read(new URL(r.getPortraitLink()));
+            } catch (IOException ioe) {
+                new Error("could not read image: "+r.getPortraitLink()).printStackTrace();
+                continue;
+            }
             double scale = 64.0/face.getHeight();
             g2d.drawImage(
                     face,

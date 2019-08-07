@@ -2,11 +2,13 @@ package events.fehGame.retriever;
 
 import events.commands.Command;
 import main.BotMain;
+import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Emote;
 import feh.heroes.UnitDatabase;
 import feh.heroes.character.Hero;
 import feh.heroes.unit.Unit;
 
+import java.awt.*;
 import java.util.*;
 import java.util.List;
 
@@ -358,6 +360,18 @@ public class HeroRetriever extends Command {
 
 
 
+        for (Hero x:candidates) {
+            EmbedBuilder embed = new EmbedBuilder();
+
+            embed.setColor(Color.YELLOW);
+            embed.setThumbnail(x.getPortraitLink());
+            embed.setAuthor(x.getFullName().toString());
+            embed.setDescription(printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support));
+
+            sendMessage(embed.build());
+        }
+
+        /*
         StringBuilder message = new StringBuilder();
         for (Hero x:candidates) {
             String charString = printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support);
@@ -368,6 +382,7 @@ public class HeroRetriever extends Command {
             message.append(charString).append("\n");
         }
         if (message.length()>0) sendMessage(message.toString());
+        */
 
         StringBuilder report = new StringBuilder("found stats for:");
         for (int i=0; i<candidates.size(); i++) {
@@ -431,7 +446,7 @@ public class HeroRetriever extends Command {
                     color = "Colorless";
                     break;
                 default:
-                    throw new Error("did not get a valid color (honestly how is this even possible");
+                    throw new Error("did not get a valid color (honestly how is this even possible): "+x.getColor());
             }
             String name = "Icon_Class_" + color + "_" + x.getWeaponType();
             weaponType = fehIconEmotes.get(0);

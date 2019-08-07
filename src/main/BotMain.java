@@ -3,7 +3,7 @@ package main;
 import events.Quips;
 import events.Reactions;
 import events.Vote;
-import events.commands.Draw;
+import events.devTools.Draw;
 import events.commands.Emotes;
 import events.commands.Girl;
 import events.commands.mcserver.ServerInput;
@@ -17,6 +17,7 @@ import events.commands.math.Maffs;
 import events.commands.math.UnitConversionListener;
 import events.devTools.DevTools;
 import events.devTools.EmbedTest;
+import events.devTools.PortraitTest;
 import events.fehGame.Allies;
 import events.fehGame.OrbBalance;
 import events.fehGame.retriever.HeroRetriever;
@@ -41,7 +42,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BotMain {
-    private static final boolean FEHEROES_UTILS = false;
+    private static final boolean FEHEROES_UTILS = true;
     public static final boolean MCSERVER = false;
 
 
@@ -121,6 +122,8 @@ public class BotMain {
             addListener(new SimulateDay());
             addListener(new Allies());
             addListener(new OrbBalance());
+
+            addListener(new PortraitTest());
         }
 
 

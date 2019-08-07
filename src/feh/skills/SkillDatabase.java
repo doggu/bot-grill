@@ -1,6 +1,7 @@
 package feh.skills;
 
 import feh.FEHeroesCache;
+import feh.heroes.character.constructionSite.NullInputException;
 import feh.skills.skillTypes.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -9,12 +10,10 @@ import org.jsoup.select.Elements;
 import utilities.WebScalper;
 import feh.heroes.character.WeaponClass;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
+import java.util.*;
 
 public class SkillDatabase extends WebScalper {
     public static ArrayList<Skill> SKILLS = getList();
@@ -28,19 +27,19 @@ public class SkillDatabase extends WebScalper {
             ASSISTS = "Assists",
             SPECIALS = "Specials",
             PASSIVES = "Passives",
-            //SACRED_SEALS_ALL = "https://feheroes.gamepedia.com/Sacred_Seals",
+          //SACRED_SEALS_ALL = "Sacred_Seals",
 
-            EXCLUSIVE_SKILLS = "Exclusive_skills",
+    EXCLUSIVE_SKILLS = "Exclusive_skills",
 
-            //SKILL_CHAINS_4_STARS = "https://feheroes.gamepedia.com/Skill_Chains_4_Stars_List",
-            //SKILL_CHAINS_5_STARS = "https://feheroes.gamepedia.com/Skill_Chains_5_Stars_List",
-            //LIST_OF_UPGRADABLE_WEAPONS = "https://feheroes.gamepedia.com/List_of_upgradable_weapons",
-            //LIST_OF_EVOLVING_WEAPONS = "https://feheroes.gamepedia.com/List_of_evolving_weapons",
+          //SKILL_CHAINS_4_STARS = "https://feheroes.gamepedia.com/Skill_Chains_4_Stars_List",
+          //SKILL_CHAINS_5_STARS = "https://feheroes.gamepedia.com/Skill_Chains_5_Stars_List",
+          //LIST_OF_UPGRADABLE_WEAPONS = "https://feheroes.gamepedia.com/List_of_upgradable_weapons",
+          //LIST_OF_EVOLVING_WEAPONS = "https://feheroes.gamepedia.com/List_of_evolving_weapons",
 
-            //maybe a Skill thing
-            //LIST_OF_DESCRIPTION_TAGS = "https://feheroes.gamepedia.com/List_of_description_tags",
+          //maybe a Skill thing
+          //LIST_OF_DESCRIPTION_TAGS = "https://feheroes.gamepedia.com/List_of_description_tags",
 
-            HERO_BASE_SKILLS = "Hero_skills_table",
+    HERO_BASE_SKILLS = "Hero_skills_table",
             WEAPON_REFINES = "Weapon_Refinery";
 
     private static final String[] SKILL_URLS = {
@@ -73,6 +72,10 @@ public class SkillDatabase extends WebScalper {
             HERO_BASE_SKILLS_FILE,
             WEAPON_REFINES_FILE,
     };
+
+
+
+    private static final boolean DEBUG = true;
 
 
 
@@ -129,14 +132,27 @@ public class SkillDatabase extends WebScalper {
 
 
 
-        System.out.println("done ("+new BigDecimal((System.nanoTime()-start)/1000000000.0).round(new MathContext(3))+" s)!");
+        System.out.println("done ("+
+                new BigDecimal((System.nanoTime()-start)/1000000000.0)
+                        .round(new MathContext(3))+
+                " s)!");
         return allSkills;
     }
 
     private static ArrayList<Weapon> processWeapons() {
-        ArrayList<ArrayList<String>> weaponTables = WEAPONS_FILE.getTables();
-
         ArrayList<Weapon> weapons = new ArrayList<>();
+
+
+
+        Document weaponsFile;
+        try {
+            weaponsFile = Jsoup.parse(WEAPONS_FILE, "UTF-8");
+        } catch (IOException ioe) {
+            System.out.println("weapons file not found!");
+            return new ArrayList<>();
+        }
+
+        Elements tables = weaponsFile.select("table").select("tbody");
 
         String[] weaponType = {
                 "Sword", "Red Tome",
@@ -146,38 +162,32 @@ public class SkillDatabase extends WebScalper {
                 "Beast", "Breath", "Bow", "Dagger",
         };
 
-        for (ArrayList<String> table:weaponTables)
-            table.subList(0,6).clear();
+        for (int i=0; i<tables.size(); i++) {
+            Element table = tables.get(i);
 
+            Elements rows = table.select("tr");
+            for (Element row:rows) {
+                Weapon x;
+                Elements info = row.children();
 
-
-        for (int i=0; i<weaponTables.size(); i++) {
-            Iterator<String> iterator = weaponTables.get(i).iterator();
-
-            Weapon x;
-
-            while (iterator.hasNext()) {
-                String name = iterator.next();
-                int might = Integer.parseInt(iterator.next());
-                int range = Integer.parseInt(iterator.next()); //technically the same for any given table but w/e
-                StringBuilder desc = new StringBuilder();
-                int cost = -1;
-                while (cost<0) {
-                    String line = iterator.next();
-                    try {
-                        cost = Integer.parseInt(line);
-                    } catch (NumberFormatException g) {
-                        if (desc.length()>0) desc.append(" ");
-                        desc.append(line);
-                    }
+                if (info.size()!=6) {
+                    //not a weapon table
+                    i--;
+                    tables.remove(0);
+                    break;
                 }
-                String description = desc.toString();
-                boolean exclusive = iterator.next().equals("Yes"); //EXCLUSIVE_WEAPONS.contains(name);
-                WeaponClass type = WeaponClass.getType(weaponType[i]);
 
+                String name = info.get(0).text();
+                int might = Integer.parseInt(info.get(1).text());
+                int range = Integer.parseInt(info.get(2).text());
+                String description = info.get(3).text();
+                int sp = Integer.parseInt(info.get(4).text());
+                boolean exclusive = (info.get(5).text().equals("Yes"));
+                WeaponClass type = WeaponClass.getClass(weaponType[i]);
                 WeaponRefine refine = getRefine(name);
 
-                x = new Weapon(name, description, cost, exclusive, might, range, type, refine);
+                x = new Weapon(name, description, sp, exclusive, might, range, type, refine);
+
                 weapons.add(x);
             }
         }
@@ -187,33 +197,40 @@ public class SkillDatabase extends WebScalper {
         return weapons;
     }
     private static ArrayList<Assist> processAssists() {
-        ArrayList<String> data = ASSISTS_FILE.getTables().get(0);
-
-        Iterator<String> iterator = data.iterator();
-
-        for (int i=0; i<4; i++) iterator.next();
-        
         ArrayList<Assist> assists = new ArrayList<>();
-        Assist x;
-        while (iterator.hasNext()) {
-            String name = iterator.next();
-            StringBuilder desc = new StringBuilder();
-            int cost = -1;
-            while (cost<0) {
-                String line = iterator.next();
-                try {
-                    cost = Integer.parseInt(line);
-                } catch (NumberFormatException g) {
-                    if (desc.length()>0) desc.append(" ");
-                    desc.append(line);
+
+
+
+        Document assistsFile;
+        try {
+            assistsFile = Jsoup.parse(ASSISTS_FILE, "UTF-8");
+        } catch (IOException ioe) {
+            System.out.println("assists file not found!");
+            return new ArrayList<>();
+        }
+
+
+
+        Elements tables = assistsFile.select("table").select("tbody");
+
+        for (Element table:tables) {
+            if (table.select("tr").size()>20) {
+                Elements rows = table.select("tr");
+
+                for (Element row:rows) {
+                    Assist x;
+                    Elements info = row.children();
+
+                    String name = info.get(0).text();
+                    String description = info.get(1).text();
+                    int sp = Integer.parseInt(info.get(2).text());
+                    int range = Integer.parseInt(info.get(3).text());
+                    boolean exclusive = isExclusive(name);
+
+                    x = new Assist(name, description, sp, exclusive, range);
+                    assists.add(x);
                 }
             }
-            String description = desc.toString();
-            int range = Integer.parseInt(iterator.next());
-            boolean exclusive = isExclusive(name);
-
-            x = new Assist(name, description, cost, exclusive, range);
-            assists.add(x);
         }
 
 
@@ -221,32 +238,39 @@ public class SkillDatabase extends WebScalper {
         return assists;
     }
     private static ArrayList<Special> processSpecials() {
-        ArrayList<String> data = SPECIALS_FILE.getTables().get(0);
-
-        data.subList(0,4).clear();
-
-        Iterator<String> iterator = data.iterator();
-
         ArrayList<Special> specials = new ArrayList<>();
-        Special x;
-        while (iterator.hasNext()) {
-            String name = iterator.next();
-            StringBuilder desc = new StringBuilder();
-            int cost = -1;
-            while (cost<0) {
-                String line = iterator.next();
-                try {
-                    cost = Integer.parseInt(line);
-                } catch (NumberFormatException g) {
-                    if (desc.length()>0) desc.append(" ");
-                    desc.append(line);
-                }
-            }
-            String description = desc.toString();
-            int cooldown = Integer.parseInt(iterator.next());
+
+
+
+        Document specialsFile;
+        try {
+            specialsFile = Jsoup.parse(SPECIALS_FILE, "UTF-8");
+        } catch (IOException ioe) {
+            System.out.println("specials file not found!");
+            return new ArrayList<>();
+        }
+
+
+
+        Elements tables = specialsFile.select("table");
+
+        while (tables.get(0).select("tbody").select("tr").size()<25) tables.remove(0);
+
+        Elements rows = tables.get(0).select("tbody").select("tr");
+
+
+
+        for (Element row:rows) {
+            Special x;
+            Elements info = row.children();
+
+            String name = info.get(0).text();
+            String description = info.get(1).text();
+            int sp = Integer.parseInt(info.get(2).text());
+            int cooldown = Integer.parseInt(info.get(3).text());
             boolean exclusive = isExclusive(name);
 
-            x = new Special(name, description, cost, exclusive, cooldown);
+            x = new Special(name, description, sp, exclusive, cooldown);
             specials.add(x);
         }
 
@@ -255,67 +279,61 @@ public class SkillDatabase extends WebScalper {
         return specials;
     }
     private static ArrayList<Passive> processPassives() {
-        ArrayList<ArrayList<String>> tables = PASSIVES_FILE.getTables();
-
         ArrayList<Passive> passives = new ArrayList<>();
 
-        for (ArrayList<String> x : tables)
-            x.subList(0, 5).clear();
-
-        if (tables.size() < 4) {
-            System.out.println("a table has gone missing from the passives website");
-            throw new Error();
-        } else if (tables.size() > 4) {
-            System.out.println("an unsolicited table has appeared in passives");
-            throw new Error();
-        } //else it's good dawg
 
 
-
-        Passive x;
-
-        for (int i=0; i<tables.size(); i++) {
-            Iterator<String> iterator = tables.get(i).iterator();
-            while (iterator.hasNext()) {
-                String name = iterator.next();
-                StringBuilder desc = new StringBuilder();
-                int cost = -1;
-                //while cost is not defined, the description is being presented
-                //it's 20XX, IS has introduced skills which give heroes SP
-                while (cost < 0) {
-                    String line = iterator.next();
-                    try {
-                        cost = Integer.parseInt(line);
-                    } catch (NumberFormatException g) {
-                        desc.append(" ");
-                        desc.append(line);
-                    }
-                }
-                String description = desc.substring(1);
-                boolean exclusive = iterator.next().equals("Yes");
-
-                switch (i) {
-                    case 0:
-                        x = new PassiveA(name, description, cost, exclusive);
-                        break;
-                    case 1:
-                        x = new PassiveB(name, description, cost, exclusive);
-                        break;
-                    case 2:
-                        x = new PassiveC(name, description, cost, exclusive);
-                        break;
-                    case 3:
-                        x = new PassiveS(name, description, cost, exclusive);
-                        break;
-                    default:
-                        System.out.println("what the fuck");
-                        throw new Error();
-                }
-                passives.add(x);
-            }
+        Document passivesFile;
+        try {
+            passivesFile = Jsoup.parse(PASSIVES_FILE, "UTF-8");
+        } catch (IOException ioe) {
+            System.out.println("passives file not found!");
+            return new ArrayList<>();
         }
 
 
+
+        Elements tables = passivesFile.select("table[class=\'cargoTable noMerge sortable\']");
+
+        if (tables.size()!=4) {
+            System.out.println("unknown table found (or one missing): "+tables.size());
+            System.out.println(tables);
+            return new ArrayList<>();
+        }
+
+        for (int i=0; i<tables.size(); i++) {
+            Elements rows = tables.get(i).select("tbody").select("tr");
+
+            for (Element row : rows) {
+                try {
+                    Passive x;
+                    Elements info = row.children();
+
+                    //0 is icon
+                    String name = info.get(1).text();
+                    String description = info.get(2).text();
+                    int cost = Integer.parseInt(info.get(3).text());
+                    boolean exclusive = (info.get(3).text().equals("Yes"));
+
+                    if (i == 0)
+                        x = new PassiveA(name, description, cost, exclusive);
+                    else if (i == 1)
+                        x = new PassiveB(name, description, cost, exclusive);
+                    else if (i == 2)
+                        x = new PassiveC(name, description, cost, exclusive);
+                    else if (i == 3)
+                        x = new PassiveS(name, description, cost, exclusive);
+                    else {
+                        System.out.println("this is not an expected table, how'd it even get this far");
+                        break;
+                    }
+
+                    passives.add(x);
+                } catch (Exception e) {
+                    //let's not talk about that one
+                }
+            }
+        }
 
         return passives;
     }
@@ -345,72 +363,105 @@ public class SkillDatabase extends WebScalper {
     private static ArrayList<WeaponRefine> REFINES;
 
     private static ArrayList<WeaponRefine> getRefineableList() {
-
-
-
-        ArrayList<WeaponRefine> list = new ArrayList<>();
-
-        ArrayList<String> table =
-                WEAPON_REFINES_FILE //you never seen code this advanced
-                .getTable("<table style=\"display:inline-table;border:1px solid #a2a9b1;border-collapse:collapse;width:24em;margin:0.5em 0;background-color:#f8f9fa\">");
-
-        for (int i=0; i<table.size(); i++) table.set(i, table.get(i).trim());
-
-        Iterator<String> data = table.iterator();
-
-        while (data.hasNext()) {
-            data.next(); //i think there's a blank line before each name
-            String name = data.next();
-
-            data.next(); //"Might:"
-            int mt = Integer.parseInt(data.next().replace(",",""));
-
-            data.next(); //"Range:"
-            int rng = Integer.parseInt(data.next().replace(",",""));
-
-            ArrayList<String> description = new ArrayList<>();
-            int cost = -1;
-            while (data.hasNext()) {
-                String line = data.next();
-                if (line.contains("+")) {
-                    description.add(line);
-                    continue; //this is so fuckin spaghetti
-                }
-                try {
-                    cost = Integer.parseInt(line);
-                    break;
-                } catch (NumberFormatException nfe) {
-                    description.add(line);
-                }
-            }
-
-            if (cost<0) throw new Error("the description doesnt stop\n"+name);
-
-            if (description.get(0).equals("HP")) {
-                //TODO: have specific refine class handle new stat modifiers
-                description.subList(0,2).clear();
-            }
-
-            StringBuilder desc = new StringBuilder(description.get(0));
-            for (int i=1; i<description.size(); i++) {
-                desc.append('\n').append(description.get(i));
-            }
-
-            try {
-                data.next(); //"SP"
-                data.next(); //", [dew cost]" (200)
-                data.next(); //", [Medal cost]" (500)
-                data.next(); //blank line
-            } catch (NoSuchElementException nsee) {
-                //we gucci
-            }
-
-            list.add(new WeaponRefine(name, desc.toString(), cost, mt, rng));
+        //if (true) return new ArrayList<>();
+        Document refinesFile;
+        try {
+            refinesFile = Jsoup.parse(WEAPON_REFINES_FILE, "UTF-8");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return new ArrayList<>();
         }
 
 
 
-        return list;
+        Elements rawTables = refinesFile.select("table");
+        Elements tables = refinesFile.select("table");
+        for (Element table:rawTables) {
+            if (!table.attributes().get("style").equals("")) {
+                if (table.attributes().get("style")
+                        .equals("display:inline-table;border:1px solid #a2a9b1;border-collapse:collapse;width:24em;margin:0.5em 0;background-color:#f8f9fa")) {
+                    tables.add(table);
+                    //System.out.println(table.attributes().get("style"));
+                } else
+                    ;//System.out.println(table.attributes().get("style"));
+            }
+        }
+
+        //the first table is stuck for some reason despite my VERY SPECIFIC qualifier
+        tables.remove(0);
+
+        ArrayList<WeaponRefine> refines = new ArrayList<>();
+
+        for (Element table:tables) {
+            Elements info = table.select("tr");
+
+            if (info.size()!=6) {
+                //new Error("unexpected table size found!").printStackTrace();
+
+                continue;
+            }
+
+            //0 is owner portrait(s)
+
+            String name = info.get(1).text();
+            String stats = info.get(2).text();
+            String effect1 = info.get(3).text();
+            String effect2 = info.get(4).text();
+            //String cost = info.get(5).text(); //it's always 400SP, 200 Dew™
+
+            String[] items = stats.split(" ");
+            HashMap<String, Integer> modifiers = new HashMap<>();
+
+
+            for (int i=0; i+1<items.length; i+=2) {
+                if (items[i+1].contains(","))
+                    items[i+1] = items[i+1].substring(0,items[i+1].length()-1);
+
+                modifiers.put(items[i], Integer.parseInt(items[i + 1]));
+            }
+
+            Integer might = null, range = null;
+            int[] values = new int[5];
+
+            for (Map.Entry<String, Integer> e:modifiers.entrySet()) {
+                switch (e.getKey()) {
+                    case "Might:":
+                        might = e.getValue();
+                        break;
+                    case "Range:":
+                        range = e.getValue();
+                        break;
+                    case "HP":
+                        values[0] = e.getValue();
+                        break;
+                    case "Atk":
+                        values[1] = e.getValue();
+                        break;
+                    case "Spd":
+                        values[2] = e.getValue();
+                        break;
+                    case "Def":
+                        values[3] = e.getValue();
+                        break;
+                    case "Res":
+                        values[4] = e.getValue();
+                        break;
+                    default:
+                        new Error("unknown stat modifier: \""+e.getKey()+"\"").printStackTrace();
+                }
+            }
+
+            if (might==null||range==null) {
+                System.out.println("no might/range provided for "+name+"!");
+                continue;
+            }
+
+            refines.add(new WeaponRefine(name, effect1, effect2, 400, might, range));
+        }
+
+
+
+        return refines;
     }
 
     /**
@@ -427,49 +478,40 @@ public class SkillDatabase extends WebScalper {
 
 
     private static HashMap<String, ArrayList<Skill>> getHeroSkills() {
-
-
-        if (HERO_BASE_SKILLS_FILE==null) HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS, SKILLS_SUBDIR);
-        ArrayList<String> baseSkillTable = HERO_BASE_SKILLS_FILE.getTable("<table class=\"wikitable sortable");
-
-
-
-        baseSkillTable.subList(0,7).clear();
-
-        Iterator<String> table = baseSkillTable.iterator();
-
-
-
         HashMap<String, ArrayList<Skill>> heroSkills = new HashMap<>();
 
-        String name = table.next();
-        while (table.hasNext()) {
-            ArrayList<String> skillNames = new ArrayList<>();
 
-            String skill;
-            while (!(skill = table.next()).contains(": ")&&table.hasNext()) {
-                skillNames.add(skill);
+        Document baseSkillsFile;
+        try {
+            baseSkillsFile = Jsoup.parse(HERO_BASE_SKILLS_FILE, "UTF-8");
+        } catch (IOException|NullPointerException e) {
+            System.out.println("base skills file not found!");
+            return new HashMap<>();
+        }
+
+        Element table = baseSkillsFile.select("table").get(0);
+
+        Elements rows = table.select("tbody").select("tr");
+
+        for (Element row:rows) {
+            Elements info = row.children();
+
+            //0 is an image
+            String name = info.get(1).text();
+            //2 is move type
+            //3 is weapon type
+            ArrayList<Skill> baseKit = new ArrayList<>();
+            for (int i=4; i<info.size(); i++) {
+                if (!info.get(i).text().equals("—")) {
+                    Elements skills = info.get(i).select("a");
+                    for (Element skill:skills) {
+                        String skillName = skill.text();
+                        baseKit.add(getSkill(skillName));
+                    }
+                }
             }
 
-
-            ArrayList<Skill> skills = new ArrayList<>();
-
-            //TODO: separate skill list into their respective types
-            // (or at least make the individual lists created in getList() accessible/stored)
-            for (String skillName:skillNames)
-                for (Skill x:SKILLS)
-                    if (x.getName().equals(skillName))
-                        skills.add(x);
-
-            //TODO: all three types of Falchion are added to all the falchion users' base kits multiple times
-
-
-            //Skill[] arr = new Skill[skills.size()];
-            //heroSkills.put(name, skills.toArray(arr));
-            heroSkills.put(name, skills);
-
-            //the name was hit in the while loop, and must be the name for the next hero (this is pretty stupid)
-            name = skill;
+            heroSkills.put(name, baseKit);
         }
 
 
@@ -479,12 +521,19 @@ public class SkillDatabase extends WebScalper {
 
 
 
+    public static Skill getSkill(String name) {
+        for (Skill x:SKILLS) {
+            if (x.getName().equalsIgnoreCase(name)) {
+                return x;
+            }
+        }
+
+        return null;
+    }
+
+
+
     public static void main(String[] args) {
-        ArrayList<Skill> mutable = new ArrayList<>(SKILLS);
-
-        mutable.remove(0);
-
-        System.out.println(mutable);
-        System.out.println(SKILLS);
+        //getList();
     }
 }

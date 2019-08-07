@@ -38,7 +38,7 @@ public enum WeaponClass implements HeroClass {
 
     public String toString() { return name; }
 
-    public static WeaponClass getType(String name) {
+    public static WeaponClass getClass(String name) {
         switch(name) {
             case "Sword":
                 return SWORD;

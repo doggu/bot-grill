@@ -1,14 +1,18 @@
 package feh.heroes;
 
 import feh.FEHeroesCache;
+import feh.heroes.character.*;
+import feh.heroes.character.constructionSite.MismatchedInputException;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import utilities.WebScalper;
-import feh.heroes.character.Availability;
-import feh.heroes.character.Hero;
-import feh.heroes.character.HeroConstructor;
-import feh.heroes.character.HeroName;
-import feh.skills.Skill;
+import feh.heroes.character.constructionSite.HeroConstructor;
+import feh.skills.skillTypes.Skill;
 import feh.skills.SkillDatabase;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.*;
@@ -44,53 +48,7 @@ public class UnitDatabase extends WebScalper {
 
 
 
-    private static int HERO_INDEX = 1;
-
-    // one hero for each document:
-    //
-    // lv1Stats
-    //
-    // [7 lines of useless stuff]
-    // [name]: [epithet]
-    // [hp]
-    // [atk]
-    // [spd]
-    // [def]
-    // [res]
-    // [total]
-    // ...
-    //
-    //
-    //
-    // growths
-    //
-    // [12 lines of useless stuff]
-    // [name]: [epithet]
-    // [color] [weapon]
-    // [movement]
-    // [lv1 stat total]
-    // [growth total]%
-    // [lv1 stat total], [growth total]%
-    // [hp growth]
-    // [atk]
-    // [spd]
-    // [def]
-    // [res]
-    // [release date]
-    // ...
-    //
-    //
-    //
-    // heroList
-    //
-    // [7 lines of useless stuff]
-    // [name]: [epithet]
-    // [origin]
-    // [rarity - lower bound]
-    // -[rarity - upper bound]
-    // [special indicator (*|Story|Grand Hero Battle|Tempest Trials|Legendary)]
-    // [release date]
-    // ...
+    private static boolean DEBUG = true;
 
 
 
@@ -107,260 +65,226 @@ public class UnitDatabase extends WebScalper {
 
 
 
-    private static HeroConstructor CURRENT_HERO;
-
     private static ArrayList<Hero> getList() {
         System.out.print("processing heroes... ");
         long start = System.nanoTime();
 
 
 
+        //todo: this is still fucking dumb
         LV1_STATS_FILE = new FEHeroesCache(LV1_STATS, HERO_SUBDIR);
         GROWTH_RATES_FILE = new FEHeroesCache(GROWTH_RATES, HERO_SUBDIR);
         HERO_LIST_FILE = new FEHeroesCache(HERO_LIST, HERO_SUBDIR);
 
         ArrayList<Hero> heroes = new ArrayList<>();
 
-
-
-        ArrayList<String>                                                               //OwO
-                lv1StatsData = LV1_STATS_FILE.getTable("<table class=\"wikitable sortable\""),
-                growthRatesData = GROWTH_RATES_FILE.getTable("<table class=\"wikitable default sortable\""),
-                heroListData = HERO_LIST_FILE.getTable("<table class=\"wikitable default sortable\"");
-
-        if (lv1StatsData.size()==0) {
-            System.out.println("error detected with lv1StatsData");
-            if (!LV1_STATS_FILE.update()) {
-                throw new Error("could not update lv1StatsData");
-            }
-            return getList();
-        }
-        if (growthRatesData.size()==0) {
-            System.out.println("error detected with growthRatesData");
-            if (!GROWTH_RATES_FILE.update()) {
-                throw new Error("could not update growthRatesData");
-            }
-            return getList();
-        }
-        if (heroListData.size()==0) {
-            System.out.println("error detected with heroListData");
-            if (!HERO_LIST_FILE.update()) {
-                throw new Error("could not update heroListData");
-            }
-            return getList();
+        Document
+                lv1StatsFile,
+                growthRatesFile,
+                heroListFile;
+        try {
+            lv1StatsFile = Jsoup.parse(LV1_STATS_FILE, "UTF-8");
+            growthRatesFile = Jsoup.parse(GROWTH_RATES_FILE, "UTF-8");
+            heroListFile = Jsoup.parse(HERO_LIST_FILE, "UTF-8");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return new ArrayList<>();
         }
 
-        lv1StatsData.subList(0,7).clear();
-        growthRatesData.subList(0,12).clear();
-        heroListData.subList(0,7).clear();
+        Elements lv1StatsTable = lv1StatsFile.select("table").select("tbody").select("tr"),
+                growthRatesTable = growthRatesFile.select("table").select("tbody").select("tr"),
+                heroListTable = heroListFile.select("table").select("tbody").select("tr");
 
-        ListIterator<String>
-                lv1StatsIterator = lv1StatsData.listIterator(),
-                growthRatesIterator = growthRatesData.listIterator(),
-                heroListIterator = heroListData.listIterator();
+        lv1StatsTable.remove(0);
+        growthRatesTable.remove(0);
+        heroListTable.remove(0); //why is it getting the header
 
+        if (lv1StatsTable.size()!=growthRatesTable.size()||growthRatesTable.size()!=heroListTable.size()) {
+            System.out.println("unevenness detected; some units will be missing!");
+        }
 
-
-
-        while (lv1StatsIterator.hasNext()&&growthRatesIterator.hasNext()&&heroListIterator.hasNext()) {
-            CURRENT_HERO = new HeroConstructor();
-
-            processLv1Stats(lv1StatsIterator);
-            processGrowthRates(growthRatesIterator);
-            processListOfHeroes(heroListIterator);
-            addBaseKit();
+        while (lv1StatsTable.size()>0&&growthRatesTable.size()>0&&heroListTable.size()>0) {
+            HeroConstructor
+                    merge,
+                    lv1StatsMerge = getLv1Constructor(lv1StatsTable.get(0)),
+                    growthRatesMerge = getGrowthConstructor(growthRatesTable.get(0)),
+                    heroListMerge = getListConstructor(heroListTable.get(0));
 
             try {
-                heroes.add(CURRENT_HERO.createHero());
-            } catch (Error e) {
-                e.printStackTrace();
-                throw new Error("missing information for "+CURRENT_HERO.getName());
+                merge = HeroConstructor.merge(lv1StatsMerge,growthRatesMerge);
+            } catch (MismatchedInputException mie) {
+                System.out.println("something was mismatched! (first)");
+                mie.printStackTrace();
+                greatest(greatest(lv1StatsTable, growthRatesTable), heroListTable).remove(0);
+                continue;
             }
 
-            HERO_INDEX++;
+            try {
+                merge = HeroConstructor.merge(merge,heroListMerge);
+            } catch (MismatchedInputException mie) {
+                System.out.println("something was mismatched! (second)");
+                heroListTable.remove(0);
+            }
+
+            merge.setBaseKit(addBaseKit(merge.getFullName().toString()));
+
+            heroes.add(merge.createHero());
+
+            lv1StatsTable.remove(0);
+            growthRatesTable.remove(0);
+            heroListTable.remove(0);
         }
-
-
 
         System.out.println("done ("+new BigDecimal((System.nanoTime()-start)/1000000000.0).round(new MathContext(3)) +" s)!");
         return heroes;
     }
 
-    private static void processLv1Stats(ListIterator<String> input) {
-        String identification = input.next();
-        String[] id = identification.split(": ");
-        CURRENT_HERO.setFullName(new HeroName(id[0], id[1]));
-
-
-
-        int[] stats = new int[5];
-
-        for (int i=0; i<stats.length; i++)
-            stats[i] = Integer.parseInt(input.next());
-
-        CURRENT_HERO.setStats(stats);
-
-
-
-        input.next(); //total lv1 stats
+    private static Elements greatest(Elements a, Elements b) {
+        return a.size()>b.size()?a:b;
     }
-    private static void processGrowthRates(ListIterator<String> input) {
-        String[] id = input.next().split(": ");
 
-        boolean misaligned = false;
-        if (!id[0].equals(CURRENT_HERO.getName())||!id[1].equals(CURRENT_HERO.getEpithet())) {
-            misaligned = true;
-            System.out.println("GrR: misalignment detected for unit " + HERO_INDEX + " (" + id[0] + ")");
-        }
+    private static HeroConstructor getLv1Constructor(Element row) {
+        Elements d = row.select("td");
+        HeroConstructor c = new HeroConstructor();
 
-
-        String typing = input.next();
-        CURRENT_HERO.setWeaponType(typing);
-
-
-
-        String moveType = input.next();
-        CURRENT_HERO.setMoveType(moveType);
-
-
-
-        input.next(); //total lv1 stats
-        input.next(); //total stat growths
-        input.next(); //total lv1 stats and stat growths
-
-
-
-        int[] statGrowths = new int[5];
-
-        for (int i=0; i<statGrowths.length; i++) {
-            String growth = input.next().replace("%", "");
-            statGrowths[i] = Integer.parseInt(growth);
-        }
-
-        CURRENT_HERO.setGrowths(statGrowths);
-
-        GregorianCalendar releaseDate = parseDate(input.next());
-        CURRENT_HERO.setDateReleased(releaseDate);
-
-
-
-        if (misaligned) {
-            if (input.next().equals(CURRENT_HERO.getName() + ": " + CURRENT_HERO.getEpithet())) {
-                input.previous();
-                processGrowthRates(input);
-            } else {
-                for (int i=0; i<9; i++) {
-                    input.previous();
-                }
-            }
-        }
-    }
-    private static void processListOfHeroes(ListIterator<String> input) {
-        String[] id = input.next().split(": ");
-        String name = id[0];
-        if (id.length<2) throw new Error("improper name detected for unit "+HERO_INDEX+": "+name);
-        boolean misaligned = false;
-        if (!id[0].equals(CURRENT_HERO.getName())||!id[1].equals(CURRENT_HERO.getEpithet())) {
-            misaligned = true;
-            System.out.println("LoH: misalignment detected for unit "+HERO_INDEX+" ("+id[0]+")");
-        }
-
-
-        String origin = input.next();
-        CURRENT_HERO.setOrigin(origin);
-
-
-
-        String rarity = input.next();
-        int lowerRarityBound;
-        try {
-            lowerRarityBound = Integer.parseInt(rarity);
-        } catch (NumberFormatException g) {
-            throw new Error("error for character #"+HERO_INDEX+" ("+name+")\n" +
-                    "attempted rarity: \""+rarity+"\"");
-        }
-        CURRENT_HERO.setRarity(lowerRarityBound);
-
-
-
-        String indeterminate = input.next();
+        //0 is portrait
+        c.setFullName(new HeroName(d.get(1).text()));
 
         /*
-         * parsing these nextLine few lines:
-         *
-         * line 1
-         * if "-" index = 0, upper rarity bound
-         *      nextLine
-         * if "-" is contained, release date
-         * if "-" is not contained, availability note
-         *      nextLine
-         *      parse release date (or not)
-         */
+        String move = d.get(2).attributes().get("alt");
+        System.out.println(move);
+        c.setMoveType(move.substring(move.indexOf("Icon Class ")+"Icon Class ".length(),
+                                move.indexOf(".png")));
 
-        if (indeterminate.indexOf("–")==0) {
-            //int upperRarityBound = Integer.parseInt(indeterminate.substring(1));
-            indeterminate = input.next();
-        }                         //this is an em dash btw
+        String weapon = d.get(3).attributes().get("alt");
+        c.setWeaponType(weapon.substring(weapon.indexOf("Icon Move ")+"Icon Move ".length(),
+                                weapon.indexOf(".png")));
+        */
+
+        //c.setMoveType(row.attributes().get("data-move-type"));
+        //c.setWeaponType(row.attributes().get("data-weapon-type"));
+
+        int[] stats = new int[5];
+        stats[0] = Integer.parseInt(d.get(4).text());
+        stats[1] = Integer.parseInt(d.get(5).text());
+        stats[2] = Integer.parseInt(d.get(6).text());
+        stats[3] = Integer.parseInt(d.get(7).text());
+        stats[4] = Integer.parseInt(d.get(8).text());
+        c.setStats(stats);
+
+        //9 is total
+
+        return c;
+    }
+    private static HeroConstructor getGrowthConstructor(Element row) {
+        Elements d = row.select("td");
+        HeroConstructor c = new HeroConstructor();
+
+
+        c.setFullName(new HeroName(d.get(1).text()));
+        //2 is move
+        //3 is weapon (already covered)
+        //4 is lv1 totals
+        //5 is total growths
+        //6 is both of those for some reason
+        int[] growths = new int[5];
+        for (int i=0; i<growths.length; i++) { //7-11
+            String t = d.get(i+7).text();
+            growths[i] = Integer.parseInt(t.substring(0, t.indexOf('%')));
+        }
+
+        c.setGrowths(growths);
+        c.setDateReleased(parseDate(d.get(12).text()));
+
+        return c;
+    }
+    private static HeroConstructor getListConstructor(Element row) {
+        Elements d = row.select("td");
+        HeroConstructor c = new HeroConstructor();
+
+        String[] urlSet = d.get(0).select("a")
+                .get(0).select("img")
+                .get(0).attr("srcset")
+                .split(" ");
+
+        c.setPortraitLink(urlSet[2]);
+
+        c.setFullName(new HeroName(d.get(1).text()));
+        c.setOrigin(d.get(2).text());
+
+        c.setMoveType(row.attributes().get("data-move-type"));
+        c.setWeaponType(row.attributes().get("data-weapon-type"));
+        //4 is weapon
+
+        String r = d.get(5).text();
+        try {
+            c.setRarity(Integer.parseInt(String.valueOf(r.charAt(0))));
+        } catch (NumberFormatException nfe) {
+            if (DEBUG) nfe.printStackTrace();
+            c.setRarity(-1);
+        }
 
         Availability availability;
 
-        if (indeterminate.contains("-")) {
-            availability = Availability.NORMAL;
-            //release date
-        } else {
-            switch (indeterminate) { //reassigns to the same value a lot but whatever
-                case "*":
-                    availability = Availability.NORMAL_RARITY_CHANGED;
-                    break;
-                case "Story":
-                    availability = Availability.STORY;
-                    break;
-                case "Grand Hero Battle":
-                    availability = Availability.GHB;
-                    break;
-                case "Tempest Trials":
-                    availability = Availability.TT;
-                    break;
-                    //seasonal/legendary/MyThIC heroes are not part of normal pools
-                case "Special":
-                    availability = Availability.SEASONAL;
-                    break;
-                case "Legendary":
-                    availability = Availability.LEGENDARY;
-                    break;
-                case "Mythic": //hopefully one day
-                    availability = Availability.MYTHIC;
-                    break;
-                default:
-                    throw new Error("obtaining method wasn't accounted for: "+indeterminate);
-            }
-
-            input.next(); //release date
-        }
-
-        CURRENT_HERO.setAvailability(availability);
-
-
-
-        if (misaligned) {
-            if (input.next().equals(CURRENT_HERO.getName() + ": " + CURRENT_HERO.getEpithet())) {
-                input.previous();
-                processListOfHeroes(input);
-            } else {
-                for (int i=0; i<7; i++) {
-                    input.previous();
-                }
-            }
-        }
-    }
-    private static void addBaseKit() {
-        ArrayList<Skill> baseKit;
         try {
-            baseKit = SkillDatabase.HERO_SKILLS.get(CURRENT_HERO.getFullName().toString());
-        } catch (NoSuchElementException f) {
-            throw new Error("could not find base kit for "+CURRENT_HERO.getFullName().toString());
+            if (r.indexOf('–') >= 0)
+                r = r.substring(r.indexOf('–') + 4);
+            else
+                if (r.indexOf(' ')>=0)
+                    r = r.substring(r.indexOf(' ') + 1);
+                else r = "";
+        } catch (IndexOutOfBoundsException ioobe) {
+            r = "";
         }
-        CURRENT_HERO.setBaseKit(baseKit);
+
+        switch (r) { //reassigns to the same value a lot but whatever
+            case "":
+                availability = Availability.NORMAL;
+                break;
+            case "*":
+                availability = Availability.NORMAL_RARITY_CHANGED;
+                break;
+            case "Story":
+                availability = Availability.STORY;
+                break;
+            case "Grand Hero Battle":
+                availability = Availability.GHB;
+                break;
+            case "Tempest Trials":
+                availability = Availability.TT;
+                break;
+            //seasonal/legendary/MyThIC heroes are not part of normal pools
+            case "Special":
+                availability = Availability.SEASONAL;
+                break;
+            case "Legendary":
+                availability = Availability.LEGENDARY;
+                break;
+            case "Mythic": //hopefully one day
+                availability = Availability.MYTHIC;
+                break;
+            default:
+                throw new Error("obtaining method wasn't accounted for: " +
+                        "\""+r+"\" of \""+d.get(1).text()+"\"");
+        }
+
+        c.setAvailability(availability);
+
+        //6 is release
+
+        return c;
+    }
+
+    private static ArrayList<Skill> addBaseKit(String heroName) {
+        ArrayList<Skill> baseKit;
+
+        try {
+            baseKit = SkillDatabase.HERO_SKILLS.get(heroName);
+        } catch (NoSuchElementException f) {
+            throw new Error("could not find base kit for "+heroName);
+        }
+
+        return baseKit;
     }
 
 
@@ -415,5 +339,15 @@ public class UnitDatabase extends WebScalper {
         //honestly am i really going to make a switch case for an int to find a field which is just another int (which is one less than the already-defined int)
         //yes
         return new GregorianCalendar(year, month, day);
+    }
+
+
+
+    public static void main(String[] args) {
+        System.out.println(SkillDatabase.HERO_SKILLS.size());
+
+        for (ArrayList<Skill> skillSet:SkillDatabase.HERO_SKILLS.values()) {
+            System.out.println(skillSet);
+        }
     }
 }

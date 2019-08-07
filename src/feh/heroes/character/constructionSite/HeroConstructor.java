@@ -1,6 +1,7 @@
-package feh.heroes.character;
+package feh.heroes.character.constructionSite;
 
-import feh.skills.Skill;
+import feh.heroes.character.*;
+import feh.skills.skillTypes.Skill;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -13,6 +14,7 @@ import java.util.GregorianCalendar;
 public class HeroConstructor {
     private HeroName fullName;
     private String origin;
+    private String portraitLink;
     private Character color;
     private WeaponClass weaponType;
     private MovementClass moveType;
@@ -29,6 +31,7 @@ public class HeroConstructor {
 
     public void setFullName(HeroName name) { this.fullName = name; }
     public void setOrigin(String origin) { this.origin = origin; }
+    public void setPortraitLink(String portraitLink) { this.portraitLink = portraitLink; }
     public void setWeaponType(String weaponType) {
         switch (weaponType) {
             case "Red Sword":
@@ -79,8 +82,10 @@ public class HeroConstructor {
             default:
                 throw new Error("weaponType wasn't correct: "+weaponType);
         }
-        this.color = weaponType.toLowerCase().charAt(0);
+
+        color = weaponType.toLowerCase().charAt(0);
     }
+    public void setWeaponType(WeaponClass weaponType) { this.weaponType = weaponType; }
     public void setMoveType(String moveType) {
         switch (moveType) {
             case "Infantry":
@@ -100,10 +105,12 @@ public class HeroConstructor {
                 throw new Error();
         }
     }
+    public void setMoveType(MovementClass moveType) { this.moveType = moveType; }
+    public void setColor(Character color) { this.color = color; }
     public void setStats(HeroStats stats) { this.stats = stats; }
-    public void setStats(int[] stats) { this.statsArr = stats.clone(); }
-    public void setGrowths(int[] growths) { this.growthsArr = growths.clone(); }
-    public void setRarity(int rarity) { this.rarity = rarity; }
+    public void setStats(int[] stats) { this.statsArr = stats; }
+    public void setGrowths(int[] growths) { this.growthsArr = growths; }
+    public void setRarity(Integer rarity) { this.rarity = rarity; }
     public void setAvailability(Availability availability) { this.availability = availability; }
     public void setDateReleased(GregorianCalendar dateReleased) { this.dateReleased = dateReleased; }
     public void setBaseKit(ArrayList<Skill> baseKit) { this.baseKit = baseKit; }
@@ -114,7 +121,8 @@ public class HeroConstructor {
     public String getName() { return fullName.getName(); }
     public String getEpithet() { return fullName.getEpithet(); }
     public String getOrigin() { return origin; }
-    public char getColor() { return color; }
+    public String getPortraitLink() { return portraitLink; }
+    public Character getColor() { return color; }
     public WeaponClass getWeaponType() { return weaponType; }
     public MovementClass getMoveType() { return moveType; }
     public HeroStats getStats() { return stats; }
@@ -127,47 +135,40 @@ public class HeroConstructor {
 
     public Hero createHero() throws Error {
         if (fullName==null) {
-            System.out.println("missing name! (like seriously wtf)");
-            throw new Error();
+            throw new Error("missing name! (like seriously wtf)");
         }
         if (origin==null) {
-            System.out.println("missing origin!");
-            throw new Error();
+            throw new Error("missing origin!");
         }
-        if (color==null) {
-            System.out.println("missing color!");
-            throw new Error();
+        if (portraitLink==null) {
+            throw new Error("missing portraitLink!");
         }
         if (weaponType==null) {
-            System.out.println("missing weaponType!");
-            throw new Error();
+            throw new Error("missing weaponType!");
         }
         if (moveType==null) {
-            System.out.println("missing moveType!");
-            throw new Error();
+            throw new Error("missing moveType!");
+        }
+        if (color==null) {
+            throw new Error("missing color!");
         }
         if (statsArr!=null) {
             if (growthsArr!=null) {
                 stats = new HeroStats(statsArr, growthsArr);
             } else {
-                System.out.println("missing growths!");
-                throw new Error();
+                throw new Error("missing growths!");
             }
         } else {
-            System.out.println("missing stats!");
-            throw new Error();
+            throw new Error("missing stats!");
         }
         if (rarity==null) {
-            System.out.println("missing rarity!");
-            throw new Error();
+            throw new Error("missing rarity!");
         }
         if (availability==null) {
-            System.out.println("missing availability!");
-            throw new Error();
+            throw new Error("missing availability!");
         }
         if (dateReleased==null) {
-            System.out.println("missing dateReleased!");
-            throw new Error();
+            throw new Error("missing dateReleased!");
         }
         if (baseKit==null) {
             //System.out.println("missing base kit!");
@@ -176,9 +177,50 @@ public class HeroConstructor {
             baseKit = new ArrayList<>();
         }
 
-        return new Hero(fullName, origin,
-                color, weaponType, moveType, rarity,
-                availability, dateReleased,
-                stats, baseKit);
+        return new Hero(fullName,
+                        origin,
+                        portraitLink,
+                        color,
+                        weaponType,
+                        moveType,
+                        rarity,
+                        availability,
+                        dateReleased,
+                        stats,
+                        baseKit);
+    }
+
+    public static HeroConstructor merge(HeroConstructor h1, HeroConstructor h2)
+            throws MismatchedInputException /*, NullInputException*/ {
+        HeroConstructor merge = new HeroConstructor();
+
+        Merger<HeroName> fullName = new Merger<>(h1.fullName, h2.fullName);
+        Merger<String> origin = new Merger<>(h1.origin, h2.origin);
+        Merger<String> portraitLink = new Merger<>(h1.portraitLink, h2.portraitLink);
+        Merger<WeaponClass> weaponType = new Merger<>(h1.weaponType, h2.weaponType);
+        Merger<MovementClass> moveType = new Merger<>(h1.moveType, h2.moveType);
+        Merger<Character> color = new Merger<>(h1.color, h2.color);
+        Merger<Integer> rarity = new Merger<>(h1.rarity, h2.rarity);
+        Merger<Availability> availability = new Merger<>(h1.availability, h2.availability);
+        Merger<GregorianCalendar> dateReleased = new Merger<>(h1.dateReleased, h2.dateReleased);
+        Merger<int[]> stats = new Merger<>(h1.statsArr, h2.statsArr);
+        Merger<int[]> growths = new Merger<>(h1.growthsArr, h2.growthsArr);
+        Merger<ArrayList<Skill>> baseKit = new Merger<>(h1.baseKit, h2.baseKit);
+
+        merge.setFullName(fullName.merge());
+        merge.setFullName(fullName.merge());
+        merge.setPortraitLink(portraitLink.merge());
+        merge.setOrigin(origin.merge());
+        merge.setWeaponType(weaponType.merge());
+        merge.setMoveType(moveType.merge());
+        merge.setColor(color.merge());
+        merge.setRarity(rarity.merge());
+        merge.setAvailability(availability.merge());
+        merge.setDateReleased(dateReleased.merge());
+        merge.setStats(stats.merge());
+        merge.setGrowths(growths.merge());
+        merge.setBaseKit(baseKit.merge());
+
+        return merge;
     }
 }

@@ -38,5 +38,22 @@ public enum MovementClass implements HeroClass {
 
 
 
+    public static MovementClass getClass(String input) {
+        switch (input) {
+            case "Infantry":
+                return INFANTRY;
+            case "Armored":
+                return ARMORED;
+            case "Cavalry":
+                return CAVALRY;
+            case "Flying":
+                return FLYING;
+            default:
+                return null;
+        }
+    }
+
+
+
     public String toString() { return name; }
 }

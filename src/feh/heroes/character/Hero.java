@@ -1,8 +1,9 @@
 package feh.heroes.character;
 
 import feh.heroes.UnitDatabase;
-import feh.skills.Skill;
+import feh.skills.skillTypes.Skill;
 
+import java.net.URL;
 import java.util.*;
 
 
@@ -10,6 +11,8 @@ import java.util.*;
 public class Hero {
     private final HeroName fullName;
     private final String origin;
+    private final String portraitLink; //TODO: make URL
+
     private final char color;
     private final WeaponClass weaponType;
     private final MovementClass moveType;
@@ -25,13 +28,14 @@ public class Hero {
 
 
 
-    public Hero(HeroName fullName, String origin, char color,
-                WeaponClass weaponType, MovementClass moveType,
+    public Hero(HeroName fullName, String origin, String portraitLink,
+                char color, WeaponClass weaponType, MovementClass moveType,
                 int summonableRarity, Availability availability,
                 GregorianCalendar dateReleased,
                 HeroStats stats, ArrayList<Skill> baseKit) {
         this.fullName = fullName;
         this.origin = origin;
+        this.portraitLink = portraitLink;
         this.color = color;
         this.weaponType = weaponType;
         this.moveType = moveType;
@@ -68,35 +72,38 @@ public class Hero {
 
         //there's probably a way to clone this, my brain is just too small
         Hero j = correctName.get(0);
-        this.fullName = j.getFullName();
-        this.origin = j.getOrigin();
-        this.color = j.getColor();
-        this.weaponType = j.getWeaponType();
-        this.moveType = j.getMoveType();
-        this.stats = j.getStats();
-        this.summonableRarity = j.getSummonableRarity();
-        this.availability = j.getAvailability();
-        this.dateReleased = j.getReleaseDate();
-        this.baseKit = j.getBaseKit();
+        this.fullName = j.fullName;
+        this.origin = j.origin;
+        this.portraitLink = j.portraitLink;
+        this.color = j.color;
+        this.weaponType = j.weaponType;
+        this.moveType = j.moveType;
+        this.stats = j.stats;
+        this.summonableRarity = j.summonableRarity;
+        this.availability = j.availability;
+        this.dateReleased = j.dateReleased;
+        this.baseKit = j.baseKit;
     }
 
     public Hero(Hero j) {
-        this.fullName = j.getFullName();
-        this.origin = j.getOrigin();
-        this.color = j.getColor();
-        this.weaponType = j.getWeaponType();
-        this.moveType = j.getMoveType();
-        this.stats = j.getStats();
-        this.summonableRarity = j.getSummonableRarity();
-        this.availability = j.getAvailability();
-        this.dateReleased = j.getReleaseDate();
-        this.baseKit = j.getBaseKit();
+        this.fullName = j.fullName;
+        this.origin = j.origin;
+        this.portraitLink = j.portraitLink;
+        this.color = j.color;
+        this.weaponType = j.weaponType;
+        this.moveType = j.moveType;
+        this.stats = j.stats;
+        this.summonableRarity = j.summonableRarity;
+        this.availability = j.availability;
+        this.dateReleased = j.dateReleased;
+        this.baseKit = j.baseKit;
     }
 
 
 
     public HeroName getFullName() { return fullName; }
     public String getOrigin() { return origin; }
+    public String getPortraitLink() { return portraitLink; }
 
     public char getColor() { return color; }
     public WeaponClass getWeaponType() { return weaponType; }

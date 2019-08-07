@@ -1,9 +1,14 @@
 package feh.summoning;
 
 import feh.FEHeroesCache;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import utilities.WebScalper;
 import feh.heroes.character.Hero;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.*;
@@ -42,75 +47,20 @@ public class BannerDatabase extends WebScalper {
 
 
 
-        String line = FOCUS_ARCHIVE_FILE.getLongAssLine(100000);
+        Document bannersFile;
+        try {
+            bannersFile = Jsoup.parse(FOCUS_ARCHIVE_FILE, "UTF-8");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return new ArrayList<>();
+        }
 
-        if (line==null) throw new Error("getList did not find the big-ass, one-line table");
+        Elements tables = bannersFile.select("table");
 
-        IntStream data = line.chars();
-
-        Iterator<String> items = getItems(data).iterator();
         ArrayList<Banner> banners = new ArrayList<>();
 
-        Banner x;
-        while (items.hasNext()) {
-            String n1, n2;
-            try {
-                n1 = items.next();
-                n2 = items.next();
-                while (!n1.equals(n2)) {
-                    n1 = n2;
-                    n2 = items.next();
-                }
-            } catch (NoSuchElementException endOfSite) {
-                System.out.println("fuckin markfeh");
-                continue;
-            }
-            String bannerName = n1;
-
-            //check alignment
-            if (!items.next().equals("Featured Units")) {
-                System.out.println(n1+"/"+n2+" ran into issue in featured units");
-            }
-
-            ArrayList<String> featuredUnitNames = new ArrayList<>();
-            String name;
-            //gather names until new data appears
-            while (!(name = items.next()).equalsIgnoreCase("Start Date")) {
-                featuredUnitNames.add(name);
-            }
-            ArrayList<Hero> featuredUnits = new ArrayList<>();
-            for (String hero:featuredUnitNames) {
-                try {
-                    featuredUnits.add(new Hero(hero));
-                } catch (Error g) {
-                    System.out.println("BannerDatabase could not find character: "+hero);
-                }
-            }
-
-
-
-            GregorianCalendar startDate;
-            try {
-                startDate = getDate(items.next());
-            } catch (IndexOutOfBoundsException f) {
-                System.out.println("incorrect date format found for \""+name+"\"");
-                throw new Error();
-            }
-
-            items.next(); //"End Date"
-
-            GregorianCalendar endDate;
-            try {
-                endDate = getDate(items.next());
-            } catch (IndexOutOfBoundsException f) {
-                System.out.println("incorrect date format found for \""+name+"\"");
-                throw new Error();
-            }
-
-
-
-            x = new Banner(bannerName, featuredUnits, startDate, endDate);
-            banners.add(x);
+        for (Element table:tables) {
+            banners.add(createBanner(table));
         }
 
 
@@ -119,25 +69,100 @@ public class BannerDatabase extends WebScalper {
         return banners;
     }
 
-    private static GregorianCalendar getDate(String date) {
+
+
+    private static Banner createBanner(Element table) {
+        Elements rows = table.select("tr");
+
+
+
+        String name = rows.get(0).text();
+
+        //1 is image, "Featured Units", and first row of heroes
+                    //second row, children, second item, children, first item, heroes
+        Element h1 = rows.get(1).children().get(2).children().get(0);
+
+        ArrayList<Hero> summonables = getSummonables(h1);
+
+        int i;
+        for (i=2; i<rows.size()-2; i++) {
+            Element h = rows.get(i).children().get(0).children().get(0);
+            summonables.addAll(getSummonables(h));
+        }
+
+        GregorianCalendar startDate, endDate;
+
+        try {
+            startDate = getDate(rows.get(i).children().get(1).text());
+        } catch (IllegalArgumentException iae) {
+            startDate = null;
+        }
+        try {
+            endDate = getDate(rows.get(i + 1).children().get(1).text());
+        } catch (IllegalArgumentException iae) {
+            endDate = null;
+        }
+
+        return new Banner(name, summonables, startDate, endDate);
+    }
+
+    private static ArrayList<Hero> getSummonables(Element heroes) {
+        Elements items = heroes.select("div").get(0).children();
+        ArrayList<Hero> summonables = new ArrayList<>();
+
+        for (Element hero:items) {
+            summonables.add(new Hero(hero.text()));
+        }
+
+        return summonables;
+    }
+
+
+
+    private static GregorianCalendar getDate(String date) throws IllegalArgumentException {
         String[] endDateStr = date.split("-");
         int year = Integer.parseInt(endDateStr[0]);
         int month;
         //this shit so fuckin useless (other than alerting of invalid numbers)
         switch (Integer.parseInt(endDateStr[1])) {
-            case 1: month = Calendar.JANUARY; break;
-            case 2: month = Calendar.FEBRUARY; break;
-            case 3: month = Calendar.MARCH; break;
-            case 4: month = Calendar.APRIL; break;
-            case 5: month = Calendar.MAY; break;
-            case 6: month = Calendar.JUNE; break;
-            case 7: month = Calendar.JULY; break;
-            case 8: month = Calendar.AUGUST; break;
-            case 9: month = Calendar.SEPTEMBER; break;
-            case 10: month = Calendar.OCTOBER; break;
-            case 11: month = Calendar.NOVEMBER; break;
-            case 12: month = Calendar.DECEMBER; break;
-            default: throw new Error();
+            case 1:
+                month = Calendar.JANUARY;
+                break;
+            case 2:
+                month = Calendar.FEBRUARY;
+                break;
+            case 3:
+                month = Calendar.MARCH;
+                break;
+            case 4:
+                month = Calendar.APRIL;
+                break;
+            case 5:
+                month = Calendar.MAY;
+                break;
+            case 6:
+                month = Calendar.JUNE;
+                break;
+            case 7:
+                month = Calendar.JULY;
+                break;
+            case 8:
+                month = Calendar.AUGUST;
+                break;
+            case 9:
+                month = Calendar.SEPTEMBER;
+                break;
+            case 10:
+                month = Calendar.OCTOBER;
+                break;
+            case 11:
+                month = Calendar.NOVEMBER;
+                break;
+            case 12:
+                month = Calendar.DECEMBER;
+                break;
+            default:
+                throw new Error();
         }
         int day = Integer.parseInt(endDateStr[2]);
         return new GregorianCalendar(year, month, day, 23, 59, 59);

@@ -26,6 +26,25 @@ public class HeroName {
         names.add(name);
     }
 
+    public HeroName(String fullName) {
+        if (!fullName.contains(": "))
+            throw new Error("improper full name received: "+fullName);
+
+        name = fullName.substring(0, fullName.indexOf(": "));
+        epithet = fullName.substring(fullName.indexOf(": ")+2);
+
+        if (names.contains(name)) {
+            HeroName original = fullNames.get(names.indexOf(name));
+            original.ambiguousName = true;
+            ambiguousName = true;
+        } else {
+            ambiguousName = false;
+        }
+
+        fullNames.add(this);
+        names.add(name);
+    }
+
 
 
     public String getName() { return name; }
@@ -34,5 +53,8 @@ public class HeroName {
 
     public String toString() {
         return name+": "+epithet;
+    }
+    public boolean equals(HeroName o) {
+        return this.name.equals(o.name)&&this.epithet.equals(o.epithet);
     }
 }

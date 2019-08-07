@@ -1,4 +1,4 @@
-package feh.skills;
+package feh.skills.skillTypes;
 
 public class PassiveC extends Passive {
     public PassiveC(String name, String description, int cost, boolean exclusive) {

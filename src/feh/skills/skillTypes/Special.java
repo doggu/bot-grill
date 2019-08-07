@@ -1,4 +1,4 @@
-package feh.skills;
+package feh.skills.skillTypes;
 
 public class Special extends Skill {
     private final int cd;

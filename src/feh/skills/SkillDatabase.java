@@ -1,6 +1,11 @@
 package feh.skills;
 
 import feh.FEHeroesCache;
+import feh.skills.skillTypes.*;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import utilities.WebScalper;
 import feh.heroes.character.WeaponClass;
 

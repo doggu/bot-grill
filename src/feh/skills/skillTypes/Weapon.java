@@ -1,4 +1,4 @@
-package feh.skills;
+package feh.skills.skillTypes;
 
 import feh.heroes.character.WeaponClass;
 import feh.skills.analysis.ActionSkill;

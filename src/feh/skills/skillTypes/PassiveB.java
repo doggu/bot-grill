@@ -1,4 +1,4 @@
-package feh.skills;
+package feh.skills.skillTypes;
 
 import feh.skills.analysis.CooldownModifier;
 

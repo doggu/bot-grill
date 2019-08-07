@@ -1,7 +1,7 @@
-package feh.skills;
+package feh.skills.skillTypes;
 
 public class WeaponRefine {
-    private final String name, description;
+    private final String name, description, specialEff;
     private final int cost, mt, rng;
 
 
@@ -17,7 +17,8 @@ public class WeaponRefine {
 
 
     public String getName() { return name; }
-    public String getDescription() { return description; }
+    public String getDescription() { return description+'\n'+getSpecialEff(); }
+    public String getSpecialEff() { return specialEff; }
     public int getCost() { return cost; }
     public int getMt() { return mt; }
     public int getRng() { return rng; }

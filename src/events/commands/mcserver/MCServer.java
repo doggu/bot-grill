@@ -24,8 +24,8 @@ public class MCServer implements Runnable {
         try {
             server = Runtime.getRuntime().exec(COMMAND, null, new File(WORKING_DIRECTORY));
 
-            printLinesConcurrently("serverOut: ", server.getInputStream()).run();
-            printLinesConcurrently("serverErr: ", server.getErrorStream()).run();
+            printLinesConcurrently("serverOut: ", server.getInputStream()).start();
+            printLinesConcurrently("serverErr: ", server.getErrorStream()).start();
 
             writer = new BufferedWriter(new OutputStreamWriter(server.getOutputStream()));
         } catch (Exception e) {

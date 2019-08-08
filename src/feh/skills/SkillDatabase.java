@@ -1,7 +1,6 @@
 package feh.skills;
 
 import feh.FEHeroesCache;
-import feh.heroes.character.constructionSite.NullInputException;
 import feh.skills.skillTypes.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -382,8 +381,7 @@ public class SkillDatabase extends WebScalper {
                         .equals("display:inline-table;border:1px solid #a2a9b1;border-collapse:collapse;width:24em;margin:0.5em 0;background-color:#f8f9fa")) {
                     tables.add(table);
                     //System.out.println(table.attributes().get("style"));
-                } else
-                    ;//System.out.println(table.attributes().get("style"));
+                } //System.out.println(table.attributes().get("style"));
             }
         }
 
@@ -405,8 +403,8 @@ public class SkillDatabase extends WebScalper {
 
             String name = info.get(1).text();
             String stats = info.get(2).text();
-            String effect1 = info.get(3).text();
-            String effect2 = info.get(4).text();
+            String description = info.get(3).text();
+            String specialEff = info.get(4).text();
             //String cost = info.get(5).text(); //it's always 400SP, 200 Dew™
 
             String[] items = stats.split(" ");
@@ -456,7 +454,7 @@ public class SkillDatabase extends WebScalper {
                 continue;
             }
 
-            refines.add(new WeaponRefine(name, effect1, effect2, 400, might, range));
+            refines.add(new WeaponRefine(name, description, specialEff, values, 400, might, range));
         }
 
 

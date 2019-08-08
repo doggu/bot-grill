@@ -128,7 +128,8 @@ public class Hero {
 
     public String toString() { return this.getFullName().toString(); }
 
-    protected int[] getStats(boolean lv1, int rarity, int boon, int bane) { return getStats(lv1, rarity, boon, bane, 0, 0, 'd'); }
+    protected int[] getStats(boolean lv1, int rarity, int boon, int bane) {
+        return getStats(lv1, rarity, boon, bane, 0, 0, 'd'); }
     public int[] getStats(boolean lv1, int rarity, int boon, int bane, int merges, int dragonflowers, char support) {
         //duplicate
         int[][] rawStats = getAllStats(lv1, rarity, merges);
@@ -265,6 +266,18 @@ public class Hero {
 
         return finalStats;
     }
+
+    /*
+    public int nBST(boolean lv1, int rarity) {
+
+    }
+    public int maxBST(boolean lv1, int rarity) {
+
+    }
+    public int minBST(boolean lv1, int rarity) {
+
+    }
+    */
 
 
 

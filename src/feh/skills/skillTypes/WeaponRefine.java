@@ -2,14 +2,17 @@ package feh.skills.skillTypes;
 
 public class WeaponRefine {
     private final String name, description, specialEff;
+    private final int[] statModifiers;
     private final int cost, mt, rng;
 
 
 
-    public WeaponRefine(String name, String description, String specialEff, int cost, int mt, int rng) {
+    public WeaponRefine(String name, String description, String specialEff,
+                        int[] statModifiers, int cost, int mt, int rng) {
         this.name = name;
         this.description = description;
         this.specialEff = specialEff;
+        this.statModifiers = statModifiers;
         this.cost = cost;
         this.mt = mt;
         this.rng = rng;

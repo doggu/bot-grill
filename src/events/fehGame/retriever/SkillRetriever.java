@@ -344,6 +344,7 @@ public class SkillRetriever extends Command {
         switch(arg) {
             case "getskill":
             case "getskills":
+            case "gs":
                 return true;
             default:
                 return false;

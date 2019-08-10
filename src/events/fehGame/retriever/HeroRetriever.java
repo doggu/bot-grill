@@ -25,7 +25,9 @@ public class HeroRetriever extends Command {
         boolean newestOnly = false, oldestOnly = false;
 
 
-        if (args[0].equalsIgnoreCase("getIVs")) lv1 = true;
+        if (args[0].equalsIgnoreCase("getIVs")||
+                args[0].equalsIgnoreCase("giv"))
+            lv1 = true;
 
         ArrayList<Hero> candidates = new ArrayList<>();
 
@@ -558,7 +560,9 @@ public class HeroRetriever extends Command {
         String arg = args[0].toLowerCase();
         switch(arg) {
             case "getstats":
+            case "gst":
             case "getivs":
+            case "giv":
                 return true;
             default:
                 return false;

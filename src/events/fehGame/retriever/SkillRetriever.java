@@ -172,17 +172,21 @@ public class SkillRetriever extends Command {
             if (x instanceof Weapon) {
                 if (((Weapon) x).hasRefine()) {
                     WeaponRefine refine = ((Weapon) x).getRefine();
-                    ReactionButton refineButton = new ReactionButton(
+                    e.getJDA().addEventListener(new ReactionButton(
                             f,
                             e.getJDA()
                                     .getEmotesByName("Divine_Dew", false)
-                                    .get(0),
-                            new MessageBuilder(new EmbedBuilder()
-                                    .setTitle(refine.getName())
+                                    .get(0)
+                    ) {
+                        @Override
+                        public void onCommand() {
+                            getMessage().editMessage(new EmbedBuilder(getMessage().getEmbeds().get(0))
+                                    .setAuthor(refine.getName()+" (+Eff)")
                                     .setDescription(refine.getDescription())
-                                    .setColor(new Color(0xDE1336))
-                                    .build())
-                    );
+                                    //.setColor(new Color(0xDE1336))
+                                    .build()).complete();
+                        }
+                    });
                 }
             }
         }

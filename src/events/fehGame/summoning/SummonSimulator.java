@@ -48,9 +48,9 @@ public class SummonSimulator extends FEHCommand {
                     return;
                     */
                 }
-            } else {
+            } /* else {
                 System.out.println(x.getUser().getId()+" does not equal "+e.getAuthor().getId());
-            }
+            } */
         }
 
         //find summoner corresponding to user

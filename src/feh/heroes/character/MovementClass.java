@@ -1,5 +1,8 @@
 package feh.heroes.character;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public enum MovementClass implements HeroClass {
     INFANTRY(2, false, false, false, "Infantry"),
     ARMORED(1, false, false, false, "Armor"),
@@ -35,6 +38,15 @@ public enum MovementClass implements HeroClass {
     public boolean slowedByTrenches() { return slowedByTrenches; }
     //prolly goin unused since toString is exactly the same thing
     public String getName() { return name; }
+
+    private static final GregorianCalendar UPDATE_3_2
+            = new GregorianCalendar(2019, Calendar.FEBRUARY, 7);
+    public int getMaxDF(GregorianCalendar releaseDate) {
+        if (this==INFANTRY)
+            if (UPDATE_3_2.compareTo(releaseDate)>=0)
+                return 10;
+        return 5;
+    }
 
 
 

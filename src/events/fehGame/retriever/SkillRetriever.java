@@ -322,6 +322,9 @@ public class SkillRetriever extends Command {
             case "yeee":
             case "yeeee":
             case "yea":
+            case "totes":
+            case "obviously":
+            case "yuh":
                 return true;
             default:
                 return false;

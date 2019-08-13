@@ -69,6 +69,7 @@ public class HeroRetriever extends Command {
                     if (x.contains("df")) {
                         try {
                             dragonflowers = Integer.parseInt(x.substring(3));
+                            getAll = false;
                         } catch (NumberFormatException g) {
                             log("issue getting dragonflower count from string \""+x+"\"");
                         }
@@ -77,6 +78,7 @@ public class HeroRetriever extends Command {
                         //or legendary marth's fucking name god damn it
                         try {
                             merges = Integer.parseInt(x.substring(1));
+                            getAll = false;
                         } catch (NumberFormatException g) {
                             char boonP = x.charAt(x.indexOf('+') + 1);
                             switch (boonP) {

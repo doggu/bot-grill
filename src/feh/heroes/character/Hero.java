@@ -137,7 +137,7 @@ public class Hero {
         return getStats(lv1, rarity, boon, bane, 0, 0, 'd'); }
     public int[] getStats(boolean lv1, int rarity, int boon, int bane, int merges, int dragonflowers, char support) {
         //duplicate
-        int[][] rawStats = getAllStats(lv1, rarity, merges);
+        int[][] rawStats = getAllStats(lv1, rarity);
         int[] finalStats = new int[5];
         for (int i=0; i<5; i++) {
             if (i==boon) {

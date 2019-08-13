@@ -1,10 +1,12 @@
 ## bot grill ##
 token.txt
 
+## output shit ##
+/out/
 /.idea/
 
 ## downloaded website data ##
-/webCache/
+/webCachef/
 
 ## server files ##
 /libs/server/

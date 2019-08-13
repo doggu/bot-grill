@@ -45,6 +45,8 @@ public class BotMain {
     private static final boolean FEHEROES_UTILS = true;
     public static final boolean MCSERVER = false;
 
+    public static final boolean DEBUG = true;
+
 
 
     public static JDA bot_grill;

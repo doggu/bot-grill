@@ -139,8 +139,9 @@ public class SkillRetriever extends Command {
                         int xLevel = Integer.parseInt(String.valueOf(xN.charAt(xN.length()-1)));
                         int yLevel = Integer.parseInt(String.valueOf(yN.charAt(yN.length()-1)));
 
-                        if (xLevel==4||yLevel==4); //one's tier 4 which is prolly different
-                        else if (xLevel>yLevel) {
+                        if (xLevel==4||yLevel==4) continue; //one's tier 4 which is prolly different
+
+                        if (xLevel>yLevel) {
                             candidates.remove(y);
                             j--;
                         } else {

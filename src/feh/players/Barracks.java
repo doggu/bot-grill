@@ -16,7 +16,7 @@ public class Barracks extends ArrayList<Unit> {
             DEF = 4,
             RES = 5;
 
-    private static final Unit
+    public static final Unit
             ALFONSE = new Unit(new Hero("Alfonse: Prince of Askr"),4,-1,-1),
             SHARENA = new Unit(new Hero("Sharena: Princess of Askr"),4,-1,-1),
             ANNA =  new Unit(new Hero("Anna: Commander"),4,-1,-1),

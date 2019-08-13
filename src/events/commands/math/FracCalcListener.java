@@ -29,7 +29,6 @@ public class FracCalcListener extends Command {
     public String getName() { return "FracCalc"; }
     public String getDescription() { return "add, subtract, multiply, or divide fractions!"; }
     public String getFullDescription() {
-        //TODO: write DESCRIPTon
         return "it's complicated man";
     }
 }

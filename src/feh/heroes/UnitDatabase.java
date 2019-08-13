@@ -12,6 +12,8 @@ import feh.heroes.character.constructionSite.HeroConstructor;
 import feh.skills.skillTypes.Skill;
 import feh.skills.SkillDatabase;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -76,6 +78,8 @@ public class UnitDatabase extends WebScalper {
         GROWTH_RATES_FILE = new FEHeroesCache(GROWTH_RATES, HERO_SUBDIR);
         HERO_LIST_FILE = new FEHeroesCache(HERO_LIST, HERO_SUBDIR);
 
+        HERO_GENDERS = getGenders();
+
         ArrayList<Hero> heroes = new ArrayList<>();
 
         Document
@@ -127,6 +131,7 @@ public class UnitDatabase extends WebScalper {
             }
 
             merge.setBaseKit(addBaseKit(merge.getFullName().toString()));
+            merge.setGender(HERO_GENDERS.get(merge.getFullName().toString()));
 
             heroes.add(merge.createHero());
 
@@ -289,6 +294,29 @@ public class UnitDatabase extends WebScalper {
 
 
 
+    private static HashMap<String, Character> HERO_GENDERS = getGenders();
+
+    private static HashMap<String, Character> getGenders() {
+        File f = new File("./src/feh/heroes/grender.txt");
+        HashMap<String, Character> genders = new HashMap<>();
+
+        Scanner input;
+        try {
+            input = new Scanner(f);
+        } catch (FileNotFoundException fnfe) {
+            throw new Error();
+        }
+
+        while (input.hasNextLine()) {
+            String[] items = input.nextLine().split("\t");
+            genders.put(items[0], items[1].charAt(0));
+        }
+
+        return genders;
+    }
+
+
+
     private static GregorianCalendar parseDate(String date) throws NumberFormatException {
         //TODO: make this less basic
         String[] nums = date.split("[-/]");
@@ -339,15 +367,5 @@ public class UnitDatabase extends WebScalper {
         //honestly am i really going to make a switch case for an int to find a field which is just another int (which is one less than the already-defined int)
         //yes
         return new GregorianCalendar(year, month, day);
-    }
-
-
-
-    public static void main(String[] args) {
-        System.out.println(SkillDatabase.HERO_SKILLS.size());
-
-        for (ArrayList<Skill> skillSet:SkillDatabase.HERO_SKILLS.values()) {
-            System.out.println(skillSet);
-        }
     }
 }

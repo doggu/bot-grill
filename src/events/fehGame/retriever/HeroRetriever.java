@@ -265,6 +265,28 @@ public class HeroRetriever extends Command {
                             break;
                     }
 
+                    char gender;
+                    switch (x) {
+                        case "m":
+                        case "man":
+                        case "male":
+                        case "boy":
+                        case "boi":
+                            gender = 'm';
+                            break;
+                        case "f":
+                        case "female":
+                        case "feman":
+                        case "woman":
+                        case "wamen":
+                        case "lady":
+                        case "girl":
+                            gender = 'f';
+                            break;
+                        default:
+                            gender = 'n';
+                    }
+
                     char color;
                     //find color hints
                     switch (x) {
@@ -343,6 +365,12 @@ public class HeroRetriever extends Command {
                         }
                         if (!weapon.equals("na")) {
                             if (!c.getWeaponType().toString().equals(weapon)) {
+                                candidates.remove(j);
+                                j--;
+                            }
+                        }
+                        if (gender!='n') {
+                            if (c.getGender()!=gender) {
                                 candidates.remove(j);
                                 j--;
                             }

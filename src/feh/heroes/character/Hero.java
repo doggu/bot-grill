@@ -12,6 +12,7 @@ public class Hero {
     private final HeroName fullName;
     private final String origin;
     private final String portraitLink; //TODO: make URL
+    private final char gender;
 
     private final char color;
     private final WeaponClass weaponType;
@@ -28,7 +29,7 @@ public class Hero {
 
 
 
-    public Hero(HeroName fullName, String origin, String portraitLink,
+    public Hero(HeroName fullName, String origin, String portraitLink, char gender,
                 char color, WeaponClass weaponType, MovementClass moveType,
                 int summonableRarity, Availability availability,
                 GregorianCalendar dateReleased,
@@ -36,6 +37,7 @@ public class Hero {
         this.fullName = fullName;
         this.origin = origin;
         this.portraitLink = portraitLink;
+        this.gender = gender;
         this.color = color;
         this.weaponType = weaponType;
         this.moveType = moveType;
@@ -75,6 +77,7 @@ public class Hero {
         this.fullName = j.fullName;
         this.origin = j.origin;
         this.portraitLink = j.portraitLink;
+        this.gender = j.gender;
         this.color = j.color;
         this.weaponType = j.weaponType;
         this.moveType = j.moveType;
@@ -89,6 +92,7 @@ public class Hero {
         this.fullName = j.fullName;
         this.origin = j.origin;
         this.portraitLink = j.portraitLink;
+        this.gender = j.gender;
         this.color = j.color;
         this.weaponType = j.weaponType;
         this.moveType = j.moveType;
@@ -104,6 +108,7 @@ public class Hero {
     public HeroName getFullName() { return fullName; }
     public String getOrigin() { return origin; }
     public String getPortraitLink() { return portraitLink; }
+    public char getGender() { return gender; }
 
     public char getColor() { return color; }
     public WeaponClass getWeaponType() { return weaponType; }

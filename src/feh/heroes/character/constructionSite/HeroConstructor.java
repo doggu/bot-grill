@@ -15,6 +15,7 @@ public class HeroConstructor {
     private HeroName fullName;
     private String origin;
     private String portraitLink;
+    private Character gender;
     private Character color;
     private WeaponClass weaponType;
     private MovementClass moveType;
@@ -32,6 +33,7 @@ public class HeroConstructor {
     public void setFullName(HeroName name) { this.fullName = name; }
     public void setOrigin(String origin) { this.origin = origin; }
     public void setPortraitLink(String portraitLink) { this.portraitLink = portraitLink; }
+    public void setGender(Character gender) { this.gender = gender; }
     public void setWeaponType(String weaponType) {
         switch (weaponType) {
             case "Red Sword":
@@ -122,6 +124,7 @@ public class HeroConstructor {
     public String getEpithet() { return fullName.getEpithet(); }
     public String getOrigin() { return origin; }
     public String getPortraitLink() { return portraitLink; }
+    public Character getGender() { return gender; }
     public Character getColor() { return color; }
     public WeaponClass getWeaponType() { return weaponType; }
     public MovementClass getMoveType() { return moveType; }
@@ -142,6 +145,9 @@ public class HeroConstructor {
         }
         if (portraitLink==null) {
             throw new Error("missing portraitLink!");
+        }
+        if (gender==null) {
+            throw new Error("missing gender!");
         }
         if (weaponType==null) {
             throw new Error("missing weaponType!");
@@ -180,6 +186,7 @@ public class HeroConstructor {
         return new Hero(fullName,
                         origin,
                         portraitLink,
+                        gender,
                         color,
                         weaponType,
                         moveType,

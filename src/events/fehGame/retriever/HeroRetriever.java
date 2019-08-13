@@ -142,7 +142,28 @@ public class HeroRetriever extends Command {
                     case "ssb": support = 'b'; break;
                     case "ssa": support = 'a'; break;
                     case "sss": support = 's'; break;
+                    default:
+                        if (x.charAt(2)=='\"') {
+                            StringBuilder skillName = new StringBuilder(x.substring(3));
+
+                            int j;
+                            for (j=i+1; j<args.size(); j++) {
+                                skillName.append(' ').append(args.get(j));
+                                if (args.get(j).contains("\""))
+                                    break;
+                            }
+
+                            if (skillName.indexOf("\"")>=0)
+                                skillName.deleteCharAt(skillName.length()-1);
+
+                            args.subList(i, j).clear();
+
+                            Skill skill = SkillDatabase.getSkill(skillName.toString());
+                            if (skill instanceof StatModifier)
+                                skills.add((StatModifier) skill);
+                        }
                 }
+                getAll = false;
             }
 
             //test for "new" keyword

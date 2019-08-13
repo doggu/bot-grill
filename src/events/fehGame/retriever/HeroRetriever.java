@@ -193,6 +193,16 @@ public class HeroRetriever extends Command {
             for (Hero c: UnitDatabase.HEROES) {
                 if (c.getFullName().getName().equalsIgnoreCase(x))
                     candidates.add(c);
+                if (c.getFullName().getName().toLowerCase().contains(x.toLowerCase())) {
+                    try {
+                        if (c.getFullName().getName()
+                                .equalsIgnoreCase(x+" "+args.get(i+1))) {
+                            candidates.add(c);
+                        }
+                    } catch (IndexOutOfBoundsException ioobe) {
+                        //break;
+                    }
+                }
             }
 
             if (epithetIncluded) {

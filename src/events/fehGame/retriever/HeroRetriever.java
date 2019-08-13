@@ -6,7 +6,10 @@ import feh.heroes.character.Hero;
 import feh.heroes.unit.Unit;
 import feh.skills.SkillDatabase;
 import feh.skills.analysis.StatModifier;
+import feh.skills.skillTypes.PassiveA;
+import feh.skills.skillTypes.PassiveS;
 import feh.skills.skillTypes.Skill;
+import feh.skills.skillTypes.Weapon;
 import main.BotMain;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Emote;
@@ -29,6 +32,7 @@ public class HeroRetriever extends Command {
         char support = 'd';
         boolean newestOnly = false, oldestOnly = false;
         ArrayList<StatModifier> skills = new ArrayList<>();
+        boolean useBaseKit = false;
 
 
         if (args[0].equalsIgnoreCase("getIVs")||
@@ -88,7 +92,8 @@ public class HeroRetriever extends Command {
                         } catch (NumberFormatException g) {
                             char boonP = x.charAt(x.indexOf('+') + 1);
                             switch (boonP) {
-                                case 'r':   //res is the last stat in the array, so add to index for every stat before it
+                                //res is the last stat in the array, so add to index for every stat before it
+                                case 'r':
                                     boon++;
                                 case 'd':
                                     boon++;
@@ -142,7 +147,7 @@ public class HeroRetriever extends Command {
                 }
             }
 
-            //test for support status
+            //test for support status (and skills cuz i'm disorganized)
             if (x.indexOf("w/")==0) {
                 switch (x.substring(2).toLowerCase()) {
                     //this is the only case
@@ -150,6 +155,9 @@ public class HeroRetriever extends Command {
                     case "ssb": support = 'b'; break;
                     case "ssa": support = 'a'; break;
                     case "sss": support = 's'; break;
+                    case "baseKit":
+                        useBaseKit = true;
+                        break;
                     default:
                         if (x.charAt(2)=='\"') {
                             StringBuilder skillName = new StringBuilder(x.substring(3));
@@ -419,8 +427,6 @@ public class HeroRetriever extends Command {
             }
         }
 
-        //log("printin stats");
-
         if (candidates.size()==0) {
             sendMessage("sorry, could not find your character.");
             log("couldn't find " + e.getAuthor().getName() + "'s character.");
@@ -430,6 +436,50 @@ public class HeroRetriever extends Command {
 
 
         for (Hero x:candidates) {
+            //fill in the gaps with base kit, if requested
+            if (useBaseKit) {
+                for (Skill skill : x.getBaseKit()) {
+                    if (skill instanceof StatModifier)
+                        skills.add((StatModifier) skill);
+                }
+            }
+
+            //construct a feasable base kit (StatModifiers only)
+            Weapon weapon = null;
+            PassiveA a = null;
+            PassiveS s = null; //TODO: how to distinguish reasonably between inheritable and seal passives?
+
+            for (StatModifier skill:skills) {
+                if (weapon==null) {
+                    if (skill instanceof Weapon) {
+                        weapon = (Weapon) skill;
+                        continue;
+                    }
+                }
+                if (a==null) {
+                    if (skill instanceof PassiveA) {
+                        a = (PassiveA) skill;
+                        continue;
+                    }
+                }
+                if (s==null) {
+                    if (skill instanceof PassiveS) {
+                        s = (PassiveS) skill;
+                        //continue;
+                    }
+                }
+            }
+
+            skills.clear();
+            if (weapon!=null)
+                skills.add(weapon);
+            if (a!=null)
+                skills.add(a);
+            if (s!=null)
+                skills.add(s);
+
+
+
             EmbedBuilder embed = new EmbedBuilder();
 
             embed.setColor(Color.YELLOW);

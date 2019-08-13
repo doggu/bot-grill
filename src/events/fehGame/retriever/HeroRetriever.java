@@ -535,8 +535,8 @@ public class HeroRetriever extends Command {
 
         if (getAll) {
             if (x.isSummonable()) {
-                stats = printStats(x.getAllStats(lv1, rarity, merges));
-                bst = printBST(x.getAllStats(lv1, rarity, merges));
+                stats = printStats(x.getAllStats(lv1, rarity));
+                bst = printBST(x.getAllStats(lv1, rarity));
             } else {
                 stats = printStats(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support));
                 bst = printBST(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support));
@@ -569,16 +569,16 @@ public class HeroRetriever extends Command {
                 x.getSupportStatus());
     }
 
-    private static String printStats(int[] stats) {
+    public static String printStats(int[] stats) {
         StringBuilder statString = new StringBuilder();
         for (int x:stats)
             statString.append(x).append((Math.log10(x)<1?"    ":"   "));
         return statString.toString();
     }
-    private static String printStats(int[][] stats) {
+    public static String printStats(int[][] stats) {
         return  printStats(stats[0])+'\n'+
-                printStats(stats[1])+'\n'+
-                printStats(stats[2]);
+                printStats(stats[1])+(stats.length==3?'\n'+
+                printStats(stats[2]):"");
     }
 
     private static String printBST(int[] stats) {
@@ -592,18 +592,30 @@ public class HeroRetriever extends Command {
         int maxBST = bst, minBST = bst;
 
         bst = 0;
-        for (int i=0; i<5; i++) {
-            for (int j=0; j<5; j++) {
-                if (j==i) continue;
-                for (int k=0; k<5; k++) {
-                    if (k==i) bst+= stats[0][k];
-                    else if (k==j) bst+= stats[2][k];
-                    else bst+= stats[1][k];
-                }
-                if (bst>maxBST) maxBST = bst;
-                if (bst<minBST) minBST = bst;
+        if (stats.length==2) {
+            for (int i=0; i<5; i++) {
+                for (int j=0; j<5; j++)
+                    bst+= stats[(i==j?1:0)][j];
+                if (bst > maxBST) maxBST = bst;
+                if (bst < minBST) minBST = bst;
                 bst = 0;
             }
+        } else if (stats.length==3) {
+            for (int i = 0; i < 5; i++) {
+                for (int j = 0; j < 5; j++) {
+                    if (j == i) continue;
+                    for (int k = 0; k < 5; k++) {
+                        if (k == i) bst += stats[0][k];
+                        else if (k == j) bst += stats[2][k];
+                        else bst += stats[1][k];
+                    }
+                    if (bst > maxBST) maxBST = bst;
+                    if (bst < minBST) minBST = bst;
+                    bst = 0;
+                }
+            }
+        } else {
+            return "idk lol";
         }
         if (maxBST==minBST) return "BST: "+maxBST;
         else return "BST: "+minBST+"-"+maxBST;

@@ -149,13 +149,35 @@ public class Hero {
             }
         }
 
-        for (int i=0; i<dragonflowers; i++) {
-            /*
-            something like
-            statsOrderedByLv1Value[i%5]++;
-            this should be in the unit tbh
-             */
+
+
+        int[] statsSorted = {0, 1, 2, 3, 4};
+
+        for (int i=0; i<5; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (stats.getStatsAsArray()[statsSorted[j]]<stats.getStatsAsArray()[statsSorted[j+1]]) {
+                    int t = statsSorted[j+1];
+                    statsSorted[j+1] = statsSorted[j];
+                    statsSorted[j] = t;
+                }
+            }
         }
+
+        //this could be simpler in the finalStats creation but it's easier to read like this imo
+        if (merges>0) { //neutralize the bane/add to neutral stats
+            if (boon==-1&&bane==-1) {
+                finalStats[statsSorted[0]]++;
+                finalStats[statsSorted[1]]++;
+                finalStats[statsSorted[2]]++;
+            } else
+                finalStats[bane] = rawStats[1][bane];
+        }
+
+        for (int i=0; i<merges*2; i++)
+            finalStats[statsSorted[i%5]]++;
+
+        for (int i=0; i<dragonflowers; i++)
+            finalStats[statsSorted[i%5]]++;
 
         switch(support) {
             case 's':
@@ -174,17 +196,32 @@ public class Hero {
             default:
         }
 
+
+
+        if (skills!=null) {
+            for (StatModifier x : skills) {
+                System.out.println(x);
+                int[] modifiers = x.getStatModifiers();
+
+                for (int i = 0; i < 5; i++)
+                    finalStats[i] += modifiers[i];
+            }
+        }
+
+
+
         return finalStats;
     }
 
-    public int[][] getAllStats(boolean lv1, int rarity, int merges) {
+    public int[][] getAllStats(boolean lv1, int rarity) {
         int[][] finalStats = {
                 { stats.getHp(), stats.getAtk(), stats.getSpd(), stats.getDef(), stats.getRes() },
                 { stats.getHp(), stats.getAtk(), stats.getSpd(), stats.getDef(), stats.getRes() },
                 { stats.getHp(), stats.getAtk(), stats.getSpd(), stats.getDef(), stats.getRes() },
         };
 
-        for (int i=0; i<3; i++) {
+        for (int i=0; i<3; i++) { //technically (if i==1) return; would be more efficient here
+                                    //TeChnicAlLY thIS iS SHiT
             finalStats[i][0]+= (i-1);
             finalStats[i][1]+= (i-1);
             finalStats[i][2]+= (i-1);
@@ -240,12 +277,6 @@ public class Hero {
             case 5:
                 //nothin'
                 break;
-        }
-
-        for (int i=0; i<merges*2; i++) {
-            for (int j=0; j<3; j++) {
-                finalStats[j][statsSorted[i%5]]++;
-            }
         }
 
         if (!lv1) {

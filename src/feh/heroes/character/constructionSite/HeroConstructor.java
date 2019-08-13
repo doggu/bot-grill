@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 /**
- * a class which allows for the construction of an object that stores information for a hero without requiring all of
+ * a class which allows for the construction of an object that
+ * stores information for a hero without requiring all of
  * said components to be produced at once.
  *
  */

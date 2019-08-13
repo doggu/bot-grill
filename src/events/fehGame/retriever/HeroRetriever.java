@@ -485,7 +485,8 @@ public class HeroRetriever extends Command {
             embed.setColor(Color.YELLOW);
             embed.setThumbnail(x.getPortraitLink());
             embed.setAuthor(x.getFullName().toString());
-            embed.setDescription(printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support, skills));
+            embed.setDescription(
+                    printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support, skills));
 
             sendMessage(embed.build());
         }

@@ -40,21 +40,30 @@ public class EmbedTest extends MessageListener {
 
             //eb.addBlankField(false);
 
-            //eb.setAuthor(ex.getName(),"https://feheroes.gamepedia.com/Attack_Defense_Solo","https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/e/ed/Atk_Def_Solo_3.png");
+            //eb.setAuthor(ex.getName(),
+            // "https://feheroes.gamepedia.com/Attack_Defense_Solo","https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/e/ed/Atk_Def_Solo_3.png");
 
-            //eb.setFooter("FauUIAerE EmbUL HeruO", "https://github.com/zekroTJA/DiscordBot/blob/master/.websrc/zekroBot_Logo_-_round_small.png");
+            //eb.setFooter("FauUIAerE EmbUL HeruO",
+            // "https://github.com/zekroTJA/DiscordBot/blob/master/.websrc/zekroBot_Logo_-_round_small.png");
 
             //eb.setImage("");
 
             HashMap<Integer, String> skillIcons = new HashMap<>();
 
-            skillIcons.put(0, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/8/82/Icon_Skill_Weapon.png");
-            skillIcons.put(1, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/9/9a/Icon_Skill_Assist.png");
-            skillIcons.put(2, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/2/25/Icon_Skill_Special.png");
-            skillIcons.put(3, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/6/68/Passive_Icon_A.png");
-            skillIcons.put(4, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/6/6a/Passive_Icon_B.png");
-            skillIcons.put(5, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/8/84/Passive_Icon_C.png");
-            skillIcons.put(6, "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/6/6f/Passive_Icon_S.png");
+            skillIcons.put(0,
+                    "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/8/82/Icon_Skill_Weapon.png");
+            skillIcons.put(1,
+                    "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/9/9a/Icon_Skill_Assist.png");
+            skillIcons.put(2,
+                    "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/2/25/Icon_Skill_Special.png");
+            skillIcons.put(3,
+                    "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/6/68/Passive_Icon_A.png");
+            skillIcons.put(4,
+                    "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/6/6a/Passive_Icon_B.png");
+            skillIcons.put(5,
+                    "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/8/84/Passive_Icon_C.png");
+            skillIcons.put(6,
+                    "https://d1u5p3l4wpay3k.cloudfront.net/feheroes_gamepedia_en/6/6f/Passive_Icon_S.png");
 
             eb.setThumbnail(skillIcons.get(ex.getSlot()));
 

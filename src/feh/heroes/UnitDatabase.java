@@ -140,7 +140,9 @@ public class UnitDatabase extends WebScalper {
             heroListTable.remove(0);
         }
 
-        System.out.println("done ("+new BigDecimal((System.nanoTime()-start)/1000000000.0).round(new MathContext(3)) +" s)!");
+        System.out.println("done (" +
+                new BigDecimal((System.nanoTime()-start)/1000000000.0).round(new MathContext(3)) +
+                " s)!");
         return heroes;
     }
 
@@ -364,7 +366,8 @@ public class UnitDatabase extends WebScalper {
                 throw new NumberFormatException("invalid integer: "+nums[0]);
         }
         day = Integer.parseInt(nums[2]);
-        //honestly am i really going to make a switch case for an int to find a field which is just another int (which is one less than the already-defined int)
+        //honestly am i really going to make a switch case for an int to find a field which is just another int
+                                                            //(which is one less than the already-defined int)
         //yes
         return new GregorianCalendar(year, month, day);
     }

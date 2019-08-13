@@ -3,25 +3,38 @@ package events.gameroom.mapTest;
 import feh.heroes.character.Hero;
 
 public enum Tile {
-    PLAINS              ("plains", true, true, true, false, false, false),
-    PLAINS_DEFENSIVE    ("plains", true, true, true, false, false, true),
+    PLAINS              ("plains", true, true, true,
+            false, false, false),
+    PLAINS_DEFENSIVE    ("plains", true, true, true,
+            false, false, true),
 
-    TRENCHES            ("trenches", true, true, true, false, true, false),
-    TRENCHES_DEFENSIVE  ("trenches", true, true, true, false, true, true),
+    TRENCHES            ("trenches", true, true, true,
+            false, true, false),
+    TRENCHES_DEFENSIVE  ("trenches", true, true, true,
+            false, true, true),
 
-    FOREST              ("forest", true, false, true, true, false, false),
-    FOREST_DEFENSIVE    ("forest", true, false, true, true, false, true),
+    FOREST              ("forest", true, false, true,
+            true, false, false),
+    FOREST_DEFENSIVE    ("forest", true, false, true,
+            true, false, true),
 
-    MOUNTAIN            ("mountain", false, false, true, false, false, false),
-    CLIFF               ("cliff", false, false, true, false, false, false),
+    MOUNTAIN            ("mountain", false, false, true,
+            false, false, false),
+    CLIFF               ("cliff", false, false, true,
+            false, false, false),
 
 
-    WATER               ("water", false, false, true, false, false, false),
-    POND                ("pond", false, false, true, false, false, false),
-    RIVER               ("river", false, false, true, false, false, false),
-    LAVA                ("lava", false, false, true, false, false, false),
+    WATER               ("water", false, false, true,
+            false, false, false),
+    POND                ("pond", false, false, true,
+            false, false, false),
+    RIVER               ("river", false, false, true,
+            false, false, false),
+    LAVA                ("lava", false, false, true,
+            false, false, false),
 
-    WALL                ("wall", false, false, false, false, false, false);
+    WALL                ("wall", false, false, false,
+            false, false, false);
 
 
 

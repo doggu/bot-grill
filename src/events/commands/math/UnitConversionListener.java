@@ -39,7 +39,9 @@ public class UnitConversionListener extends Command {
         
         BigDecimal result = UnitConverter.convert(n, unitsIn, unitsOut);
 
-        sendMessage("`"+args[1]+" "+unitsIn+"`\nis equivalent to:\n`"+new PrettyNumber(result, ginormo)+" "+unitsOut+"`");
+        sendMessage("`"+args[1]+" "+unitsIn+"`\nis equivalent to:\n`" +
+                new PrettyNumber(result, ginormo)+" "+unitsOut+"`");
+
         log("converted "+n+" "+unitsIn+" to "+result+" "+unitsOut+".");
     }
 

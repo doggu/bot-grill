@@ -18,7 +18,8 @@ public class Board {
 
     private final Tile[][] map = {
             {Tile.WALL,Tile.PLAINS,Tile.PLAINS,Tile.PLAINS,Tile.PLAINS,Tile.PLAINS},
-            {Tile.WALL,Tile.PLAINS_DEFENSIVE,Tile.PLAINS_DEFENSIVE,Tile.POND,Tile.PLAINS_DEFENSIVE,Tile.PLAINS_DEFENSIVE},
+            {Tile.WALL,Tile.PLAINS_DEFENSIVE,Tile.PLAINS_DEFENSIVE,
+                    Tile.POND,Tile.PLAINS_DEFENSIVE,Tile.PLAINS_DEFENSIVE},
             {Tile.WALL,Tile.PLAINS_DEFENSIVE,Tile.PLAINS,Tile.PLAINS,Tile.PLAINS,Tile.PLAINS_DEFENSIVE},
             {Tile.WALL,Tile.PLAINS,Tile.TRENCHES,Tile.PLAINS,Tile.TRENCHES,Tile.PLAINS},
             {Tile.PLAINS,Tile.PLAINS,Tile.PLAINS,Tile.TRENCHES,Tile.PLAINS,Tile.PLAINS},

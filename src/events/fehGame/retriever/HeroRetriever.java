@@ -1,18 +1,20 @@
 package events.fehGame.retriever;
 
 import events.commands.Command;
+import feh.heroes.UnitDatabase;
+import feh.heroes.character.Hero;
+import feh.heroes.unit.Unit;
 import feh.skills.SkillDatabase;
 import feh.skills.analysis.StatModifier;
 import feh.skills.skillTypes.Skill;
 import main.BotMain;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Emote;
-import feh.heroes.UnitDatabase;
-import feh.heroes.character.Hero;
-import feh.heroes.unit.Unit;
 
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 public class HeroRetriever extends Command {
@@ -593,12 +595,12 @@ public class HeroRetriever extends Command {
                 printStats(stats[2]):"");
     }
 
-    private static String printBST(int[] stats) {
+    public static String printBST(int[] stats) {
         int bst = 0;
         for (int i:stats) bst+= i;
         return "BST: " + bst;
     }
-    private static String printBST(int[][] stats) {
+    public static String printBST(int[][] stats) {
         int bst = 0;
         for (int i=0; i<5; i++) bst+= stats[1][i];
         int maxBST = bst, minBST = bst;
@@ -633,7 +635,8 @@ public class HeroRetriever extends Command {
         else return "BST: "+minBST+"-"+maxBST;
     }
 
-    private static String printEmote(Emote e) {
+    //todo: put this in some lower level class
+    public static String printEmote(Emote e) {
         return "<:"+e.getName()+":"+e.getId()+">";
     }
 

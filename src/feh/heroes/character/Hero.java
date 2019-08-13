@@ -329,6 +329,11 @@ public class Hero {
 
 
     public static void main(String[] args) {
+        System.out.println(HeroRetriever.printStats(new Hero("Caeda: Talys's Bride")
+                .getStats(false, 5, -1, -1, 10, 10, 's')));
+
+
+
         //TODO: fix name-based initializer
         Scanner console = new Scanner(System.in);
 

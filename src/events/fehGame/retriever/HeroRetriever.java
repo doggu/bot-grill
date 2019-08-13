@@ -155,7 +155,7 @@ public class HeroRetriever extends Command {
                     case "ssb": support = 'b'; break;
                     case "ssa": support = 'a'; break;
                     case "sss": support = 's'; break;
-                    case "baseKit":
+                    case "basekit":
                         useBaseKit = true;
                         break;
                     default:

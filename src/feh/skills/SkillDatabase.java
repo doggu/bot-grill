@@ -381,7 +381,12 @@ public class SkillDatabase extends WebScalper {
         for (Element table:rawTables) {
             if (!table.attributes().get("style").equals("")) {
                 if (table.attributes().get("style")
-                        .equals("display:inline-table;border:1px solid #a2a9b1;border-collapse:collapse;width:24em;margin:0.5em 0;background-color:#f8f9fa")) {
+                        .equals("display:inline-table;" +
+                                "border:1px solid #a2a9b1;" +
+                                "border-collapse:collapse;" +
+                                "width:24em;" +
+                                "margin:0.5em 0;" +
+                                "background-color:#f8f9fa")) {
                     tables.add(table);
                     //System.out.println(table.attributes().get("style"));
                 } //System.out.println(table.attributes().get("style"));

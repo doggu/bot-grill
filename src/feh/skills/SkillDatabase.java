@@ -307,21 +307,24 @@ public class SkillDatabase extends WebScalper {
                 try {
                     Passive x;
                     Elements info = row.children();
-
-                    //0 is icon
+                    String[] urlSet = info.get(0).select("a")
+                            .get(0).select("img")
+                            .get(0).attr("srcset")
+                            .split(" ");
+                    String icon = urlSet[2];
                     String name = info.get(1).text();
                     String description = info.get(2).text();
                     int cost = Integer.parseInt(info.get(3).text());
                     boolean exclusive = (info.get(3).text().equals("Yes"));
 
                     if (i == 0)
-                        x = new PassiveA(name, description, cost, exclusive);
+                        x = new PassiveA(name, description, cost, exclusive, icon);
                     else if (i == 1)
-                        x = new PassiveB(name, description, cost, exclusive);
+                        x = new PassiveB(name, description, cost, exclusive, icon);
                     else if (i == 2)
-                        x = new PassiveC(name, description, cost, exclusive);
+                        x = new PassiveC(name, description, cost, exclusive, icon);
                     else if (i == 3)
-                        x = new PassiveS(name, description, cost, exclusive);
+                        x = new PassiveS(name, description, cost, exclusive, icon);
                     else {
                         System.out.println("this is not an expected table, how'd it even get this far");
                         break;

@@ -270,6 +270,12 @@ public class SkillRetriever extends Command {
 
 
 
+        if (x instanceof  Passive) {
+            skill.setThumbnail(((Passive) x).getIcon());
+        }
+
+
+
         //something that a unit possesses
         if (!(x instanceof PassiveS)) {
             skill.addField("Exclusive?", (x.isExclusive()?"Yes":"No"), false);

@@ -7,8 +7,8 @@ public class PassiveS extends Passive implements StatModifier {
 
 
 
-    public PassiveS(String name, String description, int cost, boolean exclusive) {
-        super (name, description, 's', cost, exclusive);
+    public PassiveS(String name, String description, int cost, boolean exclusive, String icon) {
+        super (name, description, 's', cost, exclusive, icon);
         this.statModifiers = StatModifier.parseStatModifiers(description);
     }
 

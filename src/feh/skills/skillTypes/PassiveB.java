@@ -7,8 +7,8 @@ public class PassiveB extends Passive implements CooldownModifier {
 
 
 
-    public PassiveB(String name, String description, int cost, boolean exclusive) {
-        super (name, description, 'b', cost, exclusive);
+    public PassiveB(String name, String description, int cost, boolean exclusive, String icon) {
+        super (name, description, 'b', cost, exclusive, icon);
 
         //literally gotta do this just for Lunar Brace
         int cdModifier = 0;

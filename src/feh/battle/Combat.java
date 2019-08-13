@@ -10,4 +10,16 @@ public class Combat {
     }
 
 
+
+    private static void attackPreview(FieldedUnit attacker, FieldedUnit defender) {
+        FieldedUnit pAttack = attacker.clone();
+        FieldedUnit pDefend = defender.clone();
+
+        attack(pAttack, pDefend);
+
+
+    }
+    private static void attack(FieldedUnit attacker, FieldedUnit defender) {
+
+    }
 }

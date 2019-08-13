@@ -194,7 +194,9 @@ public class SkillRetriever extends Command {
 
 
 
-        StringBuilder report = new StringBuilder("found skill" + (candidates.size()>1?"s":"") + " for doggu:");
+        StringBuilder report =
+                new StringBuilder("found skill" + (candidates.size()>1?"s":"") +
+                        " for "+e.getAuthor().getName()+":");
 
         for (int i=0; i<candidates.size(); i++) {
             Skill x = candidates.get(i);

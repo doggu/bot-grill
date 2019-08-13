@@ -1,6 +1,9 @@
 package events.fehGame.retriever;
 
 import events.commands.Command;
+import feh.skills.SkillDatabase;
+import feh.skills.analysis.StatModifier;
+import feh.skills.skillTypes.Skill;
 import main.BotMain;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Emote;
@@ -23,6 +26,7 @@ public class HeroRetriever extends Command {
         int dragonflowers = 0;
         char support = 'd';
         boolean newestOnly = false, oldestOnly = false;
+        ArrayList<StatModifier> skills = new ArrayList<>();
 
 
         if (args[0].equalsIgnoreCase("getIVs")||
@@ -429,7 +433,7 @@ public class HeroRetriever extends Command {
             embed.setColor(Color.YELLOW);
             embed.setThumbnail(x.getPortraitLink());
             embed.setAuthor(x.getFullName().toString());
-            embed.setDescription(printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support));
+            embed.setDescription(printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support, skills));
 
             sendMessage(embed.build());
         }
@@ -463,11 +467,17 @@ public class HeroRetriever extends Command {
     private static String printCharacter(Hero x, boolean lv1, int rarity,
                                          boolean getAll, int boon, int bane,
                                          int merges, int dragonflowers, char support) {
+        return printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support, null);
+    }
+    private static String printCharacter(Hero x, boolean lv1, int rarity,
+                                         boolean getAll, int boon, int bane,
+                                         int merges, int dragonflowers, char support,
+                                         ArrayList<StatModifier> skills) {
         //import emotes from fehicons database
         List<Emote> fehIconEmotes = BotMain.fehIcons;
 
         String info =
-                (rarity==5?"**":"") + x.getFullName() + (rarity==5?"**":"") + "\n" +
+                //(rarity==5?"**":"") + x.getFullName() + (rarity==5?"**":"") + "\n" +
                         "Appears In: *" + x.getOrigin() + "*\n" +
                         "Date Released: "
                         + (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" //starts at 0 (january = 0)
@@ -540,11 +550,11 @@ public class HeroRetriever extends Command {
                 stats = printStats(x.getAllStats(lv1, rarity));
                 bst = printBST(x.getAllStats(lv1, rarity));
             } else {
-                stats = printStats(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support));
+                stats = printStats(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support, skills));
                 bst = printBST(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support));
             }
         } else {
-            stats = printStats(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support));
+            stats = printStats(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support, skills));
             bst = printBST(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support));
         }
 
@@ -555,12 +565,12 @@ public class HeroRetriever extends Command {
         info+= "```";
 
         info+= "\nSkills: ";
-        StringBuilder skills = new StringBuilder();
+        StringBuilder baseKit = new StringBuilder();
         for (int i=0; i<x.getBaseKit().size(); i++) {
-            skills.append(x.getBaseKit().get(i));
-            if (i+1!=x.getBaseKit().size()) skills.append(", ");
+            baseKit.append(x.getBaseKit().get(i));
+            if (i+1!=x.getBaseKit().size()) baseKit.append(", ");
         }
-        info+= skills.toString();
+        info+= baseKit.toString();
 
         info+= "\n";
         return info;

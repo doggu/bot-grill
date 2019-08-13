@@ -1,6 +1,8 @@
 package feh.heroes.character;
 
+import events.fehGame.retriever.HeroRetriever;
 import feh.heroes.UnitDatabase;
+import feh.skills.analysis.StatModifier;
 import feh.skills.skillTypes.Skill;
 
 import java.net.URL;
@@ -134,8 +136,17 @@ public class Hero {
     public String toString() { return this.getFullName().toString(); }
 
     protected int[] getStats(boolean lv1, int rarity, int boon, int bane) {
-        return getStats(lv1, rarity, boon, bane, 0, 0, 'd'); }
-    public int[] getStats(boolean lv1, int rarity, int boon, int bane, int merges, int dragonflowers, char support) {
+        return getStats(lv1, rarity, boon, bane, 0, 0, 'd');
+    }
+    public int[] getStats(boolean lv1, int rarity,
+                          int boon, int bane,
+                          int merges, int dragonflowers, char support) {
+        return getStats(lv1, rarity, boon, bane, merges, dragonflowers, support, null);
+    }
+    public int[] getStats(boolean lv1, int rarity,
+                          int boon, int bane,
+                          int merges, int dragonflowers, char support,
+                          ArrayList<StatModifier> skills) {
         //duplicate
         int[][] rawStats = getAllStats(lv1, rarity);
         int[] finalStats = new int[5];

@@ -6,7 +6,7 @@ token.txt
 /.idea/
 
 ## downloaded website data ##
-/webCachef/
+/webCache/
 
 ## server files ##
 /libs/server/

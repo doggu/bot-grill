@@ -5,16 +5,14 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import utilities.WebScalper;
 import feh.heroes.character.Hero;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.*;
-import java.util.stream.IntStream;
 
-public class BannerDatabase extends WebScalper {
+public class BannerDatabase {
     public static ArrayList<Banner> BANNERS = getList();
 
     private static final String FOCUS_ARCHIVE = "Summoning_Focus_archive";

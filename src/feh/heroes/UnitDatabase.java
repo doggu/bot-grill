@@ -7,7 +7,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import utilities.WebScalper;
 import feh.heroes.character.constructionSite.HeroConstructor;
 import feh.skills.skillTypes.Skill;
 import feh.skills.SkillDatabase;
@@ -19,7 +18,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.*;
 
-public class UnitDatabase extends WebScalper {
+public class UnitDatabase {
     public static ArrayList<Hero> HEROES = getList();
 
     private static final String HERO_SUBDIR = "/herodata/";

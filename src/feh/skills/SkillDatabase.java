@@ -6,7 +6,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import utilities.WebScalper;
 import feh.heroes.character.WeaponClass;
 
 import java.io.IOException;
@@ -14,7 +13,7 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.*;
 
-public class SkillDatabase extends WebScalper {
+public class SkillDatabase {
     public static ArrayList<Skill> SKILLS = getList();
     public static HashMap<String, ArrayList<Skill>> HERO_SKILLS = getHeroSkills();
 
@@ -365,7 +364,6 @@ public class SkillDatabase extends WebScalper {
     private static ArrayList<WeaponRefine> REFINES;
 
     private static ArrayList<WeaponRefine> getRefineableList() {
-        //if (true) return new ArrayList<>();
         Document refinesFile;
         try {
             refinesFile = Jsoup.parse(WEAPON_REFINES_FILE, "UTF-8");
@@ -388,8 +386,7 @@ public class SkillDatabase extends WebScalper {
                                 "margin:0.5em 0;" +
                                 "background-color:#f8f9fa")) {
                     tables.add(table);
-                    //System.out.println(table.attributes().get("style"));
-                } //System.out.println(table.attributes().get("style"));
+                }
             }
         }
 
@@ -402,13 +399,12 @@ public class SkillDatabase extends WebScalper {
             Elements info = table.select("tr");
 
             if (info.size()!=6) {
-                //new Error("unexpected table size found!").printStackTrace();
+                new Error("unexpected table size found!").printStackTrace();
 
                 continue;
             }
 
             //0 is owner portrait(s)
-
             String name = info.get(1).text();
             String stats = info.get(2).text();
             String description = info.get(3).text();

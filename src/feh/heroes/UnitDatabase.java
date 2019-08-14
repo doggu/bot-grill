@@ -299,7 +299,7 @@ public class UnitDatabase extends WebScalper {
     private static HashMap<String, Character> HERO_GENDERS = getGenders();
 
     private static HashMap<String, Character> getGenders() {
-        File f = new File("./src/feh/heroes/grender.txt");
+        File f = new File("./src/feh/heroes/grenders.txt");
         HashMap<String, Character> genders = new HashMap<>();
 
         Scanner input;

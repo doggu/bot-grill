@@ -22,11 +22,3 @@ public class UnitStats {
 
 
 }
-
-enum Stats {
-    HP, ATK, SPD, DEF, RES
-}
-
-enum IV {
-
-}

@@ -2,6 +2,7 @@ Abel: The Panther	m
 Alfonse: Prince of Askr	m
 Alfonse: Spring Prince	m
 Alm: Hero of Prophecy	m
+Alm: Imperial Ascent	m
 Alm: Saint-King	m
 Amelia: Rose of the War	f
 Anna: Commander	f
@@ -36,6 +37,7 @@ Caineghis: Gallia's Lion King	m
 Camilla: Bewitching Beauty	f
 Camilla: Flower of Fantasy	f
 Camilla: Holiday Traveler	f
+Camilla: Light of Nohr	f
 Camilla: Spring Princess	f
 Camilla: Steamy Secrets	f
 Camilla: Tropical Beauty	f
@@ -96,6 +98,7 @@ Elise: Tropical Flower	f
 Eliwood: Blazing Knight	m
 Eliwood: Devoted Love	m
 Eliwood: Knight of Lycia	m
+Eliwood: Marquess Pherae	m
 Ephraim: Legendary Lord	m
 Ephraim: Restoration Lord	m
 Ephraim: Sacred Twin Lord	m
@@ -254,6 +257,7 @@ Merric: Wind Mage	m
 Mia: Lady of Blades	f
 Mia: Moonlit Witch	f
 Micaiah: Priestess of Dawn	f
+Micaiah: Queen of Dawn	f
 Micaiah: Summer's Dawn	f
 Michalis: Ambitious King	m
 Mikoto: Caring Mother	f
@@ -349,6 +353,7 @@ Shigure: Dark Sky Singer	m
 Shigure: Uplifting Artist	m
 Shiro: Raw Talent	m
 Siegbert: Future King	m
+Sigrun: Loyal Protector	f
 Sigrun: Steadfast Bride	f
 Sigurd: Holy Knight	m
 Silas: Loyal Knight	m

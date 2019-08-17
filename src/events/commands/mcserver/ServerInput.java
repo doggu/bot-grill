@@ -2,6 +2,7 @@ package events.commands.mcserver;
 
 import events.commands.Command;
 import main.BotMain;
+import net.minecraft.data.Main;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -14,9 +15,7 @@ public class ServerInput extends Command {
 
 
 
-    public boolean isCommand() {
-        return args[0].equalsIgnoreCase("Server");
-    }
+    public boolean isCommand() { return args[0].equalsIgnoreCase("Server"); }
 
     public void onCommand() {
         if (!BotMain.MCSERVER) {
@@ -49,6 +48,10 @@ public class ServerInput extends Command {
                     }
                     try {
                         server.join(10000);
+                        if (server!=null) {
+                            sendMessage("server stop unsuccessful.");
+                            return;
+                        }
                     } catch (InterruptedException ie) {
                         ie.printStackTrace();
                         sendMessage("server stop unsuccessful.");
@@ -67,11 +70,16 @@ public class ServerInput extends Command {
                 //get world name in server.properties
                 if (args.length<3) {
                     File[] folder = new File("./libs/server/worlds/").listFiles();
-                    StringBuilder message = new StringBuilder("currently loaded worlds:\n");
+                    StringBuilder message = new StringBuilder("currently loaded worlds:\n```");
+                    if (folder==null) {
+                        sendMessage("there was an issue accessing the worlds folder!");
+                        return;
+                    }
                     for (File x:folder) {
                         message.append(x.getName()).append('\n');
                     }
-                    sendMessage(message.append("choose a world by sending the command \"?server world set [name]\""));
+                    sendMessage(message.append("```\n" +
+                            "choose a world by sending the command \"?server world set [name]\""));
                 } else {
                     if (args.length<4) {
                         sendMessage("please choose a world to load.");
@@ -152,18 +160,10 @@ public class ServerInput extends Command {
 
 
     public static void main(String[] args) {
-        File properties = new File("./libs/server/server.properties");
-
-        Scanner lines;
         try {
-            lines = new Scanner(properties);
-        } catch (FileNotFoundException fnfe) {
-            fnfe.printStackTrace();
-            return;
-        }
-
-        while (lines.hasNextLine()) {
-            System.out.println(lines.nextLine());
+            Main.main(args);
+        } catch (IOException ioe) {
+            System.out.println("this aint it chief");
         }
     }
 }

@@ -142,43 +142,43 @@ public class HeroConstructor {
             throw new Error("missing name! (like seriously wtf)");
         }
         if (origin==null) {
-            throw new Error("missing origin!");
+            throw new Error("missing origin: "+fullName);
         }
         if (portraitLink==null) {
-            throw new Error("missing portraitLink!");
+            throw new Error("missing portraitLink: "+fullName);
         }
         if (gender==null) {
-            throw new Error("missing gender!");
+            throw new Error("missing gender: "+fullName);
         }
         if (weaponType==null) {
-            throw new Error("missing weaponType!");
+            throw new Error("missing weaponType: "+fullName);
         }
         if (moveType==null) {
-            throw new Error("missing moveType!");
+            throw new Error("missing moveType: "+fullName);
         }
         if (color==null) {
-            throw new Error("missing color!");
+            throw new Error("missing color: "+fullName);
         }
         if (statsArr!=null) {
             if (growthsArr!=null) {
                 stats = new HeroStats(statsArr, growthsArr);
             } else {
-                throw new Error("missing growths!");
+                throw new Error("missing growths: "+fullName);
             }
         } else {
-            throw new Error("missing stats!");
+            throw new Error("missing stats: "+fullName);
         }
         if (rarity==null) {
-            throw new Error("missing rarity!");
+            throw new Error("missing rarity: "+fullName);
         }
         if (availability==null) {
-            throw new Error("missing availability!");
+            throw new Error("missing availability: "+fullName);
         }
         if (dateReleased==null) {
-            throw new Error("missing dateReleased!");
+            throw new Error("missing dateReleased: "+fullName);
         }
         if (baseKit==null) {
-            //System.out.println("missing base kit!");
+            //System.out.println("missing base kit: "+fullName);
             //throw new Error();
             //ah whatever
             baseKit = new ArrayList<>();

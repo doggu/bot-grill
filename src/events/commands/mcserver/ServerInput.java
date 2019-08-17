@@ -37,6 +37,28 @@ public class ServerInput extends Command {
                     server.start();
                 }
                 break;
+            case "stop":
+                if (server==null) {
+                    sendMessage("the server was never started!");
+                    return;
+                } else {
+                    try {
+                        app.sendCommand("stop");
+                    } catch (NullPointerException npe) {
+                        npe.printStackTrace();
+                    }
+                    try {
+                        server.join(10000);
+                    } catch (InterruptedException ie) {
+                        ie.printStackTrace();
+                        sendMessage("server stop unsuccessful.");
+                        return;
+                    }
+                    server = null;
+                    app = null;
+                    sendMessage("the server was successfully stopped.");
+                }
+                break;
             case "world":
                 if (server!=null) {
                     sendMessage("please stop the server before modifying its properties.");
@@ -72,28 +94,8 @@ public class ServerInput extends Command {
                     }
                 }
                 break;
-            case "stop":
-                if (server==null) {
-                    sendMessage("the server was never started!");
-                    return;
-                } else {
-                    try {
-                        app.sendCommand("stop");
-                    } catch (NullPointerException npe) {
-                        npe.printStackTrace();
-                    }
-                    try {
-                        server.join(10000);
-                    } catch (InterruptedException ie) {
-                        ie.printStackTrace();
-                        sendMessage("server stop unsuccessful.");
-                        return;
-                    }
-                    server = null;
-                    app = null;
-                    sendMessage("the server was successfully stopped.");
-                }
-                break;
+            case "status":
+
             default:
                 //regular command
                 if (server==null)

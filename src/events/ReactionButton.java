@@ -3,6 +3,7 @@ package events;
 import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.core.events.message.react.MessageReactionRemoveEvent;
 
 public abstract class ReactionButton extends ReactionListener {
     private final Message message;
@@ -28,6 +29,11 @@ public abstract class ReactionButton extends ReactionListener {
             onCommand();
             commitSuicide();
         }
+    }
+
+    @Override
+    public void onMessageReactionRemove(MessageReactionRemoveEvent event) {
+
     }
 
     public boolean isCommand() {

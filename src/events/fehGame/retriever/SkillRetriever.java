@@ -6,9 +6,12 @@ import feh.heroes.character.Hero;
 import feh.skills.analysis.ActionSkill;
 import feh.skills.analysis.StatModifier;
 import feh.skills.skillTypes.*;
+import main.BotMain;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.core.events.message.react.MessageReactionRemoveEvent;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -173,21 +176,8 @@ public class SkillRetriever extends Command {
             if (x instanceof Weapon) {
                 if (((Weapon) x).hasRefine()) {
                     WeaponRefine refine = ((Weapon) x).getRefine();
-                    e.getJDA().addEventListener(new ReactionButton(
-                            f,
-                            e.getJDA()
-                                    .getEmotesByName("Divine_Dew", false)
-                                    .get(0)
-                    ) {
-                        @Override
-                        public void onCommand() {
-                            getMessage().editMessage(new EmbedBuilder(getMessage().getEmbeds().get(0))
-                                    .setAuthor(refine.getName()+" (+Eff)")
-                                    .setDescription(refine.getDescription())
-                                    //.setColor(new Color(0xDE1336))
-                                    .build()).complete();
-                        }
-                    });
+
+                    BotMain.addListener(new RefineButton(f, (Weapon) x));
                 }
             }
         }
@@ -228,7 +218,7 @@ public class SkillRetriever extends Command {
 
 
 
-    private MessageBuilder printSkill(Skill x) {
+    static MessageBuilder printSkill(Skill x) {
         MessageBuilder message = new MessageBuilder();
         EmbedBuilder skill = new EmbedBuilder();
 
@@ -273,7 +263,13 @@ public class SkillRetriever extends Command {
 
 
 
-        if (x instanceof  Passive) {
+        if (x instanceof WeaponRefine) {
+            skill.setThumbnail(((WeaponRefine) x).getIconURL());
+        }
+
+
+
+        if (x instanceof Passive) {
             skill.setThumbnail(((Passive) x).getIcon());
         }
 

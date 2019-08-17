@@ -399,12 +399,17 @@ public class SkillDatabase {
             Elements info = table.select("tr");
 
             if (info.size()!=6) {
-                new Error("unexpected table size found!").printStackTrace();
-
+                //it's not a unit's refine
+                //new Error("unexpected table size found!").printStackTrace();
+                //System.out.println(info);
                 continue;
             }
 
             //0 is owner portrait(s)
+            String icon = info.get(1)
+                    .select("td").get(0)
+                    .select("img").attr("srcset")
+                    .split(" ")[2];
             String name = info.get(1).text();
             String stats = info.get(2).text();
             String description = info.get(3).text();
@@ -458,7 +463,7 @@ public class SkillDatabase {
                 continue;
             }
 
-            refines.add(new WeaponRefine(name, description, specialEff, values, 400, might, range));
+            refines.add(new WeaponRefine(name, description, specialEff, icon, values, 400, might, range));
         }
 
 
@@ -536,6 +541,28 @@ public class SkillDatabase {
 
 
     public static void main(String[] args) {
-        //getList();
+        Scanner input = new Scanner(System.in);
+
+        while (input.hasNextLine()) {
+            String chunk = input.nextLine().toLowerCase();
+
+            HashMap<Skill, String> descPortion = new HashMap<>();
+
+            for (Skill x:SKILLS) {
+                String[] description = x.getDescription().toLowerCase().split("\\. ?");
+
+                for (String s:description) System.out.println(s);
+                System.out.println();
+                System.out.println();
+
+                for (String b:description) {
+                    if (b.matches(chunk)) {
+                        descPortion.put(x, b);
+                    }
+                }
+            }
+
+            System.out.println(descPortion);
+        }
     }
 }

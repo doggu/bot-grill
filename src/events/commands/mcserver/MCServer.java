@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class MCServer implements Runnable {
     private static final String WORKING_DIRECTORY = ".\\libs\\server\\";
-    private static final String MIN_WAM = "2048M", MAX_WAM = "4096M";
+    private static final String MIN_WAM = "16384M", MAX_WAM = "32768M";
     private static final boolean GUI = false;
 
     private static final String COMMAND = "java "+

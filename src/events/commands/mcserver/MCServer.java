@@ -55,7 +55,7 @@ public class MCServer implements Runnable {
     //true if successful, false if catch
     boolean sendCommand(String command) {
         try {
-            writer.write(command);
+            writer.write(command+"\r");
             writer.flush();
             return true;
         } catch (IOException ioe) {

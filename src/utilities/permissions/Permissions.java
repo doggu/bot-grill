@@ -1,12 +1,11 @@
 package utilities.permissions;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class Permissions {
-    private static final String PERMISSIONS_FILE_LOCATION = "./src/main/permissions.txt";
+    private static final String PERMISSIONS_FILE_LOCATION = "./src/utilities/permissions/permissions.txt";
     private static final File PERMISSIONS_FILE = new File(PERMISSIONS_FILE_LOCATION);
 
     private static final HashMap<Long, Integer> PERMISSIONS_MAP;
@@ -40,19 +39,41 @@ public class Permissions {
         return permission==null?0:permission;
     }
 
-    private static boolean isElevated(int requestor, int target) {
-        return requestor>=target;
-    }
-
     public static void setPermissions(long requestor, long target, int permission)
             throws InsufficientPermissionsException, OverextendingPermissionException, DumbRequest {
-        if (!isElevated(getPermissions(requestor), getPermissions(target)))
+        if (isNotElevated(getPermissions(requestor), getPermissions(target)))
             throw new InsufficientPermissionsException();
-        if (!isElevated(getPermissions(requestor), permission))
+        if (isNotElevated(getPermissions(requestor), permission))
             throw new OverextendingPermissionException();
         if (getPermissions(target)==permission)
             throw new DumbRequest();
+
+
+
         PERMISSIONS_MAP.remove(target);
         PERMISSIONS_MAP.put(target, permission);
+        try {
+            refresh();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    private static boolean isNotElevated(int requestor, int target) {
+        return requestor<target;
+    }
+
+    public static void refresh() throws IOException {
+        FileWriter fw = new FileWriter(PERMISSIONS_FILE);
+        BufferedWriter out = new BufferedWriter(fw);
+
+        for (long x:PERMISSIONS_MAP.keySet()) {
+            int level = PERMISSIONS_MAP.get(x);
+
+            out.write(x+" "+level+"\n");
+        }
+
+        out.flush();
+        out.close();
     }
 }

@@ -3,7 +3,7 @@ package main;
 import events.Quips;
 import events.Reactions;
 import events.Vote;
-import events.devTools.Draw;
+import events.devTools.*;
 import events.commands.Emotes;
 import events.commands.Girl;
 import events.commands.mcserver.ServerInput;
@@ -15,9 +15,6 @@ import events.commands.math.FracCalcListener;
 import events.commands.math.GradientDescentListener;
 import events.commands.math.Maffs;
 import events.commands.math.UnitConversionListener;
-import events.devTools.DevTools;
-import events.devTools.EmbedTest;
-import events.devTools.PortraitTest;
 import events.fehGame.Allies;
 import events.fehGame.OrbBalance;
 import events.fehGame.retriever.HeroRetriever;
@@ -104,15 +101,18 @@ public class BotMain {
         addListener(new Roll());
         addListener(new Emotes());
         addListener(new Girl());
-        addListener(new DevTools());
         addListener(new Reactions());
         addListener(new Maffs());
         addListener(new GradientDescentListener());
-        addListener(new EmbedTest());
         addListener(new Vote());
-        addListener(new Draw());
         addListener(new CreateLobby());
         addListener(new FracCalcListener());
+
+        //devTools
+        addListener(new DevTools());
+        addListener(new Draw());
+        addListener(new EmbedTest());
+        addListener(new PermissionsListener());
 
         if (FEHEROES_UTILS) {
             stones = bot_grill.getGuildsByName("summonicons", true).get(0).getEmotes();
@@ -125,6 +125,7 @@ public class BotMain {
             addListener(new Allies());
             addListener(new OrbBalance());
 
+            //devTools
             addListener(new PortraitTest());
         }
 

@@ -3,10 +3,8 @@ package main;
 import events.Quips;
 import events.Reactions;
 import events.Vote;
-import events.devTools.*;
 import events.commands.Emotes;
 import events.commands.Girl;
-import events.commands.mcserver.ServerInput;
 import events.commands.chem.ElementRetriever;
 import events.commands.gamble.Chances;
 import events.commands.gamble.Roll;
@@ -15,6 +13,8 @@ import events.commands.math.FracCalcListener;
 import events.commands.math.GradientDescentListener;
 import events.commands.math.Maffs;
 import events.commands.math.UnitConversionListener;
+import events.commands.mcserver.ServerInput;
+import events.devTools.*;
 import events.fehGame.Allies;
 import events.fehGame.OrbBalance;
 import events.fehGame.retriever.HeroRetriever;
@@ -30,10 +30,9 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import utilities.Stopwatch;
 
 import java.io.File;
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -67,21 +66,25 @@ public class BotMain {
 
 
 
+    private static void preloadFEHUtils() {
+        System.out.println("computerizing FEH data...");
+        Stopwatch fehTime = new Stopwatch();
+        fehTime.start();
+
+        int i = SkillDatabase.SKILLS.size(),
+            j = UnitDatabase.HEROES.size(),
+            k = BannerDatabase.BANNERS.size();
+
+        fehTime.stop();
+        System.out.println("finished ("+fehTime.timeInSeconds()+")!");
+    }
+
     public static void main(String[] rgs) throws Exception {
         //initialize lists so that they are loaded before the bot goes live
 
 
         if (FEHEROES_UTILS) {
-            System.out.println("computerizing FEH data...");
-            long startTime = System.nanoTime();
-            SkillDatabase.SKILLS.size();
-            UnitDatabase.HEROES.size();
-            BannerDatabase.BANNERS.size();
-
-            long endTime = System.nanoTime();
-            double totalTimeInSeconds = new BigDecimal((endTime-startTime)/1000000000.0)
-                    .round(new MathContext(3)).doubleValue();
-            System.out.println("finished ("+totalTimeInSeconds+" s)!");
+            preloadFEHUtils();
         }
 
 

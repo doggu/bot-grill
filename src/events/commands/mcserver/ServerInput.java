@@ -3,15 +3,36 @@ package events.commands.mcserver;
 import events.commands.Command;
 import main.BotMain;
 import net.minecraft.data.Main;
+import utilities.permissions.Permissions;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.function.Function;
 
 public class ServerInput extends Command {
-    public static Thread server = null;
-    public static MCServer app = null;
+    private static final int
+            START_PERMISSION = 2,
+            STOP_PERMISSION = 2,
+            WORLD_ACCESS_PERMISSION = 0,
+            WORLD_CHANGE_PERMISSION = 4,
+            STATUS_PERMISSION = 0,
+            GENERIC_COMMAND_PERMISSION = 3;
+
+    private boolean canPerform(int commandPermission) {
+        return Permissions.getPermissions(e.getAuthor().getIdLong())>=commandPermission; }
+
+    private void insufficientPermissions() {
+        sendMessage("you have insufficient permissions to perform this command!"); }
+
+    private void scold() {
+            sendMessage("you have insufficient permissions to perform this command! " +
+                    "this is actually impossible without having been banished to a " +
+                    "sub-zero permission level, so please reconsider your past actions."); }
+
+
+
+    public static volatile Thread server = null;
+    public static volatile MCServer app = null;
 
 
 
@@ -26,6 +47,8 @@ public class ServerInput extends Command {
 
         switch(args[1].toLowerCase()) {
             case "start":
+                if (!canPerform(START_PERMISSION)) { insufficientPermissions(); return; }
+
                 if (server!=null) {
                     sendMessage("the server is already up!");
                     return;
@@ -37,6 +60,8 @@ public class ServerInput extends Command {
                 }
                 break;
             case "stop":
+                if (!canPerform(STOP_PERMISSION)) { insufficientPermissions(); return; }
+
                 if (server==null) {
                     sendMessage("the server was never started!");
                     return;
@@ -63,12 +88,10 @@ public class ServerInput extends Command {
                 }
                 break;
             case "world":
-                if (server!=null) {
-                    sendMessage("please stop the server before modifying its properties.");
-                    return;
-                }
                 //get world name in server.properties
                 if (args.length<3) {
+                    if (!canPerform(WORLD_ACCESS_PERMISSION)) { scold(); return; }
+
                     File[] folder = new File("./libs/server/worlds/").listFiles();
                     StringBuilder message = new StringBuilder("currently loaded worlds:\n```");
                     if (folder==null) {
@@ -78,9 +101,17 @@ public class ServerInput extends Command {
                     for (File x:folder) {
                         message.append(x.getName()).append('\n');
                     }
-                    sendMessage(message.append("```\n" +
-                            "choose a world by sending the command \"?server world set [name]\""));
+
+                    sendMessage(message.append("```\n")
+                            .append((canPerform(WORLD_CHANGE_PERMISSION)?
+                                    "choose a world by sending the command \"?server world set [name]\"":"")));
                 } else {
+                    if (!canPerform(WORLD_ACCESS_PERMISSION)) { insufficientPermissions(); return; }
+
+                    if (server!=null) {
+                        sendMessage("please stop the server before modifying its properties.");
+                        return;
+                    }
                     if (args.length<4) {
                         sendMessage("please choose a world to load.");
                     } else {
@@ -103,8 +134,10 @@ public class ServerInput extends Command {
                 }
                 break;
             case "status":
-
+                if (!canPerform(STATUS_PERMISSION)) { scold(); return; }
+                break;
             default:
+                if (!canPerform(GENERIC_COMMAND_PERMISSION)) { insufficientPermissions(); return; }
                 //regular command
                 if (server==null)
                     sendMessage("the server was never started!");

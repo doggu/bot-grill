@@ -67,6 +67,7 @@ public class BotMain {
 
 
     private static void preloadFEHUtils() {
+        //initialize lists so that they are loaded before the bot goes live
         System.out.println("computerizing FEH data...");
         Stopwatch fehTime = new Stopwatch();
         fehTime.start();
@@ -75,19 +76,26 @@ public class BotMain {
             j = UnitDatabase.HEROES.size(),
             k = BannerDatabase.BANNERS.size();
 
+        if (DEBUG) {
+            System.out.println("SkillDatabase: " + i);
+            System.out.println("UnitDatabase: " + j);
+            System.out.println("BannerDatabase: " + k);
+        }
+
         fehTime.stop();
         System.out.println("finished ("+fehTime.timeInSeconds()+")!");
     }
 
+    private static void loadDevTools() {
+        addListener(new DevTools());
+        addListener(new Draw());
+        addListener(new EmbedTest());
+        addListener(new PermissionsListener());
+    }
+
     public static void main(String[] rgs) throws Exception {
-        //initialize lists so that they are loaded before the bot goes live
-
-
-        if (FEHEROES_UTILS) {
+        if (FEHEROES_UTILS)
             preloadFEHUtils();
-        }
-
-
 
         bot_grill = new JDABuilder(AccountType.BOT)
                 .setToken(new Scanner(new File("./src/main/token.txt")).nextLine())
@@ -95,28 +103,32 @@ public class BotMain {
 
         bot_grill.awaitReady();
 
-        addListener(new ServerInput());
+        //science
         addListener(new ElementRetriever());
         addListener(new UnitConversionListener());
-        addListener(new Quips());
-        addListener(new Help());
-        addListener(new Chances());
-        addListener(new Roll());
-        addListener(new Emotes());
-        addListener(new Girl());
-        addListener(new Reactions());
-        addListener(new Maffs());
-        addListener(new GradientDescentListener());
-        addListener(new Vote());
-        addListener(new CreateLobby());
         addListener(new FracCalcListener());
 
-        //devTools
-        addListener(new DevTools());
-        addListener(new Draw());
-        addListener(new EmbedTest());
-        addListener(new PermissionsListener());
+        //gamble
+        addListener(new Chances());
+        addListener(new Roll());
 
+        addListener(new Maffs());
+        addListener(new GradientDescentListener());
+
+        //gameroom
+        addListener(new CreateLobby());
+
+        //emoticon stuff
+        addListener(new Quips());
+        addListener(new Reactions());
+        addListener(new Emotes());
+        addListener(new Girl());
+        addListener(new Vote());
+
+        //devTools
+        loadDevTools();
+
+        //FEH
         if (FEHEROES_UTILS) {
             stones = bot_grill.getGuildsByName("summonicons", true).get(0).getEmotes();
             fehIcons = bot_grill.getGuildsByName("fehicons", true).get(0).getEmotes();
@@ -132,8 +144,14 @@ public class BotMain {
             addListener(new PortraitTest());
         }
 
+        //minecraft
+        addListener(new ServerInput());
+
+        addListener(new Help());
 
 
+
+        //todo: rewrite to allow reception of commands from other sources throughout the code
         Scanner console = new Scanner(System.in);
         
         String command;

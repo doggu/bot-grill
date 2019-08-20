@@ -22,17 +22,23 @@ import java.util.List;
 
 public class HeroRetriever extends Command {
     private void getUnits() {
+        boolean newestOnly = false, oldestOnly = false;
         boolean lv1 = false;
         int rarity = 5;
         boolean getAll = true;
+
+        //generates Unit
         int boon = -1;
         int bane = -1;
         int merges = 0;
         int dragonflowers = 0;
         char support = 'd';
-        boolean newestOnly = false, oldestOnly = false;
+
+        //generates FieldedUnit
         ArrayList<StatModifier> skills = new ArrayList<>();
         boolean useBaseKit = false;
+        //todo: legendary/mystic boosts
+
 
 
         if (args[0].equalsIgnoreCase("getIVs")||
@@ -209,7 +215,7 @@ public class HeroRetriever extends Command {
             for (Hero c: UnitDatabase.HEROES) {
                 if (c.getFullName().getName().equalsIgnoreCase(x))
                     candidates.add(c);
-                if (c.getFullName().getName().toLowerCase().contains(x.toLowerCase())) {
+                if (c.getFullName().getName().toLowerCase().indexOf(x.toLowerCase())==0) {
                     try {
                         if (c.getFullName().getName()
                                 .equalsIgnoreCase(x+" "+args.get(i+1))) {

@@ -1,5 +1,6 @@
 package events.gameroom.mapTest;
 
+import feh.heroes.character.MovementClass;
 import feh.heroes.unit.Unit;
 import feh.heroes.character.Hero;
 
@@ -10,6 +11,7 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Board {
@@ -53,6 +55,71 @@ public class Board {
     }
 
 
+
+    private int taxiCabDistance(Point a, Point b) {
+        return ((int)(Math.abs(a.getX()-b.getX())+Math.abs(a.getX()-b.getY()))); }
+    private ArrayList<ArrayList<Tile>> getAllPaths(ArrayList<Point> path, Point destination) {
+        //todo: assumes range is less than or equal to 3 (ya never know with IS)
+        int dX = (int) (path.get(path.size()-1).getX()-destination.getX()),
+            dY = (int) (path.get(path.size()-1).getY()-destination.getY());
+
+        ArrayList<ArrayList<Tile>> allPaths = new ArrayList<>();
+
+        ArrayList<Point> pathX = new ArrayList<>(path);
+        if (dX!=0) {
+            Point newP = new Point(dX+(dX>0?-1:1), dY);
+
+            pathX.add(newP);
+            allPaths.addAll(getAllPaths(pathX, destination));
+        }
+
+        if (dY!=0) {
+            Point newP = new Point(dX, dY+(dY>0?-1:1));
+
+            pathX.add(newP);
+            allPaths.addAll(getAllPaths(pathX, destination));
+        }
+
+        if (dX==0&&dY==0) {
+            ArrayList<Tile> tilePath = new ArrayList<>();
+            for (Point p:path) {
+                tilePath.add(map[p.x][p.y]);
+            }
+            allPaths.add(tilePath);
+        }
+
+        return allPaths;
+    }
+    boolean canMove(Hero unit, Point destination) {
+        Point originalPos = unitPositions.get(unit);
+        MovementClass moveType = unit.getMoveType();
+
+        int distance = taxiCabDistance(originalPos, destination);
+
+        if (distance>moveType.getRange())
+            return false;
+
+        ArrayList<Point> start = new ArrayList<>();
+        start.add(unitPositions.get(unit));
+        ArrayList<ArrayList<Tile>> paths = getAllPaths(start, destination);
+
+        for (ArrayList<Tile> path:paths) {
+            path.remove(0); //don't count starting Tile
+            int movesRemaining = moveType.getRange();
+            for (Tile t:path) {
+                switch (moveType) {
+                    case INFANTRY:
+                    case ARMORED:
+                    case CAVALRY:
+                    case FLYING:
+                }
+            }
+        }
+
+
+
+        return true; //todo: finish
+    }
 
     void moveUnit(Hero unit, Point destination) {
         Point originalPos = unitPositions.get(unit);

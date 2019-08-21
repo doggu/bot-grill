@@ -5,12 +5,14 @@ import feh.heroes.unit.Unit;
 import feh.heroes.character.Hero;
 
 import javax.imageio.ImageIO;
+import javax.print.DocFlavor;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -57,7 +59,18 @@ public class Board {
 
 
     private int taxiCabDistance(Point a, Point b) {
-        return ((int)(Math.abs(a.getX()-b.getX())+Math.abs(a.getX()-b.getY()))); }
+        return ((int)(Math.abs(a.getX()-b.getX())+Math.abs(a.getY()-b.getY()))); }
+    private boolean validPath(MovementClass moveType, ArrayList<Tile> path) {
+        path.remove(0); //don't count starting Tile
+        int movesRemaining = moveType.getRange()+1; //why am i small brain
+        for (Tile t:path) {
+            int weight = moveType.getWeight(t);
+            if (weight<0) return false;
+            movesRemaining-= weight;
+        }
+
+        return movesRemaining>0;
+    }
     private ArrayList<ArrayList<Tile>> getAllPaths(ArrayList<Point> path, Point destination) {
         //todo: assumes range is less than or equal to 3 (ya never know with IS)
         int dX = (int) (path.get(path.size()-1).getX()-destination.getX()),
@@ -67,23 +80,27 @@ public class Board {
 
         ArrayList<Point> pathX = new ArrayList<>(path);
         if (dX!=0) {
-            Point newP = new Point(dX+(dX>0?-1:1), dY);
-
+            Point newP = (Point) path.get(path.size()-1).clone();
+            newP.translate((dX>0?-1:1), 0);
             pathX.add(newP);
+            //System.out.println(pathX);
             allPaths.addAll(getAllPaths(pathX, destination));
         }
 
+        ArrayList<Point> pathY = new ArrayList<>(path);
         if (dY!=0) {
-            Point newP = new Point(dX, dY+(dY>0?-1:1));
+            Point newP = (Point) path.get(path.size()-1).clone();
+            newP.translate(0, (dY>0?-1:1));
 
-            pathX.add(newP);
-            allPaths.addAll(getAllPaths(pathX, destination));
+            pathY.add(newP);
+            //System.out.println(pathY);
+            allPaths.addAll(getAllPaths(pathY, destination));
         }
 
         if (dX==0&&dY==0) {
             ArrayList<Tile> tilePath = new ArrayList<>();
             for (Point p:path) {
-                tilePath.add(map[p.x][p.y]);
+                tilePath.add(map[p.y][p.x]);
             }
             allPaths.add(tilePath);
         }
@@ -95,6 +112,7 @@ public class Board {
         MovementClass moveType = unit.getMoveType();
 
         int distance = taxiCabDistance(originalPos, destination);
+        //System.out.println(distance);
 
         if (distance>moveType.getRange())
             return false;
@@ -102,23 +120,15 @@ public class Board {
         ArrayList<Point> start = new ArrayList<>();
         start.add(unitPositions.get(unit));
         ArrayList<ArrayList<Tile>> paths = getAllPaths(start, destination);
+        for (ArrayList<Tile> path:paths) System.out.println(path);
 
         for (ArrayList<Tile> path:paths) {
-            path.remove(0); //don't count starting Tile
-            int movesRemaining = moveType.getRange();
-            for (Tile t:path) {
-                switch (moveType) {
-                    case INFANTRY:
-                    case ARMORED:
-                    case CAVALRY:
-                    case FLYING:
-                }
-            }
+            if (validPath(moveType, path)) return true; //return path?
         }
 
 
 
-        return true; //todo: finish
+        return false;
     }
 
     void moveUnit(Hero unit, Point destination) {
@@ -154,16 +164,18 @@ public class Board {
         graphics.drawImage(mapImage, null, 0, 0);
 
         for (Hero unit:positionUnits.values()) {
-            String name = unit.getFullName().getName();
             BufferedImage face;
             try {
-                face = ImageIO.read(new File("./libs/heroes/"+name+".png"));
+                face = ImageIO.read(new URL(unit.getPortraitLink()));
             } catch (IOException faceNotFound) {
                 //this currently works for those with only alts (Charlotte, Greil, etc.)
                 // and those not in the library yet because mass duel simulator is a bit slow
                 System.out.println("could not find "+unit.getFullName());
                 try {
-                    face = ImageIO.read(new File("./libs/heroes/nohero.png"));
+                    face = ImageIO.read(
+                            new URL("https://gamepedia.cursecdn.com/" +
+                                    "feheroes_gamepedia_en/1/1a/Feh_Face_FC.png" +
+                                    "?version=470f0bb5fb5e832f4051a9c22bd87747"));
                 } catch (IOException noFaceNotFound) {
                     System.out.println("could not find the fuckin null placeholder");
                     throw new Error();
@@ -194,12 +206,26 @@ public class Board {
 
 
     //yet another HashMap object identity test because i refuse to read books properly
-    static void main(String[] args) {
+    public static void main(String[] args) {
+        /*
         HashMap<Point, String> positions = new HashMap<>();
         positions.put(new Point(2,4), "i love hot girls");
         System.out.println(positions.get(new Point(2, 4)));
         HashMap<String, Point> positions2 = new HashMap<>();
         positions2.put("i love hot girls", new Point(2, 4));
         System.out.println(positions2.get("i love hot girls"));
+         */
+
+        Board b = new Board(6, 8);
+
+        Point start = new Point(2, 4),
+                end = new Point(4, 4);
+
+        ArrayList<Point> path = new ArrayList<>();
+        path.add(new Point(2, 3));
+
+        ArrayList<ArrayList<Tile>> allPaths = b.getAllPaths(path, new Point(4,5));
+
+        System.out.println(allPaths.size());
     }
 }

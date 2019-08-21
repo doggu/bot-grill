@@ -87,10 +87,11 @@ public class Game extends TextGame {
             log("could not find player's unit at "+selection);
             return;
         }
-        if (unit.getMoveType().getRange()<distanceTraveled(s, d)) {
-            sendMessage("that unit cannot move that far! try again.");
+        if (!board.canMove(unit, d) /*unit.getMoveType().getRange()<distanceTraveled(s, d)*/) {
+            sendMessage("that unit cannot reach that tile! try again.");
             log(e.getAuthor()+" attempted to move "+
-                    unit+" ("+unit.getMoveType().getRange()+" mov) "+distanceTraveled(s, d)+" spaces.");
+                    unit+" ("+unit.getMoveType().getRange()+" mov) "+
+                    "from "+s+" to "+d);
             return;
         }
         Hero target = board.getUnit(d);
@@ -155,9 +156,6 @@ public class Game extends TextGame {
         if (pos.getY()>=board.getHeight()) return false;
 
         return true;
-    }
-    private int distanceTraveled(Point s, Point d) {
-        return (int)(Math.abs(s.getX()-d.getX())+Math.abs(s.getY()-d.getY()));
     }
 
 

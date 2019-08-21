@@ -1,6 +1,7 @@
 package events.gameroom.mapTest;
 
 import feh.heroes.character.Hero;
+import feh.heroes.character.MovementClass;
 
 public enum Tile {
     PLAINS              ("plains", true, true, true,
@@ -62,8 +63,8 @@ public enum Tile {
 
 
     String getName() { return name; }
-    boolean canPass(Hero hero) {
-        switch(hero.getMoveType()) {
+    public boolean canPass(MovementClass moveType) {
+        switch(moveType) {
             case INFANTRY:
             case ARMORED:
                 return infantryPassable;
@@ -76,8 +77,8 @@ public enum Tile {
                 throw new Error();
         }
     }
-    boolean isSlowed(Hero hero) {
-        switch(hero.getMoveType()) {
+    public boolean isSlowed(MovementClass moveType) {
+        switch(moveType) {
             case INFANTRY:
                 return slowsInfantry;
             case ARMORED:
@@ -91,5 +92,5 @@ public enum Tile {
                 throw new Error();
         }
     }
-    boolean isDefensiveTerrain() { return defensiveTerrain; }
+    public boolean isDefensiveTerrain() { return defensiveTerrain; }
 }

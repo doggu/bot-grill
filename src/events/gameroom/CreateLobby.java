@@ -9,7 +9,7 @@ import events.gameroom.ticTacToe.TicTacToe;
 public class CreateLobby extends Command {
     @Override
     public boolean isCommand() {
-        return args[0].equalsIgnoreCase("CreateLobby");
+        return args[0].toLowerCase().matches("c(reate)?l(obby)?");
     }
 
     @Override

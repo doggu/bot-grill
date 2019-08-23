@@ -80,7 +80,6 @@ public enum MovementClass implements HeroClass {
 
 
         switch (t) {
-
             case PLAINS:
             case PLAINS_DEFENSIVE:
                 return 1;

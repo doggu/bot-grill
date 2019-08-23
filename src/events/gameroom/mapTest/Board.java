@@ -145,6 +145,16 @@ public class Board {
         cacheFace(unit);
     }
 
+
+
+    public Point getPos(Unit unit) { return unitPositions.get(unit); }
+    Hero getUnit(Point pos) { return positionUnits.get(pos); }
+
+    int getWidth() { return width; }
+    int getHeight() { return height; }
+
+
+
     private void cacheFace(Hero unit) {
         BufferedImage face;
         try {
@@ -166,16 +176,6 @@ public class Board {
 
         faceCache.put(unit, face);
     }
-
-
-
-    public Point getPos(Unit unit) { return unitPositions.get(unit); }
-    Hero getUnit(Point pos) { return positionUnits.get(pos); }
-
-    int getWidth() { return width; }
-    int getHeight() { return height; }
-
-
 
     File drawBoard() {
         BufferedImage mapState =

@@ -5,7 +5,6 @@ import utilities.science.unitConverter.units.UnknownUnitException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.TooManyListenersException;
 
 public class UnitConfiguration {
     public static final int

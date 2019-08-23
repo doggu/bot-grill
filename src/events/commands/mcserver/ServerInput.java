@@ -2,7 +2,6 @@ package events.commands.mcserver;
 
 import events.commands.Command;
 import main.BotMain;
-import net.minecraft.data.Main;
 import utilities.permissions.Permissions;
 
 import java.io.*;
@@ -187,16 +186,6 @@ public class ServerInput extends Command {
             out.close();
         } catch (Exception ex) {
             ex.printStackTrace();
-        }
-    }
-
-
-
-    public static void main(String[] args) {
-        try {
-            Main.main(args);
-        } catch (IOException ioe) {
-            System.out.println("this aint it chief");
         }
     }
 }

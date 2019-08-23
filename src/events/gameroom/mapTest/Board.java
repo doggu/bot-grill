@@ -5,7 +5,6 @@ import feh.heroes.unit.Unit;
 import feh.heroes.character.Hero;
 
 import javax.imageio.ImageIO;
-import javax.print.DocFlavor;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -18,6 +17,7 @@ import java.util.HashMap;
 
 public class Board {
     private final BufferedImage mapImage;
+    private final HashMap<Hero, BufferedImage> faceCache = new HashMap<>();
     private final int width, height, scale;
 
     private final Tile[][] map = {
@@ -72,7 +72,7 @@ public class Board {
         return movesRemaining>0;
     }
     private ArrayList<ArrayList<Tile>> getAllPaths(ArrayList<Point> path, Point destination) {
-        //todo: assumes range is less than or equal to 3 (ya never know with IS)
+        //todo: does not snake around obstacles
         int dX = (int) (path.get(path.size()-1).getX()-destination.getX()),
             dY = (int) (path.get(path.size()-1).getY()-destination.getY());
 
@@ -142,6 +142,29 @@ public class Board {
     void addUnit(Point pos, Hero unit) {
         positionUnits.put(pos, unit);
         unitPositions.put(unit, pos);
+        cacheFace(unit);
+    }
+
+    private void cacheFace(Hero unit) {
+        BufferedImage face;
+        try {
+            face = ImageIO.read(new URL(unit.getPortraitLink()));
+        } catch (IOException faceNotFound) {
+            //this currently works for those with only alts (Charlotte, Greil, etc.)
+            // and those not in the library yet because mass duel simulator is a bit slow
+            System.out.println("could not find "+unit.getFullName());
+            try {
+                face = ImageIO.read(
+                        new URL("https://gamepedia.cursecdn.com/" +
+                                "feheroes_gamepedia_en/1/1a/Feh_Face_FC.png" +
+                                "?version=470f0bb5fb5e832f4051a9c22bd87747"));
+            } catch (IOException noFaceNotFound) {
+                System.out.println("could not find the fuckin null placeholder");
+                throw new Error();
+            }
+        }
+
+        faceCache.put(unit, face);
     }
 
 
@@ -164,27 +187,9 @@ public class Board {
         graphics.drawImage(mapImage, null, 0, 0);
 
         for (Hero unit:positionUnits.values()) {
-            BufferedImage face;
-            try {
-                face = ImageIO.read(new URL(unit.getPortraitLink()));
-            } catch (IOException faceNotFound) {
-                //this currently works for those with only alts (Charlotte, Greil, etc.)
-                // and those not in the library yet because mass duel simulator is a bit slow
-                System.out.println("could not find "+unit.getFullName());
-                try {
-                    face = ImageIO.read(
-                            new URL("https://gamepedia.cursecdn.com/" +
-                                    "feheroes_gamepedia_en/1/1a/Feh_Face_FC.png" +
-                                    "?version=470f0bb5fb5e832f4051a9c22bd87747"));
-                } catch (IOException noFaceNotFound) {
-                    System.out.println("could not find the fuckin null placeholder");
-                    throw new Error();
-                }
-            }
+            BufferedImage face = faceCache.get(unit);
             double scale = this.scale/(double) face.getHeight();
-
             Point pos = unitPositions.get(unit);
-
             graphics.drawImage(
                     face,
                     new AffineTransformOp(

@@ -1,4 +1,4 @@
 package utilities.permissions;
 
-public class OverextendingPermissionException extends Exception {
+public class OverextendingPermissionException extends PermissionException {
 }

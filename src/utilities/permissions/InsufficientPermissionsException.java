@@ -1,4 +1,4 @@
 package utilities.permissions;
 
-public class InsufficientPermissionsException extends Exception {
+public class InsufficientPermissionsException extends PermissionException {
 }

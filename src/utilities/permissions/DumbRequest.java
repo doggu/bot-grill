@@ -1,4 +1,4 @@
 package utilities.permissions;
 
-public class DumbRequest extends Exception {
+public class DumbRequest extends PermissionException {
 }

@@ -1,7 +1,6 @@
 package events.fehGame.summoning;
 
 import events.fehGame.FEHCommand;
-import events.gameroom.Gameroom;
 import main.BotMain;
 import feh.heroes.character.Hero;
 import feh.players.Summoner;
@@ -83,7 +82,7 @@ public class SummonSimulator extends FEHCommand {
             }
 
             for (Banner x:BannerDatabase.BANNERS) {
-                if (x.getName().equals(bannerName.toString())) {
+                if (x.getName().equalsIgnoreCase(bannerName.toString())) {
                     banner = x;
                     break;
                 }
@@ -127,8 +126,7 @@ public class SummonSimulator extends FEHCommand {
                 summoner,
                 banner);
 
-        BotMain.addListener(circle);
-        summoner.startSummoning(circle);
+        circle.register();
 
 
 

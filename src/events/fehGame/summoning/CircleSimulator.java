@@ -2,6 +2,7 @@ package events.fehGame.summoning;
 
 import events.ReactionListener;
 import events.fehGame.retriever.HeroRetriever;
+import main.BotMain;
 import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
@@ -25,7 +26,7 @@ public class CircleSimulator extends ReactionListener {
 
 
 
-    public CircleSimulator(Message message, Summoner summoner, Banner banner) {
+    CircleSimulator(Message message, Summoner summoner, Banner banner) {
         super();
         this.circleMessage = message;
         this.server = circleMessage.getGuild();
@@ -87,8 +88,7 @@ public class CircleSimulator extends ReactionListener {
 
     public Summoner getSummoner() { return summoner; }
     public User getUser() { return summoner.getUser(); }
-    public Message getSessionMessage() { return circleMessage; }
-    public Guild getServer() { return server; }
+    Message getSessionMessage() { return circleMessage; }
 
 
 
@@ -100,6 +100,11 @@ public class CircleSimulator extends ReactionListener {
         }
 
         return stones;
+    }
+
+    void register() {
+        BotMain.addListener(this);
+        summoner.startSummoning(this);
     }
 
     boolean canClose() {
@@ -138,7 +143,10 @@ public class CircleSimulator extends ReactionListener {
             } else if (e.getReactionEmote().toString().equals("RE:\uD83D\uDD04(null)")) {
                 if (canClose()) {
                     closeCircle();
-                    CircleSimulator f = new CircleSimulator(circleMessage, summoner, banner);
+                    Message newMessage = sendMessage(circleMessage);
+                    CircleSimulator newCircle = new CircleSimulator(newMessage, summoner, banner);
+
+                    newCircle.register();
                 } else {
                     sendMessage("please choose at least one orb before starting a new session.");
                     return;

@@ -8,6 +8,7 @@ public class DevTools extends MessageListener {
         switch(args[0].toLowerCase()) {
             case "kill":
                 main.BotMain.bot_grill.shutdownNow();
+                Runtime.getRuntime().exit(1); //i wonder if this works idk i'm on a god damn plane
                 break;
             case "sendmessage":
                 StringBuilder message = new StringBuilder();

@@ -4,7 +4,6 @@ import events.ReactionListener;
 import events.fehGame.retriever.HeroRetriever;
 import main.BotMain;
 import net.dv8tion.jda.core.entities.Emote;
-import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 import feh.heroes.unit.Unit;
@@ -18,7 +17,6 @@ import java.util.List;
 public class CircleSimulator extends ReactionListener {
     private final Message circleMessage;
     private final Summoner summoner;
-    private final Guild server;
     private final Banner banner;
     private final List<Stone> stones;
     private final List<Emote> stoneEmotes;
@@ -29,59 +27,13 @@ public class CircleSimulator extends ReactionListener {
     CircleSimulator(Message message, Summoner summoner, Banner banner) {
         super();
         this.circleMessage = message;
-        this.server = circleMessage.getGuild();
         this.summoner = summoner;
         this.banner = banner;
         this.stones = generateStones();
-
-        List<Emote> stoneEmotes = new ArrayList<>();
-
-        int rStones = 1, bStones = 1, gStones = 1, cStones = 1;
-        for (Stone x:stones) {
-            Emote stone;
-            switch (x.getColor()) {
-                case 'r':
-                    stone = circleMessage.getJDA()
-                            .getEmotesByName("r_stone_"+rStones, true)
-                            .get(0);
-                    circleMessage.addReaction(stone).queue();
-                    stoneEmotes.add(stone);
-                    rStones++;
-                    break;
-                case 'g':
-                    stone = circleMessage.getJDA()
-                            .getEmotesByName("g_stone_"+gStones, true)
-                            .get(0);
-                    circleMessage.addReaction(stone).queue();
-                    stoneEmotes.add(stone);
-                    gStones++;
-                    break;
-                case 'b':
-                    stone = circleMessage.getJDA()
-                            .getEmotesByName("b_stone_"+bStones, true)
-                            .get(0);
-                    circleMessage.addReaction(stone).queue();
-                    stoneEmotes.add(stone);
-                    bStones++;
-                    break;
-                case 'c':
-                    stone = circleMessage.getJDA()
-                            .getEmotesByName("c_stone_"+cStones, true)
-                            .get(0);
-                    circleMessage.addReaction(stone).queue();
-                    stoneEmotes.add(stone);
-                    cStones++;
-                    break;
-                default:
-                    System.out.println("AaaAaaaaaaaaaaaAAAAAAAAAaAAAaaaaaaaaaa");
-                    throw new Error();
-            }
-        }
+        this.stoneEmotes = generateEmotes();
 
         circleMessage.addReaction("❌").queue();
         circleMessage.addReaction("\uD83D\uDD04").queue();
-
-        this.stoneEmotes = stoneEmotes;
     }
 
 
@@ -100,6 +52,46 @@ public class CircleSimulator extends ReactionListener {
         }
 
         return stones;
+    }
+
+    private List<Emote> generateEmotes() {
+        ArrayList<Emote> stoneEmotes = new ArrayList<>();
+
+        int rStones = 1, bStones = 1, gStones = 1, cStones = 1;
+        for (Stone x:stones) {
+            char color = x.getColor();
+            Emote stone;
+            switch (color) {
+                case 'r':
+                    stone = getStoneEmote(color, rStones);
+                    rStones++;
+                    break;
+                case 'g':
+                    stone = getStoneEmote(color, gStones);
+                    gStones++;
+                    break;
+                case 'b':
+                    stone = getStoneEmote(color, bStones);
+                    bStones++;
+                    break;
+                case 'c':
+                    stone = getStoneEmote(color, cStones);
+                    cStones++;
+                    break;
+                default:
+                    throw new Error("invalid color argument passed!");
+            }
+            circleMessage.addReaction(stone).queue();
+            stoneEmotes.add(stone);
+        }
+
+        return stoneEmotes;
+    }
+
+    private Emote getStoneEmote(char color, int level) {
+        return circleMessage.getJDA()
+                .getEmotesByName(color+"_stone_"+level, true)
+                .get(0);
     }
 
     void register() {
@@ -212,10 +204,8 @@ public class CircleSimulator extends ReactionListener {
 
     @Override
     protected boolean isCommand() {
-        if (!summoner.getUser().equals(e.getUser())) return false;
-        if (!e.getMessageId().equals(circleMessage.getId())) return false;
-        if (!e.getMessageId().equals(circleMessage.getId())) return false; //what the fuck
         if (e.getReaction().isSelf()) return false;
-        return true;
+        if (!e.getMessageId().equals(circleMessage.getId())) return false;
+        return summoner.getUser().equals(e.getUser());
     }
 }

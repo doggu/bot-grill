@@ -5,7 +5,7 @@ import events.gameroom.mapTest.Tile;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
-public enum MovementClass implements HeroClass {
+public enum MovementClass {
     INFANTRY(2, false, true, false, false, "Infantry"),
     ARMORED(1, false, false, false, false, "Armor"),
     CAVALRY(3, false, true, true, true, "Cavalry"),

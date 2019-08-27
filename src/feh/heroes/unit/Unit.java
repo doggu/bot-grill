@@ -1,18 +1,28 @@
 package feh.heroes.unit;
 
 import feh.heroes.character.Hero;
+import feh.skills.skillTypes.Skill;
+
+import java.util.ArrayList;
 
 public class Unit extends Hero {
     private final int rarity, boon, bane; //I refuse to call it asset/flaw
-    private final char supportStatus;
+    private char supportStatus;
     private final int merges, dragonflowers;
+
+    //skills in superclass becomes repository for all skills
+    private final ArrayList<Skill> allSkills;
+    private final ArrayList<Skill> activeKit;
+    private char partnerStatus;
+    private Unit supportPartner = null;
+    private Blessing blessing = null;
 
 
 
     //TODO: create character class
     // how do i check things off 40%
 
-    //TODO: implement dragonflowers (lol, if i even finish everything else that came before them)
+
 
 
     /**
@@ -31,6 +41,9 @@ public class Unit extends Hero {
         this.supportStatus = supportStatus;
         this.merges = merges;
         this.dragonflowers = dragonflowers;
+
+        allSkills = super.getBaseKit();
+        activeKit = super.getBaseKit();
     }
     public Unit(Hero hero, int rarity, int boon, int bane, char supportStatus) {
         this(hero, rarity, boon, bane, supportStatus, 0, 0);
@@ -43,11 +56,12 @@ public class Unit extends Hero {
     }
 
     public static final int
-        HP = 0,
-        ATK = 1,
-        SPD = 2,
-        DEF = 3,
-        RES = 4;
+            NEUTRAL = -1,
+            HP = 0,
+            ATK = 1,
+            SPD = 2,
+            DEF = 3,
+            RES = 4;
 
     /**
      * creates a new unit based on a character;
@@ -66,7 +80,7 @@ public class Unit extends Hero {
         int individuality = (int)(Math.random()*21);
         //damn this is fuckin retarded
         switch (individuality) {
-            case 0: boon = -1; bane = -1; break;
+            case 0: boon = NEUTRAL; bane = NEUTRAL; break;
             case 1: boon = HP; bane = ATK; break;
             case 2: boon = HP; bane = SPD; break;
             case 3: boon = HP; bane = DEF; break;
@@ -97,6 +111,9 @@ public class Unit extends Hero {
         supportStatus = 'd';
         this.merges = 0;
         this.dragonflowers = 0;
+
+        allSkills = super.getBaseKit();
+        activeKit = super.getBaseKit();
     }
 
 
@@ -106,6 +123,9 @@ public class Unit extends Hero {
     public int getSummonableRarity() { return rarity; }
     public int getMerges() { return merges; }
     public int getDragonflowers() { return dragonflowers; }
+
+    public ArrayList<Skill> getAllSkills() { return new ArrayList<>(allSkills); }
+    public ArrayList<Skill> getActiveKit() { return new ArrayList<>(activeKit); }
     public char getSupportStatus() { return supportStatus; }
     public int[] getIVs() {
         int[] stats = super.getStats().getStatsAsArray();
@@ -144,4 +164,11 @@ public class Unit extends Hero {
 
         return stats;
     }
+
+
+
+    //todo: set up unit manager for security?
+    public void giveSkill(Skill skill) { }
+    public void setSupportPartner(Unit friend) { this.supportPartner = friend; }
+    public void setBlessing(Blessing blessing) { this.blessing = blessing; }
 }

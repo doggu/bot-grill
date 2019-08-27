@@ -222,7 +222,7 @@ public class UnitDatabase {
         }
 
         c.setFullName(new HeroName(d.get(1).text()));
-        c.setOrigin(d.get(2).text());
+        c.setOrigin(Origin.getOrigin(d.get(2).text()));
 
         c.setMoveType(row.attributes().get("data-move-type"));
         c.setWeaponType(row.attributes().get("data-weapon-type"));

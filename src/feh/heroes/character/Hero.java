@@ -12,7 +12,7 @@ import java.util.*;
 
 public class Hero {
     private final HeroName fullName;
-    private final String origin;
+    private final Origin origin;
     private final URL portraitLink;
     private final char gender;
 
@@ -31,7 +31,7 @@ public class Hero {
 
 
 
-    public Hero(HeroName fullName, String origin, URL portraitLink, char gender,
+    public Hero(HeroName fullName, Origin origin, URL portraitLink, char gender,
                 char color, WeaponClass weaponType, MovementClass moveType,
                 int summonableRarity, Availability availability,
                 GregorianCalendar dateReleased,
@@ -108,7 +108,7 @@ public class Hero {
 
 
     public HeroName getFullName() { return fullName; }
-    public String getOrigin() { return origin; }
+    public Origin getOrigin() { return origin; }
     public URL getPortraitLink() { return portraitLink; }
     public char getGender() { return gender; }
 

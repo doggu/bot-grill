@@ -33,7 +33,7 @@ public class HeroConstructor {
 
 
     public void setFullName(HeroName name) { this.fullName = name; }
-    public void setOrigin(String origin) { this.origin = origin; }
+    public void setOrigin(Origin origin) { this.origin = origin; }
     public void setPortraitLink(URL portraitLink) { this.portraitLink = portraitLink; }
     public void setGender(Character gender) { this.gender = gender; }
     public void setWeaponType(String weaponType) {
@@ -124,7 +124,7 @@ public class HeroConstructor {
     public HeroName getFullName() { return fullName; }
     public String getName() { return fullName.getName(); }
     public String getEpithet() { return fullName.getEpithet(); }
-    public String getOrigin() { return origin; }
+    public Origin getOrigin() { return origin; }
     public URL getPortraitLink() { return portraitLink; }
     public Character getGender() { return gender; }
     public Character getColor() { return color; }
@@ -204,7 +204,7 @@ public class HeroConstructor {
         HeroConstructor merge = new HeroConstructor();
 
         Merger<HeroName> fullName = new Merger<>(h1.fullName, h2.fullName);
-        Merger<String> origin = new Merger<>(h1.origin, h2.origin);
+        Merger<Origin> origin = new Merger<>(h1.origin, h2.origin);
         Merger<URL> portraitLink = new Merger<>(h1.portraitLink, h2.portraitLink);
         Merger<WeaponClass> weaponType = new Merger<>(h1.weaponType, h2.weaponType);
         Merger<MovementClass> moveType = new Merger<>(h1.moveType, h2.moveType);

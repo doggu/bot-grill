@@ -1,6 +1,5 @@
 package events.gameroom.mapTest;
 
-import feh.heroes.character.Hero;
 import feh.heroes.character.MovementClass;
 
 public enum Tile {

@@ -1,9 +1,6 @@
 package events.fehGame.retriever;
 
-import events.ReactionButton;
-import events.ReactionListener;
 import feh.skills.skillTypes.Weapon;
-import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.react.GenericMessageReactionEvent;
 import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;

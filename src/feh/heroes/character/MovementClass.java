@@ -74,11 +74,8 @@ public enum MovementClass {
     public String toString() { return name; }
 
     public int getWeight(Tile t) {
+        //if (t.isStopped(this)) return -1;
         //if (t.isSlowed(this)) return 2;
-
-        System.out.println(this);
-
-
         switch (t) {
             case PLAINS:
             case PLAINS_DEFENSIVE:
@@ -86,9 +83,7 @@ public enum MovementClass {
             case FOREST:
             case FOREST_DEFENSIVE:
                 if (this.stoppedByTrees) return -1;
-                if (this.slowedByTrees)
-                    return 2;
-                return 1;
+                return (this.slowedByTrees?2:1);
             case POND:
             case LAVA:
             case RIVER:

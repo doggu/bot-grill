@@ -1,7 +1,5 @@
 package feh.heroes.character.constructionSite;
 
-import jdk.dynalink.beans.MissingMemberHandlerFactory;
-
 class Merger<T> {
     private final T a, b;
 
@@ -15,24 +13,19 @@ class Merger<T> {
 
 
     T merge() throws MismatchedInputException /*, NullInputException*/ {
-        if (true) {
-            return (a==null)?b:a;
-        }
-        if (a==null) {
+        //if (true) { return (a==null)?b:a; }
+        if (a==null)
             if (b==null)
                 return null; //throw new NullInputException();
             else
                 return b;
-        } else
-            if (a instanceof String && b instanceof String) {
-                if (((String) a).equals((String) b))
+        else
+            if (b != null)
+                if (a.equals(b))
                     return a;
                 else
-                    throw new MismatchedInputException("1 \""+a+"\" != \""+b+"\"");
-            } else if (b==null||a.equals(b))
-                return a;
+                    throw new MismatchedInputException("\"" + a + "\" != \"" + b + "\"");
             else
-                throw new MismatchedInputException("2 \""+a+"\" != \""+b+"\"");
-
+                return a;
     }
 }

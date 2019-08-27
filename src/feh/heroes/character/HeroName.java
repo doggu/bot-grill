@@ -54,7 +54,24 @@ public class HeroName {
     public String toString() {
         return name+": "+epithet;
     }
-    public boolean equals(HeroName o) {
-        return this.name.equals(o.name)&&this.epithet.equals(o.epithet);
+
+    public boolean equals(Object o) {
+        // If the object is compared with itself then return true
+        if (o == this) {
+            return true;
+        }
+
+        /* Check if o is an instance of Complex or not
+          "null instanceof [type]" also returns false */
+        if (!(o instanceof HeroName)) {
+            return false;
+        }
+
+        // typecast o to Complex so that we can compare data members
+        HeroName c = (HeroName) o;
+
+        // Compare the data members and return accordingly
+        return name.equals(c.getName())
+                && epithet.equals(c.getEpithet());
     }
 }

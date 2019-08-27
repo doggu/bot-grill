@@ -12,7 +12,9 @@ import feh.skills.skillTypes.Skill;
 import feh.skills.skillTypes.Weapon;
 import main.BotMain;
 import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Emote;
+import net.dv8tion.jda.core.entities.Message;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -486,15 +488,7 @@ public class HeroRetriever extends Command {
 
 
 
-            EmbedBuilder embed = new EmbedBuilder();
-
-            embed.setColor(Color.YELLOW);
-            embed.setThumbnail(x.getPortraitLink());
-            embed.setAuthor(x.getFullName().toString());
-            embed.setDescription(
-                    printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support, skills));
-
-            sendMessage(embed.build());
+            sendMessage(printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support, skills));
         }
 
         /*
@@ -523,80 +517,67 @@ public class HeroRetriever extends Command {
 
 
 
-    private static String printCharacter(Hero x, boolean lv1, int rarity,
-                                         boolean getAll, int boon, int bane,
-                                         int merges, int dragonflowers, char support) {
+    private static Message printCharacter(Hero x, boolean lv1, int rarity,
+                                          boolean getAll, int boon, int bane,
+                                          int merges, int dragonflowers, char support) {
         return printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support, null);
     }
-    private static String printCharacter(Hero x, boolean lv1, int rarity,
+    private static Message printCharacter(Hero x, boolean lv1, int rarity,
                                          boolean getAll, int boon, int bane,
                                          int merges, int dragonflowers, char support,
                                          ArrayList<StatModifier> skills) {
-        //import emotes from fehicons database
-        List<Emote> fehIconEmotes = BotMain.fehIcons;
-
-        String info =
-                //(rarity==5?"**":"") + x.getFullName() + (rarity==5?"**":"") + "\n" +
-                        "Appears In: *" + x.getOrigin() + "*\n" +
-                        "Date Released: "
-                        + (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" //starts at 0 (january = 0)
-                        + x.getReleaseDate().get(Calendar.DAY_OF_MONTH) + "-"
-                        + x.getReleaseDate().get(Calendar.YEAR) + "\n";
+        EmbedBuilder heroInfo = new EmbedBuilder();
 
 
-        Emote moveType;
-        Emote weaponType;
 
-        //TODO: overhaul emote grabbing in general
-        try { //get relevant data for calling the movement type emote
-            String name = "Icon_Move_" + x.getMoveType();
-            moveType = fehIconEmotes.get(0);
-            for (Emote e:fehIconEmotes) {
-                moveType = e;
-                if (e.getName().equals(name))
-                    break;
-            }
-        } catch (IndexOutOfBoundsException kjsgf) {
-            //log("an emote is missing or unimplemented!");
-            //TODO: make question mark icon or something
-            throw new Error();
+        StringBuilder description = new StringBuilder();
+
+        Emote moveType = getEmote("Icon_Move_"+x.getMoveType());
+        Emote weaponType = getEmote("Icon_Class_"+x.getColor()+"_"+x.getWeaponType());
+
+        description
+                //.append(printEmote(moveType).append(" ")
+                //.append(printEmote(weaponType)).append(" ")
+                .append(x.getFullName().toString());
+
+        heroInfo.setAuthor(description.toString()); //, null, null);
+
+        Color rColor;
+        switch (rarity) {
+            case 1:
+                rColor = Color.DARK_GRAY;
+                break;
+            case 2:
+                rColor = Color.GRAY;
+                break;
+            case 3:
+                rColor = new Color(185, 95,0);
+                break;
+            case 4:
+                rColor = Color.LIGHT_GRAY;
+                break;
+            case 5:
+                rColor = Color.YELLOW;
+                break;
+            default:
+                rColor = new Color(120, 0, 180); //purple-ish
+                break;
         }
+        heroInfo.setColor(rColor);
 
-        try { //get relevant data for calling the weapon color/type emote
-            String color;
-            switch (x.getColor()) {
-                case 'r':
-                    color = "Red";
-                    break;
-                case 'g':
-                    color = "Green";
-                    break;
-                case 'b':
-                    color = "Blue";
-                    break;
-                case 'c':
-                    color = "Colorless";
-                    break;
-                default:
-                    throw new Error("did not get a valid color (honestly how is this even possible): "+x.getColor());
-            }
-            String name = "Icon_Class_" + color + "_" + x.getWeaponType();
-            weaponType = fehIconEmotes.get(0);
-            for (Emote e:fehIconEmotes) {
-                weaponType = e;
-                if (e.getName().equals(name))
-                    break;
-            }
-        } catch (IndexOutOfBoundsException kjsgf) {
-            //log("an emote is missing or unimplemented!");
-            //TODO: make question mark icon or something
-            throw new Error();
-        }
+        heroInfo.setThumbnail(x.getPortraitLink().toString());
 
-        info+= printEmote(moveType) +
-                printEmote(weaponType) + "\n";
 
-        info+= "```\n";
+
+        heroInfo.setDescription('*'+x.getOrigin().toString()+"*\n" +
+                "Debuted "  +
+                (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" +//starts at 0 (january = 0)
+                x.getReleaseDate().get(Calendar.DAY_OF_MONTH) + "-" +
+                x.getReleaseDate().get(Calendar.YEAR));
+
+
+
+        String info = "```\n";
 
         info+= rarity + "* lv" + (lv1?1:40) + " stats: \n" +
                 "hp   atk  spd  def  res\n";
@@ -604,6 +585,7 @@ public class HeroRetriever extends Command {
         String stats;
         String bst;
 
+        //todo: use instanceof to make this cleaner
         if (getAll) {
             if (x.isSummonable()) {
                 stats = printStats(x.getAllStats(lv1, rarity));
@@ -623,18 +605,19 @@ public class HeroRetriever extends Command {
         else if (merges>0&&getAll) info+= "predictions might not be 100% accurate.\n";
         info+= "```";
 
-        info+= "\nSkills: ";
+        heroInfo.addField("stats",info, false);
+
         StringBuilder baseKit = new StringBuilder();
         for (int i=0; i<x.getBaseKit().size(); i++) {
             baseKit.append(x.getBaseKit().get(i));
             if (i+1!=x.getBaseKit().size()) baseKit.append(", ");
         }
-        info+= baseKit.toString();
 
-        info+= "\n";
-        return info;
+        heroInfo.addField("Base Skills", baseKit.toString(), false);
+
+        return new MessageBuilder(heroInfo).build();
     }
-    public static String printUnit(Unit x, boolean lv1) {
+    public static Message printUnit(Unit x, boolean lv1) {
         return printCharacter(x, lv1, x.getSummonableRarity(), false,
                 x.getBoon(), x.getBane(), 0, 0,
                 x.getSupportStatus());
@@ -692,8 +675,19 @@ public class HeroRetriever extends Command {
         else return "BST: "+minBST+"-"+maxBST;
     }
 
+
+
+    private static Emote getEmote(String name) {
+        try {
+            return BotMain.bot_grill.getEmotesByName(name, true).get(0);
+        } catch (IndexOutOfBoundsException ioobe) {
+            return BotMain.bot_grill.getEmotes()
+                    .get((int)(Math.random()*BotMain.bot_grill.getEmotes().size()));
+        }
+    }
     //todo: put this in some lower level class
-    public static String printEmote(Emote e) {
+
+    private static String printEmote(Emote e) {
         return "<:"+e.getName()+":"+e.getId()+">";
     }
 

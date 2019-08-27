@@ -158,7 +158,7 @@ public class Board {
     private void cacheFace(Hero unit) {
         BufferedImage face;
         try {
-            face = ImageIO.read(new URL(unit.getPortraitLink()));
+            face = ImageIO.read(unit.getPortraitLink());
         } catch (IOException faceNotFound) {
             //this currently works for those with only alts (Charlotte, Greil, etc.)
             // and those not in the library yet because mass duel simulator is a bit slow

@@ -16,6 +16,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 
 public class UnitDatabase {
@@ -213,7 +215,11 @@ public class UnitDatabase {
                 .get(0).attr("srcset")
                 .split(" ");
 
-        c.setPortraitLink(urlSet[2]);
+        try {
+            c.setPortraitLink(new URL(urlSet[2]));
+        } catch (MalformedURLException murle) {
+            murle.printStackTrace();
+        }
 
         c.setFullName(new HeroName(d.get(1).text()));
         c.setOrigin(d.get(2).text());

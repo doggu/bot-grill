@@ -48,7 +48,7 @@ public class Draw extends MessageListener {
             Hero r = UnitDatabase.HEROES.get((int) (Math.random()*UnitDatabase.HEROES.size()));
             BufferedImage face;
             try {
-                face = ImageIO.read(new URL(r.getPortraitLink()));
+                face = ImageIO.read(r.getPortraitLink());
             } catch (IOException ioe) {
                 new Error("could not read image: "+r.getPortraitLink()).printStackTrace();
                 continue;

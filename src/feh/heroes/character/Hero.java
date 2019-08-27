@@ -13,7 +13,7 @@ import java.util.*;
 public class Hero {
     private final HeroName fullName;
     private final String origin;
-    private final String portraitLink; //TODO: make URL
+    private final URL portraitLink;
     private final char gender;
 
     private final char color;
@@ -31,7 +31,7 @@ public class Hero {
 
 
 
-    public Hero(HeroName fullName, String origin, String portraitLink, char gender,
+    public Hero(HeroName fullName, String origin, URL portraitLink, char gender,
                 char color, WeaponClass weaponType, MovementClass moveType,
                 int summonableRarity, Availability availability,
                 GregorianCalendar dateReleased,
@@ -109,7 +109,7 @@ public class Hero {
 
     public HeroName getFullName() { return fullName; }
     public String getOrigin() { return origin; }
-    public String getPortraitLink() { return portraitLink; }
+    public URL getPortraitLink() { return portraitLink; }
     public char getGender() { return gender; }
 
     public char getColor() { return color; }

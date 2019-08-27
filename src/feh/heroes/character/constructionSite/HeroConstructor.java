@@ -3,6 +3,7 @@ package feh.heroes.character.constructionSite;
 import feh.heroes.character.*;
 import feh.skills.skillTypes.Skill;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
@@ -14,8 +15,8 @@ import java.util.GregorianCalendar;
  */
 public class HeroConstructor {
     private HeroName fullName;
-    private String origin;
-    private String portraitLink;
+    private Origin origin;
+    private URL portraitLink;
     private Character gender;
     private Character color;
     private WeaponClass weaponType;
@@ -33,7 +34,7 @@ public class HeroConstructor {
 
     public void setFullName(HeroName name) { this.fullName = name; }
     public void setOrigin(String origin) { this.origin = origin; }
-    public void setPortraitLink(String portraitLink) { this.portraitLink = portraitLink; }
+    public void setPortraitLink(URL portraitLink) { this.portraitLink = portraitLink; }
     public void setGender(Character gender) { this.gender = gender; }
     public void setWeaponType(String weaponType) {
         switch (weaponType) {
@@ -124,7 +125,7 @@ public class HeroConstructor {
     public String getName() { return fullName.getName(); }
     public String getEpithet() { return fullName.getEpithet(); }
     public String getOrigin() { return origin; }
-    public String getPortraitLink() { return portraitLink; }
+    public URL getPortraitLink() { return portraitLink; }
     public Character getGender() { return gender; }
     public Character getColor() { return color; }
     public WeaponClass getWeaponType() { return weaponType; }
@@ -204,7 +205,7 @@ public class HeroConstructor {
 
         Merger<HeroName> fullName = new Merger<>(h1.fullName, h2.fullName);
         Merger<String> origin = new Merger<>(h1.origin, h2.origin);
-        Merger<String> portraitLink = new Merger<>(h1.portraitLink, h2.portraitLink);
+        Merger<URL> portraitLink = new Merger<>(h1.portraitLink, h2.portraitLink);
         Merger<WeaponClass> weaponType = new Merger<>(h1.weaponType, h2.weaponType);
         Merger<MovementClass> moveType = new Merger<>(h1.moveType, h2.moveType);
         Merger<Character> color = new Merger<>(h1.color, h2.color);

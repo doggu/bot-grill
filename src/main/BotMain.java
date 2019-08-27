@@ -39,7 +39,7 @@ import java.util.Scanner;
 
 public class BotMain {
     private static final boolean FEHEROES_UTILS = true;
-    public static final boolean MCSERVER = true;
+    public static final boolean MCSERVER = false;
 
     public static final boolean DEBUG = true; //it's always debug time
 
@@ -139,15 +139,13 @@ public class BotMain {
             addListener(new SimulateDay());
             addListener(new Allies());
             addListener(new OrbBalance());
-
-            //devTools
-            addListener(new PortraitTest());
         }
 
         //minecraft
         addListener(new ServerInput());
 
         addListener(new Help());
+
 
 
 
@@ -176,7 +174,7 @@ public class BotMain {
                             case "banners":
                                 BannerDatabase.updateCache();
                                 break;
-                            case "all":
+                            default:
                                 SkillDatabase.updateCache();
                                 UnitDatabase.updateCache();
                                 BannerDatabase.updateCache();
@@ -184,10 +182,16 @@ public class BotMain {
 
                         }
                     }
+                case "memory":
+                    System.out.println("Total:\t"+Runtime.getRuntime().totalMemory());
+                    System.out.println("Free:\t"+Runtime.getRuntime().freeMemory());
+                    System.out.println("Max:\t"+Runtime.getRuntime().maxMemory());
+                    break;
             }
         }
 
-        bot_grill.shutdownNow();
         console.close();
+
+        bot_grill.shutdownNow();
     }
 }

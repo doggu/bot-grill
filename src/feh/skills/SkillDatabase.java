@@ -77,13 +77,32 @@ public class SkillDatabase {
 
 
 
+    //todo: create file manager
+    // receives requests and handles them simultaneously
+    // (e.g. SkillRetriever asks for all of its missing files)
     public static void updateCache() {
+        ArrayList<Thread> threads = new ArrayList<>();
         for (int i=0; i<SKILL_FILES.length; i++) {
+            final int fileIndex = i;
+            Thread loader = new Thread(() -> {
+                try {
+                    if (!SKILL_FILES[fileIndex].update()) throw new Error("unable to update " + SKILL_FILES[fileIndex].getName());
+                } catch (NullPointerException npe) {
+                    //SKILL_FILES[i] = new FEHeroesCache(SKILL_URLS[i]);
+                }
+            });
+
+            threads.add(loader);
+        }
+
+        for (Thread loader:threads)
+            loader.start();
+
+        for (Thread loader:threads) {
             try {
-                if (!SKILL_FILES[i].update()) throw new Error("unable to update " + SKILL_FILES[i].getName());
-            } catch (NullPointerException npe) {
-                SKILL_FILES[i] = new FEHeroesCache(SKILL_URLS[i]);
-                i--;
+                loader.join();
+            } catch (InterruptedException ie) {
+                ie.printStackTrace();
             }
         }
 

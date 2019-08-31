@@ -95,7 +95,7 @@ public class Banner {
                 }
             }
 
-            //System.out.println("added (" + x.getSummonableRarity() + "): " + x.getName() + ": " + x.getEpithet());
+            //System.out.println("added (" + x.getRarity() + "): " + x.getName() + ": " + x.getEpithet());
 
             int bannerRarity = x.getSummonableRarity();
 

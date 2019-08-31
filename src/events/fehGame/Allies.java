@@ -4,6 +4,7 @@ import events.fehGame.retriever.HeroRetriever;
 import events.fehGame.summoning.SummonSimulator;
 import feh.players.Barracks;
 import feh.players.Summoner;
+import net.dv8tion.jda.core.MessageBuilder;
 
 public class Allies extends FEHCommand {
     public boolean isCommand() {
@@ -22,7 +23,11 @@ public class Allies extends FEHCommand {
                             log("user provided invalid index: "+allyIndex);
                             return;
                         }
-                        sendMessage(HeroRetriever.printUnit(barracks.get(allyIndex-1),false));
+                        sendMessage(
+                                new MessageBuilder(
+                                        HeroRetriever.printUnit(
+                                                barracks.get(allyIndex-1),
+                                                false)).build());
                         log("provided data on "+x.getName()+"\'s unit");
                         return;
                     } catch (NumberFormatException g) {

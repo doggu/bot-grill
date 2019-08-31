@@ -14,7 +14,6 @@ import main.BotMain;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Emote;
-import net.dv8tion.jda.core.entities.Message;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -165,6 +164,7 @@ public class HeroRetriever extends Command {
                     case "sss": support = 's'; break;
                     case "basekit":
                         useBaseKit = true;
+                        getAll = false;
                         break;
                     default:
                         if (x.charAt(2)=='\"') {
@@ -185,9 +185,11 @@ public class HeroRetriever extends Command {
                             Skill skill = SkillDatabase.getSkill(skillName.toString());
                             if (skill instanceof StatModifier)
                                 skills.add((StatModifier) skill);
+
+                            if (skills.size()!=0)
+                                getAll = false;
                         }
                 }
-                getAll = false;
             }
 
             //test for "new" keyword
@@ -488,7 +490,10 @@ public class HeroRetriever extends Command {
 
 
 
-            sendMessage(printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support, skills));
+            sendMessage(new MessageBuilder(
+                    printCharacter(x, lv1, rarity, getAll, boon, bane,
+                            merges, dragonflowers, support, skills))
+                    .build());
         }
 
         /*
@@ -517,12 +522,12 @@ public class HeroRetriever extends Command {
 
 
 
-    private static Message printCharacter(Hero x, boolean lv1, int rarity,
+    private static EmbedBuilder printCharacter(Hero x, boolean lv1, int rarity,
                                           boolean getAll, int boon, int bane,
                                           int merges, int dragonflowers, char support) {
         return printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support, null);
     }
-    private static Message printCharacter(Hero x, boolean lv1, int rarity,
+    private static EmbedBuilder printCharacter(Hero x, boolean lv1, int rarity,
                                          boolean getAll, int boon, int bane,
                                          int merges, int dragonflowers, char support,
                                          ArrayList<StatModifier> skills) {
@@ -615,10 +620,10 @@ public class HeroRetriever extends Command {
 
         heroInfo.addField("Base Skills", baseKit.toString(), false);
 
-        return new MessageBuilder(heroInfo).build();
+        return heroInfo;
     }
-    public static Message printUnit(Unit x, boolean lv1) {
-        return printCharacter(x, lv1, x.getSummonableRarity(), false,
+    public static EmbedBuilder printUnit(Unit x, boolean lv1) {
+        return printCharacter(x, lv1, x.getRarity(), false,
                 x.getBoon(), x.getBane(), 0, 0,
                 x.getSupportStatus());
     }

@@ -7,15 +7,25 @@ import java.util.ArrayList;
 
 public class Unit extends Hero {
     private final int rarity, boon, bane; //I refuse to call it asset/flaw
-    private char supportStatus;
+    private int supportLevels;
     private final int merges, dragonflowers;
 
     //skills in superclass becomes repository for all skills
     private final ArrayList<Skill> allSkills;
     private final ArrayList<Skill> activeKit;
-    private char partnerStatus;
-    private Unit supportPartner = null;
+
+    //private final Summoner owner
+    //todo: this is somewhat redundant to the user's barracks
+    // this should probably be moved to the Barracks or Summoner class
+    // as an ArrayList of Units or Pairs for past summoner supports and
+    // current ally supports
+
+
+
     private Blessing blessing = null;
+
+    private int sp;
+    private int hm;
 
 
 
@@ -33,23 +43,23 @@ public class Unit extends Hero {
      * @param boon - positive variance of specific unit.
      * @param bane - negative variance of specific unit.
      */
-    public Unit(Hero hero, int rarity, int boon, int bane, char supportStatus, int merges, int dragonflowers) {
+    public Unit(Hero hero, int rarity, int boon, int bane, int supportLevels, int merges, int dragonflowers) {
         super(hero);
         this.rarity = rarity;
         this.boon = boon;
         this.bane = bane;
-        this.supportStatus = supportStatus;
+        this.supportLevels = supportLevels;
         this.merges = merges;
         this.dragonflowers = dragonflowers;
 
         allSkills = super.getBaseKit();
         activeKit = super.getBaseKit();
     }
-    public Unit(Hero hero, int rarity, int boon, int bane, char supportStatus) {
-        this(hero, rarity, boon, bane, supportStatus, 0, 0);
+    public Unit(Hero hero, int rarity, int boon, int bane, int supportLevels) {
+        this(hero, rarity, boon, bane, supportLevels, 0, 0);
     }
-    public Unit(Hero hero, int rarity, int boon, int bane, char supportStatus, int merges) {
-        this(hero, rarity, boon, bane, supportStatus, merges, 0);
+    public Unit(Hero hero, int rarity, int boon, int bane, int supportLevels, int merges) {
+        this(hero, rarity, boon, bane, supportLevels, merges, 0);
     }
     public Unit(Hero hero, int rarity, int boon, int bane) {
         this(hero, rarity, boon, bane, 'd');
@@ -108,7 +118,7 @@ public class Unit extends Hero {
 
         this.boon = boon;
         this.bane = bane;
-        supportStatus = 'd';
+        supportLevels = 0;
         this.merges = 0;
         this.dragonflowers = 0;
 
@@ -120,13 +130,48 @@ public class Unit extends Hero {
 
     public int getBoon() { return boon; }
     public int getBane() { return bane; }
-    public int getSummonableRarity() { return rarity; }
+    public int getRarity() { return rarity; }
     public int getMerges() { return merges; }
     public int getDragonflowers() { return dragonflowers; }
 
     public ArrayList<Skill> getAllSkills() { return new ArrayList<>(allSkills); }
     public ArrayList<Skill> getActiveKit() { return new ArrayList<>(activeKit); }
-    public char getSupportStatus() { return supportStatus; }
+    //todo: should a dedicated support refresh button be added?
+    // it would be less intuitive but also remind me to regrab supports for each map
+    private static final int
+            LEVEL_C = 0,
+            LEVEL_B = 8,
+            LEVEL_A = 32,
+            LEVEL_S = 80,
+            R_LEVEL_C = 0,
+            R_LEVEL_B = 4,
+            R_LEVEL_A = 16,
+            R_LEVEL_S = 40;
+    public char getSupportStatus() {
+        char supportStatus;
+        //if (owner.hasSupported(this)) {
+            if (supportLevels>=R_LEVEL_S) {
+                supportStatus = 's';
+            } else if (supportLevels>=R_LEVEL_A) {
+                supportStatus = 'a';
+            } else if (supportLevels>=R_LEVEL_B) {
+                supportStatus = 'b';
+            } else { // if (supportLevels>=R_LEVEL_C) {
+                supportStatus = 'c';
+            }
+        //} else {
+            if (supportLevels>=LEVEL_S) {
+                supportStatus = 's';
+            } else if (supportLevels>=LEVEL_A) {
+                supportStatus = 'a';
+            } else if (supportLevels>=LEVEL_B) {
+                supportStatus = 'b';
+            } else { // if (supportLevels>=LEVEL_C) {
+                supportStatus = 'c';
+            }
+        //}
+        return supportStatus;
+    }
     public int[] getIVs() {
         int[] stats = super.getStats().getStatsAsArray();
 
@@ -142,7 +187,7 @@ public class Unit extends Hero {
     public int[] getStatsArr() {
         int[] stats = super.getStats(false, rarity, boon, bane);
 
-        switch (supportStatus) {
+        switch (getSupportStatus()) {
             case 's':
                 stats[0]++;
                 stats[1]+= 2;
@@ -169,6 +214,7 @@ public class Unit extends Hero {
 
     //todo: set up unit manager for security?
     public void giveSkill(Skill skill) { }
-    public void setSupportPartner(Unit friend) { this.supportPartner = friend; }
+    //todo: give to Summoner
+    //public void setSupportPartner(Unit friend) { this.supportPartner = friend; }
     public void setBlessing(Blessing blessing) { this.blessing = blessing; }
 }

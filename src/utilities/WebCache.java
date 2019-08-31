@@ -85,7 +85,6 @@ public class WebCache extends File {
     }
 
     private static BufferedReader readWebsite(String website) {
-        System.out.print("reading "+website+"... ");
         long start = System.nanoTime();
 
         // courtesy of Stas Yak at:
@@ -103,7 +102,7 @@ public class WebCache extends File {
             return null;
         }
 
-        System.out.println("done (" +
+        System.out.println("finished reading "+website+" (" +
                 new BigDecimal((System.nanoTime()-start)/1000000000.0).round(new MathContext(3)) +
                 " s)!");
         return br;

@@ -83,7 +83,7 @@ public class ElementDatabase {
                 String  boilingPoint = element.get(9).text();
                 String  C = element.get(10).text();
                 String  electronegativity = element.get(11).text();
-                String  earthAbundane = element.get(12).text();
+                String  earthAbundance = element.get(12).text();
 
 
                 ChemicalElement e = new ChemicalElement(
@@ -99,7 +99,7 @@ public class ElementDatabase {
                         boilingPoint,
                         C,
                         electronegativity,
-                        earthAbundane);
+                        earthAbundance);
 
                 elements.add(e);
             }

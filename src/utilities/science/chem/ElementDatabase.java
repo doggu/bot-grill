@@ -71,7 +71,6 @@ public class ElementDatabase {
         try {
             for (Elements element : data) {
                 if (element.size()<13) continue;
-                System.out.println(element.size());
                 String  atomicNumber = element.get(0).text();
                 String  symbol = element.get(1).text();
                 String  name = element.get(2).text();

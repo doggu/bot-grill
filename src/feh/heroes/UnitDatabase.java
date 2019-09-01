@@ -3,6 +3,7 @@ package feh.heroes;
 import feh.FEHeroesCache;
 import feh.heroes.character.*;
 import feh.heroes.character.constructionSite.MismatchedInputException;
+import main.BotMain;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -48,10 +49,6 @@ public class UnitDatabase {
             GROWTH_RATES_FILE,
             HERO_LIST_FILE,
     };
-
-
-
-    private static boolean DEBUG = true;
 
 
 
@@ -232,7 +229,7 @@ public class UnitDatabase {
         try {
             c.setRarity(Integer.parseInt(String.valueOf(r.charAt(0))));
         } catch (NumberFormatException nfe) {
-            if (DEBUG) nfe.printStackTrace();
+            if (BotMain.DEBUG) nfe.printStackTrace();
             c.setRarity(-1);
         }
 

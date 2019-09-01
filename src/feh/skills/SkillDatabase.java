@@ -40,16 +40,6 @@ public class SkillDatabase {
     HERO_BASE_SKILLS = "Hero_skills_table",
             WEAPON_REFINES = "Weapon_Refinery";
 
-    private static final String[] SKILL_URLS = {
-            WEAPONS,
-            ASSISTS,
-            SPECIALS,
-            PASSIVES,
-            EXCLUSIVE_SKILLS,
-            HERO_BASE_SKILLS,
-            WEAPON_REFINES,
-    };
-
 
 
     private static FEHeroesCache
@@ -70,10 +60,6 @@ public class SkillDatabase {
             HERO_BASE_SKILLS_FILE,
             WEAPON_REFINES_FILE,
     };
-
-
-
-    private static final boolean DEBUG = true;
 
 
 

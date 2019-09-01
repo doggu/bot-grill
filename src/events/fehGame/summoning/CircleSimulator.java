@@ -25,7 +25,6 @@ public class CircleSimulator extends ReactionListener {
 
 
     CircleSimulator(Message message, Summoner summoner, Banner banner) {
-        super();
         this.circleMessage = message;
         this.summoner = summoner;
         this.banner = banner;

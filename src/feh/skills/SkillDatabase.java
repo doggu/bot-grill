@@ -150,6 +150,8 @@ public class SkillDatabase {
         Document weaponsFile;
         try {
             weaponsFile = Jsoup.parse(WEAPONS_FILE, "UTF-8");
+                                                                //todo: make this a global variable
+                                                                // i've probably already written this somewhere before
         } catch (IOException ioe) {
             System.out.println("weapons file not found!");
             return new ArrayList<>();

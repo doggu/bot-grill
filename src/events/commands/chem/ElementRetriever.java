@@ -1,13 +1,13 @@
 package events.commands.chem;
 
 import events.commands.Command;
-import utilities.science.chem.Element;
+import utilities.science.chem.ChemicalElement;
 import utilities.science.chem.ElementDatabase;
 
 import java.util.ArrayList;
 
 public class ElementRetriever extends Command {
-    private final ArrayList<Element> elementList;
+    private final ArrayList<ChemicalElement> elementList;
 
 
 
@@ -17,9 +17,7 @@ public class ElementRetriever extends Command {
 
 
 
-    public boolean isCommand() {
-        return args[0].equalsIgnoreCase("GetElement");
-    }
+    public boolean isCommand() { return args[0].toLowerCase().matches("g(et)?e(lement)?"); }
 
     public void onCommand() {
         if (args.length<2) {
@@ -36,7 +34,7 @@ public class ElementRetriever extends Command {
             //do nothing
         }
 
-        for (Element a: elementList) {
+        for (ChemicalElement a: elementList) {
             if (a.getName().equalsIgnoreCase(argument)
                     ||a.getSymbol().equalsIgnoreCase(argument)) {
                 sendMessage(printAtom(a));
@@ -44,10 +42,10 @@ public class ElementRetriever extends Command {
         }
     }
 
-    private String printAtom(Element a) {
+    private String printAtom(ChemicalElement a) {
         return "**"+a.getName()+"**"+
                 "\nSymbol: "+a.getSymbol()+
-                "\nAtomic Number: "+a.getNumber();
+                "\nAtomic Number: "+a.getAtomicNumber();
     }
 
 

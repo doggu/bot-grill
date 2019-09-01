@@ -83,7 +83,6 @@ public class Board {
             Point newP = (Point) path.get(path.size()-1).clone();
             newP.translate((dX>0?-1:1), 0);
             pathX.add(newP);
-            //System.out.println(pathX);
             allPaths.addAll(getAllPaths(pathX, destination));
         }
 
@@ -91,17 +90,14 @@ public class Board {
         if (dY!=0) {
             Point newP = (Point) path.get(path.size()-1).clone();
             newP.translate(0, (dY>0?-1:1));
-
             pathY.add(newP);
-            //System.out.println(pathY);
             allPaths.addAll(getAllPaths(pathY, destination));
         }
 
         if (dX==0&&dY==0) {
             ArrayList<Tile> tilePath = new ArrayList<>();
-            for (Point p:path) {
+            for (Point p:path)
                 tilePath.add(map[p.y][p.x]);
-            }
             allPaths.add(tilePath);
         }
 
@@ -112,7 +108,6 @@ public class Board {
         MovementClass moveType = unit.getMoveType();
 
         int distance = taxiCabDistance(originalPos, destination);
-        //System.out.println(distance);
 
         if (distance>moveType.getRange())
             return false;
@@ -120,7 +115,6 @@ public class Board {
         ArrayList<Point> start = new ArrayList<>();
         start.add(unitPositions.get(unit));
         ArrayList<ArrayList<Tile>> paths = getAllPaths(start, destination);
-        for (ArrayList<Tile> path:paths) System.out.println(path);
 
         for (ArrayList<Tile> path:paths) {
             if (validPath(moveType, path)) return true; //return path?

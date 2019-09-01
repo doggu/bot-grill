@@ -148,7 +148,6 @@ public class BotMain {
 
 
 
-
         //todo: rewrite to allow reception of commands from other sources throughout the code
         Scanner console = new Scanner(System.in);
         

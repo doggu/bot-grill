@@ -45,7 +45,20 @@ public class ElementRetriever extends Command {
     private String printAtom(ChemicalElement a) {
         return "**"+a.getName()+"**"+
                 "\nSymbol: "+a.getSymbol()+
-                "\nAtomic Number: "+a.getAtomicNumber();
+                "\nAtomic Number: "+a.getAtomicNumber()+
+                "```"+
+                "origin: "+a.getOrigin()+"\n" +
+                "group: "+a.getGroup()+"\n" +
+                "period: "+a.getPeriod()+"\n" +
+                "atomicWeight: "+a.getAtomicWeight()+"\n" +
+                "density: "+a.getDensity()+"\n" +
+                "meltingPoint: "+a.getMeltingPoint()+"\n" +
+                "boilingPoint: "+a.getBoilingPoint()+"\n" +
+                "C: "+a.getC()+"\n" +
+                "electronegativity: "+a.getElectronegativity()+"\n" +
+                "earthAbundance: "+a.getEarthAbundance()+
+                "```";
+
     }
 
 

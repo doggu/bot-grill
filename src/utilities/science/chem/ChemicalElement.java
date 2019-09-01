@@ -15,7 +15,7 @@ public class ChemicalElement {
             boilingPoint,
             C,
             electronegativity,
-            earthAbundane;
+            earthAbundance;
 
     ChemicalElement(
             String atomicNumber,
@@ -30,7 +30,7 @@ public class ChemicalElement {
             String boilingPoint,
             String C,
             String electronegativity,
-            String earthAbundane) {
+            String earthAbundance) {
         this.atomicNumber = atomicNumber;
         this.symbol = symbol;
         this.name = name;
@@ -43,59 +43,33 @@ public class ChemicalElement {
         this.boilingPoint = boilingPoint;
         this.C = C;
         this.electronegativity = electronegativity;
-        this.earthAbundane = earthAbundane;
+        this.earthAbundance = earthAbundance;
     }
 
 
-    public String getAtomicNumber() {
-        return atomicNumber;
-    }
+    public String getAtomicNumber() {return atomicNumber;}
 
-    public String getSymbol() {
-        return symbol;
-    }
+    public String getSymbol() {return symbol;}
 
-    public String getName() {
-        return name;
-    }
+    public String getName() {return name;}
 
-    public String getOrigin() {
-        return origin;
-    }
+    public String getOrigin() {return origin;}
 
-    public String getGroup() {
-        return group;
-    }
+    public String getGroup() {return group;}
 
-    public String getPeriod() {
-        return period;
-    }
+    public String getPeriod() {return period;}
 
-    public String getAtomicWeight() {
-        return atomicWeight;
-    }
+    public String getAtomicWeight() {return atomicWeight;}
 
-    public String getDensity() {
-        return density;
-    }
+    public String getDensity() {return density;}
 
-    public String getMeltingPoint() {
-        return meltingPoint;
-    }
+    public String getMeltingPoint() {return meltingPoint;}
 
-    public String getBoilingPoint() {
-        return boilingPoint;
-    }
+    public String getBoilingPoint() {return boilingPoint;}
 
-    public String getC() {
-        return C;
-    }
+    public String getC() {return C;}
 
-    public String getElectronegativity() {
-        return electronegativity;
-    }
+    public String getElectronegativity() {return electronegativity;}
 
-    public String getEarthAbundane() {
-        return earthAbundane;
-    }
+    public String getEarthAbundance() {return earthAbundance;}
 }

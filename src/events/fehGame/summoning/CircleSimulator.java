@@ -2,19 +2,22 @@ package events.fehGame.summoning;
 
 import events.ReactionListener;
 import events.fehGame.retriever.HeroRetriever;
+import feh.heroes.character.Hero;
 import main.BotMain;
-import net.dv8tion.jda.core.entities.Emote;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.MessageBuilder;
+import net.dv8tion.jda.core.entities.*;
 import feh.heroes.unit.Unit;
 import feh.summoning.Banner;
 import feh.summoning.Stone;
 import feh.players.Summoner;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class CircleSimulator extends ReactionListener {
+    private final MessageChannel messageChannel;
     private final Message circleMessage;
     private final Summoner summoner;
     private final Banner banner;
@@ -24,10 +27,11 @@ public class CircleSimulator extends ReactionListener {
 
 
 
-    CircleSimulator(Message message, Summoner summoner, Banner banner) {
-        this.circleMessage = message;
+    CircleSimulator(MessageChannel messageChannel, Summoner summoner, Banner banner) {
+        this.messageChannel = messageChannel;
         this.summoner = summoner;
         this.banner = banner;
+        this.circleMessage = messageChannel.sendMessage(generateMessage()).complete();
         this.stones = generateStones();
         this.stoneEmotes = generateEmotes();
 
@@ -42,6 +46,40 @@ public class CircleSimulator extends ReactionListener {
     Message getSessionMessage() { return circleMessage; }
 
 
+
+    private Message generateMessage() {
+        MessageBuilder message = new MessageBuilder("your summons for: \n")
+                .append(banner.getName())
+                .append('\n')
+                .append("featured units: ");
+        for (Hero x:banner.getRarityFPool()) { //Character is not a good name for a class (changed to Hero)
+            message.append(x.getFullName().getName());
+            if (x.getFullName().isAmbiguousName())
+                message
+                        .append(" (")
+                        .append(x.getWeaponType())
+                        .append(' ')
+                        .append(x.getMoveType())
+                        .append(')');
+            //there are three axe armor hectors btw
+            message.append(", ");
+        }
+        message.replaceLast(", ", "");
+
+        GregorianCalendar startDate = banner.getStartDate();
+        //MONTH IS ZERO-BASED (again)
+        message.append("\n").append(startDate.get(Calendar.MONTH)+1)
+                .append("/").append(startDate.get(Calendar.DAY_OF_MONTH))
+                .append("/").append(startDate.get(Calendar.YEAR));
+
+        GregorianCalendar endDate = banner.getEndDate();
+        //MONTH IS ZERO-BASED (again)
+        message.append(" - ").append(endDate.get(Calendar.MONTH)+1)
+                .append("/").append(endDate.get(Calendar.DAY_OF_MONTH))
+                .append("/").append(endDate.get(Calendar.YEAR));
+
+        return message.build();
+    }
 
     private List<Stone> generateStones() {
         List<Stone> stones = new ArrayList<>();
@@ -134,9 +172,7 @@ public class CircleSimulator extends ReactionListener {
             } else if (e.getReactionEmote().toString().equals("RE:\uD83D\uDD04(null)")) {
                 if (canClose()) {
                     closeCircle();
-                    Message newMessage = sendMessage(circleMessage);
-                    CircleSimulator newCircle = new CircleSimulator(newMessage, summoner, banner);
-
+                    CircleSimulator newCircle = new CircleSimulator(messageChannel, summoner, banner);
                     newCircle.register();
                 } else {
                     sendMessage("please choose at least one orb before starting a new session.");

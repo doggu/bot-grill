@@ -5,10 +5,8 @@ import feh.heroes.character.Hero;
 import feh.players.Summoner;
 import feh.summoning.Banner;
 import feh.summoning.BannerDatabase;
-import net.dv8tion.jda.core.MessageBuilder;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -46,9 +44,7 @@ public class SummonSimulator extends FEHCommand {
                     return;
                     */
                 }
-            } /* else {
-                System.out.println(x.getUser().getId()+" does not equal "+e.getAuthor().getId());
-            } */
+            }
         }
 
         //find summoner corresponding to user
@@ -68,9 +64,6 @@ public class SummonSimulator extends FEHCommand {
 
 
 
-        //"Your circle for: "+[banner title]+"\n"
-        //"rates: focus = " +[focus rate]+" 5* = "+[5* rate]
-
         Banner banner = BannerDatabase.BANNERS.get((int)(Math.random()*BannerDatabase.BANNERS.size())); //temp
 
         if (args.length>1) {
@@ -88,40 +81,8 @@ public class SummonSimulator extends FEHCommand {
             }
         }
 
-        MessageBuilder message = new MessageBuilder("your summons for: \n")
-                .append(banner.getName())
-                .append('\n')
-                .append("featured units: ");
-        for (Hero x:banner.getRarityFPool()) { //Character is not a good name for a class (changed to Hero)
-            message.append(x.getFullName().getName());
-            if (x.getFullName().isAmbiguousName())
-                message
-                        .append(" (")
-                        .append(x.getWeaponType())
-                        .append(' ')
-                        .append(x.getMoveType())
-                        .append(')');
-            //there are three axe armor hectors btw
-            message.append(", ");
-        }
-        message.replaceLast(", ", "");
-
-        GregorianCalendar startDate = banner.getStartDate();
-        //MONTH IS ZERO-BASED (again)
-        message.append("\n").append(startDate.get(Calendar.MONTH)+1)
-                .append("/").append(startDate.get(Calendar.DAY_OF_MONTH))
-                .append("/").append(startDate.get(Calendar.YEAR));
-
-        GregorianCalendar endDate = banner.getEndDate();
-        //MONTH IS ZERO-BASED (again)
-        message.append(" - ").append(endDate.get(Calendar.MONTH)+1)
-                .append("/").append(endDate.get(Calendar.DAY_OF_MONTH))
-                .append("/").append(endDate.get(Calendar.YEAR));
-
-
-
         CircleSimulator circle = new CircleSimulator(
-                sendMessage(message.build()),
+                e.getChannel(),
                 summoner,
                 banner);
 
@@ -147,10 +108,9 @@ public class SummonSimulator extends FEHCommand {
         report+= featuredUnits + "\n\t\t\t\t\t";
         report+= "banner date: " +
                 printDate(banner.getStartDate()) + " - "+printDate(banner.getEndDate());
-        /*
-        report+= "3* pool size: " + banner.getRarity3Pool().size() + "\n\t\t\t\t\t\t" +
-                "4* pool size: " + banner.getRarity4Pool().size();
-        */
+        //report+= "3* pool size: " + banner.getRarity3Pool().size() + "\n\t\t\t\t\t\t" +
+        //        "4* pool size: " + banner.getRarity4Pool().size();
+
         log(report);
     }
 

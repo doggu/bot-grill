@@ -7,15 +7,18 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import feh.heroes.character.WeaponClass;
+import utilities.Database;
+import utilities.WebCache;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.*;
 
-public class SkillDatabase {
-    public static ArrayList<Skill> SKILLS = getList();
-    public static HashMap<String, ArrayList<Skill>> HERO_SKILLS = getHeroSkills();
+public class SkillDatabase extends Database<Skill> {
+    public static SkillDatabase DATABASE = new SkillDatabase();
+    public static ArrayList<Skill> SKILLS = DATABASE.getList();
+    public HashMap<String, ArrayList<Skill>> HERO_SKILLS = getHeroSkills();
 
     private static final String
             SKILLS_SUBDIR = "/skills/";
@@ -61,12 +64,16 @@ public class SkillDatabase {
             WEAPON_REFINES_FILE,
     };
 
+    @Override
+    protected WebCache[] getOnlineResources() {
+        return SKILL_FILES;
+    }
 
-
+    /*
     //todo: create file manager
     // receives requests and handles them simultaneously
     // (e.g. SkillRetriever asks for all of its missing files)
-    public static void updateCache() {
+    public void updateCache() {
         ArrayList<Thread> threads = new ArrayList<>();
         for (int i=0; i<SKILL_FILES.length; i++) {
             final int fileIndex = i;
@@ -95,10 +102,11 @@ public class SkillDatabase {
         SKILLS = getList();
         HERO_SKILLS = getHeroSkills();
     }
+     */
 
 
 
-    private static ArrayList<Skill> getList() {
+    protected ArrayList<Skill> getList() {
         System.out.print("processing skills... ");
         long start = System.nanoTime();
 
@@ -346,10 +354,7 @@ public class SkillDatabase {
         return passives;
     }
 
-
-
     private static ArrayList<String> EXCLUSIVE;
-
     private static ArrayList<String> getExclusiveList() {
         ArrayList<String> list = new ArrayList<>();
         ArrayList<ArrayList<String>> tables = EXCLUSIVE_SKILLS_FILE.getTables();
@@ -360,16 +365,12 @@ public class SkillDatabase {
 
         return list;
     }
-
     private static boolean isExclusive(String name) {
         for (String x : EXCLUSIVE) if (x.equals(name)) return true;
         return false;
     }
 
-
-
     private static ArrayList<WeaponRefine> REFINES;
-
     private static ArrayList<WeaponRefine> getRefineableList() {
         Document refinesFile;
         try {
@@ -477,7 +478,6 @@ public class SkillDatabase {
 
         return refines;
     }
-
     /**
      * Used to associate refines with their base weapons.
      *
@@ -489,9 +489,7 @@ public class SkillDatabase {
         return null;
     }
 
-
-
-    private static HashMap<String, ArrayList<Skill>> getHeroSkills() {
+    private HashMap<String, ArrayList<Skill>> getHeroSkills() {
         HashMap<String, ArrayList<Skill>> heroSkills = new HashMap<>();
 
 
@@ -520,7 +518,7 @@ public class SkillDatabase {
                     Elements skills = info.get(i).select("a");
                     for (Element skill:skills) {
                         String skillName = skill.text();
-                        baseKit.add(getSkill(skillName));
+                        baseKit.add(find(skillName));
                     }
                 }
             }
@@ -535,17 +533,22 @@ public class SkillDatabase {
 
 
 
-    public static Skill getSkill(String name) {
+    public ArrayList<Skill> findAll(String name) {
+        ArrayList<Skill> all = new ArrayList<>();
+
         for (Skill x:SKILLS) {
             if (x.getName().equalsIgnoreCase(name)) {
-                return x;
+                all.add(x);
             }
         }
 
-        return null;
+        return all;
     }
 
-
+    @Override
+    public Skill getRandom() {
+        return SKILLS.get((int)(Math.random()*SKILLS.size()));
+    }
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);

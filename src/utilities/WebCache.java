@@ -38,8 +38,14 @@ public class WebCache extends File {
                 } catch (IOException ioe) {
                     throw new Error("IOException while creating new file");
                 }
-            } else
-                throw new Error("unable to delete file " + website);
+            } else {
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ie) {
+                    ie.printStackTrace();
+                }
+                return update();
+            }
         }
 
         BufferedReader data = readWebsite(website);

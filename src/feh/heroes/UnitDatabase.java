@@ -11,6 +11,8 @@ import org.jsoup.select.Elements;
 import feh.heroes.character.constructionSite.HeroConstructor;
 import feh.skills.skillTypes.Skill;
 import feh.skills.SkillDatabase;
+import utilities.Database;
+import utilities.WebCache;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,8 +23,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
-public class UnitDatabase {
-    public static ArrayList<Hero> HEROES = getList();
+public class UnitDatabase extends Database<Hero> {
+    public static UnitDatabase DATABASE = new UnitDatabase(); //todo: finish find() to use this instead of raw list
+    public static ArrayList<Hero> HEROES = DATABASE.getList();
 
     private static final String HERO_SUBDIR = "/herodata/";
 
@@ -30,12 +33,6 @@ public class UnitDatabase {
             LV1_STATS = "Level_1_stats_table",
             GROWTH_RATES = "Growth_rate_table",
             HERO_LIST = "List_of_Heroes";
-
-    private static final String[] HERO_URLS = {
-            LV1_STATS,
-            GROWTH_RATES,
-            HERO_LIST,
-    };
 
 
 
@@ -50,22 +47,22 @@ public class UnitDatabase {
             HERO_LIST_FILE,
     };
 
-
-
-    public static void updateCache() {
-        for (int i=0; i<HERO_FILES.length; i++) {
-            try {
-                if (!HERO_FILES[i].update()) throw new Error("unable to update "+HERO_FILES[i].getName());
-            } catch (NullPointerException npe) {
-                HERO_FILES[i] = new FEHeroesCache(HERO_URLS[i]);
-                i--;
-            }
-        }
+    @Override
+    protected WebCache[] getOnlineResources() {
+        return HERO_FILES;
     }
 
+    @Override
+    public ArrayList<Hero> findAll(String input) {
+        return null;
+    }
 
+    @Override
+    public Hero getRandom() {
+        return HEROES.get((int) (Math.random()*HEROES.size()));
+    }
 
-    private static ArrayList<Hero> getList() {
+    protected ArrayList<Hero> getList() {
         System.out.print("processing heroes... ");
         long start = System.nanoTime();
 
@@ -284,11 +281,11 @@ public class UnitDatabase {
         return c;
     }
 
-    private static ArrayList<Skill> addBaseKit(String heroName) {
+    private ArrayList<Skill> addBaseKit(String heroName) {
         ArrayList<Skill> baseKit;
 
         try {
-            baseKit = SkillDatabase.HERO_SKILLS.get(heroName);
+            baseKit = SkillDatabase.DATABASE.HERO_SKILLS.get(heroName);
         } catch (NoSuchElementException f) {
             throw new Error("could not find base kit for "+heroName);
         }
@@ -296,10 +293,7 @@ public class UnitDatabase {
         return baseKit;
     }
 
-
-
     private static HashMap<String, Character> HERO_GENDERS = getGenders();
-
     private static HashMap<String, Character> getGenders() {
         File f = new File("./src/feh/heroes/grenders.txt");
         HashMap<String, Character> genders = new HashMap<>();

@@ -64,7 +64,8 @@ public class SummonSimulator extends FEHCommand {
 
 
 
-        Banner banner = BannerDatabase.BANNERS.get((int)(Math.random()*BannerDatabase.BANNERS.size())); //temp
+        Banner banner = BannerDatabase.BANNERS
+                .get((int)(Math.random()*BannerDatabase.BANNERS.size())); //temp
 
         if (args.length>1) {
             StringBuilder bannerName = new StringBuilder();

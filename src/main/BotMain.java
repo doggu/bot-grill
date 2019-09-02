@@ -31,6 +31,7 @@ import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import utilities.Stopwatch;
+import utilities.science.chem.ElementDatabase;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -49,7 +50,6 @@ public class BotMain {
     private static List<ListenerAdapter> listeners = new ArrayList<>();
 
     public static List<Emote> stones;
-    public static List<Emote> fehIcons;
 
 
 
@@ -131,7 +131,6 @@ public class BotMain {
         //FEH
         if (FEHEROES_UTILS) {
             stones = bot_grill.getGuildsByName("summonicons", true).get(0).getEmotes();
-            fehIcons = bot_grill.getGuildsByName("fehicons", true).get(0).getEmotes();
 
             addListener(new SkillRetriever());
             addListener(new HeroRetriever());
@@ -164,23 +163,32 @@ public class BotMain {
                 case "update":
                     if (args.length>1) {
                         switch (args[1]) {
+                            case "e":
+                            case "elements":
+                                ElementDatabase.DATABASE.updateCache();
+                                break;
+                            case "h":
                             case "heroes":
-                                UnitDatabase.updateCache();
+                                UnitDatabase.DATABASE.updateCache();
                                 break;
+                            case "s":
                             case "skills":
-                                SkillDatabase.updateCache();
+                                SkillDatabase.DATABASE.updateCache();
                                 break;
+                            case "b":
                             case "banners":
-                                BannerDatabase.updateCache();
+                                BannerDatabase.DATABASE.updateCache();
                                 break;
                             default:
-                                SkillDatabase.updateCache();
-                                UnitDatabase.updateCache();
-                                BannerDatabase.updateCache();
+                                SkillDatabase.DATABASE.updateCache();
+                                UnitDatabase.DATABASE.updateCache();
+                                BannerDatabase.DATABASE.updateCache();
                                 break;
 
                         }
                     }
+                    break;
+                case "mem":
                 case "memory":
                     System.out.println("Total:\t"+Runtime.getRuntime().totalMemory());
                     System.out.println("Free:\t"+Runtime.getRuntime().freeMemory());

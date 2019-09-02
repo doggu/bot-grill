@@ -3,17 +3,25 @@ package utilities.science.chem;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
+import utilities.Database;
 import utilities.WebCache;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ElementDatabase {
-    public static final ArrayList<ChemicalElement> ELEMENTS = getList();
+public class ElementDatabase extends Database<ChemicalElement> {
+    public static ElementDatabase DATABASE = new ElementDatabase();
+    public static ArrayList<ChemicalElement> ELEMENTS = DATABASE.getList();
 
     private static final String PERIODIC_TABLE_URL = "https://en.wikipedia.org/wiki/List_of_chemical_elements";
 
+    private static final WebCache PERIODIC_TABLE_FILE =
+            new WebCache("https://en.wikipedia.org/wiki/List_of_chemical_elements", "/chem");
 
+    @Override
+    protected WebCache[] getOnlineResources() {
+        return new WebCache[] { PERIODIC_TABLE_FILE };
+    }
 
     /*
     from left to right:
@@ -47,7 +55,7 @@ public class ElementDatabase {
 
 
 
-    private static ArrayList<ChemicalElement> getList() {
+    protected ArrayList<ChemicalElement> getList() {
         ArrayList<ChemicalElement> elements = new ArrayList<>();
 
         WebCache elementCache = new WebCache(PERIODIC_TABLE_URL, "/chem/");
@@ -110,5 +118,17 @@ public class ElementDatabase {
 
 
         return elements;
+    }
+
+
+
+    @Override
+    public ArrayList<ChemicalElement> findAll(String input) {
+        return null;
+    }
+
+    @Override
+    public ChemicalElement getRandom() {
+        return null;
     }
 }

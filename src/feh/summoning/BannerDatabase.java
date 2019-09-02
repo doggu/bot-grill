@@ -6,36 +6,30 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import feh.heroes.character.Hero;
+import utilities.Database;
+import utilities.WebCache;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.*;
 
-public class BannerDatabase {
-    public static ArrayList<Banner> BANNERS = getList();
+public class BannerDatabase extends Database<Banner> {
+    public static BannerDatabase DATABASE = new BannerDatabase();
+    public static ArrayList<Banner> BANNERS = DATABASE.getList();
 
     private static final String FOCUS_ARCHIVE = "Summoning_Focus_archive";
 
     private static FEHeroesCache FOCUS_ARCHIVE_FILE;
 
-
-
-    public static void updateCache() {
-        try {
-            if (!FOCUS_ARCHIVE_FILE.update()) throw new Error("unable to update " + FOCUS_ARCHIVE_FILE.getName());
-        } catch (NullPointerException npe) {
-            FOCUS_ARCHIVE_FILE = new FEHeroesCache(FOCUS_ARCHIVE);
-            updateCache();
-            return;
-        }
-
-
-
-        BANNERS = getList();
+    @Override
+    protected WebCache[] getOnlineResources() {
+        return new WebCache[] { FOCUS_ARCHIVE_FILE };
     }
 
-    private static ArrayList<Banner> getList() {
+
+
+    protected ArrayList<Banner> getList() {
         System.out.print("processing banners... ");
         long start = System.nanoTime();
 
@@ -68,8 +62,6 @@ public class BannerDatabase {
                 " s)!");
         return banners;
     }
-
-
 
     private static Banner createBanner(Element table) {
         Elements rows = table.select("tr");
@@ -105,7 +97,6 @@ public class BannerDatabase {
 
         return new Banner(name, summonables, startDate, endDate);
     }
-
     private static ArrayList<Hero> getSummonables(Element heroes) {
         Elements items = heroes.select("div").get(0).children();
         ArrayList<Hero> summonables = new ArrayList<>();
@@ -118,6 +109,22 @@ public class BannerDatabase {
     }
 
 
+    @Override
+    public ArrayList<Banner> findAll(String input) {
+        ArrayList<Banner> all = new ArrayList<>();
+        for (Banner x:BANNERS) {
+            if (x.getName().equals(input)) {
+                all.add(x);
+            }
+        }
+
+        return all;
+    }
+
+    @Override
+    public Banner getRandom() {
+        return BANNERS.get((int)(Math.random()*BANNERS.size()));
+    }
 
     private static GregorianCalendar getDate(String date) throws IllegalArgumentException {
         String[] endDateStr = date.split("-");

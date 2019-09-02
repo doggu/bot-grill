@@ -182,7 +182,7 @@ public class HeroRetriever extends Command {
 
                             args.subList(i, j).clear();
 
-                            Skill skill = SkillDatabase.getSkill(skillName.toString());
+                            Skill skill = SkillDatabase.DATABASE.find(skillName.toString());
                             if (skill instanceof StatModifier)
                                 skills.add((StatModifier) skill);
 
@@ -522,6 +522,7 @@ public class HeroRetriever extends Command {
 
 
 
+    //todo: literally move ALL this shit into some kind of Discord UI section
     private static EmbedBuilder printCharacter(Hero x, boolean lv1, int rarity,
                                           boolean getAll, int boon, int bane,
                                           int merges, int dragonflowers, char support) {

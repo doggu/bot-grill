@@ -124,11 +124,16 @@ public class ElementDatabase extends Database<ChemicalElement> {
 
     @Override
     public ArrayList<ChemicalElement> findAll(String input) {
-        return null;
+        ArrayList<ChemicalElement> elements = new ArrayList<>();
+        for (ChemicalElement element:ELEMENTS) {
+            if (element.getSymbol().equals(input)) elements.add(element);
+        }
+
+        return elements;
     }
 
     @Override
     public ChemicalElement getRandom() {
-        return null;
+        return ELEMENTS.get(ELEMENTS.size()-1);
     }
 }

@@ -38,7 +38,9 @@ public class Maffs extends Command {
                 sendMessage("no previous answer was found!");
                 return;
             }
-            problem = problem.replace("ans",""+ans);
+            String ansStr = String.valueOf(ans);
+            ansStr = ansStr.replace("E", "*10^");
+            problem = problem.replace("ans", "("+ansStr+")");
         }
 
         double value = new MathParse(problem).getFunction().apply(tv);

@@ -1,6 +1,8 @@
 package utilities.math;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.Arrays;
 import java.util.function.Function;
 
 
@@ -28,13 +30,13 @@ public class MathParse {
 
     private static final char[][] OoO /*order of operations*/ = {
             //special functions come first, since they are the equivalent of 1*[fn](arg)
-            {SIN, COS, TAN, ASIN, ACOS, ATAN, SINH, COSH, TANH, LOG, LN, SQRT, FLOOR, CEIL},
+            { SIN, COS, TAN, ASIN, ACOS, ATAN, SINH, COSH, TANH, LOG, LN, SQRT, FLOOR, CEIL },
             //pEmdas
-            {POWER},
+            { POWER },
             //peMDas (multiplication and modulo)
-            {TIMES, DIVIDE, MODULO},
+            { TIMES, DIVIDE, MODULO },
             //pemdAS
-            {PLUS, MINUS},
+            { PLUS, MINUS },
     };
 
     private char[] f;
@@ -88,15 +90,15 @@ public class MathParse {
                     break;
                 case '(':
                     insertImplicitTimes();
-                    int pbalance = 0;
+                    int pBalance = 1;
                     int start = i+1;
-                    for (; i<f.length; i++) {
+                    for (i = start; i<f.length; i++) {
                         c = f[i];
-                        if (c=='(') pbalance++;
-                        if (c==')') pbalance--;
-                        if (pbalance==0) break;
+                        if (c=='(') pBalance++;
+                        if (c==')') pBalance--;
+                        if (pBalance==0) break;
                     }
-                    if (pbalance!=0) {
+                    if (pBalance!=0) {
                         System.out.println("imbalanced parentheses!");
                         throw new Error();
                     }

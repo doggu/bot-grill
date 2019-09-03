@@ -3,6 +3,7 @@ package main;
 import events.Quips;
 import events.Reactions;
 import events.Vote;
+import events.commands.CanIEatRightNow;
 import events.commands.Emotes;
 import events.commands.Girl;
 import events.commands.chem.ElementRetriever;
@@ -124,6 +125,9 @@ public class BotMain {
         addListener(new Emotes());
         addListener(new Girl());
         addListener(new Vote());
+
+        //campus help
+        addListener(new CanIEatRightNow());
 
         //devTools
         loadDevTools();

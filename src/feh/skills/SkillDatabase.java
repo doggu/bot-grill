@@ -69,41 +69,6 @@ public class SkillDatabase extends Database<Skill> {
         return SKILL_FILES;
     }
 
-    /*
-    //todo: create file manager
-    // receives requests and handles them simultaneously
-    // (e.g. SkillRetriever asks for all of its missing files)
-    public void updateCache() {
-        ArrayList<Thread> threads = new ArrayList<>();
-        for (int i=0; i<SKILL_FILES.length; i++) {
-            final int fileIndex = i;
-            Thread loader = new Thread(() -> {
-                try {
-                    if (!SKILL_FILES[fileIndex].update()) throw new Error("unable to update " + SKILL_FILES[fileIndex].getName());
-                } catch (NullPointerException npe) {
-                    //SKILL_FILES[i] = new FEHeroesCache(SKILL_URLS[i]);
-                }
-            });
-
-            threads.add(loader);
-        }
-
-        for (Thread loader:threads)
-            loader.start();
-
-        for (Thread loader:threads) {
-            try {
-                loader.join();
-            } catch (InterruptedException ie) {
-                ie.printStackTrace();
-            }
-        }
-
-        SKILLS = getList();
-        HERO_SKILLS = getHeroSkills();
-    }
-     */
-
 
 
     protected ArrayList<Skill> getList() {

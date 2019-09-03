@@ -1,6 +1,6 @@
 package utilities;
 
-public class Range<T extends Comparable> {
+public class Range<T extends Comparable<T>> {
     private T min, max;
 
 

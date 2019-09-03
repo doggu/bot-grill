@@ -1,24 +1,29 @@
 package utilities;
 
-public class Range {
-    private int min, max;
+public class Range<T extends Comparable> {
+    private T min, max;
 
 
 
-    public Range(int min, int max) {
+    public Range(T min, T max) {
         this.min = min;
         this.max = max;
     }
 
 
 
-    public int getMin() { return min; }
-    public int getMax() { return max; }
+    public T getMin() { return min; }
+    public T getMax() { return max; }
 
-    public void updateRange(int newVal) {
-        min = (newVal<min?newVal:min);
-        max = (newVal>max?newVal:max);
+    public void updateRange(T newVal) {
+        if (newVal==null) return;
+        min = (min.compareTo(newVal)>0?newVal:min);
+        max = (newVal.compareTo(max)<0?newVal:max);
     }
 
-    public boolean infintesimalRange() { return min==max; }
+    public boolean infintesimalRange() { return min.compareTo(max)==0; }
+
+    public boolean inThisRange(T val) {
+        return min.compareTo(val)<0 && max.compareTo(val)>0;
+    }
 }

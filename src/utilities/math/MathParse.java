@@ -5,28 +5,20 @@ import java.util.Scanner;
 import java.util.Arrays;
 import java.util.function.Function;
 
-
-
 public class MathParse {
     private static final char
             PLUS = '+', MINUS = '-', TIMES = '*', DIVIDE = '/', POWER = '^', MODULO = '%',
-
             SIN = '∿', COS = 'Ϲ', TAN = 't',  //that is NOT a C
             ASIN = 'Ѕ', ACOS = 'Ͻ', ATAN = 'T',
             SINH = 'Ѓ', COSH = 'Ͼ', TANH = 'ţ',
-
             LOG = '㏒', LN = '㏑', SQRT = '√', FLOOR = 'f', CEIL = 'r',
-
-            VARIABLE = 'x',
-
+            VAR = 'x',
             PI = 'π', PHI = 'p', E = 'e', SoL = 'c', AVO = 'Ä';
 
     private static final double
             PHI_N = (1+Math.pow(5,0.5))/2,
             SoL_N = 299792458.0, //m/s
             AVO_N = 6.02214086E23;
-
-
 
     private static final char[][] OoO /*order of operations*/ = {
             //special functions come first, since they are the equivalent of 1*[fn](arg)
@@ -39,6 +31,8 @@ public class MathParse {
             { PLUS, MINUS },
     };
 
+
+
     private char[] f;
     private int i = 0;
     private ArrayList<Function<Double,Double>> fxns = new ArrayList<>();
@@ -49,31 +43,30 @@ public class MathParse {
     public MathParse(String problem) {
         this.f = problem
                 //constants
-                .replaceAll("pi",String.valueOf(PI))
-                .replaceAll("phi",String.valueOf(PHI))
+                .replaceAll("pi", String.valueOf(PI))
+                .replaceAll("phi", String.valueOf(PHI))
                 .replaceAll("N\\(A\\)", String.valueOf(AVO))
                 //hyperbolics
                 .replaceAll("sinh", String.valueOf(SINH))
                 .replaceAll("cosh", String.valueOf(COSH))
                 .replaceAll("tanh", String.valueOf(TANH))
                 //inverse trig functions (so the regular ones don't override them)
-                //(even though i could just have it replace "as" later
-                .replaceAll("a(rc)?sin",String.valueOf(ASIN))
-                .replaceAll("a(rc)?cos",String.valueOf(ACOS))
-                .replaceAll("a(rc)?tan",String.valueOf(ATAN))
+                //(even though i could just have it replace "∿h" or something later)
+                .replaceAll("a(rc)?sin", String.valueOf(ASIN))
+                .replaceAll("a(rc)?cos", String.valueOf(ACOS))
+                .replaceAll("a(rc)?tan", String.valueOf(ATAN))
                 //trigonometric functions
-                .replaceAll("sin",String.valueOf(SIN))
-                .replaceAll("cos",String.valueOf(COS))
-                .replaceAll("tan",String.valueOf(TAN))
+                .replaceAll("sin", String.valueOf(SIN))
+                .replaceAll("cos", String.valueOf(COS))
+                .replaceAll("tan", String.valueOf(TAN))
                 //logarithmic functions
-                .replaceAll("log",String.valueOf(LOG))
-                .replaceAll("ln",String.valueOf(LN))
-                .replaceAll("sqr?t",String.valueOf(SQRT))
-                .replaceAll("floor",String.valueOf(FLOOR))
-                .replaceAll("ceil",String.valueOf(CEIL))
+                .replaceAll("log", String.valueOf(LOG))
+                .replaceAll("ln", String.valueOf(LN))
+                .replaceAll("sqr?t", String.valueOf(SQRT))
+                .replaceAll("floor", String.valueOf(FLOOR))
+                .replaceAll("ceil", String.valueOf(CEIL))
                 .toCharArray();
     }
-
     //for recursive calls which have already replaced functions with special characters
     private MathParse(char[] problem) { this.f = problem; }
 
@@ -89,23 +82,23 @@ public class MathParse {
                     addVal(getNum());
                     break;
                 case '(':
-                    insertImplicitTimes();
-                    int pBalance = 1;
+                    insertImplTimes();
+                    int pBal = 1;
                     int start = i+1;
                     for (i = start; i<f.length; i++) {
                         c = f[i];
-                        if (c=='(') pBalance++;
-                        if (c==')') pBalance--;
-                        if (pBalance==0) break;
+                        if (c=='(') pBal++;
+                        if (c==')') pBal--;
+                        if (pBal==0) break;
                     }
-                    if (pBalance!=0) {
+                    if (pBal!=0) {
                         System.out.println("imbalanced parentheses!");
                         throw new Error();
                     }
-                    fxns.add(new MathParse(Arrays.copyOfRange(f,start,i)).getFunction());
+                    fxns.add(new MathParse(Arrays.copyOfRange(f, start, i)).getFunction());
                     break;
-                case VARIABLE:
-                    insertImplicitTimes();
+                case VAR:
+                    insertImplTimes();
                     fxns.add(x -> x);
                     break;
                 case PI: case E: case PHI: case SoL: case AVO:
@@ -143,7 +136,7 @@ public class MathParse {
         return fxns.get(0);
     }
 
-    private void insertImplicitTimes() {
+    private void insertImplTimes() {
         if (fxns.size()>ops.size())
             ops.add(TIMES);
     }
@@ -230,6 +223,8 @@ public class MathParse {
         fxns.add(i, newF);
         i--;
     }
+
+
 
     public static void main(String[] arg) {
         double[] TV = {0,1,2,3,4,5,6,7,Math.PI,Math.E};

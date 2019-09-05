@@ -23,16 +23,16 @@ public abstract class Database<T> {
         WebCache[] webCaches = getOnlineResources();
         Thread[] threads = new Thread[webCaches.length];
         for (int i=0; i<webCaches.length; i++) {
-            final int fileIndex = i;
+            final WebCache file = webCaches[i];
             Thread loader = new Thread(() -> {
                 try {
-                    if (!webCaches[fileIndex].update())
-                        throw new Error("unable to update " + webCaches[fileIndex].getName());
+                    if (!file.update())
+                        throw new Error("unable to update " + file.getName());
                 } catch (NullPointerException npe) {
                     //SKILL_FILES[i] = new FEHeroesCache(SKILL_URLS[i]);
                 }
             });
-            loader.setName(webCaches[fileIndex].getName());
+            loader.setName(file.getName());
             threads[i] = loader;
         }
 

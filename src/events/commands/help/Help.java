@@ -1,6 +1,8 @@
 package events.commands.help;
 
 import events.commands.Command;
+import events.menu.Menu;
+import events.menu.MenuEntry;
 import main.BotMain;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
@@ -24,25 +26,24 @@ public class Help extends Command {
                 commands.add(((Command) x));
 
         if (args.length==1) {
-            MessageBuilder message = new MessageBuilder(
+            Message header = new MessageBuilder(
                     "a list of things you can do!\n" +
-                    "commands are called by placing a question mark before their name (e.x. \"?chances\")");
-            for (int i=0; i<commands.size(); i++) {
-                message.append("\n").append(i+1).append(". ").append(commands.get(i).getHelp());
-                if (i+1>=10) {
-                    //TODO: create multiple pages
-                    break;
-                }
+                    "commands are called by placing a question mark before their name (e.x. \"?chances\")")
+                    .build();
+
+
+
+            ArrayList<MenuEntry> entries = new ArrayList<>(commands.size());
+
+            for (Command c:commands) {
+                MenuEntry entry = new MenuEntry(c.getName()+": "+c.getDescription());
+                entry   .setAuthor(c.getName())
+                        .setDescription(c.getDescription());
+
+                entries.add(entry);
             }
 
-            sendMessage(message.build());
-        } else if (args.length==2) {
-            for (Command x:commands) {
-                if (x.getName().equalsIgnoreCase(args[1])) {
-                    sendMessage(x.getFullHelp());
-                    break;
-                }
-            }
+            new Menu(e.getAuthor(), e.getChannel(), header, entries);
         }
 
         log("helped "+e.getAuthor().getName()+" understand me.");

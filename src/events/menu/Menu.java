@@ -1,14 +1,14 @@
 package events.menu;
 
 import events.ReactionListener;
-import events.Reactions;
 import main.BotMain;
-import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.*;
+import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.core.entities.MessageReaction;
+import net.dv8tion.jda.core.entities.User;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /*
 this class allows for (only) the viewing of specific items in a list.

@@ -43,7 +43,7 @@ public class Help extends Command {
                 entries.add(entry);
             }
 
-            Menu menu = new Menu(e.getAuthor(), e.getChannel(), header, entries);
+            new Menu(e.getAuthor(), e.getChannel(), header, entries);
         }
 
         log("helped "+e.getAuthor().getName()+" understand me.");

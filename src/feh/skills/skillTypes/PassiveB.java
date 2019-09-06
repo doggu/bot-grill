@@ -13,9 +13,7 @@ public class PassiveB extends Passive implements CooldownModifier {
         super (name, description, new Color(0x003ED3), 'b', cost, exclusive, icon);
 
         //literally gotta do this just for Lunar Brace
-        int cdModifier = 0;
-
-        this.cdModifier = cdModifier;
+        this.cdModifier = (name.equalsIgnoreCase("Lunar Brace")?1:0);
     }
 
 

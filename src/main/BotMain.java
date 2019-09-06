@@ -90,7 +90,6 @@ public class BotMain {
     private static void loadDevTools() {
         addListener(new DevTools());
         addListener(new Draw());
-        addListener(new EmbedTest());
         addListener(new PermissionsListener());
     }
 

@@ -231,10 +231,8 @@ public class UnitDatabase extends Database<Hero> {
         try {
             c.setRarity(Integer.parseInt(String.valueOf(r.charAt(0))));
         } catch (NumberFormatException nfe) {
-            if (BotMain.DEBUG) {
-                System.out.println("issues getting rarity for "+c.getFullName());
-                nfe.printStackTrace();
-            }
+            if (BotMain.DEBUG)
+                System.out.println("issues getting rarity for "+c.getFullName()+": "+nfe.getMessage());
             c.setRarity(-1);
         }
 

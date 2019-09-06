@@ -20,12 +20,6 @@ public class SkillDatabase extends Database<Skill> {
     public static ArrayList<Skill> SKILLS;
     public static HashMap<String, ArrayList<Skill>> HERO_SKILLS;
 
-    static {
-        DATABASE = new SkillDatabase();
-        SKILLS = DATABASE.getList();
-        HERO_SKILLS = DATABASE.getHeroSkills();
-    }
-
     private static final String
             SKILLS_SUBDIR = "/skills/";
 
@@ -52,23 +46,41 @@ public class SkillDatabase extends Database<Skill> {
 
 
     private static FEHeroesCache
-            WEAPONS_FILE = new FEHeroesCache(WEAPONS),
-            ASSISTS_FILE = new FEHeroesCache(ASSISTS),
-            SPECIALS_FILE = new FEHeroesCache(SPECIALS),
-            PASSIVES_FILE = new FEHeroesCache(PASSIVES),
-            EXCLUSIVE_SKILLS_FILE = new FEHeroesCache(EXCLUSIVE_SKILLS),
-            HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS),
-            WEAPON_REFINES_FILE = new FEHeroesCache(WEAPON_REFINES);
-
-    private static FEHeroesCache[] SKILL_FILES = {
             WEAPONS_FILE,
             ASSISTS_FILE,
             SPECIALS_FILE,
             PASSIVES_FILE,
             EXCLUSIVE_SKILLS_FILE,
             HERO_BASE_SKILLS_FILE,
-            WEAPON_REFINES_FILE,
-    };
+            WEAPON_REFINES_FILE;
+
+    private static FEHeroesCache[] SKILL_FILES;
+
+    static {
+        WEAPONS_FILE = new FEHeroesCache(WEAPONS);
+        ASSISTS_FILE = new FEHeroesCache(ASSISTS);
+        SPECIALS_FILE = new FEHeroesCache(SPECIALS);
+        PASSIVES_FILE = new FEHeroesCache(PASSIVES);
+        EXCLUSIVE_SKILLS_FILE = new FEHeroesCache(EXCLUSIVE_SKILLS);
+        HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS);
+        WEAPON_REFINES_FILE = new FEHeroesCache(WEAPON_REFINES);
+
+        SKILL_FILES = new FEHeroesCache[]{
+                WEAPONS_FILE,
+                ASSISTS_FILE,
+                SPECIALS_FILE,
+                PASSIVES_FILE,
+                EXCLUSIVE_SKILLS_FILE,
+                HERO_BASE_SKILLS_FILE,
+                WEAPON_REFINES_FILE,
+        };
+
+        DATABASE = new SkillDatabase();
+        SKILLS = DATABASE.getList();
+        HERO_SKILLS = DATABASE.getHeroSkills();
+    }
+
+
 
     @Override
     protected WebCache[] getOnlineResources() {
@@ -81,16 +93,6 @@ public class SkillDatabase extends Database<Skill> {
         System.out.print("processing skills... ");
         long start = System.nanoTime();
 
-
-
-        //TODO: figure out how to get the initializers to handle this automagically
-        WEAPONS_FILE = new FEHeroesCache(WEAPONS, SKILLS_SUBDIR);
-        ASSISTS_FILE = new FEHeroesCache(ASSISTS, SKILLS_SUBDIR);
-        SPECIALS_FILE = new FEHeroesCache(SPECIALS, SKILLS_SUBDIR);
-        PASSIVES_FILE = new FEHeroesCache(PASSIVES, SKILLS_SUBDIR);
-        EXCLUSIVE_SKILLS_FILE = new FEHeroesCache(EXCLUSIVE_SKILLS, SKILLS_SUBDIR);
-        HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS, SKILLS_SUBDIR);
-        WEAPON_REFINES_FILE = new FEHeroesCache(WEAPON_REFINES, SKILLS_SUBDIR);
         EXCLUSIVE = getExclusiveList();
         REFINES = getRefineableList();
 

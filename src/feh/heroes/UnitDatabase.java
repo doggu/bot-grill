@@ -24,8 +24,10 @@ import java.net.URL;
 import java.util.*;
 
 public class UnitDatabase extends Database<Hero> {
-    public static UnitDatabase DATABASE = new UnitDatabase(); //todo: finish find() to use this instead of raw list
-    public static ArrayList<Hero> HEROES = DATABASE.getList();
+    public static UnitDatabase DATABASE; //todo: finish find() to use this instead of raw list
+    public static ArrayList<Hero> HEROES;
+
+
 
     private static final String HERO_SUBDIR = "/herodata/";
 
@@ -34,18 +36,28 @@ public class UnitDatabase extends Database<Hero> {
             GROWTH_RATES = "Growth_rate_table",
             HERO_LIST = "List_of_Heroes";
 
-
-
     private static FEHeroesCache
             LV1_STATS_FILE,
             GROWTH_RATES_FILE,
             HERO_LIST_FILE;
 
-    private static FEHeroesCache[] HERO_FILES = {
+    private static FEHeroesCache[] HERO_FILES;
+
+    static {
+        LV1_STATS_FILE = new FEHeroesCache(LV1_STATS, HERO_SUBDIR);
+        GROWTH_RATES_FILE = new FEHeroesCache(GROWTH_RATES, HERO_SUBDIR);
+        HERO_LIST_FILE = new FEHeroesCache(HERO_LIST, HERO_SUBDIR);
+
+        DATABASE = new UnitDatabase();
+        HEROES = DATABASE.getList();
+        HERO_FILES = new FEHeroesCache[]{
             LV1_STATS_FILE,
-            GROWTH_RATES_FILE,
-            HERO_LIST_FILE,
-    };
+                    GROWTH_RATES_FILE,
+                    HERO_LIST_FILE,
+        };
+    }
+
+
 
     @Override
     protected WebCache[] getOnlineResources() {
@@ -65,13 +77,6 @@ public class UnitDatabase extends Database<Hero> {
     protected ArrayList<Hero> getList() {
         System.out.print("processing heroes... ");
         long start = System.nanoTime();
-
-
-
-        //todo: this is still fucking dumb
-        LV1_STATS_FILE = new FEHeroesCache(LV1_STATS, HERO_SUBDIR);
-        GROWTH_RATES_FILE = new FEHeroesCache(GROWTH_RATES, HERO_SUBDIR);
-        HERO_LIST_FILE = new FEHeroesCache(HERO_LIST, HERO_SUBDIR);
 
         HERO_GENDERS = getGenders();
 
@@ -226,7 +231,10 @@ public class UnitDatabase extends Database<Hero> {
         try {
             c.setRarity(Integer.parseInt(String.valueOf(r.charAt(0))));
         } catch (NumberFormatException nfe) {
-            if (BotMain.DEBUG) nfe.printStackTrace();
+            if (BotMain.DEBUG) {
+                System.out.println("issues getting rarity for "+c.getFullName());
+                nfe.printStackTrace();
+            }
             c.setRarity(-1);
         }
 
@@ -285,7 +293,7 @@ public class UnitDatabase extends Database<Hero> {
         ArrayList<Skill> baseKit;
 
         try {
-            baseKit = SkillDatabase.DATABASE.HERO_SKILLS.get(heroName);
+            baseKit = SkillDatabase.HERO_SKILLS.get(heroName);
         } catch (NoSuchElementException f) {
             throw new Error("could not find base kit for "+heroName);
         }

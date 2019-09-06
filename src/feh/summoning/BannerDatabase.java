@@ -15,12 +15,21 @@ import java.math.MathContext;
 import java.util.*;
 
 public class BannerDatabase extends Database<Banner> {
-    public static BannerDatabase DATABASE = new BannerDatabase();
-    public static ArrayList<Banner> BANNERS = DATABASE.getList();
+    public static BannerDatabase DATABASE;
+    public static ArrayList<Banner> BANNERS;
 
     private static final String FOCUS_ARCHIVE = "Summoning_Focus_archive";
 
     private static FEHeroesCache FOCUS_ARCHIVE_FILE;
+
+    static {
+        FOCUS_ARCHIVE_FILE = new FEHeroesCache(FOCUS_ARCHIVE);
+
+        DATABASE = new BannerDatabase();
+        BANNERS = DATABASE.getList();
+    }
+
+
 
     @Override
     protected WebCache[] getOnlineResources() {
@@ -32,12 +41,6 @@ public class BannerDatabase extends Database<Banner> {
     protected ArrayList<Banner> getList() {
         System.out.print("processing banners... ");
         long start = System.nanoTime();
-
-
-
-        FOCUS_ARCHIVE_FILE = new FEHeroesCache(FOCUS_ARCHIVE);
-
-
 
         Document bannersFile;
         try {

@@ -2,9 +2,15 @@ package events.fehGame;
 
 import events.fehGame.retriever.HeroRetriever;
 import events.fehGame.summoning.SummonSimulator;
+import events.menu.Menu;
+import events.menu.MenuEntry;
+import feh.heroes.unit.Unit;
 import feh.players.Barracks;
 import feh.players.Summoner;
 import net.dv8tion.jda.core.MessageBuilder;
+import net.dv8tion.jda.core.entities.Message;
+
+import java.util.ArrayList;
 
 public class Allies extends FEHCommand {
     public boolean isCommand() {
@@ -43,21 +49,18 @@ public class Allies extends FEHCommand {
                         }
                     }
                 }
-                StringBuilder message = new StringBuilder("You have ")
+                Message header = new MessageBuilder("You have ")
                         .append(barracks.size())
-                        .append(" unit").append(barracks.size()==1?"":"s").append(".\n\n");
+                        .append(" unit").append(barracks.size()==1?"":"s").append(".")
+                        .build();
 
-                for (int i=0; i<barracks.size(); i++) {
-                    message.append((i + 1))
-                            .append(". ")
-                            .append(barracks.get(i))
-                            .append('\n');
-                    if ((i+1)%50==0) {
-                        sendMessage(message.toString());
-                        message = new StringBuilder();
-                    }
-                }
-                sendMessage(message);
+                ArrayList<MenuEntry> entries = new ArrayList<>();
+
+                for (Unit unit:barracks)
+                    entries.add(new MenuEntry(unit.toString(),
+                            HeroRetriever.printUnit(unit, false)));
+
+                new Menu(e.getAuthor(), e.getChannel(), header, entries);
                 return;
             }
         }

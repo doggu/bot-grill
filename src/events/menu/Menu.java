@@ -5,7 +5,6 @@ import main.BotMain;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.MessageReaction;
 import net.dv8tion.jda.core.entities.User;
 
 import java.util.ArrayList;
@@ -21,7 +20,8 @@ clicking the arrows can either advance or return to different
 parts of the menu, with the reaction buttons remaining the same--
 corresponding to a specific row in the generated table.
 
-todo: make this a lower-level class with extensions such as "VisualMenu" and specialized ones like "HelpMenu"?
+todo: make this a lower-level class with extensions?
+ (such as "VisualMenu" and specialized ones like "HelpMenu")
  */
 public class Menu extends ReactionListener {
     private final User user;
@@ -29,7 +29,6 @@ public class Menu extends ReactionListener {
     private final ArrayList<MenuEntry> entries;
     private final ArrayList<Message> windows;
     private int currentWindow = 0;
-    private ArrayList<MessageReaction> userInput = new ArrayList<>();
 
 
 
@@ -89,74 +88,83 @@ public class Menu extends ReactionListener {
         message.addReaction(R_ARROW).queue();
     }
 
-    private void clearUserInput() {
-        for (MessageReaction r:userInput) {
-            r.removeReaction(user).queue();
-        }
 
-        userInput = new ArrayList<>();
+
+    private void displayPrevPage() {
+        currentWindow--;
+        displayNewPage();
+    }
+    private void displayNextPage() {
+        currentWindow++;
+        displayNewPage();
+    }
+    private void displayNewPage() throws IndexOutOfBoundsException {
+        message = message.editMessage(windows.get(currentWindow))
+                .complete();
+    }
+    private void displayEntry(int item) {
+        message = message.editMessage(
+                new MessageBuilder(
+                        message)
+                        .setEmbed(entries.get(currentWindow*5+item-1).build())
+                        .build())
+                .complete();
     }
 
 
 
     public boolean isCommand() {
         if (e.getUser().isBot()) return false;
-        return e.getUser().getId().equals(user.getId());
+        if (!e.getUser().getId().equals(user.getId())) return false;
+
+        return e.getChannel().getMessageById(e.getMessageId()).complete().equals(message);
     }
 
     public void onCommand() {
-        userInput.add(e.getReaction());
         switch (e.getReaction().getReactionEmote().toString()) {
             case "RE:◀(null)":
-                clearUserInput();
-                currentWindow--;
                 try {
-                    message = message.editMessage(windows.get(currentWindow))
-                            .complete();
+                    displayPrevPage();
                 } catch (IndexOutOfBoundsException ioobe) {
                     sendMessage("you are already on the first page!");
                     currentWindow++;
                 }
                 break;
             case "RE:▶(null)":
-                clearUserInput();
-                currentWindow++;
                 try {
-                    message = message.editMessage(windows.get(currentWindow))
-                            .complete();
+                    displayNextPage();
                 } catch (IndexOutOfBoundsException ioobe) {
                     sendMessage("you are already on the last page!");
                     currentWindow--;
                 }
                 break;
-            case "RE:1⃣(null)":
-                message.editMessage(new MessageBuilder(message)
-                        .setEmbed(entries.get(currentWindow*5).build())
-                        .build()).queue();
-                break;
-            case "RE:2⃣(null)":
-                message.editMessage(new MessageBuilder(message)
-                        .setEmbed(entries.get(currentWindow*5+1).build())
-                        .build()).queue();
-                break;
-            case "RE:3⃣(null)":
-                message.editMessage(new MessageBuilder(message)
-                        .setEmbed(entries.get(currentWindow*5+2).build())
-                        .build()).queue();
-                break;
-            case "RE:4⃣(null)":
-                message.editMessage(new MessageBuilder(message)
-                        .setEmbed(entries.get(currentWindow*5+3).build())
-                        .build()).queue();
-                break;
-            case "RE:5⃣(null)":
-                message.editMessage(new MessageBuilder(message)
-                        .setEmbed(entries.get(currentWindow*5+4).build())
-                        .build()).queue();
-                break;
             default:
-                System.out.println(e.getReaction().getReactionEmote().toString());
-                break;
+                try {
+                    switch (e.getReaction().getReactionEmote().toString()) {
+                        case "RE:1⃣(null)":
+                            displayEntry(1);
+                            break;
+                        case "RE:2⃣(null)":
+                            displayEntry(2);
+                            break;
+                        case "RE:3⃣(null)":
+                            displayEntry(3);
+                            break;
+                        case "RE:4⃣(null)":
+                            displayEntry(4);
+                            break;
+                        case "RE:5⃣(null)":
+                            displayEntry(5);
+                            break;
+                        default:
+                            System.out.println(e.getReaction().getReactionEmote().toString());
+                            break;
+                    }
+                } catch (IndexOutOfBoundsException ioobe) {
+                    sendMessage("that entry does not exist!");
+                }
         }
+
+        e.getReaction().removeReaction(user).queue();
     }
 }

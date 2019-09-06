@@ -61,6 +61,9 @@ public class Menu extends ReactionListener {
                 embed.append('\n');
         }
 
+        if (!embed.toString().equals(new MessageBuilder(header).append("\n\n").toString()))
+            windows.add(embed.build());
+
         return windows;
     }
 

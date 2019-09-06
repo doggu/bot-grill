@@ -2,9 +2,9 @@ package events.fehGame.retriever;
 
 import events.commands.Command;
 import feh.heroes.character.Hero;
-import feh.skills.analysis.ActionSkill;
-import feh.skills.analysis.StatModifier;
-import feh.skills.skillTypes.*;
+import feh.heroes.skills.analysis.ActionSkill;
+import feh.heroes.skills.analysis.StatModifier;
+import feh.heroes.skills.skillTypes.*;
 import main.BotMain;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static feh.heroes.UnitDatabase.HEROES;
-import static feh.skills.SkillDatabase.SKILLS;
+import static feh.heroes.skills.SkillDatabase.SKILLS;
 
 public class SkillRetriever extends Command {
     public void onCommand() {

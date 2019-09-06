@@ -1,4 +1,4 @@
-package feh.skills.skillTypes;
+package feh.heroes.skills.skillTypes;
 
 public class SkillConstructor {
     private String skillName, description;

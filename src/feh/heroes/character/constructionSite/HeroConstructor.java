@@ -1,7 +1,7 @@
 package feh.heroes.character.constructionSite;
 
 import feh.heroes.character.*;
-import feh.skills.skillTypes.Skill;
+import feh.heroes.skills.skillTypes.Skill;
 
 import java.net.URL;
 import java.util.ArrayList;

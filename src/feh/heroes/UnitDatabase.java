@@ -9,8 +9,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import feh.heroes.character.constructionSite.HeroConstructor;
-import feh.skills.skillTypes.Skill;
-import feh.skills.SkillDatabase;
+import feh.heroes.skills.skillTypes.Skill;
+import feh.heroes.skills.SkillDatabase;
 import utilities.Database;
 import utilities.WebCache;
 

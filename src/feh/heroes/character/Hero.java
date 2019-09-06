@@ -2,8 +2,8 @@ package feh.heroes.character;
 
 import events.fehGame.retriever.HeroRetriever;
 import feh.heroes.UnitDatabase;
-import feh.skills.analysis.StatModifier;
-import feh.skills.skillTypes.Skill;
+import feh.heroes.skills.analysis.StatModifier;
+import feh.heroes.skills.skillTypes.Skill;
 
 import java.net.URL;
 import java.util.*;

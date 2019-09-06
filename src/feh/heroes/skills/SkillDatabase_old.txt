@@ -1,7 +1,7 @@
-package feh.skills;
+package feh.heroes.skills;
 
 import feh.FEHeroesCache;
-import feh.skills.skillTypes.*;
+import feh.heroes.skills.skillTypes.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

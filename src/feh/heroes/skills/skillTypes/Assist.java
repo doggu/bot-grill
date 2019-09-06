@@ -1,6 +1,6 @@
-package feh.skills.skillTypes;
+package feh.heroes.skills.skillTypes;
 
-import feh.skills.analysis.ActionSkill;
+import feh.heroes.skills.analysis.ActionSkill;
 
 import java.awt.*;
 

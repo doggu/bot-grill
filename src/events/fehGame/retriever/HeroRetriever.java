@@ -4,12 +4,12 @@ import events.commands.Command;
 import feh.heroes.UnitDatabase;
 import feh.heroes.character.Hero;
 import feh.heroes.unit.Unit;
-import feh.skills.SkillDatabase;
-import feh.skills.analysis.StatModifier;
-import feh.skills.skillTypes.PassiveA;
-import feh.skills.skillTypes.PassiveS;
-import feh.skills.skillTypes.Skill;
-import feh.skills.skillTypes.Weapon;
+import feh.heroes.skills.SkillDatabase;
+import feh.heroes.skills.analysis.StatModifier;
+import feh.heroes.skills.skillTypes.PassiveA;
+import feh.heroes.skills.skillTypes.PassiveS;
+import feh.heroes.skills.skillTypes.Skill;
+import feh.heroes.skills.skillTypes.Weapon;
 import main.BotMain;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.MessageBuilder;
@@ -329,6 +329,8 @@ public class HeroRetriever extends Command {
                         case "male":
                         case "boy":
                         case "boi":
+                        case "gentleman":
+                        case "dude":
                             gender = 'm';
                             break;
                         case "f":
@@ -338,6 +340,7 @@ public class HeroRetriever extends Command {
                         case "wamen":
                         case "lady":
                         case "girl":
+                        case "dudette":
                             gender = 'f';
                             break;
                         default:
@@ -539,14 +542,46 @@ public class HeroRetriever extends Command {
         StringBuilder description = new StringBuilder();
 
         Emote moveType = getEmote("Icon_Move_"+x.getMoveType());
-        Emote weaponType = getEmote("Icon_Class_"+x.getColor()+"_"+x.getWeaponType());
+        String unitColor;
+        switch (x.getColor()) {
+            case 'r':
+                unitColor = "Red";
+                break;
+            case 'g':
+                unitColor = "Green";
+                break;
+            case 'b':
+                unitColor = "Blue";
+                break;
+            case 'c':
+                unitColor = "Colorless";
+                break;
+            default:
+                unitColor = "orange";
+        }
+        Emote weaponType = getEmote("Icon_Class_"+unitColor+"_"+x.getWeaponType());
 
         description
-                //.append(printEmote(moveType).append(" ")
-                //.append(printEmote(weaponType)).append(" ")
+                .append(printEmote(moveType))
+                .append(printEmote(weaponType))
                 .append(x.getFullName().toString());
 
-        heroInfo.setAuthor(description.toString()); //, null, null);
+        /*
+        heroInfo.setAuthor(description.toString());
+        heroInfo.setDescription('*'+x.getOrigin().toString()+"*\n" +
+                "Debuted "  +
+                (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" +//starts at 0 (january = 0)
+                x.getReleaseDate().get(Calendar.DAY_OF_MONTH) + "-" +
+                x.getReleaseDate().get(Calendar.YEAR));
+         */
+
+        heroInfo.addField(description.toString(),
+                '*'+x.getOrigin().toString()+"*\n" +
+                        "Debuted "  +
+                        (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" +//starts at 0 (january = 0)
+                        x.getReleaseDate().get(Calendar.DAY_OF_MONTH) + "-" +
+                        x.getReleaseDate().get(Calendar.YEAR),
+                false);
 
         Color rColor;
         switch (rarity) {
@@ -572,15 +607,6 @@ public class HeroRetriever extends Command {
         heroInfo.setColor(rColor);
 
         heroInfo.setThumbnail(x.getPortraitLink().toString());
-
-
-
-        heroInfo.setDescription('*'+x.getOrigin().toString()+"*\n" +
-                "Debuted "  +
-                (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" +//starts at 0 (january = 0)
-                x.getReleaseDate().get(Calendar.DAY_OF_MONTH) + "-" +
-                x.getReleaseDate().get(Calendar.YEAR));
-
 
 
         String info = "```\n";

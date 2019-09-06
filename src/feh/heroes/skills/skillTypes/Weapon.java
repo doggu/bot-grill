@@ -1,8 +1,8 @@
-package feh.skills.skillTypes;
+package feh.heroes.skills.skillTypes;
 
 import feh.heroes.character.WeaponClass;
-import feh.skills.analysis.ActionSkill;
-import feh.skills.analysis.StatModifier;
+import feh.heroes.skills.analysis.ActionSkill;
+import feh.heroes.skills.analysis.StatModifier;
 
 import java.awt.*;
 

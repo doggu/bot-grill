@@ -24,7 +24,7 @@ import events.fehGame.summoning.SimulateDay;
 import events.fehGame.summoning.SummonSimulator;
 import events.gameroom.CreateLobby;
 import feh.heroes.UnitDatabase;
-import feh.skills.SkillDatabase;
+import feh.heroes.skills.SkillDatabase;
 import feh.summoning.BannerDatabase;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;

@@ -1,7 +1,7 @@
 package feh.heroes.unit;
 
 import feh.heroes.character.Hero;
-import feh.skills.skillTypes.Skill;
+import feh.heroes.skills.skillTypes.Skill;
 
 import java.util.ArrayList;
 

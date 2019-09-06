@@ -1,6 +1,4 @@
-package feh.skills.skillTypes;
-
-import feh.skills.analysis.StatModifier;
+package feh.heroes.skills.skillTypes;
 
 public class WeaponRefine extends Weapon {
     private final String specialEff, iconURL;

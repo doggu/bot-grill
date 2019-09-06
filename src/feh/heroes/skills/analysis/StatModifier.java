@@ -1,4 +1,4 @@
-package feh.skills.analysis;
+package feh.heroes.skills.analysis;
 
 import java.util.ArrayList;
 import java.util.Arrays;

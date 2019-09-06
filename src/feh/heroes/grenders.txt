@@ -21,6 +21,7 @@ Azura: Vallite Songstress	f
 Azura: Young Songstress	f
 Barst: The Hatchet	m
 Bartre: Fearless Warrior	m
+Berkut: Debonair Noble	m
 Berkut: Prideful Prince	m
 Berkut: Purgatorial Prince	m
 Beruka: Quiet Assassin	f
@@ -165,6 +166,7 @@ Inigo: Indigo Dancer	m
 Innes: Flawless Form	m
 Innes: Regal Strategician	m
 Ishtar: Thunder Goddess	f
+Ishtar: Thunder's Waltz	f
 Jaffar: Angel of Death	m
 Jagen: Veteran Knight	m
 Jakob: Devoted Monster	m
@@ -278,6 +280,7 @@ Nanna: Nordion Princess	f
 Narcian: Wyvern General	m
 Navarre: Scarlet Sword	m
 Nephenee: Fierce Halberdier	f
+Nephenee: Sincere Dancer	f
 Niles: Cruel to Be Kind	m
 Niles: Forbidden Tease	m
 Nina: Eye Spy	f
@@ -312,10 +315,12 @@ Raigh: Dark Child	m
 Ranulf: Friend of Nations	m
 Raven: Peerless Fighter	m
 Rebecca: Wildflower	f
+Reinhardt: Lightning's Rondo	m
 Reinhardt: Thunder's Fist	m
 Reinhardt: Thunder's Sword	m
 Reyson: White Prince	m
 Rhajat: Black Magician	f
+Rinea: Reminiscent Belle	f
 Robin: Fell Reincarnation	m
 Robin: Fell Vessel	f
 Robin: Festive Tactician	m

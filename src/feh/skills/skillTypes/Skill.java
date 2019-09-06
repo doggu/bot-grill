@@ -13,10 +13,10 @@ public abstract class Skill {
 
     //0 = weapon, 1 = assist, 2 = special,
     //3 = a passive, 4 = b passive, 5 = c passive, 6 = seal
-    final int slot;
+    protected final int slot;
 
-    final int cost;
-    final boolean exclusive;
+    protected final int cost;
+    protected final boolean exclusive;
 
 
 
@@ -39,23 +39,6 @@ public abstract class Skill {
         }
         this.cost = cost;
         this.exclusive = exclusive;
-
-
-
-        //remove last period and split up by sentences
-        try {
-            if (description.length()==0) // stoopit silve r swor d
-                args = new String[0];
-            else
-                args = description.substring(0, description.length() - 1).split("\\. ");
-        } catch (IndexOutOfBoundsException ioobe) {
-            ioobe.printStackTrace();
-            throw new Error(description);
-        }
-
-
-
-        generateProperties();
     }
 
 
@@ -66,66 +49,9 @@ public abstract class Skill {
     public int getSlot() { return slot; }
     public boolean isExclusive() { return exclusive; }
 
-    private void generateProperties() {
-        //System.out.println(name);
-        //for (String x:args) System.out.println(x);
-        //System.out.println("\n\n");
-
-        if (this instanceof StatModifier) {
-
-        }
-
-        if (this instanceof CooldownModifier) {
-
-        }
-    }
-
 
 
     public String toString() {
-        /*
-        String info = name+"\n"
-                + "```\n"
-                + "Type: ";
-        String skillType;
-        switch(slot) {
-            //TODO: should differentiate between weapon types later
-            case 0:
-                skillType = "Weapon";
-                break;
-            case 1:
-                skillType = "Assist";
-                break;
-            case 2:
-                skillType = "Special";
-                break;
-            case 3:
-                skillType = "A Passive";
-                break;
-            case 4:
-                skillType = "B Passive";
-                break;
-            case 5:
-                skillType = "C Passive";
-                break;
-            case 6:
-                skillType = "Sacred Seal";
-                break;
-            default:
-                throw new Error("this literally shouldn't happen");
-        }
-        info+= skillType+"\n"
-                + "Cost: "+cost+"\n"
-                + "Exclusive: "+(exclusive?"Yes":"No")+"\n\n"
-                + description+"\n"
-                + "```";
-         */
         return name;
-    }
-
-
-
-    public static void main(String[] args) {
-        ArrayList<Skill> skills = SkillDatabase.SKILLS;
     }
 }

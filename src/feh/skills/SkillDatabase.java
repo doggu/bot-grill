@@ -22,25 +22,20 @@ public class SkillDatabase extends Database<Skill> {
 
     private static final String
             SKILLS_SUBDIR = "/skills/";
-
     private static final String
             WEAPONS = "Weapons",
             ASSISTS = "Assists",
             SPECIALS = "Specials",
             PASSIVES = "Passives",
           //SACRED_SEALS_ALL = "Sacred_Seals",
-
-    EXCLUSIVE_SKILLS = "Exclusive_skills",
-
+            EXCLUSIVE_SKILLS = "Exclusive_skills",
           //SKILL_CHAINS_4_STARS = "https://feheroes.gamepedia.com/Skill_Chains_4_Stars_List",
           //SKILL_CHAINS_5_STARS = "https://feheroes.gamepedia.com/Skill_Chains_5_Stars_List",
           //LIST_OF_UPGRADABLE_WEAPONS = "https://feheroes.gamepedia.com/List_of_upgradable_weapons",
           //LIST_OF_EVOLVING_WEAPONS = "https://feheroes.gamepedia.com/List_of_evolving_weapons",
-
           //maybe a Skill thing
           //LIST_OF_DESCRIPTION_TAGS = "https://feheroes.gamepedia.com/List_of_description_tags",
-
-    HERO_BASE_SKILLS = "Hero_skills_table",
+            HERO_BASE_SKILLS = "Hero_skills_table",
             WEAPON_REFINES = "Weapon_Refinery";
 
 
@@ -57,13 +52,13 @@ public class SkillDatabase extends Database<Skill> {
     private static FEHeroesCache[] SKILL_FILES;
 
     static {
-        WEAPONS_FILE = new FEHeroesCache(WEAPONS);
-        ASSISTS_FILE = new FEHeroesCache(ASSISTS);
-        SPECIALS_FILE = new FEHeroesCache(SPECIALS);
-        PASSIVES_FILE = new FEHeroesCache(PASSIVES);
-        EXCLUSIVE_SKILLS_FILE = new FEHeroesCache(EXCLUSIVE_SKILLS);
-        HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS);
-        WEAPON_REFINES_FILE = new FEHeroesCache(WEAPON_REFINES);
+        WEAPONS_FILE = new FEHeroesCache(WEAPONS, SKILLS_SUBDIR);
+        ASSISTS_FILE = new FEHeroesCache(ASSISTS, SKILLS_SUBDIR);
+        SPECIALS_FILE = new FEHeroesCache(SPECIALS, SKILLS_SUBDIR);
+        PASSIVES_FILE = new FEHeroesCache(PASSIVES, SKILLS_SUBDIR);
+        EXCLUSIVE_SKILLS_FILE = new FEHeroesCache(EXCLUSIVE_SKILLS, SKILLS_SUBDIR);
+        HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS, SKILLS_SUBDIR);
+        WEAPON_REFINES_FILE = new FEHeroesCache(WEAPON_REFINES, SKILLS_SUBDIR);
 
         SKILL_FILES = new FEHeroesCache[]{
                 WEAPONS_FILE,

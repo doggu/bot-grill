@@ -1,15 +1,11 @@
 package feh.skills.skillTypes;
 
-import feh.skills.SkillDatabase;
-import feh.skills.analysis.CooldownModifier;
-import feh.skills.analysis.StatModifier;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.awt.*;
 
 public abstract class Skill {
     final String name, description;
-    private final String[] args;
+    private final Color color;
+    //private final String[] args;
 
     //0 = weapon, 1 = assist, 2 = special,
     //3 = a passive, 4 = b passive, 5 = c passive, 6 = seal
@@ -20,9 +16,10 @@ public abstract class Skill {
 
 
 
-    public Skill(String name, String description, char slot, int cost, boolean exclusive) {
+    public Skill(String name, String description, Color color, char slot, int cost, boolean exclusive) {
         this.name = name;
         this.description = description;
+        this.color = color;
 
         //probably a convoluted system
         switch(slot) {
@@ -45,6 +42,7 @@ public abstract class Skill {
 
     public String getName() { return name; }
     public String getDescription() { return description; }
+    public Color getColor() { return color; }
     public int getCost() { return cost; }
     public int getSlot() { return slot; }
     public boolean isExclusive() { return exclusive; }

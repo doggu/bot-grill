@@ -4,6 +4,8 @@ import feh.heroes.character.WeaponClass;
 import feh.skills.analysis.ActionSkill;
 import feh.skills.analysis.StatModifier;
 
+import java.awt.*;
+
 public class Weapon extends Skill implements ActionSkill, StatModifier {
     private final int mt, rng;
     private final WeaponClass type;
@@ -15,7 +17,7 @@ public class Weapon extends Skill implements ActionSkill, StatModifier {
 
     public Weapon(String name, String description, int cost, boolean exclusive,
                   int mt, int rng, WeaponClass type, WeaponRefine refine) {
-        super(name, description, 'W', cost, exclusive);
+        super(name, description, new Color(0xDE1336), 'W', cost, exclusive);
         this.mt = mt;
         this.rng = rng;
         this.type = type;

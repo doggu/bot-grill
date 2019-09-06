@@ -1,5 +1,7 @@
 package feh.skills.skillTypes;
 
+import java.awt.*;
+
 public class Special extends Skill {
     private final int cd;
 
@@ -7,7 +9,7 @@ public class Special extends Skill {
 
     public Special(String name, String description, int cost, boolean exclusive,
                   int cd) {
-        super(name, description, 'S', cost, exclusive);
+        super(name, description, new Color(0xF400E5), 'S', cost, exclusive);
 
         this.cd = cd;
     }

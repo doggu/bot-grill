@@ -9,7 +9,6 @@ import main.BotMain;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -216,29 +215,7 @@ public class SkillRetriever extends Command {
     static EmbedBuilder printSkill(Skill x) {
         EmbedBuilder skill = new EmbedBuilder();
 
-        switch (x.getSlot()) {
-            case 0: //weapon
-                skill.setColor(new Color(0xDE1336));
-                break;
-            case 1: //assist
-                skill.setColor(new Color(0x00EDB3));
-                break;
-            case 2: //special
-                skill.setColor(new Color(0xF400E5));
-                break;
-            case 3: //a-passive
-                skill.setColor(new Color(0xFF2A2A));
-                break;
-            case 4: //b-passive
-                skill.setColor(new Color(0x003ED3));
-                break;
-            case 5: //c-passive
-                skill.setColor(new Color(0x09C639));
-                break;
-            case 6: //sacred seal
-                skill.setColor(new Color(0xEDE500));
-                break;
-        }
+        skill.setColor(x.getColor());
 
         skill.setAuthor(x.getName());
         skill.setDescription(x.getDescription());

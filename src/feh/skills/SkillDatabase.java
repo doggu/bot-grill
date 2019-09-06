@@ -16,9 +16,15 @@ import java.math.MathContext;
 import java.util.*;
 
 public class SkillDatabase extends Database<Skill> {
-    public static SkillDatabase DATABASE = new SkillDatabase();
-    public static ArrayList<Skill> SKILLS = DATABASE.getList();
-    public static HashMap<String, ArrayList<Skill>> HERO_SKILLS = getHeroSkills();
+    public static SkillDatabase DATABASE;
+    public static ArrayList<Skill> SKILLS;
+    public static HashMap<String, ArrayList<Skill>> HERO_SKILLS;
+
+    static {
+        DATABASE = new SkillDatabase();
+        SKILLS = DATABASE.getList();
+        HERO_SKILLS = DATABASE.getHeroSkills();
+    }
 
     private static final String
             SKILLS_SUBDIR = "/skills/";
@@ -46,13 +52,13 @@ public class SkillDatabase extends Database<Skill> {
 
 
     private static FEHeroesCache
-            WEAPONS_FILE,
-            ASSISTS_FILE,
-            SPECIALS_FILE,
-            PASSIVES_FILE,
-            EXCLUSIVE_SKILLS_FILE,
-            HERO_BASE_SKILLS_FILE,
-            WEAPON_REFINES_FILE;
+            WEAPONS_FILE = new FEHeroesCache(WEAPONS),
+            ASSISTS_FILE = new FEHeroesCache(ASSISTS),
+            SPECIALS_FILE = new FEHeroesCache(SPECIALS),
+            PASSIVES_FILE = new FEHeroesCache(PASSIVES),
+            EXCLUSIVE_SKILLS_FILE = new FEHeroesCache(EXCLUSIVE_SKILLS),
+            HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS),
+            WEAPON_REFINES_FILE = new FEHeroesCache(WEAPON_REFINES);
 
     private static FEHeroesCache[] SKILL_FILES = {
             WEAPONS_FILE,
@@ -159,7 +165,13 @@ public class SkillDatabase extends Database<Skill> {
                 int might = Integer.parseInt(info.get(1).text());
                 int range = Integer.parseInt(info.get(2).text());
                 String description = info.get(3).text();
-                int sp = Integer.parseInt(info.get(4).text());
+                int sp;
+                try {
+                    sp = Integer.parseInt(info.get(4).text());
+                } catch (NumberFormatException nfe) {
+                    System.out.println("issue getting SP for "+name);
+                    sp = 0;
+                }
                 boolean exclusive = (info.get(5).text().equals("Yes"));
                 WeaponClass type = WeaponClass.getClass(weaponType[i]);
                 WeaponRefine refine = getRefine(name);
@@ -296,17 +308,22 @@ public class SkillDatabase extends Database<Skill> {
                     int cost = Integer.parseInt(info.get(3).text());
                     boolean exclusive = (info.get(3).text().equals("Yes"));
 
-                    if (i == 0)
-                        x = new PassiveA(name, description, cost, exclusive, icon);
-                    else if (i == 1)
-                        x = new PassiveB(name, description, cost, exclusive, icon);
-                    else if (i == 2)
-                        x = new PassiveC(name, description, cost, exclusive, icon);
-                    else if (i == 3)
-                        x = new PassiveS(name, description, cost, exclusive, icon);
-                    else {
-                        System.out.println("this is not an expected table, how'd it even get this far");
-                        break;
+                    switch (i) {
+                        case 0:
+                            x = new PassiveA(name, description, cost, exclusive, icon);
+                            break;
+                        case 1:
+                            x = new PassiveB(name, description, cost, exclusive, icon);
+                            break;
+                        case 2:
+                            x = new PassiveC(name, description, cost, exclusive, icon);
+                            break;
+                        case 3:
+                            x = new PassiveS(name, description, cost, exclusive, icon);
+                            break;
+                        default:
+                            System.out.println("this is not an expected table, how'd it even get this far");
+                            continue;
                     }
 
                     passives.add(x);
@@ -454,14 +471,14 @@ public class SkillDatabase extends Database<Skill> {
         return null;
     }
 
-    private static HashMap<String, ArrayList<Skill>> getHeroSkills() {
+    private HashMap<String, ArrayList<Skill>> getHeroSkills() {
         HashMap<String, ArrayList<Skill>> heroSkills = new HashMap<>();
-
 
         Document baseSkillsFile;
         try {
             baseSkillsFile = Jsoup.parse(HERO_BASE_SKILLS_FILE, "UTF-8");
         } catch (IOException|NullPointerException e) {
+            System.out.println("doin it again because i don't understand priorities...");
             HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS);
             if (HERO_BASE_SKILLS_FILE.update()) return getHeroSkills();
             System.out.println("base skills file not found!");

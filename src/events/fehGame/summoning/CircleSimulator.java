@@ -3,13 +3,16 @@ package events.fehGame.summoning;
 import events.ReactionListener;
 import events.fehGame.retriever.HeroRetriever;
 import feh.heroes.character.Hero;
-import main.BotMain;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.*;
 import feh.heroes.unit.Unit;
+import feh.players.Summoner;
 import feh.summoning.Banner;
 import feh.summoning.Stone;
-import feh.players.Summoner;
+import main.BotMain;
+import net.dv8tion.jda.core.MessageBuilder;
+import net.dv8tion.jda.core.entities.Emote;
+import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.core.entities.MessageChannel;
+import net.dv8tion.jda.core.entities.User;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -147,6 +150,7 @@ public class CircleSimulator extends ReactionListener {
     //because the must have summon a stone before they may close the circle.
     void closeCircle() {
         summoner.stopSummoning();
+        circleMessage.clearReactions().complete();
         commitSuicide();
     }
 

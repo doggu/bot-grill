@@ -66,6 +66,7 @@ public class WebCache extends File {
                 writer.write(line+'\n');
             }
             data.close();
+            writer.close();
         } catch (IOException ioe) {
             throw new Error("IOException while reading website data");
         }

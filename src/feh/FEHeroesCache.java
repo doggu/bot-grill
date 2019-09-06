@@ -52,6 +52,7 @@ public class FEHeroesCache extends WebCache {
             }
         }
 
+        input.close();
         return data;
     }
 
@@ -77,6 +78,7 @@ public class FEHeroesCache extends WebCache {
             }
         }
 
+        source.close();
         return data;
     }
 }

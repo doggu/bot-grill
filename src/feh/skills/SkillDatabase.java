@@ -18,7 +18,7 @@ import java.util.*;
 public class SkillDatabase extends Database<Skill> {
     public static SkillDatabase DATABASE = new SkillDatabase();
     public static ArrayList<Skill> SKILLS = DATABASE.getList();
-    public HashMap<String, ArrayList<Skill>> HERO_SKILLS = getHeroSkills();
+    public static HashMap<String, ArrayList<Skill>> HERO_SKILLS = getHeroSkills();
 
     private static final String
             SKILLS_SUBDIR = "/skills/";
@@ -454,7 +454,7 @@ public class SkillDatabase extends Database<Skill> {
         return null;
     }
 
-    private HashMap<String, ArrayList<Skill>> getHeroSkills() {
+    private static HashMap<String, ArrayList<Skill>> getHeroSkills() {
         HashMap<String, ArrayList<Skill>> heroSkills = new HashMap<>();
 
 
@@ -462,6 +462,8 @@ public class SkillDatabase extends Database<Skill> {
         try {
             baseSkillsFile = Jsoup.parse(HERO_BASE_SKILLS_FILE, "UTF-8");
         } catch (IOException|NullPointerException e) {
+            HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS);
+            if (HERO_BASE_SKILLS_FILE.update()) return getHeroSkills();
             System.out.println("base skills file not found!");
             return new HashMap<>();
         }
@@ -483,7 +485,7 @@ public class SkillDatabase extends Database<Skill> {
                     Elements skills = info.get(i).select("a");
                     for (Element skill:skills) {
                         String skillName = skill.text();
-                        baseKit.add(find(skillName));
+                        baseKit.add(DATABASE.find(skillName));
                     }
                 }
             }

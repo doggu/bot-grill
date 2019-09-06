@@ -8,6 +8,10 @@ public class MenuEntry extends EmbedBuilder {
     public MenuEntry(String title) {
         this.title = title;
     }
+    public MenuEntry(String title, EmbedBuilder content) {
+        super(content);
+        this.title = title;
+    }
 
     String getTitle() { return title; }
 }

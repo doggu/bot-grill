@@ -1,8 +1,7 @@
 package events.commands.help;
 
 import events.commands.Command;
-import events.menu.Menu;
-import events.menu.MenuEntry;
+import events.menu.*;
 import main.BotMain;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
@@ -42,6 +41,7 @@ public class Help extends Command {
 
                 entries.add(entry);
             }
+
 
             new Menu(e.getAuthor(), e.getChannel(), header, entries);
         }

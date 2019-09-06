@@ -1,6 +1,5 @@
 package events.fehGame.retriever;
 
-import events.ReactionButton;
 import events.commands.Command;
 import feh.heroes.character.Hero;
 import feh.skills.analysis.ActionSkill;
@@ -8,10 +7,7 @@ import feh.skills.analysis.StatModifier;
 import feh.skills.skillTypes.*;
 import main.BotMain;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
-import net.dv8tion.jda.core.events.message.react.MessageReactionRemoveEvent;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -171,12 +167,11 @@ public class SkillRetriever extends Command {
 
 
         for (Skill x:candidates) {
+            //todo: menu for multiple results? (kind of cumbersome for stuff like this)
             Message f = sendMessage(printSkill(x).build());
 
             if (x instanceof Weapon) {
                 if (((Weapon) x).hasRefine()) {
-                    WeaponRefine refine = ((Weapon) x).getRefine();
-
                     BotMain.addListener(new RefineButton(f, (Weapon) x));
                 }
             }
@@ -218,8 +213,7 @@ public class SkillRetriever extends Command {
 
 
 
-    static MessageBuilder printSkill(Skill x) {
-        MessageBuilder message = new MessageBuilder();
+    static EmbedBuilder printSkill(Skill x) {
         EmbedBuilder skill = new EmbedBuilder();
 
         switch (x.getSlot()) {
@@ -309,11 +303,7 @@ public class SkillRetriever extends Command {
 
 
 
-        message.setEmbed(skill.build());
-
-
-
-        return message;
+        return skill;
     }
 
     private static boolean parseBoolean(String x) {
@@ -352,15 +342,7 @@ public class SkillRetriever extends Command {
 
 
     public boolean isCommand() {
-        String arg = args[0].toLowerCase();
-        switch(arg) {
-            case "getskill":
-            case "getskills":
-            case "gs":
-                return true;
-            default:
-                return false;
-        }
+        return args[0].toLowerCase().matches("g(et)?s(k(ill)?)?");
     }
 
 

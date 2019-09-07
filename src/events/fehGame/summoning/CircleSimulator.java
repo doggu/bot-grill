@@ -37,9 +37,6 @@ public class CircleSimulator extends ReactionListener {
         this.circleMessage = messageChannel.sendMessage(generateMessage()).complete();
         this.stones = generateStones();
         this.stoneEmotes = generateEmotes();
-
-        circleMessage.addReaction("❌").queue();
-        circleMessage.addReaction("\uD83D\uDD04").queue();
     }
 
 
@@ -210,6 +207,9 @@ public class CircleSimulator extends ReactionListener {
                     int cost = 0;
                     switch (pulls) {
                         case 0: //first pull
+                            //the circle is now closeable
+                            circleMessage.addReaction("❌").queue();
+                            circleMessage.addReaction("\uD83D\uDD04").queue();
                             cost++;
                         case 1:
                         case 2:

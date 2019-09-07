@@ -80,12 +80,12 @@ public class Menu extends ReactionListener {
             FIVE = "5⃣";
     private void createReactions() {
         message.addReaction(L_ARROW).queue();
+        message.addReaction(R_ARROW).queue();
         message.addReaction(ONE).queue();
         message.addReaction(TWO).queue();
         message.addReaction(THREE).queue();
         message.addReaction(FOUR).queue();
         message.addReaction(FIVE).queue();
-        message.addReaction(R_ARROW).queue();
     }
 
 

@@ -1,11 +1,15 @@
 package feh.players;
 
 import events.fehGame.summoning.CircleSimulator;
+import feh.heroes.unit.Unit;
 import net.dv8tion.jda.core.entities.User;
 
 public class Summoner {
     private final User summoner;
     private final Barracks barracks;
+
+    private Unit supportedUnit = null;
+
     private int orbsSpent = 0;
     private boolean summoning;
     private CircleSimulator currentSession = null;
@@ -19,6 +23,10 @@ public class Summoner {
         this.barracks = new Barracks();
         summoning = false;
     }
+
+
+
+    public void setSupportedUnit(Unit partner) { this.supportedUnit = partner; }
 
 
 

@@ -128,6 +128,12 @@ public class Unit extends Hero {
 
 
 
+    //todo: set up unit manager for security?
+    public void giveSkill(Skill skill) { allSkills.add(skill); }
+    public void setBlessing(Blessing blessing) { this.blessing = blessing; }
+
+
+
     public int getBoon() { return boon; }
     public int getBane() { return bane; }
     public int getRarity() { return rarity; }
@@ -209,12 +215,4 @@ public class Unit extends Hero {
 
         return stats;
     }
-
-
-
-    //todo: set up unit manager for security?
-    public void giveSkill(Skill skill) { }
-    //todo: give to Summoner
-    //public void setSupportPartner(Unit friend) { this.supportPartner = friend; }
-    public void setBlessing(Blessing blessing) { this.blessing = blessing; }
 }

@@ -31,16 +31,7 @@ public interface StatModifier {
                     //the description is not describing a stat modifier
                     break;
                 } else {
-                    if (x.indexOf('.') >= 0 || x.indexOf(',') >= 0) {
-                        int modifier = getModifier(x);
-                        String[] statNames = {"HP", "Atk", "Spd", "Def", "Res"};
-                                            //always 5
-                        for (int i = 0; i < statNames.length; i++)
-                            if (x.contains(statNames[i])) statModifiers[i] = modifier;
-                    } else {
-                        //the description is not describing a stat modifier
-                        break;
-                    }
+                    if (setModifiers(statModifiers, x)) break;
                 }
             }
         }
@@ -55,21 +46,26 @@ public interface StatModifier {
                     //the description is not describing a stat modifier
                     break;
                 } else {
-                    if (x.indexOf('.') >= 0 || x.indexOf(',') >= 0) {
-                        int modifier = getModifier(x);
-                        String[] statNames = {"HP", "Atk", "Spd", "Def", "Res"};
-                                            //always 5
-                        for (int i = 0; i < statNames.length; i++)
-                            if (x.contains(statNames[i])) statModifiers[i] = modifier;
-                    } else {
-                        //the description is not describing a stat modifier
-                        break;
-                    }
+                    if (setModifiers(statModifiers, x)) break;
                 }
             }
         }
 
         return statModifiers;
+    }
+
+    static boolean setModifiers(int[] statModifiers, String x) {
+        if (x.indexOf('.') >= 0 || x.indexOf(',') >= 0) {
+            int modifier = getModifier(x);
+            String[] statNames = {"HP", "Atk", "Spd", "Def", "Res"};
+                                //always 5
+            for (int i = 0; i < statNames.length; i++)
+                if (x.contains(statNames[i])) statModifiers[i] = modifier;
+        } else {
+            //the description is not describing a stat modifier
+            return true;
+        }
+        return false;
     }
 
     private static int getModifier(String x) {

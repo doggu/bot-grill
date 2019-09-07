@@ -161,22 +161,22 @@ public class CircleSimulator extends ReactionListener {
 
         //is not a custom emote or stop emote (i hope)
         if (!e.getReaction().getReactionEmote().isEmote()) {
-            if (e.getReactionEmote().toString().equals("RE:❌(null)")) {
-                if (canClose()) {
-                    closeCircle();
-                    return;
-                } else {
-                    e.getReaction().removeReaction(summoner.getUser()).queue();
-                    sendMessage("please choose at least one orb before closing this session.");
-                    return;
-                }
-            } else if (e.getReactionEmote().toString().equals("RE:\uD83D\uDD04(null)")) {
+            if (e.getReactionEmote().toString().equals("RE:\uD83D\uDD04(null)")) {
                 if (canClose()) {
                     closeCircle();
                     CircleSimulator newCircle = new CircleSimulator(messageChannel, summoner, banner);
                     newCircle.register();
                 } else {
                     sendMessage("please choose at least one orb before starting a new session.");
+                    return;
+                }
+            } else if (e.getReactionEmote().toString().equals("RE:❌(null)")) {
+                if (canClose()) {
+                    closeCircle();
+                    return;
+                } else {
+                    e.getReaction().removeReaction(summoner.getUser()).queue();
+                    sendMessage("please choose at least one orb before closing this session.");
                     return;
                 }
             } else {
@@ -208,8 +208,8 @@ public class CircleSimulator extends ReactionListener {
                     switch (pulls) {
                         case 0: //first pull
                             //the circle is now closeable
-                            circleMessage.addReaction("❌").queue();
                             circleMessage.addReaction("\uD83D\uDD04").queue();
+                            circleMessage.addReaction("❌").queue();
                             cost++;
                         case 1:
                         case 2:

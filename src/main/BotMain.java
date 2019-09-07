@@ -15,7 +15,9 @@ import events.commands.math.GradientDescentListener;
 import events.commands.math.Maffs;
 import events.commands.math.UnitConversionListener;
 import events.commands.mcserver.ServerInput;
-import events.devTools.*;
+import events.devTools.DevTools;
+import events.devTools.Draw;
+import events.devTools.PermissionsListener;
 import events.fehGame.Allies;
 import events.fehGame.OrbBalance;
 import events.fehGame.retriever.HeroRetriever;
@@ -93,6 +95,15 @@ public class BotMain {
         addListener(new PermissionsListener());
     }
 
+    private static void addShutdownThreads() {
+        //assassinate the bot
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> bot_grill.shutdown()));
+
+        //TODO: add caching hooks which commit user persistence to storage
+    }
+
+
+
     public static void main(String[] rgs) throws Exception {
         if (FEHEROES_UTILS)
             preloadFEHUtils();
@@ -112,6 +123,7 @@ public class BotMain {
         addListener(new Chances());
         addListener(new Roll());
 
+        //math
         addListener(new Maffs());
         addListener(new GradientDescentListener());
 
@@ -151,57 +163,63 @@ public class BotMain {
 
 
         //todo: rewrite to allow reception of commands from other sources throughout the code
-        Scanner console = new Scanner(System.in);
+
+        addShutdownThreads();
         
-        String command;
-        while (!(command = console.nextLine()).equals("kill")) {
-            String[] args = command.toLowerCase().split(" ");
-            if (args.length==0) continue;
-            switch (args[0]) {
-                case "getlisteners":
-                    for (Object x:bot_grill.getRegisteredListeners()) {
-                        System.out.println(x);
-                    }
-                    break;
-                case "update":
-                    if (args.length>1) {
-                        switch (args[1]) {
-                            case "e":
-                            case "elements":
-                                ElementDatabase.DATABASE.updateCache();
-                                break;
-                            case "h":
-                            case "heroes":
-                                UnitDatabase.DATABASE.updateCache();
-                                break;
-                            case "s":
-                            case "skills":
-                                SkillDatabase.DATABASE.updateCache();
-                                break;
-                            case "b":
-                            case "banners":
-                                BannerDatabase.DATABASE.updateCache();
-                                break;
-                            default:
-                                SkillDatabase.DATABASE.updateCache();
-                                UnitDatabase.DATABASE.updateCache();
-                                BannerDatabase.DATABASE.updateCache();
-                                break;
-
+        new Thread(() -> {
+            Scanner console = new Scanner(System.in);
+            String command;
+            while (!(command = console.nextLine()).equals("kill")) {
+                String[] args = command.toLowerCase().split(" ");
+                if (args.length==0) continue;
+                switch (args[0]) {
+                    case "getlisteners":
+                        for (Object x:bot_grill.getRegisteredListeners()) {
+                            System.out.println(x);
                         }
-                    }
-                    break;
-                case "mem":
-                case "memory":
-                    System.out.println("Total:\t"+Runtime.getRuntime().totalMemory());
-                    System.out.println("Free:\t"+Runtime.getRuntime().freeMemory());
-                    System.out.println("Max:\t"+Runtime.getRuntime().maxMemory());
-                    break;
+                        break;
+                    case "update":
+                        if (args.length>1) {
+                            switch (args[1]) {
+                                case "e":
+                                case "elements":
+                                    ElementDatabase.DATABASE.updateCache();
+                                    break;
+                                case "h":
+                                case "heroes":
+                                    UnitDatabase.DATABASE.updateCache();
+                                    break;
+                                case "s":
+                                case "skills":
+                                    SkillDatabase.DATABASE.updateCache();
+                                    break;
+                                case "b":
+                                case "banners":
+                                    BannerDatabase.DATABASE.updateCache();
+                                    break;
+                                default:
+                                    SkillDatabase.DATABASE.updateCache();
+                                    UnitDatabase.DATABASE.updateCache();
+                                    BannerDatabase.DATABASE.updateCache();
+                                    break;
+
+                            }
+                        }
+                        break;
+                    case "mem":
+                    case "memory":
+                        System.out.println("Total:\t"+Runtime.getRuntime().totalMemory());
+                        System.out.println("Free:\t"+Runtime.getRuntime().freeMemory());
+                        System.out.println("Max:\t"+Runtime.getRuntime().maxMemory());
+                        break;
+                }
             }
-        }
 
-        console.close();
+            console.close();
+        }).run();
 
-        bot_grill.shutdownNow();
+
+
+        System.exit(0);
     }
 }

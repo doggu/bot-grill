@@ -1,10 +1,15 @@
 package feh.heroes.skills.analysis;
 
+import feh.heroes.character.MovementClass;
 import feh.heroes.skills.SkillDatabase;
 import feh.heroes.skills.skillTypes.Skill;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Scanner;
+
+import static feh.heroes.character.MovementClass.*;
 
 
 public class SkillAnalysis {
@@ -13,6 +18,16 @@ public class SkillAnalysis {
     private final ArrayList<ArrayList<String>> sentences;
     private final int[] statModifiers;
     private final Integer cdModifier;
+    private final ArrayList<MovementClass> effectiveAgainst;
+
+
+    private final ArrayList<String>
+            startOfTurn,
+            duringCombat,
+            beforeCombat,
+            afterCombat,
+            unitInitiates,
+            foeInitiates;
 
 
 
@@ -24,6 +39,13 @@ public class SkillAnalysis {
             sentences = null;
             statModifiers = null;
             cdModifier = null;
+            effectiveAgainst = null;
+            startOfTurn = null;
+            duringCombat = null;
+            beforeCombat = null;
+            afterCombat = null;
+            unitInitiates = null;
+            foeInitiates = null;
             return;
         }
 
@@ -39,19 +61,24 @@ public class SkillAnalysis {
 
         this.statModifiers = getStatModifiers();
         this.cdModifier = getCdModifier();
+        this.effectiveAgainst = getEffective();
+        startOfTurn = getStartOfTurn();
+        duringCombat = getDuringCombat();
+        beforeCombat = getBeforeCombat();
+        afterCombat = getAfterCombat();
+        unitInitiates = getUnitInitiates();
+        foeInitiates = getFoeInitiates();
     }
 
 
 
     private int[] getStatModifiers() {
         try {
-            System.out.println("getting stat modifiers for " + skill.getName());
             int[] statModifiers = new int[5];
 
             for (ArrayList<String> sentence : sentences) {
                 String[] args = sentence.get(0).split(" ");
                 if (args[0].matches("(Grants)|(Inflicts)")) {
-                    System.out.println("\tmight be a stat modifier!");
                     ArrayList<String> modifiers = new ArrayList<>(sentence);
 
                     //remove causational
@@ -90,7 +117,6 @@ public class SkillAnalysis {
 
         return null;
     }
-
     private Integer getCdModifier() {
         Integer cdModifier = null;
         for (int i=0; i<rawSentences.size(); i++) {
@@ -99,7 +125,7 @@ public class SkillAnalysis {
                 case "Accelerates Special trigger (cooldown count-1)":
                     cdModifier = 1;
                     break;
-                case "Slows Special trigger (cooldown count-1)":
+                case "Slows Special trigger (cooldown count+1)":
                     cdModifier = -1;
                     break;
             }
@@ -114,13 +140,104 @@ public class SkillAnalysis {
 
         return cdModifier;
     }
+    private ArrayList<MovementClass> getEffective() {
+        ArrayList<MovementClass> effectivity = new ArrayList<>();
+        for (int i=0; i<rawSentences.size(); i++) {
+            String raw = rawSentences.get(i);
+            if (raw.matches("Effective against (infantry)|(flying)|(armored)|(cavalry) (and (infantry)|(flying)|(armored)|(cavalry))?foes")) {
+                MovementClass eff1, eff2;
+                effectivity.add(getEffectiveAgainst(sentences.get(i).get(2)));
+                try {
+                    effectivity.add(getEffectiveAgainst(sentences.get(i).get(4)));
+                } catch (IndexOutOfBoundsException ioobe) {
+                    continue;
+                }
+
+                rawSentences.remove(i);
+                sentences.remove(i);
+                i--;
+            }
+        }
+
+        return effectivity;
+    }
+    private MovementClass getEffectiveAgainst(String input) {
+        if (input==null) return null;
+        switch (input) {
+            case "infantry":
+                return INFANTRY;
+            case "armored":
+                return ARMORED;
+            case "flying":
+                return FLYING;
+            case "cavalry":
+                return CAVALRY;
+            default:
+                return null;
+        }
+    }
+    private ArrayList<String> findWith(String input) {
+        ArrayList<String> incl = new ArrayList<>();
+        for (int i=0; i<rawSentences.size(); i++) {
+            if (rawSentences.get(i).toLowerCase().contains(input)) {
+                incl.add(rawSentences.get(i));
+                rawSentences.remove(i);
+                i--;
+            }
+        }
+
+        return incl;
+    }
+    private ArrayList<String> getStartOfTurn() {
+        return findWith("at start of turn");
+    }
+    private ArrayList<String> getDuringCombat() {
+        return findWith("during combat");
+    }
+    private ArrayList<String> getBeforeCombat() {
+        return findWith("at start of combat");
+    }
+    private ArrayList<String> getAfterCombat() {
+        return findWith("after combat");
+    }
+    private ArrayList<String> getUnitInitiates() {
+        return findWith("if unit initiates combat");
+    }
+    private ArrayList<String> getFoeInitiates() {
+        return findWith("if foe initiates combat");
+    }
 
 
+
+    public String toString() {
+        return skill.getName()+": "+skill.getDescription();
+    }
 
     public static void main(String[] na) {
         ArrayList<SkillAnalysis> analyses = new ArrayList<>();
         for (Skill x: SkillDatabase.SKILLS)
             analyses.add(new SkillAnalysis(x));
+
+        Scanner input = new Scanner(System.in);
+
+        while (input.hasNextLine()) {
+            String chunk = input.nextLine();//.toLowerCase();
+
+            HashMap<SkillAnalysis, String> descPortion = new HashMap<>();
+
+            for (SkillAnalysis x:analyses) {
+                if (x.rawSentences==null) continue;
+                for (String b:x.rawSentences) {
+                    if (b.contains(chunk)) {
+                        descPortion.put(x, b);
+                    }
+                }
+            }
+
+            for (SkillAnalysis x:descPortion.keySet()) {
+                System.out.println(x);
+            }
+        }
 
 
 

@@ -20,25 +20,33 @@ import java.util.*;
 public class SkillDatabase extends Database<Skill> {
     public static SkillDatabase DATABASE;
     public static ArrayList<Skill> SKILLS;
+    public static ArrayList<Weapon> WEAPONS;
+    public static ArrayList<Assist> ASSISTS;
+    public static ArrayList<Special> SPECIALS;
+    public static ArrayList<Passive> PASSIVES;
+    public static ArrayList<PassiveA> PASSIVES_A;
+    public static ArrayList<PassiveB> PASSIVES_B;
+    public static ArrayList<PassiveC> PASSIVES_C;
+    public static ArrayList<PassiveS> PASSIVES_S;
     public static HashMap<String, ArrayList<Skill>> HERO_SKILLS;
 
     private static final String
             SKILLS_SUBDIR = "/skills/";
     private static final String
-            WEAPONS = "Weapons",
-            ASSISTS = "Assists",
-            SPECIALS = "Specials",
-            PASSIVES = "Passives",
+            WEAPONS_PATH = "Weapons",
+            ASSISTS_PATH = "Assists",
+            SPECIALS_PATH = "Specials",
+            PASSIVES_PATH = "Passives",
           //SACRED_SEALS_ALL = "Sacred_Seals",
-            EXCLUSIVE_SKILLS = "Exclusive_skills",
+            EXCLUSIVE_SKILLS_PATH = "Exclusive_skills",
           //SKILL_CHAINS_4_STARS = "https://feheroes.gamepedia.com/Skill_Chains_4_Stars_List",
           //SKILL_CHAINS_5_STARS = "https://feheroes.gamepedia.com/Skill_Chains_5_Stars_List",
           //LIST_OF_UPGRADABLE_WEAPONS = "https://feheroes.gamepedia.com/List_of_upgradable_weapons",
           //LIST_OF_EVOLVING_WEAPONS = "https://feheroes.gamepedia.com/List_of_evolving_weapons",
           //maybe a Skill thing
           //LIST_OF_DESCRIPTION_TAGS = "https://feheroes.gamepedia.com/List_of_description_tags",
-            HERO_BASE_SKILLS = "Hero_skills_table",
-            WEAPON_REFINES = "Weapon_Refinery";
+            HERO_BASE_SKILLS_PATH = "Hero_skills_table",
+            WEAPON_REFINES_PATH = "Weapon_Refinery";
 
     private static final String
             FEHEROES = "https://feheroes.gamepedia.com";
@@ -57,13 +65,13 @@ public class SkillDatabase extends Database<Skill> {
     private static FEHeroesCache[] SKILL_FILES;
 
     static {
-        WEAPONS_FILE = new FEHeroesCache(WEAPONS, SKILLS_SUBDIR);
-        ASSISTS_FILE = new FEHeroesCache(ASSISTS, SKILLS_SUBDIR);
-        SPECIALS_FILE = new FEHeroesCache(SPECIALS, SKILLS_SUBDIR);
-        PASSIVES_FILE = new FEHeroesCache(PASSIVES, SKILLS_SUBDIR);
-        EXCLUSIVE_SKILLS_FILE = new FEHeroesCache(EXCLUSIVE_SKILLS, SKILLS_SUBDIR);
-        HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS, SKILLS_SUBDIR);
-        WEAPON_REFINES_FILE = new FEHeroesCache(WEAPON_REFINES, SKILLS_SUBDIR);
+        WEAPONS_FILE = new FEHeroesCache(WEAPONS_PATH, SKILLS_SUBDIR);
+        ASSISTS_FILE = new FEHeroesCache(ASSISTS_PATH, SKILLS_SUBDIR);
+        SPECIALS_FILE = new FEHeroesCache(SPECIALS_PATH, SKILLS_SUBDIR);
+        PASSIVES_FILE = new FEHeroesCache(PASSIVES_PATH, SKILLS_SUBDIR);
+        EXCLUSIVE_SKILLS_FILE = new FEHeroesCache(EXCLUSIVE_SKILLS_PATH, SKILLS_SUBDIR);
+        HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS_PATH, SKILLS_SUBDIR);
+        WEAPON_REFINES_FILE = new FEHeroesCache(WEAPON_REFINES_PATH, SKILLS_SUBDIR);
 
         SKILL_FILES = new FEHeroesCache[]{
                 WEAPONS_FILE,
@@ -75,8 +83,40 @@ public class SkillDatabase extends Database<Skill> {
                 WEAPON_REFINES_FILE,
         };
 
+        EXCLUSIVE = getExclusiveList();
+        REFINES = getRefineableList();
+
         DATABASE = new SkillDatabase();
-        SKILLS = DATABASE.getList();
+        WEAPONS = processWeapons();
+        ASSISTS = processAssists();
+        SPECIALS = processSpecials();
+        PASSIVES = processPassives();
+        ArrayList<PassiveA> aPassives = new ArrayList<>();
+        ArrayList<PassiveB> bPassives = new ArrayList<>();
+        ArrayList<PassiveC> cPassives = new ArrayList<>();
+        ArrayList<PassiveS> sPassives = new ArrayList<>();
+
+        for (Passive x:PASSIVES) {
+            if (x instanceof PassiveA) {
+                aPassives.add((PassiveA) x);
+            } else if (x instanceof PassiveB) {
+                bPassives.add((PassiveB) x);
+            } else if (x instanceof PassiveC) {
+                cPassives.add((PassiveC) x);
+            } else if (x instanceof PassiveS) {
+                sPassives.add((PassiveS) x);
+            }
+        }
+
+        PASSIVES_A = aPassives;
+        PASSIVES_B = bPassives;
+        PASSIVES_C = cPassives;
+        PASSIVES_S = sPassives;
+        SKILLS = new ArrayList<>(); //DATABASE.getList();
+        SKILLS.addAll(WEAPONS);
+        SKILLS.addAll(ASSISTS);
+        SKILLS.addAll(SPECIALS);
+        SKILLS.addAll(PASSIVES);
         HERO_SKILLS = DATABASE.getHeroSkills();
     }
 
@@ -92,9 +132,6 @@ public class SkillDatabase extends Database<Skill> {
     protected ArrayList<Skill> getList() {
         System.out.print("processing skills... ");
         long start = System.nanoTime();
-
-        EXCLUSIVE = getExclusiveList();
-        REFINES = getRefineableList();
 
         ArrayList<Skill> allSkills = new ArrayList<>();
 
@@ -528,7 +565,7 @@ public class SkillDatabase extends Database<Skill> {
             baseSkillsFile = Jsoup.parse(HERO_BASE_SKILLS_FILE, "UTF-8");
         } catch (IOException|NullPointerException e) {
             System.out.println("doin it again because i don't understand priorities...");
-            HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS);
+            HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS_PATH);
             if (HERO_BASE_SKILLS_FILE.update()) return getHeroSkills();
             System.out.println("base skills file not found!");
             return new HashMap<>();
@@ -587,16 +624,21 @@ public class SkillDatabase extends Database<Skill> {
         Scanner input = new Scanner(System.in);
 
         while (input.hasNextLine()) {
-            String chunk = input.nextLine().toLowerCase();
+            String chunk = input.nextLine();//.toLowerCase();
 
             HashMap<Skill, String> descPortion = new HashMap<>();
 
             for (Skill x:SKILLS) {
-                String[] description = x.getDescription().toLowerCase().split("\\. ?");
-
-                for (String s:description) System.out.println(s);
-                System.out.println();
-                System.out.println();
+                String[] description;
+                try {
+                description = x.getDescription()
+                            .substring(0, x.getDescription().length() - 1)
+                            //.toLowerCase()
+                            .split("\\. ");
+                } catch (IndexOutOfBoundsException ioobe) {
+                    //stpid silver sowrd
+                    continue;
+                }
 
                 for (String b:description) {
                     if (b.matches(chunk)) {

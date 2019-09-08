@@ -13,6 +13,8 @@ import utilities.WebCache;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 
 public class SkillDatabase extends Database<Skill> {
@@ -37,6 +39,9 @@ public class SkillDatabase extends Database<Skill> {
           //LIST_OF_DESCRIPTION_TAGS = "https://feheroes.gamepedia.com/List_of_description_tags",
             HERO_BASE_SKILLS = "Hero_skills_table",
             WEAPON_REFINES = "Weapon_Refinery";
+
+    private static final String
+            FEHEROES = "https://feheroes.gamepedia.com";
 
 
 
@@ -159,6 +164,13 @@ public class SkillDatabase extends Database<Skill> {
                 }
 
                 String name = info.get(0).text();
+                URL link;
+                try {
+                    link = new URL(FEHEROES+info.get(0).children().get(0).attr("href"));
+                } catch (MalformedURLException murle) {
+                    System.out.println("got a murle for "+name);
+                    link = null;
+                }
                 int might = Integer.parseInt(info.get(1).text());
                 int range = Integer.parseInt(info.get(2).text());
                 String description = info.get(3).text();
@@ -173,7 +185,7 @@ public class SkillDatabase extends Database<Skill> {
                 WeaponClass type = WeaponClass.getClass(weaponType[i]);
                 WeaponRefine refine = getRefine(name);
 
-                x = new Weapon(name, description, sp, exclusive, might, range, type, refine);
+                x = new Weapon(name, description, link, sp, exclusive, might, range, type, refine);
 
                 weapons.add(x);
             }
@@ -210,11 +222,18 @@ public class SkillDatabase extends Database<Skill> {
 
                     String name = info.get(0).text();
                     String description = info.get(1).text();
+                    URL link;
+                    try {
+                        link = new URL(FEHEROES+info.get(0).children().get(0).attr("href"));
+                    } catch (MalformedURLException murle) {
+                        System.out.println("got a murle for "+name);
+                        link = null;
+                    }
                     int sp = Integer.parseInt(info.get(2).text());
                     int range = Integer.parseInt(info.get(3).text());
                     boolean exclusive = isExclusive(name);
 
-                    x = new Assist(name, description, sp, exclusive, range);
+                    x = new Assist(name, description, link, sp, exclusive, range);
                     assists.add(x);
                 }
             }
@@ -253,11 +272,18 @@ public class SkillDatabase extends Database<Skill> {
 
             String name = info.get(0).text();
             String description = info.get(1).text();
+            URL link;
+            try {
+                link = new URL(FEHEROES+info.get(0).children().get(0).attr("href"));
+            } catch (MalformedURLException murle) {
+                System.out.println("got a murle for "+name);
+                link = null;
+            }
             int sp = Integer.parseInt(info.get(2).text());
             int cooldown = Integer.parseInt(info.get(3).text());
             boolean exclusive = isExclusive(name);
 
-            x = new Special(name, description, sp, exclusive, cooldown);
+            x = new Special(name, description, link, sp, exclusive, cooldown);
             specials.add(x);
         }
 
@@ -295,28 +321,41 @@ public class SkillDatabase extends Database<Skill> {
                 try {
                     Passive x;
                     Elements info = row.children();
+                    String name = info.get(1).text();
+                    String description = info.get(2).text();
                     String[] urlSet = info.get(0).select("a")
                             .get(0).select("img")
                             .get(0).attr("srcset")
                             .split(" ");
-                    String icon = urlSet[2];
-                    String name = info.get(1).text();
-                    String description = info.get(2).text();
+                    URL icon;
+                    try {
+                        icon = new URL(urlSet[2]);
+                    } catch (MalformedURLException murle) {
+                        System.out.println("got a murle for "+name);
+                        icon = null;
+                    }
+                    URL link;
+                    try {
+                        link = new URL(FEHEROES+info.get(1).children().get(0).attr("href"));
+                    } catch (MalformedURLException murle) {
+                        System.out.println("got a murle for "+name);
+                        link = null;
+                    }
                     int cost = Integer.parseInt(info.get(3).text());
                     boolean exclusive = (info.get(3).text().equals("Yes"));
 
                     switch (i) {
                         case 0:
-                            x = new PassiveA(name, description, cost, exclusive, icon);
+                            x = new PassiveA(name, description, icon, link, cost, exclusive);
                             break;
                         case 1:
-                            x = new PassiveB(name, description, cost, exclusive, icon);
+                            x = new PassiveB(name, description, icon, link, cost, exclusive);
                             break;
                         case 2:
-                            x = new PassiveC(name, description, cost, exclusive, icon);
+                            x = new PassiveC(name, description, icon, link, cost, exclusive);
                             break;
                         case 3:
-                            x = new PassiveS(name, description, cost, exclusive, icon);
+                            x = new PassiveS(name, description, icon, link, cost, exclusive);
                             break;
                         default:
                             System.out.println("this is not an expected table, how'd it even get this far");
@@ -393,14 +432,27 @@ public class SkillDatabase extends Database<Skill> {
             }
 
             //0 is owner portrait(s)
-            String icon = info.get(1)
-                    .select("td").get(0)
-                    .select("img").attr("srcset")
-                    .split(" ")[2];
             String name = info.get(1).text();
             String stats = info.get(2).text();
             String description = info.get(3).text();
             String specialEff = info.get(4).text();
+            URL icon;
+            try {
+                icon = new URL(info.get(1)
+                        .select("td").get(0)
+                        .select("img").attr("srcset")
+                        .split(" ")[2]);
+            } catch (MalformedURLException murle) {
+                System.out.println("got a murle for "+name);
+                icon = null;
+            }
+            URL link;
+            try {
+                link = new URL(FEHEROES+info.get(0).select("a").get(0).attr("href"));
+            } catch (MalformedURLException murle) {
+                System.out.println("got a murle for "+name);
+                link = null;
+            }
             //String cost = info.get(5).text(); //it's always 400SP, 200 Dew™
 
             String[] items = stats.split(" ");
@@ -450,7 +502,7 @@ public class SkillDatabase extends Database<Skill> {
                 continue;
             }
 
-            refines.add(new WeaponRefine(name, description, specialEff, icon, values, 400, might, range));
+            refines.add(new WeaponRefine(name, description, specialEff, link, icon, values, 400, might, range));
         }
 
 

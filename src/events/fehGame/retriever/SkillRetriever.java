@@ -217,7 +217,7 @@ public class SkillRetriever extends Command {
 
         skill.setColor(x.getColor());
 
-        skill.setAuthor(x.getName());
+        skill.setAuthor(x.getName(), x.getLink().toString());
         skill.setDescription(x.getDescription());
 
         skill.setThumbnail(SKILL_ICONS.get(x.getSlot()));
@@ -235,13 +235,13 @@ public class SkillRetriever extends Command {
 
 
         if (x instanceof WeaponRefine) {
-            skill.setThumbnail(((WeaponRefine) x).getIconURL());
+            skill.setThumbnail(((WeaponRefine) x).getIconURL().toString());
         }
 
 
 
         if (x instanceof Passive) {
-            skill.setThumbnail(((Passive) x).getIcon());
+            skill.setThumbnail(((Passive) x).getIcon().toString());
         }
 
 

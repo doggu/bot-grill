@@ -3,9 +3,10 @@ package feh.heroes.skills.skillTypes;
 
 
 import java.awt.*;
+import java.net.URL;
 
 public class PassiveB extends Passive {
-    public PassiveB(String name, String description, int cost, boolean exclusive, String icon) {
-        super (name, description, new Color(0x003ED3), 'b', cost, exclusive, icon);
+    public PassiveB(String name, String description, URL icon, URL link, int cost, boolean exclusive) {
+        super (name, description, icon, link, new Color(0x003ED3), 'b', cost, exclusive);
     }
 }

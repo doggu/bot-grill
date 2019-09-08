@@ -1,9 +1,11 @@
 package feh.heroes.skills.skillTypes;
 
 import java.awt.*;
+import java.net.URL;
 
 public abstract class Skill {
     final String name, description;
+    final URL link;
     private final Color color;
     //private final String[] args;
 
@@ -16,9 +18,10 @@ public abstract class Skill {
 
 
 
-    public Skill(String name, String description, Color color, char slot, int cost, boolean exclusive) {
+    public Skill(String name, String description, URL link, Color color, char slot, int cost, boolean exclusive) {
         this.name = name;
         this.description = description;
+        this.link = link;
         this.color = color;
 
         //probably a convoluted system
@@ -42,6 +45,7 @@ public abstract class Skill {
 
     public String getName() { return name; }
     public String getDescription() { return description; }
+    public URL getLink() { return link; }
     public Color getColor() { return color; }
     public int getCost() { return cost; }
     public int getSlot() { return slot; }

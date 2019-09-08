@@ -5,6 +5,7 @@ import feh.heroes.skills.analysis.ActionSkill;
 import feh.heroes.skills.analysis.StatModifier;
 
 import java.awt.*;
+import java.net.URL;
 
 public class Weapon extends Skill implements ActionSkill, StatModifier {
     private final int mt, rng;
@@ -15,9 +16,9 @@ public class Weapon extends Skill implements ActionSkill, StatModifier {
 
 
 
-    public Weapon(String name, String description, int cost, boolean exclusive,
+    public Weapon(String name, String description, URL link, int cost, boolean exclusive,
                   int mt, int rng, WeaponClass type, WeaponRefine refine) {
-        super(name, description, new Color(0xDE1336), 'W', cost, exclusive);
+        super(name, description, link, new Color(0xDE1336), 'W', cost, exclusive);
         this.mt = mt;
         this.rng = rng;
         this.type = type;

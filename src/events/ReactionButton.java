@@ -42,7 +42,8 @@ public abstract class ReactionButton extends ReactionListener {
     //if a user never uses the button, it may be destroyed by something outside the class
     public void removeButton() {
         if (emote!=null) {
-            for (MessageReaction reaction : message.getReactions()) {
+            for (MessageReaction reaction : e.getJDA().getTextChannelById(
+                    message.getChannel().getId()).getMessageById(message.getId()).complete().getReactions()) {
                 if (!reaction.getReactionEmote().isEmote()) continue;
                 if (reaction.getReactionEmote().getEmote().equals(emote)) {
                     reaction.removeReaction().queue();
@@ -50,7 +51,8 @@ public abstract class ReactionButton extends ReactionListener {
                 }
             }
         } else {
-            for (MessageReaction reaction : message.getReactions()) {
+            for (MessageReaction reaction : e.getJDA().getTextChannelById(
+                    message.getChannel().getId()).getMessageById(message.getId()).complete().getReactions()) {
                 if (reaction.getReactionEmote().isEmote()) continue;
                 if (reaction.getReactionEmote().toString().equals("RE:"+emoticon+"(null)")) {
                     reaction.removeReaction().queue();

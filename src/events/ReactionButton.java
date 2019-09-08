@@ -47,7 +47,6 @@ public abstract class ReactionButton extends ReactionListener {
                 if (!reaction.getReactionEmote().isEmote()) continue;
                 if (reaction.getReactionEmote().getEmote().equals(emote)) {
                     reaction.removeReaction().queue();
-                    //reaction.removeReaction(e.getJDA().getSelfUser()).complete();
                 }
             }
         } else {
@@ -56,7 +55,6 @@ public abstract class ReactionButton extends ReactionListener {
                 if (reaction.getReactionEmote().isEmote()) continue;
                 if (reaction.getReactionEmote().toString().equals("RE:"+emoticon+"(null)")) {
                     reaction.removeReaction().queue();
-                    //reaction.removeReaction(e.getJDA().getSelfUser()).complete();
                 }
             }
         }

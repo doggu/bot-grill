@@ -1,5 +1,6 @@
 package events.fehGame.summoning;
 
+import events.PersonalButton;
 import events.ReactionListener;
 import events.fehGame.retriever.HeroRetriever;
 import feh.heroes.character.Hero;
@@ -26,6 +27,7 @@ public class CircleSimulator extends ReactionListener {
     private final Banner banner;
     private final List<Stone> stones;
     private final List<Emote> stoneEmotes;
+    private PersonalButton stopButton, newButton;
     private int pulls = 0;
 
 
@@ -132,8 +134,45 @@ public class CircleSimulator extends ReactionListener {
     }
 
     void register() {
-        BotMain.addListener(this);
         summoner.startSummoning(this);
+        BotMain.addListener(this);
+    }
+
+    private void addFinishButtons() {
+        stopButton = new PersonalButton(circleMessage, "❌", summoner.getUser()) {
+            @Override
+            public void onCommand() {
+                if (canClose()) {
+                    closeCircle();
+                } else {
+                    sendMessage("please choose at least one orb before starting a new session.");
+                    return;
+                }
+
+                e.getReaction().removeReaction().queue();
+                e.getReaction().removeReaction(summoner.getUser()).queue();
+
+                newButton.removeButton();
+            }
+        };
+        newButton = new PersonalButton(circleMessage, "\uD83D\uDD04", summoner.getUser()) {
+            @Override
+            public void onCommand() {
+                //idk if there's some 4D hacking someone can do to break this but this error checking is unnecessary
+                if (canClose()) {
+                    closeCircle();
+                    new CircleSimulator(messageChannel, summoner, banner).register();
+                } else {
+                    sendMessage("please choose at least one orb before starting a new session.");
+                    return;
+                }
+
+                e.getReaction().removeReaction().queue();
+                e.getReaction().removeReaction(summoner.getUser()).queue();
+
+                stopButton.removeButton();
+            }
+        };
     }
 
     boolean canClose() {
@@ -147,7 +186,7 @@ public class CircleSimulator extends ReactionListener {
     //because they must have summoned a stone before they may close the circle.
     void closeCircle() {
         summoner.stopSummoning();
-        circleMessage.clearReactions().complete();
+        //circleMessage.clearReactions().complete();
         commitSuicide();
     }
 
@@ -160,30 +199,7 @@ public class CircleSimulator extends ReactionListener {
 
 
         //is not a custom emote or stop emote (i hope)
-        if (!e.getReaction().getReactionEmote().isEmote()) {
-            if (e.getReactionEmote().toString().equals("RE:\uD83D\uDD04(null)")) {
-                if (canClose()) {
-                    closeCircle();
-                    CircleSimulator newCircle = new CircleSimulator(messageChannel, summoner, banner);
-                    newCircle.register();
-                } else {
-                    sendMessage("please choose at least one orb before starting a new session.");
-                    return;
-                }
-            } else if (e.getReactionEmote().toString().equals("RE:❌(null)")) {
-                if (canClose()) {
-                    closeCircle();
-                    return;
-                } else {
-                    e.getReaction().removeReaction(summoner.getUser()).queue();
-                    sendMessage("please choose at least one orb before closing this session.");
-                    return;
-                }
-            } else {
-                System.out.println("what the fuck is this shit");
-                return;
-            }
-        } else {
+        if (e.getReaction().getReactionEmote().isEmote()) {
             String stoneId = e.getReaction().getReactionEmote().getId();
             for (int i=0; i<stoneEmotes.size(); i++) {
                 Emote stone = stoneEmotes.get(i);
@@ -208,8 +224,7 @@ public class CircleSimulator extends ReactionListener {
                     switch (pulls) {
                         case 0: //first pull
                             //the circle is now closeable
-                            circleMessage.addReaction("\uD83D\uDD04").queue();
-                            circleMessage.addReaction("❌").queue();
+                            addFinishButtons();
                             cost++;
                         case 1:
                         case 2:
@@ -224,10 +239,6 @@ public class CircleSimulator extends ReactionListener {
             }
         }
 
-        //remove my own reaction so they can't double up (even though there's protection already)
-        //TODO: may want to keep self-reactions for historical purposes (user could remove their reactions)
-        //e.getReaction().removeReaction(e.getJDA().getSelfUser()).queue();
-
         //there's a more efficient way to do this but this is absolute
 
         boolean circleComplete = true;
@@ -239,8 +250,10 @@ public class CircleSimulator extends ReactionListener {
         }
 
 
-        if (circleComplete)
-            closeCircle();
+        if (circleComplete) {
+            commitSuicide();
+            stopButton.removeButton();
+        }
     }
 
     @Override

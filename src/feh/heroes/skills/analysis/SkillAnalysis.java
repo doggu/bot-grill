@@ -144,7 +144,8 @@ public class SkillAnalysis {
         ArrayList<MovementClass> effectivity = new ArrayList<>();
         for (int i=0; i<rawSentences.size(); i++) {
             String raw = rawSentences.get(i);
-            if (raw.matches("Effective against (infantry)|(flying)|(armored)|(cavalry) (and (infantry)|(flying)|(armored)|(cavalry))?foes")) {
+            if (raw.matches("Effective against (infantry)|(flying)|(armored)|(cavalry) " +
+                    "(and (infantry)|(flying)|(armored)|(cavalry))?foes")) {
                 MovementClass eff1, eff2;
                 effectivity.add(getEffectiveAgainst(sentences.get(i).get(2)));
                 try {
@@ -178,11 +179,13 @@ public class SkillAnalysis {
     }
     private ArrayList<String> findWith(String input) {
         ArrayList<String> incl = new ArrayList<>();
-        for (int i=0; i<rawSentences.size(); i++) {
-            if (rawSentences.get(i).toLowerCase().contains(input)) {
-                incl.add(rawSentences.get(i));
-                rawSentences.remove(i);
-                i--;
+        for (int i=0; i<sentences.size(); i++) {
+            for (int j=0; j<sentences.get(i).size(); j++) {
+                if (sentences.get(i).get(j).toLowerCase().contains(input)) {
+                    incl.add(sentences.get(i).get(j));
+                    sentences.get(i).remove(j);
+                    j--;
+                }
             }
         }
 

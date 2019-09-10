@@ -17,12 +17,12 @@ abstract class Listener extends ListenerAdapter {
                 day = g.getDayOfMonth(),
                 year = g.getYear();
         System.out.println(
-                (Math.log10(hour)<1?"0":"")+hour+":"+
-                        (Math.log10(minute)<1?"0":"")+minute+":"+
-                        (Math.log10(second)<1?"0":"")+second+" "+
-                        (Math.log10(month)<1?"0":"")+month+"-"+
-                        (Math.log10(day)<1?"0":"")+day+"-"+
-                        (Math.log10(year)<1?"0":"")+year+": "+
-                        log);
+                (hour/10>0?"":"0")+hour+":"+
+                (minute/10>0?"":"0")+minute+":"+
+                (second/10>0?"":"0")+second+" "+
+                (month/10>0?"":"0")+month+"-"+
+                (day/10>0?"":"0")+day+"-"+
+                (year/10>0?"":"0")+year+": "+
+                log);
     }
 }

@@ -27,7 +27,7 @@ public class CircleSimulator extends ReactionListener {
     private final Banner banner;
     private final List<Stone> stones;
     private final List<Emote> stoneEmotes;
-    private PersonalButton stopButton, newButton;
+    private PersonalButton newButton, stopButton;
     private int pulls = 0;
 
 
@@ -139,22 +139,6 @@ public class CircleSimulator extends ReactionListener {
     }
 
     private void addFinishButtons() {
-        stopButton = new PersonalButton(circleMessage, "❌", summoner.getUser()) {
-            @Override
-            public void onCommand() {
-                if (canClose()) {
-                    closeCircle();
-                } else {
-                    sendMessage("please choose at least one orb before starting a new session.");
-                    return;
-                }
-
-                e.getReaction().removeReaction().queue();
-                e.getReaction().removeReaction(summoner.getUser()).queue();
-
-                newButton.removeButton();
-            }
-        };
         newButton = new PersonalButton(circleMessage, "\uD83D\uDD04", summoner.getUser()) {
             @Override
             public void onCommand() {
@@ -171,6 +155,22 @@ public class CircleSimulator extends ReactionListener {
                 e.getReaction().removeReaction(summoner.getUser()).queue();
 
                 stopButton.removeButton();
+            }
+        };
+        stopButton = new PersonalButton(circleMessage, "❌", summoner.getUser()) {
+            @Override
+            public void onCommand() {
+                if (canClose()) {
+                    closeCircle();
+                } else {
+                    sendMessage("please choose at least one orb before starting a new session.");
+                    return;
+                }
+
+                e.getReaction().removeReaction().queue();
+                e.getReaction().removeReaction(summoner.getUser()).queue();
+
+                newButton.removeButton();
             }
         };
     }

@@ -3,7 +3,7 @@ package main;
 import events.Quips;
 import events.Reactions;
 import events.Vote;
-import events.commands.CanIEatRightNow;
+import events.commands.campus.CanIEatRightNow;
 import events.commands.Emotes;
 import events.commands.Girl;
 import events.commands.chem.ElementRetriever;

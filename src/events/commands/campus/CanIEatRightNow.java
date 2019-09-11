@@ -1,6 +1,6 @@
-package events.commands;
+package events.commands.campus;
 
-import events.MessageListener;
+import events.commands.Command;
 import main.BotMain;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

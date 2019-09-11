@@ -26,4 +26,10 @@ public class Range<T extends Comparable<T>> {
     public boolean inThisRange(T val) {
         return min.compareTo(val)<0 && max.compareTo(val)>0;
     }
+
+
+
+    public String toString() {
+        return (min+" - "+max);
+    }
 }

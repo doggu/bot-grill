@@ -19,15 +19,19 @@ public class SkillAnalysis {
     private final int[] statModifiers;
     private final Integer cdModifier;
     private final ArrayList<MovementClass> effectiveAgainst;
+    private final MovementClass neutralizes;
+    private final boolean triangleAdept;
 
 
     private final ArrayList<String>
+            startOfTurn1,
             startOfTurn,
             duringCombat,
             beforeCombat,
             afterCombat,
             unitInitiates,
-            foeInitiates;
+            foeInitiates,
+            whileUnitLives;
 
 
 
@@ -40,12 +44,17 @@ public class SkillAnalysis {
             statModifiers = null;
             cdModifier = null;
             effectiveAgainst = null;
+            neutralizes = null;
+            this.triangleAdept = false;
+
+            startOfTurn1 = null;
             startOfTurn = null;
             duringCombat = null;
             beforeCombat = null;
             afterCombat = null;
             unitInitiates = null;
             foeInitiates = null;
+            whileUnitLives = null;
             return;
         }
 
@@ -62,12 +71,17 @@ public class SkillAnalysis {
         this.statModifiers = getStatModifiers();
         this.cdModifier = getCdModifier();
         this.effectiveAgainst = getEffective();
+        this.neutralizes = getNeutralizesEffectivity();
+        this.triangleAdept = triangleAdept();
+
+        startOfTurn1 = getStartOfTurn1();
         startOfTurn = getStartOfTurn();
         duringCombat = getDuringCombat();
         beforeCombat = getBeforeCombat();
         afterCombat = getAfterCombat();
         unitInitiates = getUnitInitiates();
         foeInitiates = getFoeInitiates();
+        whileUnitLives = getWhileUnitLives();
     }
 
 
@@ -76,16 +90,20 @@ public class SkillAnalysis {
         try {
             int[] statModifiers = new int[5];
 
-            for (ArrayList<String> sentence : sentences) {
+            for (int i=0; i<sentences.size(); i++) {
+                ArrayList<String> sentence = sentences.get(i);
                 String[] args = sentence.get(0).split(" ");
                 if (args[0].matches("(Grants)|(Inflicts)")) {
                     ArrayList<String> modifiers = new ArrayList<>(sentence);
 
                     //remove causational
+                    /*
                     if (modifiers.get(0).contains("Grants"))
                         modifiers.set(0, modifiers.get(0).substring(7));
                     else
                         modifiers.set(0, modifiers.get(0).substring(9));
+                     */
+                    boolean isModifier = true;
 
                     for (String modifier : modifiers) {
                         int val;
@@ -94,17 +112,26 @@ public class SkillAnalysis {
                                     Integer.parseInt(modifier.substring(modifier.indexOf("+") + 1)) :
                                     Integer.parseInt(modifier.substring(modifier.indexOf("-")));
                         } catch (IndexOutOfBoundsException|NumberFormatException e) {
-                            continue;
+                            isModifier = false;
+                            break;
                         }
 
+                        if (modifier.contains("HP"))
+                            statModifiers[0]+= val;
                         if (modifier.contains("Atk"))
                             statModifiers[1]+= val;
                         if (modifier.contains("Spd"))
-                            statModifiers[1]+= val;
+                            statModifiers[2]+= val;
                         if (modifier.contains("Def"))
-                            statModifiers[1]+= val;
+                            statModifiers[3]+= val;
                         if (modifier.contains("Res"))
-                            statModifiers[1]+= val;
+                            statModifiers[4]+= val;
+                    }
+
+                    if (isModifier) {
+                        sentences.remove(i);
+                        rawSentences.remove(i);
+                        i--;
                     }
                 }
             }
@@ -162,7 +189,7 @@ public class SkillAnalysis {
 
         return effectivity;
     }
-    private MovementClass getEffectiveAgainst(String input) {
+    private MovementClass getEffectiveAgainst(String input) { //todo: magic and dragon foes
         if (input==null) return null;
         switch (input) {
             case "infantry":
@@ -177,19 +204,59 @@ public class SkillAnalysis {
                 return null;
         }
     }
+    private MovementClass getNeutralizesEffectivity() { //todo: magic and dragon foes
+        MovementClass effectivity = null;
+        for (int i=0; i<rawSentences.size(); i++) {
+            String raw = rawSentences.get(i);
+            if (raw.matches("Neutralizes \"effective against (infantry)|(flying)|(armored)|(cavalry)\" " +
+                    "bonuses")) {
+                effectivity = getEffectiveAgainst(sentences.get(i).get(3));
+
+                rawSentences.remove(i);
+                sentences.remove(i);
+                break;
+            }
+        }
+
+        return effectivity;
+    }
+    private boolean triangleAdept() {
+        for (int i=0; i<rawSentences.size(); i++) {
+            if (rawSentences.get(i).equals("If unit has weapon-triangle advantage, boosts Atk by 20%"))
+                try {
+                    if (rawSentences.get(i+1).equals("If unit has weapon-triangle disadvantage, reduces Atk by 20%")) {
+                        rawSentences.remove(i);
+                        rawSentences.remove(i+1);
+                        return true;
+                    }
+                } catch (IndexOutOfBoundsException ioobe) {
+                    //nothin
+                }
+        }
+
+        return false;
+    }
     private ArrayList<String> findWith(String input) {
         ArrayList<String> incl = new ArrayList<>();
         for (int i=0; i<sentences.size(); i++) {
             for (int j=0; j<sentences.get(i).size(); j++) {
                 if (sentences.get(i).get(j).toLowerCase().contains(input)) {
                     incl.add(sentences.get(i).get(j));
-                    sentences.get(i).remove(j);
-                    j--;
+                    rawSentences.remove(i);
+                    sentences.remove(i);
+                    i--;
+                    break;
                 }
             }
         }
 
         return incl;
+    }
+    private ArrayList<String> getStartOfTurn1() {
+        return findWith("at the start of turn 1");
+    }
+    private ArrayList<String> getStartOfEveryNTurns() {
+        return findWith("at the start of every");
     }
     private ArrayList<String> getStartOfTurn() {
         return findWith("at start of turn");
@@ -209,6 +276,10 @@ public class SkillAnalysis {
     private ArrayList<String> getFoeInitiates() {
         return findWith("if foe initiates combat");
     }
+    //really only for valor/exp skills
+    private ArrayList<String> getWhileUnitLives() {
+        return findWith("while unit lives");
+    }
 
 
 
@@ -217,9 +288,12 @@ public class SkillAnalysis {
     }
 
     public static void main(String[] na) {
+        long start = System.nanoTime();
         ArrayList<SkillAnalysis> analyses = new ArrayList<>();
         for (Skill x: SkillDatabase.SKILLS)
             analyses.add(new SkillAnalysis(x));
+
+        System.out.println("done ("+(System.nanoTime()-start)/1000000000.0+"s!)");
 
         Scanner input = new Scanner(System.in);
 
@@ -238,7 +312,18 @@ public class SkillAnalysis {
             }
 
             for (SkillAnalysis x:descPortion.keySet()) {
-                System.out.println(x);
+                System.out.println(x.skill.getName());
+                if (x.rawSentences.size()>0) {
+                    for (String s:x.rawSentences) {
+                        System.out.println("\t"+s);
+                    }
+                }
+                /*
+                if (x.getStatModifiers()!=null) {
+                    for (int n:x.getStatModifiers())
+                        System.out.println("\t\t"+n);
+                }
+                */
             }
         }
 

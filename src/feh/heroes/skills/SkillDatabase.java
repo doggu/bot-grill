@@ -434,17 +434,12 @@ public class SkillDatabase extends Database<Skill> {
             Elements labels = headers.get(i).select("th");
             Elements rows = bodies.get(i).children();
             int nameRow;
-            for (nameRow=0; nameRow<labels.size(); nameRow++) {
+            for (nameRow=0; nameRow<labels.size(); nameRow++)
                 if (labels.get(nameRow).text().matches("(Weapon)|(Assist)|(Special)|(Name)"))
                     break;
 
-                //System.out.println("not "+labels.get(nameRow).text()+"...");
-            }
-
-            for (Element row:rows) {
-                System.out.println(row.children().get(nameRow).text());
+            for (Element row:rows)
                 list.add(row.children().get(nameRow).text());
-            }
         }
 
 

@@ -7,6 +7,7 @@ import events.commands.campus.CanIEatRightNow;
 import events.commands.Emotes;
 import events.commands.Girl;
 import events.commands.chem.ElementRetriever;
+import events.commands.chem.MolarMass;
 import events.commands.gamble.Chances;
 import events.commands.gamble.Roll;
 import events.commands.help.Help;
@@ -118,6 +119,7 @@ public class BotMain {
         addListener(new ElementRetriever());
         addListener(new UnitConversionListener());
         addListener(new FracCalcListener());
+        addListener(new MolarMass());
 
         //gamble
         addListener(new Chances());

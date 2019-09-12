@@ -48,6 +48,8 @@ public class UnitDatabase extends Database<Hero> {
         GROWTH_RATES_FILE = new FEHeroesCache(GROWTH_RATES, HERO_SUBDIR);
         HERO_LIST_FILE = new FEHeroesCache(HERO_LIST, HERO_SUBDIR);
 
+        HERO_GENDERS = getGenders();
+
         DATABASE = new UnitDatabase();
         HEROES = DATABASE.getList();
         HERO_FILES = new FEHeroesCache[]{
@@ -77,8 +79,6 @@ public class UnitDatabase extends Database<Hero> {
     protected ArrayList<Hero> getList() {
         System.out.print("processing heroes... ");
         long start = System.nanoTime();
-
-        HERO_GENDERS = getGenders();
 
         ArrayList<Hero> heroes = new ArrayList<>();
 
@@ -299,7 +299,7 @@ public class UnitDatabase extends Database<Hero> {
         return baseKit;
     }
 
-    private static HashMap<String, Character> HERO_GENDERS = getGenders();
+    private static final HashMap<String, Character> HERO_GENDERS;
     private static HashMap<String, Character> getGenders() {
         File f = new File("./src/feh/heroes/grenders.txt");
         HashMap<String, Character> genders = new HashMap<>();

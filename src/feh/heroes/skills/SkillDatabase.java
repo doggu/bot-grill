@@ -20,6 +20,7 @@ import java.util.*;
 public class SkillDatabase extends Database<Skill> {
     public static SkillDatabase DATABASE;
     public static ArrayList<Skill> SKILLS;
+    /*
     public static ArrayList<Weapon> WEAPONS;
     public static ArrayList<Assist> ASSISTS;
     public static ArrayList<Special> SPECIALS;
@@ -28,6 +29,7 @@ public class SkillDatabase extends Database<Skill> {
     public static ArrayList<PassiveB> PASSIVES_B;
     public static ArrayList<PassiveC> PASSIVES_C;
     public static ArrayList<PassiveS> PASSIVES_S;
+     */
     public static HashMap<String, ArrayList<Skill>> HERO_SKILLS;
 
     private static final String
@@ -87,6 +89,7 @@ public class SkillDatabase extends Database<Skill> {
         REFINES = getRefineableList();
 
         DATABASE = new SkillDatabase();
+        /*
         WEAPONS = processWeapons();
         ASSISTS = processAssists();
         SPECIALS = processSpecials();
@@ -117,6 +120,8 @@ public class SkillDatabase extends Database<Skill> {
         SKILLS.addAll(ASSISTS);
         SKILLS.addAll(SPECIALS);
         SKILLS.addAll(PASSIVES);
+         */
+        SKILLS = DATABASE.getList();
         HERO_SKILLS = DATABASE.getHeroSkills();
     }
 
@@ -379,7 +384,7 @@ public class SkillDatabase extends Database<Skill> {
                         link = null;
                     }
                     int cost = Integer.parseInt(info.get(3).text());
-                    boolean exclusive = (info.get(3).text().equals("Yes"));
+                    boolean exclusive = (info.get(4).text().equals("Yes"));
 
                     switch (i) {
                         case 0:
@@ -409,12 +414,38 @@ public class SkillDatabase extends Database<Skill> {
         return passives;
     }
 
-    private static ArrayList<String> EXCLUSIVE;
+    private static final ArrayList<String> EXCLUSIVE;
     private static ArrayList<String> getExclusiveList() {
         ArrayList<String> list = new ArrayList<>();
-        ArrayList<ArrayList<String>> tables = EXCLUSIVE_SKILLS_FILE.getTables();
+        Document exclusivesFile;
+        try {
+            exclusivesFile = Jsoup.parse(EXCLUSIVE_SKILLS_FILE, "UTF-8");
+        } catch (IOException ioe) {
+            System.out.println("exclusive list not found!");
+            return new ArrayList<>();
+        }
 
-        for (ArrayList<String> table:tables) list.addAll(table);
+        Elements tables = exclusivesFile.select("table");
+
+        Elements headers = tables.select("thead").select("tr");
+        Elements bodies = exclusivesFile.select("table").select("tbody");
+
+        for (int i=0; i<headers.size(); i++) {
+            Elements labels = headers.get(i).select("th");
+            Elements rows = bodies.get(i).children();
+            int nameRow;
+            for (nameRow=0; nameRow<labels.size(); nameRow++) {
+                if (labels.get(nameRow).text().matches("(Weapon)|(Assist)|(Special)|(Name)"))
+                    break;
+
+                //System.out.println("not "+labels.get(nameRow).text()+"...");
+            }
+
+            for (Element row:rows) {
+                System.out.println(row.children().get(nameRow).text());
+                list.add(row.children().get(nameRow).text());
+            }
+        }
 
 
 
@@ -425,7 +456,7 @@ public class SkillDatabase extends Database<Skill> {
         return false;
     }
 
-    private static ArrayList<WeaponRefine> REFINES;
+    private static final ArrayList<WeaponRefine> REFINES;
     private static ArrayList<WeaponRefine> getRefineableList() {
         Document refinesFile;
         try {

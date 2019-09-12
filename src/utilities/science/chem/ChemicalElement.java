@@ -2,35 +2,34 @@ package utilities.science.chem;
 
 //todo: rename to ChemicalElement? (clashing with org.jsoup.nodes.Element)
 public class ChemicalElement {
-    private final String
-            atomicNumber,
-            symbol,
-            name,
-            origin,
-            group,
-            period,
-            atomicWeight,
-            density,
-            meltingPoint,
-            boilingPoint,
-            C,
-            electronegativity,
-            earthAbundance;
+    private final int atomicNumber;
+    private final String symbol;
+    private final String name;
+    private final String origin;
+    private final int group;
+    private final int period;
+    private final double atomicWeight;
+    private final double density;
+    private final double meltingPoint;
+    private final double boilingPoint;
+    private final double C;
+    private final double electronegativity;
+    private final double earthAbundance;
 
     ChemicalElement(
-            String atomicNumber,
+            int atomicNumber,
             String symbol,
             String name,
             String origin,
-            String group,
-            String period,
-            String atomicWeight,
-            String density,
-            String meltingPoint,
-            String boilingPoint,
-            String C,
-            String electronegativity,
-            String earthAbundance) {
+            int group,
+            int period,
+            double atomicWeight,
+            double density,
+            double meltingPoint,
+            double boilingPoint,
+            double C,
+            double electronegativity,
+            double earthAbundance) {
         this.atomicNumber = atomicNumber;
         this.symbol = symbol;
         this.name = name;
@@ -47,29 +46,29 @@ public class ChemicalElement {
     }
 
 
-    public String getAtomicNumber() {return atomicNumber;}
+    public int getAtomicNumber() { return atomicNumber; }
 
-    public String getSymbol() {return symbol;}
+    public String getSymbol() { return symbol; }
 
-    public String getName() {return name;}
+    public String getName() { return name; }
 
-    public String getOrigin() {return origin;}
+    public String getOrigin() { return origin; }
 
-    public String getGroup() {return group;}
+    public int getGroup() { return group; }
 
-    public String getPeriod() {return period;}
+    public int getPeriod() { return period; }
 
-    public String getAtomicWeight() {return atomicWeight;}
+    public double getAtomicWeight() { return atomicWeight; }
 
-    public String getDensity() {return density;}
+    public double getDensity() { return density; }
 
-    public String getMeltingPoint() {return meltingPoint;}
+    public double getMeltingPoint() { return meltingPoint; }
 
-    public String getBoilingPoint() {return boilingPoint;}
+    public double getBoilingPoint() { return boilingPoint; }
 
-    public String getC() {return C;}
+    public double getC() { return C; }
 
-    public String getElectronegativity() {return electronegativity;}
+    public double getElectronegativity() { return electronegativity; }
 
-    public String getEarthAbundance() {return earthAbundance;}
+    public double getEarthAbundance() { return earthAbundance; }
 }

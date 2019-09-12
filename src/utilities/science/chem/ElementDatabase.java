@@ -79,19 +79,67 @@ public class ElementDatabase extends Database<ChemicalElement> {
         try {
             for (Elements element : data) {
                 if (element.size()<13) continue;
-                String  atomicNumber = element.get(0).text();
+                int     atomicNumber = Integer.parseInt(sanitize(element.get(0).text()));
                 String  symbol = element.get(1).text();
                 String  name = element.get(2).text();
                 String  origin = element.get(3).text();
-                String  group = element.get(4).text();
-                String  period = element.get(5).text();
-                String  atomicWeight = element.get(6).text();
-                String  density = element.get(7).text();
-                String  meltingPoint = element.get(8).text();
-                String  boilingPoint = element.get(9).text();
-                String  C = element.get(10).text();
-                String  electronegativity = element.get(11).text();
-                String  earthAbundance = element.get(12).text();
+
+                int   group;
+                try {
+                    group = Integer.parseInt(sanitize(element.get(4).text()));
+                } catch (NumberFormatException nfe) {
+                    group = 0;
+                }
+                int     period = Integer.parseInt(sanitize(element.get(5).text()));
+
+                double  atomicWeight;
+                try {
+                    atomicWeight = Double.parseDouble(sanitize(element.get(6).text()));
+                } catch (NumberFormatException nfe) {
+                    atomicWeight = 0;
+                }
+
+                double  density;
+                try {
+                    density = Double.parseDouble(sanitize(element.get(7).text()));
+                } catch (NumberFormatException nfe) {
+                    density = 0;
+                }
+
+                double  meltingPoint;
+                try {
+                    meltingPoint = Double.parseDouble(sanitize(element.get(8).text()));
+                } catch (NumberFormatException nfe) {
+                    meltingPoint = 0;
+                }
+
+                double  boilingPoint;
+                try {
+                    boilingPoint = Double.parseDouble(sanitize(element.get(9).text()));
+                } catch (NumberFormatException nfe) {
+                    boilingPoint = 0;
+                }
+
+                double  C;
+                try {
+                    C = Double.parseDouble(sanitize(element.get(10).text()));
+                } catch (NumberFormatException nfe) {
+                    C = 0;
+                }
+
+                double  electronegativity;
+                try {
+                    electronegativity = Double.parseDouble(sanitize(element.get(11).text()));
+                } catch (NumberFormatException nfe) {
+                    electronegativity = 0;
+                }
+
+                double  earthAbundance;
+                try {
+                    earthAbundance = Double.parseDouble(sanitize(element.get(12).text()));
+                } catch (NumberFormatException nfe) {
+                    earthAbundance = 0;
+                }
 
 
                 ChemicalElement e = new ChemicalElement(
@@ -120,6 +168,35 @@ public class ElementDatabase extends Database<ChemicalElement> {
         return elements;
     }
 
+    private static String sanitize(String input) {
+        //todo: make more rigorous/correct some day
+        int i;
+        boolean stop = false;
+        for (i=0; i<input.length(); i++) {
+            switch (input.charAt(i)) {
+                case '0':
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                case '-':
+                case '.':
+                    break;
+                default:
+                    stop = true;
+            }
+
+            if (stop) break;
+        }
+
+        return input.substring(0, i);
+    }
+
 
 
     @Override
@@ -135,5 +212,9 @@ public class ElementDatabase extends Database<ChemicalElement> {
     @Override
     public ChemicalElement getRandom() {
         return ELEMENTS.get(ELEMENTS.size()-1);
+    }
+
+    public static void main(String[] args) {
+        //initiate
     }
 }

@@ -3,13 +3,15 @@ package events.commands.campus;
 import events.commands.Command;
 import main.BotMain;
 
+import java.util.TimeZone;
+
 public class CanIEatRightNow extends Command {
-    private static final Schedule PIONEER_HALL;
+    private static final Schedule HALL;
     static {
         if (Schedule.PIONEER_HALL == null) {
             System.out.println("wtf");
         }
-        PIONEER_HALL = Schedule.PIONEER_HALL;
+        HALL = Schedule.DLG_COMMONS;
     }
 
 
@@ -21,7 +23,22 @@ public class CanIEatRightNow extends Command {
     }
 
     public void onCommand() {
-        if (PIONEER_HALL.canGo()) {
+        //todo: temporary
+
+        boolean canGo;
+        switch(e.getAuthor().getId()) {
+            case "125857288807251968": //me
+                canGo = Schedule.PIONEER_HALL.canGo(TimeZone.getTimeZone("GMT-6"));
+                break;
+            case "235275443941539840": //danny
+                canGo = Schedule.DLG_COMMONS.canGo(TimeZone.getTimeZone("GMT-8"));
+                break;
+            default:
+                sendMessage("i don't know you, sorry.");
+                return;
+        }
+
+        if (canGo) {
             sendMessage("yes!");
             return;
         }
@@ -36,7 +53,7 @@ public class CanIEatRightNow extends Command {
 
     @Override
     public String getDescription() {
-        return "can Everett go to eat at Pioneer Hall?";
+        return "can you go to eat at your residential dining hall?";
     }
 
     @Override

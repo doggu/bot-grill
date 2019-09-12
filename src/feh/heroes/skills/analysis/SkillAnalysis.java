@@ -271,10 +271,10 @@ public class SkillAnalysis {
         return findWith("after combat");
     }
     private ArrayList<String> getUnitInitiates() {
-        return findWith("if unit initiates combat");
+        return findWith("unit initiates combat");
     }
     private ArrayList<String> getFoeInitiates() {
-        return findWith("if foe initiates combat");
+        return findWith("foe initiates combat");
     }
     //really only for valor/exp skills
     private ArrayList<String> getWhileUnitLives() {

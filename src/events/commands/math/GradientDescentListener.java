@@ -1,8 +1,8 @@
 package events.commands.math;
 
 import events.commands.Command;
-import utilities.math.GradientDescent;
-import utilities.math.MathParse;
+import stem.math.GradientDescent;
+import stem.math.MathParse;
 
 import java.util.function.Function;
 

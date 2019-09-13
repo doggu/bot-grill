@@ -1,7 +1,7 @@
 package events.commands.math;
 
 import events.commands.Command;
-import utilities.math.FracCalc;
+import stem.math.FracCalc;
 
 public class FracCalcListener extends Command {
     public boolean isCommand() {

@@ -1,4 +1,4 @@
-package utilities.science.chem;
+package stem.science.chem;
 
 import main.BotMain;
 import org.jsoup.Jsoup;
@@ -189,7 +189,6 @@ public class ElementDatabase extends Database<ChemicalElement> {
     private static String sanitize(String input) {
         //todo: make more rigorous/correct some day
         int i;
-        boolean stop = false;
         for (i=0; i<input.length(); i++) {
             switch (input.charAt(i)) {
                 case '0':
@@ -204,12 +203,9 @@ public class ElementDatabase extends Database<ChemicalElement> {
                 case '9':
                 case '-':
                 case '.':
-                    break;
-                default:
-                    stop = true;
+                    continue;
             }
-
-            if (stop) break;
+            break;
         }
 
         return input.substring(0, i);

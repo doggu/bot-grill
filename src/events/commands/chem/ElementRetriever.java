@@ -1,8 +1,8 @@
 package events.commands.chem;
 
 import events.commands.Command;
-import utilities.science.chem.ChemicalElement;
-import utilities.science.chem.ElementDatabase;
+import stem.science.chem.ChemicalElement;
+import stem.science.chem.ElementDatabase;
 
 import java.util.ArrayList;
 

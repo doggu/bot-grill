@@ -35,7 +35,7 @@ import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import utilities.Stopwatch;
-import utilities.science.chem.ElementDatabase;
+import stem.science.chem.ElementDatabase;
 
 import java.io.File;
 import java.util.ArrayList;

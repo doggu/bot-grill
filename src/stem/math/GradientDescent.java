@@ -1,4 +1,4 @@
-package utilities.math;
+package stem.math;
 
 import java.util.Scanner;
 import java.util.function.Function;

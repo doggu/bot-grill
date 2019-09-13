@@ -24,7 +24,7 @@ public class Range<T extends Comparable<T>> {
     public boolean infintesimalRange() { return min.compareTo(max)==0; }
 
     public boolean inThisRange(T val) {
-        return min.compareTo(val)<0 && max.compareTo(val)>0;
+        return min.compareTo(val)<=0 && max.compareTo(val)>=0;
     }
 
 

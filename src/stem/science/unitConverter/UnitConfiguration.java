@@ -1,7 +1,7 @@
-package utilities.science.unitConverter;
+package stem.science.unitConverter;
 
-import utilities.science.unitConverter.units.Unit;
-import utilities.science.unitConverter.units.UnknownUnitException;
+import stem.science.unitConverter.units.Unit;
+import stem.science.unitConverter.units.UnknownUnitException;
 
 import java.util.ArrayList;
 import java.util.HashMap;

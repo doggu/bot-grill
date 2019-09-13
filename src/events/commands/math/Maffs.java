@@ -3,7 +3,7 @@ package events.commands.math;
 import events.commands.Command;
 
 import net.dv8tion.jda.core.entities.User;
-import utilities.math.MathParse;
+import stem.math.MathParse;
 
 import java.util.HashMap;
 

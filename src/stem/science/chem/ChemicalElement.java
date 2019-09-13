@@ -1,4 +1,4 @@
-package utilities.science.chem;
+package stem.science.chem;
 
 //todo: rename to ChemicalElement? (clashing with org.jsoup.nodes.Element)
 public class ChemicalElement {

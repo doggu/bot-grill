@@ -1,8 +1,8 @@
 package events.commands.math;
 
 import events.commands.Command;
-import utilities.math.PrettyNumber;
-import utilities.science.unitConverter.UnitConverter;
+import stem.math.PrettyNumber;
+import stem.science.unitConverter.UnitConverter;
 
 import java.math.BigDecimal;
 

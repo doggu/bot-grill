@@ -51,6 +51,7 @@ public class SkillConstructor {
     public void setRange(Integer range) {
         this.range = range;
     }
+
     public void setMight(Integer might) {
         this.might = might;
     }
@@ -60,9 +61,11 @@ public class SkillConstructor {
     public void setRefine(WeaponRefine refine) {
         this.refine = refine;
     }
+
     public void setCooldown(Integer cooldown) {
         this.cooldown = cooldown;
     }
+
     public void setIcon(URL icon) {
         this.icon = icon;
     }
@@ -91,6 +94,7 @@ public class SkillConstructor {
     public Integer getRange() {
         return range;
     }
+
     public Integer getMight() {
         return might;
     }
@@ -100,9 +104,11 @@ public class SkillConstructor {
     public WeaponRefine getRefine() {
         return refine;
     }
+
     public Integer getCooldown() {
         return cooldown;
     }
+
     public URL getIcon() {
         return icon;
     }

@@ -1,5 +1,6 @@
 package events.commands.campus;
 
+import main.BotMain;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -25,7 +26,7 @@ public class Schedule {
                     new URL("https://www.housing.ucsb.edu/dining/dining-commons-hours%E2%80%94academic-year"),
                     3000);
         } catch (Exception e) {
-            throw new Error("well fuck");
+            if (BotMain.DEBUG) throw new Error("well fuck");
         }
 
         PIONEER_HALL = getPioneerHall();

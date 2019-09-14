@@ -8,7 +8,7 @@ public class DevTools extends MessageListener {
         switch(args[0].toLowerCase()) {
             case "kill":
                 main.BotMain.bot_grill.shutdownNow();
-                Runtime.getRuntime().exit(1); //i wonder if this works idk i'm on a god damn plane
+                System.exit(1);
                 break;
             case "sendmessage":
                 StringBuilder message = new StringBuilder();
@@ -22,10 +22,7 @@ public class DevTools extends MessageListener {
     }
 
     public boolean isCommand() {
-        if (!e.getAuthor().getId().equals("125857288807251968")) //doggu, me
-            return false;
-
-        return true;
+        return e.getAuthor().getId().equals("125857288807251968"); //doggu, me
     }
 
     public char getPrefix() {

@@ -58,15 +58,8 @@ public class SkillAnalysis {
             return;
         }
 
-        this.rawSentences =
-                new ArrayList<>(Arrays.asList(skill
-                        .getDescription()
-                        .substring(0, skill.getDescription().length()-1)
-                        .split("\\. ")));
-        this.sentences = new ArrayList<>();
-        for (String rawSentence:rawSentences)
-            sentences.add(new ArrayList<>(Arrays.asList(rawSentence
-                            .split(", "))));
+        this.rawSentences = getRawSentences();
+        this.sentences = getSentences();
 
         this.statModifiers = getStatModifiers();
         this.cdModifier = getCdModifier();
@@ -82,6 +75,27 @@ public class SkillAnalysis {
         unitInitiates = getUnitInitiates();
         foeInitiates = getFoeInitiates();
         whileUnitLives = getWhileUnitLives();
+    }
+    private ArrayList<String> getRawSentences() {
+        ArrayList<String> rawSentences = new ArrayList<>(Arrays.asList(skill
+                        .getDescription()
+                        .split("\\. ")));
+
+        if (rawSentences.get(rawSentences.size()-1).charAt(rawSentences.get(rawSentences.size()-1).length()-1)=='.')
+            rawSentences.set(
+                    rawSentences.size()-1,
+                    rawSentences.get(rawSentences.size()-1)
+                            .substring(0, rawSentences.get(rawSentences.size()-1).length()-1));
+
+        return rawSentences;
+    }
+    private ArrayList<ArrayList<String>> getSentences() {
+        ArrayList<ArrayList<String>> sentences = new ArrayList<>();
+        for (String rawSentence:rawSentences)
+            sentences.add(new ArrayList<>(Arrays.asList(rawSentence
+                    .split(", "))));
+
+        return sentences;
     }
 
 

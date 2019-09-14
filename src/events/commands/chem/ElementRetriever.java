@@ -43,10 +43,11 @@ public class ElementRetriever extends Command {
     }
 
     private String printAtom(ChemicalElement a) {
-        return "**"+a.getName()+"**"+
-                "\nSymbol: "+a.getSymbol()+
-                "\nAtomic Number: "+a.getAtomicNumber()+
+        return "**"+a.getName()+"**\n"+
+                "Symbol: "+a.getSymbol()+"\n"+
+                a.chemicalProperties()+"\n"+
                 "```"+
+                "atomicNumber: "+a.getAtomicNumber()+"\n"+
                 "origin: "+a.getOrigin()+"\n" +
                 "group: "+a.getGroup()+"\n" +
                 "period: "+a.getPeriod()+"\n" +

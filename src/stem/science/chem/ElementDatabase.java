@@ -14,6 +14,8 @@ public class ElementDatabase extends Database<ChemicalElement> {
     public static ElementDatabase DATABASE = new ElementDatabase();
     public static ArrayList<ChemicalElement> ELEMENTS = DATABASE.getList();
 
+
+
     private static final String PERIODIC_TABLE_URL = "https://en.wikipedia.org/wiki/List_of_chemical_elements";
 
     private static final WebCache PERIODIC_TABLE_FILE =
@@ -23,36 +25,6 @@ public class ElementDatabase extends Database<ChemicalElement> {
     protected WebCache[] getOnlineResources() {
         return new WebCache[] { PERIODIC_TABLE_FILE };
     }
-
-    /*
-    from left to right:
-
-    other non-metal (hydrogen)
-    alkali metal
-    alkaline earth metal
-    lanthanide
-    actinide
-    transition metal
-    unknown (Mt, Ds, Rg, Uut, Fl, Uup, Lv, Uus)
-    post-transition metal
-    metalloid
-    other non-metal (right)
-    halogen
-    noble gas
-
-    oth N-mtl
-    alk mtl
-    alk E-mtl
-    lanthanide
-    actinide
-    tr mtl
-    unknown
-    post-tr
-    metalloid
-    oth N-mtl (right)
-    halogen
-    noble gas
-     */
 
 
 

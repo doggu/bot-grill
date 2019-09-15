@@ -67,22 +67,9 @@ public class MolarMass extends Command {
                 case LETTER_L:
                     throw new Error("orphaned letter");
                 case NUMBER:
-                    int qty = 0;
-                    int start = i;
-                    for (i = i+1; i<compound.length(); i++) {
-                        try {
-                            identity = CharIdentity.getIdentity(compound.charAt(i));
-                            if (identity != NUMBER) {
-                                qty = Integer.parseInt(compound.substring(start, i)); //only i since it's already past
-                                i--;
-                                break;
-                            }
-                        } catch (IndexOutOfBoundsException ioobe) {
-                            qty = Integer.parseInt(compound.substring(start, i)); //only i since it's already past
-                            i--;
-                            break;
-                        }
-                    }
+                    int qty = parseNum();
+
+                    //System.out.println(qty);
                     if (qty==0)
                         elements.remove(elements.size()-1);
                     else
@@ -90,14 +77,9 @@ public class MolarMass extends Command {
                             elements.add(elements.get(elements.size()-1));
                     break;
                 case PAREN_O:
-                    /*
-                    int pB = 1;
-                    while (pB!=0) {
-                        for (i = i+1; i<compound.length(); i++) {
-
-                        }
-                    }
-                     */
+                    closeParenthetical();
+                    //todo: separate from listener to allow recursion
+                    //elements.addAll()
                 case PAREN_C:
                     throw new Error("unexpected closed parentheses");
             }
@@ -106,6 +88,29 @@ public class MolarMass extends Command {
         OffsetDateTime.now();
 
         return elements;
+    }
+
+    private int parseNum() {
+        int start = i;
+        for (i = i+1; i<compound.length(); i++) {
+            CharIdentity identity = CharIdentity.getIdentity(compound.charAt(i));
+            if (identity != NUMBER)
+                break;
+        }
+
+        int qty;
+        try {
+            qty = Integer.parseInt(compound.substring(start, i));
+        } catch (NumberFormatException nfe) {
+            qty = 0;
+        }
+
+        i--;
+        return qty;
+    }
+
+    private void closeParenthetical() {
+
     }
 
     @Override
@@ -121,5 +126,11 @@ public class MolarMass extends Command {
     @Override
     public String getName() {
         return null;
+    }
+
+
+
+    public static void main(String[] args) {
+        System.out.println(Integer.parseInt(""));
     }
 }

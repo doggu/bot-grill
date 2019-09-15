@@ -5,6 +5,7 @@ import stem.science.chem.ChemicalElement;
 import stem.science.chem.ElementDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ElementRetriever extends Command {
     private final ArrayList<ChemicalElement> elementList;
@@ -38,8 +39,13 @@ public class ElementRetriever extends Command {
             if (a.getName().equalsIgnoreCase(argument)
                     ||a.getSymbol().equalsIgnoreCase(argument)) {
                 sendMessage(printAtom(a));
+                return;
             }
         }
+
+        Arrays.asList();
+
+        sendMessage("sorry, i could not find your requested element.");
     }
 
     private String printAtom(ChemicalElement a) {

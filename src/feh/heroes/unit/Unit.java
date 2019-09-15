@@ -139,6 +139,7 @@ public class Unit extends Hero {
     public int getRarity() { return rarity; }
     public int getMerges() { return merges; }
     public int getDragonflowers() { return dragonflowers; }
+    public Blessing getBlessing() { return blessing; }
 
     public ArrayList<Skill> getAllSkills() { return new ArrayList<>(allSkills); }
     public ArrayList<Skill> getActiveKit() { return new ArrayList<>(activeKit); }
@@ -162,20 +163,23 @@ public class Unit extends Hero {
                 supportStatus = 'a';
             } else if (supportLevels>=R_LEVEL_B) {
                 supportStatus = 'b';
-            } else { // if (supportLevels>=R_LEVEL_C) {
+            } else  if (supportLevels>=R_LEVEL_C) {
                 supportStatus = 'c';
+            } else {
+                throw new Error("negative support level detected! integer overflows already!?");
             }
-        //} else {
-            if (supportLevels>=LEVEL_S) {
+        /*} else {
+            if (supportLevels >= LEVEL_S) {
                 supportStatus = 's';
-            } else if (supportLevels>=LEVEL_A) {
+            } else if (supportLevels >= LEVEL_A) {
                 supportStatus = 'a';
-            } else if (supportLevels>=LEVEL_B) {
+            } else if (supportLevels >= LEVEL_B) {
                 supportStatus = 'b';
-            } else { // if (supportLevels>=LEVEL_C) {
+            } else if (supportLevels >= LEVEL_C) {
                 supportStatus = 'c';
             }
-        //}
+        }
+         */
         return supportStatus;
     }
     public int[] getIVs() {

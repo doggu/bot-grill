@@ -31,7 +31,7 @@ public class SkillAnalysis {
             evenTurns,
             oddTurns,
             duringCombat,
-            beforeCombat,
+            atStartOfCombat,
             afterCombat,
             unitInitiates,
             foeInitiates,
@@ -57,7 +57,7 @@ public class SkillAnalysis {
             evenTurns = null;
             oddTurns = null;
             duringCombat = null;
-            beforeCombat = null;
+            atStartOfCombat = null;
             afterCombat = null;
             unitInitiates = null;
             foeInitiates = null;
@@ -80,7 +80,7 @@ public class SkillAnalysis {
         evenTurns = getStartOfEven();
         oddTurns = getStartOfOdd();
         duringCombat = getDuringCombat();
-        beforeCombat = getBeforeCombat();
+        atStartOfCombat = getAtStartOfCombat();
         afterCombat = getAfterCombat();
         unitInitiates = getUnitInitiates();
         foeInitiates = getFoeInitiates();
@@ -310,7 +310,7 @@ public class SkillAnalysis {
     private ArrayList<String> getDuringCombat() {
         return findWith("during combat");
     }
-    private ArrayList<String> getBeforeCombat() {
+    private ArrayList<String> getAtStartOfCombat() {
         return findWith("at start of combat");
     }
     private ArrayList<String> getBeforeCombatUnitInitiates() {
@@ -336,19 +336,25 @@ public class SkillAnalysis {
     }
 
     public static void main(String[] na) {
-        Stopwatch f = new Stopwatch();
-        f.start();
+        Stopwatch s = new Stopwatch();
+        s.start();
         ArrayList<SkillAnalysis> analyses = new ArrayList<>();
         for (Skill x: SkillDatabase.SKILLS)
             analyses.add(new SkillAnalysis(x));
 
-        System.out.println("done ("+f.timeInSeconds()+"!)");
-        f.stop();
+        System.out.println("done ("+s.timeInSeconds()+"!)");
+        s.stop();
 
         Scanner input = new Scanner(System.in);
 
         while (input.hasNextLine()) {
             String chunk = input.nextLine();//.toLowerCase();
+
+            Skill f = SkillDatabase.DATABASE.find(chunk);
+            if (f!=null) {
+                System.out.println(f+": "+f.getDescription());
+                continue;
+            }
 
             HashMap<SkillAnalysis, String> descPortion = new HashMap<>();
 
@@ -364,8 +370,8 @@ public class SkillAnalysis {
             for (SkillAnalysis x:descPortion.keySet()) {
                 System.out.println(x.skill.getName());
                 if (x.rawSentences.size()>0) {
-                    for (String s:x.rawSentences) {
-                        System.out.println("\t"+s);
+                    for (String str:x.rawSentences) {
+                        System.out.println("\t"+str);
                     }
                 }
                 /*

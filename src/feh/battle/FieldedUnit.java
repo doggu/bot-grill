@@ -10,9 +10,11 @@ public class FieldedUnit {
     // but i dont remember why i didn't do it in the first place
     // so that's pretty sketchy
     // ok i remember why but maybe i can make it work later
+    // now i don't remember why again
+    // why don't i make notes of this
     private final Unit unit;
-    private int specialCD;
     private int currentHP;
+    private int specialCD;
     private int atkBonus, spdBonus, defBonus, resBonus;
 
     //heroes should know their own location to make allocating drives/ploys easier
@@ -42,6 +44,7 @@ public class FieldedUnit {
 
 
 
+    //what does this do again
     public void applyEffects() {
 
     }

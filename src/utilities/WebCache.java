@@ -92,7 +92,8 @@ public class WebCache extends File {
     }
 
     private static BufferedReader readWebsite(String website) {
-        long start = System.nanoTime();
+        Stopwatch s = new Stopwatch();
+        s.start();
 
         // courtesy of Stas Yak at:
         // https://stackoverflow.com/questions/238547/how-do-you-programmatically-download-a-webpage-in-java
@@ -109,9 +110,7 @@ public class WebCache extends File {
             return null;
         }
 
-        System.out.println("finished reading "+website+" (" +
-                new BigDecimal((System.nanoTime()-start)/1000000000.0).round(new MathContext(3)) +
-                " s)!");
+        System.out.println("finished reading "+website+" ("+s.timeInSeconds()+" s)!");
         return br;
     }
 }

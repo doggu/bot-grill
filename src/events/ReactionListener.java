@@ -33,7 +33,7 @@ public abstract class ReactionListener extends Listener {
         MessageAction g = e.getChannel().sendMessage(message);
         return g.complete();
     }
-    void addReaction(Emote emote) {
+    protected void addReaction(Emote emote) {
         e.getReaction()
                 .getChannel()
                 .getMessageById(e.getMessageId())

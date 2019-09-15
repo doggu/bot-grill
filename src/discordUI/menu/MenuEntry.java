@@ -1,4 +1,4 @@
-package events.menu;
+package discordUI.menu;
 
 import net.dv8tion.jda.core.EmbedBuilder;
 

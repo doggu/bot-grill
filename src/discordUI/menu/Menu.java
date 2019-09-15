@@ -1,4 +1,4 @@
-package events.menu;
+package discordUI.menu;
 
 import events.ReactionListener;
 import main.BotMain;

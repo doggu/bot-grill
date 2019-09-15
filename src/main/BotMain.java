@@ -1,8 +1,8 @@
 package main;
 
-import events.Quips;
-import events.Reactions;
-import events.Vote;
+import events.reactionary.Quips;
+import events.reactionary.Reactions;
+import events.reactionary.Vote;
 import events.commands.campus.CanIEatRightNow;
 import events.commands.Emotes;
 import events.commands.Girl;

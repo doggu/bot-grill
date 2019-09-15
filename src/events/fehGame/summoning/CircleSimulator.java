@@ -1,8 +1,8 @@
 package events.fehGame.summoning;
 
-import events.PersonalButton;
+import discordUI.button.PersonalButton;
+import discordUI.feh.HeroPrinter;
 import events.ReactionListener;
-import events.fehGame.retriever.HeroRetriever;
 import feh.heroes.character.Hero;
 import feh.heroes.unit.Unit;
 import feh.players.Summoner;
@@ -216,7 +216,7 @@ public class CircleSimulator extends ReactionListener {
                     //summoner.openPrivateChannel().complete()
                     // .sendMessage(FEHRetriever.printUnit(hero, true)).complete();
                     circleMessage.editMessage(
-                            HeroRetriever.printUnit(hero, true)
+                            HeroPrinter.printUnit(hero, true)
                                     .build()).complete();
                     summoner.getBarracks().add(hero);
 

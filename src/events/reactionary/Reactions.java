@@ -1,5 +1,6 @@
-package events;
+package events.reactionary;
 
+import events.ReactionListener;
 import net.dv8tion.jda.core.entities.Emote;
 
 public class Reactions extends ReactionListener {

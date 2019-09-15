@@ -1,59 +1,52 @@
 package events.fehGame.retriever;
 
+import discordUI.feh.HeroPrinter;
 import events.commands.Command;
 import feh.heroes.UnitDatabase;
 import feh.heroes.character.Hero;
-import feh.heroes.unit.Unit;
 import feh.heroes.skills.SkillDatabase;
 import feh.heroes.skills.analysis.StatModifier;
 import feh.heroes.skills.skillTypes.PassiveA;
 import feh.heroes.skills.skillTypes.PassiveS;
 import feh.heroes.skills.skillTypes.Skill;
 import feh.heroes.skills.skillTypes.Weapon;
-import main.BotMain;
-import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.Emote;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.List;
 
 public class HeroRetriever extends Command {
+    private ArrayList<String> args = new ArrayList<>(Arrays.asList(super.args));
+    private int i=1;
+    private boolean newestOnly = false, oldestOnly = false;
+    private boolean lv1 = false;
+    private int rarity = 5;
+    private boolean getAll = true;
+
+    //generates Unit
+    private int boon = -1;
+    private int bane = -1;
+    private int merges = 0;
+    private int dragonflowers = 0;
+    private char support = 'd';
+
+    //generates FieldedUnit
+    private ArrayList<StatModifier> skills = new ArrayList<>();
+    private boolean useBaseKit = false;
+    //todo: legendary/mystic boosts
+
+
     private void getUnits() {
-        boolean newestOnly = false, oldestOnly = false;
-        boolean lv1 = false;
-        int rarity = 5;
-        boolean getAll = true;
-
-        //generates Unit
-        int boon = -1;
-        int bane = -1;
-        int merges = 0;
-        int dragonflowers = 0;
-        char support = 'd';
-
-        //generates FieldedUnit
-        ArrayList<StatModifier> skills = new ArrayList<>();
-        boolean useBaseKit = false;
-        //todo: legendary/mystic boosts
-
-
-
-        if (args[0].equalsIgnoreCase("getIVs")||
-                args[0].equalsIgnoreCase("giv"))
+        if (super.args[0].equalsIgnoreCase("getIVs")||
+                super.args[0].equalsIgnoreCase("giv"))
             lv1 = true;
 
         ArrayList<Hero> candidates = new ArrayList<>();
 
-        List<String> args = new ArrayList<>(Arrays.asList(this.args));
-
         //scalper finding parameter data
         //TODO: convert these to individual methods
         // or at least separate the searching and printing some day please thanks
-        for (int i=1; i<args.size(); i++) {
+        for (; i<args.size(); i++) {
             String x = args.get(i);
             //test for argument for lv1 vs lv40 stats
             if (x.indexOf("lv")==0) {
@@ -236,12 +229,9 @@ public class HeroRetriever extends Command {
                 //find HEROES (from list of valid names) of the correct epithet
 
                 i++;
-                //System.out.println(args);
                 while (!foundMatch&&i<args.size()) {
-                    //System.out.println(args.get(i));
                     for (int j = 0; j < candidates.size(); j++) {
                         Hero c = candidates.get(j);
-                        //System.out.println(c.getFullName().getEpithet().toLowerCase()+" "+args.get(i).toLowerCase());
                         if (!c.getFullName().getEpithet().toLowerCase().contains(args.get(i).toLowerCase())) {
                             candidates.remove(j);
                             j--;
@@ -491,26 +481,13 @@ public class HeroRetriever extends Command {
             if (s!=null)
                 skills.add(s);
 
-
-
             sendMessage(new MessageBuilder(
-                    printCharacter(x, lv1, rarity, getAll, boon, bane,
+                    HeroPrinter.printCharacter(x, lv1, rarity, getAll, boon, bane,
                             merges, dragonflowers, support, skills))
                     .build());
         }
 
-        /*
-        StringBuilder message = new StringBuilder();
-        for (Hero x:candidates) {
-            String charString = printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support);
-            if (message.length()+charString.length()>2000) {
-                sendMessage(message.toString());
-                message = new StringBuilder();
-            }
-            message.append(charString).append("\n");
-        }
-        if (message.length()>0) sendMessage(message.toString());
-        */
+
 
         StringBuilder report = new StringBuilder("found stats for:");
         for (int i=0; i<candidates.size(); i++) {
@@ -524,209 +501,8 @@ public class HeroRetriever extends Command {
     }
 
 
-
-    //todo: literally move ALL this shit into some kind of Discord UI section
-    private static EmbedBuilder printCharacter(Hero x, boolean lv1, int rarity,
-                                          boolean getAll, int boon, int bane,
-                                          int merges, int dragonflowers, char support) {
-        return printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support, null);
-    }
-    private static EmbedBuilder printCharacter(Hero x, boolean lv1, int rarity,
-                                         boolean getAll, int boon, int bane,
-                                         int merges, int dragonflowers, char support,
-                                         ArrayList<StatModifier> skills) {
-        EmbedBuilder heroInfo = new EmbedBuilder();
-
-
-
-        StringBuilder description = new StringBuilder();
-
-        Emote moveType = getEmote("Icon_Move_"+x.getMoveType());
-        String unitColor;
-        switch (x.getColor()) {
-            case 'r':
-                unitColor = "Red";
-                break;
-            case 'g':
-                unitColor = "Green";
-                break;
-            case 'b':
-                unitColor = "Blue";
-                break;
-            case 'c':
-                unitColor = "Colorless";
-                break;
-            default:
-                unitColor = "orange";
-        }
-        Emote weaponType = getEmote("Icon_Class_"+unitColor+"_"+x.getWeaponType());
-
-        description
-                .append(printEmote(moveType))
-                .append(printEmote(weaponType))
-                .append(x.getFullName().toString());
-
-        /*
-        heroInfo.setAuthor(description.toString());
-        heroInfo.setDescription('*'+x.getOrigin().toString()+"*\n" +
-                "Debuted "  +
-                (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" +//starts at 0 (january = 0)
-                x.getReleaseDate().get(Calendar.DAY_OF_MONTH) + "-" +
-                x.getReleaseDate().get(Calendar.YEAR));
-         */
-
-        heroInfo.addField(description.toString(),
-                '*'+x.getOrigin().toString()+"*\n" +
-                        "Debuted "  +
-                        (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" +//starts at 0 (january = 0)
-                        x.getReleaseDate().get(Calendar.DAY_OF_MONTH) + "-" +
-                        x.getReleaseDate().get(Calendar.YEAR),
-                false);
-
-        Color rColor;
-        switch (rarity) {
-            case 1:
-                rColor = Color.DARK_GRAY;
-                break;
-            case 2:
-                rColor = Color.GRAY;
-                break;
-            case 3:
-                rColor = new Color(185, 95,0);
-                break;
-            case 4:
-                rColor = Color.LIGHT_GRAY;
-                break;
-            case 5:
-                rColor = Color.YELLOW;
-                break;
-            default:
-                rColor = new Color(120, 0, 180); //purple-ish
-                break;
-        }
-        heroInfo.setColor(rColor);
-
-        heroInfo.setThumbnail(x.getPortraitLink().toString());
-
-
-        String info = "```\n";
-
-        info+= rarity + "* lv" + (lv1?1:40) + " stats: \n" +
-                "hp   atk  spd  def  res\n";
-
-        String stats;
-        String bst;
-
-        //todo: use instanceof to make this cleaner
-        if (getAll) {
-            if (x.isSummonable()) {
-                stats = printStats(x.getAllStats(lv1, rarity));
-                bst = printBST(x.getAllStats(lv1, rarity));
-            } else {
-                stats = printStats(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support, skills));
-                bst = printBST(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support));
-            }
-        } else {
-            stats = printStats(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support, skills));
-            bst = printBST(x.getStats(lv1, rarity, boon, bane, merges, dragonflowers, support));
-        }
-
-        info+= stats+"\n\n"+bst+"\n";
-
-        if (!x.isSummonable()) info+= "this unit does not have access to IVs.\n";
-        else if (merges>0&&getAll) info+= "predictions might not be 100% accurate.\n";
-        info+= "```";
-
-        heroInfo.addField("stats",info, false);
-
-        StringBuilder baseKit = new StringBuilder();
-        for (int i=0; i<x.getBaseKit().size(); i++) {
-            baseKit.append(x.getBaseKit().get(i));
-            if (i+1!=x.getBaseKit().size()) baseKit.append(", ");
-        }
-
-        heroInfo.addField("Base Skills", baseKit.toString(), false);
-
-        return heroInfo;
-    }
-    public static EmbedBuilder printUnit(Unit x, boolean lv1) {
-        return printCharacter(x, lv1, x.getRarity(), false,
-                x.getBoon(), x.getBane(), 0, 0,
-                x.getSupportStatus());
-    }
-
-    public static String printStats(int[] stats) {
-        StringBuilder statString = new StringBuilder();
-        for (int x:stats)
-            statString.append(x).append((Math.log10(x)<1?"    ":"   "));
-        return statString.toString();
-    }
-    public static String printStats(int[][] stats) {
-        return  printStats(stats[0])+'\n'+
-                printStats(stats[1])+(stats.length==3?'\n'+
-                printStats(stats[2]):"");
-    }
-
-    public static String printBST(int[] stats) {
-        int bst = 0;
-        for (int i:stats) bst+= i;
-        return "BST: " + bst;
-    }
-    public static String printBST(int[][] stats) {
-        int bst = 0;
-        for (int i=0; i<5; i++) bst+= stats[1][i];
-        int maxBST = bst, minBST = bst;
-
-        bst = 0;
-        if (stats.length==2) {
-            for (int i=0; i<5; i++) {
-                for (int j=0; j<5; j++)
-                    bst+= stats[(i==j?1:0)][j];
-                if (bst > maxBST) maxBST = bst;
-                if (bst < minBST) minBST = bst;
-                bst = 0;
-            }
-        } else if (stats.length==3) {
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 5; j++) {
-                    if (j == i) continue;
-                    for (int k = 0; k < 5; k++) {
-                        if (k == i) bst += stats[0][k];
-                        else if (k == j) bst += stats[2][k];
-                        else bst += stats[1][k];
-                    }
-                    if (bst > maxBST) maxBST = bst;
-                    if (bst < minBST) minBST = bst;
-                    bst = 0;
-                }
-            }
-        } else {
-            return "idk lol";
-        }
-        if (maxBST==minBST) return "BST: "+maxBST;
-        else return "BST: "+minBST+"-"+maxBST;
-    }
-
-
-
-    private static Emote getEmote(String name) {
-        try {
-            return BotMain.bot_grill.getEmotesByName(name, true).get(0);
-        } catch (IndexOutOfBoundsException ioobe) {
-            return BotMain.bot_grill.getEmotes()
-                    .get((int)(Math.random()*BotMain.bot_grill.getEmotes().size()));
-        }
-    }
-    //todo: put this in some lower level class
-
-    private static String printEmote(Emote e) {
-        return "<:"+e.getName()+":"+e.getId()+">";
-    }
-
-
-
     public boolean isCommand() {
-        String arg = args[0].toLowerCase();
+        String arg = super.args[0].toLowerCase();
         switch(arg) {
             case "getstats":
             case "gst":

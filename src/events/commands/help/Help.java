@@ -1,7 +1,7 @@
 package events.commands.help;
 
 import events.commands.Command;
-import events.menu.*;
+import discordUI.menu.*;
 import main.BotMain;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;

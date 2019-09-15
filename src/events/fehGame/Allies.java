@@ -1,9 +1,9 @@
 package events.fehGame;
 
-import events.fehGame.retriever.HeroRetriever;
+import discordUI.feh.HeroPrinter;
+import discordUI.menu.Menu;
+import discordUI.menu.MenuEntry;
 import events.fehGame.summoning.SummonSimulator;
-import events.menu.Menu;
-import events.menu.MenuEntry;
 import feh.heroes.unit.Unit;
 import feh.players.Barracks;
 import feh.players.Summoner;
@@ -31,7 +31,7 @@ public class Allies extends FEHCommand {
                         }
                         sendMessage(
                                 new MessageBuilder(
-                                        HeroRetriever.printUnit(
+                                        HeroPrinter.printUnit(
                                                 barracks.get(allyIndex-1),
                                                 false)).build());
                         log("provided data on "+x.getName()+"\'s unit");
@@ -58,7 +58,7 @@ public class Allies extends FEHCommand {
 
                 for (Unit unit:barracks)
                     entries.add(new MenuEntry(unit.toString(),
-                            HeroRetriever.printUnit(unit, false)));
+                            HeroPrinter.printUnit(unit, false)));
 
                 new Menu(e.getAuthor(), e.getChannel(), header, entries);
                 return;

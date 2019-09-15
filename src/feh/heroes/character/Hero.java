@@ -1,7 +1,6 @@
 package feh.heroes.character;
 
-import discordUI.feh.HeroPrinter;
-import events.fehGame.retriever.HeroRetriever;
+import discordUI.feh.FEHPrinter;
 import feh.heroes.UnitDatabase;
 import feh.heroes.skills.analysis.StatModifier;
 import feh.heroes.skills.skillTypes.Skill;
@@ -330,7 +329,7 @@ public class Hero {
 
 
     public static void main(String[] args) {
-        System.out.println(HeroPrinter.printStats(new Hero("Caeda: Talys's Bride")
+        System.out.println(FEHPrinter.printStats(new Hero("Caeda: Talys's Bride")
                 .getStats(false, 5, -1, -1, 10, 10, 's')));
 
 

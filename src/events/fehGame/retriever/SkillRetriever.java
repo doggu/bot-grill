@@ -1,6 +1,6 @@
 package events.fehGame.retriever;
 
-import discordUI.feh.SkillPrinter;
+import discordUI.feh.FEHPrinter;
 import events.commands.Command;
 import feh.heroes.skills.skillTypes.Skill;
 import feh.heroes.skills.skillTypes.Weapon;
@@ -164,7 +164,7 @@ public class SkillRetriever extends Command {
 
         for (Skill x:candidates) {
             //todo: menu for multiple results? (kind of cumbersome for stuff like this)
-            Message f = sendMessage(SkillPrinter.printSkill(x).build());
+            Message f = sendMessage(FEHPrinter.printSkill(x).build());
 
             if (x instanceof Weapon) {
                 if (((Weapon) x).hasRefine()) {

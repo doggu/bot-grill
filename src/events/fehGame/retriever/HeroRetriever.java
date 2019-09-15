@@ -1,6 +1,6 @@
 package events.fehGame.retriever;
 
-import discordUI.feh.HeroPrinter;
+import discordUI.feh.FEHPrinter;
 import events.commands.Command;
 import feh.heroes.UnitDatabase;
 import feh.heroes.character.Hero;
@@ -482,7 +482,7 @@ public class HeroRetriever extends Command {
                 skills.add(s);
 
             sendMessage(new MessageBuilder(
-                    HeroPrinter.printCharacter(x, lv1, rarity, getAll, boon, bane,
+                    FEHPrinter.printCharacter(x, lv1, rarity, getAll, boon, bane,
                             merges, dragonflowers, support, skills))
                     .build());
         }

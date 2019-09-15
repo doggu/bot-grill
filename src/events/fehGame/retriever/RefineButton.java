@@ -1,6 +1,6 @@
 package events.fehGame.retriever;
 
-import discordUI.feh.SkillPrinter;
+import discordUI.feh.FEHPrinter;
 import feh.heroes.skills.skillTypes.Weapon;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.react.GenericMessageReactionEvent;
@@ -37,7 +37,7 @@ public class RefineButton extends ListenerAdapter {
 
     private void setRefine() {
         e.getChannel().getMessageById(e.getMessageId()).complete()
-                .editMessage(SkillPrinter.printSkill(weapon.getRefine()).build()).complete();
+                .editMessage(FEHPrinter.printSkill(weapon.getRefine()).build()).complete();
     }
 
     public void onMessageReactionRemove(MessageReactionRemoveEvent e) {
@@ -50,7 +50,7 @@ public class RefineButton extends ListenerAdapter {
 
     private void setWeapon() {
         e.getChannel().getMessageById(e.getMessageId()).complete()
-                .editMessage(SkillPrinter.printSkill(weapon).build()).complete();
+                .editMessage(FEHPrinter.printSkill(weapon).build()).complete();
     }
 
     public boolean isCommand() {

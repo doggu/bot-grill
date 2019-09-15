@@ -23,9 +23,9 @@ public class WeaponRefine extends Weapon {
 
 
 
-    public String getName() { return name; }
-    public String getDescription() { return description+'\n'+getSpecialEff(); }
-    public String getSpecialEff() { return specialEff; }
+    //public String getName() { return name; }
+    public String getDescription() { return super.getDescription()+'\n'+getSpecialEff(); }
+    /*public*/ private String getSpecialEff() { return specialEff; }
     public URL getIconURL() { return iconURL; }
     public int getCost() { return cost; }
     public int getMt() { return mt; }

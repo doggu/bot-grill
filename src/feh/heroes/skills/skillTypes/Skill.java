@@ -4,8 +4,8 @@ import java.awt.*;
 import java.net.URL;
 
 public abstract class Skill {
-    final String name, description;
-    final URL link;
+    private final String name, description;
+    private final URL link;
     private final Color color;
     //private final String[] args;
 

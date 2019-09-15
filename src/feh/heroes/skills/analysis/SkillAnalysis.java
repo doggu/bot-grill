@@ -3,6 +3,7 @@ package feh.heroes.skills.analysis;
 import feh.heroes.character.MovementClass;
 import feh.heroes.skills.SkillDatabase;
 import feh.heroes.skills.skillTypes.Skill;
+import utilities.Stopwatch;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,8 +25,11 @@ public class SkillAnalysis {
 
 
     private final ArrayList<String>
-            startOfTurn1,
             startOfTurn,
+            startOfTurn1,
+            startOfEveryNthTurn,
+            evenTurns,
+            oddTurns,
             duringCombat,
             beforeCombat,
             afterCombat,
@@ -47,8 +51,11 @@ public class SkillAnalysis {
             neutralizes = null;
             this.triangleAdept = false;
 
-            startOfTurn1 = null;
             startOfTurn = null;
+            startOfTurn1 = null;
+            startOfEveryNthTurn = null;
+            evenTurns = null;
+            oddTurns = null;
             duringCombat = null;
             beforeCombat = null;
             afterCombat = null;
@@ -67,8 +74,11 @@ public class SkillAnalysis {
         this.neutralizes = getNeutralizesEffectivity();
         this.triangleAdept = triangleAdept();
 
-        startOfTurn1 = getStartOfTurn1();
         startOfTurn = getStartOfTurn();
+        startOfTurn1 = getStartOfTurn1();
+        startOfEveryNthTurn = getStartOfEveryNthTurn();
+        evenTurns = getStartOfEven();
+        oddTurns = getStartOfOdd();
         duringCombat = getDuringCombat();
         beforeCombat = getBeforeCombat();
         afterCombat = getAfterCombat();
@@ -77,9 +87,24 @@ public class SkillAnalysis {
         whileUnitLives = getWhileUnitLives();
     }
     private ArrayList<String> getRawSentences() {
-        ArrayList<String> rawSentences = new ArrayList<>(Arrays.asList(skill
-                        .getDescription()
-                        .split("\\. ")));
+        String desc = skill.getDescription().replaceAll("\\. \\(", " (");
+        int p = desc.indexOf('(');
+        if (p>=0) {
+            for (p++; p<desc.length(); p++) {
+                char c = desc.charAt(p);
+                if (c=='.')
+                    desc = desc.substring(0, p)+"[period]"+desc.substring(p+1);
+                else if (c==')')
+                    break;
+            }
+        }
+        ArrayList<String> rawSentences = new ArrayList<>(Arrays.asList(desc.split("\\. ")));
+
+        for (int i=0; i<rawSentences.size(); i++) {
+            String raw = rawSentences.get(i);
+            if (raw.contains("[period]"))
+                rawSentences.set(i, raw.replaceAll("\\[period]", "."));
+        }
 
         if (rawSentences.get(rawSentences.size()-1).charAt(rawSentences.get(rawSentences.size()-1).length()-1)=='.')
             rawSentences.set(
@@ -269,18 +294,27 @@ public class SkillAnalysis {
     private ArrayList<String> getStartOfTurn1() {
         return findWith("at the start of turn 1");
     }
-    private ArrayList<String> getStartOfEveryNTurns() {
+    private ArrayList<String> getStartOfEveryNthTurn() {
         return findWith("at the start of every");
     }
     private ArrayList<String> getStartOfTurn() {
         return findWith("at start of turn");
     }
+    private ArrayList<String> getStartOfEven() {
+        return findWith("at start of even-numbered turns");
+    }
+    private ArrayList<String> getStartOfOdd() {
+        return findWith("at start of odd-numbered turns");
+    }
+
     private ArrayList<String> getDuringCombat() {
         return findWith("during combat");
     }
     private ArrayList<String> getBeforeCombat() {
         return findWith("at start of combat");
     }
+    private ArrayList<String> getBeforeCombatUnitInitiates() {
+        return findWith("before combat this unit initiates"); }
     private ArrayList<String> getAfterCombat() {
         return findWith("after combat");
     }
@@ -302,12 +336,14 @@ public class SkillAnalysis {
     }
 
     public static void main(String[] na) {
-        long start = System.nanoTime();
+        Stopwatch f = new Stopwatch();
+        f.start();
         ArrayList<SkillAnalysis> analyses = new ArrayList<>();
         for (Skill x: SkillDatabase.SKILLS)
             analyses.add(new SkillAnalysis(x));
 
-        System.out.println("done ("+(System.nanoTime()-start)/1000000000.0+"s!)");
+        System.out.println("done ("+f.timeInSeconds()+"!)");
+        f.stop();
 
         Scanner input = new Scanner(System.in);
 

@@ -1,7 +1,10 @@
 package feh.players;
 
 import events.fehGame.summoning.CircleSimulator;
+import feh.heroes.character.Hero;
 import feh.heroes.unit.Unit;
+import feh.players.relationships.Relationship;
+import feh.players.relationships.Relationships;
 import net.dv8tion.jda.core.entities.User;
 
 public class Summoner {
@@ -9,6 +12,7 @@ public class Summoner {
     private final Barracks barracks;
 
     private Unit supportedUnit = null;
+    private Relationships relationships = new Relationships();
 
     private int orbsSpent = 0;
     private boolean summoning;
@@ -27,6 +31,9 @@ public class Summoner {
 
 
     public void setSupportedUnit(Unit partner) { this.supportedUnit = partner; }
+    public boolean supportHeroes(Hero h1, Hero h2) {
+        return relationships.add(new Relationship(h1, h2));
+    }
 
 
 
@@ -40,6 +47,16 @@ public class Summoner {
     public boolean isSummoning() { return summoning; }
     public CircleSimulator getCurrentSession() { return currentSession; }
     public Barracks getBarracks() { return barracks; }
+
+    public Unit getSupportedUnit() {
+        return supportedUnit;
+    }
+    public boolean isSupportedUnit(Unit s) {
+        return s==supportedUnit;
+    }
+    public Relationships getRelationships() {
+        return relationships;
+    }
 
 
 

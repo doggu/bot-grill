@@ -1,13 +1,11 @@
 package events.commands.campus;
 
-import main.BotMain;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import utilities.Range;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
@@ -26,7 +24,7 @@ public class Schedule {
                     new URL("https://www.housing.ucsb.edu/dining/dining-commons-hours%E2%80%94academic-year"),
                     3000);
         } catch (Exception e) {
-            if (BotMain.DEBUG) throw new Error("well fuck");
+            throw new Error("well fuck");
         }
 
         PIONEER_HALL = getPioneerHall();

@@ -18,6 +18,20 @@ public class Atom extends MolecularIdentity {
         this.n = n;
         this.e = e;
     }
+    //generates a neutral atom
+    public Atom(ChemicalElement me) {
+        this.me = me;
+        this.p = me.getAtomicNumber();
+        this.n = (int) Math.round(me.getAtomicWeight()-me.getAtomicNumber());
+        this.e = p;
+    }
+    //generates an atom with a custom charge
+    public Atom(ChemicalElement me, int charge) {
+        this.me = me;
+        this.p = me.getAtomicNumber();
+        this.n = (int) Math.round(me.getAtomicWeight()-me.getAtomicNumber());
+        this.e = p-charge;
+    }
 
 
 
@@ -53,6 +67,4 @@ public class Atom extends MolecularIdentity {
     public String toString() {
         return null;
     }
-
-
 }

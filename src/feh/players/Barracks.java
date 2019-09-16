@@ -90,7 +90,7 @@ public class Barracks extends ArrayList<Unit> {
 
         if (sheeda==null) return;
 
-        sheeda = new Unit(sheeda, 5, Unit.SPD, Unit.HP);
+        sheeda = new Unit(sheeda, 5, 2, 0);
         g.add((Unit) sheeda);
 
         System.out.println(g);

@@ -144,7 +144,7 @@ public class FEHPrinter {
     }
     public static EmbedBuilder printUnit(Unit x, boolean lv1) {
         return printCharacter(x, lv1, x.getRarity(), false,
-                x.getBoon(), x.getBane(), 0, 0,
+                x.getBoon(), x.getBane(), x.getMerges(), x.getDragonflowers(),
                 x.getSupportStatus());
     }
 

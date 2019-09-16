@@ -22,7 +22,7 @@ public class Unit extends Hero {
 
 
 
-    private Blessing blessing = null;
+    private Blessing blessing;
 
     private int sp;
     private int hm;
@@ -43,7 +43,8 @@ public class Unit extends Hero {
      * @param boon - positive variance of specific unit.
      * @param bane - negative variance of specific unit.
      */
-    public Unit(Hero hero, int rarity, int boon, int bane, int supportLevels, int merges, int dragonflowers) {
+    public Unit(Hero hero, int rarity, int boon, int bane, int supportLevels, int merges, int dragonflowers,
+                Blessing blessing, int sp, int hm) {
         super(hero);
         this.rarity = rarity;
         this.boon = boon;
@@ -52,8 +53,16 @@ public class Unit extends Hero {
         this.merges = merges;
         this.dragonflowers = dragonflowers;
 
-        allSkills = super.getBaseKit();
-        activeKit = super.getBaseKit();
+        this.allSkills = super.getBaseKit();
+        this.activeKit = super.getBaseKit();
+
+        this.blessing = blessing;
+
+        this.sp = sp;
+        this.hm = hm;
+    }
+    public Unit(Hero hero, int rarity, int boon, int bane, int supportLevels, int merges, int dragonflowers) {
+        this(hero, rarity, boon, bane, supportLevels, 0, 0, null, 0, 0);
     }
     public Unit(Hero hero, int rarity, int boon, int bane, int supportLevels) {
         this(hero, rarity, boon, bane, supportLevels, 0, 0);
@@ -65,7 +74,8 @@ public class Unit extends Hero {
         this(hero, rarity, boon, bane, 'd');
     }
 
-    public static final int
+    //todo: where the fuck do i put this
+    private static final int
             NEUTRAL = -1,
             HP = 0,
             ATK = 1,
@@ -129,6 +139,7 @@ public class Unit extends Hero {
 
 
     //todo: set up unit manager for security?
+    
     public void giveSkill(Skill skill) { allSkills.add(skill); }
     public void setBlessing(Blessing blessing) { this.blessing = blessing; }
 
@@ -143,6 +154,10 @@ public class Unit extends Hero {
 
     public ArrayList<Skill> getAllSkills() { return new ArrayList<>(allSkills); }
     public ArrayList<Skill> getActiveKit() { return new ArrayList<>(activeKit); }
+
+    public int getHM() { return hm; }
+    public int getSP() { return sp; }
+
     //todo: should a dedicated support refresh button be added?
     // it would be less intuitive but also remind me to regrab supports for each map
     private static final int

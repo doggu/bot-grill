@@ -1,5 +1,7 @@
 package feh.heroes.skills.skillTypes;
 
+import feh.heroes.skills.analysis.SkillAnalysis;
+
 import java.awt.*;
 import java.net.URL;
 
@@ -7,7 +9,6 @@ public abstract class Skill {
     private final String name, description;
     private final URL link;
     private final Color color;
-    //private final String[] args;
 
     //0 = weapon, 1 = assist, 2 = special,
     //3 = a passive, 4 = b passive, 5 = c passive, 6 = seal
@@ -15,6 +16,8 @@ public abstract class Skill {
 
     protected final int cost;
     protected final boolean exclusive;
+
+    private final SkillAnalysis analysis;
 
 
 
@@ -39,6 +42,8 @@ public abstract class Skill {
         }
         this.cost = cost;
         this.exclusive = exclusive;
+
+        this.analysis = new SkillAnalysis(this);
     }
 
 
@@ -50,6 +55,7 @@ public abstract class Skill {
     public int getCost() { return cost; }
     public int getSlot() { return slot; }
     public boolean isExclusive() { return exclusive; }
+    public SkillAnalysis getAnalysis() { return analysis; }
 
 
 

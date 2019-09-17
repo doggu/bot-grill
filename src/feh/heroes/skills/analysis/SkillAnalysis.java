@@ -35,7 +35,8 @@ public class SkillAnalysis {
             afterCombat,
             unitInitiates,
             foeInitiates,
-            whileUnitLives;
+            whileUnitLives,
+            afterMovementAssist;
 
 
 
@@ -61,6 +62,7 @@ public class SkillAnalysis {
             afterCombat = null;
             unitInitiates = null;
             foeInitiates = null;
+            afterMovementAssist = null;
             whileUnitLives = null;
             return;
         }
@@ -84,6 +86,7 @@ public class SkillAnalysis {
         afterCombat = getAfterCombat();
         unitInitiates = getUnitInitiates();
         foeInitiates = getFoeInitiates();
+        afterMovementAssist = getAfterMovementAssist();
         whileUnitLives = getWhileUnitLives();
     }
     private ArrayList<String> getRawSentences() {
@@ -93,7 +96,7 @@ public class SkillAnalysis {
             for (p++; p<desc.length(); p++) {
                 char c = desc.charAt(p);
                 if (c=='.')
-                    desc = desc.substring(0, p)+"[period]"+desc.substring(p+1);
+                    desc = desc.substring(0, p)+"[p]"+desc.substring(p+1);
                 else if (c==')')
                     break;
             }
@@ -103,7 +106,7 @@ public class SkillAnalysis {
         for (int i=0; i<rawSentences.size(); i++) {
             String raw = rawSentences.get(i);
             if (raw.contains("[period]"))
-                rawSentences.set(i, raw.replaceAll("\\[period]", "."));
+                rawSentences.set(i, raw.replaceAll("\\[p]", "."));
         }
 
         if (rawSentences.get(rawSentences.size()-1).charAt(rawSentences.get(rawSentences.size()-1).length()-1)=='.')
@@ -291,6 +294,7 @@ public class SkillAnalysis {
 
         return incl;
     }
+
     private ArrayList<String> getStartOfTurn1() {
         return findWith("at the start of turn 1");
     }
@@ -323,6 +327,11 @@ public class SkillAnalysis {
     }
     private ArrayList<String> getFoeInitiates() {
         return findWith("foe initiates combat");
+    }
+
+    private ArrayList<String> getAfterMovementAssist() {
+        return findWith("If a movement Assist skill (like Reposition, Shove, Pivot, etc.) " +
+                        "is used by unit or targets unit");
     }
     //really only for valor/exp skills
     private ArrayList<String> getWhileUnitLives() {

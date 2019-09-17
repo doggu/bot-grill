@@ -16,9 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class HeroRetriever extends Command {
-    private ArrayList<String> args = new ArrayList<>(Arrays.asList(super.args));
+    private ArrayList<String> args;
     private int i=1;
-    private boolean newestOnly = false, oldestOnly = false;
+    private boolean newestOnly, oldestOnly;
     private boolean lv1 = false;
     private int rarity = 5;
     private boolean getAll = true;
@@ -37,8 +37,7 @@ public class HeroRetriever extends Command {
 
 
     private void getUnits() {
-        if (super.args[0].equalsIgnoreCase("getIVs")||
-                super.args[0].equalsIgnoreCase("giv"))
+        if (super.args[0].matches("g(et)?[Ii][Vv]s?"))
             lv1 = true;
 
         ArrayList<Hero> candidates = new ArrayList<>();
@@ -515,6 +514,20 @@ public class HeroRetriever extends Command {
     }
 
     public void onCommand() {
+        args = new ArrayList<>(Arrays.asList(super.args));
+        i=1;
+        newestOnly = false;
+        oldestOnly = false;
+        lv1 = false;
+        rarity = 5;
+        getAll = true;
+
+        //generates Unit
+        boon = -1;
+        bane = -1;
+        merges = 0;
+        dragonflowers = 0;
+        support = 'd';
         getUnits();
     }
 

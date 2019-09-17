@@ -32,80 +32,86 @@ public class SkillAnalysis {
             oddTurns,
             duringCombat,
             atStartOfCombat,
+            beforeCombatUnitInitiates,
             afterCombat,
             unitInitiates,
             foeInitiates,
-            whileUnitLives,
-            afterMovementAssist;
+            afterMovementAssist,
+            whileUnitLives;
 
 
 
-    private SkillAnalysis(Skill skill) {
+    public SkillAnalysis(Skill skill) {
         this.skill = skill;
 
         if (skill.getDescription().equals("")) {
-            rawSentences = null;
-            sentences = null;
-            statModifiers = null;
-            cdModifier = null;
-            effectiveAgainst = null;
-            neutralizes = null;
+            this.rawSentences = null;
+            this.sentences = null;
+            this.statModifiers = null;
+            this.cdModifier = null;
+            this.effectiveAgainst = null;
+            this.neutralizes = null;
             this.triangleAdept = false;
 
-            startOfTurn = null;
-            startOfTurn1 = null;
-            startOfEveryNthTurn = null;
-            evenTurns = null;
-            oddTurns = null;
-            duringCombat = null;
-            atStartOfCombat = null;
-            afterCombat = null;
-            unitInitiates = null;
-            foeInitiates = null;
-            afterMovementAssist = null;
-            whileUnitLives = null;
+            this.startOfTurn = null;
+            this.startOfTurn1 = null;
+            this.startOfEveryNthTurn = null;
+            this.evenTurns = null;
+            this.oddTurns = null;
+            this.duringCombat = null;
+            this.atStartOfCombat = null;
+            this.beforeCombatUnitInitiates = null;
+            this.afterCombat = null;
+            this.unitInitiates = null;
+            this.foeInitiates = null;
+            this.afterMovementAssist = null;
+            this.whileUnitLives = null;
             return;
         }
 
         this.rawSentences = getRawSentences();
         this.sentences = getSentences();
 
-        this.statModifiers = getStatModifiers();
-        this.cdModifier = getCdModifier();
-        this.effectiveAgainst = getEffective();
-        this.neutralizes = getNeutralizesEffectivity();
-        this.triangleAdept = triangleAdept();
+        this.statModifiers = generateStatModifiers();
+        this.cdModifier = generateCdModifier();
+        this.effectiveAgainst = generateEffective();
+        this.neutralizes = generateNeutralizesEffectivity();
+        this.triangleAdept = generateTriangleAdept();
 
-        startOfTurn = getStartOfTurn();
-        startOfTurn1 = getStartOfTurn1();
-        startOfEveryNthTurn = getStartOfEveryNthTurn();
-        evenTurns = getStartOfEven();
-        oddTurns = getStartOfOdd();
-        duringCombat = getDuringCombat();
-        atStartOfCombat = getAtStartOfCombat();
-        afterCombat = getAfterCombat();
-        unitInitiates = getUnitInitiates();
-        foeInitiates = getFoeInitiates();
-        afterMovementAssist = getAfterMovementAssist();
-        whileUnitLives = getWhileUnitLives();
+        this.startOfTurn = generateStartOfTurn();
+        this.startOfTurn1 = generateStartOfTurn1();
+        this.startOfEveryNthTurn = generateStartOfEveryNthTurn();
+        this.evenTurns = generateStartOfEven();
+        this.oddTurns = generateStartOfOdd();
+        this.duringCombat = generateDuringCombat();
+        this.atStartOfCombat = generateAtStartOfCombat();
+        this.beforeCombatUnitInitiates = generateBeforeCombatUnitInitiates();
+        this.afterCombat = generateAfterCombat();
+        this.unitInitiates = generateUnitInitiates();
+        this.foeInitiates = generateFoeInitiates();
+        this.afterMovementAssist = generateAfterMovementAssist();
+        this.whileUnitLives = generateWhileUnitLives();
     }
     private ArrayList<String> getRawSentences() {
         String desc = skill.getDescription().replaceAll("\\. \\(", " (");
-        int p = desc.indexOf('(');
-        if (p>=0) {
-            for (p++; p<desc.length(); p++) {
-                char c = desc.charAt(p);
-                if (c=='.')
-                    desc = desc.substring(0, p)+"[p]"+desc.substring(p+1);
-                else if (c==')')
-                    break;
+        for (int i=0; i<desc.length(); i++) {
+            if (desc.charAt(i)=='(') {
+                for (i++; i < desc.length(); i++) {
+                    char c = desc.charAt(i);
+                    if (c == '.')
+                        desc = desc.substring(0, i) + "[p]" + desc.substring(i + 1);
+                    else if (c == ')')
+                        break;
+                }
             }
         }
+
         ArrayList<String> rawSentences = new ArrayList<>(Arrays.asList(desc.split("\\. ")));
+        System.out.println(skill+": "+rawSentences);
 
         for (int i=0; i<rawSentences.size(); i++) {
             String raw = rawSentences.get(i);
-            if (raw.contains("[period]"))
+            if (raw.contains("[p]"))
                 rawSentences.set(i, raw.replaceAll("\\[p]", "."));
         }
 
@@ -119,16 +125,33 @@ public class SkillAnalysis {
     }
     private ArrayList<ArrayList<String>> getSentences() {
         ArrayList<ArrayList<String>> sentences = new ArrayList<>();
-        for (String rawSentence:rawSentences)
-            sentences.add(new ArrayList<>(Arrays.asList(rawSentence
-                    .split(", "))));
+        for (String rawSentence:rawSentences) {
+            int p = rawSentence.indexOf('(');
+            if (p>=0) {
+                for (p++; p<rawSentence.length(); p++) {
+                    char c = rawSentence.charAt(p);
+                    if (c==',')
+                        rawSentence = rawSentence.substring(0, p)+"[c]"+rawSentence.substring(p+1);
+                    else if (c==')')
+                        break;
+                }
+            }
+
+            ArrayList<String> sentence = new ArrayList<>(Arrays.asList(rawSentence
+                    .split(", ")));
+            //it is TECHNICALLY a clause
+            for (int i=0; i<sentence.size(); i++)
+                sentence.set(i, sentence.get(i).replaceAll("\\[c]", ","));
+
+            sentences.add(sentence);
+        }
 
         return sentences;
     }
 
 
 
-    private int[] getStatModifiers() {
+    private int[] generateStatModifiers() {
         try {
             int[] statModifiers = new int[5];
 
@@ -180,13 +203,13 @@ public class SkillAnalysis {
 
             return statModifiers;
         } catch (Exception e) {
-            System.out.println(skill.getName());
+            //System.out.println(skill.getName());
             e.printStackTrace();
         }
 
         return null;
     }
-    private Integer getCdModifier() {
+    private Integer generateCdModifier() {
         Integer cdModifier = null;
         for (int i=0; i<rawSentences.size(); i++) {
             String rawSentence = rawSentences.get(i);
@@ -209,16 +232,16 @@ public class SkillAnalysis {
 
         return cdModifier;
     }
-    private ArrayList<MovementClass> getEffective() {
+    private ArrayList<MovementClass> generateEffective() {
         ArrayList<MovementClass> effectivity = new ArrayList<>();
         for (int i=0; i<rawSentences.size(); i++) {
             String raw = rawSentences.get(i);
             if (raw.matches("Effective against (infantry)|(flying)|(armored)|(cavalry) " +
                     "(and (infantry)|(flying)|(armored)|(cavalry))?foes")) {
                 MovementClass eff1, eff2;
-                effectivity.add(getEffectiveAgainst(sentences.get(i).get(2)));
+                effectivity.add(generateEffectiveAgainst(sentences.get(i).get(2)));
                 try {
-                    effectivity.add(getEffectiveAgainst(sentences.get(i).get(4)));
+                    effectivity.add(generateEffectiveAgainst(sentences.get(i).get(4)));
                 } catch (IndexOutOfBoundsException ioobe) {
                     continue;
                 }
@@ -231,7 +254,7 @@ public class SkillAnalysis {
 
         return effectivity;
     }
-    private MovementClass getEffectiveAgainst(String input) { //todo: magic and dragon foes
+    private MovementClass generateEffectiveAgainst(String input) { //todo: magic and dragon foes
         if (input==null) return null;
         switch (input) {
             case "infantry":
@@ -246,13 +269,13 @@ public class SkillAnalysis {
                 return null;
         }
     }
-    private MovementClass getNeutralizesEffectivity() { //todo: magic and dragon foes
+    private MovementClass generateNeutralizesEffectivity() { //todo: magic and dragon foes
         MovementClass effectivity = null;
         for (int i=0; i<rawSentences.size(); i++) {
             String raw = rawSentences.get(i);
             if (raw.matches("Neutralizes \"effective against (infantry)|(flying)|(armored)|(cavalry)\" " +
                     "bonuses")) {
-                effectivity = getEffectiveAgainst(sentences.get(i).get(3));
+                effectivity = generateEffectiveAgainst(sentences.get(i).get(3));
 
                 rawSentences.remove(i);
                 sentences.remove(i);
@@ -262,7 +285,7 @@ public class SkillAnalysis {
 
         return effectivity;
     }
-    private boolean triangleAdept() {
+    private boolean generateTriangleAdept() {
         for (int i=0; i<rawSentences.size(); i++) {
             if (rawSentences.get(i).equals("If unit has weapon-triangle advantage, boosts Atk by 20%"))
                 try {
@@ -282,8 +305,8 @@ public class SkillAnalysis {
         ArrayList<String> incl = new ArrayList<>();
         for (int i=0; i<sentences.size(); i++) {
             for (int j=0; j<sentences.get(i).size(); j++) {
-                if (sentences.get(i).get(j).toLowerCase().contains(input)) {
-                    incl.add(sentences.get(i).get(j));
+                if (sentences.get(i).get(j).toLowerCase().contains(input.toLowerCase())) {
+                    incl.add(rawSentences.get(i));
                     rawSentences.remove(i);
                     sentences.remove(i);
                     i--;
@@ -294,49 +317,46 @@ public class SkillAnalysis {
 
         return incl;
     }
+    private ArrayList<String> generateStartOfTurn() { return findWith("at start of turn"); }
+    private ArrayList<String> generateStartOfTurn1() { return findWith("at the start of turn 1"); }
+    private ArrayList<String> generateStartOfEveryNthTurn() { return findWith("at the start of every"); }
+    private ArrayList<String> generateStartOfEven() { return findWith("at start of even-numbered turns"); }
+    private ArrayList<String> generateStartOfOdd() { return findWith("at start of odd-numbered turns"); }
 
-    private ArrayList<String> getStartOfTurn1() {
-        return findWith("at the start of turn 1");
-    }
-    private ArrayList<String> getStartOfEveryNthTurn() {
-        return findWith("at the start of every");
-    }
-    private ArrayList<String> getStartOfTurn() {
-        return findWith("at start of turn");
-    }
-    private ArrayList<String> getStartOfEven() {
-        return findWith("at start of even-numbered turns");
-    }
-    private ArrayList<String> getStartOfOdd() {
-        return findWith("at start of odd-numbered turns");
-    }
-
-    private ArrayList<String> getDuringCombat() {
-        return findWith("during combat");
-    }
-    private ArrayList<String> getAtStartOfCombat() {
-        return findWith("at start of combat");
-    }
-    private ArrayList<String> getBeforeCombatUnitInitiates() {
+    private ArrayList<String> generateDuringCombat() { return findWith("during combat"); }
+    private ArrayList<String> generateAtStartOfCombat() { return findWith("at start of combat"); }
+    private ArrayList<String> generateBeforeCombatUnitInitiates() {
         return findWith("before combat this unit initiates"); }
-    private ArrayList<String> getAfterCombat() {
-        return findWith("after combat");
-    }
-    private ArrayList<String> getUnitInitiates() {
-        return findWith("unit initiates combat");
-    }
-    private ArrayList<String> getFoeInitiates() {
-        return findWith("foe initiates combat");
-    }
-
-    private ArrayList<String> getAfterMovementAssist() {
-        return findWith("If a movement Assist skill (like Reposition, Shove, Pivot, etc.) " +
-                        "is used by unit or targets unit");
-    }
+    private ArrayList<String> generateAfterCombat() { return findWith("after combat"); }
+    private ArrayList<String> generateUnitInitiates() { return findWith("unit initiates combat"); }
+    private ArrayList<String> generateFoeInitiates() { return findWith("foe initiates combat"); }
     //really only for valor/exp skills
-    private ArrayList<String> getWhileUnitLives() {
-        return findWith("while unit lives");
-    }
+    private ArrayList<String> generateWhileUnitLives() { return findWith("while unit lives"); }
+    private ArrayList<String> generateAfterMovementAssist() { return
+            findWith("If a movement Assist skill (like Reposition, Shove, Pivot, etc.) " +
+                    "is used by unit or targets unit"); }
+
+
+
+    public int[] getStatModifiers() { return statModifiers; }
+    public int getCdModifier() { return cdModifier; }
+    public ArrayList<MovementClass> getEffective() { return effectiveAgainst; }
+    public MovementClass getNeutralizesEffectivity() { return neutralizes; }
+    public boolean getTriangleAdept() { return triangleAdept; }
+    //int getTANeutralizingLevel
+    public ArrayList<String> getStartOfTurn() { return startOfTurn; }
+    public ArrayList<String> getStartOfTurn1() { return startOfTurn1; }
+    public ArrayList<String> getStartOfEveryNthTurn() { return startOfEveryNthTurn; }
+    public ArrayList<String> getStartOfEven() { return evenTurns; }
+    public ArrayList<String> getStartOfOdd() { return oddTurns; }
+    public ArrayList<String> getDuringCombat() { return duringCombat; }
+    public ArrayList<String> getAtStartOfCombat() { return atStartOfCombat; }
+    public ArrayList<String> getBeforeCombatUnitInitiates() { return beforeCombatUnitInitiates; }
+    public ArrayList<String> getAfterCombat() { return afterCombat; }
+    public ArrayList<String> getUnitInitiates() { return unitInitiates; }
+    public ArrayList<String> getFoeInitiates() { return foeInitiates; }
+    public ArrayList<String> getAfterMovementAssist() { return afterMovementAssist; }
+    public ArrayList<String> getWhileUnitLives() { return whileUnitLives; }
 
 
 
@@ -353,6 +373,25 @@ public class SkillAnalysis {
 
         System.out.println("done ("+s.timeInSeconds()+"!)");
         s.stop();
+
+
+
+        //completion test
+        /*
+        for (SkillAnalysis x:analyses) {
+            if (x.rawSentences!=null) {
+                if (x.rawSentences.size() > 0) {
+                    System.out.println(x.skill.getName() + "\'s unprocessed effects:");
+                    for (String str : x.rawSentences) {
+                        System.out.println(str);
+                    }
+                    System.out.println();
+                }
+            }
+        }
+         */
+
+
 
         Scanner input = new Scanner(System.in);
 
@@ -379,8 +418,10 @@ public class SkillAnalysis {
             for (SkillAnalysis x:descPortion.keySet()) {
                 System.out.println(x.skill.getName());
                 if (x.rawSentences.size()>0) {
-                    for (String str:x.rawSentences) {
-                        System.out.println("\t"+str);
+                    for (ArrayList<String> strArr:x.sentences) {
+                        for (String str:strArr) {
+                            System.out.println("\t"+str);
+                        }
                     }
                 }
                 /*

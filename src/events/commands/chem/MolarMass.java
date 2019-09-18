@@ -109,8 +109,27 @@ public class MolarMass extends Command {
         return qty;
     }
 
-    private void closeParenthetical() {
+    private int closeParenthetical() {
+        int start = i;
+        for (i = i+1; i<compound.length(); i++) {
+            CharIdentity identity = CharIdentity.getIdentity(compound.charAt(i));
+            switch (identity) {
+                case PAREN_O:
+                    closeParenthetical();
+                case PAREN_C:
+                    break;
+            }
+        }
 
+        int qty;
+        try {
+            qty = Integer.parseInt(compound.substring(start, i));
+        } catch (NumberFormatException nfe) {
+            qty = 0;
+        }
+
+        i--;
+        return qty;
     }
 
     @Override

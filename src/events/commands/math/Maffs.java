@@ -5,10 +5,13 @@ import events.commands.Command;
 import net.dv8tion.jda.core.entities.User;
 import stem.math.MathParse;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.function.Function;
 
 public class Maffs extends Command {
     private HashMap<User,Double> answers = new HashMap<>();
+    private HashMap<User, ArrayList<Function<Double, Double>>> storedFunctions = new HashMap<>();
 
 
     public void onCommand() {

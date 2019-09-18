@@ -1,12 +1,14 @@
 package feh.heroes.skills;
 
 import feh.FEHeroesCache;
+import feh.heroes.character.WeaponClass;
 import feh.heroes.skills.skillTypes.*;
+import feh.heroes.skills.skillTypes.constructionSite.IncompleteDataException;
+import feh.heroes.skills.skillTypes.constructionSite.SkillConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import feh.heroes.character.WeaponClass;
 import utilities.Database;
 import utilities.WebCache;
 
@@ -15,7 +17,10 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
 
 public class SkillDatabase extends Database<Skill> {
     public static SkillDatabase DATABASE;
@@ -259,24 +264,26 @@ public class SkillDatabase extends Database<Skill> {
                 Elements rows = table.select("tr");
 
                 for (Element row:rows) {
-                    Assist x;
+                    SkillConstructor x = new SkillConstructor();
                     Elements info = row.children();
 
-                    String name = info.get(0).text();
-                    String description = info.get(1).text();
-                    URL link;
+                    x.setName(info.get(0).text());
+                    x.setDescription(info.get(1).text());
                     try {
-                        link = new URL(FEHEROES+info.get(0).children().get(0).attr("href"));
+                        x.setLink(new URL(FEHEROES+info.get(0).children().get(0).attr("href")));
                     } catch (MalformedURLException murle) {
-                        System.out.println("got a murle for "+name);
-                        link = null;
+                        System.out.println("got a murle for "+x.getName());
+                        x.setLink(null);
                     }
-                    int sp = Integer.parseInt(info.get(2).text());
-                    int range = Integer.parseInt(info.get(3).text());
-                    boolean exclusive = isExclusive(name);
+                    x.setCost(Integer.parseInt(info.get(2).text()));
+                    x.setRange(Integer.parseInt(info.get(3).text()));
+                    x.setExclusive(isExclusive(x.getName()));
 
-                    x = new Assist(name, description, link, sp, exclusive, range);
-                    assists.add(x);
+                    try {
+                        assists.add(x.generateAssist());
+                    } catch (IncompleteDataException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

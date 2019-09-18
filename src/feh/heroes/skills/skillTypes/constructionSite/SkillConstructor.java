@@ -3,14 +3,12 @@ package feh.heroes.skills.skillTypes.constructionSite;
 import feh.heroes.character.WeaponClass;
 import feh.heroes.skills.skillTypes.*;
 
-import java.awt.*;
 import java.net.URL;
 
 public class SkillConstructor {
     private String name;
     private String description;
     private URL link;
-    private Color color; //determined by skill type anyway?
     private Integer cost;
     private Boolean exclusive;
     
@@ -37,9 +35,6 @@ public class SkillConstructor {
     }
     public void setLink(URL link) {
         this.link = link;
-    }
-    public void setColor(Color color) {
-        this.color = color;
     }
     public void setCost(Integer cost) {
         this.cost = cost;
@@ -81,9 +76,6 @@ public class SkillConstructor {
     public URL getLink() {
         return link;
     }
-    public Color getColor() {
-        return color;
-    }
     public Integer getCost() {
         return cost;
     }
@@ -122,7 +114,6 @@ public class SkillConstructor {
         exists(name, "name");
         exists(description, "description");
         exists(link, "link");
-        exists(color, "color");
         exists(cost, "cost");
         exists(exclusive, "exclusive");
     }

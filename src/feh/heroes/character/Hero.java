@@ -115,6 +115,9 @@ public class Hero {
     public char getColor() { return color; }
     public WeaponClass getWeaponType() { return weaponType; }
     public MovementClass getMoveType() { return moveType; }
+    public boolean is (HeroClass type) {
+        return weaponType == type || moveType == type;
+    }
 
     // TODO: change to lv40 stats using lv1 stats and growths
     public HeroStats getStats() { return stats; }
@@ -133,6 +136,7 @@ public class Hero {
 
 
 
+    //todo: remove all the parameters and put them in unit or something
     public String toString() { return this.getFullName().toString(); }
 
     protected int[] getStats(boolean lv1, int rarity, int boon, int bane) {

@@ -1,6 +1,7 @@
 package discordUI.feh;
 
 import feh.heroes.character.Hero;
+import feh.heroes.character.MovementClass;
 import feh.heroes.skills.analysis.ActionSkill;
 import feh.heroes.skills.analysis.SkillAnalysis;
 import feh.heroes.skills.analysis.StatModifier;
@@ -20,7 +21,6 @@ import static feh.heroes.UnitDatabase.HEROES;
 import static main.BotMain.DEBUG;
 
 public class FEHPrinter {
-    //todo: literally move ALL this shit into some kind of Discord UI section
     public static EmbedBuilder printCharacter(Hero x, boolean lv1, int rarity,
                                                boolean getAll, int boon, int bane,
                                                int merges, int dragonflowers, char support) {
@@ -276,24 +276,52 @@ public class FEHPrinter {
         if (DEBUG) {
             SkillAnalysis analysis = x.getAnalysis();
 
-            if (x.getAnalysis().getStatModifiers()!=null)
-                skill.addField("stat modifiers",
-                        "`"+printStats(analysis.getStatModifiers())+"`",
-                        false);
+            if (x.getAnalysis().getStartOfTurn()!=null) {
+                if (x.getAnalysis().getStatModifiers() != null)
+                    skill.addField("stat modifiers",
+                            "`" + printStats(analysis.getStatModifiers()) + "`",
+                            false);
 
-            skill.addField("StartOfTurn", analysis.getStartOfTurn().toString(), false);
-            skill.addField("StartOfTurn1", analysis.getStartOfTurn1().toString(), false);
-            skill.addField("StartOfEveryNthTurn", analysis.getStartOfEveryNthTurn().toString(), false);
-            skill.addField("StartOfEven", analysis.getStartOfEven().toString(), false);
-            skill.addField("StartOfOdd", analysis.getStartOfOdd().toString(), false);
-            skill.addField("DuringCombat", analysis.getDuringCombat().toString(), false);
-            skill.addField("AtStartOfCombat", analysis.getAtStartOfCombat().toString(), false);
-            skill.addField("BeforeCombatUnitInitiates", analysis.getBeforeCombatUnitInitiates().toString(), false);
-            skill.addField("AfterCombat", analysis.getAfterCombat().toString(), false);
-            skill.addField("UnitInitiates", analysis.getUnitInitiates().toString(), false);
-            skill.addField("FoeInitiates", analysis.getFoeInitiates().toString(), false);
-            skill.addField("AfterMovementAssist", analysis.getAfterMovementAssist().toString(), false);
-            skill.addField("WhileUnitLives", analysis.getWhileUnitLives().toString(), false);
+                int cdM = analysis.getCdModifier();
+                ArrayList<MovementClass> effA = analysis.getEffective();
+                MovementClass neutE = analysis.getNeutralizesEffectivity();
+                boolean tA = analysis.getTriangleAdept();
+
+                String attr = "";
+                if (cdM!=0) attr+= "cooldown modifier: "+cdM+"\n";
+                if (effA!=null) attr+= "effective against: "+effA+"\n";
+                if (tA) attr+= "applies TA";
+
+                if (!attr.equals(""))
+                    skill.addField("attributes", attr, false);
+
+                if (analysis.getStartOfTurn().size() != 0)
+                    skill.addField("StartOfTurn", analysis.getStartOfTurn().toString(), false);
+                if (analysis.getStartOfTurn1().size() != 0)
+                    skill.addField("StartOfTurn1", analysis.getStartOfTurn1().toString(), false);
+                if (analysis.getStartOfEveryNthTurn().size() != 0)
+                    skill.addField("StartOfEveryNthTurn", analysis.getStartOfEveryNthTurn().toString(), false);
+                if (analysis.getStartOfEven().size() != 0)
+                    skill.addField("StartOfEven", analysis.getStartOfEven().toString(), false);
+                if (analysis.getStartOfOdd().size() != 0)
+                    skill.addField("StartOfOdd", analysis.getStartOfOdd().toString(), false);
+                //if (analysis.getDuringCombat().size() != 0)
+                //    skill.addField("DuringCombat", analysis.getDuringCombat().toString(), false);
+                if (analysis.getAtStartOfCombat().size() != 0)
+                    skill.addField("AtStartOfCombat", analysis.getAtStartOfCombat().toString(), false);
+                if (analysis.getBeforeCombatUnitInitiates().size() != 0)
+                    skill.addField("BeforeCombatUnitInitiates", analysis.getBeforeCombatUnitInitiates().toString(), false);
+                if (analysis.getAfterCombat().size() != 0)
+                    skill.addField("AfterCombat", analysis.getAfterCombat().toString(), false);
+                if (analysis.getUnitInitiates().size() != 0)
+                    skill.addField("UnitInitiates", analysis.getUnitInitiates().toString(), false);
+                if (analysis.getFoeInitiates().size() != 0)
+                    skill.addField("FoeInitiates", analysis.getFoeInitiates().toString(), false);
+                if (analysis.getAfterMovementAssist().size() != 0)
+                    skill.addField("AfterMovementAssist", analysis.getAfterMovementAssist().toString(), false);
+                if (analysis.getWhileUnitLives().size() != 0)
+                    skill.addField("WhileUnitLives", analysis.getWhileUnitLives().toString(), false);
+            }
         }
 
 

@@ -18,7 +18,7 @@ public class SkillAnalysis {
     private final ArrayList<String> rawSentences;
     private final ArrayList<ArrayList<String>> sentences;
     private final int[] statModifiers;
-    private final Integer cdModifier;
+    private final int cdModifier;
     private final ArrayList<MovementClass> effectiveAgainst;
     private final MovementClass neutralizes;
     private final boolean triangleAdept;
@@ -30,7 +30,7 @@ public class SkillAnalysis {
             startOfEveryNthTurn,
             evenTurns,
             oddTurns,
-            duringCombat,
+            //duringCombat,
             atStartOfCombat,
             beforeCombatUnitInitiates,
             afterCombat,
@@ -48,7 +48,7 @@ public class SkillAnalysis {
             this.rawSentences = null;
             this.sentences = null;
             this.statModifiers = null;
-            this.cdModifier = null;
+            this.cdModifier = 0;
             this.effectiveAgainst = null;
             this.neutralizes = null;
             this.triangleAdept = false;
@@ -58,7 +58,7 @@ public class SkillAnalysis {
             this.startOfEveryNthTurn = null;
             this.evenTurns = null;
             this.oddTurns = null;
-            this.duringCombat = null;
+            //this.duringCombat = null;
             this.atStartOfCombat = null;
             this.beforeCombatUnitInitiates = null;
             this.afterCombat = null;
@@ -83,7 +83,7 @@ public class SkillAnalysis {
         this.startOfEveryNthTurn = generateStartOfEveryNthTurn();
         this.evenTurns = generateStartOfEven();
         this.oddTurns = generateStartOfOdd();
-        this.duringCombat = generateDuringCombat();
+        //this.duringCombat = generateDuringCombat();
         this.atStartOfCombat = generateAtStartOfCombat();
         this.beforeCombatUnitInitiates = generateBeforeCombatUnitInitiates();
         this.afterCombat = generateAfterCombat();
@@ -107,7 +107,6 @@ public class SkillAnalysis {
         }
 
         ArrayList<String> rawSentences = new ArrayList<>(Arrays.asList(desc.split("\\. ")));
-        System.out.println(skill+": "+rawSentences);
 
         for (int i=0; i<rawSentences.size(); i++) {
             String raw = rawSentences.get(i);
@@ -210,7 +209,7 @@ public class SkillAnalysis {
         return null;
     }
     private Integer generateCdModifier() {
-        Integer cdModifier = null;
+        Integer cdModifier = 0;
         for (int i=0; i<rawSentences.size(); i++) {
             String rawSentence = rawSentences.get(i);
             switch (rawSentence) {
@@ -222,7 +221,8 @@ public class SkillAnalysis {
                     break;
             }
 
-            if (cdModifier!=null) {
+            //only checks for one cdModifier, but i think that's good enough
+            if (cdModifier!=0) {
                 rawSentences.remove(i);
                 sentences.remove(i);
                 break;
@@ -323,7 +323,7 @@ public class SkillAnalysis {
     private ArrayList<String> generateStartOfEven() { return findWith("at start of even-numbered turns"); }
     private ArrayList<String> generateStartOfOdd() { return findWith("at start of odd-numbered turns"); }
 
-    private ArrayList<String> generateDuringCombat() { return findWith("during combat"); }
+    //private ArrayList<String> generateDuringCombat() { return findWith("during combat"); }
     private ArrayList<String> generateAtStartOfCombat() { return findWith("at start of combat"); }
     private ArrayList<String> generateBeforeCombatUnitInitiates() {
         return findWith("before combat this unit initiates"); }
@@ -349,7 +349,7 @@ public class SkillAnalysis {
     public ArrayList<String> getStartOfEveryNthTurn() { return startOfEveryNthTurn; }
     public ArrayList<String> getStartOfEven() { return evenTurns; }
     public ArrayList<String> getStartOfOdd() { return oddTurns; }
-    public ArrayList<String> getDuringCombat() { return duringCombat; }
+    //public ArrayList<String> getDuringCombat() { return duringCombat; }
     public ArrayList<String> getAtStartOfCombat() { return atStartOfCombat; }
     public ArrayList<String> getBeforeCombatUnitInitiates() { return beforeCombatUnitInitiates; }
     public ArrayList<String> getAfterCombat() { return afterCombat; }

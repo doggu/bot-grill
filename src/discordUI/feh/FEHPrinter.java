@@ -1,7 +1,7 @@
 package discordUI.feh;
 
 import feh.heroes.character.Hero;
-import feh.heroes.character.MovementClass;
+import feh.heroes.character.HeroClass;
 import feh.heroes.skills.analysis.ActionSkill;
 import feh.heroes.skills.analysis.SkillAnalysis;
 import feh.heroes.skills.analysis.StatModifier;
@@ -283,13 +283,14 @@ public class FEHPrinter {
                             false);
 
                 int cdM = analysis.getCdModifier();
-                ArrayList<MovementClass> effA = analysis.getEffective();
-                MovementClass neutE = analysis.getNeutralizesEffectivity();
+                ArrayList<HeroClass> effA = analysis.getEffective();
+                HeroClass neutE = analysis.getNeutralizesEffectivity();
                 boolean tA = analysis.getTriangleAdept();
 
                 String attr = "";
                 if (cdM!=0) attr+= "cooldown modifier: "+cdM+"\n";
-                if (effA!=null) attr+= "effective against: "+effA+"\n";
+                if (effA.size()>0) attr+= "effective against: "+effA+"\n";
+                if (neutE!=null) attr+= "neutralizes: "+neutE+"\n";
                 if (tA) attr+= "applies TA";
 
                 if (!attr.equals(""))

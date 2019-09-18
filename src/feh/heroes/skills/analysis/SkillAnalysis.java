@@ -1,6 +1,6 @@
 package feh.heroes.skills.analysis;
 
-import feh.heroes.character.MovementClass;
+import feh.heroes.character.HeroClass;
 import feh.heroes.skills.SkillDatabase;
 import feh.heroes.skills.skillTypes.Skill;
 import utilities.Stopwatch;
@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import static feh.heroes.character.MovementClass.*;
+import static feh.heroes.character.WeaponClass.*;
 
 
 public class SkillAnalysis {
@@ -19,8 +20,8 @@ public class SkillAnalysis {
     private final ArrayList<ArrayList<String>> clauses;
     private final int[] statModifiers;
     private final int cdModifier;
-    private final ArrayList<MovementClass> effectiveAgainst;
-    private final MovementClass neutralizes;
+    private final ArrayList<HeroClass> effectiveAgainst;
+    private final HeroClass neutralizes;
     private final boolean triangleAdept;
 
 
@@ -106,21 +107,21 @@ public class SkillAnalysis {
             }
         }
 
-        ArrayList<String> rawSentences = new ArrayList<>(Arrays.asList(desc.split("\\. ")));
+        ArrayList<String> sentences = new ArrayList<>(Arrays.asList(desc.split("\\. ")));
 
-        for (int i=0; i<rawSentences.size(); i++) {
-            String raw = rawSentences.get(i);
+        for (int i=0; i<sentences.size(); i++) {
+            String raw = sentences.get(i);
             if (raw.contains("[p]"))
-                rawSentences.set(i, raw.replaceAll("\\[p]", "."));
+                sentences.set(i, raw.replaceAll("\\[p]", "."));
         }
 
-        if (rawSentences.get(rawSentences.size()-1).charAt(rawSentences.get(rawSentences.size()-1).length()-1)=='.')
-            rawSentences.set(
-                    rawSentences.size()-1,
-                    rawSentences.get(rawSentences.size()-1)
-                            .substring(0, rawSentences.get(rawSentences.size()-1).length()-1));
+        if (sentences.get(sentences.size()-1).charAt(sentences.get(sentences.size()-1).length()-1)=='.')
+            sentences.set(
+                    sentences.size()-1,
+                    sentences.get(sentences.size()-1)
+                            .substring(0, sentences.get(sentences.size()-1).length()-1));
 
-        return rawSentences;
+        return sentences;
     }
     private ArrayList<ArrayList<String>> generateClauses() {
         ArrayList<ArrayList<String>> sentences = new ArrayList<>();
@@ -233,16 +234,19 @@ public class SkillAnalysis {
 
         return cdModifier;
     }
-    private ArrayList<MovementClass> generateEffective() {
-        ArrayList<MovementClass> effectivity = new ArrayList<>();
+    private ArrayList<HeroClass> generateEffective() {
+        ArrayList<HeroClass> effectivity = new ArrayList<>();
         for (int i=0; i<sentences.size(); i++) {
             String raw = sentences.get(i);
-            if (raw.matches("Effective against (infantry)|(flying)|(armored)|(cavalry) " +
-                    "(and (infantry)|(flying)|(armored)|(cavalry))?foes")) {
-                MovementClass eff1, eff2;
-                effectivity.add(generateEffectiveAgainst(clauses.get(i).get(2)));
+            if (raw.matches("Effective against " +
+                    "((infantry)|(flying)|(armored)|(cavalry)|(dragon)|(beast)|(magic))" +
+                    "( and ((infantry)|(flying)|(armored)|(cavalry)|(dragon)|(beast)|(magic)))? foes")) {
+                //System.out.println("oh yeah it's some movement");
+
+                String[] effs = raw.split(" ");
+                effectivity.add(generateEffectiveAgainst(effs[2]));
                 try {
-                    effectivity.add(generateEffectiveAgainst(clauses.get(i).get(4)));
+                    effectivity.add(generateEffectiveAgainst(effs[4]));
                 } catch (IndexOutOfBoundsException ioobe) {
                     continue;
                 }
@@ -255,7 +259,7 @@ public class SkillAnalysis {
 
         return effectivity;
     }
-    private MovementClass generateEffectiveAgainst(String input) { //todo: magic and dragon foes
+    private HeroClass generateEffectiveAgainst(String input) { //todo: magic and dragon foes
         if (input==null) return null;
         switch (input) {
             case "infantry":
@@ -266,12 +270,16 @@ public class SkillAnalysis {
                 return FLYING;
             case "cavalry":
                 return CAVALRY;
+            case "dragon":
+                return BREATH;
+            case "magic":
+                //todo: separate tome color from weapon type and just make it a conditional in skill inherit later jesus
             default:
                 return null;
         }
     }
-    private MovementClass generateNeutralizesEffectivity() { //todo: magic and dragon foes
-        MovementClass effectivity = null;
+    private HeroClass generateNeutralizesEffectivity() { //todo: magic and dragon foes
+        HeroClass effectivity = null;
         for (int i = 0; i< sentences.size(); i++) {
             String raw = sentences.get(i);
             if (raw.matches("Neutralizes \"effective against (infantry)|(flying)|(armored)|(cavalry)\" " +
@@ -341,8 +349,8 @@ public class SkillAnalysis {
 
     public int[] getStatModifiers() { return statModifiers; }
     public int getCdModifier() { return cdModifier; }
-    public ArrayList<MovementClass> getEffective() { return effectiveAgainst; }
-    public MovementClass getNeutralizesEffectivity() { return neutralizes; }
+    public ArrayList<HeroClass> getEffective() { return effectiveAgainst; }
+    public HeroClass getNeutralizesEffectivity() { return neutralizes; }
     public boolean getTriangleAdept() { return triangleAdept; }
     //int getTANeutralizingLevel
     public ArrayList<String> getStartOfTurn() { return startOfTurn; }

@@ -24,6 +24,7 @@ public class FieldedUnit {
 
 
     //effects (processed at turn starts, exiting combat, etc.) (future vision is exiting combat btw)
+    // i wrote this but now i feel like i have to validate it again
     private ArrayList<String> effects = new ArrayList<>();
     //examples: "Gravity" "Gjallarbrú" "Armor March"
 

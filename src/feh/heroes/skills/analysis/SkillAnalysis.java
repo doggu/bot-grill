@@ -15,8 +15,8 @@ import static feh.heroes.character.MovementClass.*;
 
 public class SkillAnalysis {
     private final Skill skill;
-    private final ArrayList<String> rawSentences;
-    private final ArrayList<ArrayList<String>> sentences;
+    private final ArrayList<String> sentences;
+    private final ArrayList<ArrayList<String>> clauses;
     private final int[] statModifiers;
     private final int cdModifier;
     private final ArrayList<MovementClass> effectiveAgainst;
@@ -45,8 +45,8 @@ public class SkillAnalysis {
         this.skill = skill;
 
         if (skill.getDescription().equals("")) {
-            this.rawSentences = null;
             this.sentences = null;
+            this.clauses = null;
             this.statModifiers = null;
             this.cdModifier = 0;
             this.effectiveAgainst = null;
@@ -69,8 +69,8 @@ public class SkillAnalysis {
             return;
         }
 
-        this.rawSentences = getRawSentences();
-        this.sentences = getSentences();
+        this.sentences = generateSentences();
+        this.clauses = generateClauses();
 
         this.statModifiers = generateStatModifiers();
         this.cdModifier = generateCdModifier();
@@ -92,7 +92,7 @@ public class SkillAnalysis {
         this.afterMovementAssist = generateAfterMovementAssist();
         this.whileUnitLives = generateWhileUnitLives();
     }
-    private ArrayList<String> getRawSentences() {
+    private ArrayList<String> generateSentences() {
         String desc = skill.getDescription().replaceAll("\\. \\(", " (");
         for (int i=0; i<desc.length(); i++) {
             if (desc.charAt(i)=='(') {
@@ -122,9 +122,10 @@ public class SkillAnalysis {
 
         return rawSentences;
     }
-    private ArrayList<ArrayList<String>> getSentences() {
+    private ArrayList<ArrayList<String>> generateClauses() {
         ArrayList<ArrayList<String>> sentences = new ArrayList<>();
-        for (String rawSentence:rawSentences) {
+        //todo: keep track of this when those madlads add more than one parenthetical to a clause
+        for (String rawSentence: this.sentences) {
             int p = rawSentence.indexOf('(');
             if (p>=0) {
                 for (p++; p<rawSentence.length(); p++) {
@@ -154,8 +155,8 @@ public class SkillAnalysis {
         try {
             int[] statModifiers = new int[5];
 
-            for (int i=0; i<sentences.size(); i++) {
-                ArrayList<String> sentence = sentences.get(i);
+            for (int i = 0; i< clauses.size(); i++) {
+                ArrayList<String> sentence = clauses.get(i);
                 String[] args = sentence.get(0).split(" ");
                 if (args[0].matches("(Grants)|(Inflicts)")) {
                     ArrayList<String> modifiers = new ArrayList<>(sentence);
@@ -193,8 +194,8 @@ public class SkillAnalysis {
                     }
 
                     if (isModifier) {
+                        clauses.remove(i);
                         sentences.remove(i);
-                        rawSentences.remove(i);
                         i--;
                     }
                 }
@@ -209,9 +210,9 @@ public class SkillAnalysis {
         return null;
     }
     private Integer generateCdModifier() {
-        Integer cdModifier = 0;
-        for (int i=0; i<rawSentences.size(); i++) {
-            String rawSentence = rawSentences.get(i);
+        int cdModifier = 0;
+        for (int i=0; i<sentences.size(); i++) {
+            String rawSentence = sentences.get(i);
             switch (rawSentence) {
                 case "Accelerates Special trigger (cooldown count-1)":
                     cdModifier = 1;
@@ -223,8 +224,8 @@ public class SkillAnalysis {
 
             //only checks for one cdModifier, but i think that's good enough
             if (cdModifier!=0) {
-                rawSentences.remove(i);
                 sentences.remove(i);
+                clauses.remove(i);
                 break;
             }
         }
@@ -234,20 +235,20 @@ public class SkillAnalysis {
     }
     private ArrayList<MovementClass> generateEffective() {
         ArrayList<MovementClass> effectivity = new ArrayList<>();
-        for (int i=0; i<rawSentences.size(); i++) {
-            String raw = rawSentences.get(i);
+        for (int i=0; i<sentences.size(); i++) {
+            String raw = sentences.get(i);
             if (raw.matches("Effective against (infantry)|(flying)|(armored)|(cavalry) " +
                     "(and (infantry)|(flying)|(armored)|(cavalry))?foes")) {
                 MovementClass eff1, eff2;
-                effectivity.add(generateEffectiveAgainst(sentences.get(i).get(2)));
+                effectivity.add(generateEffectiveAgainst(clauses.get(i).get(2)));
                 try {
-                    effectivity.add(generateEffectiveAgainst(sentences.get(i).get(4)));
+                    effectivity.add(generateEffectiveAgainst(clauses.get(i).get(4)));
                 } catch (IndexOutOfBoundsException ioobe) {
                     continue;
                 }
 
-                rawSentences.remove(i);
                 sentences.remove(i);
+                clauses.remove(i);
                 i--;
             }
         }
@@ -271,14 +272,14 @@ public class SkillAnalysis {
     }
     private MovementClass generateNeutralizesEffectivity() { //todo: magic and dragon foes
         MovementClass effectivity = null;
-        for (int i=0; i<rawSentences.size(); i++) {
-            String raw = rawSentences.get(i);
+        for (int i = 0; i< sentences.size(); i++) {
+            String raw = sentences.get(i);
             if (raw.matches("Neutralizes \"effective against (infantry)|(flying)|(armored)|(cavalry)\" " +
                     "bonuses")) {
-                effectivity = generateEffectiveAgainst(sentences.get(i).get(3));
+                effectivity = generateEffectiveAgainst(clauses.get(i).get(3));
 
-                rawSentences.remove(i);
                 sentences.remove(i);
+                clauses.remove(i);
                 break;
             }
         }
@@ -286,12 +287,12 @@ public class SkillAnalysis {
         return effectivity;
     }
     private boolean generateTriangleAdept() {
-        for (int i=0; i<rawSentences.size(); i++) {
-            if (rawSentences.get(i).equals("If unit has weapon-triangle advantage, boosts Atk by 20%"))
+        for (int i = 0; i< sentences.size(); i++) {
+            if (sentences.get(i).equals("If unit has weapon-triangle advantage, boosts Atk by 20%"))
                 try {
-                    if (rawSentences.get(i+1).equals("If unit has weapon-triangle disadvantage, reduces Atk by 20%")) {
-                        rawSentences.remove(i);
-                        rawSentences.remove(i+1);
+                    if (sentences.get(i+1).equals("If unit has weapon-triangle disadvantage, reduces Atk by 20%")) {
+                        sentences.remove(i);
+                        sentences.remove(i+1);
                         return true;
                     }
                 } catch (IndexOutOfBoundsException ioobe) {
@@ -303,12 +304,12 @@ public class SkillAnalysis {
     }
     private ArrayList<String> findWith(String input) {
         ArrayList<String> incl = new ArrayList<>();
-        for (int i=0; i<sentences.size(); i++) {
-            for (int j=0; j<sentences.get(i).size(); j++) {
-                if (sentences.get(i).get(j).toLowerCase().contains(input.toLowerCase())) {
-                    incl.add(rawSentences.get(i));
-                    rawSentences.remove(i);
+        for (int i = 0; i< clauses.size(); i++) {
+            for (int j = 0; j< clauses.get(i).size(); j++) {
+                if (clauses.get(i).get(j).toLowerCase().contains(input.toLowerCase())) {
+                    incl.add(sentences.get(i));
                     sentences.remove(i);
+                    clauses.remove(i);
                     i--;
                     break;
                 }
@@ -407,8 +408,8 @@ public class SkillAnalysis {
             HashMap<SkillAnalysis, String> descPortion = new HashMap<>();
 
             for (SkillAnalysis x:analyses) {
-                if (x.rawSentences==null) continue;
-                for (String b:x.rawSentences) {
+                if (x.sentences ==null) continue;
+                for (String b:x.sentences) {
                     if (b.contains(chunk)) {
                         descPortion.put(x, b);
                     }
@@ -417,8 +418,8 @@ public class SkillAnalysis {
 
             for (SkillAnalysis x:descPortion.keySet()) {
                 System.out.println(x.skill.getName());
-                if (x.rawSentences.size()>0) {
-                    for (ArrayList<String> strArr:x.sentences) {
+                if (x.sentences.size()>0) {
+                    for (ArrayList<String> strArr:x.clauses) {
                         for (String str:strArr) {
                             System.out.println("\t"+str);
                         }

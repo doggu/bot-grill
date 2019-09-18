@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Unit extends Hero {
     private final int rarity, boon, bane; //I refuse to call it asset/flaw
     private int supportLevels;
-    private final int merges, dragonflowers;
+    private int merges, dragonflowers;
 
     //skills in superclass becomes repository for all skills
     private final ArrayList<Skill> allSkills;
@@ -20,7 +20,7 @@ public class Unit extends Hero {
     // as an ArrayList of Units or Pairs for past summoner supports and
     // current ally supports
 
-
+    private String nickname = null;
 
     private Blessing blessing;
 
@@ -139,9 +139,16 @@ public class Unit extends Hero {
 
 
     //todo: set up unit manager for security?
-    
+
+    public void addMerge(Unit u) {
+        if ((Hero) u == this) {
+            merges++;
+        }
+    }
+    public void addDF(int dragonflowers) { this.dragonflowers+= dragonflowers; }
     public void giveSkill(Skill skill) { allSkills.add(skill); }
     public void setBlessing(Blessing blessing) { this.blessing = blessing; }
+    public void setNickname(String nickname) { this.nickname = nickname; }
 
 
 
@@ -157,6 +164,9 @@ public class Unit extends Hero {
 
     public int getHM() { return hm; }
     public int getSP() { return sp; }
+
+    public boolean hasNickname() { return nickname!=null; }
+    public String getNickname() { return nickname; }
 
     //todo: should a dedicated support refresh button be added?
     // it would be less intuitive but also remind me to regrab supports for each map

@@ -8,14 +8,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Barracks extends ArrayList<Unit> {
-    public static final int
-            NAME = 0,
-            HP = 1,
-            ATK = 2,
-            SPD = 3,
-            DEF = 4,
-            RES = 5;
-
     public static final Unit
             ALFONSE = new Unit(new Hero("Alfonse: Prince of Askr"),4,-1,-1),
             SHARENA = new Unit(new Hero("Sharena: Princess of Askr"),4,-1,-1),
@@ -32,12 +24,12 @@ public class Barracks extends ArrayList<Unit> {
 
     public Barracks() {
         super();
-        super.add(ALFONSE);
-        super.add(SHARENA);
-        super.add(ANNA);
-        super.add(TAKUMI);
-        super.add(VIRION);
-        super.add(RAIGH);
+        add(ALFONSE);
+        add(SHARENA);
+        add(ANNA);
+        add(TAKUMI);
+        add(VIRION);
+        add(RAIGH);
     }
 
 

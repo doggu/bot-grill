@@ -88,7 +88,7 @@ public class SummonSimulator extends FEHCommand {
             else
                 featuredUnitsSB.append(x.getFullName().getName());
             featuredUnitsSB.append(", ");
-            if (i%2==1&&i+1!=banner.getRarityFPool().size()) featuredUnitsSB.append("\n\t\t\t\t\t");
+            if (i%2==1&&i+1!=banner.getRarityFPool().size()) featuredUnitsSB.append("\n\t\t\t\t\t\t");
         }
         String featuredUnits = featuredUnitsSB.substring(0, featuredUnitsSB.length()-2);
         report+= featuredUnits + "\n\t\t\t\t\t";

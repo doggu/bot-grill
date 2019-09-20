@@ -2,7 +2,7 @@ package discordUI.feh;
 
 import feh.heroes.character.Hero;
 import feh.heroes.character.HeroClass;
-import feh.heroes.skills.analysis.ActionSkill;
+import feh.heroes.skills.skillTypes.ActionSkill;
 import feh.heroes.skills.analysis.SkillAnalysis;
 import feh.heroes.skills.analysis.StatModifier;
 import feh.heroes.skills.skillTypes.*;

@@ -7,7 +7,18 @@ import feh.players.relationships.Relationship;
 import feh.players.relationships.Relationships;
 import net.dv8tion.jda.core.entities.User;
 
+import java.util.ArrayList;
+
 public class Summoner {
+    public static final ArrayList<Summoner> SUMMONERS;
+
+    static {
+        SUMMONERS = new ArrayList<>();
+        //todo: turn this into the source of persistence
+    }
+
+
+
     private final User summoner;
     private final Barracks barracks;
 

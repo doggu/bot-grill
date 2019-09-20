@@ -3,7 +3,6 @@ package events.fehGame;
 import discordUI.feh.FEHPrinter;
 import discordUI.menu.Menu;
 import discordUI.menu.MenuEntry;
-import events.fehGame.summoning.SummonSimulator;
 import feh.heroes.unit.Unit;
 import feh.players.Barracks;
 import feh.players.Summoner;
@@ -18,7 +17,7 @@ public class Allies extends FEHCommand {
     }
 
     public void onCommand() {
-        for (Summoner x: SummonSimulator.summoners) {
+        for (Summoner x: Summoner.SUMMONERS) {
             if (x.getUser().getId().equals(e.getAuthor().getId())) {
                 Barracks barracks = x.getBarracks();
                 if (args.length>1) {

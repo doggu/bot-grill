@@ -6,26 +6,11 @@ import feh.players.Summoner;
 import feh.summoning.Banner;
 import feh.summoning.BannerDatabase;
 
-import java.util.ArrayList;
 import java.util.GregorianCalendar;
-import java.util.List;
 
 public class SummonSimulator extends FEHCommand {
-    public static List<Summoner> summoners = new ArrayList<>();
-
-
-
-    private static String printDate(GregorianCalendar date) {
-        return "" +
-                date.get(GregorianCalendar.MONTH) +
-                "/" + date.get(GregorianCalendar.DAY_OF_MONTH) +
-                "/" + date.get(GregorianCalendar.YEAR);
-    }
-
-
-
     public void onCommand() {
-        for (Summoner x:summoners) {
+        for (Summoner x:Summoner.SUMMONERS) {
             if (x.getUser().getId().equals(e.getAuthor().getId())) {
                 System.out.println("found a registered summoner");
                 if (x.isSummoning()) {
@@ -50,7 +35,7 @@ public class SummonSimulator extends FEHCommand {
         //find summoner corresponding to user
         Summoner summoner = null;
         String authorID = e.getAuthor().getId();
-        for (Summoner x:summoners) {
+        for (Summoner x:Summoner.SUMMONERS) {
             if (x.getUser().getId().equals(authorID)) {
                 summoner = x;
             }
@@ -59,7 +44,7 @@ public class SummonSimulator extends FEHCommand {
         //register new summoner if user has not summoned before
         if (summoner==null) {
             summoner = new Summoner(e.getAuthor());
-            summoners.add(summoner);
+            Summoner.SUMMONERS.add(summoner);
         }
 
 
@@ -113,6 +98,13 @@ public class SummonSimulator extends FEHCommand {
         //        "4* pool size: " + banner.getRarity4Pool().size();
 
         log(report);
+    }
+
+    private static String printDate(GregorianCalendar date) {
+        return "" +
+                date.get(GregorianCalendar.MONTH) +
+                "/" + date.get(GregorianCalendar.DAY_OF_MONTH) +
+                "/" + date.get(GregorianCalendar.YEAR);
     }
 
     public boolean isCommand() {

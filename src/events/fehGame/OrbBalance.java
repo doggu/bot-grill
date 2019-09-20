@@ -1,12 +1,11 @@
 package events.fehGame;
 
-import events.fehGame.summoning.SummonSimulator;
 import feh.players.Summoner;
 
 public class OrbBalance extends FEHCommand {
     public void onCommand() {
         Summoner match = null;
-        for (Summoner x: SummonSimulator.summoners) {
+        for (Summoner x : Summoner.SUMMONERS) {
             if (x.getUser().getId().equals(e.getAuthor().getId())) {  //technically unnecessary code
                 match = x;
                 break;

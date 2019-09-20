@@ -239,8 +239,10 @@ public class SkillAnalysis {
         for (int i=0; i<sentences.size(); i++) {
             String raw = sentences.get(i);
             if (raw.matches("Effective against " +
-                    "((infantry)|(flying)|(armored)|(cavalry)|(dragon)|(beast)|(magic))" +
-                    "( and ((infantry)|(flying)|(armored)|(cavalry)|(dragon)|(beast)|(magic)))? foes")) {
+                    "(infantry|flying|armored|cavalry|dragon|beast|magic)" +
+                    "( and (infantry|flying|armored|cavala?ry|dragon|beast|magic))? foes") ||
+                                                        //todo: remove when Rapier typo gets fixed
+                    raw.equals("Effective against dragons")) {
                 //System.out.println("oh yeah it's some movement");
 
                 String[] effs = raw.split(" ");
@@ -248,7 +250,7 @@ public class SkillAnalysis {
                 try {
                     effectivity.add(generateEffectiveAgainst(effs[4]));
                 } catch (IndexOutOfBoundsException ioobe) {
-                    continue;
+                    //continue;
                 }
 
                 sentences.remove(i);
@@ -259,7 +261,7 @@ public class SkillAnalysis {
 
         return effectivity;
     }
-    private HeroClass generateEffectiveAgainst(String input) { //todo: magic and dragon foes
+    private HeroClass generateEffectiveAgainst(String input) {
         if (input==null) return null;
         switch (input) {
             case "infantry":
@@ -282,9 +284,11 @@ public class SkillAnalysis {
         HeroClass effectivity = null;
         for (int i = 0; i< sentences.size(); i++) {
             String raw = sentences.get(i);
-            if (raw.matches("Neutralizes \"effective against (infantry)|(flying)|(armored)|(cavalry)\" " +
+            if (raw.matches("Neutralizes \"effective against " +
+                    "(infantry|flying|armored|cavalry|dragons)\" " +
                     "bonuses")) {
-                effectivity = generateEffectiveAgainst(clauses.get(i).get(3));
+                String[] words = sentences.get(i).split(" ");
+                effectivity = generateEffectiveAgainst(words[3].substring(0, words[3].length()-1));
 
                 sentences.remove(i);
                 clauses.remove(i);

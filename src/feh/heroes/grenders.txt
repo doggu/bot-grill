@@ -10,6 +10,7 @@ Arden: Strong and Tough	m
 Ares: Black Knight	m
 Arthur: Hapless Hero	m
 Arvis: Emperor of Flame	m
+Astram: Midia's Hero	m
 Athena: Borderland Sword	f
 Aversa: Dark One	f
 Ayra: Astra's Wielder	f
@@ -19,6 +20,7 @@ Azura: Lady of Ballads	f
 Azura: Lady of the Lake	f
 Azura: Vallite Songstress	f
 Azura: Young Songstress	f
+Bantu: Tiki's Guardian	m
 Barst: The Hatchet	m
 Bartre: Fearless Warrior	m
 Berkut: Debonair Noble	m
@@ -274,6 +276,7 @@ Myrrh: Great Dragon	f
 Myrrh: Spooky Monster	f
 Naesala: Sky's Shadow	m
 Naga: Dragon Divinity	f
+Nagi: Dragon Avatar	f
 Nah: Little Miss	f
 Nailah: Unflinching Eye	f
 Nanna: Nordion Princess	f
@@ -289,6 +292,7 @@ Ninian: Oracle of Destiny	f
 Nino: Pale Flower	f
 Nino: Pious Mage	f
 Noire: Shade Seeker	f
+Norne: The Volunteer	f
 Nowi: Eternal Witch	f
 Nowi: Eternal Youth	f
 Oboro: Fierce Fighter	f
@@ -309,6 +313,7 @@ Panne: Proud Taguel	f
 Pent: Fancy Fiancé	m
 Peri: Playful Slayer	f
 Petra: Princess of Brigid	f
+Phina: Roving Dancer	f
 Priscilla: Delicate Princess	f
 Quan: Luminous Lancer	m
 Raigh: Dark Child	m
@@ -364,6 +369,7 @@ Sigrun: Steadfast Bride	f
 Sigurd: Holy Knight	m
 Silas: Loyal Knight	m
 Silvia: Traveling Dancer	f
+Sirius: Mysterious Knight	m
 Soleil: Adorable Adorer	f
 Sonya: Vengeful Mage	f
 Sophia: Nabata Prophet	f

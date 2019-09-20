@@ -589,6 +589,7 @@ public class SkillDatabase extends Database<Skill> {
         for (WeaponRefine x:REFINES) if (name.equals(x.getName())) return x;
         return null;
     }
+    //todo: evolutions
 
     private HashMap<String, ArrayList<Skill>> getHeroSkills() {
         HashMap<String, ArrayList<Skill>> heroSkills = new HashMap<>();

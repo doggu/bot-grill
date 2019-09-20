@@ -1,4 +1,4 @@
-package stem.science.chem;
+package stem.science.chem.particles;
 
 import java.util.ArrayList;
 

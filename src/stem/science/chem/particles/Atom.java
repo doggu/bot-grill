@@ -1,4 +1,7 @@
-package stem.science.chem;
+package stem.science.chem.particles;
+
+import stem.science.chem.ChemicalElement;
+import stem.science.chem.ElementDatabase;
 
 public class Atom extends MolecularIdentity {
     private ChemicalElement me;

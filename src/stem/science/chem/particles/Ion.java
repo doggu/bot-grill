@@ -1,4 +1,6 @@
-package stem.science.chem;
+package stem.science.chem.particles;
+
+import stem.science.chem.ElementDatabase;
 
 public class Ion extends MolecularIdentity {
     protected Ion(Atom... a) {

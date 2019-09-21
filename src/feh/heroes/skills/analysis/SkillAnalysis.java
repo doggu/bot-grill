@@ -23,6 +23,7 @@ public class SkillAnalysis {
     private final ArrayList<HeroClass> effectiveAgainst;
     private final HeroClass neutralizes;
     private final boolean triangleAdept;
+    //private final int triangleAdeptCounterractLevel;
 
 
     private final ArrayList<String>
@@ -94,7 +95,11 @@ public class SkillAnalysis {
         this.whileUnitLives = generateWhileUnitLives();
     }
     private ArrayList<String> generateSentences() {
-        String desc = skill.getDescription().replaceAll("\\. \\(", " (");
+        String desc = skill.getDescription()
+                .replaceAll("\\. \\(", " (")
+                //i think this is only for divine breath
+                .replaceAll("\\.\\)", ").");
+
         for (int i=0; i<desc.length(); i++) {
             if (desc.charAt(i)=='(') {
                 for (i++; i < desc.length(); i++) {
@@ -106,6 +111,7 @@ public class SkillAnalysis {
                 }
             }
         }
+
 
         ArrayList<String> sentences = new ArrayList<>(Arrays.asList(desc.split("\\. ")));
 

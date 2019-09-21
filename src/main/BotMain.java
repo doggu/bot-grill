@@ -1,11 +1,8 @@
 package main;
 
-import events.reactionary.Quips;
-import events.reactionary.Reactions;
-import events.reactionary.Vote;
-import events.commands.campus.CanIEatRightNow;
 import events.commands.Emotes;
 import events.commands.Girl;
+import events.commands.campus.CanIEatRightNow;
 import events.commands.chem.ElementRetriever;
 import events.commands.chem.MolarMass;
 import events.commands.gamble.Chances;
@@ -26,16 +23,18 @@ import events.fehGame.retriever.SkillRetriever;
 import events.fehGame.summoning.SimulateDay;
 import events.fehGame.summoning.SummonSimulator;
 import events.gameroom.CreateLobby;
+import events.reactionary.Quips;
+import events.reactionary.Reactions;
+import events.reactionary.Vote;
 import feh.heroes.UnitDatabase;
 import feh.heroes.skills.SkillDatabase;
 import feh.summoning.BannerDatabase;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.entities.Emote;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import utilities.Stopwatch;
 import stem.science.chem.ElementDatabase;
+import utilities.Stopwatch;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -46,14 +45,12 @@ public class BotMain {
     private static final boolean FEHEROES_UTILS = true;
     public static final boolean MCSERVER = false;
 
-    public static final boolean DEBUG = true; //it's always debug time
+    public static final boolean DEBUG = false; //it's always debug time
 
 
 
     public static JDA bot_grill;
     private static List<ListenerAdapter> listeners = new ArrayList<>();
-
-    public static List<Emote> stones;
 
 
 
@@ -147,8 +144,6 @@ public class BotMain {
 
         //FEH
         if (FEHEROES_UTILS) {
-            stones = bot_grill.getGuildsByName("summonicons", true).get(0).getEmotes();
-
             addListener(new SkillRetriever());
             addListener(new HeroRetriever());
             addListener(new SummonSimulator());
@@ -168,7 +163,7 @@ public class BotMain {
 
         addShutdownThreads();
         
-        new Thread(() -> {
+        //new Thread(() -> {
             Scanner console = new Scanner(System.in);
             String command;
             while (!(command = console.nextLine()).equals("kill")) {
@@ -218,7 +213,7 @@ public class BotMain {
             }
 
             console.close();
-        }).run();
+        //}).start();
 
 
 

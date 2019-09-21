@@ -1,15 +1,11 @@
 package events.fehGame;
 
+import discordUI.feh.BarracksWindow;
 import discordUI.feh.FEHPrinter;
-import discordUI.menu.Menu;
-import discordUI.menu.MenuEntry;
-import feh.heroes.unit.Unit;
 import feh.players.Barracks;
 import feh.players.Summoner;
 import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
-
-import java.util.ArrayList;
 
 public class Allies extends FEHCommand {
     public boolean isCommand() {
@@ -53,13 +49,7 @@ public class Allies extends FEHCommand {
                         .append(" unit").append(barracks.size()==1?"":"s").append(".")
                         .build();
 
-                ArrayList<MenuEntry> entries = new ArrayList<>();
-
-                for (Unit unit:barracks)
-                    entries.add(new MenuEntry(unit.toString(),
-                            FEHPrinter.printUnit(unit, false)));
-
-                new Menu(e.getAuthor(), e.getChannel(), header, entries);
+                new BarracksWindow(x, e.getChannel(), header);
                 return;
             }
         }

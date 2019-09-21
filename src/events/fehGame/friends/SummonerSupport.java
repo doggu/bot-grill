@@ -20,11 +20,14 @@ public class SummonerSupport extends FEHCommand {
 
     @Override
     public boolean isCommand() {
-        return false;
+        return args[0].toLowerCase().matches("s(ummoner)?s(upport)?");
     }
 
     @Override
     public void onCommand() {
-
+        if (args.length<2) {
+            sendMessage("please specify who you would like to support:");
+            //barracks window here with selection event listener
+        }
     }
 }

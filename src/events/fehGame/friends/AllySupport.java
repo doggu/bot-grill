@@ -5,7 +5,7 @@ import events.fehGame.FEHCommand;
 public class AllySupport extends FEHCommand {
     @Override
     public boolean isCommand() {
-        return args[0].toLowerCase().matches("allysupport");
+        return args[0].toLowerCase().matches("a(lly)?support");
     }
 
     @Override

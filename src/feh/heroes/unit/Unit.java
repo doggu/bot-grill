@@ -62,7 +62,7 @@ public class Unit extends Hero {
         this.hm = hm;
     }
     public Unit(Hero hero, int rarity, int boon, int bane, int supportLevels, int merges, int dragonflowers) {
-        this(hero, rarity, boon, bane, supportLevels, 0, 0, null, 0, 0);
+        this(hero, rarity, boon, bane, supportLevels, merges, dragonflowers, null, 0, 0);
     }
     public Unit(Hero hero, int rarity, int boon, int bane, int supportLevels) {
         this(hero, rarity, boon, bane, supportLevels, 0, 0);
@@ -76,7 +76,7 @@ public class Unit extends Hero {
 
     //todo: where the fuck do i put this
     private static final int
-            NEUTRAL = -1,
+            N = -1,
             HP = 0,
             ATK = 1,
             SPD = 2,
@@ -100,24 +100,24 @@ public class Unit extends Hero {
         int individuality = (int)(Math.random()*21);
         //damn this is fuckin retarded
         switch (individuality) {
-            case 0: boon = NEUTRAL; bane = NEUTRAL; break;
-            case 1: boon = HP; bane = ATK; break;
-            case 2: boon = HP; bane = SPD; break;
-            case 3: boon = HP; bane = DEF; break;
-            case 4: boon = HP; bane = RES; break;
-            case 5: boon = ATK; bane = HP; break;
-            case 6: boon = ATK; bane = SPD; break;
-            case 7: boon = ATK; bane = DEF; break;
-            case 8: boon = ATK; bane = RES; break;
-            case 9: boon = SPD; bane = HP; break;
+            case 0:  boon = N;   bane = N;   break;
+            case 1:  boon = HP;  bane = ATK; break;
+            case 2:  boon = HP;  bane = SPD; break;
+            case 3:  boon = HP;  bane = DEF; break;
+            case 4:  boon = HP;  bane = RES; break;
+            case 5:  boon = ATK; bane = HP;  break;
+            case 6:  boon = ATK; bane = SPD; break;
+            case 7:  boon = ATK; bane = DEF; break;
+            case 8:  boon = ATK; bane = RES; break;
+            case 9:  boon = SPD; bane = HP;  break;
             case 10: boon = SPD; bane = ATK; break;
             case 11: boon = SPD; bane = DEF; break;
             case 12: boon = SPD; bane = RES; break;
-            case 13: boon = DEF; bane = HP; break;
+            case 13: boon = DEF; bane = HP;  break;
             case 14: boon = DEF; bane = ATK; break;
             case 15: boon = DEF; bane = SPD; break;
             case 16: boon = DEF; bane = RES; break;
-            case 17: boon = RES; bane = HP; break;
+            case 17: boon = RES; bane = HP;  break;
             case 18: boon = RES; bane = ATK; break;
             case 19: boon = RES; bane = SPD; break;
             case 20: boon = RES; bane = DEF; break;
@@ -142,7 +142,12 @@ public class Unit extends Hero {
 
     public void addMerge(Unit u) {
         if ((Hero) u == this) {
-            merges++;
+            switch (Integer.compare(rarity, u.rarity)) {
+                case -1:
+                case 0:
+                case 1:
+            }
+            merges+= 1+u.merges;
         }
     }
     public void addDF(int dragonflowers) { this.dragonflowers+= dragonflowers; }
@@ -165,8 +170,8 @@ public class Unit extends Hero {
     public int getHM() { return hm; }
     public int getSP() { return sp; }
 
-    public boolean hasNickname() { return nickname!=null; }
-    public String getNickname() { return nickname; }
+    private boolean hasNickname() { return nickname!=null; }
+    public String getNickname() { return hasNickname()?nickname:getFullName().toString(); }
 
     //todo: should a dedicated support refresh button be added?
     // it would be less intuitive but also remind me to regrab supports for each map

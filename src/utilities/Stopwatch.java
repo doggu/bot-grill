@@ -10,19 +10,19 @@ public class Stopwatch {
 
     public void start() { start = System.nanoTime(); }
     public void stop() { stop = System.nanoTime(); }
-    private long nanosecondsElapsed() { return stop -start; }
-    public String timeInMilliseconds() {
-        if (start==0) return "0 s";
+    private long nanosecondsElapsed() { return stop-start; }
+    public long timeInMilliseconds() {
+        if (start==0) return 0L;
         if (stop ==0) stop();
 
-        return nanosecondsElapsed()/1000000+" ms";
+        return nanosecondsElapsed()/1000000;
     }
 
-    public String timeInSeconds() {
-        if (start==0) return "0 s";
+    public double timeInSeconds() {
+        if (start==0) return 0L;
         if (stop ==0) stop();
 
         return new BigDecimal(nanosecondsElapsed()/1000000000.0)
-                .round(new MathContext(3)).doubleValue()+" s";
+                .round(new MathContext(3)).doubleValue();
     }
 }

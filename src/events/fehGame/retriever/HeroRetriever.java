@@ -11,6 +11,7 @@ import feh.heroes.skills.skillTypes.PassiveS;
 import feh.heroes.skills.skillTypes.Skill;
 import feh.heroes.skills.skillTypes.Weapon;
 import net.dv8tion.jda.core.MessageBuilder;
+import utilities.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,7 +19,6 @@ import java.util.Arrays;
 public class HeroRetriever extends Command {
     private ArrayList<String> args;
     private int i=1;
-    private boolean newestOnly, oldestOnly;
     private boolean lv1 = false;
     private int rarity = 5;
     private boolean getAll = true;
@@ -37,10 +37,11 @@ public class HeroRetriever extends Command {
 
 
     private void getUnits() {
-        if (super.args[0].matches("g(et)?[Ii][Vv]s?"))
+        if (super.args[0].toLowerCase().matches("g(et)?ivs?"))
             lv1 = true;
 
-        ArrayList<Hero> candidates = new ArrayList<>();
+        ArrayList<Hero> candidates = UnitDatabase.DATABASE.findAll(
+                StringUtil.join(args.subList(0, args.size())));
 
         //scalper finding parameter data
         //TODO: convert these to individual methods
@@ -183,72 +184,9 @@ public class HeroRetriever extends Command {
                         }
                 }
             }
-
-            //test for "new" keyword
-            if (x.equalsIgnoreCase("new")) {
-                newestOnly = true;
-                args.remove(i);
-                i--;
-            } else if (x.equalsIgnoreCase("old")) {
-                oldestOnly = true;
-                args.remove(i);
-                i--;
-            }
         }
 
-        //finding units with the correct name
-        for (int i=1; i<args.size(); i++) {
-            String x = args.get(i);
-            //test for name/epithet arguments
-            boolean epithetIncluded = false;
 
-            if (x.contains(":")) {
-                x = x.substring(0, x.indexOf(":"));
-                //System.out.println(x);
-                epithetIncluded = true;
-            }
-            //find HEROES of the correct name
-            for (Hero c: UnitDatabase.HEROES) {
-                if (c.getFullName().getName().equalsIgnoreCase(x))
-                    candidates.add(c);
-                if (c.getFullName().getName().toLowerCase().indexOf(x.toLowerCase())==0) {
-                    try {
-                        if (c.getFullName().getName()
-                                .equalsIgnoreCase(x+" "+args.get(i+1))) {
-                            candidates.add(c);
-                        }
-                    } catch (IndexOutOfBoundsException ioobe) {
-                        //break;
-                    }
-                }
-            }
-
-            if (epithetIncluded) {
-                boolean foundMatch = UnitDatabase.HEROES.size()==1;
-                //find HEROES (from list of valid names) of the correct epithet
-
-                i++;
-                while (!foundMatch&&i<args.size()) {
-                    for (int j = 0; j < candidates.size(); j++) {
-                        Hero c = candidates.get(j);
-                        if (!c.getFullName().getEpithet().toLowerCase().contains(args.get(i).toLowerCase())) {
-                            candidates.remove(j);
-                            j--;
-                        }
-
-                        if (candidates.size() == 0) {
-                            sendMessage("invalid character! please try again.");
-                            log("their epithet was prolly wrong");
-                            return;
-                        }
-
-                    }
-
-                    i++;
-                    foundMatch = UnitDatabase.HEROES.size()==1;
-                }
-            }
-        }
 
         //remove units based on valid rarity/IV data
         for (int i=0; i<candidates.size(); i++) {
@@ -258,176 +196,7 @@ public class HeroRetriever extends Command {
             }
         }
 
-        //whittle down candidates list based on character properties
-        if (candidates.size()>1) {
-            if (newestOnly) {
-                Hero newestHero = candidates.get(0);
-                for (Hero x:candidates) {
-                    if (x.getReleaseDate().getTimeInMillis()>newestHero.getReleaseDate().getTimeInMillis()) {
-                        newestHero = x;
-                    }
-                }
-                candidates.clear();
-                candidates.add(newestHero);
-            } else if (oldestOnly) {
-                Hero oldestHero = candidates.get(0);
-                for (Hero x:candidates) {
-                    if (x.getReleaseDate().getTimeInMillis()<oldestHero.getReleaseDate().getTimeInMillis()) {
-                        oldestHero = x;
-                    }
-                }
-                candidates.clear();
-                candidates.add(oldestHero);
-            } else {
-                for (String x : args) {
-                    x = x.toLowerCase();
 
-                    //find movement type hints
-                    //TODO: use big brein to make this less "coincidental"
-                    //these heroes have some of these keywords in their names:
-                    //Clair: Highborn Flier, Florina: Lovely Flier, Shanna: Sprightly Flier
-                    String move;
-                    switch (x) {
-                        case "infantry":
-                        case "inf":
-                            move = "Infantry";
-                            break;
-                        case "armor":
-                        case "armored":
-                            move = "Armor";
-                            break;
-                        case "horse":
-                        case "cavalry":
-                        case "cav":
-                            move = "Cavalry";
-                            break;
-                        case "flying":
-                        case "flier":
-                        case "flyer": //debatable
-                            move = "Flier";
-                            break;
-                        default:
-                            move = "na";
-                            break;
-                    }
-
-                    char gender;
-                    switch (x) {
-                        case "m":
-                        case "man":
-                        case "male":
-                        case "boy":
-                        case "boi":
-                        case "gentleman":
-                        case "dude":
-                            gender = 'm';
-                            break;
-                        case "f":
-                        case "female":
-                        case "feman":
-                        case "woman":
-                        case "wamen":
-                        case "lady":
-                        case "girl":
-                        case "dudette":
-                            gender = 'f';
-                            break;
-                        default:
-                            gender = 'n';
-                    }
-
-                    char color;
-                    //find color hints
-                    switch (x) {
-                        case "r":
-                        case "red":
-                            color = 'r';
-                            break;
-                        case "b":
-                        case "blue":
-                            color = 'b';
-                            break;
-                        case "g":
-                        case "green":
-                            color = 'g';
-                            break;
-                        case "c":
-                        case "gray":
-                        case "grey":
-                        case "colorless":
-                            color = 'c';
-                            break;
-                        default:
-                            color = 'n';
-                            break;
-                    }
-
-                    //find weapon type hints
-                    String weapon;
-                    switch (x) {
-                        case "sword":
-                            weapon = "Sword";
-                            break;
-                        case "lance":
-                            weapon = "Lance";
-                            break;
-                        case "axe":
-                            weapon = "Axe";
-                            break;
-                        case "tome":
-                        case "magic":
-                            weapon = "Tome";
-                            break;
-                        case "staff":
-                        case "stave":
-                            weapon = "Staff";
-                            break;
-                        case "bow":
-                        case "archer":
-                            weapon = "Bow";
-                            break;
-                        case "dagger":
-                            weapon = "Dagger";
-                            break;
-                        case "breath":
-                        case "dragon":
-                            weapon = "Breath";
-                            break;
-                        default:
-                            weapon = "na";
-                            break;
-                    }
-
-                    for (int j = 0; j < candidates.size(); j++) {
-                        Hero c = candidates.get(j);
-                        if (!move.equals("na")) {
-                            if (!c.getMoveType().toString().equals(move)) {
-                                candidates.remove(j);
-                                j--;
-                            }
-                        }
-                        if (color!='n') {
-                            if (c.getColor()!=color) {
-                                candidates.remove(j);
-                                j--;
-                            }
-                        }
-                        if (!weapon.equals("na")) {
-                            if (!c.getWeaponType().toString().equals(weapon)) {
-                                candidates.remove(j);
-                                j--;
-                            }
-                        }
-                        if (gender!='n') {
-                            if (c.getGender()!=gender) {
-                                candidates.remove(j);
-                                j--;
-                            }
-                        }
-                    }
-                }
-            }
-        }
 
         if (candidates.size()==0) {
             sendMessage("sorry, could not find your character.");
@@ -501,23 +270,13 @@ public class HeroRetriever extends Command {
 
 
     public boolean isCommand() {
-        String arg = super.args[0].toLowerCase();
-        switch(arg) {
-            case "getstats":
-            case "gst":
-            case "getivs":
-            case "giv":
-                return true;
-            default:
-                return false;
-        }
+        return super.args[0].toLowerCase()
+                .matches("(g(et)?st(ats?)?)|(g(et)?ivs?)");
     }
 
     public void onCommand() {
         args = new ArrayList<>(Arrays.asList(super.args));
         i=1;
-        newestOnly = false;
-        oldestOnly = false;
         lv1 = false;
         rarity = 5;
         getAll = true;

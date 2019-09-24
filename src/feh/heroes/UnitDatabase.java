@@ -92,7 +92,7 @@ public class UnitDatabase extends Database<Hero> {
         }
 
         //finding units with the correct name
-        for (int i=1; i<args.size(); i++) {
+        for (int i=0; i<args.size(); i++) {
             String x = args.get(i);
             //test for name/epithet arguments
             boolean epithetIncluded = false;

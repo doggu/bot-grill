@@ -113,7 +113,7 @@ public class Hero {
 
     public HeroName getFullName() { return fullName; }
     public Origin getOrigin() { return origin; }
-    public URL getGamepediaLink() { return gamepediaLink; }
+    public URL getGamepediaLink() { return gamepediaLink; } //can technically be constructed from hero name
     public URL getPortraitLink() { return portraitLink; }
     public char getGender() { return gender; }
 
@@ -170,18 +170,7 @@ public class Hero {
         }
 
 
-
-        int[] statsSorted = {0, 1, 2, 3, 4};
-
-        for (int i=0; i<5; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (stats.getStatsAsArray()[statsSorted[j]]<stats.getStatsAsArray()[statsSorted[j+1]]) {
-                    int t = statsSorted[j+1];
-                    statsSorted[j+1] = statsSorted[j];
-                    statsSorted[j] = t;
-                }
-            }
-        }
+        int[] statsSorted = getStatsSorted(stats);
 
         //this could be simpler in the finalStats creation but it's easier to read like this imo
         if (merges>0) { //neutralize the bane/add to neutral stats
@@ -249,19 +238,7 @@ public class Hero {
             finalStats[i][4]+= (i-1);
         }
 
-        int[] statsSorted = {0, 1, 2, 3, 4};
-
-        for (int i=0; i<5; i++) {
-            for (int j = 0; j < 4; j++) {
-                if (stats.getStatsAsArray()[statsSorted[j]]<stats.getStatsAsArray()[statsSorted[j+1]]) {
-                    int t = statsSorted[j+1];
-                    statsSorted[j+1] = statsSorted[j];
-                    statsSorted[j] = t;
-                }
-            }
-        }
-
-
+        int[] statsSorted = getStatsSorted(stats);
 
         //for (int i:statsSorted) System.out.println(i);
 
@@ -321,6 +298,21 @@ public class Hero {
         }
 
         return finalStats;
+    }
+
+    private static int[] getStatsSorted(HeroStats stats) {
+        int[] statsSorted = {0, 1, 2, 3, 4};
+
+        for (int i=0; i<5; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (stats.getStatsAsArray()[statsSorted[j]]<stats.getStatsAsArray()[statsSorted[j+1]]) {
+                    int t = statsSorted[j+1];
+                    statsSorted[j+1] = statsSorted[j];
+                    statsSorted[j] = t;
+                }
+            }
+        }
+        return statsSorted;
     }
 
     /*

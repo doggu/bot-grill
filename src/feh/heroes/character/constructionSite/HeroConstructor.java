@@ -16,6 +16,7 @@ import java.util.GregorianCalendar;
 public class HeroConstructor {
     private HeroName fullName;
     private Origin origin;
+    private URL gamepediaLink;
     private URL portraitLink;
     private Character gender;
     private Character color;
@@ -34,6 +35,7 @@ public class HeroConstructor {
 
     public void setFullName(HeroName name) { this.fullName = name; }
     public void setOrigin(Origin origin) { this.origin = origin; }
+    public void setGamepediaLink(URL gamepediaLink) { this.gamepediaLink = gamepediaLink; }
     public void setPortraitLink(URL portraitLink) { this.portraitLink = portraitLink; }
     public void setGender(Character gender) { this.gender = gender; }
     public void setWeaponType(String weaponType) {
@@ -145,6 +147,9 @@ public class HeroConstructor {
         if (origin==null) {
             throw new Error("missing origin: "+fullName);
         }
+        if (gamepediaLink==null) {
+            throw new Error("missing gamepediaLink: "+fullName);
+        }
         if (portraitLink==null) {
             throw new Error("missing portraitLink: "+fullName);
         }
@@ -187,6 +192,7 @@ public class HeroConstructor {
 
         return new Hero(fullName,
                         origin,
+                        gamepediaLink,
                         portraitLink,
                         gender,
                         color,
@@ -205,6 +211,7 @@ public class HeroConstructor {
 
         Merger<HeroName> fullName = new Merger<>(h1.fullName, h2.fullName);
         Merger<Origin> origin = new Merger<>(h1.origin, h2.origin);
+        Merger<URL> gamepediaLink = new Merger<>(h1.gamepediaLink, h2.gamepediaLink);
         Merger<URL> portraitLink = new Merger<>(h1.portraitLink, h2.portraitLink);
         Merger<WeaponClass> weaponType = new Merger<>(h1.weaponType, h2.weaponType);
         Merger<MovementClass> moveType = new Merger<>(h1.moveType, h2.moveType);
@@ -217,7 +224,7 @@ public class HeroConstructor {
         Merger<ArrayList<Skill>> baseKit = new Merger<>(h1.baseKit, h2.baseKit);
 
         merge.setFullName(fullName.merge());
-        merge.setFullName(fullName.merge());
+        merge.setGamepediaLink(gamepediaLink.merge());
         merge.setPortraitLink(portraitLink.merge());
         merge.setOrigin(origin.merge());
         merge.setWeaponType(weaponType.merge());

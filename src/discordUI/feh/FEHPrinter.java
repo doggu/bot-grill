@@ -21,6 +21,9 @@ import static feh.heroes.UnitDatabase.HEROES;
 import static main.BotMain.DEBUG;
 
 public class FEHPrinter {
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                                    HEROES                                                    //
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static EmbedBuilder printCharacter(Hero x, boolean lv1, int rarity,
                                                boolean getAll, int boon, int bane,
                                                int merges, int dragonflowers, char support) {
@@ -142,6 +145,10 @@ public class FEHPrinter {
 
         heroInfo.addField("Base Skills", baseKit.toString(), false);
 
+
+
+        heroInfo.addField("Links", "[gamepedia]("+x.getGamepediaLink().toString()+")", true);
+
         return heroInfo;
     }
     public static EmbedBuilder printUnit(Unit x, boolean lv1) {
@@ -204,7 +211,11 @@ public class FEHPrinter {
 
 
 
-    //skills
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                                    SKILLS                                                    //
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private static final HashMap<Integer, String> SKILL_ICONS;
 
     static {

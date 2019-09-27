@@ -374,6 +374,14 @@ public class UnitDatabase extends Database<Hero> {
             merge.setBaseKit(addBaseKit(merge.getFullName().toString()));
             merge.setGender(HERO_GENDERS.get(merge.getFullName().toString()));
 
+            try {
+                merge.setGamepediaLink(new URL("https://feheroes.gamepedia.com/" +
+                        merge.getFullName().toString().replaceAll(" ", "_")));
+            } catch (MalformedURLException murle) {
+                System.out.println(merge.toString()+" couldn't produce a link!");
+                merge.setGamepediaLink(null);
+            }
+
             heroes.add(merge.createHero());
 
             lv1StatsTable.remove(0);

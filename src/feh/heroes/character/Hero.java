@@ -13,7 +13,7 @@ import java.util.*;
 public class Hero {
     private final HeroName fullName;
     private final Origin origin;
-    private final URL portraitLink;
+    private final URL gamepediaLink, portraitLink;
     private final char gender;
 
     private final char color;
@@ -26,18 +26,20 @@ public class Hero {
 
     private final Availability availability;
     private final GregorianCalendar dateReleased;
+    //private final String artist;
 
     private final ArrayList<Skill> baseKit;
 
 
 
-    public Hero(HeroName fullName, Origin origin, URL portraitLink, char gender,
+    public Hero(HeroName fullName, Origin origin, URL gamepediaLink, URL portraitLink, char gender,
                 char color, WeaponClass weaponType, MovementClass moveType,
                 int summonableRarity, Availability availability,
                 GregorianCalendar dateReleased,
                 HeroStats stats, ArrayList<Skill> baseKit) {
         this.fullName = fullName;
         this.origin = origin;
+        this.gamepediaLink = gamepediaLink;
         this.portraitLink = portraitLink;
         this.gender = gender;
         this.color = color;
@@ -78,6 +80,7 @@ public class Hero {
         Hero j = correctName.get(0);
         this.fullName = j.fullName;
         this.origin = j.origin;
+        this.gamepediaLink = j.gamepediaLink;
         this.portraitLink = j.portraitLink;
         this.gender = j.gender;
         this.color = j.color;
@@ -93,6 +96,7 @@ public class Hero {
     public Hero(Hero j) {
         this.fullName = j.fullName;
         this.origin = j.origin;
+        this.gamepediaLink = j.gamepediaLink;
         this.portraitLink = j.portraitLink;
         this.gender = j.gender;
         this.color = j.color;
@@ -109,6 +113,7 @@ public class Hero {
 
     public HeroName getFullName() { return fullName; }
     public Origin getOrigin() { return origin; }
+    public URL getGamepediaLink() { return gamepediaLink; }
     public URL getPortraitLink() { return portraitLink; }
     public char getGender() { return gender; }
 
@@ -139,7 +144,7 @@ public class Hero {
     //todo: remove all the parameters and put them in unit or something
     public String toString() { return this.getFullName().toString(); }
 
-    protected int[] getStats(boolean lv1, int rarity, int boon, int bane) {
+    public int[] getStats(boolean lv1, int rarity, int boon, int bane) {
         return getStats(lv1, rarity, boon, bane, 0, 0, 'd');
     }
     public int[] getStats(boolean lv1, int rarity,

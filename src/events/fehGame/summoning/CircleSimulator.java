@@ -193,6 +193,13 @@ public class CircleSimulator extends ReactionListener {
 
 
     @Override
+    public void commitSuicide() {
+        newButton.removeButton();
+        stopButton.removeButton();
+        super.commitSuicide();
+    }
+
+    @Override
     protected void onCommand() {
         //the summoner has selected a stone, and a unit must be presented
 

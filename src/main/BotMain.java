@@ -18,6 +18,8 @@ import events.devTools.Draw;
 import events.devTools.PermissionsListener;
 import events.fehGame.Allies;
 import events.fehGame.OrbBalance;
+import events.fehGame.analysis.Powercreep;
+import events.fehGame.analysis.StatCheck;
 import events.fehGame.retriever.HeroRetriever;
 import events.fehGame.retriever.SkillRetriever;
 import events.fehGame.summoning.SimulateDay;
@@ -150,6 +152,8 @@ public class BotMain {
             addListener(new SimulateDay());
             addListener(new Allies());
             addListener(new OrbBalance());
+
+            addListener(new Powercreep());
         }
 
         //minecraft

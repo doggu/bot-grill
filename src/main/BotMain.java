@@ -19,7 +19,6 @@ import events.devTools.PermissionsListener;
 import events.fehGame.Allies;
 import events.fehGame.OrbBalance;
 import events.fehGame.analysis.Powercreep;
-import events.fehGame.analysis.StatCheck;
 import events.fehGame.retriever.HeroRetriever;
 import events.fehGame.retriever.SkillRetriever;
 import events.fehGame.summoning.SimulateDay;

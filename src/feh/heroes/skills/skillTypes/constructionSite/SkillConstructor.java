@@ -129,7 +129,7 @@ public class SkillConstructor {
         actionSkillReady();
         exists(might, "might");
         exists(type, "weapon type");
-        exists(refine, "weapon refine");
+        //exists(refine, "weapon refine"); //hard to check but it can be null
 
         return new Weapon(name, description, link, cost, exclusive, might, range, type, refine);
     }
@@ -142,7 +142,7 @@ public class SkillConstructor {
     public Special generateSpecial() throws IncompleteDataException {
         vitalInfoReady();
         exists(cooldown, "cooldown");
-        exists(damagePattern, "damagePattern");
+        //exists(damagePattern, "damagePattern");
 
         return new Special(name, description, link, cost, exclusive, cooldown, damagePattern);
     }

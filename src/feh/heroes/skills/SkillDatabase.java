@@ -178,8 +178,6 @@ public class SkillDatabase extends Database<Skill> {
     private static ArrayList<Weapon> processWeapons() {
         ArrayList<Weapon> weapons = new ArrayList<>();
 
-
-
         Document weaponsFile;
         try {
             weaponsFile = Jsoup.parse(WEAPONS_FILE, "UTF-8");
@@ -205,7 +203,7 @@ public class SkillDatabase extends Database<Skill> {
 
             Elements rows = table.select("tr");
             for (Element row:rows) {
-                Weapon x;
+                SkillConstructor x = new SkillConstructor();
                 Elements info = row.children();
 
                 if (info.size()!=6) {
@@ -215,42 +213,39 @@ public class SkillDatabase extends Database<Skill> {
                     break;
                 }
 
-                String name = info.get(0).text();
-                URL link;
+                x.setName(info.get(0).text());
                 try {
-                    link = new URL(FEHEROES+info.get(0).children().get(0).attr("href"));
+                    x.setLink(new URL(FEHEROES+info.get(0).children().get(0).attr("href")));
                 } catch (MalformedURLException murle) {
-                    System.out.println("got a murle for "+name);
-                    link = null;
+                    System.out.println("got a murle for "+x.getName());
+                    x.setLink(null);
                 }
-                int might = Integer.parseInt(info.get(1).text());
-                int range = Integer.parseInt(info.get(2).text());
-                String description = info.get(3).text();
-                int sp;
+                x.setMight(Integer.parseInt(info.get(1).text()));
+                x.setRange(Integer.parseInt(info.get(2).text()));
+                x.setDescription(info.get(3).text());
                 try {
-                    sp = Integer.parseInt(info.get(4).text());
+                    x.setCost(Integer.parseInt(info.get(4).text()));
                 } catch (NumberFormatException nfe) {
-                    System.out.println("issue getting SP for "+name);
-                    sp = 0;
+                    System.out.println("issue getting SP for "+x.getName());
+                    x.setCost(0);
                 }
-                boolean exclusive = (info.get(5).text().equals("Yes"));
-                WeaponClass type = WeaponClass.getClass(weaponType[i]);
-                WeaponRefine refine = getRefine(name);
+                x.setExclusive(info.get(5).text().equals("Yes"));
+                x.setType(WeaponClass.getClass(weaponType[i]));
+                x.setRefine(getRefine(x.getName()));
 
-                x = new Weapon(name, description, link, sp, exclusive, might, range, type, refine);
-
-                weapons.add(x);
+                try {
+                    weapons.add(x.generateWeapon());
+                } catch (IncompleteDataException ide) {
+                    ide.printStackTrace();
+                    //continue
+                }
             }
         }
-
-
 
         return weapons;
     }
     private static ArrayList<Assist> processAssists() {
         ArrayList<Assist> assists = new ArrayList<>();
-
-
 
         Document assistsFile;
         try {
@@ -259,8 +254,6 @@ public class SkillDatabase extends Database<Skill> {
             System.out.println("assists file not found!");
             return new ArrayList<>();
         }
-
-
 
         Elements tables = assistsFile.select("table").select("tbody");
 
@@ -286,8 +279,8 @@ public class SkillDatabase extends Database<Skill> {
 
                     try {
                         assists.add(x.generateAssist());
-                    } catch (IncompleteDataException e) {
-                        e.printStackTrace();
+                    } catch (IncompleteDataException ide) {
+                        ide.printStackTrace();
                     }
                 }
             }
@@ -300,8 +293,6 @@ public class SkillDatabase extends Database<Skill> {
     private static ArrayList<Special> processSpecials() {
         ArrayList<Special> specials = new ArrayList<>();
 
-
-
         Document specialsFile;
         try {
             specialsFile = Jsoup.parse(SPECIALS_FILE, "UTF-8");
@@ -310,37 +301,33 @@ public class SkillDatabase extends Database<Skill> {
             return new ArrayList<>();
         }
 
+        Element table = specialsFile.select("table").get(1);
 
-
-        Elements tables = specialsFile.select("table");
-
-        while (tables.get(0).select("tbody").select("tr").size()<25) tables.remove(0);
-
-        Elements rows = tables.get(0).select("tbody").select("tr");
-
-
+        Elements rows = table.select("tbody").select("tr");
 
         for (Element row:rows) {
-            Special x;
+            SkillConstructor x = new SkillConstructor();
             Elements info = row.children();
 
-            String name = info.get(0).text();
-            String description = info.get(1).text();
-            URL link;
+            x.setName(info.get(0).text());
+            x.setDescription(info.get(1).text());
             try {
-                link = new URL(FEHEROES+info.get(0).children().get(0).attr("href"));
+                x.setLink(new URL(FEHEROES+info.get(0).children().get(0).attr("href")));
             } catch (MalformedURLException murle) {
-                System.out.println("got a murle for "+name);
-                link = null;
+                System.out.println("got a murle for "+x.getName());
+                x.setLink(null);
             }
-            int sp = Integer.parseInt(info.get(2).text());
-            int cooldown = Integer.parseInt(info.get(3).text());
-            boolean exclusive = isExclusive(name);
+            x.setCost(Integer.parseInt(info.get(2).text()));
+            x.setCooldown(Integer.parseInt(info.get(3).text()));
+            x.setExclusive(isExclusive(x.getName()));
 
-            boolean[][] aoePattern = AOE_PATTERNS.get(name);
+            x.setDamagePattern(AOE_PATTERNS.get(x.getName()));
 
-            x = new Special(name, description, link, sp, exclusive, cooldown, aoePattern);
-            specials.add(x);
+            try {
+                specials.add(x.generateSpecial());
+            } catch (IncompleteDataException ide) {
+                ide.printStackTrace();
+            }
         }
 
 
@@ -375,51 +362,48 @@ public class SkillDatabase extends Database<Skill> {
 
             for (Element row : rows) {
                 try {
-                    Passive x;
+                    SkillConstructor x = new SkillConstructor();
                     Elements info = row.children();
-                    String name = info.get(1).text();
-                    String description = info.get(2).text();
+                    x.setName(info.get(1).text());
+                    x.setDescription(info.get(2).text());
                     String[] urlSet = info.get(0).select("a")
                             .get(0).select("img")
                             .get(0).attr("srcset")
                             .split(" ");
-                    URL icon;
                     try {
-                        icon = new URL(urlSet[2]);
+                        x.setIcon(new URL(urlSet[2]));
                     } catch (MalformedURLException murle) {
-                        System.out.println("got a murle for "+name);
-                        icon = null;
+                        System.out.println("got a murle for icon "+x.getName());
+                        x.setIcon(null);
                     }
-                    URL link;
                     try {
-                        link = new URL(FEHEROES+info.get(1).children().get(0).attr("href"));
+                        x.setLink(new URL(FEHEROES+info.get(1).children().get(0).attr("href")));
                     } catch (MalformedURLException murle) {
-                        System.out.println("got a murle for "+name);
-                        link = null;
+                        System.out.println("got a murle for link "+x.getName());
+                        x.setLink(null);
                     }
-                    int cost = Integer.parseInt(info.get(3).text());
-                    boolean exclusive = (info.get(4).text().equals("Yes"));
+                    x.setCost(Integer.parseInt(info.get(3).text()));
+                    x.setExclusive(info.get(4).text().equals("Yes"));
 
                     switch (i) {
                         case 0:
-                            x = new PassiveA(name, description, icon, link, cost, exclusive);
+                            passives.add(x.generatePassiveA());
                             break;
                         case 1:
-                            x = new PassiveB(name, description, icon, link, cost, exclusive);
+                            passives.add(x.generatePassiveB());
                             break;
                         case 2:
-                            x = new PassiveC(name, description, icon, link, cost, exclusive);
+                            passives.add(x.generatePassiveC());
                             break;
                         case 3:
-                            x = new PassiveS(name, description, icon, link, cost, exclusive);
+                            passives.add(x.generatePassiveS());
                             break;
                         default:
                             System.out.println("this is not an expected table, how'd it even get this far");
-                            continue;
+                            //continue;
                     }
-
-                    passives.add(x);
                 } catch (Exception e) {
+                    e.printStackTrace();
                     //let's not talk about that one
                 }
             }
@@ -427,6 +411,7 @@ public class SkillDatabase extends Database<Skill> {
 
         return passives;
     }
+    //TODO: generic data scalper based on headers
 
     private static final ArrayList<String> EXCLUSIVE;
     private static ArrayList<String> getExclusiveList() {

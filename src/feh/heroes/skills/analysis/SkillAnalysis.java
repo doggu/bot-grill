@@ -98,8 +98,11 @@ public class SkillAnalysis {
         String desc = skill.getDescription()
                 .replaceAll("\\. \\(", " (")
                 //i think this is only for divine breath
-                .replaceAll("\\.\\)", ").");
-
+                //nevermind it breaks literally everything else
+                //i can't believe these inconsistencies
+                .replaceAll("etc\\.\\)", "[etc]")
+                .replaceAll("\\.\\)", ").")
+                .replaceAll("\\[etc]", "etc\\.\\)");
         for (int i=0; i<desc.length(); i++) {
             if (desc.charAt(i)=='(') {
                 for (i++; i < desc.length(); i++) {
@@ -132,6 +135,7 @@ public class SkillAnalysis {
     private ArrayList<ArrayList<String>> generateClauses() {
         ArrayList<ArrayList<String>> sentences = new ArrayList<>();
         //todo: keep track of this when those madlads add more than one parenthetical to a clause
+        // FUCK HARSH COMMAND+ HAS IT
         for (String rawSentence: this.sentences) {
             int p = rawSentence.indexOf('(');
             if (p>=0) {
@@ -322,15 +326,12 @@ public class SkillAnalysis {
     }
     private ArrayList<String> findWith(String input) {
         ArrayList<String> incl = new ArrayList<>();
-        for (int i = 0; i< clauses.size(); i++) {
-            for (int j = 0; j< clauses.get(i).size(); j++) {
-                if (clauses.get(i).get(j).toLowerCase().contains(input.toLowerCase())) {
-                    incl.add(sentences.get(i));
-                    sentences.remove(i);
-                    clauses.remove(i);
-                    i--;
-                    break;
-                }
+        for (int i = 0; i<sentences.size(); i++) {
+            if (sentences.get(i).toLowerCase().contains(input.toLowerCase())) {
+                incl.add(sentences.get(i));
+                sentences.remove(i);
+                clauses.remove(i);
+                i--;
             }
         }
 

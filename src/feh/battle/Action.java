@@ -12,7 +12,7 @@ public abstract class Action {
 
 
 
-    private FieldedUnit initiator, receiver;
+    protected FieldedUnit initiator, receiver;
 
 
 

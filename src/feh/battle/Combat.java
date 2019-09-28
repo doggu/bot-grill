@@ -7,13 +7,18 @@ public class Combat extends Action {
 
 
 
-    public Combat(FieldedUnit initiator, FieldedUnit defeneder) {
-        super(initiator, defeneder);
+    public Combat(FieldedUnit initiator, FieldedUnit defender) {
+        super(initiator, defender);
     }
 
 
-
+    //when should AoEs be handled?
     public void commit() {
+        //initiator
+        //receiver
+    }
+
+    private void attack() {
 
     }
 }

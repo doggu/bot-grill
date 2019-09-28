@@ -135,7 +135,7 @@ public class SkillAnalysis {
     private ArrayList<ArrayList<String>> generateClauses() {
         ArrayList<ArrayList<String>> sentences = new ArrayList<>();
         //todo: keep track of this when those madlads add more than one parenthetical to a clause
-        // FUCK HARSH COMMAND+ HAS IT
+        // FUCK HARSH COMMAND+ HAS TWO
         for (String rawSentence: this.sentences) {
             int p = rawSentence.indexOf('(');
             if (p>=0) {

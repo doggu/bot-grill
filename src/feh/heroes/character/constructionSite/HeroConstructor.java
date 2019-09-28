@@ -18,6 +18,7 @@ public class HeroConstructor {
     private Origin origin;
     private URL gamepediaLink;
     private URL portraitLink;
+    private String artist;
     private Character gender;
     private Character color;
     private WeaponClass weaponType;
@@ -37,6 +38,7 @@ public class HeroConstructor {
     public void setOrigin(Origin origin) { this.origin = origin; }
     public void setGamepediaLink(URL gamepediaLink) { this.gamepediaLink = gamepediaLink; }
     public void setPortraitLink(URL portraitLink) { this.portraitLink = portraitLink; }
+    public void setArtist(String artist) { this.artist = artist; }
     public void setGender(Character gender) { this.gender = gender; }
     public void setWeaponType(String weaponType) {
         switch (weaponType) {
@@ -128,6 +130,8 @@ public class HeroConstructor {
     public String getEpithet() { return fullName.getEpithet(); }
     public Origin getOrigin() { return origin; }
     public URL getPortraitLink() { return portraitLink; }
+    public URL getGamepediaLink() { return gamepediaLink; }
+    public String getArtist() { return artist; }
     public Character getGender() { return gender; }
     public Character getColor() { return color; }
     public WeaponClass getWeaponType() { return weaponType; }
@@ -152,6 +156,9 @@ public class HeroConstructor {
         }
         if (portraitLink==null) {
             throw new Error("missing portraitLink: "+fullName);
+        }
+        if (artist==null) {
+            throw new Error("missing artist: "+fullName);
         }
         if (gender==null) {
             throw new Error("missing gender: "+fullName);
@@ -194,6 +201,7 @@ public class HeroConstructor {
                         origin,
                         gamepediaLink,
                         portraitLink,
+                        artist,
                         gender,
                         color,
                         weaponType,
@@ -213,6 +221,7 @@ public class HeroConstructor {
         Merger<Origin> origin = new Merger<>(h1.origin, h2.origin);
         Merger<URL> gamepediaLink = new Merger<>(h1.gamepediaLink, h2.gamepediaLink);
         Merger<URL> portraitLink = new Merger<>(h1.portraitLink, h2.portraitLink);
+        Merger<String> artist = new Merger<>(h1.artist, h2.artist);
         Merger<WeaponClass> weaponType = new Merger<>(h1.weaponType, h2.weaponType);
         Merger<MovementClass> moveType = new Merger<>(h1.moveType, h2.moveType);
         Merger<Character> color = new Merger<>(h1.color, h2.color);
@@ -226,6 +235,7 @@ public class HeroConstructor {
         merge.setFullName(fullName.merge());
         merge.setGamepediaLink(gamepediaLink.merge());
         merge.setPortraitLink(portraitLink.merge());
+        merge.setArtist(artist.merge());
         merge.setOrigin(origin.merge());
         merge.setWeaponType(weaponType.merge());
         merge.setMoveType(moveType.merge());

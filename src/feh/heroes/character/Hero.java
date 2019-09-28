@@ -14,6 +14,7 @@ public class Hero {
     private final HeroName fullName;
     private final Origin origin;
     private final URL gamepediaLink, portraitLink;
+    private final String artist;
     private final char gender;
 
     private final char color;
@@ -32,7 +33,7 @@ public class Hero {
 
 
 
-    public Hero(HeroName fullName, Origin origin, URL gamepediaLink, URL portraitLink, char gender,
+    public Hero(HeroName fullName, Origin origin, URL gamepediaLink, URL portraitLink, String artist, char gender,
                 char color, WeaponClass weaponType, MovementClass moveType,
                 int summonableRarity, Availability availability,
                 GregorianCalendar dateReleased,
@@ -41,6 +42,7 @@ public class Hero {
         this.origin = origin;
         this.gamepediaLink = gamepediaLink;
         this.portraitLink = portraitLink;
+        this.artist = artist;
         this.gender = gender;
         this.color = color;
         this.weaponType = weaponType;
@@ -82,6 +84,7 @@ public class Hero {
         this.origin = j.origin;
         this.gamepediaLink = j.gamepediaLink;
         this.portraitLink = j.portraitLink;
+        this.artist = j.artist;
         this.gender = j.gender;
         this.color = j.color;
         this.weaponType = j.weaponType;
@@ -98,6 +101,7 @@ public class Hero {
         this.origin = j.origin;
         this.gamepediaLink = j.gamepediaLink;
         this.portraitLink = j.portraitLink;
+        this.artist = j.artist;
         this.gender = j.gender;
         this.color = j.color;
         this.weaponType = j.weaponType;
@@ -115,6 +119,7 @@ public class Hero {
     public Origin getOrigin() { return origin; }
     public URL getGamepediaLink() { return gamepediaLink; } //can technically be constructed from hero name
     public URL getPortraitLink() { return portraitLink; }
+    public String getArtist() { return artist; }
     public char getGender() { return gender; }
 
     public char getColor() { return color; }

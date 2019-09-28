@@ -1,10 +1,7 @@
 package feh.heroes;
 
 import feh.FEHeroesCache;
-import feh.heroes.character.Availability;
-import feh.heroes.character.Hero;
-import feh.heroes.character.HeroName;
-import feh.heroes.character.Origin;
+import feh.heroes.character.*;
 import feh.heroes.character.constructionSite.HeroConstructor;
 import feh.heroes.character.constructionSite.MismatchedInputException;
 import feh.heroes.skills.SkillDatabase;
@@ -27,48 +24,6 @@ import java.net.URL;
 import java.util.*;
 
 public class UnitDatabase extends Database<Hero> {
-    public static UnitDatabase DATABASE;
-    public static ArrayList<Hero> HEROES;
-
-
-
-    private static final String HERO_SUBDIR = "/herodata/";
-
-    private static final String
-            LV1_STATS = "Level_1_stats_table",
-            GROWTH_RATES = "Growth_rate_table",
-            HERO_LIST = "List_of_Heroes";
-
-    private static FEHeroesCache
-            LV1_STATS_FILE,
-            GROWTH_RATES_FILE,
-            HERO_LIST_FILE;
-
-    private static FEHeroesCache[] HERO_FILES;
-
-    static {
-        LV1_STATS_FILE = new FEHeroesCache(LV1_STATS, HERO_SUBDIR);
-        GROWTH_RATES_FILE = new FEHeroesCache(GROWTH_RATES, HERO_SUBDIR);
-        HERO_LIST_FILE = new FEHeroesCache(HERO_LIST, HERO_SUBDIR);
-
-        HERO_GENDERS = getGenders();
-
-        DATABASE = new UnitDatabase();
-        HEROES = DATABASE.getList();
-        HERO_FILES = new FEHeroesCache[]{
-            LV1_STATS_FILE,
-                    GROWTH_RATES_FILE,
-                    HERO_LIST_FILE,
-        };
-    }
-
-
-
-    @Override
-    protected WebCache[] getOnlineResources() {
-        return HERO_FILES;
-    }
-
     @Override
     public ArrayList<Hero> findAll(String input) {
         ArrayList<Hero> candidates = new ArrayList<>();
@@ -166,32 +121,33 @@ public class UnitDatabase extends Database<Hero> {
                     //TODO: use big brein to make this less "coincidental"
                     //these heroes have some of these keywords in their names:
                     //Clair: Highborn Flier, Florina: Lovely Flier, Shanna: Sprightly Flier
-                    String move;
+                    MovementClass move;
                     switch (x) {
                         case "infantry":
                         case "inf":
-                            move = "Infantry";
+                        case "foot":
+                            move = MovementClass.INFANTRY;
                             break;
                         case "armor":
                         case "armored":
-                            move = "Armor";
+                            move = MovementClass.ARMORED;
                             break;
                         case "horse":
                         case "cavalry":
                         case "cav":
-                            move = "Cavalry";
+                            move = MovementClass.CAVALRY;
                             break;
                         case "flying":
                         case "flier":
                         case "flyer": //debatable
-                            move = "Flier";
+                            move = MovementClass.FLYING;
                             break;
                         default:
-                            move = "na";
+                            move = null;
                             break;
                     }
 
-                    char gender;
+                    char gender; //bool?
                     switch (x) {
                         case "m":
                         case "man":
@@ -243,45 +199,45 @@ public class UnitDatabase extends Database<Hero> {
                     }
 
                     //find weapon type hints
-                    String weapon;
+                    WeaponClass weapon;
                     switch (x) {
                         case "sword":
-                            weapon = "Sword";
+                            weapon = WeaponClass.SWORD;
                             break;
                         case "lance":
-                            weapon = "Lance";
+                            weapon = WeaponClass.LANCE;
                             break;
                         case "axe":
-                            weapon = "Axe";
+                            weapon = WeaponClass.AXE;
                             break;
                         case "tome":
                         case "magic":
-                            weapon = "Tome";
+                            weapon = WeaponClass.TOME;
                             break;
                         case "staff":
                         case "stave":
-                            weapon = "Staff";
+                            weapon = WeaponClass.STAFF;
                             break;
                         case "bow":
                         case "archer":
-                            weapon = "Bow";
+                            weapon = WeaponClass.BOW;
                             break;
                         case "dagger":
-                            weapon = "Dagger";
+                            weapon = WeaponClass.DAGGER;
                             break;
                         case "breath":
                         case "dragon":
-                            weapon = "Breath";
+                            weapon = WeaponClass.BREATH;
                             break;
                         default:
-                            weapon = "na";
+                            weapon = null;
                             break;
                     }
 
                     for (int j = 0; j < candidates.size(); j++) {
                         Hero c = candidates.get(j);
-                        if (!move.equals("na")) {
-                            if (!c.getMoveType().toString().equals(move)) {
+                        if (move!=null) {
+                            if (c.getMoveType()!=move) {
                                 candidates.remove(j);
                                 j--;
                             }
@@ -292,8 +248,8 @@ public class UnitDatabase extends Database<Hero> {
                                 j--;
                             }
                         }
-                        if (!weapon.equals("na")) {
-                            if (!c.getWeaponType().toString().equals(weapon)) {
+                        if (weapon!=null) {
+                            if (!c.getWeaponType().matches(weapon)) {
                                 candidates.remove(j);
                                 j--;
                             }
@@ -311,6 +267,52 @@ public class UnitDatabase extends Database<Hero> {
 
         return candidates;
     }
+
+
+
+    public static UnitDatabase DATABASE;
+    public static ArrayList<Hero> HEROES;
+
+
+
+    private static final String HERO_SUBDIR = "/herodata/";
+
+    private static final String
+            LV1_STATS = "Level_1_stats_table",
+            GROWTH_RATES = "Growth_rate_table",
+            HERO_LIST = "List_of_Heroes";
+
+    private static FEHeroesCache
+            LV1_STATS_FILE,
+            GROWTH_RATES_FILE,
+            HERO_LIST_FILE;
+
+    private static FEHeroesCache[] HERO_FILES;
+
+    static {
+        LV1_STATS_FILE = new FEHeroesCache(LV1_STATS, HERO_SUBDIR);
+        GROWTH_RATES_FILE = new FEHeroesCache(GROWTH_RATES, HERO_SUBDIR);
+        HERO_LIST_FILE = new FEHeroesCache(HERO_LIST, HERO_SUBDIR);
+
+        HERO_GENDERS = getGenders();
+        ARTISTS = getArtists();
+
+        DATABASE = new UnitDatabase();
+        HEROES = DATABASE.getList();
+        HERO_FILES = new FEHeroesCache[]{
+                LV1_STATS_FILE,
+                GROWTH_RATES_FILE,
+                HERO_LIST_FILE,
+        };
+    }
+
+
+
+    @Override
+    protected WebCache[] getOnlineResources() {
+        return HERO_FILES;
+    }
+
 
     @Override
     public Hero getRandom() {
@@ -338,7 +340,8 @@ public class UnitDatabase extends Database<Hero> {
 
         Elements lv1StatsTable = lv1StatsFile.select("table").select("tbody").select("tr"),
                 growthRatesTable = growthRatesFile.select("table").select("tbody").select("tr"),
-                heroListTable = heroListFile.select("table").select("tbody").select("tr");
+                heroListTable = heroListFile.select("table").select("tbody").select("tr"),
+                artistsTable = heroListFile.select("table").select("tbody").select("tr");
 
         lv1StatsTable.remove(0);
         growthRatesTable.remove(0);
@@ -371,8 +374,9 @@ public class UnitDatabase extends Database<Hero> {
                 heroListTable.remove(0);
             }
 
-            merge.setBaseKit(addBaseKit(merge.getFullName().toString()));
+            merge.setBaseKit(addBaseKit(merge.getFullName()));
             merge.setGender(HERO_GENDERS.get(merge.getFullName().toString()));
+            merge.setArtist(ARTISTS.get(merge.getFullName().toString()));
 
             try {
                 merge.setGamepediaLink(new URL("https://feheroes.gamepedia.com/" +
@@ -387,6 +391,7 @@ public class UnitDatabase extends Database<Hero> {
             lv1StatsTable.remove(0);
             growthRatesTable.remove(0);
             heroListTable.remove(0);
+            artistsTable.remove(0);
         }
 
         System.out.println("done (" +
@@ -536,11 +541,11 @@ public class UnitDatabase extends Database<Hero> {
         return c;
     }
 
-    private ArrayList<Skill> addBaseKit(String heroName) {
+    private ArrayList<Skill> addBaseKit(HeroName heroName) {
         ArrayList<Skill> baseKit;
 
         try {
-            baseKit = SkillDatabase.HERO_SKILLS.get(heroName);
+            baseKit = SkillDatabase.HERO_SKILLS.get(heroName.toString());
         } catch (NoSuchElementException f) {
             throw new Error("could not find base kit for "+heroName);
         }
@@ -566,6 +571,40 @@ public class UnitDatabase extends Database<Hero> {
         }
 
         return genders;
+    }
+
+    private static final HashMap<String, String> ARTISTS;
+    private static HashMap<String, String> getArtists() {
+        Document artistsFile;
+        try {
+            artistsFile = Jsoup.parse(new FEHeroesCache("Artists", HERO_SUBDIR), "UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new HashMap<>();
+        }
+
+        Elements rows = artistsFile.select("table").select("tbody").get(0).children();
+
+        HashMap<String, String> artists = new HashMap<>();
+
+        for (Element row:rows) {
+            Elements items = row.children();
+
+            String artist = items.get(0).text();
+
+            Elements characters = items.get(1).children().select("td");
+
+            for (Element character:characters) {
+                String name = character.select("a").get(0).attr("title");
+                artists.put(name, artist);
+            }
+        }
+
+        artists.put("Lyn: Lady of the Beach", "teffish");
+        artists.put("Mareeta: The Blade's Pawn", "kiyu");
+        artists.put("Tanith: Forthright Heart", "mattsun! (まっつん！)");
+
+        return artists;
     }
 
 

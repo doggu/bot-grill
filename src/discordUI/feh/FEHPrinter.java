@@ -74,7 +74,8 @@ public class FEHPrinter {
          */
 
         heroInfo.addField(description.toString(),
-                '*'+x.getOrigin().toString()+"*\n" +
+               '*'+x.getOrigin().toString()+"*\n" +
+                        "Artist: "+x.getArtist()+"\n" +
                         "Debuted "  +
                         (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" +//starts at 0 (january = 0)
                         x.getReleaseDate().get(Calendar.DAY_OF_MONTH) + "-" +

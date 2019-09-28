@@ -4,6 +4,7 @@ public enum WeaponClass implements HeroClass {
     SWORD       (1, true, "Sword"),
     LANCE       (1, true, "Lance"),
     AXE         (1, true, "Axe"),
+    TOME        (2, false, "Tome"),
     RED_TOME    (2, false, "Tome"),
     BLUE_TOME   (2, false, "Tome"),
     GREEN_TOME  (2, false, "Tome"),
@@ -69,5 +70,13 @@ public enum WeaponClass implements HeroClass {
                 System.out.println("unknown weapon type: "+name);
                 throw new Error();
         }
+    }
+
+    public boolean matches(Object o) {
+        if (!(o instanceof WeaponClass)) return false;
+
+        //is this a workaround or a solution? find out next time
+        return o==this||(this==TOME&&(o==RED_TOME||o==BLUE_TOME||o==GREEN_TOME))||
+                (o==TOME&&(this==RED_TOME||this==BLUE_TOME||this==GREEN_TOME));
     }
 }

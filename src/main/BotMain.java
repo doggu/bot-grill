@@ -46,7 +46,7 @@ public class BotMain {
     private static final boolean FEHEROES_UTILS = true;
     public static final boolean MCSERVER = false;
 
-    public static final boolean DEBUG = false; //it's always debug time
+    public static final boolean DEBUG = true; //it's always debug time
 
 
 

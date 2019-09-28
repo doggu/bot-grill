@@ -53,7 +53,8 @@ public class SkillDatabase extends Database<Skill> {
           //maybe a Skill thing
           //LIST_OF_DESCRIPTION_TAGS = "https://feheroes.gamepedia.com/List_of_description_tags",
             HERO_BASE_SKILLS_PATH = "Hero_skills_table",
-            WEAPON_REFINES_PATH = "Weapon_Refinery";
+            WEAPON_REFINES_PATH = "Weapon_Refinery",
+            AOE_PATTERNS_PATH = "Area-of-effect_Specials";
 
     private static final String
             FEHEROES = "https://feheroes.gamepedia.com";
@@ -67,7 +68,8 @@ public class SkillDatabase extends Database<Skill> {
             PASSIVES_FILE,
             EXCLUSIVE_SKILLS_FILE,
             HERO_BASE_SKILLS_FILE,
-            WEAPON_REFINES_FILE;
+            WEAPON_REFINES_FILE,
+            AOE_PATTERNS_FILE;
 
     private static FEHeroesCache[] SKILL_FILES;
 
@@ -79,6 +81,7 @@ public class SkillDatabase extends Database<Skill> {
         EXCLUSIVE_SKILLS_FILE = new FEHeroesCache(EXCLUSIVE_SKILLS_PATH, SKILLS_SUBDIR);
         HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS_PATH, SKILLS_SUBDIR);
         WEAPON_REFINES_FILE = new FEHeroesCache(WEAPON_REFINES_PATH, SKILLS_SUBDIR);
+        AOE_PATTERNS_FILE = new FEHeroesCache(AOE_PATTERNS_PATH, SKILLS_SUBDIR);
 
         SKILL_FILES = new FEHeroesCache[]{
                 WEAPONS_FILE,
@@ -88,10 +91,12 @@ public class SkillDatabase extends Database<Skill> {
                 EXCLUSIVE_SKILLS_FILE,
                 HERO_BASE_SKILLS_FILE,
                 WEAPON_REFINES_FILE,
+                AOE_PATTERNS_FILE,
         };
 
         EXCLUSIVE = getExclusiveList();
         REFINES = getRefineableList();
+        AOE_PATTERNS = getAOEPatternList();
 
         DATABASE = new SkillDatabase();
         /*
@@ -332,7 +337,9 @@ public class SkillDatabase extends Database<Skill> {
             int cooldown = Integer.parseInt(info.get(3).text());
             boolean exclusive = isExclusive(name);
 
-            x = new Special(name, description, link, sp, exclusive, cooldown);
+            boolean[][] aoePattern = AOE_PATTERNS.get(name);
+
+            x = new Special(name, description, link, sp, exclusive, cooldown, aoePattern);
             specials.add(x);
         }
 
@@ -590,6 +597,63 @@ public class SkillDatabase extends Database<Skill> {
         return null;
     }
     //todo: evolutions
+
+    private static final HashMap<String, boolean[][]> AOE_PATTERNS;
+    private static HashMap<String, boolean[][]> getAOEPatternList() {
+        Document patternsFile;
+        try {
+            patternsFile = Jsoup.parse(AOE_PATTERNS_FILE, "UTF-8");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return new HashMap<>();
+        }
+
+        Element table = patternsFile.selectFirst("tbody");
+        Elements elements = table.children();
+        elements.remove(0); //header that's not actually a thead
+
+        if (elements.size()!=4) {
+            System.out.println("there aren't four elements of AoE!\n"+elements);
+        }
+
+        HashMap<String, boolean[][]> patterns = new HashMap<>();
+
+        for (Element element:elements) {
+            Elements items = element.children();
+
+            String type = items.get(0).text();
+
+            Element blazing = items.get(1).selectFirst("table"),
+                    growing = items.get(2).selectFirst("table");
+
+            boolean[][] blazingP = getPattern(blazing), growingP = getPattern(growing);
+            patterns.put("Rising "+type, blazingP);
+            patterns.put("Blazing "+type, blazingP);
+            patterns.put("Growing "+type, growingP);
+        }
+
+        return patterns;
+    }
+    private static boolean[][] getPattern(Element table) {
+        Elements rows = table.select("tr");
+
+        ArrayList<Elements> patternTable = new ArrayList<>();
+
+        for (Element row:rows) {
+            patternTable.add(row.children());
+        }
+
+        boolean[][] pattern = new boolean[patternTable.size()][patternTable.get(0).size()];
+
+        for (int i=0; i<pattern.length; i++) {
+            Elements row = patternTable.get(i);
+            for (int j=0; j<pattern[i].length; j++) {
+                pattern[i][j] = row.get(j).children().size()>0;
+            }
+        }
+
+        return pattern;
+    }
 
     private HashMap<String, ArrayList<Skill>> getHeroSkills() {
         HashMap<String, ArrayList<Skill>> heroSkills = new HashMap<>();

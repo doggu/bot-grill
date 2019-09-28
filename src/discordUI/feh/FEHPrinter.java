@@ -304,6 +304,10 @@ public class FEHPrinter {
                 if (effA.size()>0) attr+= "effective against: "+effA+"\n";
                 if (neutE!=null) attr+= "neutralizes: "+neutE+"\n";
                 if (tA) attr+= "applies TA";
+                if (x instanceof Special&&((Special) x).isAoE())
+                    skill.addField("AoE pattern",
+                            "```"+((Special) x).printDamagePattern()+"```",
+                            false);
 
                 if (!attr.equals(""))
                     skill.addField("attributes", attr, false);

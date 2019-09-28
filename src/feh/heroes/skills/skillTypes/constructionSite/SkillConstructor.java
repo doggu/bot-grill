@@ -22,6 +22,7 @@ public class SkillConstructor {
     
     //Special
     private Integer cooldown;
+    private boolean[][] damagePattern;
 
     //Passive
     private URL icon;
@@ -60,6 +61,7 @@ public class SkillConstructor {
     public void setCooldown(Integer cooldown) {
         this.cooldown = cooldown;
     }
+    public void setDamagePattern(boolean[][] damagePattern) { this.damagePattern = damagePattern; }
 
     public void setIcon(URL icon) {
         this.icon = icon;
@@ -100,6 +102,7 @@ public class SkillConstructor {
     public Integer getCooldown() {
         return cooldown;
     }
+    public boolean[][] getDamagePattern() { return damagePattern; }
 
     public URL getIcon() {
         return icon;
@@ -139,8 +142,9 @@ public class SkillConstructor {
     public Special generateSpecial() throws IncompleteDataException {
         vitalInfoReady();
         exists(cooldown, "cooldown");
+        exists(damagePattern, "damagePattern");
 
-        return new Special(name, description, link, cost, exclusive, cooldown);
+        return new Special(name, description, link, cost, exclusive, cooldown, damagePattern);
     }
 
     private void passiveReady() throws IncompleteDataException {

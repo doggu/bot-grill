@@ -43,12 +43,34 @@ public class Unit extends Hero {
      * @param boon - positive variance of specific unit.
      * @param bane - negative variance of specific unit.
      */
-    public Unit(Hero hero, int rarity, int boon, int bane, int supportLevels, int merges, int dragonflowers,
+    public Unit(Hero hero, int rarity, int boon, int bane,
+                int level, int supportLevels, int merges, int dragonflowers,
+                Blessing blessing, int sp, int hm, ArrayList<Skill> allSkills, ArrayList<Skill> baseKit) {
+        super(hero);
+        this.rarity = rarity;
+        this.boon = boon;
+        this.bane = bane;
+        this.level = level;
+        this.supportLevels = supportLevels;
+        this.merges = merges;
+        this.dragonflowers = dragonflowers;
+
+        this.allSkills = allSkills;
+        this.activeKit = baseKit;
+
+        this.blessing = blessing;
+
+        this.sp = sp;
+        this.hm = hm;
+    }
+    public Unit(Hero hero, int rarity, int boon, int bane,
+                int level, int supportLevels, int merges, int dragonflowers,
                 Blessing blessing, int sp, int hm) {
         super(hero);
         this.rarity = rarity;
         this.boon = boon;
         this.bane = bane;
+        this.level = level;
         this.supportLevels = supportLevels;
         this.merges = merges;
         this.dragonflowers = dragonflowers;
@@ -61,17 +83,24 @@ public class Unit extends Hero {
         this.sp = sp;
         this.hm = hm;
     }
-    public Unit(Hero hero, int rarity, int boon, int bane, int supportLevels, int merges, int dragonflowers) {
-        this(hero, rarity, boon, bane, supportLevels, merges, dragonflowers, null, 0, 0);
+    public Unit(Hero hero, int rarity, int boon, int bane,
+                int level, int supportLevels, int merges, int dragonflowers) {
+        this(hero, rarity, boon, bane, level, supportLevels, merges, dragonflowers, null, 0, 0);
     }
-    public Unit(Hero hero, int rarity, int boon, int bane, int supportLevels) {
-        this(hero, rarity, boon, bane, supportLevels, 0, 0);
+    public Unit(Hero hero, int rarity, int boon, int bane, int level, int supportLevels) {
+        this(hero, rarity, boon, bane, level, supportLevels, 0, 0);
     }
-    public Unit(Hero hero, int rarity, int boon, int bane, int supportLevels, int merges) {
-        this(hero, rarity, boon, bane, supportLevels, merges, 0);
+    public Unit(Hero hero, int rarity, int boon, int bane, int level, int supportLevels, int merges) {
+        this(hero, rarity, boon, bane, level, supportLevels, merges, 0);
     }
-    public Unit(Hero hero, int rarity, int boon, int bane) {
-        this(hero, rarity, boon, bane, 'd');
+    public Unit(Hero hero, int rarity, int boon, int bane, int level) {
+        this(hero, rarity, boon, bane, level, 'd');
+    }
+    //experimental, for creating FieldedUnits which extend this
+    public Unit(Unit unit) {
+        this(unit, unit.rarity, unit.boon, unit.bane,
+                unit.level, unit.supportLevels, unit.merges, unit.dragonflowers,
+                unit.blessing, unit.sp, unit.hm, unit.allSkills, unit.activeKit);
     }
 
     //todo: where the fuck do i put this

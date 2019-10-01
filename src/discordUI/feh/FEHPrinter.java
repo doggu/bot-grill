@@ -1,5 +1,6 @@
 package discordUI.feh;
 
+import feh.battle.FieldedUnit;
 import feh.heroes.character.Hero;
 import feh.heroes.character.HeroClass;
 import feh.heroes.skills.skillTypes.ActionSkill;
@@ -24,11 +25,6 @@ public class FEHPrinter {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                                    HEROES                                                    //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public static EmbedBuilder printCharacter(Hero x, boolean lv1, int rarity,
-                                               boolean getAll, int boon, int bane,
-                                               int merges, int dragonflowers, char support) {
-        return printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support, null);
-    }
     public static EmbedBuilder printCharacter(Hero x, boolean lv1, int rarity,
                                                boolean getAll, int boon, int bane,
                                                int merges, int dragonflowers, char support,
@@ -152,10 +148,19 @@ public class FEHPrinter {
 
         return heroInfo;
     }
+    public static EmbedBuilder printCharacter(Hero x, boolean lv1, int rarity,
+                                              boolean getAll, int boon, int bane,
+                                              int merges, int dragonflowers, char support) {
+        return printCharacter(x, lv1, rarity, getAll, boon, bane, merges, dragonflowers, support, null);
+    }
     public static EmbedBuilder printUnit(Unit x, boolean lv1) {
         return printCharacter(x, lv1, x.getRarity(), false,
                 x.getBoon(), x.getBane(), x.getMerges(), x.getDragonflowers(),
                 x.getSupportStatus());
+    }
+    public static EmbedBuilder printFieldedUnit(FieldedUnit x) {
+        //todo: write FieldedUnit printer
+        return null;
     }
 
     public static String printStats(int[] stats) {

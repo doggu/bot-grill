@@ -6,7 +6,9 @@ import feh.heroes.skills.skillTypes.Skill;
 import java.util.ArrayList;
 
 public class Unit extends Hero {
+    private String nickname = null;
     private final int rarity, boon, bane; //I refuse to call it asset/flaw
+    private int level; //can only be 1 or 40 right now
     private int supportLevels;
     private int merges, dragonflowers;
 
@@ -19,8 +21,7 @@ public class Unit extends Hero {
     // this should probably be moved to the Barracks or Summoner class
     // as an ArrayList of Units or Pairs for past summoner supports and
     // current ally supports
-
-    private String nickname = null;
+    // however, a reference to this would be necessary to invoke support status
 
     private Blessing blessing;
 
@@ -32,8 +33,7 @@ public class Unit extends Hero {
     //TODO: create character class
     // how do i check things off 40%
 
-
-
+    //TODO: add nickname param to a unit constructor for persistence
 
     /**
      * creates a new unit based on a hero;
@@ -241,20 +241,8 @@ public class Unit extends Hero {
          */
         return supportStatus;
     }
-    public int[] getIVs() {
-        int[] stats = super.getStats().getStatsAsArray();
-
-        for (int i=0; i<stats.length; i++) {
-            if (i==boon)
-                stats[i]++;
-            if (i==bane)
-                stats[i]--;
-        }
-
-        return stats;
-    }
     public int[] getStatsArr() {
-        int[] stats = super.getStats(false, rarity, boon, bane);
+        int[] stats = super.getStats(level==1, rarity, boon, bane);
 
         switch (getSupportStatus()) {
             case 's':

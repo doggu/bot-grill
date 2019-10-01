@@ -43,10 +43,10 @@ public class SummonSimulator extends FEHCommand {
 
         //register new summoner if user has not summoned before
         if (summoner==null) {
-            summoner = new Summoner(e.getAuthor());
-            Summoner.SUMMONERS.add(summoner);
+            Summoner.register(e.getAuthor().getId());
+            onCommand();
+            return;
         }
-
 
 
         Banner banner = BannerDatabase.BANNERS

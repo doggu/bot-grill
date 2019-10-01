@@ -13,7 +13,7 @@ public class Allies extends FEHCommand {
     }
 
     public void onCommand() {
-        for (Summoner x: Summoner.SUMMONERS) {
+        for (Summoner x:Summoner.SUMMONERS) {
             if (x.getUser().getId().equals(e.getAuthor().getId())) {
                 Barracks barracks = x.getBarracks();
                 if (args.length>1) {
@@ -54,7 +54,8 @@ public class Allies extends FEHCommand {
             }
         }
 
-        sendMessage("could not find your barracks. Have you summoned yet?");
+        Summoner.register(e.getAuthor().getId());
+        onCommand();
     }
 
 

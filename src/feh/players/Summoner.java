@@ -5,6 +5,7 @@ import feh.heroes.character.Hero;
 import feh.heroes.unit.Unit;
 import feh.players.relationships.Relationship;
 import feh.players.relationships.Relationships;
+import main.BotMain;
 import net.dv8tion.jda.core.entities.User;
 
 import java.util.ArrayList;
@@ -17,9 +18,14 @@ public class Summoner {
         //todo: turn this into the source of persistence
     }
 
+    public static void register(String userId) {
+        Summoner s = new Summoner(userId);
+        SUMMONERS.add(s);
+    }
 
 
-    private final User summoner;
+
+    private final String userId;
     private final Barracks barracks;
 
     private Unit supportedUnit = null;
@@ -31,13 +37,14 @@ public class Summoner {
 
 
 
-    //for generating summoners from a cache
-    //public Summoner(User summoner, Barracks barracks) {}
-    public Summoner(User summoner) {
-        this.summoner = summoner;
+    public Summoner(String userId) {
+        this.userId = userId;
         this.barracks = new Barracks();
         summoning = false;
     }
+
+    //for generating summoners from a cache
+    //public Summoner(User summoner, Barracks barracks) {}
 
 
 
@@ -49,12 +56,13 @@ public class Summoner {
 
 
     public String getName() {
-        return summoner.getName();
+        return getUser().getName();
     }
     public int getOrbsSpent() {
         return orbsSpent;
     }
-    public User getUser() { return summoner; }
+    public String getUserById() { return userId; }
+    public User getUser() { return BotMain.bot_grill.getUserById(userId); }
     public boolean isSummoning() { return summoning; }
     public CircleSimulator getCurrentSession() { return currentSession; }
     public Barracks getBarracks() { return barracks; }

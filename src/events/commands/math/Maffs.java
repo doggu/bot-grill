@@ -1,17 +1,17 @@
 package events.commands.math;
 
+import discordUI.button.ReactionButton;
 import events.commands.Command;
-
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.User;
 import stem.math.MathParse;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.function.Function;
 
 public class Maffs extends Command {
     private HashMap<User,Double> answers = new HashMap<>();
-    private HashMap<User, ArrayList<Function<Double, Double>>> storedFunctions = new HashMap<>();
+    //private HashMap<User, ArrayList<Function<Double, Double>>> storedFunctions = new HashMap<>();
 
 
     public void onCommand() {
@@ -48,19 +48,31 @@ public class Maffs extends Command {
 
         double value = new MathParse(problem).getFunction().apply(tv);
 
+        Message m;
+
         if (problem.contains("x"))
-            sendMessage(problem + " evaulated at "+tv+": " + value);
+            m = sendMessage('`'+problem + "`\n`f("+tv+") = " + value+'`');
         else
-            sendMessage(value);
+            m = sendMessage('`'+problem+"`\n = `"+value+'`');
 
         answers.put(e.getAuthor(), value);
+
+        final String aleksPrint = String.valueOf(value).replace("E", "*10^");
+
+        new ReactionButton(m,
+                e.getJDA().getEmotesByName("aleks", true).get(0)) {
+            @Override
+            public void onCommand() {
+                getMessage().editMessage(
+                        new EmbedBuilder().setTitle("`"+aleksPrint+"`")
+                        .build()).complete();
+            }
+        };
     }
 
     public boolean isCommand() {
         if (args[0].equalsIgnoreCase("Math")) return true;
-        if (e.getChannel().getName().equalsIgnoreCase("Math")) return true;
-
-        return false;
+        return (e.getChannel().getName().equalsIgnoreCase("Math"));
     }
 
 

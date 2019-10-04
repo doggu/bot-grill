@@ -4,14 +4,15 @@ import discordUI.button.ReactionButton;
 import events.commands.Command;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
 import stem.math.MathParse;
 
 import java.util.HashMap;
 
 public class Maffs extends Command {
-    private HashMap<User,Double> answers = new HashMap<>();
-    //private HashMap<User, ArrayList<Function<Double, Double>>> storedFunctions = new HashMap<>();
+    private HashMap<String,Double> answers = new HashMap<>();
+    private HashMap<String, HashMap<String, Double>> storedValues = new HashMap<>();
+    //private HashMap<String, ArrayList<Function<Double, Double>>> storedFunctions = new HashMap<>();
 
 
     public void onCommand() {
@@ -31,20 +32,62 @@ public class Maffs extends Command {
         } else if (args.length==2) {
             problem = args[1];
             tv = 1.0;
-        } else return;
+        } else if (args.length==4) {
+            if (args[1].equalsIgnoreCase("store")) {
+                String var = args[2];
+                String value = args[3];
+
+                if (value.equalsIgnoreCase("ans")) {
+                    value = String.valueOf(answers.get(e.getAuthor().getId()));
+                    value = value.replace("E", "*10^"); //todo: how do i fix this better
+                }
+
+                double val;
+                try {
+                    val = Double.parseDouble(value);
+                } catch (NumberFormatException nfe) {
+                    try {
+                        val = new MathParse(value).getFunction().apply(0.0);
+                    } catch (Exception e) {
+                        sendMessage("could not decipher your value, please try again.");
+                        return;
+                    }
+                }
+
+                storedValues.computeIfAbsent(e.getAuthor().getId(), k -> new HashMap<>());
+                storedValues.get(e.getAuthor().getId()).put(var, val);
+                sendMessage("stored "+val+" in "+var+'.');
+
+            }
+            return;
+        } else {
+            return;
+        }
 
         if (problem.contains("ans")) {
             double ans;
             try {
-                ans = answers.get(e.getAuthor());
+                ans = answers.get(e.getAuthor().getId());
             } catch (NullPointerException g) {
                 sendMessage("no previous answer was found!");
                 return;
             }
             String ansStr = String.valueOf(ans);
-            ansStr = ansStr.replace("E", "*10^");
             problem = problem.replace("ans", "("+ansStr+")");
         }
+
+        HashMap<String, Double> userValues = storedValues.get(e.getAuthor().getId());
+
+        if (userValues!=null) {
+            for (String x:userValues.keySet()) {
+                if (problem.contains(x)) {
+                    problem = problem.replaceAll(x, String.valueOf(userValues.get(x)));
+                }
+            }
+        }
+
+        problem = problem.replace("E", "*10^");
+
 
         double value = new MathParse(problem).getFunction().apply(tv);
 
@@ -55,7 +98,7 @@ public class Maffs extends Command {
         else
             m = sendMessage('`'+problem+"`\n = `"+value+'`');
 
-        answers.put(e.getAuthor(), value);
+        answers.put(e.getAuthor().getId(), value);
 
         final String aleksPrint = String.valueOf(value).replace("E", "*10^");
 
@@ -68,6 +111,7 @@ public class Maffs extends Command {
                         .build()).complete();
             }
         };
+        answers.put(e.getAuthor().getId(), value);
     }
 
     public boolean isCommand() {
@@ -75,7 +119,10 @@ public class Maffs extends Command {
         return (e.getChannel().getName().equalsIgnoreCase("Math"));
     }
 
-
+    @Override
+    public void onMessageReceived(MessageReceivedEvent e) {
+        super.onMessageReceived(e);
+    }
 
     public String getName() { return "Math"; }
     public String getDescription() { return "perform basic math!"; }

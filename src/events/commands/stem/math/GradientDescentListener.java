@@ -1,4 +1,4 @@
-package events.commands.math;
+package events.commands.stem.math;
 
 import events.commands.Command;
 import stem.math.GradientDescent;

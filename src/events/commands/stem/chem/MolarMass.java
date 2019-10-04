@@ -1,4 +1,4 @@
-package events.commands.chem;
+package events.commands.stem.chem;
 
 import events.commands.Command;
 import stem.science.chem.ChemicalElement;
@@ -7,8 +7,8 @@ import stem.science.chem.ElementDatabase;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
-import static events.commands.chem.CharIdentity.LETTER_L;
-import static events.commands.chem.CharIdentity.NUMBER;
+import static events.commands.stem.chem.CharIdentity.LETTER_L;
+import static events.commands.stem.chem.CharIdentity.NUMBER;
 
 
 

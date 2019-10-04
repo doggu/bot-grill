@@ -1,4 +1,4 @@
-package events.commands.math;
+package events.commands.stem.math;
 
 import discordUI.button.ReactionButton;
 import events.commands.Command;

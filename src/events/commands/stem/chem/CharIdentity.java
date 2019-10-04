@@ -1,4 +1,4 @@
-package events.commands.chem;
+package events.commands.stem.chem;
 
 public enum CharIdentity {
     LETTER_U, LETTER_L, NUMBER, PAREN_O, PAREN_C;

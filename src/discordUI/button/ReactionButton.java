@@ -17,7 +17,7 @@ public abstract class ReactionButton extends ReactionListener {
 
 
     @NotNull
-    ReactionButton(Message message, Emote emote) {
+    protected ReactionButton(Message message, Emote emote) {
         this.message = message;
         this.emote = emote;
         this.emoticon = null;
@@ -25,7 +25,7 @@ public abstract class ReactionButton extends ReactionListener {
         message.addReaction(emote).complete();
         BotMain.addListener(this);
     }
-    ReactionButton(Message message, String emoticon) {
+    protected ReactionButton(Message message, String emoticon) {
         this.message = message;
         this.emote = null;
         this.emoticon = emoticon;

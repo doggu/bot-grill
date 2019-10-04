@@ -22,9 +22,9 @@ import static feh.heroes.UnitDatabase.HEROES;
 import static main.BotMain.DEBUG;
 
 public class FEHPrinter {
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //                                                    HEROES                                                    //
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                                      HEROES                                                    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     public static EmbedBuilder printCharacter(Hero x, boolean lv1, int rarity,
                                                boolean getAll, int boon, int bane,
                                                int merges, int dragonflowers, char support,
@@ -160,6 +160,14 @@ public class FEHPrinter {
     }
     public static EmbedBuilder printFieldedUnit(FieldedUnit x) {
         //todo: write FieldedUnit printer
+
+
+
+        /*
+        buffs, penalties
+        status effects
+        live cooldown and hp
+         */
         return null;
     }
 
@@ -219,9 +227,9 @@ public class FEHPrinter {
 
 
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //                                                    SKILLS                                                    //
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //                                                      SKILLS                                                    //
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     private static final HashMap<Integer, String> SKILL_ICONS;
 
     static {
@@ -322,7 +330,8 @@ public class FEHPrinter {
                 if (analysis.getStartOfTurn1().size() != 0)
                     skill.addField("StartOfTurn1", analysis.getStartOfTurn1().toString(), false);
                 if (analysis.getStartOfEveryNthTurn().size() != 0)
-                    skill.addField("StartOfEveryNthTurn", analysis.getStartOfEveryNthTurn().toString(), false);
+                    skill.addField("StartOfEveryNthTurn",
+                            analysis.getStartOfEveryNthTurn().toString(), false);
                 if (analysis.getStartOfEven().size() != 0)
                     skill.addField("StartOfEven", analysis.getStartOfEven().toString(), false);
                 if (analysis.getStartOfOdd().size() != 0)
@@ -332,7 +341,8 @@ public class FEHPrinter {
                 if (analysis.getAtStartOfCombat().size() != 0)
                     skill.addField("AtStartOfCombat", analysis.getAtStartOfCombat().toString(), false);
                 if (analysis.getBeforeCombatUnitInitiates().size() != 0)
-                    skill.addField("BeforeCombatUnitInitiates", analysis.getBeforeCombatUnitInitiates().toString(), false);
+                    skill.addField("BeforeCombatUnitInitiates",
+                            analysis.getBeforeCombatUnitInitiates().toString(), false);
                 if (analysis.getAfterCombat().size() != 0)
                     skill.addField("AfterCombat", analysis.getAfterCombat().toString(), false);
                 if (analysis.getUnitInitiates().size() != 0)
@@ -340,7 +350,8 @@ public class FEHPrinter {
                 if (analysis.getFoeInitiates().size() != 0)
                     skill.addField("FoeInitiates", analysis.getFoeInitiates().toString(), false);
                 if (analysis.getAfterMovementAssist().size() != 0)
-                    skill.addField("AfterMovementAssist", analysis.getAfterMovementAssist().toString(), false);
+                    skill.addField("AfterMovementAssist",
+                            analysis.getAfterMovementAssist().toString(), false);
                 if (analysis.getWhileUnitLives().size() != 0)
                     skill.addField("WhileUnitLives", analysis.getWhileUnitLives().toString(), false);
             }

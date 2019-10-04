@@ -13,7 +13,8 @@ public class Unit extends Hero {
     private int merges, dragonflowers;
 
     //skills in superclass becomes repository for all skills
-    private final ArrayList<Skill> allSkills;
+    private final ArrayList<Skill> allSkills;   //todo: learned and unlearned skills
+                                                // inherited (expensive) and natural skills
     private final ArrayList<Skill> activeKit;
 
     //private final Summoner owner
@@ -55,33 +56,20 @@ public class Unit extends Hero {
         this.merges = merges;
         this.dragonflowers = dragonflowers;
 
-        this.allSkills = allSkills;
-        this.activeKit = baseKit;
-
         this.blessing = blessing;
 
         this.sp = sp;
         this.hm = hm;
+
+        this.allSkills = allSkills;
+        this.activeKit = baseKit;
     }
     public Unit(Hero hero, int rarity, int boon, int bane,
                 int level, int supportLevels, int merges, int dragonflowers,
                 Blessing blessing, int sp, int hm) {
-        super(hero);
-        this.rarity = rarity;
-        this.boon = boon;
-        this.bane = bane;
-        this.level = level;
-        this.supportLevels = supportLevels;
-        this.merges = merges;
-        this.dragonflowers = dragonflowers;
-
-        this.allSkills = super.getBaseKit();
-        this.activeKit = super.getBaseKit();
-
-        this.blessing = blessing;
-
-        this.sp = sp;
-        this.hm = hm;
+        this(hero, rarity, boon, bane,
+                level, supportLevels, merges, dragonflowers,
+                blessing, sp, hm, hero.getBaseKit(), hero.getBaseKit());
     }
     public Unit(Hero hero, int rarity, int boon, int bane,
                 int level, int supportLevels, int merges, int dragonflowers) {

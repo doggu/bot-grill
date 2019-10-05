@@ -79,6 +79,7 @@ public class Hero {
         }
 
         //there's probably a way to clone this, my brain is just too small
+        //stack overflow doesn't know so a better solution doesn't exist
         Hero j = correctName.get(0);
         this.fullName = j.fullName;
         this.origin = j.origin;

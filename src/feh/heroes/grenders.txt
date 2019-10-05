@@ -395,6 +395,7 @@ Tharja: "Normal Girl"	f
 Tharja: Dark Shadow	f
 Tharja: Obsessive Bride	f
 Thea: Stormy Flier	f
+Thrasir: Omnicidal Witch	f
 Tibarn: Lord of the Air	m
 Tiki: Beachside Scion	f
 Tiki: Dragon Scion	f

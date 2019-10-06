@@ -27,8 +27,7 @@ public class Allies extends FEHCommand {
                         sendMessage(
                                 new MessageBuilder(
                                         FEHPrinter.printUnit(
-                                                barracks.get(allyIndex-1),
-                                                false)).build());
+                                                barracks.get(allyIndex-1))).build());
                         log("provided data on "+x.getName()+"\'s unit");
                         return;
                     } catch (NumberFormatException g) {

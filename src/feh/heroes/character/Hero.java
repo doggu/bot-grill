@@ -1,14 +1,12 @@
 package feh.heroes.character;
 
-import discordUI.feh.FEHPrinter;
 import feh.heroes.UnitDatabase;
 import feh.heroes.skills.analysis.StatModifier;
 import feh.heroes.skills.skillTypes.Skill;
 
 import java.net.URL;
-import java.util.*;
-
-
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 public class Hero {
     private final HeroName fullName;
@@ -30,7 +28,6 @@ public class Hero {
     //private final String artist;
 
     private final ArrayList<Skill> baseKit;
-
 
 
     public Hero(HeroName fullName, Origin origin, URL gamepediaLink, URL portraitLink, String artist, char gender,
@@ -56,24 +53,25 @@ public class Hero {
 
     /**
      * creates a Hero according to the heroes currently in Fire Emblem Heroes
+     *
      * @param name - name of hero; MUST be in exact format: "[name]: [epithet]" (e.x. "Bartre: Fearless Warrior")
      */
     public Hero(String name) {
-        if (name.indexOf(':')<0) throw new Error("incorrect name format");
+        if (name.indexOf(':') < 0) throw new Error("incorrect name format");
         ArrayList<Hero> list = UnitDatabase.HEROES;
         ArrayList<Hero> correctName = new ArrayList<>();
 
-        for (Hero j:list)
+        for (Hero j : list)
             if (j.getFullName().toString().equals(name))
                 correctName.add(j);
 
-        if (correctName.size()==0) {
-            System.out.println("could not find "+name+".");
+        if (correctName.size() == 0) {
+            System.out.println("could not find " + name + ".");
             throw new Error();
         }
 
         //highly improbable
-        if (correctName.size()>1) {
+        if (correctName.size() > 1) {
             System.out.println("ambiguity detected; BIG issue");
             throw new Error();
         }
@@ -115,21 +113,16 @@ public class Hero {
     }
 
 
-
     public HeroName getFullName() { return fullName; }
     public Origin getOrigin() { return origin; }
     public URL getGamepediaLink() { return gamepediaLink; } //can technically be constructed from hero name
     public URL getPortraitLink() { return portraitLink; }
     public String getArtist() { return artist; }
     public char getGender() { return gender; }
-
     public char getColor() { return color; }
     public WeaponClass getWeaponType() { return weaponType; }
     public MovementClass getMoveType() { return moveType; }
-    public boolean is (HeroClass type) {
-        return weaponType == type || moveType == type;
-    }
-
+    public boolean is(HeroClass type) { return weaponType == type || moveType == type; }
     // TODO: change to lv40 stats using lv1 stats and growths
     public HeroStats getStats() { return stats; }
     public int getHP() { return stats.getHp(); }
@@ -137,7 +130,6 @@ public class Hero {
     public int getSpd() { return stats.getSpd(); }
     public int getDef() { return stats.getDef(); }
     public int getRes() { return stats.getRes(); }
-
     public int getSummonableRarity() { return summonableRarity; }
     public Availability getAvailability() { return availability; }
     public boolean isSummonable() { return availability.isSummonable(); }
@@ -146,133 +138,56 @@ public class Hero {
     public ArrayList<Skill> getBaseKit() { return baseKit; }
 
 
-
-    //todo: remove all the parameters and put them in unit or something
-    public String toString() { return this.getFullName().toString(); }
-
-    public int[] getStats(boolean lv1, int rarity, int boon, int bane) {
-        return getStats(lv1, rarity, boon, bane, 0, 0, 'd');
+    public String toString() {
+        return this.getFullName().toString();
     }
-    public int[] getStats(boolean lv1, int rarity,
-                          int boon, int bane,
-                          int merges, int dragonflowers, char support) {
-        return getStats(lv1, rarity, boon, bane, merges, dragonflowers, support, null);
-    }
-    public int[] getStats(boolean lv1, int rarity,
-                          int boon, int bane,
-                          int merges, int dragonflowers, char support,
-                          ArrayList<StatModifier> skills) {
-        //duplicate
-        int[][] rawStats = getAllStats(lv1, rarity);
-        int[] finalStats = new int[5];
-        for (int i=0; i<5; i++) {
-            if (i==boon) {
-                finalStats[i] = rawStats[2][i];
-            } else if (i==bane) {
-                finalStats[i] = rawStats[0][i];
-            } else {
-                finalStats[i] = rawStats[1][i];
-            }
-        }
 
 
-        int[] statsSorted = getStatsSorted(stats);
-
-        //this could be simpler in the finalStats creation but it's easier to read like this imo
-        if (merges>0) { //neutralize the bane/add to neutral stats
-            if (boon==-1&&bane==-1) {
-                finalStats[statsSorted[0]]++;
-                finalStats[statsSorted[1]]++;
-                finalStats[statsSorted[2]]++;
-            } else
-                finalStats[bane] = rawStats[1][bane];
-        }
-
-        for (int i=0; i<merges*2; i++)
-            finalStats[statsSorted[i%5]]++;
-
-        for (int i=0; i<dragonflowers; i++)
-            finalStats[statsSorted[i%5]]++;
-
-        switch(support) {
-            case 's':
-                finalStats[0]++;
-                finalStats[1]+= 2;
-            case 'a':
-                finalStats[2]+= 2;
-            case 'b':
-                finalStats[0]++;
-                finalStats[3]+= 2;
-            case 'c':
-                finalStats[0]+= 3;
-                finalStats[4]+= 2;
-                break;
-            case 'd':
-            default:
-        }
-
-
-
-        if (skills!=null) {
-            for (StatModifier x : skills) {
-                System.out.println(x);
-                int[] modifiers = x.getStatModifiers();
-
-                for (int i = 0; i < 5; i++)
-                    finalStats[i] += modifiers[i];
-            }
-        }
-
-
-
-        return finalStats;
-    }
 
     public int[][] getAllStats(boolean lv1, int rarity) {
+        return getAllStats(lv1, rarity, null);
+    }
+    //todo: swap the trickle down here (skills param should be an offshoot of two-parameter call)
+    public int[][] getAllStats(boolean lv1, int rarity, ArrayList<Skill> skills) {
         int[][] finalStats = {
                 { stats.getHp(), stats.getAtk(), stats.getSpd(), stats.getDef(), stats.getRes() },
                 { stats.getHp(), stats.getAtk(), stats.getSpd(), stats.getDef(), stats.getRes() },
                 { stats.getHp(), stats.getAtk(), stats.getSpd(), stats.getDef(), stats.getRes() },
         };
 
-        for (int i=0; i<3; i++) { //technically (if i==1) return; would be more efficient here
-                                    //TeChnicAlLY thIS iS SHiT
-            finalStats[i][0]+= (i-1);
-            finalStats[i][1]+= (i-1);
-            finalStats[i][2]+= (i-1);
-            finalStats[i][3]+= (i-1);
-            finalStats[i][4]+= (i-1);
+        for (int i = 0; i < 3; i++) { //technically (if i==1) return; would be more efficient here
+            //TeChnicAlLY thIS iS SHiT
+            for (int j=0; j<5; j++) {
+                finalStats[i][j] += (i - 1);
+            }
         }
 
         int[] statsSorted = getStatsSorted(stats);
-
-        //for (int i:statsSorted) System.out.println(i);
-
 
 
         switch (rarity) {
             case 1:
                 //two highest non-hp stats
-                for (int i=0; i<3; i++) {
+                for (int i = 0; i < 3; i++) {
                     finalStats[i][statsSorted[1]]--;
                     finalStats[i][statsSorted[2]]--;
                 }
             case 2:
                 //hp & two lowest stats
-                for (int i=0; i<3; i++) {
+                for (int i = 0; i < 3; i++) {
                     finalStats[i][statsSorted[0]]--;
                     finalStats[i][statsSorted[3]]--;
                     finalStats[i][statsSorted[4]]--;
                 }
             case 3:
                 //two highest non-hp stats
-                for (int i=0; i<3; i++) {
+                for (int i = 0; i < 3; i++) {
                     finalStats[i][statsSorted[1]]--;
                     finalStats[i][statsSorted[2]]--;
                 }
             case 4:
                 //hp & two lowest stats
-                for (int i=0; i<3; i++) {
+                for (int i = 0; i < 3; i++) {
                     finalStats[i][statsSorted[0]]--;
                     finalStats[i][statsSorted[3]]--;
                     finalStats[i][statsSorted[4]]--;
@@ -282,23 +197,30 @@ public class Hero {
                 break;
         }
 
+
         if (!lv1) {
-            int rarityFactor;
-            switch (rarity) {
-                case 1: rarityFactor = 86; break;
-                case 2: rarityFactor = 93; break;
-                case 3: rarityFactor = 100; break;
-                case 4: rarityFactor = 107; break;
-                case 5: rarityFactor = 114; break;
-                default:
-                    System.out.println("summonableRarity is not within bounds");
-                    return null;
+            int rarityFactor = 79; //0* base (hypothetically)
+
+            for (int i=0; i<rarity; i++) {
+                rarityFactor+= 7; //add 7% per rarity increase
             }
 
-            for (int i=0; i<3; i++) {
-                for (int j=0; j<5; j++) {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 5; j++) {
                     //TODO: expand with steps
                     finalStats[i][j]+= (int)(0.39*((this.stats.getGrowthsAsArray()[j]+5*(i-1))*rarityFactor/100));
+                }
+            }
+        }
+
+        if (skills!=null) {
+            for (Skill skill:skills) {
+                if (!(skill instanceof StatModifier)) continue;
+                int[] modifiers = ((StatModifier) skill).getStatModifiers();
+                for (int i=0; i<finalStats.length; i++) {
+                    for (int j=0; j<finalStats[i].length; j++) {
+                        finalStats[i][j]+= modifiers[j];
+                    }
                 }
             }
         }
@@ -309,64 +231,15 @@ public class Hero {
     private static int[] getStatsSorted(HeroStats stats) {
         int[] statsSorted = {0, 1, 2, 3, 4};
 
-        for (int i=0; i<5; i++) {
+        for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 4; j++) {
-                if (stats.getStatsAsArray()[statsSorted[j]]<stats.getStatsAsArray()[statsSorted[j+1]]) {
-                    int t = statsSorted[j+1];
-                    statsSorted[j+1] = statsSorted[j];
+                if (stats.getStatsAsArray()[statsSorted[j]] < stats.getStatsAsArray()[statsSorted[j + 1]]) {
+                    int t = statsSorted[j + 1];
+                    statsSorted[j + 1] = statsSorted[j];
                     statsSorted[j] = t;
                 }
             }
         }
         return statsSorted;
-    }
-
-    /*
-    public int nBST(boolean lv1, int rarity) {
-
-    }
-    public int maxBST(boolean lv1, int rarity) {
-
-    }
-    public int minBST(boolean lv1, int rarity) {
-
-    }
-    */
-
-
-
-    public static void main(String[] args) {
-        System.out.println(FEHPrinter.printStats(new Hero("Caeda: Talys's Bride")
-                .getStats(false, 5, -1, -1, 10, 10, 's')));
-
-
-
-        //TODO: fix name-based initializer
-        Scanner console = new Scanner(System.in);
-
-        //test creating heroes
-        String name = console.nextLine();
-        while (!name.equals("quit")) {
-            Hero x;
-            try {
-                x = new Hero(name);
-            } catch (Error g) {
-                System.out.println("invalid character name; try again: ");
-                name = console.nextLine();
-                continue;
-            }
-
-            for (int i=1; i<=5; i++) {
-                for (int j = 0; j < 5; j++)
-                    System.out.println(x.getStats(false, i, 1, 1)[j]);
-                System.out.println();
-            }
-            //System.out.println(x);
-            System.out.println();
-            System.out.println();
-            System.out.println();
-
-            name = console.nextLine();
-        }
     }
 }

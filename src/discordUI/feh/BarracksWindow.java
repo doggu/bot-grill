@@ -20,7 +20,7 @@ public class BarracksWindow extends Menu {
 
         for (Unit x:b)
             heroes.add(new MenuEntry(x.getNickname(),
-                    FEHPrinter.printUnit(x, false)));
+                    FEHPrinter.printUnit(x)));
 
         return heroes;
     }

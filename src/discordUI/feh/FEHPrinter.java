@@ -8,8 +8,8 @@ import feh.heroes.character.WeaponClass;
 import feh.heroes.skills.analysis.SkillAnalysis;
 import feh.heroes.skills.skillTypes.*;
 import feh.heroes.unit.Unit;
+import main.BotMain;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Emote;
 import utilities.Range;
 
 import java.awt.*;
@@ -17,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-import static discordUI.EmoteHelper.getEmote;
 import static discordUI.EmoteHelper.printEmote;
 import static feh.heroes.UnitDatabase.HEROES;
 import static main.BotMain.DEBUG;
@@ -34,21 +33,11 @@ public class FEHPrinter {
 
         Color color;
         switch (rarity) { //?
-            case 1:
-                color = HERO_1;
-                break;
-            case 2:
-                color = HERO_2;
-                break;
-            case 3:
-                color = HERO_3;
-                break;
-            case 4:
-                color = HERO_4;
-                break;
-            case 5:
-                color = HERO_5;
-                break;
+            case 1: color = HERO_1; break;
+            case 2: color = HERO_2; break;
+            case 3: color = HERO_3; break;
+            case 4: color = HERO_4; break;
+            case 5: color = HERO_5; break;
             default:
                 color = new Color(120, 0, 180); //purple-ish
                 break;
@@ -132,32 +121,6 @@ public class FEHPrinter {
 
 
     private static void headingInformation(EmbedBuilder builder, Hero x) {
-        StringBuilder description = new StringBuilder();
-
-        Emote moveType = getEmote("Icon_Move_"+x.getMoveType());
-        String unitColor;
-        switch (x.getColor()) {
-            case 'r':
-                unitColor = "Red";
-                break;
-            case 'g':
-                unitColor = "Green";
-                break;
-            case 'b':
-                unitColor = "Blue";
-                break;
-            case 'c':
-                unitColor = "Colorless";
-                break;
-            default:
-                unitColor = "orange";
-        }
-        Emote weaponType = getEmote("Icon_Class_"+unitColor+"_"+x.getWeaponType());
-
-        description
-                .append(printEmote(moveType))
-                .append(printEmote(weaponType))
-                .append(x.getFullName().toString());
 
         /*
         heroInfo.setAuthor(description.toString());
@@ -168,7 +131,10 @@ public class FEHPrinter {
                 x.getReleaseDate().get(Calendar.YEAR));
          */
 
-        builder.addField(description.toString(),
+        String description = printMovementClassEmote(x.getMoveType()) +
+                printWeaponClassEmote(x.getColor(), x.getWeaponType()) +
+                x.getFullName().toString();
+        builder.addField(description,
                 '*'+x.getOrigin().toString()+"*\n" +
                         "Artist: "+x.getArtist()+"\n" +
                         "Debuted "  +
@@ -189,24 +155,24 @@ public class FEHPrinter {
 
 
 
-    public static String printStats(int[] stats) {
+    private static String printStats(int[] stats) {
         StringBuilder statString = new StringBuilder();
         for (int x:stats)
             statString.append(x).append((x/10>=1?"   ":"    "));
         return statString.toString();
     }
-    public static String printStats(int[][] stats) {
+    private static String printStats(int[][] stats) {
         return  printStats(stats[0])+'\n'+
                 printStats(stats[1])+
                 (stats.length==3?'\n'+printStats(stats[2]):"");
     }
 
-    public static String printBST(int[] stats) {
+    private static String printBST(int[] stats) {
         int bst = 0;
         for (int i:stats) bst+= i;
         return "BST: " + bst;
     }
-    public static String printBST(int[][] stats) {
+    private static String printBST(int[][] stats) {
         int bst = 0;
         for (int i=0; i<5; i++) bst+= stats[1][i];
 
@@ -375,12 +341,16 @@ public class FEHPrinter {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //                                                    UTILITIES                                                   //
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public static String printMovementClassEmote(MovementClass type) {
-        return null;
+    private static String printMovementClassEmote(MovementClass type) {
+        return printEmote(
+                BotMain.bot_grill.getEmotesByName("Icon_Move_"+type.toString(), true).get(0));
     }
 
-    public static String printWeaponClassEmote(char color, WeaponClass type) {
-        return null;
+    private static String printWeaponClassEmote(char color, WeaponClass type) {
+        return printEmote(
+                BotMain.bot_grill.getEmotesByName("Icon_Class_"+
+                (color=='r'?"Red":(color=='g'?"Green":(color=='b'?"Blue":"Colorless")))+"_"+type.toString(),
+                true).get(0));
     }
 
 
@@ -395,7 +365,7 @@ public class FEHPrinter {
             HERO_5_10 = new Color(255, 255, 128);
 
 
-    public static Color palatte(Object o) {
+    private static Color palatte(Object o) {
         Color color;
 
         if (o instanceof FieldedUnit) {
@@ -422,7 +392,7 @@ public class FEHPrinter {
                         color = HERO_5;
                     break;
                 default:
-                    color = new Color(120, 0, 180); //purple-ish
+                    color = DEFAULT;
                     break;
             }
         } else if (o instanceof Hero) {
@@ -443,7 +413,7 @@ public class FEHPrinter {
                     color = HERO_5;
                     break;
                 default:
-                    color = new Color(120, 0, 180); //purple-ish
+                    color = DEFAULT;
                     break;
             }
         } else if (o instanceof Skill) {

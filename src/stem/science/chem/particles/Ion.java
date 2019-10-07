@@ -18,18 +18,29 @@ public class Ion extends MolecularIdentity {
 
     private static final Ion
             AMMONIUM =
-                    new Ion(new Atom(ElementDatabase.DATABASE.find("H"), -1),
-                    new Atom(ElementDatabase.DATABASE.find("H"), -1),
-                    new Atom(ElementDatabase.DATABASE.find("H"), -1),
-                    new Atom(ElementDatabase.DATABASE.find("H"), -1),
-                    new Atom(ElementDatabase.DATABASE.find("N"), 5));
+                    new Ion(
+                            new Atom(ElementDatabase.DATABASE.find("H").getAtomicNumber(),
+                                    ElementDatabase.DATABASE.find("H").getAtomicNumber(), -1),
+                            new Atom(ElementDatabase.DATABASE.find("H").getAtomicNumber(),
+                                    ElementDatabase.DATABASE.find("H").getAtomicNumber(), -1),
+                            new Atom(ElementDatabase.DATABASE.find("H").getAtomicNumber(),
+                                    ElementDatabase.DATABASE.find("H").getAtomicNumber(), -1),
+                            new Atom(ElementDatabase.DATABASE.find("H").getAtomicNumber(),
+                                    ElementDatabase.DATABASE.find("H").getAtomicNumber(), -1),
+                            new Atom(ElementDatabase.DATABASE.find("N").getAtomicNumber(),
+                                    ElementDatabase.DATABASE.find("N").getAtomicNumber(), 5));
 
     private static final Ion
             NITRATE =
-                    new Ion(new Atom(ElementDatabase.DATABASE.find("N"), -7),
-                    new Atom(ElementDatabase.DATABASE.find("O"), 2),
-                    new Atom(ElementDatabase.DATABASE.find("O"), 2),
-                    new Atom(ElementDatabase.DATABASE.find("O"), 2));
+                    new Ion(
+                            new Atom(ElementDatabase.DATABASE.find("N").getAtomicNumber(),
+                                    ElementDatabase.DATABASE.find("N").getAtomicNumber(), -7),
+                            new Atom(ElementDatabase.DATABASE.find("O").getAtomicNumber(),
+                                    ElementDatabase.DATABASE.find("O").getAtomicNumber(), 2),
+                            new Atom(ElementDatabase.DATABASE.find("O").getAtomicNumber(),
+                                    ElementDatabase.DATABASE.find("O").getAtomicNumber(), 2),
+                            new Atom(ElementDatabase.DATABASE.find("O").getAtomicNumber(),
+                                    ElementDatabase.DATABASE.find("O").getAtomicNumber(), 2));
 
 
 

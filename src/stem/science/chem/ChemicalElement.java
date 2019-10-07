@@ -43,7 +43,7 @@ public class ChemicalElement {
         this.electronegativity = electronegativity;
         this.earthAbundance = earthAbundance;
     }
-    ChemicalElement(int atomicNumber) {
+    protected ChemicalElement(int atomicNumber) {
         ChemicalElement toCopy = ElementDatabase.ELEMENTS.get(atomicNumber-1);
         this.atomicNumber = toCopy.atomicNumber;
         this.symbol = toCopy.symbol;

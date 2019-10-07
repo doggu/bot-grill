@@ -14,10 +14,10 @@ public abstract class MolecularIdentity {
 
 
 
-    public double getMolarMass() {
+    public double getAtomicWeight() {
         double mm = 0;
         for (Atom x:atoms)
-            mm+= x.getMolarMass();
+            mm+= x.getAtomicWeight();
         return mm;
     }
 }

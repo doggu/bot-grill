@@ -27,7 +27,7 @@ public class Molecule extends ArrayList<Molecule> implements Polyatomic {
     public double getMolarMass() {
         double mass = 0;
         for (Atom x:atoms) {
-            mass+=x.getMolarMass();
+            mass+=x.getAtomicWeight();
         }
 
         return mass;

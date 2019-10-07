@@ -18,7 +18,7 @@ public class Range<T extends Comparable<T>> {
     public void updateRange(T newVal) {
         if (newVal==null) return;
         min = (min.compareTo(newVal)>0?newVal:min);
-        max = (newVal.compareTo(max)<0?newVal:max);
+        max = (max.compareTo(newVal)<0?newVal:max);
     }
 
     public boolean infintesimalRange() { return min.compareTo(max)==0; }

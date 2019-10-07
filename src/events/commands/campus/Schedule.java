@@ -12,7 +12,7 @@ import java.util.*;
 public class Schedule {
     static final Schedule PIONEER_HALL, CARRILLO_COMMONS, DLG_COMMONS;
 
-    private static final Document
+    private static Document
             PIONEER_HALL_HOURS,
             UCSB_HOURS;
     static {
@@ -24,7 +24,16 @@ public class Schedule {
                     new URL("https://www.housing.ucsb.edu/dining/dining-commons-hours%E2%80%94academic-year"),
                     3000);
         } catch (Exception e) {
-            throw new Error("well fuck");
+            try {
+                PIONEER_HALL_HOURS = Jsoup.parse(
+                        new URL("http://www.dining.umn.edu/CampusRestaurants/ResidentialRestaurants/pioneer-eb.html"),
+                        3000);
+                UCSB_HOURS = Jsoup.parse(
+                        new URL("https://www.housing.ucsb.edu/dining/dining-commons-hours%E2%80%94academic-year"),
+                        3000);
+            } catch (Exception ex) {
+                throw new Error("well fuck");
+            }
         }
 
         PIONEER_HALL = getPioneerHall();

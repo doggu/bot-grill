@@ -30,6 +30,8 @@ public class Powercreep extends FEHCommand {
 
     @Override
     public void onCommand() {
+        //todo: revisit
+        /*
         if (args.length==1) {
             sendMessage("please provide a unit in the standard search method. " +
                     "if ambiguity is detected, the first hero, in alphabetical order, will be chosen.");
@@ -84,5 +86,6 @@ public class Powercreep extends FEHCommand {
             sendMessage(message);
         else
             sendMessage("you're safe from powercreep!");
+         */
     }
 }

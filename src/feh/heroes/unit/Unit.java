@@ -1,6 +1,7 @@
 package feh.heroes.unit;
 
 import feh.heroes.character.Hero;
+import feh.heroes.skills.analysis.StatModifier;
 import feh.heroes.skills.skillTypes.Skill;
 
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ public class Unit extends Hero {
     //skills in superclass becomes repository for all skills
     private final ArrayList<Skill> allSkills;   //todo: learned and unlearned skills
                                                 // inherited (expensive) and natural skills
-    private final ArrayList<Skill> activeKit;
+    private final ArrayList<Skill> activeKit;   //todo: create ActiveKit class (with specific slots n shit)
 
     //private final Summoner owner
     //todo: this is somewhat redundant to the user's barracks
@@ -46,7 +47,7 @@ public class Unit extends Hero {
      */
     public Unit(Hero hero, int rarity, int boon, int bane,
                 int level, int supportLevels, int merges, int dragonflowers,
-                Blessing blessing, int sp, int hm, ArrayList<Skill> allSkills, ArrayList<Skill> baseKit) {
+                Blessing blessing, int sp, int hm, ArrayList<Skill> allSkills, ArrayList<Skill> activeKit) {
         super(hero);
         this.rarity = rarity;
         this.boon = boon;
@@ -62,7 +63,7 @@ public class Unit extends Hero {
         this.hm = hm;
 
         this.allSkills = allSkills;
-        this.activeKit = baseKit;
+        this.activeKit = activeKit;
     }
     public Unit(Hero hero, int rarity, int boon, int bane,
                 int level, int supportLevels, int merges, int dragonflowers,
@@ -82,7 +83,7 @@ public class Unit extends Hero {
         this(hero, rarity, boon, bane, level, supportLevels, merges, 0);
     }
     public Unit(Hero hero, int rarity, int boon, int bane, int level) {
-        this(hero, rarity, boon, bane, level, 'd');
+        this(hero, rarity, boon, bane, level, -1);
     }
     //experimental, for creating FieldedUnits which extend this
     public Unit(Unit unit) {
@@ -145,12 +146,13 @@ public class Unit extends Hero {
 
         this.boon = boon;
         this.bane = bane;
-        supportLevels = 0;
+        this.level = 1;
+        supportLevels = -1;
         this.merges = 0;
         this.dragonflowers = 0;
 
         allSkills = super.getBaseKit();
-        activeKit = super.getBaseKit();
+        activeKit = null; //super.getBaseKit();
     }
 
 
@@ -174,9 +176,10 @@ public class Unit extends Hero {
 
 
 
+    public int getRarity() { return rarity; }
     public int getBoon() { return boon; }
     public int getBane() { return bane; }
-    public int getRarity() { return rarity; }
+    public int getLevel() { return level; }
     public int getMerges() { return merges; }
     public int getDragonflowers() { return dragonflowers; }
     public Blessing getBlessing() { return blessing; }
@@ -204,16 +207,16 @@ public class Unit extends Hero {
     public char getSupportStatus() {
         char supportStatus;
         //if (owner.hasSupported(this)) {
-            if (supportLevels>=R_LEVEL_S) {
+            if (supportLevels>=LEVEL_S) {
                 supportStatus = 's';
-            } else if (supportLevels>=R_LEVEL_A) {
+            } else if (supportLevels>=LEVEL_A) {
                 supportStatus = 'a';
-            } else if (supportLevels>=R_LEVEL_B) {
+            } else if (supportLevels>=LEVEL_B) {
                 supportStatus = 'b';
-            } else  if (supportLevels>=R_LEVEL_C) {
+            } else  if (supportLevels>=LEVEL_C) {
                 supportStatus = 'c';
-            } else {
-                throw new Error("negative support level detected! integer overflows already!?");
+            } else { //-1, uninitiated
+                supportStatus = 'd';
             }
         /*} else {
             if (supportLevels >= LEVEL_S) {
@@ -229,29 +232,86 @@ public class Unit extends Hero {
          */
         return supportStatus;
     }
+
+
+
     public int[] getStatsArr() {
-        int[] stats = super.getStats(level==1, rarity, boon, bane);
+        //duplicate
+        int[][] rawStats = getAllStats(level==1, rarity);
+        int[] finalStats = rawStats[1];
+        if (boon>=0&&bane>=0) {
+            finalStats[boon] = rawStats[2][boon];
+            finalStats[bane] = rawStats[0][bane];
+        }
+
+
+
+        int[] statsSorted = getStatsSorted(finalStats);
+
+        //this could be simpler in the finalStats creation but it's easier to read like this imo
+        if (merges > 0) { //neutralize the bane/add to neutral stats
+            if (boon == -1 && bane == -1) {
+                finalStats[statsSorted[0]]++;
+                finalStats[statsSorted[1]]++;
+                finalStats[statsSorted[2]]++;
+            } else {
+                finalStats[bane] = rawStats[1][bane];
+            }
+        }
+
+        for (int i = 0; i < merges * 2; i++)
+            finalStats[statsSorted[i % 5]]++;
+
+        for (int i = 0; i < dragonflowers; i++)
+            finalStats[statsSorted[i % 5]]++;
 
         switch (getSupportStatus()) {
             case 's':
-                stats[0]++;
-                stats[1]+= 2;
+                finalStats[0]++;
+                finalStats[1] += 2;
             case 'a':
-                stats[2]+= 2;
+                finalStats[2] += 2;
             case 'b':
-                stats[0]++;
-                stats[3]+= 2;
+                finalStats[0]++;
+                finalStats[3] += 2;
             case 'c':
-                stats[0]+= 3;
-                stats[4]+= 2;
+                finalStats[0] += 3;
+                finalStats[4] += 2;
+                break;
             case 'd':
-                break;
             default:
-                //technically shouldn't happen but it's okay I guess
-                System.out.println("just letting you know that I didn't get a support status for "+this.getFullName());
-                break;
         }
 
-        return stats;
+
+        if (activeKit != null) {
+            for (Skill x : activeKit) {
+                System.out.println(x);
+                if (!(x instanceof StatModifier)) continue;
+                int[] modifiers = ((StatModifier) x).getStatModifiers();
+
+                for (int i = 0; i < 5; i++)
+                    finalStats[i] += modifiers[i];
+            }
+        }
+
+
+        return finalStats;
+    }
+
+
+
+    private static int[] getStatsSorted(int[] stats) {
+        int[] statsSorted = {0, 1, 2, 3, 4};
+
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 4; j++) {
+                if (stats[statsSorted[j]] < stats[statsSorted[j + 1]]) {
+                    int t = statsSorted[j + 1];
+                    statsSorted[j + 1] = statsSorted[j];
+                    statsSorted[j] = t;
+                }
+            }
+        }
+        return statsSorted;
     }
 }

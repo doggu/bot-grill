@@ -5,11 +5,11 @@ import events.commands.Command;
 import feh.heroes.UnitDatabase;
 import feh.heroes.character.Hero;
 import feh.heroes.skills.SkillDatabase;
-import feh.heroes.skills.analysis.StatModifier;
 import feh.heroes.skills.skillTypes.PassiveA;
 import feh.heroes.skills.skillTypes.PassiveS;
 import feh.heroes.skills.skillTypes.Skill;
 import feh.heroes.skills.skillTypes.Weapon;
+import feh.heroes.unit.Unit;
 import net.dv8tion.jda.core.MessageBuilder;
 import utilities.StringUtil;
 
@@ -24,14 +24,14 @@ public class HeroRetriever extends Command {
     private boolean getAll = true;
 
     //generates Unit
-    private int boon = -1;
-    private int bane = -1;
-    private int merges = 0;
-    private int dragonflowers = 0;
-    private char support = 'd';
+    private int boon,
+                bane,
+                merges,
+                dragonflowers,
+                support;
 
     //generates FieldedUnit
-    private ArrayList<StatModifier> skills = new ArrayList<>();
+    private ArrayList<Skill> skills = new ArrayList<>();
     private boolean useBaseKit = false;
     //todo: legendary/mystic boosts
 
@@ -151,13 +151,12 @@ public class HeroRetriever extends Command {
             if (x.indexOf("w/")==0) {
                 switch (x.substring(2).toLowerCase()) {
                     //this is the only case
-                    case "ssc": support = 'c'; break;
-                    case "ssb": support = 'b'; break;
-                    case "ssa": support = 'a'; break;
-                    case "sss": support = 's'; break;
+                    case "ssc": support = 0;  break;
+                    case "ssb": support = 8;  break;
+                    case "ssa": support = 32; break;
+                    case "sss": support = 80; break;
                     case "basekit":
                         useBaseKit = true;
-                        getAll = false;
                         break;
                     default:
                         if (x.charAt(2)=='\"') {
@@ -176,11 +175,7 @@ public class HeroRetriever extends Command {
                             args.subList(i, j).clear();
 
                             Skill skill = SkillDatabase.DATABASE.find(skillName.toString());
-                            if (skill instanceof StatModifier)
-                                skills.add((StatModifier) skill);
-
-                            if (skills.size()!=0)
-                                getAll = false;
+                            skills.add(skill);
                         }
                 }
             }
@@ -209,10 +204,7 @@ public class HeroRetriever extends Command {
         for (Hero x:candidates) {
             //fill in the gaps with base kit, if requested
             if (useBaseKit) {
-                for (Skill skill : x.getBaseKit()) {
-                    if (skill instanceof StatModifier)
-                        skills.add((StatModifier) skill);
-                }
+                skills.addAll(x.getBaseKit());
             }
 
             //construct a feasable base kit (StatModifiers only)
@@ -220,7 +212,7 @@ public class HeroRetriever extends Command {
             PassiveA a = null;
             PassiveS s = null; //TODO: how to distinguish reasonably between inheritable and seal passives?
 
-            for (StatModifier skill:skills) {
+            for (Skill skill:skills) {
                 if (weapon==null) {
                     if (skill instanceof Weapon) {
                         weapon = (Weapon) skill;
@@ -249,10 +241,16 @@ public class HeroRetriever extends Command {
             if (s!=null)
                 skills.add(s);
 
-            sendMessage(new MessageBuilder(
-                    FEHPrinter.printCharacter(x, lv1, rarity, getAll, boon, bane,
-                            merges, dragonflowers, support, skills))
-                    .build());
+            if (getAll) {
+                sendMessage(new MessageBuilder(
+                        FEHPrinter.printCharacter(x, lv1, rarity, skills))
+                        .build());
+            } else {
+                sendMessage(new MessageBuilder(
+                        FEHPrinter.printUnit(new Unit(x, rarity, boon, bane, lv1 ? 1 : 40,
+                                support, merges, dragonflowers,
+                                null, 0, 0, skills, skills))).build());
+            }
         }
 
 
@@ -286,7 +284,9 @@ public class HeroRetriever extends Command {
         bane = -1;
         merges = 0;
         dragonflowers = 0;
-        support = 'd';
+        support = -1;
+        skills = new ArrayList<>();
+        useBaseKit = false;
         getUnits();
     }
 

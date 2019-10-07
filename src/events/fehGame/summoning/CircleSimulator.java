@@ -223,7 +223,7 @@ public class CircleSimulator extends ReactionListener {
                     //summoner.openPrivateChannel().complete()
                     // .sendMessage(FEHRetriever.printUnit(hero, true)).complete();
                     circleMessage.editMessage(
-                            FEHPrinter.printUnit(hero, true)
+                            FEHPrinter.printUnit(hero)
                                     .build()).complete();
                     summoner.getBarracks().add(hero);
 

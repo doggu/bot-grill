@@ -1,10 +1,14 @@
 package feh.heroes.unit;
 
+import feh.heroes.skills.SkillDatabase;
+import feh.heroes.skills.analysis.StatModifier;
 import feh.heroes.skills.skillTypes.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
-public class SkillSet {
+public class SkillSet extends ArrayList<Skill> implements List<Skill> {
     private Weapon weapon;
     private Assist assist;
     private Special special;
@@ -29,8 +33,34 @@ public class SkillSet {
         this.passiveB = passiveB;
         this.passiveC = passiveC;
         this.passiveS = passiveS;
+
+        if (weapon!=null) {
+            this.add(weapon);
+        }
+        if (assist!=null) {
+            this.add(assist);
+        }
+        if (special!=null) {
+            this.add(special);
+        }
+        if (passiveA!=null) {
+            this.add(passiveA);
+        }
+        if (passiveB!=null) {
+            this.add(passiveB);
+        }
+        if (passiveC!=null) {
+            this.add(passiveC);
+        }
+        if (passiveS!=null) {
+            this.add(passiveS);
+        }
+    }
+    public SkillSet(Skill ... skills) {
+        super(Arrays.asList(skills));
     }
     public SkillSet(ArrayList<Skill> skills) {
+        super(skills);
         this.weapon = null;
         this.assist = null;
         this.special = null;
@@ -43,23 +73,17 @@ public class SkillSet {
             Skill s = skills.get(i);
             if (s instanceof Weapon) {
                 weapon = (Weapon) s;
-            }
-            if (s instanceof Assist) {
+            } else if (s instanceof Assist) {
                 assist = (Assist) s;
-            }
-            if (s instanceof Special) {
+            } else if (s instanceof Special) {
                 special = (Special) s;
-            }
-            if (s instanceof PassiveA) {
+            } else if (s instanceof PassiveA) {
                 passiveA = (PassiveA) s;
-            }
-            if (s instanceof PassiveB) {
+            } else if (s instanceof PassiveB) {
                 passiveB = (PassiveB) s;
-            }
-            if (s instanceof PassiveC) {
+            } else if (s instanceof PassiveC) {
                 passiveC = (PassiveC) s;
-            }
-            if (s instanceof PassiveS) {
+            } else if (s instanceof PassiveS) {
                 passiveS = (PassiveS) s;
             }
         }
@@ -73,5 +97,33 @@ public class SkillSet {
 
     public boolean hasAssist() {
         return assist!=null;
+    }
+
+    int[] getStatModifiers() {
+        int[] modifiers = new int[5];
+        for (Skill x:this) {
+            if (x instanceof StatModifier) {
+                int[] xModifiers = ((StatModifier) x).getStatModifiers();
+
+                for (int i=0; i<modifiers.length; i++) modifiers[i]+= xModifiers[i];
+            }
+        }
+
+        return modifiers;
+    }
+
+    //todo: implement SkillAnalysis features
+
+
+
+    public static void main(String[] args) {
+        SkillDatabase d = SkillDatabase.DATABASE;
+        SkillSet f = new SkillSet(d.find("Falchion"), d.find("Fort. Def/Res 3"));
+
+        System.out.println("hp\tatk\tspd\tdef\tres");
+        for (int m:f.getStatModifiers())
+            System.out.print(m+"\t");
+
+        System.out.println();
     }
 }

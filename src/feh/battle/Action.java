@@ -12,21 +12,23 @@ public abstract class Action {
 
 
 
-    protected FieldedUnit initiator, receiver;
+    protected final FieldedUnit initiator, receiver;
+    protected final FieldedUnit backupInitiator, backupReceiver;
 
 
 
-    Action(FieldedUnit initiator, FieldedUnit receiver) {
+    protected Action(FieldedUnit initiator, FieldedUnit receiver) {
         this.initiator = initiator;
         this.receiver = receiver;
+        this.backupInitiator = initiator.clone();
+        this.backupReceiver = receiver.clone();
+
+        preview();
     }
 
 
 
     public void preview() {
-        FieldedUnit pAttack = initiator.clone();
-        FieldedUnit pDefend = receiver.clone();
-
         commit();
     }
 

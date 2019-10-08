@@ -5,6 +5,7 @@ import feh.heroes.skills.analysis.StatModifier;
 import feh.heroes.skills.skillTypes.Skill;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Unit extends Hero {
     private String nickname = null;
@@ -238,15 +239,27 @@ public class Unit extends Hero {
     public int[] getStatsArr() {
         //duplicate
         int[][] rawStats = getAllStats(level==1, rarity);
-        int[] finalStats = rawStats[1];
+
+        //i can't believe i failed java 101
+        int[] finalStats = Arrays.copyOf(rawStats[1],5);
         if (boon>=0&&bane>=0) {
             finalStats[boon] = rawStats[2][boon];
             finalStats[bane] = rawStats[0][bane];
         }
 
+        int[] statsSorted;
+        if (level!=1) {
+            int[][] rawStatsLv1 = getAllStats(true, rarity);
+            int[] statsLv1 = rawStatsLv1[1];
+            if (boon>=0&&bane>=0) {
+                statsLv1[boon] = rawStatsLv1[2][boon];
+                statsLv1[bane] = rawStatsLv1[0][bane];
+            }
 
-
-        int[] statsSorted = getStatsSorted(finalStats);
+            statsSorted = getStatsSorted(statsLv1);
+        } else {
+            statsSorted = getStatsSorted(finalStats);
+        }
 
         //this could be simpler in the finalStats creation but it's easier to read like this imo
         if (merges > 0) { //neutralize the bane/add to neutral stats
@@ -285,10 +298,9 @@ public class Unit extends Hero {
 
         if (activeKit != null) {
             for (Skill x : activeKit) {
-                System.out.println(x);
                 if (!(x instanceof StatModifier)) continue;
-                int[] modifiers = ((StatModifier) x).getStatModifiers();
 
+                int[] modifiers = ((StatModifier) x).getStatModifiers();
                 for (int i = 0; i < 5; i++)
                     finalStats[i] += modifiers[i];
             }

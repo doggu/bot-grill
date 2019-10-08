@@ -3,6 +3,7 @@ package feh.heroes.skills.analysis;
 import feh.heroes.character.HeroClass;
 import feh.heroes.skills.SkillDatabase;
 import feh.heroes.skills.skillTypes.Skill;
+import feh.heroes.skills.skillTypes.Weapon;
 import utilities.Stopwatch;
 
 import java.util.ArrayList;
@@ -212,9 +213,13 @@ public class SkillAnalysis {
                 }
             }
 
+            if (skill instanceof Weapon) {
+                statModifiers[1]+= ((Weapon) skill).getMt();
+            }
+
             return statModifiers;
         } catch (Exception e) {
-            //System.out.println(skill.getName());
+            System.out.println(skill.getName());
             e.printStackTrace();
         }
 

@@ -3,7 +3,6 @@ package feh.heroes.skills.analysis;
 import feh.heroes.character.HeroClass;
 import feh.heroes.skills.SkillDatabase;
 import feh.heroes.skills.skillTypes.Skill;
-import feh.heroes.skills.skillTypes.Weapon;
 import utilities.Stopwatch;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import static feh.heroes.character.MovementClass.*;
-import static feh.heroes.character.WeaponClass.*;
+import static feh.heroes.character.WeaponClass.BREATH;
 
 
 public class SkillAnalysis {
@@ -164,6 +163,10 @@ public class SkillAnalysis {
 
 
     private int[] generateStatModifiers() {
+        if (skill instanceof StatModifier) {
+            return ((StatModifier) skill).getStatModifiers();
+        }
+        /*
         try {
             int[] statModifiers = new int[5];
 
@@ -174,12 +177,12 @@ public class SkillAnalysis {
                     ArrayList<String> modifiers = new ArrayList<>(sentence);
 
                     //remove causational
-                    /*
+                    ///*
                     if (modifiers.get(0).contains("Grants"))
                         modifiers.set(0, modifiers.get(0).substring(7));
                     else
                         modifiers.set(0, modifiers.get(0).substring(9));
-                     */
+                        //end comment
                     boolean isModifier = true;
 
                     for (String modifier : modifiers) {
@@ -222,6 +225,7 @@ public class SkillAnalysis {
             System.out.println(skill.getName());
             e.printStackTrace();
         }
+         */
 
         return null;
     }

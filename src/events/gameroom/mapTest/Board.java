@@ -73,6 +73,7 @@ public class Board {
     }
     private ArrayList<ArrayList<Tile>> getAllPaths(ArrayList<Point> path, Point destination) {
         //todo: does not snake around obstacles
+        // (since 3 mov is max right now and that's not enough to snake meaningfully)
         int dX = (int) (path.get(path.size()-1).getX()-destination.getX()),
             dY = (int) (path.get(path.size()-1).getY()-destination.getY());
 

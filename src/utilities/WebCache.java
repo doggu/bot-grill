@@ -1,9 +1,9 @@
 package utilities;
 
 import java.io.*;
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.net.URL;
+
+import static main.BotMain.DEBUG;
 
 public class WebCache extends File {
     private static final String DIRECTORY = "./webCache";
@@ -110,7 +110,8 @@ public class WebCache extends File {
             return null;
         }
 
-        System.out.println("finished reading "+website+" ("+s.timeInSeconds()+" s)!");
+        if (DEBUG)
+            System.out.println("finished reading "+website+" ("+s.timeInSeconds()+" s)!");
         return br;
     }
 }

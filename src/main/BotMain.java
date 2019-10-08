@@ -169,7 +169,7 @@ public class BotMain {
         //new Thread(() -> {
             Scanner console = new Scanner(System.in);
             String command;
-            while (!(command = console.nextLine()).equals("kill")) {
+            while (!(command = console.nextLine()).toLowerCase().matches(("k(ill)?"))) {
                 String[] args = command.toLowerCase().split(" ");
                 if (args.length==0) continue;
                 switch (args[0]) {

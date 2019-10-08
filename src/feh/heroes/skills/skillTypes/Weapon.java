@@ -12,6 +12,7 @@ public class Weapon extends ActionSkill implements StatModifier {
     private final int[] statModifiers;
 
     private final WeaponRefine refine;
+    //private final Evolution evolution; //i'd write a todo here but i dont really want to ugh it's already formatting
 
 
 
@@ -31,6 +32,8 @@ public class Weapon extends ActionSkill implements StatModifier {
     public int getMt() { return mt; }
     public WeaponClass getType() { return type; }
     public int[] getStatModifiers() { return statModifiers; }
+    public boolean refineable() { return hasRefine()||hasRefine(); }
+    //public boolean canEvolve() { return evolution!=null; }
     public boolean hasRefine() { return refine!=null; }
     public WeaponRefine getRefine() { return refine; }
 }

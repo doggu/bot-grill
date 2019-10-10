@@ -2,21 +2,14 @@ package events.fehGame.retriever;
 
 import discordUI.feh.FEHPrinter;
 import events.commands.Command;
-import feh.heroes.UnitDatabase;
 import feh.heroes.character.Hero;
-import feh.heroes.skills.SkillDatabase;
-import feh.heroes.skills.skillTypes.PassiveA;
-import feh.heroes.skills.skillTypes.PassiveS;
-import feh.heroes.skills.skillTypes.Skill;
-import feh.heroes.skills.skillTypes.Weapon;
 import feh.heroes.unit.Unit;
-import net.dv8tion.jda.core.MessageBuilder;
-import utilities.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class HeroRetriever extends Command {
+    /*
     private ArrayList<String> args;
     private int i;
     private boolean lv1 = false;
@@ -35,8 +28,6 @@ public class HeroRetriever extends Command {
     //generates FieldedUnit
     //put buffs n shit here
     //todo: legendary/mystic boosts
-
-
     private void getUnits() {
         if (super.args[0].toLowerCase().matches("g(et)?ivs?"))
             lv1 = true;
@@ -260,6 +251,7 @@ public class HeroRetriever extends Command {
 
         return stat;
     }
+     */
 
 
 
@@ -269,8 +261,9 @@ public class HeroRetriever extends Command {
     }
 
     public void onCommand() {
-        args = new ArrayList<>(Arrays.asList(super.args));
+        ArrayList<String> args = new ArrayList<>(Arrays.asList(super.args));
         args.remove(0);
+        /*
         //i=0;
         lv1 = false;
         rarity = 5;
@@ -284,7 +277,7 @@ public class HeroRetriever extends Command {
         support = -1;
         skills = new ArrayList<>();
         useBaseKit = false;
-        //getUnits();
+         */
 
         HeroBuilder f = new HeroBuilder(args);
 

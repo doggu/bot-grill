@@ -83,6 +83,7 @@ Dimitri: The Protector	m
 Donnel: Village Hero	m
 Dorcas: Pumpkin Smasher	m
 Dorcas: Serene Warrior	m
+Dozla: Harvest Attendant	m
 Draug: Gentle Giant	m
 Duma: God of Strength	m
 Edelgard: The Future	f
@@ -144,6 +145,7 @@ Hana: Focused Samurai	f
 Hardin: Dark Emperor	m
 Hawkeye: Desert Guardian	m
 Hector: Brave Warrior	m
+Hector: Dressed-Up Duo	m
 Hector: General of Ostia	m
 Hector: Just Here to Fight	m
 Hector: Marquess of Ostia	m
@@ -164,6 +166,7 @@ Ike: Brave Mercenary	m
 Ike: Stalwart Heart	m
 Ike: Vanguard Legend	m
 Ike: Young Mercenary	m
+Ilyana: Treat Harvester	f
 Inigo: Indigo Dancer	m
 Innes: Flawless Form	m
 Innes: Regal Strategician	m
@@ -194,6 +197,7 @@ Kjelle: Fair Fighter	f
 Klein: Silver Nobleman	m
 Kliff: Curious Spirit	m
 Kronya: Gleaming Blade	f
+L'Arachel: Harvest Princess	f
 L'Arachel: Princess of Light	f
 Lachesis: Lionheart's Sister	f
 Laegjarn: Burning Sun	f
@@ -333,6 +337,7 @@ Robin: High Deliverer	m
 Robin: Mystery Tactician	f
 Robin: Seaside Tactician	f
 Roderick: Steady Squire	m
+Rolf: Tricky Archer	m
 Roy: Blazing Lion	m
 Roy: Brave Lion	m
 Roy: Young Lion	m

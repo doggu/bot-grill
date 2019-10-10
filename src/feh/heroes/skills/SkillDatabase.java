@@ -504,7 +504,7 @@ public class SkillDatabase extends Database<Skill> {
                         .select("td").get(0)
                         .select("img").attr("srcset")
                         .split(" ")[2]);
-            } catch (MalformedURLException murle) {
+            } catch (Exception murle) {
                 System.out.println("got a murle for "+name);
                 icon = null;
             }

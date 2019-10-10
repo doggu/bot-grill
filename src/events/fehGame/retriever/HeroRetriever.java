@@ -28,6 +28,7 @@ public class HeroRetriever extends Command {
     //generates FieldedUnit
     //put buffs n shit here
     //todo: legendary/mystic boosts
+    // it may be commented out twice over but it's still relevant
     private void getUnits() {
         if (super.args[0].toLowerCase().matches("g(et)?ivs?"))
             lv1 = true;

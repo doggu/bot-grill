@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 public class HeroRetriever extends Command {
     private ArrayList<String> args;
-    private int i=1;
+    private int i;
     private boolean lv1 = false;
     private int rarity = 5;
     private boolean getAll = true;
@@ -29,10 +29,11 @@ public class HeroRetriever extends Command {
                 merges,
                 dragonflowers,
                 support;
-
-    //generates FieldedUnit
     private ArrayList<Skill> skills = new ArrayList<>();
     private boolean useBaseKit = false;
+
+    //generates FieldedUnit
+    //put buffs n shit here
     //todo: legendary/mystic boosts
 
 
@@ -40,13 +41,10 @@ public class HeroRetriever extends Command {
         if (super.args[0].toLowerCase().matches("g(et)?ivs?"))
             lv1 = true;
 
-        ArrayList<Hero> candidates = UnitDatabase.DATABASE.findAll(
-                StringUtil.join(args.subList(0, args.size())));
-
         //scalper finding parameter data
         //TODO: convert these to individual methods
         // or at least separate the searching and printing some day please thanks
-        for (; i<args.size(); i++) {
+        for (i=0; i<args.size(); i++) {
             String x = args.get(i);
             //test for argument for lv1 vs lv40 stats
             if (x.indexOf("lv")==0) {
@@ -91,23 +89,12 @@ public class HeroRetriever extends Command {
                             getAll = false;
                         } catch (NumberFormatException g) {
                             char boonP = x.charAt(x.indexOf('+') + 1);
-                            switch (boonP) {
-                                //res is the last stat in the array, so add to index for every stat before it
-                                case 'r':
-                                    boon++;
-                                case 'd':
-                                    boon++;
-                                case 's':
-                                    boon++;
-                                case 'a':
-                                    boon++;
-                                case 'h':
-                                    boon++;
-                                    getAll = false;
-                                    args.remove(x);
-                                    i--;
-                                default:
-                                    break;
+                            int stat = getStat(boonP);
+                            if (stat>=0) {
+                                bane = stat;
+                                getAll = false;
+                                args.remove(x);
+                                i--;
                             }
                         }
                     }
@@ -115,24 +102,13 @@ public class HeroRetriever extends Command {
 
                 if (x.contains("-")) {
                     char baneP = x.charAt(x.indexOf('-') + 1);
-                    switch (baneP) {
-                        case 'r':
-                            bane++;
-                        case 'd':
-                            bane++;
-                        case 's':
-                            bane++;
-                        case 'a':
-                            bane++;
-                        case 'h':
-                            bane++;
-                            getAll = false;
-                            args.remove(x);
-                            i--;
-                        default:
-                            break;
+                    int stat = getStat(baneP);
+                    if (stat>=0) {
+                        bane = stat;
+                        getAll = false;
+                        args.remove(x);
+                        i--;
                     }
-
                 }
             }
 
@@ -183,6 +159,9 @@ public class HeroRetriever extends Command {
 
 
 
+        ArrayList<Hero> candidates = UnitDatabase.DATABASE.findAll(
+                StringUtil.join(args.subList(0, args.size())));
+
         //remove units based on valid rarity/IV data
         for (int i=0; i<candidates.size(); i++) {
             if (candidates.get(i).getSummonableRarity()>rarity) {
@@ -216,16 +195,12 @@ public class HeroRetriever extends Command {
                 if (weapon==null) {
                     if (skill instanceof Weapon) {
                         weapon = (Weapon) skill;
-                        continue;
                     }
-                }
-                if (a==null) {
+                } else if (a==null) {
                     if (skill instanceof PassiveA) {
                         a = (PassiveA) skill;
-                        continue;
                     }
-                }
-                if (s==null) {
+                } else if (s==null) {
                     if (skill instanceof PassiveS) {
                         s = (PassiveS) skill;
                         //continue;
@@ -247,9 +222,12 @@ public class HeroRetriever extends Command {
                         .build());
             } else {
                 sendMessage(new MessageBuilder(
-                        FEHPrinter.printUnit(new Unit(x, rarity, boon, bane, lv1 ? 1 : 40,
-                                support, merges, dragonflowers,
-                                null, 0, 0, skills, skills))).build());
+                        FEHPrinter.printUnit(
+                                new Unit(x, rarity, boon, bane, lv1 ? 1 : 40,
+                                        support, merges, dragonflowers,
+                                        null, 0, 0,
+                                        skills, skills))
+                        ).build());
             }
         }
 
@@ -265,6 +243,24 @@ public class HeroRetriever extends Command {
 
         log(report.toString());
     }
+    private static int getStat(char val) {
+        int stat = -1;
+        switch (val) {
+            case 'r':
+                stat++;
+            case 'd':
+                stat++;
+            case 's':
+                stat++;
+            case 'a':
+                stat++;
+            case 'h':
+                stat++;
+        }
+
+        return stat;
+    }
+
 
 
     public boolean isCommand() {
@@ -274,7 +270,8 @@ public class HeroRetriever extends Command {
 
     public void onCommand() {
         args = new ArrayList<>(Arrays.asList(super.args));
-        i=1;
+        args.remove(0);
+        //i=0;
         lv1 = false;
         rarity = 5;
         getAll = true;
@@ -287,7 +284,23 @@ public class HeroRetriever extends Command {
         support = -1;
         skills = new ArrayList<>();
         useBaseKit = false;
-        getUnits();
+        //getUnits();
+
+        HeroBuilder f = new HeroBuilder(args);
+
+        if (f.producingHeroes()) {
+            ArrayList<Hero> heroes = f.getHeroes();
+
+            for (Hero hero:heroes) {
+                sendMessage(FEHPrinter.printCharacter(hero, f.isLv1(), f.getRarity(), f.getSkills()).build());
+            }
+        } else if (f.producingUnits()) {
+            ArrayList<Unit> units = f.getUnits();
+
+            for (Unit unit:units) {
+                sendMessage(FEHPrinter.printUnit(unit).build());
+            }
+        }
     }
 
 

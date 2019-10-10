@@ -172,6 +172,9 @@ public class Unit extends Hero {
     }
     public void addDF(int dragonflowers) { this.dragonflowers+= dragonflowers; }
     public void giveSkill(Skill skill) { allSkills.add(skill); }
+    public void equip(ArrayList<Skill> skills) {
+        allSkills.addAll(skills);
+    }
     public void setBlessing(Blessing blessing) { this.blessing = blessing; }
     public void setNickname(String nickname) { this.nickname = nickname; }
 

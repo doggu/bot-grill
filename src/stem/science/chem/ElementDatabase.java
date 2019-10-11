@@ -1,6 +1,5 @@
 package stem.science.chem;
 
-import main.BotMain;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -11,6 +10,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class ElementDatabase extends Database<ChemicalElement> {
+    private static final boolean DEBUG = false;
+
+
+
     public static ElementDatabase DATABASE = new ElementDatabase();
     public static ArrayList<ChemicalElement> ELEMENTS = DATABASE.getList();
 
@@ -61,7 +64,7 @@ public class ElementDatabase extends Database<ChemicalElement> {
                 try {
                     group = Integer.parseInt(sanitize(element.get(4).text()));
                 } catch (NumberFormatException nfe) {
-                    if (BotMain.DEBUG)
+                    if (DEBUG)
                         System.out.println("group "+name);
                     group = 0;
                 }
@@ -72,7 +75,7 @@ public class ElementDatabase extends Database<ChemicalElement> {
                 try {
                     atomicWeight = Double.parseDouble(sanitize(element.get(6).text()));
                 } catch (NumberFormatException nfe) {
-                    if (BotMain.DEBUG)
+                    if (DEBUG)
                         System.out.println("atomicWeight "+name);
                     atomicWeight = 0;
                 }
@@ -81,7 +84,7 @@ public class ElementDatabase extends Database<ChemicalElement> {
                 try {
                     density = Double.parseDouble(sanitize(element.get(7).text()));
                 } catch (NumberFormatException nfe) {
-                    if (BotMain.DEBUG)
+                    if (DEBUG)
                         System.out.println("density "+name);
                     density = 0;
                 }
@@ -90,7 +93,7 @@ public class ElementDatabase extends Database<ChemicalElement> {
                 try {
                     meltingPoint = Double.parseDouble(sanitize(element.get(8).text()));
                 } catch (NumberFormatException nfe) {
-                    if (BotMain.DEBUG)
+                    if (DEBUG)
                         System.out.println("meltingPoint "+name);
                     meltingPoint = 0;
                 }
@@ -99,7 +102,7 @@ public class ElementDatabase extends Database<ChemicalElement> {
                 try {
                     boilingPoint = Double.parseDouble(sanitize(element.get(9).text()));
                 } catch (NumberFormatException nfe) {
-                    if (BotMain.DEBUG)
+                    if (DEBUG)
                         System.out.println("boilingPoint "+name);
                     boilingPoint = 0;
                 }
@@ -108,7 +111,7 @@ public class ElementDatabase extends Database<ChemicalElement> {
                 try {
                     C = Double.parseDouble(sanitize(element.get(10).text()));
                 } catch (NumberFormatException nfe) {
-                    if (BotMain.DEBUG)
+                    if (DEBUG)
                         System.out.println("C "+name);
                     C = 0;
                 }
@@ -117,7 +120,7 @@ public class ElementDatabase extends Database<ChemicalElement> {
                 try {
                     electronegativity = Double.parseDouble(sanitize(element.get(11).text()));
                 } catch (NumberFormatException nfe) {
-                    if (BotMain.DEBUG)
+                    if (DEBUG)
                         System.out.println("electronegativity "+name);
                     electronegativity = 0;
                 }
@@ -126,7 +129,7 @@ public class ElementDatabase extends Database<ChemicalElement> {
                 try {
                     earthAbundance = Double.parseDouble(sanitize(element.get(12).text()));
                 } catch (NumberFormatException nfe) {
-                    if (BotMain.DEBUG)
+                    if (DEBUG)
                         System.out.println("earthAbundance "+name);
                     earthAbundance = 0;
                 }

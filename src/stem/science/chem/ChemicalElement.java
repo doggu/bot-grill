@@ -15,6 +15,8 @@ public class ChemicalElement {
     private final double electronegativity;
     private final double earthAbundance;
 
+
+
     ChemicalElement(
             int atomicNumber,
             String symbol,

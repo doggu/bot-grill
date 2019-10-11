@@ -13,12 +13,13 @@ public class MathParse {
             SINH = 'Ѓ', COSH = 'Ͼ', TANH = 'ţ',
             LOG = '㏒', LN = '㏑', SQRT = '√', FLOOR = 'f', CEIL = 'r',
             VAR = 'x',
-            PI = 'π', PHI = 'p', E = 'e', SoL = 'c', AVO = 'Ä';
+            PI = 'π', PHI = 'p', E = 'e', SoL = 'c', AVO = 'Ä', P_CONST = 'ל';
 
     private static final double
             PHI_N = (1+Math.pow(5,0.5))/2,
             SoL_N = 299792458.0, //m/s
-            AVO_N = 6.02214086E23;
+            AVO_N = 6.02214086E23,
+            PLA_N = 6.62607004E-34;
 
     private static final char[][] OoO /*order of operations*/ = {
             //special functions come first, since they are the equivalent of 1*[fn](arg)
@@ -42,10 +43,6 @@ public class MathParse {
 
     public MathParse(String problem) {
         this.f = problem
-                //constants
-                .replaceAll("pi", String.valueOf(PI))
-                .replaceAll("phi", String.valueOf(PHI))
-                .replaceAll("N\\(A\\)", String.valueOf(AVO))
                 //hyperbolics
                 .replaceAll("sinh", String.valueOf(SINH))
                 .replaceAll("cosh", String.valueOf(COSH))
@@ -65,6 +62,11 @@ public class MathParse {
                 .replaceAll("sqr?t", String.valueOf(SQRT))
                 .replaceAll("floor", String.valueOf(FLOOR))
                 .replaceAll("ceil", String.valueOf(CEIL))
+                //constants
+                .replaceAll("pi", String.valueOf(PI))
+                .replaceAll("phi", String.valueOf(PHI))
+                .replaceAll("N\\(A\\)", String.valueOf(AVO))
+                .replaceAll("h", String.valueOf(P_CONST))
                 .toCharArray();
     }
     //for recursive calls which have already replaced functions with special characters
@@ -101,7 +103,7 @@ public class MathParse {
                     insertImplTimes();
                     fxns.add(x -> x);
                     break;
-                case PI: case E: case PHI: case SoL: case AVO:
+                case PI: case E: case PHI: case SoL: case AVO: case P_CONST:
                     addVal(c);
                     break;
                 case MINUS: //special for negative numbers
@@ -181,6 +183,7 @@ public class MathParse {
             case PI: n = Math.PI; break;
             case SoL: n = SoL_N; break;
             case AVO: n = AVO_N; break;
+            case P_CONST: n = PLA_N; break;
             default:
                 //PANIC
                 throw new Error();

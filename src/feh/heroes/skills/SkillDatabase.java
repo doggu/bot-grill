@@ -188,7 +188,7 @@ public class SkillDatabase extends Database<Skill> {
             return new ArrayList<>();
         }
 
-        Elements tables = weaponsFile.select("table").select("tbody");
+        Elements tables = weaponsFile.select("table");
 
         String[] weaponType = {
                 "Sword", "Red Tome",
@@ -201,10 +201,26 @@ public class SkillDatabase extends Database<Skill> {
         for (int i=0; i<tables.size(); i++) {
             Element table = tables.get(i);
 
-            Elements rows = table.select("tr");
+            Element header;
+            try {
+                header = table.selectFirst("thead");
+            } catch (NullPointerException npe) {
+                //npe.printStackTrace();
+                continue;
+            }
+
+            if (header==null) {
+                tables.remove(i);
+                i--;
+                continue;
+            }
+
+            Elements rows = table.selectFirst("tbody").select("tr");
             for (Element row:rows) {
                 SkillConstructor x = new SkillConstructor();
                 Elements info = row.children();
+
+                gatherBasicInformation(x, header, info);
 
                 if (info.size()!=6) {
                     //not a weapon table
@@ -213,22 +229,8 @@ public class SkillDatabase extends Database<Skill> {
                     break;
                 }
 
-                x.setName(info.get(0).text());
-                try {
-                    x.setLink(new URL(FEHEROES+info.get(0).children().get(0).attr("href")));
-                } catch (MalformedURLException murle) {
-                    System.out.println("got a murle for "+x.getName());
-                    x.setLink(null);
-                }
                 x.setMight(Integer.parseInt(info.get(1).text()));
                 x.setRange(Integer.parseInt(info.get(2).text()));
-                x.setDescription(info.get(3).text());
-                try {
-                    x.setCost(Integer.parseInt(info.get(4).text()));
-                } catch (NumberFormatException nfe) {
-                    System.out.println("issue getting SP for "+x.getName());
-                    x.setCost(0);
-                }
                 x.setExclusive(info.get(5).text().equals("Yes"));
                 x.setType(WeaponClass.getClass(weaponType[i]));
                 x.setRefine(getRefine(x.getName()));
@@ -255,25 +257,19 @@ public class SkillDatabase extends Database<Skill> {
             return new ArrayList<>();
         }
 
-        Elements tables = assistsFile.select("table").select("tbody");
+        Elements tables = assistsFile.select("table");
 
         for (Element table:tables) {
             if (table.select("tr").size()>20) {
-                Elements rows = table.select("tr");
+                Element header = table.selectFirst("thead");
+                Elements rows = table.selectFirst("tbody").select("tr");
 
                 for (Element row:rows) {
                     SkillConstructor x = new SkillConstructor();
                     Elements info = row.children();
 
-                    x.setName(info.get(0).text());
-                    x.setDescription(info.get(1).text());
-                    try {
-                        x.setLink(new URL(FEHEROES+info.get(0).children().get(0).attr("href")));
-                    } catch (MalformedURLException murle) {
-                        System.out.println("got a murle for "+x.getName());
-                        x.setLink(null);
-                    }
-                    x.setCost(Integer.parseInt(info.get(2).text()));
+                    gatherBasicInformation(x, header, info);
+
                     x.setRange(Integer.parseInt(info.get(3).text()));
                     x.setExclusive(isExclusive(x.getName()));
 
@@ -301,23 +297,16 @@ public class SkillDatabase extends Database<Skill> {
             return new ArrayList<>();
         }
 
-        Element table = specialsFile.select("table").get(1);
-
+        Element table = specialsFile.select("table").get(1),
+                header = table.selectFirst("thead");
         Elements rows = table.select("tbody").select("tr");
 
         for (Element row:rows) {
             SkillConstructor x = new SkillConstructor();
             Elements info = row.children();
 
-            x.setName(info.get(0).text());
-            x.setDescription(info.get(1).text());
-            try {
-                x.setLink(new URL(FEHEROES+info.get(0).children().get(0).attr("href")));
-            } catch (MalformedURLException murle) {
-                System.out.println("got a murle for "+x.getName());
-                x.setLink(null);
-            }
-            x.setCost(Integer.parseInt(info.get(2).text()));
+            gatherBasicInformation(x, header, info);
+
             x.setCooldown(Integer.parseInt(info.get(3).text()));
             x.setExclusive(isExclusive(x.getName()));
 
@@ -359,13 +348,15 @@ public class SkillDatabase extends Database<Skill> {
 
         for (int i=0; i<tables.size(); i++) {
             Elements rows = tables.get(i).select("tbody").select("tr");
+            Element header = tables.get(i).selectFirst("thead");
 
             for (Element row : rows) {
                 try {
                     SkillConstructor x = new SkillConstructor();
                     Elements info = row.children();
-                    x.setName(info.get(1).text());
-                    x.setDescription(info.get(2).text());
+
+                    gatherBasicInformation(x, header, info);
+
                     String[] urlSet = info.get(0).select("a")
                             .get(0).select("img")
                             .get(0).attr("srcset")
@@ -376,13 +367,7 @@ public class SkillDatabase extends Database<Skill> {
                         System.out.println("got a murle for icon "+x.getName());
                         x.setIcon(null);
                     }
-                    try {
-                        x.setLink(new URL(FEHEROES+info.get(1).children().get(0).attr("href")));
-                    } catch (MalformedURLException murle) {
-                        System.out.println("got a murle for link "+x.getName());
-                        x.setLink(null);
-                    }
-                    x.setCost(Integer.parseInt(info.get(3).text()));
+
                     x.setExclusive(info.get(4).text().equals("Yes"));
 
                     switch (i) {
@@ -411,7 +396,29 @@ public class SkillDatabase extends Database<Skill> {
 
         return passives;
     }
-    //TODO: generic data scalper based on headers
+    private static void gatherBasicInformation(SkillConstructor x, Element header, Elements info) {
+        ArrayList<String> titles = new ArrayList<>(header.child(0).children().eachText());
+
+        for (int i=0; i<titles.size(); i++) {
+            switch (titles.get(i)) {
+                case "Name":
+                case "Weapon":
+                    x.setName(info.get(i).text());
+                    try {
+                        x.setLink(new URL(FEHEROES+info.get(i).children().get(0).attr("href")));
+                    } catch (MalformedURLException murle) {
+                        System.out.println("got a murle for "+x.getName());
+                        x.setLink(null);
+                    }
+                    break;
+                case "Description":
+                    x.setDescription(info.get(i).text());
+                    break;
+                case "SP":
+                    x.setCost(Integer.parseInt(info.get(i).text()));
+            }
+        }
+    }
 
     private static final ArrayList<String> EXCLUSIVE;
     private static ArrayList<String> getExclusiveList() {

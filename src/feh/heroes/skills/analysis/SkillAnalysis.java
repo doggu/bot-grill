@@ -94,6 +94,7 @@ public class SkillAnalysis {
         this.afterMovementAssist = generateAfterMovementAssist();
         this.whileUnitLives = generateWhileUnitLives();
     }
+    //todo: perhaps change these to char-by-char readers
     private ArrayList<String> generateSentences() {
         String desc = skill.getDescription()
                 .replaceAll("\\. \\(", " (")

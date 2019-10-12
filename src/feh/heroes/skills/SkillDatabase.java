@@ -467,8 +467,6 @@ public class SkillDatabase extends Database<Skill> {
             return new ArrayList<>();
         }
 
-
-
         Elements rawTables = refinesFile.select("table");
         Elements tables = refinesFile.select("table");
         for (Element table:rawTables) {
@@ -574,8 +572,6 @@ public class SkillDatabase extends Database<Skill> {
             refines.add(new WeaponRefine(name, description, specialEff, link, icon, values, 400, might, range));
         }
 
-
-
         return refines;
     }
     /**
@@ -662,7 +658,6 @@ public class SkillDatabase extends Database<Skill> {
         }
 
         Element table = baseSkillsFile.select("table").get(0);
-
         Elements rows = table.select("tbody").select("tr");
 
         for (Element row:rows) {
@@ -674,19 +669,17 @@ public class SkillDatabase extends Database<Skill> {
             //3 is weapon type
             ArrayList<Skill> baseKit = new ArrayList<>();
             for (int i=4; i<info.size(); i++) {
-                if (!info.get(i).text().equals("—")) {
-                    Elements skills = info.get(i).select("a");
-                    for (Element skill:skills) {
-                        String skillName = skill.text();
-                        baseKit.add(DATABASE.find(skillName));
-                    }
+                if (info.get(i).text().equals("—")) continue;
+
+                Elements skills = info.get(i).select("a");
+                for (Element skill:skills) {
+                    String skillName = skill.text();
+                    baseKit.add(DATABASE.find(skillName));
                 }
             }
 
             heroSkills.put(name, baseKit);
         }
-
-
 
         return heroSkills;
     }

@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import static events.commands.stem.chem.CharIdentity.LETTER_L;
 import static events.commands.stem.chem.CharIdentity.NUMBER;
 
-
-
 public class MolarMass extends Command {
     @Override
     public boolean isCommand() {

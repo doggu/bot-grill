@@ -142,7 +142,11 @@ public class SkillConstructor {
     public Special generateSpecial() throws IncompleteDataException {
         vitalInfoReady();
         exists(cooldown, "cooldown");
-        //exists(damagePattern, "damagePattern");
+        /* todo: maybe?
+        if (damagePattern!=null) {
+            return new AOESpecial(name, description, link, cost, exclusive, cooldown, damagePattern);
+        }
+         */
 
         return new Special(name, description, link, cost, exclusive, cooldown, damagePattern);
     }

@@ -55,13 +55,12 @@ public class FieldedUnit extends Unit {
 
 
 
+    //board getters (the organization of this now feels like this should be put in Board or something)
     public boolean canTakeAction() {
         return !actionTaken;
     }
 
     public Point getPos() { return pos; }
-
-
 
     //what does this do again
     public void applyEffects() {
@@ -70,6 +69,18 @@ public class FieldedUnit extends Unit {
 
     public boolean move(Point newPos) {
         return true; //this requires board awareness, so maybe not
+    }
+
+
+
+    public int getCurrentHP() {
+        return currentHP;
+    }
+    public boolean specialReady() {
+        return specialCD==0;
+    }
+    public int getSpecialCD() {
+        return specialCD;
     }
 
 

@@ -11,6 +11,11 @@ import feh.battle.FieldedUnit;
 
 public class Combat extends Action {
     private FieldedUnit lastAttacker = null; //declared after first doDamage is called
+
+    private CombatPerformance
+            initiatorStats = new CombatPerformance(super.initiator),
+            defenderStats = new CombatPerformance(super.receiver);
+
     /*
     a single interaction between two foes.
      */
@@ -35,12 +40,33 @@ public class Combat extends Action {
     /**
      * calculates the damage inflicted by a unit's attack.
      *
-     * @param initiator whether the initiator or the defender
+     * @param initiatorAttack whether the initiator or the defender
      *                  of the combat sequence was the cause of this specific attack.
      */
                                 //initiator's attack or not
-    private void doDamage(boolean initiator) {
-        lastAttacker = (initiator?this.initiator:receiver);
+    private void doDamage(boolean initiatorAttack) {
+        FieldedUnit
+                attacker = (initiatorAttack?initiator:receiver),
+                defender = (initiatorAttack?receiver:initiator);
+
+        //for deflects and shit
+        lastAttacker = attacker;
+
+        //declare variables which would affect damage calculation
+        double  enemyDefModifier = 0,
+                effectiveBonus = 1.0,
+                dmgMultiplier = 1.0,
+                dmgBoost = 0,
+                dmgBoostFlat = 0,
+                absorbPct = 0;
+
+        //declare output of battle sequence (not implemented here, but void can be String maybe)
+
+        //get defensive stat based on attacker's weapon
+        int relevantDefensiveStat = (attacker.getWeaponType().isPhysical()?defender.getDef():defender.getRes());
+        //todo: implement adaptive damage
+
+
 
     }
     /*

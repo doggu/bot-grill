@@ -15,7 +15,7 @@ public class CombatPerformance {
     }
 
 
-    public boolean didAttack() {
+    public boolean attacked() {
         return didAttack;
     }
 

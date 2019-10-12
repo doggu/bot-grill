@@ -102,7 +102,7 @@ public class SkillConstructor {
     public Integer getCooldown() {
         return cooldown;
     }
-    public boolean[][] getDamagePattern() { return damagePattern; }
+    //public boolean[][] getDamagePattern() { return damagePattern; }
 
     public URL getIcon() {
         return icon;
@@ -177,11 +177,5 @@ public class SkillConstructor {
         passiveReady();
 
         return new PassiveS(name, description, icon, link, cost, exclusive);
-    }
-
-
-
-    public static void main(String[] args) {
-
     }
 }

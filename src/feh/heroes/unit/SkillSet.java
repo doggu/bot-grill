@@ -112,7 +112,7 @@ public class SkillSet extends ArrayList<Skill> implements List<Skill> {
         return modifiers;
     }
 
-    //todo: implement SkillAnalysis features
+    //todo: implement SkillAnalysis features (should probably merge into Skill before this happens)
 
 
 

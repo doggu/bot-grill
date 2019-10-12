@@ -1,5 +1,7 @@
 package feh.heroes.unit;
 
+import feh.heroes.character.HeroClass;
+import feh.heroes.character.MovementClass;
 import feh.heroes.skills.SkillDatabase;
 import feh.heroes.skills.analysis.StatModifier;
 import feh.heroes.skills.skillTypes.*;
@@ -7,6 +9,7 @@ import feh.heroes.skills.skillTypes.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class SkillSet extends ArrayList<Skill> implements List<Skill> {
     private Weapon weapon;
@@ -99,6 +102,10 @@ public class SkillSet extends ArrayList<Skill> implements List<Skill> {
         return assist!=null;
     }
 
+    public boolean hasSpecial() {
+        return special!=null;
+    }
+
     int[] getStatModifiers() {
         int[] modifiers = new int[5];
         for (Skill x:this) {
@@ -113,6 +120,27 @@ public class SkillSet extends ArrayList<Skill> implements List<Skill> {
     }
 
     //todo: implement SkillAnalysis features (should probably merge into Skill before this happens)
+    public boolean hasTriangleAdept() {
+        for (Skill x:this) {
+            if (x.getAnalysis().getTriangleAdept()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+    public boolean hasCancelAffinity() {
+        return false;
+    }
+    public boolean effectiveAgainst(HeroClass type) {
+        for (Skill x:this) {
+            for (HeroClass effective:x.getAnalysis().getEffective()) {
+                if (type==effective) return true;
+            }
+        }
+
+        return false;
+    }
 
 
 

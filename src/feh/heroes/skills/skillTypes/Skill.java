@@ -9,15 +9,11 @@ public abstract class Skill {
     private final String name, description;
     private final URL link;
     private final Color color;
-
     //0 = weapon, 1 = assist, 2 = special,
     //3 = a passive, 4 = b passive, 5 = c passive, 6 = seal
     protected final int slot;
-
     protected final int cost;
     protected final boolean exclusive;
-
-    private final SkillAnalysis analysis;
 
 
 
@@ -62,4 +58,8 @@ public abstract class Skill {
     public String toString() {
         return name;
     }
+
+
+
+    private final SkillAnalysis analysis;
 }

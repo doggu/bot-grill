@@ -13,7 +13,20 @@ public class FieldedUnit extends Unit {
     // now i don't remember why again
     // why don't i make notes of this
     // ok i figured it out again
-    // not sure if there's a way to create a super object based on an existing instance
+
+    //TODO: not sure if there's a way to create a super object based on an existing instance
+    // the current solution is to just copy all that shit into another instance and create
+    // a new Unit instance on the spot, but that will probably lead to a bunch of inheritance
+    // headaches that will require not-so-obvious replacing.
+    // this is mostly related to SP and HM, since the Unit instance the FieldedUnit
+    // is based off of must replace the one sitting in the barracks; they are different
+    // objects.
+    // a solution i just thought of 2 seconds ago in brain cell 3/6 was to have the barracks
+    // store FieldedUnits (that are casted naturally to Unit) constantly, and simply reset the
+    // properties of the FieldedUnit at deployment.
+    // this would require non-final fields for relatively final stuff:
+    //      blessing bonuses
+    //      actually, that's it i think
     private final Unit unit;
     private int currentHP;
     private int specialCD;

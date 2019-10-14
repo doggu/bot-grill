@@ -21,12 +21,14 @@ public class TimeOfDay implements Comparable<TimeOfDay> {
 
 
     public int compareTo(TimeOfDay t) {
-        int     h = Integer.compare(this.h, t.h),
-                m = Integer.compare(this.m, t.m),
-                s = Float.compare(this.s, t.s);
+        int     h = Integer.compare(t.h, this.h),
+                m = Integer.compare(t.m, this.m),
+                s = Float.compare(t.s, this.s);
 
         if (h!=0) return h;
         if (m!=0) return m;
+
+        System.out.println(s+"\t"+this+"\t"+t);
         return s;
     }
 

@@ -77,9 +77,74 @@ public class Schedule {
         return new Schedule(table);
     }
     private static Schedule getCarrilloCommons() {
-        return null;
+        ArrayList<ArrayList<Range<TimeOfDay>>> schedule = new ArrayList<>();
+
+        for (int i=0; i<7; i++) {
+            schedule.add(new ArrayList<>());
+        }
+
+        for (int i=0; i<5; i++) {
+            schedule.get(i).add(new Range<>(
+                    new TimeOfDay(7, 15, 0),
+                    new TimeOfDay(10, 0, 0)));
+            schedule.get(i).add(new Range<>(
+                    new TimeOfDay(11, 0, 0),
+                    new TimeOfDay(14, 30, 0)));
+            schedule.get(i).add(new Range<>(
+                    new TimeOfDay(17, 0, 0),
+                    new TimeOfDay(20, 0, 0)));
+        }
+
+        for (int i=5; i<7; i++) {
+            schedule.get(i).add(new Range<>(
+                    new TimeOfDay(10, 30, 0),
+                    new TimeOfDay(14, 0, 0)));
+            schedule.get(i).add(new Range<>(
+                    new TimeOfDay(17, 0, 0),
+                    new TimeOfDay(20, 0, 0)));
+        }
+
+        return new Schedule(schedule);
     }
     private static Schedule getDlgCommons() {
+        ArrayList<ArrayList<Range<TimeOfDay>>> schedule = new ArrayList<>();
+
+        for (int i=0; i<7; i++) {
+            schedule.add(new ArrayList<>());
+        }
+
+        for (int i=0; i<5; i++) {
+            schedule.get(i).add(new Range<>(
+                    new TimeOfDay(11, 0, 0),
+                    new TimeOfDay(14, 30, 0)));
+            schedule.get(i).add(new Range<>(
+                    new TimeOfDay(17, 0, 0),
+                    new TimeOfDay(20, 0, 0)));
+        }
+
+        for (int i=5; i<7; i++) {
+            schedule.get(i).add(new Range<>(
+                    new TimeOfDay(10, 30, 0),
+                    new TimeOfDay(14, 0, 0)));
+            schedule.get(i).add(new Range<>(
+                    new TimeOfDay(17, 0, 0),
+                    new TimeOfDay(20, 0, 0)));
+        }
+
+        for (int i=0; i<4; i++) {
+            schedule.get(i).add(new Range<>(
+                    new TimeOfDay(21, 0, 0),
+                    new TimeOfDay(23, 59, 59)));
+
+            //workaround for next-day overflow
+            schedule.get(i+1).add(new Range<>(
+                    new TimeOfDay(0, 0, 0),
+                    new TimeOfDay(0, 30, 0)));
+        }
+
+        return new Schedule(schedule);
+
+        /*
         Element t = UCSB_HOURS.select("table").get(1);
         Elements rows = t.select("tr");
 
@@ -109,6 +174,7 @@ public class Schedule {
         }
 
         return new Schedule(table);
+         */
     }
 
     private static Range<TimeOfDay> generateTimeRange(String rng) {
@@ -143,12 +209,26 @@ public class Schedule {
     private Schedule(ArrayList<ArrayList<Range<TimeOfDay>>> schedule) {
         this.schedule = schedule;
     }
-    private Schedule() {
-        this.schedule = new ArrayList<>();
+    //private Schedule() { this.schedule = new ArrayList<>(); }
+
+
+
+    boolean canGo(TimeZone f, int hoursPast) {
+        Date now = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTimeZone(f);
+        c.setTime(now);
+        c.add(Calendar.HOUR_OF_DAY, hoursPast);
+        int dow = c.get(Calendar.DAY_OF_WEEK);
+
+        int     h = c.get(Calendar.HOUR_OF_DAY),
+                m = c.get(Calendar.MINUTE),
+                s = c.get(Calendar.SECOND);//+c.get(Calendar.MILLISECOND);
+
+        TimeOfDay currentTime = new TimeOfDay(h, m, s);
+
+        return canGoAt(dow, currentTime);
     }
-
-
-
     boolean canGo(TimeZone f) {
         Date now = new Date();
         Calendar c = Calendar.getInstance();
@@ -159,29 +239,24 @@ public class Schedule {
         int     h = c.get(Calendar.HOUR_OF_DAY),
                 m = c.get(Calendar.MINUTE),
                 s = c.get(Calendar.SECOND);//+c.get(Calendar.MILLISECOND);
+
         TimeOfDay currentTime = new TimeOfDay(h, m, s);
 
-        int i = 0;
-        switch (dow) {
-            case 7:
-                i++;
-            case 6:
-                i++;
-            case 5:
-                i++;
-            case 4:
-                i++;
-            case 3:
-                i++;
-            case 2:
-                i++;
-        }
-        ArrayList<Range<TimeOfDay>> day = schedule.get(i);
+        return canGoAt(dow, currentTime);
+    }
+
+    private boolean canGoAt(int dayOfWeek, TimeOfDay time) {
+        ArrayList<Range<TimeOfDay>> day = schedule.get(dayOfWeek-1);
+        System.out.println("checking "+day);
 
         for (Range<TimeOfDay> r:day) {
-            if (r != null)
-                if (r.inThisRange(currentTime))
+            if (r != null) {
+                if (r.inThisRange(time)) {
                     return true;
+                } else {
+                    System.out.println(time+" not in range "+r);
+                }
+            } else System.out.println("null");
         }
         return false;
     }

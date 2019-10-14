@@ -3,7 +3,9 @@ package events.fehGame.retriever;
 import discordUI.feh.FEHPrinter;
 import events.commands.Command;
 import feh.heroes.character.Hero;
+import feh.heroes.skills.skillTypes.Skill;
 import feh.heroes.unit.Unit;
+import utilities.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -285,8 +287,16 @@ public class HeroRetriever extends Command {
         if (f.producingHeroes()) {
             ArrayList<Hero> heroes = f.getHeroes();
 
-            for (Hero hero:heroes) {
-                sendMessage(FEHPrinter.printCharacter(hero, f.isLv1(), f.getRarity(), f.getSkills()).build());
+            if (heroes.size()!=0) {
+                for (Hero hero : heroes) {
+                    ArrayList<Skill> skills = f.getSkills();
+                    if (f.useBaseKit()) skills.addAll(hero.getBaseKit());
+
+                    sendMessage(FEHPrinter.printCharacter(hero, f.isLv1(), f.getRarity(), skills).build());
+                }
+            } else {
+                sendMessage("could not find your character.");
+                log("could not find "+e.getAuthor()+"'s character: "+StringUtil.join(args));
             }
         } else if (f.producingUnits()) {
             ArrayList<Unit> units = f.getUnits();

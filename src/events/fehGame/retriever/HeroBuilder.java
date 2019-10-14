@@ -12,13 +12,13 @@ import java.util.Arrays;
 import java.util.function.Function;
 
 public class HeroBuilder {
-    public boolean producingHeroes() {
+    boolean producingHeroes() {
         return boon<0&&bane<0&&merges<0&&dragonflowers<0&&support<0;
     }
     public ArrayList<Hero> getHeroes() {
         return heroes;
     }
-    public boolean producingUnits() {
+    boolean producingUnits() {
         return !producingHeroes();
     }
     public ArrayList<Unit> getUnits() {
@@ -45,11 +45,11 @@ public class HeroBuilder {
 
 
     //hero args
-    public boolean isLv1() { return lv1; }
+    boolean isLv1() { return lv1; }
     public int getRarity() { return rarity; }
     public boolean getAll() { return getAll; }
     public ArrayList<Skill> getSkills() { return skills; }
-    public boolean useBaseKit() { return baseKit; }
+    boolean useBaseKit() { return baseKit; }
     /*
     public boolean producingFieldedUnits() {
         //let's do this later
@@ -89,8 +89,7 @@ public class HeroBuilder {
 
 
     private ArrayList<Hero> build() {
-        ArrayList<Hero> heroes = new ArrayList<>();
-
+        //gather parameters from scalpers, on each argument with each scalper (that doesn't destroy itself)
         for (i=0; i<args.size(); i++) {
             for (Function<String, Boolean> scalper:scalpers) {
                 if (scalper.apply(args.get(i))) { //scalper edits global fields during its process
@@ -144,11 +143,14 @@ public class HeroBuilder {
         scalpers.add(s -> {
             if (s.charAt(0)=='l') {
                 if (s.charAt(1) == 'v') {
-                    if (s.charAt(2)=='l')
-                        lv1 = Integer.parseInt(s.substring(3))==1;
-                    else
-                        lv1 = Integer.parseInt(s.substring(2))==1;
-
+                    try {
+                        if (s.charAt(2) == 'l')
+                            lv1 = Integer.parseInt(s.substring(3)) == 1;
+                        else
+                            lv1 = Integer.parseInt(s.substring(2)) == 1;
+                    } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                        return false;
+                    }
                     scalpers.remove(this); //heh
                     return true;
                 }
@@ -170,6 +172,7 @@ public class HeroBuilder {
                     this.bane = bane;
 
                     getAll = false;
+                    scalpers.remove(this); //heh
                     return true;
                 }
             }

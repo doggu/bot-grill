@@ -34,7 +34,7 @@ import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
-import stem.science.chem.ElementDatabase;
+import stem.science.chem.particles.ElementDatabase;
 import utilities.Stopwatch;
 
 import java.io.File;

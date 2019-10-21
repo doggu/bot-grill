@@ -1,4 +1,4 @@
-package stem.science.chem;
+package stem.science.chem.particles;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

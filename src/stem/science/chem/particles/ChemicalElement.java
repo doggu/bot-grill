@@ -1,4 +1,4 @@
-package stem.science.chem;
+package stem.science.chem.particles;
 
 public class ChemicalElement {
     private final int atomicNumber;
@@ -214,5 +214,11 @@ public class ChemicalElement {
         }
 
         return "idk lol";
+    }
+
+
+
+    public String toString() {
+        return symbol;
     }
 }

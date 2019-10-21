@@ -1,8 +1,5 @@
 package stem.science.chem.particles;
 
-import stem.science.chem.ChemicalElement;
-import stem.science.chem.ElementDatabase;
-
 public class Atom extends ChemicalElement {
     private int p, n, e;
 

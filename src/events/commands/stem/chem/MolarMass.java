@@ -1,8 +1,8 @@
 package events.commands.stem.chem;
 
 import events.commands.Command;
-import stem.science.chem.ChemicalElement;
-import stem.science.chem.ElementDatabase;
+import stem.science.chem.particles.ChemicalElement;
+import stem.science.chem.particles.ElementDatabase;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -20,9 +20,7 @@ public class MolarMass extends Command {
     public void onCommand() {
         if (args.length!=2) return;
 
-        compound = args[1];
-
-        ArrayList<ChemicalElement> elements = getElements();
+        ArrayList<ChemicalElement> elements = getElements(args[1]);
 
         double mm = 0;
         for (ChemicalElement e:elements) {
@@ -36,13 +34,10 @@ public class MolarMass extends Command {
         sendMessage(mm+" g/mol");
     }
 
-    private String compound;
-    private int i;
+    private static int i;
 
-    private ArrayList<ChemicalElement> getElements() {
+    static ArrayList<ChemicalElement> getElements(String compound) {
         ArrayList<ChemicalElement> elements = new ArrayList<>();
-
-
 
         for (i=0; i<compound.length(); i++) {
             CharIdentity identity = CharIdentity.getIdentity(compound.charAt(i));
@@ -65,7 +60,7 @@ public class MolarMass extends Command {
                 case LETTER_L:
                     throw new Error("orphaned letter");
                 case NUMBER:
-                    int qty = parseNum();
+                    int qty = parseNum(compound);
 
                     //System.out.println(qty);
                     if (qty==0)
@@ -75,7 +70,7 @@ public class MolarMass extends Command {
                             elements.add(elements.get(elements.size()-1));
                     break;
                 case PAREN_O:
-                    closeParenthetical();
+                    closeParenthetical(compound);
                     //todo: separate from listener to allow recursion
                     //elements.addAll()
                 case PAREN_C:
@@ -88,7 +83,7 @@ public class MolarMass extends Command {
         return elements;
     }
 
-    private int parseNum() {
+    private static int parseNum(String compound) {
         int start = i;
         for (i = i+1; i<compound.length(); i++) {
             CharIdentity identity = CharIdentity.getIdentity(compound.charAt(i));
@@ -107,13 +102,13 @@ public class MolarMass extends Command {
         return qty;
     }
 
-    private int closeParenthetical() {
+    private static int closeParenthetical(String compound) {
         int start = i;
         for (i = i+1; i<compound.length(); i++) {
             CharIdentity identity = CharIdentity.getIdentity(compound.charAt(i));
             switch (identity) {
                 case PAREN_O:
-                    closeParenthetical();
+                    closeParenthetical(compound);
                 case PAREN_C:
                     break;
             }

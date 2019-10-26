@@ -47,6 +47,7 @@ Camilla: Tropical Beauty	f
 Camus: Sable Knight	m
 Canas: Wisdom Seeker	m
 Catria: Middle Whitewing	f
+Catria: Mild Middle Sister	f
 Catria: Spring Whitewing	f
 Cecilia: Etrurian General	f
 Cecilia: Festive Instructor	f
@@ -64,6 +65,7 @@ Clarine: Refined Noble	f
 Clarisse: Sniper in the Dark	f
 Claude: The Schemer	m
 Clive: Idealistic Knight	m
+Conrad: Masked Knight	m
 Cordelia: Knight Paradise	f
 Cordelia: Knight Paragon	f
 Cordelia: Perfect Bride	f
@@ -123,6 +125,7 @@ Fjorm: Princess of Ice	f
 Flora: Cold as Ice	f
 Flora: Signature Dish	f
 Florina: Lovely Flier	f
+Forsyth: Loyal Lieutenant	m
 Frederick: Horizon Watcher	m
 Frederick: Polite Knight	m
 Gaius: Candy Stealer	m
@@ -319,6 +322,7 @@ Peri: Playful Slayer	f
 Petra: Princess of Brigid	f
 Phina: Roving Dancer	f
 Priscilla: Delicate Princess	f
+Python: Apathetic Archer	m
 Quan: Luminous Lancer	m
 Raigh: Dark Child	m
 Ranulf: Friend of Nations	m
@@ -373,6 +377,7 @@ Sigrun: Loyal Protector	f
 Sigrun: Steadfast Bride	f
 Sigurd: Holy Knight	m
 Silas: Loyal Knight	m
+Silque: Adherent of Mila	f
 Silvia: Traveling Dancer	f
 Sirius: Mysterious Knight	m
 Soleil: Adorable Adorer	f
@@ -413,6 +418,7 @@ Titania: Warm Knight	f
 Tobin: The Clueless One	m
 Ursula: Blue Crow	f
 Ursula: Clear-Blue Crow	f
+Valbar: Open and Honest	m
 Valter: Dark Moonstone	m
 Velouria: Wolf Cub	f
 Veronica: Brave Princess	f

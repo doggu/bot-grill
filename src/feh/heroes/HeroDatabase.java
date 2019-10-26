@@ -23,7 +23,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
-public class UnitDatabase extends Database<Hero> {
+public class HeroDatabase extends Database<Hero> {
     @Override
     public ArrayList<Hero> findAll(String input) {
         ArrayList<Hero> candidates = new ArrayList<>();
@@ -58,7 +58,7 @@ public class UnitDatabase extends Database<Hero> {
                 epithetIncluded = true;
             }
             //find HEROES of the correct name
-            for (Hero c: UnitDatabase.HEROES) {
+            for (Hero c: HeroDatabase.HEROES) {
                 if (c.getFullName().getName().equalsIgnoreCase(x))
                     candidates.add(c);
                 if (c.getFullName().getName().toLowerCase().indexOf(x.toLowerCase())==0) {
@@ -74,7 +74,7 @@ public class UnitDatabase extends Database<Hero> {
             }
 
             if (epithetIncluded) {
-                boolean foundMatch = UnitDatabase.HEROES.size()==1;
+                boolean foundMatch = HeroDatabase.HEROES.size()==1;
                 //find HEROES (from list of valid names) of the correct epithet
 
                 i++;
@@ -88,7 +88,7 @@ public class UnitDatabase extends Database<Hero> {
                     }
 
                     i++;
-                    foundMatch = UnitDatabase.HEROES.size()==1;
+                    foundMatch = HeroDatabase.HEROES.size()==1;
                 }
             }
         }
@@ -270,7 +270,7 @@ public class UnitDatabase extends Database<Hero> {
 
 
 
-    public static UnitDatabase DATABASE;
+    public static HeroDatabase DATABASE;
     public static ArrayList<Hero> HEROES;
 
 
@@ -297,7 +297,7 @@ public class UnitDatabase extends Database<Hero> {
         HERO_GENDERS = getGenders();
         ARTISTS = getArtists();
 
-        DATABASE = new UnitDatabase();
+        DATABASE = new HeroDatabase();
         HEROES = DATABASE.getList();
         HERO_FILES = new FEHeroesCache[]{
                 LV1_STATS_FILE,

@@ -1,6 +1,6 @@
 package feh.heroes.character;
 
-import feh.heroes.UnitDatabase;
+import feh.heroes.HeroDatabase;
 import feh.heroes.skills.analysis.StatModifier;
 import feh.heroes.skills.skillTypes.Skill;
 
@@ -58,7 +58,7 @@ public class Hero {
      */
     public Hero(String name) {
         if (name.indexOf(':') < 0) throw new Error("incorrect name format");
-        ArrayList<Hero> list = UnitDatabase.HEROES;
+        ArrayList<Hero> list = HeroDatabase.HEROES;
         ArrayList<Hero> correctName = new ArrayList<>();
 
         for (Hero j : list)

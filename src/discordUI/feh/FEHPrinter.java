@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import static discordUI.EmoteHelper.printEmote;
-import static feh.heroes.UnitDatabase.HEROES;
+import static feh.heroes.HeroDatabase.HEROES;
 import static main.BotMain.DEBUG;
 
 public class FEHPrinter {

@@ -1,7 +1,7 @@
 package feh.players;
 
 import feh.heroes.unit.Unit;
-import feh.heroes.UnitDatabase;
+import feh.heroes.HeroDatabase;
 import feh.heroes.character.Hero;
 
 import java.util.ArrayList;
@@ -74,7 +74,7 @@ public class Barracks extends ArrayList<Unit> {
     public static void main(String[] args) {
         Barracks g = new Barracks();
         Hero sheeda = null;
-        for (Hero x:UnitDatabase.HEROES) {
+        for (Hero x: HeroDatabase.HEROES) {
             if (x.getFullName().toString().equals("Caeda: Talys's Bride")) {
                 sheeda = x;
             }

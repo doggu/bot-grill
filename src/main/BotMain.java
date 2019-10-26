@@ -27,7 +27,7 @@ import events.gameroom.CreateLobby;
 import events.reactionary.Quips;
 import events.reactionary.Reactions;
 import events.reactionary.Vote;
-import feh.heroes.UnitDatabase;
+import feh.heroes.HeroDatabase;
 import feh.heroes.skills.SkillDatabase;
 import feh.summoning.BannerDatabase;
 import net.dv8tion.jda.core.AccountType;
@@ -75,7 +75,7 @@ public class BotMain {
         fehTime.start();
 
         int i = SkillDatabase.SKILLS.size(),
-            j = UnitDatabase.HEROES.size(),
+            j = HeroDatabase.HEROES.size(),
             k = BannerDatabase.BANNERS.size();
 
         if (DEBUG) {
@@ -187,7 +187,7 @@ public class BotMain {
                                     break;
                                 case "h":
                                 case "heroes":
-                                    UnitDatabase.DATABASE.updateCache();
+                                    HeroDatabase.DATABASE.updateCache();
                                     break;
                                 case "s":
                                 case "skills":
@@ -199,7 +199,7 @@ public class BotMain {
                                     break;
                                 default:
                                     SkillDatabase.DATABASE.updateCache();
-                                    UnitDatabase.DATABASE.updateCache();
+                                    HeroDatabase.DATABASE.updateCache();
                                     BannerDatabase.DATABASE.updateCache();
                                     break;
 

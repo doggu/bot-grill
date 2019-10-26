@@ -1,7 +1,7 @@
 package events.devTools;
 
 import events.MessageListener;
-import feh.heroes.UnitDatabase;
+import feh.heroes.HeroDatabase;
 import feh.heroes.character.Hero;
 
 import javax.imageio.ImageIO;
@@ -11,7 +11,6 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class Draw extends MessageListener {
@@ -45,7 +44,7 @@ public class Draw extends MessageListener {
             coords.add(p);
 
             //TODO: make this less stupid when i'm less stupid
-            Hero r = UnitDatabase.HEROES.get((int) (Math.random()*UnitDatabase.HEROES.size()));
+            Hero r = HeroDatabase.HEROES.get((int) (Math.random()* HeroDatabase.HEROES.size()));
             BufferedImage face;
             try {
                 face = ImageIO.read(r.getPortraitLink());

@@ -5,7 +5,7 @@ import net.dv8tion.jda.core.MessageBuilder;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
-import feh.heroes.UnitDatabase;
+import feh.heroes.HeroDatabase;
 import feh.heroes.character.Hero;
 
 import java.awt.*;
@@ -44,7 +44,7 @@ public class Game extends TextGame {
             return;
         }
         Hero chosen = null;
-        for (Hero x:UnitDatabase.HEROES) {
+        for (Hero x: HeroDatabase.HEROES) {
             if (x.getFullName().toString().equalsIgnoreCase(name)) {
                 chosen = x;
             }

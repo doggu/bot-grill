@@ -1,6 +1,6 @@
 package events.fehGame.retriever;
 
-import feh.heroes.UnitDatabase;
+import feh.heroes.HeroDatabase;
 import feh.heroes.character.Hero;
 import feh.heroes.skills.SkillDatabase;
 import feh.heroes.skills.skillTypes.Skill;
@@ -106,22 +106,21 @@ public class HeroBuilder {
             }
         }
 
-        ArrayList<Hero> basics = UnitDatabase.DATABASE.findAll(StringUtil.join(args));
+        ArrayList<Hero> basics = HeroDatabase.DATABASE.findAll(StringUtil.join(args));
 
         if (DEBUG) {///*
-        System.out.println("\n\n");
-
-        System.out.println("args\t\t\t"+args);
-        System.out.println("lv1\t\t\t\t"+lv1);
-        System.out.println("rarity\t\t\t"+rarity);
-        System.out.println("getAll\t\t\t"+getAll);
-        System.out.println("boon\t\t\t"+boon);
-        System.out.println("bane\t\t\t"+bane);
-        System.out.println("merges\t\t\t"+merges);
-        System.out.println("dragonflowers\t"+dragonflowers);
-        System.out.println("support\t\t\t"+support);
-        System.out.println("skills\t\t\t"+skills);
-        System.out.println("baseKit\t\t"+ baseKit);
+            System.out.println("\n\n");
+            System.out.println("args\t\t\t"+args);
+            System.out.println("lv1\t\t\t\t"+lv1);
+            System.out.println("rarity\t\t\t"+rarity);
+            System.out.println("getAll\t\t\t"+getAll);
+            System.out.println("boon\t\t\t"+boon);
+            System.out.println("bane\t\t\t"+bane);
+            System.out.println("merges\t\t\t"+merges);
+            System.out.println("dragonflowers\t"+dragonflowers);
+            System.out.println("support\t\t\t"+support);
+            System.out.println("skills\t\t\t"+skills);
+            System.out.println("baseKit\t\t"+ baseKit);
         }
         //*/
 

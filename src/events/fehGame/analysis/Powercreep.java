@@ -1,11 +1,6 @@
 package events.fehGame.analysis;
 
-import discordUI.feh.FEHPrinter;
 import events.fehGame.FEHCommand;
-import feh.heroes.UnitDatabase;
-import feh.heroes.character.Hero;
-
-import java.util.ArrayList;
 
 public class Powercreep extends FEHCommand {
     @Override

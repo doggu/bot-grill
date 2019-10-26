@@ -2,7 +2,7 @@ package feh.summoning;
 
 import feh.heroes.character.Availability;
 import feh.heroes.character.Hero;
-import feh.heroes.UnitDatabase;
+import feh.heroes.HeroDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,7 +65,7 @@ public class Banner {
         GregorianCalendar poolCutoff = (GregorianCalendar) startDate.clone();
 
         //creates a list of HEROES that could be summoned in normal pools
-        for (Hero x: UnitDatabase.HEROES) {
+        for (Hero x: HeroDatabase.HEROES) {
             GregorianCalendar characterReleaseDate = (GregorianCalendar) x.getReleaseDate().clone();
             //TODO: this value is not always correct
             // can be calculated by finding the release date of the hero (banners that do this begin with "New Heroes")

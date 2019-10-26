@@ -12,6 +12,10 @@ import java.util.Arrays;
 import java.util.function.Function;
 
 public class HeroBuilder {
+    private static final boolean DEBUG = false;
+
+
+
     boolean producingHeroes() {
         return boon<0&&bane<0&&merges<0&&dragonflowers<0&&support<0;
     }
@@ -104,7 +108,7 @@ public class HeroBuilder {
 
         ArrayList<Hero> basics = UnitDatabase.DATABASE.findAll(StringUtil.join(args));
 
-        ///*
+        if (DEBUG) {///*
         System.out.println("\n\n");
 
         System.out.println("args\t\t\t"+args);
@@ -118,7 +122,8 @@ public class HeroBuilder {
         System.out.println("support\t\t\t"+support);
         System.out.println("skills\t\t\t"+skills);
         System.out.println("baseKit\t\t"+ baseKit);
-        // */
+        }
+        //*/
 
         return basics;
     }

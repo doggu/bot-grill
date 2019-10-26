@@ -1,6 +1,8 @@
 package events.commands.stem.chem;
 
+import discordUI.button.PersonalButton;
 import events.commands.Command;
+import events.commands.stem.math.Maffs;
 import stem.science.chem.particles.ChemicalElement;
 import stem.science.chem.particles.ElementDatabase;
 
@@ -31,7 +33,25 @@ public class MolarMass extends Command {
             }
         }
 
-        sendMessage(mm+" g/mol");
+        final double molarMass = mm;
+
+        new PersonalButton(sendMessage(mm+" g/mol"),
+                e.getJDA().getEmotesByName("sto", false).get(0),
+                e.getAuthor()) {
+            @Override
+            public void onCommand() {
+                if (Maffs.answers.get(e.getUser().getId())!=null) {
+                    Maffs.answers.remove(e.getUser().getId());
+                }
+
+                Maffs.answers.put(e.getUser().getId(), molarMass);
+
+                e.getChannel().getMessageById(e.getMessageId()).complete()
+                        .addReaction(e.getJDA().getEmotesByName("Accepted", false).get(0))
+                        .queue();
+                //sendMessage("committed to your personal answer bank.");
+            }
+        };
     }
 
     private static int i;
@@ -73,6 +93,7 @@ public class MolarMass extends Command {
                     closeParenthetical(compound);
                     //todo: separate from listener to allow recursion
                     //elements.addAll()
+                    break;
                 case PAREN_C:
                     throw new Error("unexpected closed parentheses");
             }

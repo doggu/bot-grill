@@ -10,8 +10,8 @@ import stem.math.MathParse;
 import java.util.HashMap;
 
 public class Maffs extends Command {
-    private HashMap<String,Double> answers = new HashMap<>();
-    private HashMap<String, HashMap<String, Double>> storedValues = new HashMap<>();
+    public static HashMap<String,Double> answers = new HashMap<>();
+    private static HashMap<String, HashMap<String, Double>> storedValues = new HashMap<>();
     //private HashMap<String, ArrayList<Function<Double, Double>>> storedFunctions = new HashMap<>();
 
 

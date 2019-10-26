@@ -161,7 +161,7 @@ public class Unit extends Hero {
     //todo: set up unit manager for security?
 
     public void addMerge(Unit u) {
-        if ((Hero) u == this) {
+        if (u.matches(this)) {
             switch (Integer.compare(rarity, u.rarity)) {
                 case -1:
                 case 0:
@@ -313,8 +313,6 @@ public class Unit extends Hero {
         return finalStats;
     }
 
-
-
     private static int[] getStatsSorted(int[] stats) {
         int[] statsSorted = {0, 1, 2, 3, 4};
 
@@ -328,5 +326,11 @@ public class Unit extends Hero {
             }
         }
         return statsSorted;
+    }
+
+
+
+    public boolean matches(Unit unit) {
+        return unit.getFullName().equals(this.getFullName());
     }
 }

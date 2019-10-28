@@ -209,7 +209,7 @@ public class UnitDatabase extends Database<Unit> {
             }
 
             System.out.println(
-                    new BigDecimal(i*s.scaleToSI()/e.scaleToSI())
+                    new BigDecimal(new Converter(s, e).apply(i))
                             .round(new MathContext(5)).toPlainString()
                     +" "+e.getSymbol());
         }

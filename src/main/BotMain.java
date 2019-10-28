@@ -11,7 +11,7 @@ import events.commands.help.Help;
 import events.stem.math.FracCalcListener;
 import events.stem.math.GradientDescentListener;
 import events.stem.math.Maffs;
-import events.stem.math.UnitConversionListener;
+import events.stem.unitConverter.UnitConversionListener;
 import events.commands.mcserver.ServerInput;
 import events.devTools.DevTools;
 import events.devTools.Draw;
@@ -35,6 +35,7 @@ import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import stem.science.chem.particles.ElementDatabase;
+import events.stem.unitConverter.UnitRegistrar;
 import utilities.Stopwatch;
 
 import java.io.File;
@@ -115,9 +116,10 @@ public class BotMain {
 
         //science
         addListener(new ElementRetriever());
-        addListener(new UnitConversionListener());
-        addListener(new FracCalcListener());
         addListener(new MolarMass());
+
+        addListener(new UnitConversionListener());
+        addListener(new UnitRegistrar());
 
         //gamble
         addListener(new Chances());
@@ -126,6 +128,8 @@ public class BotMain {
         //math
         addListener(new Maffs());
         addListener(new GradientDescentListener());
+
+        addListener(new FracCalcListener());
 
         //gameroom
         addListener(new CreateLobby());

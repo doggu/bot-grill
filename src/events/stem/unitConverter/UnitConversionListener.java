@@ -1,4 +1,4 @@
-package events.stem.math;
+package events.stem.unitConverter;
 
 import events.commands.Command;
 import stem.math.PrettyNumber;

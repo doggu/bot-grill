@@ -300,7 +300,7 @@ public class HeroBuilder {
                 if (arg.charAt(i)!=check[i])
                     return false;
             }
-        } catch (NumberFormatException nfe) {
+        } catch (IndexOutOfBoundsException ioobe) {
             return false;
         }
 
@@ -313,7 +313,7 @@ public class HeroBuilder {
                     return false;
                 }
             }
-        } catch (NumberFormatException nfe) {
+        } catch (IndexOutOfBoundsException ioobe) {
             return false;
         }
 

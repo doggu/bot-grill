@@ -20,15 +20,10 @@ public class UnitDatabase extends Database<Unit> {
 
 
     static {
-        BASE = new int[][]{
-                {1, 0, 0, 0, 0, 0, 0},
-                {0, 1, 0, 0, 0, 0, 0},
-                {0, 0, 1, 0, 0, 0, 0},
-                {0, 0, 0, 1, 0, 0, 0},
-                {0, 0, 0, 0, 1, 0, 0},
-                {0, 0, 0, 0, 0, 1, 0},
-                {0, 0, 0, 0, 0, 0, 1},
-        };
+        BASE = new int[7][7];
+        for (int i=0; i<7; i++) {
+            BASE[i][i] = 1;
+        }
 
         DATABASE = new UnitDatabase();
         UNITS = DATABASE.getList();

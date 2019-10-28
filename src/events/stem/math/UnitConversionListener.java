@@ -2,7 +2,9 @@ package events.stem.math;
 
 import events.commands.Command;
 import stem.math.PrettyNumber;
-import stem.science.unitConverter.UnitConverter;
+import stem.science.unitConverter.Converter;
+import stem.science.unitConverter.UnitDatabase;
+import stem.science.unitConverter.units.Unit;
 
 import java.math.BigDecimal;
 
@@ -33,11 +35,12 @@ public class UnitConversionListener extends Command {
             sendMessage("incorrect number format! please try again.");
             return;
         }
+
+        Unit unitsIn = UnitDatabase.DATABASE.find(args[2]);
+        Unit unitsOut = UnitDatabase.DATABASE.find(args[4]);
         
-        String unitsIn = args[2];
-        String unitsOut = args[4];
-        
-        BigDecimal result = UnitConverter.convert(n, unitsIn, unitsOut);
+        BigDecimal result = new BigDecimal(
+                new Converter(unitsIn, unitsOut).apply(n.doubleValue()));
 
         sendMessage("`"+args[1]+" "+unitsIn+"`\nis equivalent to:\n`" +
                 new PrettyNumber(result, ginormo)+" "+unitsOut+"`");

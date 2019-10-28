@@ -1,11 +1,10 @@
-package events.commands.stem.chem;
+package events.stem.chem;
 
 import events.commands.Command;
 import stem.science.chem.particles.ChemicalElement;
 import stem.science.chem.particles.ElementDatabase;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /*
 
@@ -78,8 +77,6 @@ public class ElementRetriever extends Command {
                 return;
             }
         }
-
-        Arrays.asList();
 
         sendMessage("sorry, i could not find your requested element.");
     }

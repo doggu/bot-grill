@@ -1,16 +1,16 @@
-package events.commands.stem.chem;
+package events.stem.chem;
 
 import discordUI.button.PersonalButton;
 import events.commands.Command;
-import events.commands.stem.math.Maffs;
+import events.stem.math.Maffs;
 import stem.science.chem.particles.ChemicalElement;
 import stem.science.chem.particles.ElementDatabase;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 
-import static events.commands.stem.chem.CharIdentity.LETTER_L;
-import static events.commands.stem.chem.CharIdentity.NUMBER;
+import static events.stem.chem.CharIdentity.LETTER_L;
+import static events.stem.chem.CharIdentity.NUMBER;
 
 public class MolarMass extends Command {
     @Override

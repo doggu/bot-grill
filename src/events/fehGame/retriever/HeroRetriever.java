@@ -283,6 +283,9 @@ public class HeroRetriever extends Command {
          */
 
         HeroBuilder f = new HeroBuilder(args);
+        StringBuilder log =
+                new StringBuilder("found units for ")
+                .append(e.getAuthor()).append(":");
 
         if (f.producingHeroes()) {
             ArrayList<Hero> heroes = f.getHeroes();
@@ -293,18 +296,27 @@ public class HeroRetriever extends Command {
                     if (f.useBaseKit()) skills.addAll(hero.getBaseKit());
 
                     sendMessage(FEHPrinter.printCharacter(hero, f.isLv1(), f.getRarity(), skills).build());
+                    log.append("\n\t\t").append(hero.getFullName());
                 }
             } else {
                 sendMessage("could not find your character.");
                 log("could not find "+e.getAuthor()+"'s character: "+StringUtil.join(args));
+                return;
             }
         } else if (f.producingUnits()) {
             ArrayList<Unit> units = f.getUnits();
 
-            for (Unit unit:units) {
-                sendMessage(FEHPrinter.printUnit(unit).build());
+            if (units.size()!=0) {
+                for (Unit unit : units) {
+                    sendMessage(FEHPrinter.printUnit(unit).build());
+                    log.append("\n\t\t").append(unit.getFullName());
+                }
+            } else {
+
             }
         }
+
+
     }
 
 

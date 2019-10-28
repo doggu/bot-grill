@@ -36,8 +36,8 @@ public class UnitConversionListener extends Command {
             return;
         }
 
-        Unit unitsIn = UnitDatabase.DATABASE.find(args[2]);
-        Unit unitsOut = UnitDatabase.DATABASE.find(args[4]);
+        Unit unitsIn = UnitDatabase.DATABASE.findBySymbol(args[2]),
+             unitsOut = UnitDatabase.DATABASE.findBySymbol(args[4]);
         
         BigDecimal result = new BigDecimal(
                 new Converter(unitsIn, unitsOut).apply(n.doubleValue()));

@@ -24,20 +24,26 @@ public class ComplexUnit extends Unit {
         char[] joiners = new char[uStr.length];
         joiners[0] = '*';
         String copy = String.copyValueOf(unitsStr.toCharArray());
-        copy = copy.replaceAll("-", "*");
+        copy = copy.replaceAll("-[a-zA-Z]", "*");
         for (int i=1; i<joiners.length; i++) {
             int sI = copy.indexOf('/'), aI = copy.indexOf('*');
+            if (sI==-1) sI = Integer.MAX_VALUE;
+            if (aI==-1) aI = Integer.MAX_VALUE;
             if (sI<aI) {
+                System.out.println("slash");
                 joiners[i] = '/';
+                copy = copy.substring(sI+1);
             } else if (sI>aI) {
+                System.out.println("star");
                 joiners[i] = '*';
+                copy = copy.substring(aI+1);
             } else {
                 break;
             }
         }
 
-        int i = 0;
-        for (String s:uStr) {
+        for (int i=0; i<uStr.length; i++) {
+            String s = uStr[i];
             int exp = joiners[i]=='*'?1:-1;
             int p = s.indexOf('^');
             if (p>0) {
@@ -48,8 +54,6 @@ public class ComplexUnit extends Unit {
             Unit u = UnitDatabase.DATABASE.findBySymbol(s);
 
             units.put(u, exp);
-
-            i++;
         }
 
         return units;

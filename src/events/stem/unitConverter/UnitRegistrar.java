@@ -18,24 +18,7 @@ public class UnitRegistrar extends Command {
 
         String name = args[1],
                symbol = args[2];
-
-        HashMap<Unit, Integer> units = new HashMap<>();
-
-        String[] uStr = args[3].split("\\*");
-
-        for (String s:uStr) {
-            int exp = 1;
-            int p = s.indexOf('^');
-            if (p>0) {
-                exp*= Integer.parseInt(s.substring(p+1));
-                s = s.substring(0, p);
-            }
-
-            Unit u = UnitDatabase.DATABASE.findBySymbol(s);
-
-            units.put(u, exp);
-        }
-
+        HashMap<Unit, Integer> units = ComplexUnit.generateChildUnits(args[3]);
         double scale = Double.parseDouble(args[4]);
 
         try {

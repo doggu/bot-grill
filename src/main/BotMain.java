@@ -27,6 +27,7 @@ import events.gameroom.CreateLobby;
 import events.reactionary.Quips;
 import events.reactionary.Reactions;
 import events.reactionary.Vote;
+import events.stem.unitConverter.UnitRemover;
 import feh.heroes.HeroDatabase;
 import feh.heroes.skills.SkillDatabase;
 import feh.summoning.BannerDatabase;
@@ -120,6 +121,7 @@ public class BotMain {
 
         addListener(new UnitConversionListener());
         addListener(new UnitRegistrar());
+        addListener(new UnitRemover());
 
         //gamble
         addListener(new Chances());

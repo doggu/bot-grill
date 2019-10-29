@@ -1,6 +1,5 @@
 package stem.science.unitConverter;
 
-import stem.science.unitConverter.units.ComplexUnit;
 import stem.science.unitConverter.units.Unit;
 import utilities.Database;
 import utilities.WebCache;
@@ -8,7 +7,6 @@ import utilities.WebCache;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class UnitDatabase extends Database<Unit> {
@@ -27,10 +25,6 @@ public class UnitDatabase extends Database<Unit> {
 
         DATABASE = new UnitDatabase();
         UNITS = DATABASE.getList();
-        HashMap<Unit, Integer> base = new HashMap<>();
-        base.put(DATABASE.findBySymbol("cm"), 3);
-        UNITS.add(new ComplexUnit("milliliter", "mL", base, 1));
-        UNITS.add(new ComplexUnit("liter", "L", base, 1000));
     }
 
     @Override

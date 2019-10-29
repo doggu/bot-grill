@@ -1,11 +1,12 @@
 package stem.science.unitConverter.units;
 
+import stem.science.unitConverter.UnitDatabase;
 import utilities.Misc;
 
 import java.util.HashMap;
 
 public class ComplexUnit extends Unit {
-
+    private final HashMap<Unit, Integer> units;
 
 
 
@@ -14,6 +15,58 @@ public class ComplexUnit extends Unit {
                 absoluteConfiguration(units),
                 absoluteScaleToSI(units, additionalScale));
 
+        this.units = units;
+    }
+
+    public static HashMap<Unit, Integer> generateChildUnits(String unitsStr) {
+        HashMap<Unit, Integer> units = new HashMap<>();
+        String[] uStr = unitsStr.split("[-*/]");
+        char[] joiners = new char[uStr.length];
+        joiners[0] = '*';
+        String copy = String.copyValueOf(unitsStr.toCharArray());
+        copy = copy.replaceAll("-", "*");
+        for (int i=1; i<joiners.length; i++) {
+            int sI = copy.indexOf('/'), aI = copy.indexOf('*');
+            if (sI<aI) {
+                joiners[i] = '/';
+            } else if (sI>aI) {
+                joiners[i] = '*';
+            } else {
+                break;
+            }
+        }
+
+        int i = 0;
+        for (String s:uStr) {
+            int exp = joiners[i]=='*'?1:-1;
+            int p = s.indexOf('^');
+            if (p>0) {
+                exp*= Integer.parseInt(s.substring(p+1));
+                s = s.substring(0, p);
+            }
+
+            Unit u = UnitDatabase.DATABASE.findBySymbol(s);
+
+            units.put(u, exp);
+
+            i++;
+        }
+
+        return units;
+    }
+
+
+    public static ComplexUnit generateUnit(String unit) {
+        return generateUnit(new String(unit),new String(unit),new String(unit));
+    }
+    public static ComplexUnit generateUnit(String name, String symbol, String unit) {
+        HashMap<Unit, Integer> units = generateChildUnits(unit);
+
+        try {
+            return new ComplexUnit(name, symbol, units, 1);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private static double absoluteScaleToSI(HashMap<Unit, Integer> a, double additionalScale) {
@@ -46,5 +99,25 @@ public class ComplexUnit extends Unit {
         }
 
         return configuration;
+    }
+
+
+
+    public boolean contains(Unit u) {
+        for (Unit n:units.keySet()) {
+            if (n instanceof ComplexUnit) {
+                if (((ComplexUnit) n).contains(u)) {
+                    return true;
+                }
+            } else {
+                if (n==u) return true;
+            }
+        }
+
+        return false;
+    }
+
+    public String toString() {
+        return getName();
     }
 }

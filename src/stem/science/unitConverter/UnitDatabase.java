@@ -2,15 +2,19 @@ package stem.science.unitConverter;
 
 import stem.science.unitConverter.units.InconversibleUnitsException;
 import stem.science.unitConverter.units.Unit;
+import utilities.data.Cereal;
 import utilities.data.Database;
 import utilities.data.WebCache;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class UnitDatabase extends Database<Unit> {
+public class UnitDatabase extends Database<Unit> implements Serializable {
+    private static final String FILEPATH = "/units/";
     private static final int[][] BASE;
 
     public static UnitDatabase DATABASE;
@@ -19,13 +23,33 @@ public class UnitDatabase extends Database<Unit> {
 
 
     static {
+        boolean deserialized = false;
+        try {
+            if ((DATABASE = new Cereal<>("database.txt", FILEPATH, DATABASE).deserialize())!=null) {
+                deserialized = true;
+            }
+            if ((UNITS = new Cereal<>("list.txt", FILEPATH, UNITS).deserialize())==null) {
+                deserialized = false;
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            //false
+        }
+
         BASE = new int[7][7];
-        for (int i=0; i<7; i++) {
+        for (int i = 0; i < 7; i++) {
             BASE[i][i] = 1;
         }
 
-        DATABASE = new UnitDatabase();
-        UNITS = DATABASE.getList();
+        if (!deserialized) {
+            System.out.println("constructing new UnitDatabase");
+            DATABASE = new UnitDatabase();
+            UNITS = DATABASE.getList();
+        }
+
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+
+        }));
     }
 
     @Override

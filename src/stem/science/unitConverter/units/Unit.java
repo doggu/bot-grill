@@ -1,8 +1,9 @@
 package stem.science.unitConverter.units;
 
 
+import java.io.Serializable;
 
-public class Unit {
+public class Unit implements Serializable {
     private final String name, symbol;
     private final int[] baseUnits;
     private final double scaleToSI;

@@ -20,21 +20,19 @@ public class ComplexUnit extends Unit {
 
     public static HashMap<Unit, Integer> generateChildUnits(String unitsStr) {
         HashMap<Unit, Integer> units = new HashMap<>();
-        String[] uStr = unitsStr.split("[-*/]");
+        String[] uStr = unitsStr.split("[*/]");
         char[] joiners = new char[uStr.length];
         joiners[0] = '*';
         String copy = String.copyValueOf(unitsStr.toCharArray());
-        copy = copy.replaceAll("-[a-zA-Z]", "*");
+        //copy = copy.replaceAll("-[a-zA-Z]", "*");
         for (int i=1; i<joiners.length; i++) {
             int sI = copy.indexOf('/'), aI = copy.indexOf('*');
             if (sI==-1) sI = Integer.MAX_VALUE;
             if (aI==-1) aI = Integer.MAX_VALUE;
             if (sI<aI) {
-                System.out.println("slash");
                 joiners[i] = '/';
                 copy = copy.substring(sI+1);
             } else if (sI>aI) {
-                System.out.println("star");
                 joiners[i] = '*';
                 copy = copy.substring(aI+1);
             } else {
@@ -61,7 +59,7 @@ public class ComplexUnit extends Unit {
 
 
     public static ComplexUnit generateUnit(String unit) {
-        return generateUnit(new String(unit),new String(unit),new String(unit));
+        return generateUnit(unit, unit, unit);
     }
     public static ComplexUnit generateUnit(String name, String symbol, String unit) {
         HashMap<Unit, Integer> units = generateChildUnits(unit);

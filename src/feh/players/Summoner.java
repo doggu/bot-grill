@@ -1,17 +1,18 @@
 package feh.players;
 
 import events.fehGame.summoning.CircleSimulator;
-import feh.heroes.character.Hero;
-import feh.heroes.unit.Unit;
+import feh.characters.hero.Hero;
+import feh.characters.unit.Unit;
 import feh.players.relationships.Relationship;
 import feh.players.relationships.Relationships;
 import main.BotMain;
 import net.dv8tion.jda.core.entities.User;
 
+import java.io.*;
 import java.util.ArrayList;
 
 public class Summoner {
-    public static final ArrayList<Summoner> SUMMONERS;
+    public static ArrayList<Summoner> SUMMONERS;
 
     static {
         SUMMONERS = new ArrayList<>();
@@ -89,5 +90,66 @@ public class Summoner {
     }
     public void spendOrbs(int orbs) {
         orbsSpent+= orbs;
+    }
+
+
+
+    public static void main(String[] args) {
+        serialize();
+    }
+
+    private static void serialize() {
+        File f = new File("./src/feh/players/barracks.txt");
+
+        try {
+            if (f.createNewFile()) {
+                System.out.println("created a new file");
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return;
+        }
+
+        for (int i=0; i<5; i++) {
+            SUMMONERS.add(new Summoner("heh"));
+        }
+
+        try {
+            FileOutputStream fos = new FileOutputStream(f);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(SUMMONERS);
+
+            System.out.println("serialized");
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
+
+    private static void deserialize() {
+        File f = new File("./src/feh/players/barracks.txt");
+
+        try {
+            if (f.createNewFile()) {
+                System.out.println("created a new file");
+            }
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return;
+        }
+
+        try {
+            FileInputStream fos = new FileInputStream(f);
+            ObjectInputStream oos = new ObjectInputStream(fos);
+
+            Object o = oos.readObject();
+
+            if (o instanceof ArrayList)
+                SUMMONERS = (ArrayList) o;
+
+            System.out.println("serialized");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

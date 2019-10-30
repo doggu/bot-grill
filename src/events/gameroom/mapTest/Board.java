@@ -1,8 +1,8 @@
 package events.gameroom.mapTest;
 
-import feh.heroes.character.MovementClass;
-import feh.heroes.unit.Unit;
-import feh.heroes.character.Hero;
+import feh.characters.hero.MovementClass;
+import feh.characters.unit.Unit;
+import feh.characters.hero.Hero;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

@@ -2,8 +2,8 @@ package events.fehGame.retriever;
 
 import discordUI.feh.FEHPrinter;
 import events.commands.Command;
-import feh.heroes.skills.skillTypes.Skill;
-import feh.heroes.skills.skillTypes.Weapon;
+import feh.characters.skills.skillTypes.Skill;
+import feh.characters.skills.skillTypes.Weapon;
 import main.BotMain;
 import net.dv8tion.jda.core.entities.Message;
 
@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import static feh.heroes.skills.SkillDatabase.SKILLS;
+import static feh.characters.skills.SkillDatabase.SKILLS;
 
 public class SkillRetriever extends Command {
     public void onCommand() {

@@ -1,8 +1,8 @@
 package feh.battle;
 
-import feh.heroes.HeroDatabase;
-import feh.heroes.character.Hero;
-import feh.heroes.unit.Unit;
+import feh.characters.HeroDatabase;
+import feh.characters.hero.Hero;
+import feh.characters.unit.Unit;
 
 import java.util.ArrayList;
 

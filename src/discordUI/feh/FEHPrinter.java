@@ -1,13 +1,13 @@
 package discordUI.feh;
 
 import feh.battle.FieldedUnit;
-import feh.heroes.character.Hero;
-import feh.heroes.character.HeroClass;
-import feh.heroes.character.MovementClass;
-import feh.heroes.character.WeaponClass;
-import feh.heroes.skills.analysis.SkillAnalysis;
-import feh.heroes.skills.skillTypes.*;
-import feh.heroes.unit.Unit;
+import feh.characters.hero.Hero;
+import feh.characters.hero.HeroClass;
+import feh.characters.hero.MovementClass;
+import feh.characters.hero.WeaponClass;
+import feh.characters.skills.analysis.SkillAnalysis;
+import feh.characters.skills.skillTypes.*;
+import feh.characters.unit.Unit;
 import main.BotMain;
 import net.dv8tion.jda.core.EmbedBuilder;
 import utilities.Range;
@@ -18,7 +18,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 import static discordUI.EmoteHelper.printEmote;
-import static feh.heroes.HeroDatabase.HEROES;
+import static feh.characters.HeroDatabase.HEROES;
 import static main.BotMain.DEBUG;
 
 public class FEHPrinter {

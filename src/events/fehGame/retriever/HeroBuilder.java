@@ -1,10 +1,10 @@
 package events.fehGame.retriever;
 
-import feh.heroes.HeroDatabase;
-import feh.heroes.character.Hero;
-import feh.heroes.skills.SkillDatabase;
-import feh.heroes.skills.skillTypes.Skill;
-import feh.heroes.unit.Unit;
+import feh.characters.HeroDatabase;
+import feh.characters.hero.Hero;
+import feh.characters.skills.SkillDatabase;
+import feh.characters.skills.skillTypes.Skill;
+import feh.characters.unit.Unit;
 import utilities.StringUtil;
 
 import java.util.ArrayList;

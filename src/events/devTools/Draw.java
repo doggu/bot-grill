@@ -1,8 +1,8 @@
 package events.devTools;
 
 import events.MessageListener;
-import feh.heroes.HeroDatabase;
-import feh.heroes.character.Hero;
+import feh.characters.HeroDatabase;
+import feh.characters.hero.Hero;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

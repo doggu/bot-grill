@@ -8,10 +8,7 @@ package feh.battle.combat;
 
 import feh.battle.Action;
 import feh.battle.FieldedUnit;
-import feh.heroes.character.MovementClass;
-import feh.heroes.character.WeaponClass;
-
-import java.awt.*;
+import feh.characters.hero.WeaponClass;
 
 public class Combat extends Action {
     private FieldedUnit lastAttacker = null; //declared after first doDamage is called

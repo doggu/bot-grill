@@ -1,7 +1,7 @@
 package events.fehGame.retriever;
 
 import discordUI.feh.FEHPrinter;
-import feh.heroes.skills.skillTypes.Weapon;
+import feh.characters.skills.skillTypes.Weapon;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.events.message.react.GenericMessageReactionEvent;
 import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;

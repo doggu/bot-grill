@@ -1,6 +1,6 @@
 package events.gameroom.mapTest;
 
-import feh.heroes.character.MovementClass;
+import feh.characters.hero.MovementClass;
 
 public enum Tile {
     PLAINS              ("plains", true, true, true,

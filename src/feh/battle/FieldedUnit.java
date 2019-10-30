@@ -1,6 +1,6 @@
 package feh.battle;
 
-import feh.heroes.unit.Unit;
+import feh.characters.unit.Unit;
 
 import java.awt.*;
 import java.util.ArrayList;

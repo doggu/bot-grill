@@ -2,7 +2,7 @@ package discordUI.feh;
 
 import discordUI.menu.Menu;
 import discordUI.menu.MenuEntry;
-import feh.heroes.unit.Unit;
+import feh.characters.unit.Unit;
 import feh.players.Barracks;
 import feh.players.Summoner;
 import net.dv8tion.jda.core.entities.Message;

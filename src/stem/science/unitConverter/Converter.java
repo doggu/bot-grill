@@ -1,5 +1,6 @@
 package stem.science.unitConverter;
 
+import stem.science.unitConverter.units.InconversibleUnitsException;
 import stem.science.unitConverter.units.Unit;
 
 import java.util.function.Function;
@@ -9,9 +10,11 @@ public class Converter implements Function<Double, Double> {
 
 
 
-    public Converter(Unit from, Unit to) {
+    public Converter(Unit from, Unit to) throws InconversibleUnitsException {
         this.from = from;
         this.to = to;
+
+        if (!from.matches(to)) throw new InconversibleUnitsException(from.getBaseUnits(), to.getBaseUnits());
     }
 
     @Override

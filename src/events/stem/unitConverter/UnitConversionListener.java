@@ -4,6 +4,7 @@ import events.commands.Command;
 import stem.math.PrettyNumber;
 import stem.science.unitConverter.Converter;
 import stem.science.unitConverter.units.ComplexUnit;
+import stem.science.unitConverter.units.InconversibleUnitsException;
 import stem.science.unitConverter.units.Unit;
 
 import java.math.BigDecimal;
@@ -48,7 +49,11 @@ public class UnitConversionListener extends Command {
         try {
             result = new BigDecimal(
                     new Converter(unitsIn, unitsOut).apply(n.doubleValue()));
+        } catch (InconversibleUnitsException iue) {
+            sendMessage("your units are not compatible. please try again.");
+            return;
         } catch (Exception e) {
+            e.printStackTrace();
             sendMessage("there was an error during conversion. please try again.");
             return;
         }

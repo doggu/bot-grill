@@ -1,5 +1,6 @@
 package stem.science.unitConverter;
 
+import stem.science.unitConverter.units.InconversibleUnitsException;
 import stem.science.unitConverter.units.Unit;
 import utilities.Database;
 import utilities.WebCache;
@@ -197,10 +198,16 @@ public class UnitDatabase extends Database<Unit> {
                 continue;
             }
 
-            System.out.println(
-                    new BigDecimal(new Converter(s, e).apply(i))
-                            .round(new MathContext(5)).toPlainString()
-                    +" "+e.getSymbol());
+            try {
+                System.out.println(
+                        new BigDecimal(new Converter(s, e).apply(i))
+                                .round(new MathContext(5)).toPlainString()
+                                + " " + e.getSymbol());
+            } catch (InconversibleUnitsException iue) {
+                iue.printStackTrace();
+            }
         }
+
+        input.close();
     }
 }

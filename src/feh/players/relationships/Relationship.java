@@ -1,7 +1,7 @@
 package feh.players.relationships;
 
 import feh.battle.Battle;
-import feh.heroes.character.Hero;
+import feh.characters.hero.Hero;
 
 import java.util.ArrayList;
 

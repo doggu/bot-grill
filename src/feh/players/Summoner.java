@@ -1,8 +1,8 @@
 package feh.players;
 
 import events.fehGame.summoning.CircleSimulator;
-import feh.heroes.character.Hero;
-import feh.heroes.unit.Unit;
+import feh.characters.hero.Hero;
+import feh.characters.unit.Unit;
 import feh.players.relationships.Relationship;
 import feh.players.relationships.Relationships;
 import main.BotMain;

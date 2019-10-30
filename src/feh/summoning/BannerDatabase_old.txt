@@ -6,7 +6,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import utilities.WebScalper;
-import feh.heroes.character.Hero;
+import feh.characters.hero.Hero;
 
 import java.io.IOException;
 import java.math.BigDecimal;

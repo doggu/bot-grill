@@ -5,7 +5,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import feh.heroes.character.Hero;
+import feh.characters.hero.Hero;
 import utilities.Database;
 import utilities.WebCache;
 

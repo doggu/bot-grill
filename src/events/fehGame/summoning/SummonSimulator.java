@@ -1,7 +1,7 @@
 package events.fehGame.summoning;
 
 import events.fehGame.FEHCommand;
-import feh.heroes.character.Hero;
+import feh.characters.hero.Hero;
 import feh.players.Summoner;
 import feh.summoning.Banner;
 import feh.summoning.BannerDatabase;

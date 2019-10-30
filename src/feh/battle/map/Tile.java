@@ -1,6 +1,6 @@
 package feh.battle.map;
 
-import feh.heroes.character.Hero;
+import feh.characters.hero.Hero;
 
 public enum Tile {
     PLAINS              ("plains", true, true, true,

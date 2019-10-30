@@ -1,8 +1,8 @@
 package feh.summoning;
 
-import feh.heroes.character.Availability;
-import feh.heroes.character.Hero;
-import feh.heroes.HeroDatabase;
+import feh.characters.hero.Availability;
+import feh.characters.hero.Hero;
+import feh.characters.HeroDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;

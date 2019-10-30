@@ -6,8 +6,8 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import feh.heroes.character.Hero;
-import utilities.Database;
-import utilities.WebCache;
+import utilities.data.Database;
+import utilities.data.WebCache;
 
 import java.io.IOException;
 import java.math.BigDecimal;

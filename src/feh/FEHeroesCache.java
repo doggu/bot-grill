@@ -1,6 +1,6 @@
 package feh;
 
-import utilities.WebCache;
+import utilities.data.WebCache;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

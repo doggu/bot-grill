@@ -1,4 +1,6 @@
-package utilities;
+package utilities.data;
+
+import utilities.Stopwatch;
 
 import java.io.*;
 import java.net.URL;

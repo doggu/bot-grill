@@ -2,8 +2,8 @@ package stem.science.unitConverter;
 
 import stem.science.unitConverter.units.InconversibleUnitsException;
 import stem.science.unitConverter.units.Unit;
-import utilities.Database;
-import utilities.WebCache;
+import utilities.data.Database;
+import utilities.data.WebCache;
 
 import java.math.BigDecimal;
 import java.math.MathContext;

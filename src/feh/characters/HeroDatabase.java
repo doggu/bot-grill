@@ -555,7 +555,7 @@ public class HeroDatabase extends Database<Hero> {
 
     private static final HashMap<String, Character> HERO_GENDERS;
     private static HashMap<String, Character> getGenders() {
-        File f = new File("./src/feh/heroes/grenders.txt");
+        File f = new File("./src/feh/characters/grenders.txt");
         HashMap<String, Character> genders = new HashMap<>();
 
         Scanner input;

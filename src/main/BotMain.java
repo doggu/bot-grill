@@ -3,6 +3,7 @@ package main;
 import events.commands.Emotes;
 import events.commands.Girl;
 import events.commands.campus.CanIEatRightNow;
+import events.stem.chem.Electronegativity;
 import events.stem.chem.ElementRetriever;
 import events.stem.chem.MolarMass;
 import events.commands.gamble.Chances;
@@ -101,6 +102,7 @@ public class BotMain {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> bot_grill.shutdown()));
 
         //TODO: add caching hooks which commit user persistence to storage
+        // with hourly backups probably
     }
 
 
@@ -118,6 +120,7 @@ public class BotMain {
         //science
         addListener(new ElementRetriever());
         addListener(new MolarMass());
+        addListener(new Electronegativity());
 
         addListener(new UnitConversionListener());
         addListener(new UnitRegistrar());

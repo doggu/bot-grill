@@ -9,6 +9,7 @@ import java.util.Comparator;
 
 //todo: create Chemmand
 public class Electronegativity extends Command {
+            //todo: generalize to any periodic table trend
     private static final char APPROXIMATELY = '≈';
 
     @Override

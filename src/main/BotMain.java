@@ -9,6 +9,7 @@ import events.stem.chem.MolarMass;
 import events.commands.gamble.Chances;
 import events.commands.gamble.Roll;
 import events.commands.help.Help;
+import events.stem.chem.PeriodicTableTrends;
 import events.stem.math.FracCalcListener;
 import events.stem.math.GradientDescentListener;
 import events.stem.math.Maffs;
@@ -121,6 +122,7 @@ public class BotMain {
         addListener(new ElementRetriever());
         addListener(new MolarMass());
         addListener(new Electronegativity());
+        addListener(new PeriodicTableTrends());
 
         addListener(new UnitConversionListener());
         addListener(new UnitRegistrar());

@@ -1,4 +1,4 @@
-package events.commands.stem.chem;
+package events.stem.chem;
 
 import events.commands.Command;
 import stem.science.chem.particles.ChemicalElement;

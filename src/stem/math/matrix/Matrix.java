@@ -6,7 +6,6 @@ public class Matrix {
     private Fraction[][] matrix;
 
 
-
     @SuppressWarnings("static-access")
     public Matrix(Fraction[][] matrix) {
         this.matrix = matrix;
@@ -88,14 +87,14 @@ public class Matrix {
     }
 
     public Matrix reducedRowEchelonForm() {
-        int lead = 0;
-        int rows = matrix.length;
-        int cols = matrix[0].length;
-
         //interpreted psuedocode from:
         //https://rosettacode.org/wiki/Reduced_row_echelon_form
         //it looks obvious now that i've translated it
         //but maybe that's why it's good code and i'm not
+        int lead = 0;
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+
         for (int r = 0; r<rows; r++) {
             if (cols<=lead)
                 break;
@@ -191,9 +190,9 @@ public class Matrix {
                 //{1, 4, 4, 1},
                 //{1, 2, 0, 2},
                 //C2H4 + O2 > CO2 + H2O
-                {2,0,-1,0},
-                {4,0,0,-2},
-                {0,2,-2,-1}
+                {2, 0, -1, 0},
+                {4, 0, 0, -2},
+                {0, 2, -2, -1}
         });
 
         m.reducedRowEchelonForm()

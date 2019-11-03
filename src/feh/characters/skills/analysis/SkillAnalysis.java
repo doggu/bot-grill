@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 import static feh.characters.hero.MovementClass.*;
 import static feh.characters.hero.WeaponClass.BREATH;
+import static feh.characters.hero.WeaponClass.TOME;
 
 
 public class SkillAnalysis {
@@ -296,12 +297,14 @@ public class SkillAnalysis {
                 return BREATH;
             case "magic":
                 //todo: separate tome color from weapon type and just make it a conditional in skill inherit later jesus
+                // idk what this meant coming back to it but i'm going to solve it and leave this here
+                return TOME;
             default:
                 return null;
         }
     }
     private HeroClass generateNeutralizesEffectivity() { //todo: magic and dragon foes
-        HeroClass effectivity = null;
+        HeroClass effectivity = null;                    // the magic one doesn't exist yet tho
         for (int i = 0; i< sentences.size(); i++) {
             String raw = sentences.get(i);
             if (raw.matches("Neutralizes \"effective against " +

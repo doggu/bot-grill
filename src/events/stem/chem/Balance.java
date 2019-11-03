@@ -1,12 +1,13 @@
 package events.stem.chem;
 
 import events.commands.Command;
+import stem.math.matrix.Fraction;
+import stem.math.matrix.Matrix;
 import stem.science.chem.particles.ChemicalElement;
-import stem.science.chem.particles.ElementDatabase;
+import utilities.Misc;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 
 public class Balance extends Command {
     @Override
@@ -31,24 +32,19 @@ public class Balance extends Command {
 
     @Override
     public void onCommand() {
-
-
-
         ArrayList<String> args = new ArrayList<>(Arrays.asList(this.args));
 
         args.remove(0);
         System.out.println(args);
 
         if (args.size()<4) {
-            //todo:
-            System.out.println("please include at least three reactants and products " +
-                    "(otherwise it's already balanced naturally)");
+            sendMessage("please include at least three reactants and products " +
+                    "(otherwise you wouldn't need me, really)");
             return;
         }
 
         if (!args.contains(">")) {
-            //todo:
-            System.out.println("i could not find your arrow (use symbol \">\")");
+            sendMessage("i could not find your arrow (use symbol \">\")");
             return;
         }
 
@@ -66,8 +62,6 @@ public class Balance extends Command {
         for (String x: reactantsStr) reactants.add(MolarMass.getElements(x));
         for (String x: productsStr) products.add(MolarMass.getElements(x));
 
-        //boolean balanced = getBalanced(reactants, products);
-
         ArrayList<ChemicalElement> involvedElements = new ArrayList<>();
 
         for (ArrayList<ChemicalElement> list:reactants) {
@@ -76,152 +70,77 @@ public class Balance extends Command {
             }
         }
 
-        /*
-        while (!balanced&&f<6) {
-            for (ChemicalElement x:involvedElements) {
-                int rTotal = getTotalCount(x, reactants), pTotal = getTotalCount(x, products);
-
-                if (rTotal==pTotal) {
-                    System.out.println(x+" balanced");
-                } else {
-                    System.out.println(x+" not balanced");
-                    if (rTotal>pTotal) {
-                        ArrayList<ChemicalElement> bestModifier = null;
-                        for (ArrayList<ChemicalElement> product : products) {
-                            if (product.contains(x)) {
-                                if (bestModifier == null) bestModifier = product;
-                                else {
-                                    if (getCount(x, bestModifier) > getCount(x, product)) {
-                                        bestModifier = product;
-                                    }
-                                }
-                            }
-                        }
-                        if (bestModifier!=null) {
-                            for (int i = 0; i < rTotal-pTotal; i += getCount(x, bestModifier)) {
-                                System.out.println(bestModifier);
-                                products.add(bestModifier);
-                            }
-
-                            break;
-                        }
-                    } else if (rTotal<pTotal) {
-                        ArrayList<ChemicalElement> bestModifier = null;
-                        for (ArrayList<ChemicalElement> reactant : reactants) {
-                            if (reactant.contains(x)) {
-                                if (bestModifier == null) bestModifier = reactant;
-                                else {
-                                    if (getCount(x, bestModifier) > getCount(x, reactant)) {
-                                        bestModifier = reactant;
-                                    }
-                                }
-                            }
-                        }
-                        if (bestModifier!=null) {
-                            for (int i = 0; i < pTotal-rTotal; i += getCount(x, bestModifier)) {
-                                System.out.println(bestModifier);
-                                reactants.add(bestModifier);
-                            }
-
-                            break;
-                        }
-                    }
-                }
+        int[][] m = new int[involvedElements.size()][reactants.size()+products.size()];
+        int i;
+        for (i=0; i<involvedElements.size(); i++) {
+            int j;
+            for (j = 0; j<reactants.size(); j++) {
+                m[i][j] = getCount(involvedElements.get(i), reactants.get(j));
             }
-
-            System.out.println("a loop has passed");
-            f++;
-
-            balanced = getBalanced(reactants, products);
-        }
-        */
-
-
-
-        int[] rCount = coefficients(reactants);
-        int[] pCount = coefficients(products);
-
-        for (int i:rCount)
-            System.out.println(i);
-        for (int i:pCount)
-            System.out.println(i);
-
-        System.out.println(reactants);
-        System.out.println(products);
-
-
-        StringBuilder message = new StringBuilder();
-
-        for (int i=0; i<reactants.size(); i++) {
-            message.append(rCount[i]).append(reactantsStr.get(i)).append(' ');
-        }
-
-        message.append("> ");
-
-        for (int i=0; i<productsStr.size(); i++) {
-            message.append(rCount[i]).append(productsStr.get(i)).append(' ');
-        }
-
-        System.out.println(message);
-    }
-
-    private static int[] coefficients(ArrayList<ArrayList<ChemicalElement>> compounds) {
-        HashMap<ArrayList<ChemicalElement>, Integer> coeffs = new HashMap<>();
-
-        for (int i=0; i<compounds.size(); i++) {
-            if (coeffs.get(compounds.get(i))==null) {
-                coeffs.put(compounds.get(i), 1);
-            } else {
-                coeffs.put(compounds.get(i), coeffs.get(compounds.get(i))+1);
-            }
-        }
-        System.out.println("aaa");
-
-        int[] coefficients = new int[coeffs.keySet().size()];
-
-        for (int i=0; i<compounds.size(); i++) {
-            coefficients[i] = coeffs.get(compounds.get(i));
-
-            while (compounds.size()>i+1) {
-                if (compounds.get(i)==compounds.get(i+1)) {
-                    compounds.remove(i+1);
-                } else break;
-
-                System.out.println("bbb");
+            for (ArrayList<ChemicalElement> product : products) {
+                m[i][j] = getCount(involvedElements.get(i), product);
+                j++;
             }
         }
 
-        return coefficients;
-    }
+        Matrix matrix = new Matrix(m);
 
-    private static boolean getBalanced(ArrayList<ArrayList<ChemicalElement>> reactants,
-            ArrayList<ArrayList<ChemicalElement>> products) {
-        if (totalSize(reactants)==totalSize(products)) {
-            for (ChemicalElement x: ElementDatabase.ELEMENTS) {
-                if (getTotalCount(x, products)!= getTotalCount(x, reactants)) {
-                    return false;
-                }
+        System.out.println(matrix);
 
-            }
+        matrix.reducedRowEchelonForm().reduce();
 
-            return true;
+        System.out.println(matrix);
+
+        Fraction[] lCol = matrix.getColumn(reactants.size()+products.size()-1);
+
+        for (Fraction fraction : lCol) {
+            System.out.println(fraction);
         }
 
-        return false;
-    }
+        equalizeDenominator(lCol);
 
-    private static int totalSize(ArrayList<ArrayList<ChemicalElement>> elements) {
-        int size = 0;
-        for (ArrayList<ChemicalElement> x:elements) {
-            size+= x.size();
+        int[] coefficients = new int[reactants.size()+products.size()];
+
+        for (i=0; i<lCol.length; i++) {
+            if (lCol[i].getNumerator()==0) break;
+            coefficients[i] = Math.abs(lCol[i].getNumerator());
+        }
+        coefficients[i] = lCol[0].getDenominator();
+
+        StringBuilder message = new StringBuilder("`");
+
+        args.remove(">");
+
+        for (int j = 0; j<args.size(); j++) {
+            if (j==reactants.size())
+                message.append("→ ");
+
+            if (Math.abs(coefficients[j])>1)
+                message.append(Math.abs(coefficients[j]));
+            message.append(args.get(j)).append(' ');
         }
 
-        return size;
+        sendMessage(message.substring(0, message.length()-1)+'`');
     }
 
-    private static boolean reallyContains(ChemicalElement element, ArrayList<ArrayList<ChemicalElement>> compounds) {
-        return getTotalCount(element, compounds)!=0;
+    private void equalizeDenominator(Fraction[] col) {
+        int[] denominators = new int[col.length];
+        for (int i=0; i<col.length; i++)
+            denominators[i] = col[i].getDenominator();
+
+        int maxDen = Misc.lcm(denominators);
+
+        for (Fraction fraction : col) {
+            if (fraction.getDenominator()==maxDen) continue;
+
+            int multiplicand = maxDen/fraction.getDenominator();
+
+            fraction.multiplyBy(multiplicand)
+                    .divideBy(multiplicand);
+        }
     }
+
+
 
     private static int getCount(ChemicalElement element, ArrayList<ChemicalElement> compound) {
         int count = 0;
@@ -230,24 +149,5 @@ public class Balance extends Command {
         }
 
         return count;
-    }
-    private static int getTotalCount(ChemicalElement element, ArrayList<ArrayList<ChemicalElement>> compounds) {
-        int count = 0;
-        for (ArrayList<ChemicalElement> compound:compounds) {
-            count+= getCount(element, compound);
-        }
-
-        return count;
-    }
-
-    public static void main(String[] args) {
-        Balance f = new Balance();
-
-        String problem = "balance C3H8O O2 > H2O CO2";
-        //String problem = "balance NaOH H2SO4 > Na2SO4 H2O";
-
-        f.args = problem.split(" ");
-
-        f.onCommand();
     }
 }

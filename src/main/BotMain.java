@@ -3,13 +3,10 @@ package main;
 import events.commands.Emotes;
 import events.commands.Girl;
 import events.commands.campus.CanIEatRightNow;
-import events.stem.chem.Electronegativity;
-import events.stem.chem.ElementRetriever;
-import events.stem.chem.MolarMass;
+import events.stem.chem.*;
 import events.commands.gamble.Chances;
 import events.commands.gamble.Roll;
 import events.commands.help.Help;
-import events.stem.chem.PeriodicTableTrends;
 import events.stem.math.FracCalcListener;
 import events.stem.math.GradientDescentListener;
 import events.stem.math.Maffs;
@@ -123,6 +120,7 @@ public class BotMain {
         addListener(new MolarMass());
         addListener(new Electronegativity());
         addListener(new PeriodicTableTrends());
+        addListener(new Balance());
 
         addListener(new UnitConversionListener());
         addListener(new UnitRegistrar());

@@ -9,8 +9,7 @@ public abstract class Database<T> {
 
     public T find(String input) {
         ArrayList<T> all = findAll(input);
-        if (all.size()>0) return all.get(0);
-        return null;
+        return all.size()>0 ? all.get(0):null;
     }
 
     public abstract ArrayList<T> findAll(String input);
@@ -22,6 +21,7 @@ public abstract class Database<T> {
     public void updateCache() {
         WebCache[] webCaches = getOnlineResources();
         Thread[] threads = new Thread[webCaches.length];
+
         for (int i=0; i<webCaches.length; i++) {
             final WebCache file = webCaches[i];
             Thread loader = new Thread(() -> {

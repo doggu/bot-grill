@@ -28,6 +28,26 @@ public class Misc {
         }
     }
 
+    public static int lcm(int[] array) {
+        int max = max(array);
+
+        int lcm = 0;
+
+        boolean solved;
+        do {
+            lcm+= max;
+            solved = true;
+            for (int value : array) {
+                if (lcm%value!=0) {
+                    solved = false;
+                    break;
+                }
+            }
+        } while (!solved);
+
+        return lcm;
+    }
+
     public static int max(int[] array) {
         int max;
         try {

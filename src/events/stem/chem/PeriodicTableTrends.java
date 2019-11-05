@@ -1,6 +1,5 @@
 package events.stem.chem;
 
-import com.mojang.brigadier.Message;
 import events.commands.Command;
 import net.dv8tion.jda.core.MessageBuilder;
 
@@ -13,7 +12,7 @@ public class PeriodicTableTrends extends Command {
             sendMessage("wat");
         } else if (args.length==1) {
             //all of em
-            MessageBuilder message = new MessageBuilder()
+            sendMessage(new MessageBuilder()
                     .append(NORTHEAST).append(": \n")
                     .append("\tionization energy\n")
                     .append("\telectronegativity\n")
@@ -21,10 +20,10 @@ public class PeriodicTableTrends extends Command {
                     .append(SOUTHWEST).append(": \n")
                     .append("\tatomic radius\n")
                     .append(SOUTHEAST).append(": \n")
-                    .append("\teffective nuclear charge\n");
+                    .append("\teffective nuclear charge\n").toString());
         } else if (args.length==2) {
             //one of em
-            sendMessage(getTrend(args[1]));
+            e.getMessage().addReaction(String.valueOf(getTrend(args[1]))).complete();
         }
     }
     
@@ -45,6 +44,9 @@ public class PeriodicTableTrends extends Command {
 
     @Override
     public boolean isCommand() {
+        //todo: remove typing status for this command
+        // could probably solve a lot of my extending issues
+        // by allowing Command to accept parameters (like willType, or... other stuff)
         return args[0].toLowerCase().matches("p(eriodic)?t(able)?t(rends)?");
     }
 

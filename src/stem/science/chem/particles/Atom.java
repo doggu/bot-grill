@@ -1,6 +1,6 @@
 package stem.science.chem.particles;
 
-public class Atom extends ChemicalElement {
+public class Atom extends ChemicalElement implements MolecularIdentity {
     private int p, n, e;
 
 
@@ -14,20 +14,20 @@ public class Atom extends ChemicalElement {
 
 
 
-    public void changeN(int n) { this.n+= n; }
-    public void changeE(int e) { this.e+= e; }
+    public void captureNeutron(int n) { this.n+= n; }
+    public void ionize(int e) { this.e+= e; }
 
 
 
-    public int getP() { return p; }
-    public int getN() { return n; }
-    public int getE() { return e; }
+    public int getProtons() { return p; }
+    public int getNeutrons() { return n; }
+    public int getElectrons() { return e; }
     public int getCharge() { return p-e; }
-    public double getAtomicMass() { return p+n; };
+    public int getAtomicMass() { return p+n; };
 
 
 
     public String toString() {
-        return super.getName()+"-"+(p+n);
+        return super.getName()+"-"+(getAtomicMass());
     }
 }

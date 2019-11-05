@@ -45,21 +45,21 @@ public class ChemicalElement {
         this.electronegativity = electronegativity;
         this.earthAbundance = earthAbundance;
     }
-    protected ChemicalElement(int atomicNumber) {
-        ChemicalElement toCopy = ElementDatabase.ELEMENTS.get(atomicNumber-1);
-        this.atomicNumber = toCopy.atomicNumber;
-        this.symbol = toCopy.symbol;
-        this.name = toCopy.name;
-        this.origin = toCopy.origin;
-        this.group = toCopy.group;
-        this.period = toCopy.period;
-        this.atomicWeight = toCopy.atomicWeight;
-        this.density = toCopy.density;
-        this.meltingPoint = toCopy.meltingPoint;
-        this.boilingPoint = toCopy.boilingPoint;
-        this.C = toCopy.C;
-        this.electronegativity = toCopy.electronegativity;
-        this.earthAbundance = toCopy.earthAbundance;
+    ChemicalElement(int atomicNumber) {
+        ChemicalElement id = ElementDatabase.ELEMENTS.get(atomicNumber-1);
+        this.atomicNumber = id.atomicNumber;
+        this.symbol = id.symbol;
+        this.name = id.name;
+        this.origin = id.origin;
+        this.group = id.group;
+        this.period = id.period;
+        this.atomicWeight = id.atomicWeight;
+        this.density = id.density;
+        this.meltingPoint = id.meltingPoint;
+        this.boilingPoint = id.boilingPoint;
+        this.C = id.C;
+        this.electronegativity = id.electronegativity;
+        this.earthAbundance = id.earthAbundance;
     }
 
 

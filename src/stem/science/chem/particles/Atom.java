@@ -6,6 +6,13 @@ public class Atom extends ChemicalElement implements MolecularIdentity {
 
 
     public Atom(int p, int n, int e) {
+        /*
+        the current structure here would require any user to generate
+        a new atom every time the amount of protons is changed.
+
+        idk when that will affect me (in nuclear shit, for one),
+        but it's something to keep in mind as i write things with this.
+         */
         super(p);
         this.p = p;
         this.n = n;

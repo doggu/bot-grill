@@ -1,6 +1,9 @@
 package events.stem.chem;
 
+import discordUI.button.ReactionButton;
 import events.commands.Command;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.Message;
 import stem.math.matrix.Fraction;
 import stem.math.matrix.Matrix;
 import stem.science.chem.particles.ChemicalElement;
@@ -107,7 +110,7 @@ public class Balance extends Command {
         }
         coefficients[i] = lCol[0].getDenominator();
 
-        StringBuilder message = new StringBuilder("`");
+        StringBuilder message = new StringBuilder();
 
         args.remove(">");
 
@@ -120,7 +123,45 @@ public class Balance extends Command {
             message.append(args.get(j)).append(' ');
         }
 
-        sendMessage(message.substring(0, message.length()-1)+'`');
+        message.delete(message.length()-1, message.length());
+
+        Message me = sendMessage('`'+message.toString()+'`');
+
+
+
+        //todo: this doesn't actually create an aleks-pastable string
+        //  need to use \chem[shit] notation
+
+        message.replace(
+                message.indexOf(String.valueOf('→'))-1,
+                message.indexOf(String.valueOf('→'))+2,
+                String.valueOf('='));
+
+        //that i up there is so obnoxious
+        for (int f=1; f<message.length(); f++) {
+            if (message.charAt(f) >= '0' && message.charAt(f)<='9' &&
+                    !(message.charAt(f-1)==' ' || (message.charAt(f-1) >= '0' && message.charAt(f-1)<='9'))) {
+                message.insert(f, '_');
+                f++;
+            }
+        }
+
+        // but didn't you write this yourself
+
+        final String aleksPrint = message.toString().replaceAll(" ", "+");
+
+        // shut FUCK up
+
+        new ReactionButton(me,
+                e.getJDA().getEmotesByName("aleks", true).get(0)) {
+            @Override
+            public void onCommand() {
+                getMessage().editMessage(
+                        new EmbedBuilder().setTitle('`'+aleksPrint+'`')
+                                .build())
+                        .complete();
+            }
+        };
     }
 
     private void equalizeDenominator(Fraction[] col) {

@@ -122,6 +122,8 @@ public class Matrix {
                 this.subtract(i, r, matrix[i][lead].duplicate());
             }
 
+            reduce();
+
             lead++;
         }
 

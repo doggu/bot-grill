@@ -2,6 +2,7 @@ package stem.science.chem.particles;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.function.ToIntFunction;
 
 public class Molecule extends ArrayList<Molecule> implements MolecularIdentity, Polyatomic {
     private final ArrayList<Atom> atoms;
@@ -12,8 +13,8 @@ public class Molecule extends ArrayList<Molecule> implements MolecularIdentity, 
     //todo: rework relationship between ions and molecules
     // are lone atoms always ions?
     public Molecule(Atom... a) {
-        this.atoms = (ArrayList<Atom>) Arrays.asList(a);
-        this.ions = null;
+        this.atoms = new ArrayList<>(Arrays.asList(a));
+        this.ions = new ArrayList<>();
     }
 
 
@@ -41,45 +42,24 @@ public class Molecule extends ArrayList<Molecule> implements MolecularIdentity, 
         return null;
     }
 
-    @Override
-    public int getProtons() {
-        int p = 0;
-        for (Atom x:atoms) p+= x.getProtons();
-        for (Molecule x:this) p+= x.getProtons();
-        return p;
+    private int summate(ToIntFunction<MolecularIdentity> t) {
+        int sum = 0;
+        for (Atom atom : atoms)
+            sum += t.applyAsInt(atom);
+
+        for (Molecule ion : ions)
+            sum += t.applyAsInt(ion);
+
+
+        return sum;
     }
 
-    @Override
-    public int getNeutrons() {
-        int n = 0;
-        for (Atom x:atoms) n+= x.getNeutrons();
-        for (Molecule x:this) n+= x.getNeutrons();
-        return n;
-    }
-
-    @Override
-    public int getElectrons() {
-        int e = 0;
-        for (Atom x:atoms) e+= x.getElectrons();
-        for (Molecule x:this) e+= x.getElectrons();
-        return e;
-    }
-
-    @Override
-    public int getCharge() {
-        return 0;
-    }
-
-    @Override
-    public int getAtomicMass() {
-        return 0;
-    }
-
-    @Override
-    public boolean isIon() {
-        //make the charges add up to zero
-        return false;
-    }
+    public int getProtons() { return summate(MolecularIdentity::getProtons); }
+    public int getNeutrons() { return summate(MolecularIdentity::getNeutrons); }
+    public int getElectrons() { return summate(MolecularIdentity::getElectrons); }
+    public int getCharge() { return summate(MolecularIdentity::getCharge); }
+    public int getAtomicMass() { return summate(MolecularIdentity::getAtomicMass); }
+    public boolean isIon() { return summate(MolecularIdentity::getCharge)!=0; }
 
     public String toAleksString() {
         return null;
@@ -94,8 +74,11 @@ public class Molecule extends ArrayList<Molecule> implements MolecularIdentity, 
                 new Atom(1,1,1),
         };
 
+
+
         Molecule f = new Molecule(a);
 
         System.out.println(f.getMolarMass());
+        if (!f.isIon()) System.out.println("wow what a fuckin surprise");
     }
 }

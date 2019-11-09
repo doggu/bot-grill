@@ -16,6 +16,7 @@ public class Molecule extends ArrayList<Molecule> implements MolecularIdentity, 
         this.atoms = new ArrayList<>(Arrays.asList(a));
         this.ions = new ArrayList<>();
     }
+    //todo: String-based constructor
 
 
 

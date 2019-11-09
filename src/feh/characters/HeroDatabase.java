@@ -600,9 +600,12 @@ public class HeroDatabase extends Database<Hero> {
             }
         }
 
+        //todo: retrieve individual artists manually each time this happens
         artists.put("Lyn: Lady of the Beach", "teffish");
         artists.put("Mareeta: The Blade's Pawn", "kiyu");
         artists.put("Tanith: Forthright Heart", "mattsun! (まっつん！)");
+        artists.put("Ewan: Eager Student", "azu‐taro (azuタロウ)");
+        artists.put("Tethys: Beloved Dancer", "tokki");
 
         return artists;
     }

@@ -519,6 +519,9 @@ public class SkillDatabase extends Database<Skill> {
             } catch (MalformedURLException murle) {
                 System.out.println("got a murle for "+name);
                 link = null;
+            } catch (IndexOutOfBoundsException ioobe) {
+                System.out.println("portrait not found for "+name);
+                link = null;
             }
             //String cost = info.get(5).text(); //it's always 400SP, 200 Dew™
 

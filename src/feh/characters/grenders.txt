@@ -69,6 +69,7 @@ Conrad: Masked Knight	m
 Cordelia: Knight Paradise	f
 Cordelia: Knight Paragon	f
 Cordelia: Perfect Bride	f
+Cormag: Aloof Lanceman	m
 Corrin: Dream Prince	m
 Corrin: Dream Princess	f
 Corrin: Enjoying Tradition	m
@@ -105,12 +106,14 @@ Eliwood: Blazing Knight	m
 Eliwood: Devoted Love	m
 Eliwood: Knight of Lycia	m
 Eliwood: Marquess Pherae	m
+Ephraim: Dynastic Duo	m
 Ephraim: Legendary Lord	m
 Ephraim: Restoration Lord	m
 Ephraim: Sacred Twin Lord	m
 Ephraim: Sparkling Gallantly	m
 Est: Junior Whitewing	f
 Ethlyn: Spirited Princess	f
+Ewan: Eager Student	m
 Fae: Divine Dragon	f
 Fae: Holiday Dear	f
 Faye: Devoted Heart	f
@@ -134,6 +137,7 @@ Garon: King of Nohr	m
 Genny: Dressed with Care	f
 Genny: Endearing Ally	f
 Gerome: Masked Rider	m
+Gerik: Desert Tiger	m
 Gharnef: Dark Pontifex	m
 Gordin: Altean Archer	m
 Gray: Wry Comrade	m
@@ -343,6 +347,7 @@ Robin: Mystery Tactician	f
 Robin: Seaside Tactician	f
 Roderick: Steady Squire	m
 Rolf: Tricky Archer	m
+Ross: His Father's Son	m
 Roy: Blazing Lion	m
 Roy: Brave Lion	m
 Roy: Young Lion	m
@@ -402,6 +407,7 @@ Takumi: Wild Card	m
 Tana: Noble and Nimble	f
 Tana: Winged Princess	f
 Tanith: Forthright Heart	f
+Tethys: Beloved Dancer	f
 Tharja: "Normal Girl"	f
 Tharja: Dark Shadow	f
 Tharja: Obsessive Bride	f

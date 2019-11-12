@@ -1,7 +1,6 @@
 package events.gameroom.uno;
 
 import events.gameroom.TextGame;
-import events.gameroom.ticTacToe.Card;
 import net.dv8tion.jda.core.entities.Message;
 import net.dv8tion.jda.core.entities.MessageChannel;
 import net.dv8tion.jda.core.entities.User;
@@ -13,14 +12,17 @@ public class Game extends TextGame {
     private final ArrayList<User> players;
     private final MessageChannel channel;
 
-    //private final ArrayList<Card> deck;
-    //private final ArrayList<Card> pile;
+    private final Deck deck;
+    private final ArrayList<Card> pile;
 
 
 
     public Game(ArrayList<User> players, MessageChannel channel) {
         this.players = players;
         this.channel = channel;
+
+        this.deck = new Deck();
+        this.pile = new ArrayList<>();
 
         startGame();
     }

@@ -32,15 +32,13 @@ public abstract class Lobby extends ReactionListener {
 
 
     private void checkLobbyReady() {
-        if (players.size()>=getMinPlayers()) {
-            //the game could start if the host wants it to
-            // ( i'll probably never program this since there're only two real users)
-        }
         if (players.size()>getMaxPlayers()) {
             sendMessage("something went wrong, please start a new lobby.");
             BotMain.bot_grill.removeEventListener(this);
-        }
-        if (players.size()==getMaxPlayers()) {
+        } else if (players.size()>=getMinPlayers()) {
+            //the game could start if the host wants it to
+            // ( i'll probably never program this since there're only two real users)
+        } else if (players.size()==getMaxPlayers()) {
             startGame();
         }
     }

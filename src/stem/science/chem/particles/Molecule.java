@@ -10,8 +10,6 @@ public class Molecule extends ArrayList<Molecule> implements MolecularIdentity, 
 
 
 
-    //todo: rework relationship between ions and molecules
-    // are lone atoms always ions?
     public Molecule(Atom... a) {
         this.atoms = new ArrayList<>(Arrays.asList(a));
         this.ions = new ArrayList<>();

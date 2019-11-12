@@ -33,7 +33,7 @@ public class Maffs extends Command {
             problem = args[1];
             tv = 1.0;
         } else if (args.length==4) {
-            if (args[1].equalsIgnoreCase("store")) {
+            if (args[1].toLowerCase().matches("sto(re)?")) {
                 String var = args[2];
                 String value = args[3];
 
@@ -115,8 +115,9 @@ public class Maffs extends Command {
     }
 
     public boolean isCommand() {
-        if (args[0].equalsIgnoreCase("Math")) return true;
-        return (e.getChannel().getName().equalsIgnoreCase("Math"));
+        if (args[0].toLowerCase().matches("m(ath)?")) return true;
+        return e.getChannel().getName().equalsIgnoreCase("Math") &&
+                args[0].toLowerCase().matches("(m(ath)?)?");
     }
 
     @Override

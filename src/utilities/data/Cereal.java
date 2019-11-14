@@ -9,7 +9,6 @@ public class Cereal<T extends Serializable> {
     private static final String CEREAL_SUBDIR = "./cereal";
 
     private final File file;
-    private final T object;
     private boolean readable = true;
 
     /**
@@ -20,23 +19,21 @@ public class Cereal<T extends Serializable> {
      *                 format: "[filename].[extension]"
      * @param path the filepath which will store the serialized object.
      *             format: "/path/"
-     * @param object a reference to the object that should be serialized upon death,
-     *               even if that reference is not yet declared to an actual object.
      * @throws IOException
      */
     @Nullable
-    public Cereal(String filename, String path, T object) throws IOException {
+    public Cereal(String filename, String path) throws IOException {
         if (new File(CEREAL_SUBDIR+path).mkdirs()) {
             System.out.println("generated filepath: "+CEREAL_SUBDIR+path);
         }
 
         this.file = new File(CEREAL_SUBDIR+path+filename);
-        this.object = object;
 
         if (file.createNewFile()) {
             readable = false;
         }
 
+        /*
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
                 System.out.println("cerealizing...");
@@ -46,11 +43,13 @@ public class Cereal<T extends Serializable> {
                 System.out.println("did not serialize properly. dumping!");
             }
         }));
+         */
     }
 
     public boolean readable() { return readable; }
 
     public void serialize(T object) throws IOException {
+        System.out.println("serializing...");
         FileOutputStream fos = new FileOutputStream(file);
         ObjectOutputStream oos = new ObjectOutputStream(fos);
 

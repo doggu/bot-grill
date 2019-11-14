@@ -20,22 +20,22 @@ public class UnitDatabase extends Database<Unit> implements Serializable {
     public static UnitDatabase DATABASE;
     public static ArrayList<Unit> UNITS;
 
-
+    private static final Cereal<UnitDatabase> DB_CEREAL;
 
     static {
+        Cereal<UnitDatabase> DB_CEREAL1;
         boolean deserialized = false;
         try {
-            if ((DATABASE = new Cereal<>("database.txt", FILEPATH, DATABASE).deserialize())!=null) {
+            DB_CEREAL1 = new Cereal<>("database.txt", FILEPATH);
+            if ((DATABASE = DB_CEREAL1.deserialize())!=null) {
                 deserialized = true;
-            }
-            if ((UNITS = new Cereal<>("list.txt", FILEPATH, UNITS).deserialize())==null) {
-                deserialized = false;
             }
         } catch (IOException ioe) {
             ioe.printStackTrace();
-            //false
+            DB_CEREAL1 = null;
         }
 
+        DB_CEREAL = DB_CEREAL1;
         BASE = new int[7][7];
         for (int i = 0; i < 7; i++) {
             BASE[i][i] = 1;
@@ -48,7 +48,14 @@ public class UnitDatabase extends Database<Unit> implements Serializable {
         }
 
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-
+            try {
+                if (DB_CEREAL==null)
+                    new Cereal<>("database.txt", FILEPATH).serialize(DATABASE);
+                else
+                    DB_CEREAL.serialize(DATABASE);
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
         }));
     }
 

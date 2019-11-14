@@ -45,16 +45,16 @@ public class Soluble extends Command {
 
     @Override
     public String getName() {
-        return null;
+        return "Soluble";
     }
 
     @Override
     public String getDescription() {
-        return null;
+        return "indicates potential precipitates of a reaction.";
     }
 
     @Override
     public String getFullDescription() {
-        return null;
+        return "AHHHHHHHHHHHHHHHHHHHHHHH";
     }
 }

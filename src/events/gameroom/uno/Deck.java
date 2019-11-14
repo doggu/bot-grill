@@ -8,15 +8,22 @@ import java.util.Arrays;
 public class Deck extends ArrayList<Card> {
     private static final ArrayList<Card> NEW_DECK;
     static {
-        char[] colors = { 'r', 'y', 'g', 'b' };
+        char[] colors = { 'r', 'y', 'g', 'b', 'n' };
+        int[] shuffle = new int[108];
+        for (int i=0; i<shuffle.length; i++) {
+            int temp = shuffle[i];
+            int r = (int) (Math.random()*shuffle.length);
+            shuffle[i] = shuffle[r];
+            shuffle[r] = temp;
+        }
         Card[] deck = new Card[108];
         for (int i=0; i<4; i++) {
             for (int j=0; j<2; j++) {
                 int k;
-                for (k=j; k<13; k++) {
-                    deck[(i+1)*(j+1)*k] = new Card(colors[i], k);
+                for (k=j; k<14; k++) {
+                    deck[shuffle[(i+1)*(j+1)*k]]
+                            = new Card(colors[k==13?i:4], k);
                 }
-                deck[(i+1)*(j+1)*k] = new Card('n', k);
             }
         }
 
@@ -25,17 +32,6 @@ public class Deck extends ArrayList<Card> {
 
     Deck() {
         super(NEW_DECK);
-        shuffle();
-    }
-
-    private void swap(int i, int j) {
-        Card temp = super.get(i);
-        super.set(i, super.get(j));
-        super.set(j, temp);
-    }
-    private void shuffle() {
-        for (int i=0; i<super.size(); i++)
-            swap(i, (int)(Math.random()*super.size()));
     }
 }
 
@@ -55,7 +51,7 @@ class Card {
 
 
     boolean colorChooseable() {
-        return color=='n';
+        return color=='n'; //'n' is directly related to card number being 13
     }
     //returns false if you're a bad programmer
     boolean setColor(char color) {

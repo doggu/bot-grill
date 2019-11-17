@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import static events.stem.chem.CharIdentity.LETTER_L;
 import static events.stem.chem.CharIdentity.NUMBER;
 
+//todo: separate logic from listener
 public class MolarMass extends Command {
     @Override
     public boolean isCommand() {
@@ -49,6 +50,15 @@ public class MolarMass extends Command {
                 e.getChannel().getMessageById(e.getMessageId()).complete()
                         .addReaction(e.getJDA().getEmotesByName("Accepted", false).get(0))
                         .queue();
+
+                try {
+                    Thread.sleep(4000);
+                } catch (InterruptedException ie) {
+                    ie.printStackTrace();
+                } finally {
+                    e.getChannel().getMessageById(e.getMessageId()).complete()
+                            .clearReactions().complete();
+                }
                 //sendMessage("committed to your personal answer bank.");
             }
         };

@@ -9,7 +9,7 @@ import events.commands.gamble.Roll;
 import events.commands.help.Help;
 import events.stem.math.FracCalcListener;
 import events.stem.math.GradientDescentListener;
-import events.stem.math.Maffs;
+import events.stem.math.MathListener;
 import events.stem.unitConverter.UnitConversionListener;
 import events.commands.mcserver.ServerInput;
 import events.devTools.DevTools;
@@ -131,7 +131,7 @@ public class BotMain {
         addListener(new Roll());
 
         //math
-        addListener(new Maffs());
+        addListener(new MathListener());
         addListener(new GradientDescentListener());
 
         addListener(new FracCalcListener());

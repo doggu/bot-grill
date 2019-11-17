@@ -2,7 +2,7 @@ package events.stem.chem;
 
 import discordUI.button.PersonalButton;
 import events.commands.Command;
-import events.stem.math.Maffs;
+import events.stem.math.MathListener;
 import stem.science.chem.particles.ChemicalElement;
 import stem.science.chem.particles.ElementDatabase;
 
@@ -40,11 +40,11 @@ public class MolarMass extends Command {
                 e.getAuthor()) {
             @Override
             public void onCommand() {
-                if (Maffs.answers.get(e.getUser().getId())!=null) {
-                    Maffs.answers.remove(e.getUser().getId());
+                if (MathListener.answers.get(e.getUser().getId())!=null) {
+                    MathListener.answers.remove(e.getUser().getId());
                 }
 
-                Maffs.answers.put(e.getUser().getId(), molarMass);
+                MathListener.answers.put(e.getUser().getId(), molarMass);
 
                 e.getChannel().getMessageById(e.getMessageId()).complete()
                         .addReaction(e.getJDA().getEmotesByName("Accepted", false).get(0))
@@ -127,6 +127,9 @@ public class MolarMass extends Command {
         int start = i;
         for (i = i+1; i<compound.length(); i++) {
             CharIdentity identity = CharIdentity.getIdentity(compound.charAt(i));
+
+            if (identity==null) return -1;
+
             switch (identity) {
                 case PAREN_O:
                     closeParenthetical(compound);

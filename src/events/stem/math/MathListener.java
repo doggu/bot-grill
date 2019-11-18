@@ -116,7 +116,6 @@ public class MathListener extends Command {
     }
 
     //todo: lots of dupicate cocodododleldckdfgddahgljkdfg
-    //todo: add special
     public void onMessageReceived(MessageReceivedEvent e) {
         String message = e.getMessage().getContentRaw();
         if (e.getAuthor().isBot()) return;

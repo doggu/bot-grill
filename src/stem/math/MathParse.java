@@ -75,6 +75,7 @@ public class MathParse {
 
 
     public Function<Double,Double> getFunction() throws Error {
+        //todo: make input follow rules more rigorously
         for (i=0; i<f.length; i++) {
             char c = f[i];
             switch(c) {

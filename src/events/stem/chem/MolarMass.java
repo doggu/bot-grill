@@ -51,15 +51,16 @@ public class MolarMass extends Command {
                         .addReaction(e.getJDA().getEmotesByName("Accepted", false).get(0))
                         .queue();
 
-                try {
-                    Thread.sleep(4000);
-                } catch (InterruptedException ie) {
-                    ie.printStackTrace();
-                } finally {
-                    e.getChannel().getMessageById(e.getMessageId()).complete()
-                            .clearReactions().complete();
-                }
-                //sendMessage("committed to your personal answer bank.");
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(4000);
+                    } catch (InterruptedException ie) {
+                        ie.printStackTrace();
+                    } finally {
+                        e.getChannel().getMessageById(e.getMessageId()).complete()
+                                .clearReactions().complete();
+                    }
+                });
             }
         };
     }

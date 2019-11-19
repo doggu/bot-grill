@@ -19,24 +19,21 @@ public class MathListener extends Command {
         String problem;
         double tv;
 
-        if (args.length==1&&e.getChannel().getName().equalsIgnoreCase("math")) {
+        if (args.length==1) {
             problem = args[0];
             tv = 1;
         } else if (args.length==2) {
             problem = args[1];
-            tv = 1.0;
-        } else if (args.length==3) {
-            problem = args[2];
             try {
                 tv = Double.parseDouble(args[1]);
             } catch (NumberFormatException g) {
                 sendMessage("incorrect test value! please try again.");
                 return;
             }
-        } else if (args.length==4) {
-            if (args[1].toLowerCase().matches("sto(re)?")) {
-                String var = args[2];
-                String value = args[3];
+        } else if (args.length==3) {
+            if (args[0].toLowerCase().matches("sto(re)?")) {
+                String var = args[1];
+                String value = args[2];
 
                 if (value.equalsIgnoreCase("ans")) {
                     value = String.valueOf(answers.get(e.getAuthor().getId()));
@@ -58,7 +55,6 @@ public class MathListener extends Command {
                 storedValues.computeIfAbsent(e.getAuthor().getId(), k -> new HashMap<>());
                 storedValues.get(e.getAuthor().getId()).put(var, val);
                 sendMessage("stored "+val+" in "+var+'.');
-
             }
             return;
         } else {
@@ -128,7 +124,7 @@ public class MathListener extends Command {
                 onCommand();
             }
         } else {
-            this.args = message.substring(1).split(" ");
+            System.arraycopy(args, 1, args, 0, args.length-1);
             if (isCommand()) {
                 e.getChannel().sendTyping().complete();
                 onCommand();
@@ -137,12 +133,9 @@ public class MathListener extends Command {
     }
 
     public boolean isCommand() {
-        return false;
-        /*
         if (args[0].toLowerCase().matches("m(ath)?")) return true;
         return e.getChannel().getName().equalsIgnoreCase("Math") &&
                 args[0].toLowerCase().matches("(m(ath)?)?");
-         */
     }
 
     public String getName() { return "Math"; }

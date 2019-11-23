@@ -30,6 +30,7 @@ Beruka: Quiet Assassin	f
 Black Knight: Sinister General	m
 Boey: Skillful Survivor	m
 Brady: Daunting Priest	m
+Brunnya: Devoted General	f
 Bruno: Masked Hare	m
 Byleth: Proven Professor	f
 Byleth: Tested Professor	m
@@ -54,6 +55,7 @@ Cecilia: Festive Instructor	f
 Celica: Caring Princess	f
 Celica: Imprisoned Soul	f
 Celica: Warrior Priestess	f
+Chad: Lycian Wildcat	m
 Charlotte: Money Maiden	f
 Cherche: Wyvern Friend	f
 Chrom: Exalted Prince	m
@@ -89,6 +91,7 @@ Dorcas: Serene Warrior	m
 Dozla: Harvest Attendant	m
 Draug: Gentle Giant	m
 Duma: God of Strength	m
+Echidna: Unyielding Idealist	f
 Edelgard: The Future	f
 Effie: Army of One	f
 Eir: Merciful Death	f
@@ -169,6 +172,7 @@ Hríd: Icy Blade	m
 Hríd: Resolute Prince	m
 Hubert: Sinister Servant	m
 Idunn: Dark Priestess	f
+Igrene: Nabata Protector	f
 Ike: Brave Mercenary	m
 Ike: Stalwart Heart	m
 Ike: Vanguard Legend	m
@@ -213,6 +217,7 @@ Laegjarn: Sheathed Steel	f
 Laevatein: Bonfire's Blaze	f
 Laevatein: Kumade Warrior	f
 Laevatein: Searing Steel	f
+Larum: Sprightly Dancer	f
 Laslow: Dancing Duelist	m
 Leanne: Forest's Song	f
 Legault: The Hurricane	m
@@ -323,6 +328,7 @@ Palla: Eldest Bun-Bun	f
 Palla: Eldest Whitewing	f
 Panne: Proud Taguel	f
 Pent: Fancy Fiancé	m
+Perceval: Knightly Ideal	m
 Peri: Playful Slayer	f
 Petra: Princess of Brigid	f
 Phina: Roving Dancer	f

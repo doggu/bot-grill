@@ -117,8 +117,8 @@ public class MathListener extends Command {
         if (e.getAuthor().isBot()) return;
         if (message.length()==0) return;
         this.e = e;
+        this.args = message.split(" ");
         if (message.charAt(0)!=getPrefix()) {
-            this.args = message.split(" ");
             if (e.getChannel().getName().equalsIgnoreCase("math")) {
                 e.getChannel().sendTyping().complete();
                 onCommand();

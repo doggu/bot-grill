@@ -122,6 +122,9 @@ public class MathParse {
                     if (ops.size()==fxns.size())
                         fxns.add(x -> 1.0);
                     ops.add(c);
+                    break;
+                default:
+                    throw new Error("unknown char: "+c+" ("+i+")");
             }
         }
 

@@ -386,7 +386,11 @@ public class HeroDatabase extends Database<Hero> {
                 merge.setGamepediaLink(null);
             }
 
-            heroes.add(merge.createHero());
+            try {
+                heroes.add(merge.createHero());
+            } catch (Error e) {
+                e.printStackTrace();
+            }
 
             lv1StatsTable.remove(0);
             growthRatesTable.remove(0);
@@ -606,6 +610,8 @@ public class HeroDatabase extends Database<Hero> {
         artists.put("Tanith: Forthright Heart", "mattsun! (まっつん！)");
         artists.put("Ewan: Eager Student", "azu‐taro (azuタロウ)");
         artists.put("Tethys: Beloved Dancer", "tokki");
+        artists.put("Mareeta: Sword of Stars", "idk lmao");
+        artists.put("Tanya: Dagdar's Kid", "idk lmao");
 
         return artists;
     }

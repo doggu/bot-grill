@@ -4,6 +4,7 @@ Alfonse: Spring Prince	m
 Alm: Hero of Prophecy	m
 Alm: Imperial Ascent	m
 Alm: Saint-King	m
+Altina: Dawn's Trueblade	f
 Amelia: Rose of the War	f
 Anna: Commander	f
 Arden: Strong and Tough	m
@@ -117,6 +118,7 @@ Ephraim: Sparkling Gallantly	m
 Est: Junior Whitewing	f
 Ethlyn: Spirited Princess	f
 Ewan: Eager Student	m
+Eyvel: Mistress of Fiana	f
 Fae: Divine Dragon	f
 Fae: Holiday Dear	f
 Faye: Devoted Heart	f
@@ -204,6 +206,7 @@ Karla: Sword Vassal	f
 Katarina: Wayward One	f
 Kaze: Easygoing Ninja	m
 Keaton: Lupine Collector	m
+Kempf: Conniving General	m
 Kjelle: Fair Fighter	f
 Klein: Silver Nobleman	m
 Kliff: Curious Spirit	m
@@ -263,6 +266,7 @@ Lyn: Lady of the Wind	f
 Lyn: Wind's Embrace	f
 Lyon: Shadow Prince	m
 Mae: Bundle of Energy	f
+Mareeta: Sword of Stars	f
 Mareeta: The Blade's Pawn	f
 Maria: Minerva's Sister	f
 Maribelle: Dire Damsel	f
@@ -323,11 +327,13 @@ Olwen: Blue Mage Knight	f
 Olwen: Righteous Knight	f
 Ophelia: Dramatic Heroine	f
 Oscar: Agile Horseman	m
+Osian: Scolded Soldier	m
 Owain: Chosen One	m
 Palla: Eldest Bun-Bun	f
 Palla: Eldest Whitewing	f
 Panne: Proud Taguel	f
 Pent: Fancy Fiancé	m
+Peony: Sweet Dream	f
 Perceval: Knightly Ideal	m
 Peri: Playful Slayer	f
 Petra: Princess of Brigid	f
@@ -413,6 +419,7 @@ Takumi: Wild Card	m
 Tana: Noble and Nimble	f
 Tana: Winged Princess	f
 Tanith: Forthright Heart	f
+Tanya: Dagdar's Kid	f
 Tethys: Beloved Dancer	f
 Tharja: "Normal Girl"	f
 Tharja: Dark Shadow	f

@@ -124,8 +124,12 @@ public class MathListener extends Command {
                 onCommand();
             }
         } else {
-            System.arraycopy(args, 1, args, 0, args.length-1);
+            args[0] = args[0].substring(1);
             if (isCommand()) {
+                String[] args2 = new String[args.length-1];
+                System.arraycopy(args, 1, args2, 0, args2.length);
+                args = args2;
+                for (String x:args) System.out.println(x);
                 e.getChannel().sendTyping().complete();
                 onCommand();
             }

@@ -4,7 +4,7 @@ import events.commands.Command;
 
 public class Chances extends Command {
     public void onCommand() {
-        int r = (int)(java.lang.Math.random()*100+1);
+        int r = (int) Math.round(java.lang.Math.random()*100);
         sendMessage(r+"%");
 
         StringBuilder log = new StringBuilder("determined");

@@ -16,7 +16,7 @@ public class MathParse {
             PI = 'π', PHI = 'p', E = 'e', SoL = 'c', AVO = 'Ä', P_CONST = 'ל';
 
     private static final double
-            PHI_N = (1+Math.pow(5,0.5))/2,
+            PHI_N = (1+Math.sqrt(5))/2,
             SoL_N = 299792458.0, //m/s
             AVO_N = 6.02214086E23,
             PLA_N = 6.62607004E-34;

@@ -86,8 +86,7 @@ public class BotMain {
             System.out.println("BannerDatabase: " + k);
         }
 
-        fehTime.stop();
-        System.out.println("finished ("+fehTime.timeInSeconds()+")!");
+        System.out.println(fehTime.presentResult());
     }
 
     private static void loadDevTools() {

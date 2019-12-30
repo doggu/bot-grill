@@ -404,8 +404,7 @@ public class SkillAnalysis {
         for (Skill x: SkillDatabase.SKILLS)
             analyses.add(new SkillAnalysis(x));
 
-        System.out.println("done ("+s.timeInSeconds()+"!)");
-        s.stop();
+        System.out.println(s.presentResult());
 
 
 

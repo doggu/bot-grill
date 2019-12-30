@@ -11,6 +11,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import utilities.Stopwatch;
 import utilities.data.Database;
 import utilities.data.WebCache;
 
@@ -321,7 +322,9 @@ public class HeroDatabase extends Database<Hero> {
 
     protected ArrayList<Hero> getList() {
         System.out.print("processing heroes... ");
-        long start = System.nanoTime();
+
+        Stopwatch pTime = new Stopwatch();
+        pTime.start();
 
         ArrayList<Hero> heroes = new ArrayList<>();
 
@@ -398,9 +401,7 @@ public class HeroDatabase extends Database<Hero> {
             artistsTable.remove(0);
         }
 
-        System.out.println("done (" +
-                new BigDecimal((System.nanoTime()-start)/1000000000.0).round(new MathContext(3)) +
-                " s)!");
+        System.out.println(pTime.presentResult());
         return heroes;
     }
 

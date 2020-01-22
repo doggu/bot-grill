@@ -46,6 +46,7 @@ import java.util.Scanner;
 
 public class BotMain {
     private static final boolean FEHEROES_UTILS = true;
+    private static final boolean CHEMISTRY = true;
     public static final boolean MCSERVER = false;
 
     public static final boolean DEBUG = true; //it's always debug time
@@ -87,7 +88,12 @@ public class BotMain {
         }
 
         fehTime.stop();
-        System.out.println("finished ("+fehTime.timeInSeconds()+")!");
+        System.out.println("finished ("+fehTime.timeInSeconds()+" s)!");
+    }
+
+    private static void preloadScience() {
+        int i = ElementDatabase.ELEMENTS.size();
+        System.out.println("ElementDatabase: "+i);
     }
 
     private static void loadDevTools() {
@@ -107,21 +113,19 @@ public class BotMain {
 
 
     public static void main(String[] rgs) throws Exception {
-        if (FEHEROES_UTILS)
+        if (FEHEROES_UTILS) {
             preloadFEHUtils();
+        }
+
+        if (CHEMISTRY) {
+            preloadScience();
+        }
 
         bot_grill = new JDABuilder(AccountType.BOT)
                 .setToken(new Scanner(new File("./src/main/token.txt")).nextLine())
                 .build();
 
         bot_grill.awaitReady();
-
-        //science
-        addListener(new ElementRetriever());
-        addListener(new MolarMass());
-        addListener(new Electronegativity());
-        addListener(new PeriodicTableTrends());
-        addListener(new Balance());
 
         addListener(new UnitConversionListener());
         addListener(new UnitRegistrar());
@@ -164,6 +168,15 @@ public class BotMain {
             addListener(new OrbBalance());
 
             addListener(new Powercreep());
+        }
+
+        //science
+        if (CHEMISTRY) {
+            addListener(new ElementRetriever());
+            addListener(new MolarMass());
+            addListener(new Electronegativity());
+            addListener(new PeriodicTableTrends());
+            addListener(new Balance());
         }
 
         //minecraft

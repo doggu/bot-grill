@@ -1,12 +1,15 @@
 Abel: The Panther	m
+Alfonse: Askran Duo	m
 Alfonse: Prince of Askr	m
 Alfonse: Spring Prince	m
 Alm: Hero of Prophecy	m
 Alm: Imperial Ascent	m
 Alm: Saint-King	m
+Altena: Luminous Rider	f
 Altina: Dawn's Trueblade	f
 Amelia: Rose of the War	f
 Anna: Commander	f
+Anna: Wealth-Wisher	f
 Arden: Strong and Tough	m
 Ares: Black Knight	m
 Arthur: Hapless Hero	m
@@ -53,8 +56,10 @@ Catria: Mild Middle Sister	f
 Catria: Spring Whitewing	f
 Cecilia: Etrurian General	f
 Cecilia: Festive Instructor	f
+Ced: Hero on the Wind	m
 Celica: Caring Princess	f
 Celica: Imprisoned Soul	f
+Celica: Queen of Valentia	f
 Celica: Warrior Priestess	f
 Chad: Lycian Wildcat	m
 Charlotte: Money Maiden	f
@@ -96,6 +101,7 @@ Echidna: Unyielding Idealist	f
 Edelgard: The Future	f
 Effie: Army of One	f
 Eir: Merciful Death	f
+Eir: Renewed Life	f
 Eirika: Anamnesis Lady	f
 Eirika: Gentle as Snow	f
 Eirika: Graceful Resolve	f
@@ -110,6 +116,7 @@ Eliwood: Blazing Knight	m
 Eliwood: Devoted Love	m
 Eliwood: Knight of Lycia	m
 Eliwood: Marquess Pherae	m
+Eleonora: Shooting Starlet	f
 Ephraim: Dynastic Duo	m
 Ephraim: Legendary Lord	m
 Ephraim: Restoration Lord	m
@@ -185,7 +192,9 @@ Innes: Flawless Form	m
 Innes: Regal Strategician	m
 Ishtar: Thunder Goddess	f
 Ishtar: Thunder's Waltz	f
+Itsuki: Finding a Path	m
 Jaffar: Angel of Death	m
+Jaffar: Angel of Night	m
 Jagen: Veteran Knight	m
 Jakob: Devoted Monster	m
 Jakob: Devoted Servant	m
@@ -207,6 +216,7 @@ Katarina: Wayward One	f
 Kaze: Easygoing Ninja	m
 Keaton: Lupine Collector	m
 Kempf: Conniving General	m
+Kiria: Cool Façade	f
 Kjelle: Fair Fighter	f
 Klein: Silver Nobleman	m
 Kliff: Curious Spirit	m
@@ -220,6 +230,7 @@ Laegjarn: Sheathed Steel	f
 Laevatein: Bonfire's Blaze	f
 Laevatein: Kumade Warrior	f
 Laevatein: Searing Steel	f
+Larcei: Keen Kin	f
 Larum: Sprightly Dancer	f
 Laslow: Dancing Duelist	m
 Leanne: Forest's Song	f
@@ -233,6 +244,7 @@ Leo: Seashore's Prince	m
 Leo: Sorcerous Prince	m
 Leon: True of Heart	m
 Lethe: Gallia's Valkyrie	f
+Lethe: New Year's Claw	f
 Lewyn: Guiding Breeze	m
 Libra: Fetching Friar	m
 Lilina: Beachside Bloom	f
@@ -266,6 +278,7 @@ Lyn: Lady of the Wind	f
 Lyn: Wind's Embrace	f
 Lyon: Shadow Prince	m
 Mae: Bundle of Energy	f
+Mamori: Microwavin' Idol	f
 Mareeta: Sword of Stars	f
 Mareeta: The Blade's Pawn	f
 Maria: Minerva's Sister	f
@@ -276,6 +289,7 @@ Marth: Altean Groom	m
 Marth: Altean Prince	m
 Marth: Enigmatic Blade	f
 Marth: Hero-King	m
+Marth: Royal Altean Duo	m
 Mathilda: Legendary Knight	f
 Matthew: Faithful Spy	m
 Mercedes: Kindly Devotee	f
@@ -310,6 +324,7 @@ Niles: Forbidden Tease	m
 Nina: Eye Spy	f
 Ninian: Bright-Eyed Bride	f
 Ninian: Oracle of Destiny	f
+Nino: Flower of Frost	f
 Nino: Pale Flower	f
 Nino: Pious Mage	f
 Noire: Shade Seeker	f
@@ -380,12 +395,14 @@ Sanaki: Begnion's Apostle	f
 Selena: Cutting Wit	f
 Seliph: Heir of Light	m
 Selkie: Free Spirit	f
+Selkie: New Year's Spirit	f
 Serra: Outspoken Cleric	f
 Seth: Silver Knight	m
 Setsuna: Absent Archer	f
 Shanna: Sprightly Flier	f
+Shannan: Wielder of Astra	f
 Sharena: Princess of Askr	f
-Sharena: Spring Princess	f
+Sharena: Spring Princess	fSh
 Sheena: Princess of Gra	f
 Shigure: Dark Sky Singer	m
 Shigure: Uplifting Artist	m
@@ -405,6 +422,7 @@ Soren: Addled Strategist	m
 Soren: Shrewd Strategist	m
 Sothe: Zephyr	m
 Sothis: Girl on the Throne	f
+Sothis: Silver Specter	f
 Stahl: Viridian Knight	m
 Subaki: Perfect Expert	m
 Sue: Doe of the Plains	f
@@ -436,6 +454,8 @@ Tiki: Torpid Dragon	f
 Titania: Mighty Mercenary	f
 Titania: Warm Knight	f
 Tobin: The Clueless One	m
+Travant: King of Thracia	m
+Tsubasa: Madcap Idol	f
 Ursula: Blue Crow	f
 Ursula: Clear-Blue Crow	f
 Valbar: Open and Honest	m
@@ -457,3 +477,4 @@ Ylgr: Fresh Snowfall	f
 Yune: Chaos Goddess	f
 Zelgius: Jet-Black General	m
 Zephiel: The Liberator	m
+Zephiel: Winter's Crown	m

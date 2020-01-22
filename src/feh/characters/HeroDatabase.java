@@ -490,7 +490,8 @@ public class HeroDatabase extends Database<Hero> {
             c.setRarity(Integer.parseInt(String.valueOf(r.charAt(0))));
         } catch (NumberFormatException nfe) {
             if (BotMain.DEBUG)
-                System.out.println("issues getting rarity for "+c.getFullName()+": "+nfe.getMessage());
+                System.out.println("issues getting rarity for "+c.getFullName()+": "+nfe.getMessage()+
+                        "\n\t\tsubstituting 3*-4*");
             c.setRarity(-1);
         }
 
@@ -612,6 +613,9 @@ public class HeroDatabase extends Database<Hero> {
         artists.put("Tethys: Beloved Dancer", "tokki");
         artists.put("Mareeta: Sword of Stars", "idk lmao");
         artists.put("Tanya: Dagdar's Kid", "idk lmao");
+        artists.put("Jaffar: Angel of Night", "motsutsu");
+        artists.put("Anna: Wealth-Wisher", "hanekoto (はねこと)");
+        artists.put("Tsubasa: Madcap Idol", "azu‐taro (azuタロウ)");
 
         return artists;
     }

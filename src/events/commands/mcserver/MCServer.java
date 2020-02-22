@@ -22,12 +22,20 @@ public class MCServer implements Runnable {
 
     public void run() {
         try {
-            server = Runtime.getRuntime().exec(COMMAND, null, new File(WORKING_DIRECTORY));
+            server = Runtime.getRuntime().exec(
+                    COMMAND,
+                    null,
+                    new File(WORKING_DIRECTORY));
 
-            printLinesConcurrently("serverOut: ", server.getInputStream()).start();
-            printLinesConcurrently("serverErr: ", server.getErrorStream()).start();
+            printLinesConcurrently(
+                    "serverOut: ",
+                    server.getInputStream()).start();
+            printLinesConcurrently(
+                    "serverErr: ",
+                    server.getErrorStream()).start();
 
-            writer = new BufferedWriter(new OutputStreamWriter(server.getOutputStream()));
+            writer = new BufferedWriter(
+                    new OutputStreamWriter(server.getOutputStream()));
         } catch (Exception e) {
             e.printStackTrace();
             return;

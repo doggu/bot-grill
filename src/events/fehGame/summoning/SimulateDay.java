@@ -7,7 +7,8 @@ import feh.summoning.BannerDatabase;
 import java.util.*;
 
 public class SimulateDay extends Command {
-    private static GregorianCalendar parseDate(String date) throws NumberFormatException {
+    private static GregorianCalendar parseDate(String date)
+            throws NumberFormatException {
         //TODO: make this less basic
         String[] nums = date.split("[-/]");
         int year, month, day;
@@ -96,16 +97,19 @@ public class SimulateDay extends Command {
         }
     }
 
-    public boolean isCommand() { return args[0].equalsIgnoreCase("simulateDay"); }
+    public boolean isCommand() {
+        return args[0].equalsIgnoreCase("simulateDay"); }
 
 
 
     public String getName() { return "SimulateDay"; }
-    public String getDescription() { return "Provides a list of banners that were active for a given day!"; }
+    public String getDescription() {
+        return "Provides a list of banners that were active for a given day!"; }
     public String getFullDescription() {
         return getDescription()+"\n" +
                 "\tSyntax: \"?SimulateDay [date]\"" +
-                "the format of the date is MM-DD-YYYY. if the date is only a single digit, " +
+                "the format of the date is MM-DD-YYYY. " +
+                "if the date is only a single digit, " +
                 "do not put leading zeroes.";
     }
 

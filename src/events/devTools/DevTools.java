@@ -24,7 +24,8 @@ public class DevTools extends MessageListener {
                 break;
             case "invade":
                 VoiceChannel channel = e.getGuild()
-                        .getVoiceChannelsByName("musak", true).get(0);
+                        .getVoiceChannelsByName("musak", true)
+                        .get(0);
                 am = e.getGuild().getAudioManager();
 
                 am.openAudioConnection(channel);

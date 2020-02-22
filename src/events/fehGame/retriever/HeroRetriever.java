@@ -257,7 +257,6 @@ public class HeroRetriever extends Command {
      */
 
 
-
     public boolean isCommand() {
         return super.args[0].toLowerCase()
                 .matches("(g(et)?st(ats?)?)|(g(et)?ivs?)");
@@ -295,12 +294,17 @@ public class HeroRetriever extends Command {
                     ArrayList<Skill> skills = f.getSkills();
                     if (f.useBaseKit()) skills.addAll(hero.getBaseKit());
 
-                    sendMessage(FEHPrinter.printCharacter(hero, f.isLv1(), f.getRarity(), skills).build());
+                    sendMessage(FEHPrinter.printCharacter(
+                            hero,
+                            f.isLv1(),
+                            f.getRarity(),
+                            skills).build());
                     log.append("\n\t\t").append(hero.getFullName());
                 }
             } else {
                 sendMessage("could not find your character.");
-                log("could not find "+e.getAuthor()+"'s character: "+StringUtil.join(args));
+                log("could not find "+e.getAuthor()+"'s character: " +
+                        StringUtil.join(args));
                 return;
             }
         } else if (f.producingUnits()) {
@@ -320,11 +324,10 @@ public class HeroRetriever extends Command {
     }
 
 
-
     public String getName() { return "HeroRetriever"; }
-    public String getDescription() { return "Get pertinent info on characters from Fire Emblem Heroes!"; }
+    public String getDescription() {
+        return "Get pertinent info on characters from Fire Emblem Heroes!"; }
     public String getFullDescription() {
         //TODO: write the full description of HeroRetriever
-        return "woowee this is gonna take a long time to write";
-    }
+        return "woowee this is gonna take a long time to write"; }
 }

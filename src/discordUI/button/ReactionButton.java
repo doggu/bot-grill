@@ -15,7 +15,6 @@ public abstract class ReactionButton extends ReactionListener {
     private final String emoticon;
 
 
-
     @NotNull
     protected ReactionButton(Message message, Emote emote) {
         this.message = message;
@@ -35,26 +34,30 @@ public abstract class ReactionButton extends ReactionListener {
     }
 
 
-
     public Message getMessage() { return message; }
 
 
-
-    //if a user never uses the button, it may be destroyed by something outside the class
+    //if a user never uses the button, it may
+    //be destroyed by something outside the class
     public void removeButton() {
         if (emote!=null) {
-            for (MessageReaction reaction : e.getJDA().getTextChannelById(
-                    message.getChannel().getId()).getMessageById(message.getId()).complete().getReactions()) {
+            for (MessageReaction reaction : e.getJDA()
+                    .getTextChannelById(message.getChannel().getId())
+                    .getMessageById(message.getId()).complete()
+                    .getReactions()) {
                 if (!reaction.getReactionEmote().isEmote()) continue;
                 if (reaction.getReactionEmote().getEmote().equals(emote)) {
                     reaction.removeReaction().queue();
                 }
             }
         } else {
-            for (MessageReaction reaction : e.getJDA().getTextChannelById(
-                    message.getChannel().getId()).getMessageById(message.getId()).complete().getReactions()) {
+            for (MessageReaction reaction : e.getJDA()
+                    .getTextChannelById(message.getChannel().getId())
+                    .getMessageById(message.getId()).complete()
+                    .getReactions()) {
                 if (reaction.getReactionEmote().isEmote()) continue;
-                if (reaction.getReactionEmote().toString().equals("RE:"+emoticon+"(null)")) {
+                if (reaction.getReactionEmote().toString()
+                        .equals("RE:"+emoticon+"(null)")) {
                     reaction.removeReaction().queue();
                 }
             }
@@ -62,7 +65,6 @@ public abstract class ReactionButton extends ReactionListener {
 
         commitSuicide();
     }
-
 
 
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
@@ -84,9 +86,11 @@ public abstract class ReactionButton extends ReactionListener {
         if (!e.getMessageId().equals(message.getId())) return false;
 
         if (emote!=null)
-            return e.getReactionEmote().getEmote().getId().equals(emote.getId());
+            return e.getReactionEmote().getEmote().getId()
+                    .equals(emote.getId());
         else
-            return e.getReactionEmote().toString().equals("RE:"+emoticon+"(null)");
+            return e.getReactionEmote().toString()
+                    .equals("RE:"+emoticon+"(null)");
     }
 
     public abstract void onCommand();

@@ -20,7 +20,8 @@ public class RefineButton extends ListenerAdapter {
 
 
     RefineButton(Message message, Weapon weapon) {
-        message.addReaction(message.getJDA().getEmoteById(REFINE_BUTTON_ID)).complete();
+        message.addReaction(message.getJDA().getEmoteById(REFINE_BUTTON_ID))
+                .complete();
         this.message = message;
         this.weapon = weapon;
     }
@@ -37,7 +38,8 @@ public class RefineButton extends ListenerAdapter {
 
     private void setRefine() {
         e.getChannel().getMessageById(e.getMessageId()).complete()
-                .editMessage(FEHPrinter.printSkill(weapon.getRefine()).build()).complete();
+                .editMessage(FEHPrinter.printSkill(weapon.getRefine()).build())
+                .complete();
     }
 
     public void onMessageReactionRemove(MessageReactionRemoveEvent e) {
@@ -57,6 +59,7 @@ public class RefineButton extends ListenerAdapter {
         if (e.getUser().isBot()) return false;
         if (!e.getMessageId().equals(message.getId())) return false;
         if (e.getReactionEmote().getEmote()==null) return false;
-        return e.getReactionEmote().getEmote().equals(e.getJDA().getEmoteById(REFINE_BUTTON_ID));
+        return e.getReactionEmote().getEmote()
+                .equals(e.getJDA().getEmoteById(REFINE_BUTTON_ID));
     }
 }

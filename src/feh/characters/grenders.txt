@@ -4,6 +4,7 @@ Alfonse: Prince of Askr	m
 Alfonse: Spring Prince	m
 Alm: Hero of Prophecy	m
 Alm: Imperial Ascent	m
+Alm: Lovebird Duo	m
 Alm: Saint-King	m
 Altena: Luminous Rider	f
 Altina: Dawn's Trueblade	f
@@ -74,6 +75,7 @@ Clarisse: Sniper in the Dark	f
 Claude: The Schemer	m
 Clive: Idealistic Knight	m
 Conrad: Masked Knight	m
+Conrad: Unmasked Knight	m
 Cordelia: Knight Paradise	f
 Cordelia: Knight Paragon	f
 Cordelia: Perfect Bride	f
@@ -129,9 +131,11 @@ Eyvel: Mistress of Fiana	f
 Fae: Divine Dragon	f
 Fae: Holiday Dear	f
 Faye: Devoted Heart	f
+Faye: Drawn Heartstring	f
 Felicia: Maid Mayhem	f
 Felicia: Off the Menu	f
 Finn: Lance of Legend	m
+Fiora: Airborne Warrior	f
 Fiora: Defrosted Illian	f
 Fir: Sword Student	f
 Fjorm: Bride of Rime	f
@@ -163,6 +167,7 @@ Haar: Black Tempest	m
 Hana: Focused Samurai	f
 Hardin: Dark Emperor	m
 Hawkeye: Desert Guardian	m
+Heath: Wandering Knight	m
 Hector: Brave Warrior	m
 Hector: Dressed-Up Duo	m
 Hector: General of Ostia	m
@@ -238,6 +243,7 @@ Legault: The Hurricane	m
 Legion: Masked Maniac	m
 Leif: Prince of Leonster	m
 Leif: Unifier of Thracia	m
+Leila: Rose amid Fangs	f
 Lene: Yearning Dancer	f
 Leo: Extra Tomatoes	m
 Leo: Seashore's Prince	m
@@ -247,6 +253,7 @@ Lethe: Gallia's Valkyrie	f
 Lethe: New Year's Claw	f
 Lewyn: Guiding Breeze	m
 Libra: Fetching Friar	m
+Líf: Lethal Swordsman	m
 Lilina: Beachside Bloom	f
 Lilina: Blush of Youth	f
 Lilina: Delightful Noble	f
@@ -321,6 +328,7 @@ Nephenee: Fierce Halberdier	f
 Nephenee: Sincere Dancer	f
 Niles: Cruel to Be Kind	m
 Niles: Forbidden Tease	m
+Nils: Bright Bard	m
 Nina: Eye Spy	f
 Ninian: Bright-Eyed Bride	f
 Ninian: Oracle of Destiny	f
@@ -358,6 +366,7 @@ Python: Apathetic Archer	m
 Quan: Luminous Lancer	m
 Raigh: Dark Child	m
 Ranulf: Friend of Nations	m
+Rath: Wolf of Sacae	m
 Raven: Peerless Fighter	m
 Rebecca: Wildflower	f
 Reinhardt: Lightning's Rondo	m
@@ -380,6 +389,7 @@ Roy: Brave Lion	m
 Roy: Young Lion	m
 Roy: Youthful Gifts	m
 Rutger: Lone Swordsman	m
+Rudolf: Emperor of Rigel	m
 Ryoma: Dancing Samurai	m
 Ryoma: Peerless Samurai	m
 Ryoma: Samurai at Ease	m
@@ -413,6 +423,7 @@ Sigrun: Steadfast Bride	f
 Sigurd: Holy Knight	m
 Silas: Loyal Knight	m
 Silque: Adherent of Mila	f
+Silque: Selfless Cleric	f
 Silvia: Traveling Dancer	f
 Sirius: Mysterious Knight	m
 Soleil: Adorable Adorer	f

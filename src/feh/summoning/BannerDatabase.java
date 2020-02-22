@@ -55,8 +55,11 @@ public class BannerDatabase extends Database<Banner> {
         ArrayList<Banner> banners = new ArrayList<>();
 
         for (Element table:tables) {
-            banners.add(createBanner(table));
+            banners.add(createBanner(table)); //@Nullable
         }
+
+        while (banners.contains(null))
+            banners.remove(null);
 
 
 
@@ -77,12 +80,18 @@ public class BannerDatabase extends Database<Banner> {
                     //second row, children, second item, children, first item, heroes
         Element h1 = rows.get(1).children().get(2).children().get(0);
 
-        ArrayList<Hero> summonables = getSummonables(h1);
-
+        ArrayList<Hero> summonables;
         int i;
-        for (i=2; i<rows.size()-2; i++) {
-            Element h = rows.get(i).children().get(0).children().get(0);
-            summonables.addAll(getSummonables(h));
+        try {
+            summonables = getSummonables(h1);
+
+            for (i = 2; i<rows.size()-2; i++) {
+                Element h = rows.get(i).children().get(0).children().get(0);
+                summonables.addAll(getSummonables(h));
+            }
+        } catch (Error e) {
+            e.printStackTrace();
+            return null;
         }
 
         GregorianCalendar startDate, endDate;

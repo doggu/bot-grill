@@ -15,8 +15,7 @@ public class Help extends Command {
     //them and generate help commands based on their names
     
     public boolean isCommand() {
-        return args[0].equalsIgnoreCase("help");
-    }
+        return args[0].equalsIgnoreCase("help"); }
 
     public void onCommand() {
         List<ListenerAdapter> listeners = BotMain.getListeners();
@@ -48,6 +47,8 @@ public class Help extends Command {
 
 
             new Menu(e.getAuthor(), e.getChannel(), header, entries);
+        } else if (args.length==2) {
+            sendMessage("something goes here about a specific agacoa moaa");
         }
 
         log("helped "+e.getAuthor().getName()+" understand me.");

@@ -7,10 +7,7 @@ import events.stem.chem.*;
 import events.commands.gamble.Chances;
 import events.commands.gamble.Roll;
 import events.commands.help.Help;
-import events.stem.math.FracCalcListener;
-import events.stem.math.GradientDescentListener;
-import events.stem.math.MathListener;
-import events.stem.math.SoftGCFListener;
+import events.stem.math.*;
 import events.stem.unitConverter.UnitConversionListener;
 import events.commands.mcserver.ServerInput;
 import events.devTools.DevTools;
@@ -138,6 +135,7 @@ public class BotMain {
         //math
         addListener(new MathListener());
         addListener(new GradientDescentListener());
+        addListener(new Determinant());
 
         addListener(new SoftGCFListener());
         addListener(new FracCalcListener());

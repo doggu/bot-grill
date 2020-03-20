@@ -11,8 +11,11 @@ import net.dv8tion.jda.core.entities.MessageChannel;
 import java.util.ArrayList;
 
 public class BarracksWindow extends Menu {
-    public BarracksWindow(Summoner summoner, MessageChannel channel, Message header) {
-        super(summoner.getUser(), channel, header, generateEntries(summoner.getBarracks()));
+    public BarracksWindow(Summoner summoner,
+                          MessageChannel channel,
+                          Message header) {
+        super(summoner.getUser(), channel, header,
+                generateEntries(summoner.getBarracks()));
     }
 
     private static ArrayList<MenuEntry> generateEntries(Barracks b) {

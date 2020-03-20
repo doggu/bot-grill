@@ -101,7 +101,7 @@ public class FieldedUnit extends Unit {
 
 
 
-    public FieldedUnit clone() {
+    public FieldedUnit duplicate() {
         FieldedUnit clone = new FieldedUnit(unit);
         clone.specialCD = specialCD;
         clone.currentHP = currentHP;

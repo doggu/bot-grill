@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Help extends Command {
-    //read for active listeners so that help can take all of them and generate help commands based on their names
+    //read for active listeners so that help can take all of
+    //them and generate help commands based on their names
     
     public boolean isCommand() {
-        return args[0].equalsIgnoreCase("help");
-    }
+        return args[0].equalsIgnoreCase("help"); }
 
     public void onCommand() {
         List<ListenerAdapter> listeners = BotMain.getListeners();
@@ -27,7 +27,8 @@ public class Help extends Command {
         if (args.length==1) {
             Message header = new MessageBuilder(
                     "a list of things you can do!\n" +
-                    "commands are called by placing a question mark before their name (e.x. \"?chances\")")
+                    "commands are called by placing a question mark " +
+                            "before their name (e.x. \"?chances\")")
                     .build();
 
 
@@ -35,15 +36,19 @@ public class Help extends Command {
             ArrayList<MenuEntry> entries = new ArrayList<>(commands.size());
 
             for (Command c:commands) {
-                MenuEntry entry = new MenuEntry(c.getName()+": "+c.getDescription());
-                entry   .setAuthor(c.getName())
-                        .setDescription(c.getDescription());
+                MenuEntry entry = new MenuEntry(
+                        c.getName()+": "+c.getDescription());
+
+                entry.setAuthor(c.getName())
+                     .setDescription(c.getDescription());
 
                 entries.add(entry);
             }
 
 
             new Menu(e.getAuthor(), e.getChannel(), header, entries);
+        } else if (args.length==2) {
+            sendMessage("something goes here about a specific agacoa moaa");
         }
 
         log("helped "+e.getAuthor().getName()+" understand me.");

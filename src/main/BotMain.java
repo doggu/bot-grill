@@ -7,10 +7,7 @@ import events.stem.chem.*;
 import events.commands.gamble.Chances;
 import events.commands.gamble.Roll;
 import events.commands.help.Help;
-import events.stem.math.FracCalcListener;
-import events.stem.math.GradientDescentListener;
-import events.stem.math.MathListener;
-import events.stem.math.SoftGCFListener;
+import events.stem.math.*;
 import events.stem.unitConverter.UnitConversionListener;
 import events.commands.mcserver.ServerInput;
 import events.devTools.DevTools;
@@ -46,6 +43,7 @@ import java.util.Scanner;
 
 public class BotMain {
     private static final boolean FEHEROES_UTILS = true;
+    private static final boolean CHEMISTRY = true;
     public static final boolean MCSERVER = false;
 
     public static final boolean DEBUG = true; //it's always debug time
@@ -86,7 +84,13 @@ public class BotMain {
             System.out.println("BannerDatabase: " + k);
         }
 
-        System.out.println(fehTime.presentResult());
+        fehTime.stop();
+        System.out.println("finished ("+fehTime.timeInSeconds()+" s)!");
+    }
+
+    private static void preloadScience() {
+        int i = ElementDatabase.ELEMENTS.size();
+        System.out.println("ElementDatabase: "+i);
     }
 
     private static void loadDevTools() {
@@ -106,21 +110,19 @@ public class BotMain {
 
 
     public static void main(String[] rgs) throws Exception {
-        if (FEHEROES_UTILS)
+        if (FEHEROES_UTILS) {
             preloadFEHUtils();
+        }
+
+        if (CHEMISTRY) {
+            preloadScience();
+        }
 
         bot_grill = new JDABuilder(AccountType.BOT)
                 .setToken(new Scanner(new File("./src/main/token.txt")).nextLine())
                 .build();
 
         bot_grill.awaitReady();
-
-        //science
-        addListener(new ElementRetriever());
-        addListener(new MolarMass());
-        addListener(new Electronegativity());
-        addListener(new PeriodicTableTrends());
-        addListener(new Balance());
 
         addListener(new UnitConversionListener());
         addListener(new UnitRegistrar());
@@ -133,6 +135,7 @@ public class BotMain {
         //math
         addListener(new MathListener());
         addListener(new GradientDescentListener());
+        addListener(new Determinant());
 
         addListener(new SoftGCFListener());
         addListener(new FracCalcListener());
@@ -163,6 +166,15 @@ public class BotMain {
             addListener(new OrbBalance());
 
             addListener(new Powercreep());
+        }
+
+        //science
+        if (CHEMISTRY) {
+            addListener(new ElementRetriever());
+            addListener(new MolarMass());
+            addListener(new Electronegativity());
+            addListener(new PeriodicTableTrends());
+            addListener(new Balance());
         }
 
         //minecraft

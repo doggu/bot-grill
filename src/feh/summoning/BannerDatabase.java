@@ -55,10 +55,11 @@ public class BannerDatabase extends Database<Banner> {
         ArrayList<Banner> banners = new ArrayList<>();
 
         for (Element table:tables) {
-            Banner b = createBanner(table);
-            if (b==null) continue;
-            banners.add(b);
+            banners.add(createBanner(table)); //@Nullable
         }
+
+        while (banners.contains(null))
+            banners.remove(null);
 
 
 
@@ -81,10 +82,10 @@ public class BannerDatabase extends Database<Banner> {
 
         ArrayList<Hero> summonables;
         int i;
-
         try {
             summonables = getSummonables(h1);
-            for (i = 2; i < rows.size() - 2; i++) {
+
+            for (i = 2; i<rows.size()-2; i++) {
                 Element h = rows.get(i).children().get(0).children().get(0);
                 summonables.addAll(getSummonables(h));
             }

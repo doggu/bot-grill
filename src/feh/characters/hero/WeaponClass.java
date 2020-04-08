@@ -1,18 +1,19 @@
 package feh.characters.hero;
 
 public enum WeaponClass implements HeroClass {
-    SWORD       (1, true, "Sword"),
-    LANCE       (1, true, "Lance"),
-    AXE         (1, true, "Axe"),
-    TOME        (2, false, "Tome"),
-    RED_TOME    (2, false, "Tome"),
-    BLUE_TOME   (2, false, "Tome"),
-    GREEN_TOME  (2, false, "Tome"),
-    STAFF       (2, false, "Staff"),
-    BEAST       (1, true, "Beast"),
-    BREATH      (1, false, "Breath"),
-    DAGGER      (2, true, "Dagger"),
-    BOW         (2, true, "Bow");
+    SWORD           (1, true, "Sword"),
+    LANCE           (1, true, "Lance"),
+    AXE             (1, true, "Axe"),
+    TOME            (2, false, "Tome"),
+    RED_TOME        (2, false, "Tome"),
+    BLUE_TOME       (2, false, "Tome"),
+    GREEN_TOME      (2, false, "Tome"),
+    COLORLESS_TOME  (2, false, "Tome"),
+    STAFF           (2, false, "Staff"),
+    BEAST           (1, true, "Beast"),
+    BREATH          (1, false, "Breath"),
+    DAGGER          (2, true, "Dagger"),
+    BOW             (2, true, "Bow");
 
 
 
@@ -53,6 +54,8 @@ public enum WeaponClass implements HeroClass {
                 return BLUE_TOME;
             case "Green Tome":
                 return GREEN_TOME;
+            case "Colorless Tome":
+                return COLORLESS_TOME;
             case "Staff":
                 return STAFF;
             case "Beast":
@@ -63,7 +66,6 @@ public enum WeaponClass implements HeroClass {
                 return DAGGER;
             case "Bow":
                 return BOW;
-
             case "Tome":
                 System.out.println("ambiguous weapon name");
             default:

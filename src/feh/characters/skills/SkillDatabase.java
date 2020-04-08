@@ -188,11 +188,12 @@ public class SkillDatabase extends Database<Skill> {
 
         Elements tables = weaponsFile.select("table");
 
+        //TODO: this is literally on the page
         String[] weaponType = {
                 "Sword", "Red Tome",
                 "Lance", "Blue Tome",
                 "Axe", "Green Tome",
-                "Staff",
+                "Colorless Tome", "Staff",
                 "Beast", "Breath", "Bow", "Dagger",
         };
 

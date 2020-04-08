@@ -11,6 +11,7 @@ Altina: Dawn's Trueblade	f
 Amelia: Rose of the War	f
 Anna: Commander	f
 Anna: Wealth-Wisher	f
+Annette: Overachiever	f
 Arden: Strong and Tough	m
 Ares: Black Knight	m
 Arthur: Hapless Hero	m
@@ -27,14 +28,17 @@ Azura: Vallite Songstress	f
 Azura: Young Songstress	f
 Bantu: Tiki's Guardian	m
 Barst: The Hatchet	m
+Bartre: Earsome Warrior	m
 Bartre: Fearless Warrior	m
 Berkut: Debonair Noble	m
 Berkut: Prideful Prince	m
 Berkut: Purgatorial Prince	m
+Bernadetta: Eternal Loner	f
 Beruka: Quiet Assassin	f
 Black Knight: Sinister General	m
 Boey: Skillful Survivor	m
 Brady: Daunting Priest	m
+Bramimond: The Enigma	m
 Brunnya: Devoted General	f
 Bruno: Masked Hare	m
 Byleth: Proven Professor	f
@@ -65,6 +69,7 @@ Celica: Warrior Priestess	f
 Chad: Lycian Wildcat	m
 Charlotte: Money Maiden	f
 Cherche: Wyvern Friend	f
+Chrom: Crowned Exalt	m
 Chrom: Exalted Prince	m
 Chrom: Gifted Leader	m
 Chrom: Knight Exalt	m
@@ -125,6 +130,7 @@ Ephraim: Restoration Lord	m
 Ephraim: Sacred Twin Lord	m
 Ephraim: Sparkling Gallantly	m
 Est: Junior Whitewing	f
+Est: Springtime Flier	f
 Ethlyn: Spirited Princess	f
 Ewan: Eager Student	m
 Eyvel: Mistress of Fiana	f
@@ -134,16 +140,20 @@ Faye: Devoted Heart	f
 Faye: Drawn Heartstring	f
 Felicia: Maid Mayhem	f
 Felicia: Off the Menu	f
+Ferdinand: Noblest of Nobles	m
 Finn: Lance of Legend	m
 Fiora: Airborne Warrior	f
 Fiora: Defrosted Illian	f
+Fir: Student of Spring	f
 Fir: Sword Student	f
 Fjorm: Bride of Rime	f
 Fjorm: New Traditions	f
 Fjorm: Princess of Ice	f
+Flame Emperor: Bringer of War	f
 Flora: Cold as Ice	f
 Flora: Signature Dish	f
 Florina: Lovely Flier	f
+Forrest: Fashion Forward	m
 Forsyth: Loyal Lieutenant	m
 Frederick: Horizon Watcher	m
 Frederick: Polite Knight	m
@@ -185,7 +195,9 @@ Hinoka: Warrior Princess	f
 Hríd: Icy Blade	m
 Hríd: Resolute Prince	m
 Hubert: Sinister Servant	m
+Iago: Nohr's Tactician	f
 Idunn: Dark Priestess	f
+Idunn: Dragonkin Duo	f
 Igrene: Nabata Protector	f
 Ike: Brave Mercenary	m
 Ike: Stalwart Heart	m
@@ -257,6 +269,7 @@ Líf: Lethal Swordsman	m
 Lilina: Beachside Bloom	f
 Lilina: Blush of Youth	f
 Lilina: Delightful Noble	f
+Lilith: Astral Daughter	f
 Linde: Light Mage	f
 Linde: Summer Rays	f
 Linus: Mad Dog	m
@@ -284,6 +297,7 @@ Lyn: Lady of the Plains	f
 Lyn: Lady of the Wind	f
 Lyn: Wind's Embrace	f
 Lyon: Shadow Prince	m
+Lysithea: Child Prodigy	f
 Mae: Bundle of Energy	f
 Mamori: Microwavin' Idol	f
 Mareeta: Sword of Stars	f
@@ -307,6 +321,7 @@ Micaiah: Priestess of Dawn	f
 Micaiah: Queen of Dawn	f
 Micaiah: Summer's Dawn	f
 Michalis: Ambitious King	m
+Midori: Reliable Chemist	f
 Mikoto: Caring Mother	f
 Minerva: Red Dragoon	f
 Mist: Helpful Sister	f
@@ -322,6 +337,7 @@ Nagi: Dragon Avatar	f
 Nah: Little Miss	f
 Nailah: Unflinching Eye	f
 Nanna: Nordion Princess	f
+Narcian: Vernal General	m
 Narcian: Wyvern General	m
 Navarre: Scarlet Sword	m
 Nephenee: Fierce Halberdier	f
@@ -375,6 +391,7 @@ Reinhardt: Thunder's Sword	m
 Reyson: White Prince	m
 Rhajat: Black Magician	f
 Rinea: Reminiscent Belle	f
+Rinkah: Scion of Flame	f
 Robin: Fell Reincarnation	m
 Robin: Fell Vessel	f
 Robin: Festive Tactician	m

@@ -18,8 +18,6 @@ import utilities.data.WebCache;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
@@ -270,10 +268,8 @@ public class HeroDatabase extends Database<Hero> {
     }
 
 
-
     public static HeroDatabase DATABASE;
     public static ArrayList<Hero> HEROES;
-
 
 
     private static final String HERO_SUBDIR = "/herodata/";
@@ -308,17 +304,13 @@ public class HeroDatabase extends Database<Hero> {
     }
 
 
-
     @Override
     protected WebCache[] getOnlineResources() {
-        return HERO_FILES;
-    }
-
+        return HERO_FILES; }
 
     @Override
     public Hero getRandom() {
-        return HEROES.get((int) (Math.random()*HEROES.size()));
-    }
+        return HEROES.get((int) (Math.random()*HEROES.size())); }
 
     protected ArrayList<Hero> getList() {
         System.out.print("processing heroes... ");
@@ -583,13 +575,19 @@ public class HeroDatabase extends Database<Hero> {
     private static HashMap<String, String> getArtists() {
         Document artistsFile;
         try {
-            artistsFile = Jsoup.parse(new FEHeroesCache("Artists", HERO_SUBDIR), "UTF-8");
+            artistsFile = Jsoup.parse(
+                    new FEHeroesCache("List_of_artists", HERO_SUBDIR),
+                    "UTF-8");
         } catch (Exception e) {
             e.printStackTrace();
             return new HashMap<>();
         }
 
-        Elements rows = artistsFile.select("table").select("tbody").get(0).children();
+        Elements rows = artistsFile
+                .select("tr");
+        rows.remove(0); //remove header which is in body for some reason
+
+//        System.out.println(rows);
 
         HashMap<String, String> artists = new HashMap<>();
 
@@ -598,7 +596,7 @@ public class HeroDatabase extends Database<Hero> {
 
             String artist = items.get(0).text();
 
-            Elements characters = items.get(1).children().select("td");
+            Elements characters = items.get(1).children().get(0).children();
 
             for (Element character:characters) {
                 String name = character.select("a").get(0).attr("title");
@@ -607,20 +605,19 @@ public class HeroDatabase extends Database<Hero> {
         }
 
         //todo: retrieve individual artists manually each time this happens
-        artists.put("Lyn: Lady of the Beach", "teffish");
-        artists.put("Mareeta: The Blade's Pawn", "kiyu");
-        artists.put("Tanith: Forthright Heart", "mattsun! (まっつん！)");
-        artists.put("Ewan: Eager Student", "azu‐taro (azuタロウ)");
-        artists.put("Tethys: Beloved Dancer", "tokki");
-        artists.put("Mareeta: Sword of Stars", "idk lmao");
-        artists.put("Tanya: Dagdar's Kid", "idk lmao");
-        artists.put("Jaffar: Angel of Night", "motsutsu");
-        artists.put("Anna: Wealth-Wisher", "hanekoto (はねこと)");
-        artists.put("Tsubasa: Madcap Idol", "azu‐taro (azuタロウ)");
+//        artists.put("Lyn: Lady of the Beach", "teffish");
+//        artists.put("Mareeta: The Blade's Pawn", "kiyu");
+//        artists.put("Tanith: Forthright Heart", "mattsun! (まっつん！)");
+//        artists.put("Ewan: Eager Student", "azu‐taro (azuタロウ)");
+//        artists.put("Tethys: Beloved Dancer", "tokki");
+//        artists.put("Mareeta: Sword of Stars", "idk lmao");
+//        artists.put("Tanya: Dagdar's Kid", "idk lmao");
+//        artists.put("Jaffar: Angel of Night", "motsutsu");
+//        artists.put("Anna: Wealth-Wisher", "hanekoto (はねこと)");
+//        artists.put("Tsubasa: Madcap Idol", "azu‐taro (azuタロウ)");
 
         return artists;
     }
-
 
 
     private static GregorianCalendar parseDate(String date) throws NumberFormatException {
@@ -674,5 +671,14 @@ public class HeroDatabase extends Database<Hero> {
                                                             //(which is one less than the already-defined int)
         //yes
         return new GregorianCalendar(year, month, day);
+    }
+
+
+    public static void main(String[] args) {
+        HashMap<String, String> artists = getArtists();
+
+        for (String art : artists.keySet()) {
+            System.out.println(art);
+        }
     }
 }

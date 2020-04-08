@@ -264,7 +264,7 @@ public class FEHPrinter {
                 owners = new StringBuilder(
                         owners.substring(0, owners.length()-2));
             skill.addField(
-                    "Owner"+(ownerCount>1?"":"s"),
+                    "Owner"+(ownerCount>1?"s":""),
                     owners.toString(),
                     false);
         }

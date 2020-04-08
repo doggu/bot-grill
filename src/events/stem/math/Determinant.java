@@ -7,18 +7,15 @@ import stem.math.matrix.NotSquareException;
 public class Determinant extends Command {
     @Override
     public boolean isCommand() {
-        return args[0].contains("determinant");
-    }
+        return args[0].contains("determinant"); }
 
     @Override
     public String getName() {
-        return "Determinant";
-    }
+        return "Determinant"; }
 
     @Override
     public String getDescription() {
-        return "Find the determinant of an n-by-n matrix";
-    }
+        return "Find the determinant of an n-by-n matrix"; }
 
     @Override
     public String getFullDescription() {
@@ -26,10 +23,10 @@ public class Determinant extends Command {
                 "\t\"?Determinant\n" +
                 "```" +
                 "a11, a12, a13 ... a1n\n" +
-                "a21, a22, a23 ... a1n\n" +
-                "a31, a32, a33 ... a1n\n" +
-                "...  ...  ... ... a1n\n" +
-                "a41, a42, a43 ... a1n```\"\n" +
+                "a21, a22, a23 ... a2n\n" +
+                "a31, a32, a33 ... a3n\n" +
+                "...  ...  ... ... a4n\n" +
+                "an1, an2, an3 ... ann```\"\n" +
                 "(write out the code block)";
     }
 

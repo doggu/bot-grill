@@ -1,6 +1,6 @@
 package feh.characters.hero;
 
-import events.gameroom.mapTest.Tile;
+import feh.battle.map.Tile;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

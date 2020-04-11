@@ -1,5 +1,6 @@
 package events.gameroom.mapTest;
 
+import feh.battle.map.Tile;
 import feh.characters.hero.MovementClass;
 import feh.characters.unit.Unit;
 import feh.characters.hero.Hero;

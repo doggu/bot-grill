@@ -4,6 +4,7 @@ import events.commands.Emotes;
 import events.commands.Girl;
 import events.commands.TimerListener;
 import events.commands.campus.CanIEatRightNow;
+import events.fehGame.analysis.UnitComparisonListener;
 import events.stem.chem.*;
 import events.commands.gamble.Chances;
 import events.commands.gamble.Roll;
@@ -169,6 +170,7 @@ public class BotMain {
             addListener(new OrbBalance());
 
             addListener(new Powercreep());
+            addListener(new UnitComparisonListener());
         }
 
         //science

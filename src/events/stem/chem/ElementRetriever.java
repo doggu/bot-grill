@@ -53,7 +53,8 @@ public class ElementRetriever extends Command {
 
 
 
-    public boolean isCommand() { return args[0].toLowerCase().matches("g(et)?e(lement)?"); }
+    public boolean isCommand() {
+        return args[0].toLowerCase().matches("g(et)?e(lement)?"); }
 
     public void onCommand() {
         if (args.length<2) {
@@ -104,8 +105,10 @@ public class ElementRetriever extends Command {
 
 
     public String getName() { return "ElementRetriever"; }
-    public String getDescription() { return "finds elements based on symbol or name! (WIP)"; }
+    public String getDescription() {
+        return "finds elements based on symbol or name! (WIP)"; }
     public String getFullDescription() {
-        return "ok just do the normal command thing with the second argument as whatever you wanna find";
+        return "ok just do the normal command thing with the " +
+                "second argument as whatever you wanna find";
     }
 }

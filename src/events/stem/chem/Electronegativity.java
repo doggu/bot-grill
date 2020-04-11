@@ -12,6 +12,8 @@ public class Electronegativity extends Command {
             //todo: generalize to any periodic table trend
     private static final char APPROXIMATELY = '≈';
 
+
+    @SuppressWarnings("StringConcatenationInLoop")
     @Override
     public void onCommand() {
         ArrayList<String> unknown = new ArrayList<>();
@@ -22,7 +24,6 @@ public class Electronegativity extends Command {
             if (e==null) unknown.add(args[i]);
             else elements.add(e);
         }
-
 
 
         //aleks sort
@@ -42,38 +43,37 @@ public class Electronegativity extends Command {
         //wiki values sort
         ArrayList<ChemicalElement> wikiSort = new ArrayList<>(elements);
         //idk what the fuck this is but intelliJ said it works so i trust it
-        wikiSort.sort(Comparator.comparingDouble(ChemicalElement::getElectronegativity));
+        wikiSort.sort(Comparator.comparingDouble(
+                ChemicalElement::getElectronegativity));
 
 
-
-        StringBuilder message = new StringBuilder();
+        String message = "";
         if (unknown.size()>0)
-            message.append("unrecognized elements excluded: ").append(unknown).append('\n');
+            message = "unrecognized elements excluded: "+unknown+"\n";
 
-        message.append("trend-based sort: \n`");
+        message += "trend-based sort: \n`";
         for (int i = 0; i<aleksSort.size()-1; i++) {
-            message.append(aleksSort.get(i)).append(' ')
-                    .append(aComparator.compare(
+            message += aleksSort.get(i)+" " +
+                    (aComparator.compare(
                             aleksSort.get(i),
-                            aleksSort.get(i+1))==0 ? APPROXIMATELY:'>')
-                    .append(' ');
+                            aleksSort.get(i+1))==0
+                                    ? APPROXIMATELY : '>') + " ";
         }
-        message.append(aleksSort.get(aleksSort.size()-1)).append("`\n");
+        message += aleksSort.get(aleksSort.size()-1) + "`\n";
 
-        message.append("wiki-based sort: \n`");
+        message += "wiki-based sort: \n`";
         for (int i = 0; i<wikiSort.size()-1; i++) {
-            message.append(wikiSort.get(i)).append(' ')
-                    .append(Double.compare(
+            message += wikiSort.get(i).toString()+' ' +
+                    (Double.compare(
                             wikiSort.get(i).getElectronegativity(),
-                            wikiSort.get(i+1).getElectronegativity())==0 ? APPROXIMATELY:'>')
-                    .append(' ');
+                            wikiSort.get(i+1).getElectronegativity())==0
+                                    ? APPROXIMATELY:'>')+" ";
         }
-        message.append(aleksSort.get(aleksSort.size()-1)).append("`\n");
+        message += aleksSort.get(aleksSort.size()-1)+"`\n";
 
 
-
-        sendMessage(message.toString());
-        log(message.toString());
+        sendMessage(message);
+        log(message);
     }
 
     @Override
@@ -88,12 +88,13 @@ public class Electronegativity extends Command {
 
     @Override
     public String getDescription() {
-        return "compare the electronegativity of different elements on the periodic table.";
+        return "compare the electronegativity of " +
+                "different elements on the periodic table.";
     }
 
     @Override
     public String getFullDescription() {
-        return "compare the electronegativity of different elements on the periodic table.\n"+
+        return getDescription()+"\n"+
                 "limited to comparisons only; no numerical values.";
     }
 }

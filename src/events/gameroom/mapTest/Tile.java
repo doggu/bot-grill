@@ -3,47 +3,56 @@ package events.gameroom.mapTest;
 import feh.characters.hero.MovementClass;
 
 public enum Tile {
-    PLAINS              ("plains", true, true, true,
+    PLAINS( "plains",
+            true, true, true,
             false, false, false),
-    PLAINS_DEFENSIVE    ("plains", true, true, true,
+    PLAINS_D("plains",
+            true, true, true,
             false, false, true),
 
-    TRENCHES            ("trenches", true, true, true,
+    TRENCHES("trenches",
+            true, true, true,
             false, true, false),
-    TRENCHES_DEFENSIVE  ("trenches", true, true, true,
+    TRENCHES_D("defensive trenches",
+            true, true, true,
             false, true, true),
 
-    FOREST              ("forest", true, false, true,
+    FOREST( "forest",
+            true, false, true,
             true, false, false),
-    FOREST_DEFENSIVE    ("forest", true, false, true,
+    FOREST_D("defensive forest",
+            true, false, true,
             true, false, true),
 
-    MOUNTAIN            ("mountain", false, false, true,
+    MOUNTAIN("mountain",
+            false, false, true,
             false, false, false),
-    CLIFF               ("cliff", false, false, true,
-            false, false, false),
-
-
-    WATER               ("water", false, false, true,
-            false, false, false),
-    POND                ("pond", false, false, true,
-            false, false, false),
-    RIVER               ("river", false, false, true,
-            false, false, false),
-    LAVA                ("lava", false, false, true,
+    CLIFF(  "cliff",
+            false, false, true,
             false, false, false),
 
-    WALL                ("wall", false, false, false,
+    WATER(  "water",
+            false, false, true,
+            false, false, false),
+    POND(   "pond",
+            false, false, true,
+            false, false, false),
+    RIVER(  "river",
+            false, false, true,
+            false, false, false),
+    LAVA(   "lava",
+            false, false, true,
+            false, false, false),
+
+    WALL(   "wall",
+            false, false, false,
             false, false, false);
-
 
 
     private final String name;
     private final boolean
             infantryPassable, cavalryPassable, flierPassable,
             slowsInfantry, slowsCavalry, defensiveTerrain;
-
-
 
     Tile(String name,
          boolean infantryPassable, boolean cavalryPassable, boolean flierPassable,
@@ -60,8 +69,8 @@ public enum Tile {
     }
 
 
-
     String getName() { return name; }
+
     public boolean canPass(MovementClass moveType) {
         switch(moveType) {
             case INFANTRY:
@@ -76,6 +85,7 @@ public enum Tile {
                 throw new Error();
         }
     }
+
     public boolean isSlowed(MovementClass moveType) {
         switch(moveType) {
             case INFANTRY:
@@ -91,5 +101,6 @@ public enum Tile {
                 throw new Error();
         }
     }
+
     public boolean isDefensiveTerrain() { return defensiveTerrain; }
 }

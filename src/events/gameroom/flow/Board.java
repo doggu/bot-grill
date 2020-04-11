@@ -26,8 +26,6 @@ public class Board {
         return colors;
     }
 
-
-
     private static final Character[][] DOTS = {
             {'n','n','n','n','n','i','c','e','n','n',},
             {'n','n','n','n','n','n','n','n','n','n',},
@@ -46,7 +44,6 @@ public class Board {
     private ArrayList<ArrayList<Point>> lines = new ArrayList<>();
 
 
-
     Board() {
         game = new Color[DOTS.length][DOTS[0].length];
         for (int i=0; i<DOTS.length; i++)
@@ -59,12 +56,8 @@ public class Board {
                     if (!colors.contains(dot)) colors.add(dot);
     }
 
-
-
-
-
-
-    boolean drawLine(Point p, char[] dx) throws NullPointerException, IndexOutOfBoundsException {
+    boolean drawLine(Point p, char[] dx)
+            throws NullPointerException, IndexOutOfBoundsException {
         Color start = game[p.x][p.y];
 
         Point path = (Point) p.clone();
@@ -103,12 +96,14 @@ public class Board {
     }
 
     void undo() throws IndexOutOfBoundsException {
-        if (lines.size()==0) throw new IndexOutOfBoundsException();
+        if (lines.size()==0)
+            throw new IndexOutOfBoundsException();
         lines.remove(lines.size()-1);
     }
 
     void clear() throws NullPointerException {
-        if (lines.size()==0) throw new NullPointerException();
+        if (lines.size()==0)
+            throw new NullPointerException();
         else
             lines = new ArrayList<>();
     }
@@ -118,17 +113,16 @@ public class Board {
     }
 
 
-
     Point getDimensions() {
         return new Point(game.length, game[0].length);
         //gee i wonder if i got the dimension order properly huOooooDe doOO
     }
 
 
-
     //must be a number divisible by 32 and 3 (96 is the minimum)
     private static final int SCALE = 96;
 
+    @SuppressWarnings("IntegerDivisionInFloatingPointContext")
     File printBoard() {
         BufferedImage mapState =
                 new BufferedImage(
@@ -144,7 +138,8 @@ public class Board {
         for (ArrayList<Point> line:lines) {
             Point dot = line.get(0);
             Color full = game[dot.x][dot.y];
-            Color c = new Color(full.getRed(),full.getGreen(),full.getBlue(),96);
+            Color c = new Color(
+                    full.getRed(), full.getGreen(), full.getBlue(), 96);
             graphics.setColor(c);
             for (Point p:line)
                 graphics.fillRect(SCALE+SCALE*p.y,SCALE*p.x,SCALE,SCALE);
@@ -152,31 +147,52 @@ public class Board {
         //grid
         graphics.setColor(Color.GRAY);
         for (int i = 0; i < DOTS[0].length+1; i++)
-            graphics.fillRect(SCALE*(1+i)-SCALE/32,0,SCALE/16, SCALE*(DOTS.length));
+            graphics.fillRect(
+                    SCALE*(1+i)-SCALE/32,
+                    0,
+                    SCALE/16,
+                    SCALE*(DOTS.length));
         for (int i = 0; i < DOTS.length+1; i++)
-            graphics.fillRect(SCALE,i*SCALE-SCALE/32,SCALE*(DOTS[0].length), SCALE/16);
+            graphics.fillRect(
+                    SCALE,
+                    i*SCALE-SCALE/32,
+                    SCALE*(DOTS[0].length),
+                    SCALE/16);
         //notation
         graphics.setColor(Color.WHITE);
         String name = "Courier New";
         int style = Font.PLAIN;
         int fontSize = 96;
         Font font = new Font(name, style, fontSize);
-        FontRenderContext fontRenderContext = new FontRenderContext(null, true, false);
+        FontRenderContext fontRenderContext =
+                new FontRenderContext(null,
+                        true, false);
         for (int i = 0; i < DOTS[0].length; i++)
-            new TextLayout(String.valueOf(DOTS.length-i),font, fontRenderContext)
-                    .draw(graphics,SCALE/6,SCALE*(1+i)-SCALE/6);
+            new TextLayout(String.valueOf(DOTS.length-i),
+                    font, fontRenderContext)
+                    .draw(graphics,
+                            SCALE/6,
+                            SCALE*(1+i)-SCALE/6);
             //graphics.drawString(String.valueOf((DOTS.length-i)),0,SCALE*i);
         for (int i = 0; i < DOTS.length; i++)
-            new TextLayout(String.valueOf((char)('A'+i)),font, fontRenderContext)
-                    .draw(graphics,SCALE*7/6+SCALE*i,SCALE*(DOTS[0].length+1)-SCALE/6);
-            //graphics.drawString(String.valueOf((char)('A'+i)),SCALE+SCALE*i,SCALE*DOTS[0].length);
+            new TextLayout(String.valueOf((char)('A'+i)),
+                    font, fontRenderContext)
+                    .draw(graphics,
+                            SCALE*7/6+SCALE*i,
+                            SCALE*(DOTS[0].length+1)-SCALE/6);
+            //graphics.drawString(String.valueOf((char)('A'+i)),
+            //      SCALE+SCALE*i,SCALE*DOTS[0].length);
 
         //draw dots
         for (int i=0; i<DOTS.length; i++) {
             for (int j=0; j<DOTS[i].length; j++) {
                 if (game[i][j]!=null) {
                     graphics.setColor(game[i][j]);
-                    graphics.fillOval(SCALE+SCALE*j+SCALE/6,SCALE*i+SCALE/6,SCALE*2/3,SCALE*2/3);
+                    graphics.fillOval(
+                            SCALE+SCALE*j+SCALE/6,
+                            SCALE*i+SCALE/6,
+                            SCALE*2/3,
+                            SCALE*2/3);
                 }
             }
         }
@@ -193,21 +209,24 @@ public class Board {
                     start = end;
                     end = temp;
                 }
-                graphics.fillRoundRect(SCALE+SCALE*start.y+SCALE/3,SCALE*start.x+SCALE/3,
-                        SCALE*(end.y-start.y)+SCALE/3,SCALE*(end.x-start.x)+SCALE/3,
-                        SCALE/3,SCALE/3);
+                graphics.fillRoundRect(
+                        SCALE+SCALE*start.y+SCALE/3,
+                        SCALE*start.x+SCALE/3,
+                        SCALE*(end.y-start.y)+SCALE/3,
+                        SCALE*(end.x-start.x)+SCALE/3,
+                        SCALE/3,
+                        SCALE/3);
             }
         }
 
         graphics.dispose();
-        File image = new File("./src/events/gameroom/flow/gameMap.png");
+        File image =
+                new File("./src/events/gameroom/flow/gameMap.png");
         try {
             ImageIO.write(mapState, "png", image);
-        } catch (IOException g) { System.out.println("guess we have a blank map"); }
+        } catch (IOException g) {
+            System.out.println("guess we have a blank map");
+        }
         return image;
-    }
-
-    public static void main(String[] args) {
-
     }
 }

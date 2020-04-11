@@ -16,8 +16,9 @@ public abstract class ReactionListener extends Listener {
 
 
 
-    //TODO: create ability for multiple commands so i don't have to make 4885974985 listeners
-    // unless creating individual listeners is correct/efficient
+    //TODO: create ability for multiple commands
+    // so i don't have to make 4885974985 listeners
+    // (unless creating individual listeners is correct/efficient)
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
         this.e = event;
         if (isCommand()) {

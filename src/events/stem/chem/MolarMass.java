@@ -30,7 +30,8 @@ public class MolarMass extends Command {
             try {
                 mm += e.getAtomicWeight();
             } catch (NumberFormatException nfe) {
-                sendMessage("sorry, that element is not supported yet. please try something else!");
+                sendMessage("sorry, that element is not supported yet. " +
+                        "please try something else!");
             }
         }
 
@@ -48,7 +49,11 @@ public class MolarMass extends Command {
                 MathListener.answers.put(e.getUser().getId(), molarMass);
 
                 e.getChannel().getMessageById(e.getMessageId()).complete()
-                        .addReaction(e.getJDA().getEmotesByName("Accepted", false).get(0))
+                        .addReaction(e.getJDA()
+                                .getEmotesByName(
+                                        "Accepted",
+                                        false)
+                                .get(0))
                         .queue();
 
                 new Thread(() -> {
@@ -57,8 +62,11 @@ public class MolarMass extends Command {
                     } catch (InterruptedException ie) {
                         ie.printStackTrace();
                     } finally {
-                        e.getChannel().getMessageById(e.getMessageId()).complete()
-                                .clearReactions().complete();
+                        e.getChannel()
+                                .getMessageById(e.getMessageId())
+                                .complete()
+                                .clearReactions()
+                                .complete();
                     }
                 });
             }
@@ -71,8 +79,13 @@ public class MolarMass extends Command {
         ArrayList<ChemicalElement> elements = new ArrayList<>();
 
         for (i=0; i<compound.length(); i++) {
-            CharIdentity identity = CharIdentity.getIdentity(compound.charAt(i));
-            if (identity==null) throw new NullPointerException("a character could not be identified");
+            CharIdentity identity =
+                    CharIdentity.getIdentity(compound.charAt(i));
+            if (identity==null) {
+                throw new NullPointerException(
+                        "a character could not be identified");
+            }
+
             switch (identity) {
                 case LETTER_U:
                     String atom = String.valueOf(compound.charAt(i));
@@ -118,7 +131,8 @@ public class MolarMass extends Command {
     private static int parseNum(String compound) {
         int start = i;
         for (i = i+1; i<compound.length(); i++) {
-            CharIdentity identity = CharIdentity.getIdentity(compound.charAt(i));
+            CharIdentity identity =
+                    CharIdentity.getIdentity(compound.charAt(i));
             if (identity != NUMBER)
                 break;
         }
@@ -137,9 +151,10 @@ public class MolarMass extends Command {
     private static int closeParenthetical(String compound) {
         int start = i;
         for (i = i+1; i<compound.length(); i++) {
-            CharIdentity identity = CharIdentity.getIdentity(compound.charAt(i));
-
-            if (identity==null) return -1;
+            CharIdentity identity =
+                    CharIdentity.getIdentity(compound.charAt(i));
+            if (identity==null)
+                return -1;
 
             switch (identity) {
                 case PAREN_O:

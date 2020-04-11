@@ -41,7 +41,8 @@ public class UnitConversionListener extends Command {
             unitsIn =  ComplexUnit.generateUnit(args[2]);
             unitsOut = ComplexUnit.generateUnit(args[4]);
         } catch (Exception e) {
-            sendMessage("one of your units didn't compile properly. please try again.");
+            sendMessage("one of your units didn't compile properly. " +
+                    "please try again.");
             return;
         }
 
@@ -50,11 +51,13 @@ public class UnitConversionListener extends Command {
             result = new BigDecimal(
                     new Converter(unitsIn, unitsOut).apply(n.doubleValue()));
         } catch (InconversibleUnitsException iue) {
-            sendMessage("your units are not compatible. please try again.");
+            sendMessage("your units are not compatible. " +
+                    "please try again.");
             return;
         } catch (Exception e) {
             e.printStackTrace();
-            sendMessage("there was an error during conversion. please try again.");
+            sendMessage("there was an error during conversion. " +
+                    "please try again.");
             return;
         }
 
@@ -64,13 +67,19 @@ public class UnitConversionListener extends Command {
         log("converted "+n+" "+unitsIn+" to "+result+" "+unitsOut+".");
     }
 
-
     public boolean isCommand() {
         return args[0].toLowerCase().matches("conv(ert)?");
     }
 
-    public String getName() { return "UnitConversion"; }
-    public String getDescription() { return "convert various units into other various units."; }
+
+    public String getName() {
+        return "UnitConversion";
+    }
+
+    public String getDescription() {
+        return "convert various units into other various units.";
+    }
+
     public String getFullDescription() {
         return getDescription()+"\n" +
                 "\tSyntax: \"?conv[ert] [qty1] [unit1] to [unit2]\"\n" +

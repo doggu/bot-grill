@@ -11,8 +11,12 @@ public class Quips extends ListenerAdapter {
             event.getMessage().addReaction("\uD83D\uDC4C").complete();
 
         if (event.getAuthor().getId().equals("425348396015157258"))
-            if (event.getMessage().getContentRaw().toLowerCase().contains("okay"))
-                event.getMessage().addReaction(event.getJDA().getEmoteById("581366103872372738"))
+            if (event.getMessage().getContentRaw().toLowerCase()
+                    .contains("okay"))
+                event.getMessage()
+                        .addReaction(
+                                event.getJDA()
+                                .getEmoteById("581366103872372738"))
                         .complete();
     }
 }

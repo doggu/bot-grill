@@ -10,27 +10,6 @@ public class Determinant extends Command {
         return args[0].contains("determinant"); }
 
     @Override
-    public String getName() {
-        return "Determinant"; }
-
-    @Override
-    public String getDescription() {
-        return "Find the determinant of an n-by-n matrix"; }
-
-    @Override
-    public String getFullDescription() {
-        return "Syntax:\n" +
-                "\t\"?Determinant\n" +
-                "```" +
-                "a11, a12, a13 ... a1n\n" +
-                "a21, a22, a23 ... a2n\n" +
-                "a31, a32, a33 ... a3n\n" +
-                "...  ...  ... ... a4n\n" +
-                "an1, an2, an3 ... ann```\"\n" +
-                "(write out the code block)";
-    }
-
-    @Override
     public void onCommand() {
         String matrix_raw = e.getMessage().getContentRaw();
         matrix_raw = matrix_raw.substring(matrix_raw.indexOf("```")+3);
@@ -70,5 +49,27 @@ public class Determinant extends Command {
         } catch (NotSquareException ex) {
             ex.printStackTrace();
         }
+    }
+
+
+    @Override
+    public String getName() {
+        return "Determinant"; }
+
+    @Override
+    public String getDescription() {
+        return "Find the determinant of an n-by-n matrix"; }
+
+    @Override
+    public String getFullDescription() {
+        return "Syntax:\n" +
+                "\t\"?Determinant\n" +
+                "```" +
+                "a11, a12, a13 ... a1n\n" +
+                "a21, a22, a23 ... a2n\n" +
+                "a31, a32, a33 ... a3n\n" +
+                "...  ...  ... ... a4n\n" +
+                "an1, an2, an3 ... ann```\"\n" +
+                "(write out the code block)";
     }
 }

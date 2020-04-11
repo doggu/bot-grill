@@ -11,8 +11,10 @@ import java.util.HashMap;
 
 public class MathListener extends Command {
     public static HashMap<String,Double> answers = new HashMap<>();
-    private static HashMap<String, HashMap<String, Double>> storedValues = new HashMap<>();
-    //private HashMap<String, ArrayList<Function<Double, Double>>> storedFunctions = new HashMap<>();
+    private static final HashMap<String, HashMap<String, Double>>
+            storedValues = new HashMap<>();
+//    private HashMap<String, ArrayList<Function<Double, Double>>>
+//            storedFunctions = new HashMap<>();
 
 
     public void onCommand() {
@@ -37,7 +39,8 @@ public class MathListener extends Command {
 
                 if (value.equalsIgnoreCase("ans")) {
                     value = String.valueOf(answers.get(e.getAuthor().getId()));
-                    value = value.replace("E", "*10^"); //todo: how do i fix this better
+                    //todo: how do i fix this better
+                    value = value.replace("E", "*10^");
                 }
 
                 double val;
@@ -47,13 +50,20 @@ public class MathListener extends Command {
                     try {
                         val = new MathParse(value).getFunction().apply(0.0);
                     } catch (Exception e) {
-                        sendMessage("could not decipher your value, please try again.");
+                        sendMessage(
+                                "could not decipher your value, " +
+                                "please try again.");
                         return;
                     }
                 }
 
-                storedValues.computeIfAbsent(e.getAuthor().getId(), k -> new HashMap<>());
-                storedValues.get(e.getAuthor().getId()).put(var, val);
+                storedValues.computeIfAbsent(
+                        e.getAuthor().getId(),
+                        k -> new HashMap<>());
+                storedValues
+                        .get(e.getAuthor().getId())
+                        .put(var, val);
+
                 sendMessage("stored "+val+" in "+var+'.');
             }
             return;
@@ -70,15 +80,19 @@ public class MathListener extends Command {
                 return;
             }
             String ansStr = String.valueOf(ans);
-            problem = problem.replace("ans", "("+ansStr+")");
+            problem = problem.replace(
+                    "ans",
+                    "("+ansStr+")");
         }
 
-        HashMap<String, Double> userValues = storedValues.get(e.getAuthor().getId());
+        HashMap<String, Double> userValues =
+                storedValues.get(e.getAuthor().getId());
 
         if (userValues!=null) {
             for (String x:userValues.keySet()) {
                 if (problem.contains(x)) {
-                    problem = problem.replaceAll(x, String.valueOf(userValues.get(x)));
+                    problem = problem.replaceAll(
+                            x, String.valueOf(userValues.get(x)));
                 }
             }
         }
@@ -97,10 +111,14 @@ public class MathListener extends Command {
 
         answers.put(e.getAuthor().getId(), value);
 
-        final String aleksPrint = String.valueOf(value).replace("E", "*10^");
+        final String aleksPrint = String.valueOf(value)
+                .replace("E", "*10^");
 
         new ReactionButton(m,
-                e.getJDA().getEmotesByName("aleks", true).get(0)) {
+                e.getJDA().getEmotesByName(
+                        "aleks",
+                        true)
+                .get(0)) {
             @Override
             public void onCommand() {
                 getMessage().editMessage(
@@ -137,7 +155,8 @@ public class MathListener extends Command {
     }
 
     public boolean isCommand() {
-        if (args[0].toLowerCase().matches("m(ath)?")) return true;
+        if (args[0].toLowerCase().matches("m(ath)?"))
+            return true;
         return e.getChannel().getName().equalsIgnoreCase("Math") &&
                 args[0].toLowerCase().matches("(m(ath)?)?");
     }

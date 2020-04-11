@@ -78,10 +78,10 @@ public enum MovementClass implements HeroClass {
         //if (t.isSlowed(this)) return 2;
         switch (t) {
             case PLAINS:
-            case PLAINS_DEFENSIVE:
+            case PLAINS_D:
                 return 1;
             case FOREST:
-            case FOREST_DEFENSIVE:
+            case FOREST_D:
                 if (this.stoppedByTrees) return -1;
                 return (this.slowedByTrees?2:1);
             case POND:
@@ -92,7 +92,7 @@ public enum MovementClass implements HeroClass {
             case CLIFF:
                 return (this.ignoreTerrain?1:-1);
             case TRENCHES:
-            case TRENCHES_DEFENSIVE:
+            case TRENCHES_D:
                 return (this.slowedByTrenches?3:1); //horses must be adjacent to trenches to even move on top of them
             case WALL:
                 return -1;

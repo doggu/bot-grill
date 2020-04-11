@@ -2,6 +2,7 @@ package main;
 
 import events.commands.Emotes;
 import events.commands.Girl;
+import events.commands.TimerListener;
 import events.commands.campus.CanIEatRightNow;
 import events.stem.chem.*;
 import events.commands.gamble.Chances;
@@ -127,6 +128,8 @@ public class BotMain {
         addListener(new UnitConversionListener());
         addListener(new UnitRegistrar());
         addListener(new UnitRemover());
+
+        addListener(new TimerListener());
 
         //gamble
         addListener(new Chances());

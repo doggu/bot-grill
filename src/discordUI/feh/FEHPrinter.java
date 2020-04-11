@@ -339,6 +339,15 @@ public class FEHPrinter {
 ////////////////////////////////////////////////////////////////////////////////
 //                                  UTILITIES                                 //
 ////////////////////////////////////////////////////////////////////////////////
+    private static Color
+            DEFAULT = Color.MAGENTA,
+            HERO_1 = Color.DARK_GRAY,
+            HERO_2 = Color.GRAY,
+            HERO_3 = new Color(185, 95, 0),
+            HERO_4 = Color.LIGHT_GRAY,
+            HERO_5 = Color.YELLOW,
+            HERO_5_10 = new Color(255, 255, 128);
+
     private static String printMovementClassEmote(MovementClass type) {
         return printEmote(
                 BotMain.bot_grill.getEmotesByName(
@@ -355,17 +364,6 @@ public class FEHPrinter {
                         +"_"+type.toString(),
                 true).get(0));
     }
-
-
-    private static Color
-            DEFAULT = Color.MAGENTA,
-            HERO_1 = Color.DARK_GRAY,
-            HERO_2 = Color.GRAY,
-            HERO_3 = new Color(185, 95, 0),
-            HERO_4 = Color.LIGHT_GRAY,
-            HERO_5 = Color.YELLOW,
-            HERO_5_10 = new Color(255, 255, 128);
-
 
     private static Color palatte(Object o) {
         Color color;

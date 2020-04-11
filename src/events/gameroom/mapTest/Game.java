@@ -1,32 +1,23 @@
 package events.gameroom.mapTest;
 
 import events.gameroom.TextGame;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
 import feh.characters.HeroDatabase;
 import feh.characters.hero.Hero;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import java.awt.*;
-import java.io.File;
 import java.util.ArrayList;
 
 public class Game extends TextGame {
-    private final ArrayList<User> players;
-    private final MessageChannel channel;
-
     private Board board;
 
 
-
     Game(ArrayList<User> players, MessageChannel channel) {
-        this.players = players;
-        this.channel = channel;
+        super(players, channel);
         this.board = new Board(6, 8);
         startGame();
     }
-
 
 
     private void startGame() {
@@ -67,7 +58,7 @@ public class Game extends TextGame {
                     board.drawBoard(),
                     "placed "+chosen+" at "+position);
             log(e.getAuthor()+" placed "+chosen+" at "+position);
-            return;
+            //return;
         }
     }
 
@@ -185,7 +176,6 @@ public class Game extends TextGame {
     }
 
 
-
     @Override
     public void onCommand() {
         switch(args[0].toLowerCase()) {
@@ -213,19 +203,5 @@ public class Game extends TextGame {
                 return true;
         }
         return false;
-    }
-
-    @Override
-    protected Message sendMessage(String message) {
-        return channel.sendMessage(message).complete();
-    }
-
-    protected Message sendFile(File file) {
-        return channel.sendFile(file).complete();
-    }
-    protected Message sendFile(File file, String message) {
-        return channel.sendFile(
-                file,
-                new MessageBuilder(message).build()).complete();
     }
 }

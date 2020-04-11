@@ -2,8 +2,8 @@ package events.gameroom.flow;
 
 import events.gameroom.Lobby;
 import events.gameroom.TextGame;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 
 public class Flow extends Lobby {
     public Flow(User author, MessageChannel channel) {
@@ -15,5 +15,5 @@ public class Flow extends Lobby {
     public int getMinPlayers() { return 1; }
     public int getMaxPlayers() { return 1; }
     public String getName() { return "Flow"; }
-    public TextGame getGame() { return new Game(players.get(0), channel); }
+    public TextGame getGame() { return new Game(players, channel); }
 }

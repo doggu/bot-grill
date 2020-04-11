@@ -9,7 +9,7 @@ import feh.characters.skills.analysis.SkillAnalysis;
 import feh.characters.skills.skillTypes.*;
 import feh.characters.unit.Unit;
 import main.BotMain;
-import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.api.EmbedBuilder;
 import utilities.Range;
 
 import java.awt.*;
@@ -26,7 +26,7 @@ public class FEHPrinter {
 //                                    HEROES                                  //
 ////////////////////////////////////////////////////////////////////////////////
     public static EmbedBuilder printCharacter(Hero x, boolean lv1, int rarity,
-                                               ArrayList<Skill> skills) {
+                                              ArrayList<Skill> skills) {
         EmbedBuilder heroInfo = new EmbedBuilder();
         headingInformation(heroInfo, x);
 

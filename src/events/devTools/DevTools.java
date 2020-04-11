@@ -1,8 +1,8 @@
 package events.devTools;
 
 import events.MessageListener;
-import net.dv8tion.jda.core.entities.VoiceChannel;
-import net.dv8tion.jda.core.managers.AudioManager;
+import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.managers.AudioManager;
 
 public class DevTools extends MessageListener {
     private static AudioManager am = null;

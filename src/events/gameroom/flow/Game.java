@@ -1,30 +1,27 @@
 package events.gameroom.flow;
 
 import events.gameroom.TextGame;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class Game extends TextGame {
-    //TODO: this stuff can most likely go in a Game abstract class
-    private final User player;
-    private final MessageChannel channel;
 
     private final Board board = new Board();
 
 
 
-    public Game(User player, MessageChannel channel) {
-        this.player = player;
-        this.channel = channel;
+    public Game(ArrayList<User> player, MessageChannel channel) {
+        super(player, channel);
         channel.sendFile(board.printBoard()).complete();
     }
 
 
 
     public boolean isCommand() {
-        if (!e.getAuthor().equals(player)) return false;
+        if (!e.getAuthor().equals(players.get(0))) return false;
         if (!e.getChannel().equals(channel)) return false;
         if (args[0].equalsIgnoreCase("quit")) {
             commitSuicide();

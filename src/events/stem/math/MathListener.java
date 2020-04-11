@@ -2,9 +2,9 @@ package events.stem.math;
 
 import discordUI.button.ReactionButton;
 import events.commands.Command;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import stem.math.MathParse;
 
 import java.util.HashMap;

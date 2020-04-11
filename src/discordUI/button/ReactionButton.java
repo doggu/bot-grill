@@ -2,11 +2,11 @@ package discordUI.button;
 
 import events.ReactionListener;
 import main.BotMain;
-import net.dv8tion.jda.core.entities.Emote;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageReaction;
-import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
-import net.dv8tion.jda.core.events.message.react.MessageReactionRemoveEvent;
+import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageReaction;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ReactionButton extends ReactionListener {
@@ -43,7 +43,7 @@ public abstract class ReactionButton extends ReactionListener {
         if (emote!=null) {
             for (MessageReaction reaction : e.getJDA()
                     .getTextChannelById(message.getChannel().getId())
-                    .getMessageById(message.getId()).complete()
+                    .retrieveMessageById(message.getId()).complete()
                     .getReactions()) {
                 if (!reaction.getReactionEmote().isEmote()) continue;
                 if (reaction.getReactionEmote().getEmote().equals(emote)) {
@@ -53,7 +53,7 @@ public abstract class ReactionButton extends ReactionListener {
         } else {
             for (MessageReaction reaction : e.getJDA()
                     .getTextChannelById(message.getChannel().getId())
-                    .getMessageById(message.getId()).complete()
+                    .retrieveMessageById(message.getId()).complete()
                     .getReactions()) {
                 if (reaction.getReactionEmote().isEmote()) continue;
                 if (reaction.getReactionEmote().toString()

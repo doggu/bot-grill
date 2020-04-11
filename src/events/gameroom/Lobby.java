@@ -2,9 +2,9 @@ package events.gameroom;
 
 import events.ReactionListener;
 import main.BotMain;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import java.util.ArrayList;
 
@@ -72,7 +72,7 @@ public abstract class Lobby extends ReactionListener {
     @Override
     public void onCommand() {
         players.add(e.getUser());
-        e.getChannel().getMessageById(e.getMessageId())
+        e.getChannel().retrieveMessageById(e.getMessageId())
                 .complete()
                 .editMessage(
                         "join "+host.getName() +

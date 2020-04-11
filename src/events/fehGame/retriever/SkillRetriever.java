@@ -5,7 +5,7 @@ import events.commands.Command;
 import feh.characters.skills.skillTypes.Skill;
 import feh.characters.skills.skillTypes.Weapon;
 import main.BotMain;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.util.ArrayList;
 import java.util.Arrays;

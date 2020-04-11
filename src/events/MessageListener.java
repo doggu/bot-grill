@@ -1,9 +1,11 @@
 package events;
 
-import net.dv8tion.jda.core.entities.Emote;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.utils.AttachmentOption;
 
 import java.io.File;
 
@@ -56,6 +58,11 @@ public abstract class MessageListener extends Listener {
     @SuppressWarnings("UnusedReturnValue")
     protected Message sendFile(File file) {
         return e.getChannel().sendFile(file).complete();
+    }
+    @SuppressWarnings("UnusedReturnValue")
+    protected Message sendFile(File file, String message) {
+        return e.getChannel().sendMessage(new MessageBuilder(message).build())
+                .addFile(file, (AttachmentOption) null).complete();
     }
 
     protected void addReaction(Emote emote) {

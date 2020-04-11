@@ -2,10 +2,10 @@ package discordUI.menu;
 
 import events.ReactionListener;
 import main.BotMain;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import java.util.ArrayList;
 
@@ -119,7 +119,7 @@ public class Menu extends ReactionListener {
         if (e.getUser().isBot()) return false;
         if (!e.getUser().getId().equals(user.getId())) return false;
 
-        return e.getChannel().getMessageById(e.getMessageId()).complete()
+        return e.getChannel().retrieveMessageById(e.getMessageId()).complete()
                 .equals(message);
     }
 

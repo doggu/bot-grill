@@ -1,7 +1,7 @@
 package discordUI;
 
 import main.BotMain;
-import net.dv8tion.jda.core.entities.Emote;
+import net.dv8tion.jda.api.entities.Emote;
 
 public class EmoteHelper {
     public static Emote getEmote(String name) {

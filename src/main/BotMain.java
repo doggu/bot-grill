@@ -30,10 +30,13 @@ import events.stem.unitConverter.UnitRemover;
 import feh.characters.HeroDatabase;
 import feh.characters.skills.SkillDatabase;
 import feh.summoning.BannerDatabase;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+//import net.dv8tion.jda.core.AccountType;
+//import net.dv8tion.jda.core.JDA;
+//import net.dv8tion.jda.core.JDABuilder;
+//import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import stem.science.chem.particles.ElementDatabase;
 import events.stem.unitConverter.UnitRegistrar;
 import utilities.Stopwatch;
@@ -120,9 +123,13 @@ public class BotMain {
             preloadScience();
         }
 
-        bot_grill = new JDABuilder(AccountType.BOT)
-                .setToken(new Scanner(new File("./src/main/token.txt")).nextLine())
+        bot_grill = JDABuilder
+                .createDefault(new Scanner(new File("./src/main/token.txt")).nextLine())
                 .build();
+
+//        bot_grill = new JDABuilder(AccountType.BOT)
+//                .setToken(new Scanner(new File("./src/main/token.txt")).nextLine())
+//                .build();
 
         bot_grill.awaitReady();
 

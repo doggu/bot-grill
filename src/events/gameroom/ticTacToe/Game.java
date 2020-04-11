@@ -1,15 +1,13 @@
 package events.gameroom.ticTacToe;
 
 import events.gameroom.TextGame;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import java.util.ArrayList;
 
 public class Game extends TextGame {
-    private final ArrayList<User> players;
-    private final MessageChannel channel;
     private User activePlayer;
     private User inactivePlayer;
     private char[] board = {
@@ -23,8 +21,7 @@ public class Game extends TextGame {
 
 
     public Game(ArrayList<User> players, MessageChannel channel) {
-        this.players = players;
-        this.channel = channel;
+        super(players, channel);
         activePlayer = players.get(0);
         inactivePlayer = players.get(1);
         startGame();
@@ -164,10 +161,5 @@ public class Game extends TextGame {
         if (args.length==0) return false;
 
         return true;
-    }
-
-    @Override
-    protected Message sendMessage(String message) {
-        return channel.sendMessage(message).complete();
     }
 }

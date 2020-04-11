@@ -1,8 +1,8 @@
 package events.gameroom;
 
 import events.commands.Command;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 
 public abstract class Game extends Command {
     private final User player;

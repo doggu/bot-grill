@@ -2,11 +2,11 @@ package events.fehGame.retriever;
 
 import discordUI.feh.FEHPrinter;
 import feh.characters.skills.skillTypes.Weapon;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.events.message.react.GenericMessageReactionEvent;
-import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
-import net.dv8tion.jda.core.events.message.react.MessageReactionRemoveEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class RefineButton extends ListenerAdapter {
     private static final long REFINE_BUTTON_ID = 588311818217324544L;
@@ -37,7 +37,7 @@ public class RefineButton extends ListenerAdapter {
     }
 
     private void setRefine() {
-        e.getChannel().getMessageById(e.getMessageId()).complete()
+        e.getChannel().retrieveMessageById(e.getMessageId()).complete()
                 .editMessage(FEHPrinter.printSkill(weapon.getRefine()).build())
                 .complete();
     }
@@ -51,7 +51,7 @@ public class RefineButton extends ListenerAdapter {
     }
 
     private void setWeapon() {
-        e.getChannel().getMessageById(e.getMessageId()).complete()
+        e.getChannel().retrieveMessageById(e.getMessageId()).complete()
                 .editMessage(FEHPrinter.printSkill(weapon).build()).complete();
     }
 

@@ -4,8 +4,8 @@ import discordUI.feh.BarracksWindow;
 import discordUI.feh.FEHPrinter;
 import feh.players.Barracks;
 import feh.players.Summoner;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
 
 public class Allies extends FEHCommand {
     public boolean isCommand() {
@@ -27,7 +27,7 @@ public class Allies extends FEHCommand {
                         sendMessage(new MessageBuilder(
                                 FEHPrinter.printUnit(barracks.get(allyIndex-1)))
                                 .build());
-                        log("provided data on "+x.getName()+"\'s unit");
+                        log("provided data on "+x.getName()+"'s unit");
                         return;
                     } catch (NumberFormatException g) {
                         switch(args[1].toLowerCase()) {

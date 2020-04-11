@@ -1,7 +1,7 @@
 package events.stem.chem;
 
 import events.commands.Command;
-import net.dv8tion.jda.core.MessageBuilder;
+import net.dv8tion.jda.api.MessageBuilder;
 
 public class PeriodicTableTrends extends Command {
     private static final char

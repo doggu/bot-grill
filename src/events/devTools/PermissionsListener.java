@@ -1,7 +1,7 @@
 package events.devTools;
 
 import events.MessageListener;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.User;
 import utilities.permissions.DumbRequest;
 import utilities.permissions.InsufficientPermissionsException;
 import utilities.permissions.OverextendingPermissionException;

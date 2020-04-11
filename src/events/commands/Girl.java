@@ -1,13 +1,12 @@
 package events.commands;
-
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Emote;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Emote;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Girl extends Command {
-    private static String[] girlNames = {
+    private static final String[] girlNames = {
             //main
             "highlvlthinking",
             "we",
@@ -56,7 +55,7 @@ public class Girl extends Command {
             "trouble",
     };
 
-    private List<Emote> girls = new ArrayList<>();
+    private final List<Emote> girls = new ArrayList<>();
 
 
 

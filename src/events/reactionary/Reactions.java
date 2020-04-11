@@ -1,7 +1,7 @@
 package events.reactionary;
 
 import events.ReactionListener;
-import net.dv8tion.jda.core.entities.Emote;
+import net.dv8tion.jda.api.entities.Emote;
 
 public class Reactions extends ReactionListener {
     public boolean isCommand() {

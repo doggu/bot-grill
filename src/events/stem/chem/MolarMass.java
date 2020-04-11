@@ -48,7 +48,7 @@ public class MolarMass extends Command {
 
                 MathListener.answers.put(e.getUser().getId(), molarMass);
 
-                e.getChannel().getMessageById(e.getMessageId()).complete()
+                e.getChannel().retrieveMessageById(e.getMessageId()).complete()
                         .addReaction(e.getJDA()
                                 .getEmotesByName(
                                         "Accepted",
@@ -63,7 +63,7 @@ public class MolarMass extends Command {
                         ie.printStackTrace();
                     } finally {
                         e.getChannel()
-                                .getMessageById(e.getMessageId())
+                                .retrieveMessageById(e.getMessageId())
                                 .complete()
                                 .clearReactions()
                                 .complete();

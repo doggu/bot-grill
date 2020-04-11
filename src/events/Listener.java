@@ -1,7 +1,7 @@
 package events;
 
 import main.BotMain;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import java.time.OffsetDateTime;
 

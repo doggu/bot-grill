@@ -2,8 +2,8 @@ package events.stem.chem;
 
 import discordUI.button.ReactionButton;
 import events.commands.Command;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
 import stem.math.matrix.Fraction;
 import stem.math.matrix.Matrix;
 import stem.science.chem.particles.ChemicalElement;

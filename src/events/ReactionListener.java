@@ -1,10 +1,11 @@
 package events;
 
-import net.dv8tion.jda.core.entities.Emote;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.events.message.react.GenericMessageReactionEvent;
-import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
-import net.dv8tion.jda.core.requests.restaction.MessageAction;
+import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.events.message.react.GenericMessageReactionEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.api.requests.restaction.MessageAction;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class ReactionListener extends Listener {
     protected GenericMessageReactionEvent e;
@@ -19,7 +20,7 @@ public abstract class ReactionListener extends Listener {
     //TODO: create ability for multiple commands
     // so i don't have to make 4885974985 listeners
     // (unless creating individual listeners is correct/efficient)
-    public void onMessageReactionAdd(MessageReactionAddEvent event) {
+    public void onMessageReactionAdd(@NotNull MessageReactionAddEvent event) {
         this.e = event;
         if (isCommand()) {
             onCommand();
@@ -37,7 +38,7 @@ public abstract class ReactionListener extends Listener {
     protected void addReaction(Emote emote) {
         e.getReaction()
                 .getChannel()
-                .getMessageById(e.getMessageId())
+                .retrieveMessageById(e.getMessageId())
                 .complete()
                 .addReaction(emote)
                 .queue();

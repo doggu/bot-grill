@@ -2,8 +2,8 @@ package events.stem.chem;
 
 import discordUI.button.ReactionButton;
 import events.commands.Command;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.entities.Message;
 import stem.math.matrix.Fraction;
 import stem.math.matrix.Matrix;
 import stem.science.chem.particles.ChemicalElement;
@@ -73,7 +73,8 @@ public class Balance extends Command {
             }
         }
 
-        int[][] m = new int[involvedElements.size()][reactants.size()+products.size()];
+        int[][] m = new int[involvedElements.size()]
+                           [reactants.size()+products.size()];
         int i;
         for (i=0; i<involvedElements.size(); i++) {
             int j;
@@ -87,23 +88,17 @@ public class Balance extends Command {
         }
 
         Matrix matrix = new Matrix(m);
-
-        System.out.println(matrix);
-
+//        System.out.println(matrix);
         matrix.reducedRowEchelonForm().reduce();
-
-        System.out.println(matrix);
-
-        Fraction[] lCol = matrix.getColumn(reactants.size()+products.size()-1);
-
-        for (Fraction fraction : lCol) {
-            System.out.println(fraction);
-        }
+//        System.out.println(matrix);
+        Fraction[] lCol = matrix.getColumn(
+                reactants.size()+products.size()-1);
+//        for (Fraction fraction : lCol)
+//            System.out.println(fraction);
 
         equalizeDenominator(lCol);
 
         int[] coefficients = new int[reactants.size()+products.size()];
-
         for (i=0; i<lCol.length; i++) {
             if (lCol[i].getNumerator()==0) break;
             coefficients[i] = Math.abs(lCol[i].getNumerator());
@@ -140,7 +135,9 @@ public class Balance extends Command {
         //that i up there is so obnoxious
         for (int f=1; f<message.length(); f++) {
             if (message.charAt(f) >= '0' && message.charAt(f)<='9' &&
-                    !(message.charAt(f-1)==' ' || (message.charAt(f-1) >= '0' && message.charAt(f-1)<='9'))) {
+                    !(message.charAt(f-1)==' ' ||
+                            (message.charAt(f-1) >= '0' &&
+                                    message.charAt(f-1)<='9'))) {
                 message.insert(f, '_');
                 f++;
             }
@@ -148,12 +145,15 @@ public class Balance extends Command {
 
         // but didn't you write this yourself
 
-        final String aleksPrint = message.toString().replaceAll(" ", "+");
+        final String aleksPrint = message.toString()
+                .replaceAll(" ", "+");
 
         // shut FUCK up
 
-        new ReactionButton(me,
-                e.getJDA().getEmotesByName("aleks", true).get(0)) {
+        new ReactionButton(
+                me,
+                e.getJDA().getEmotesByName("aleks", true)
+                        .get(0)) {
             @Override
             public void onCommand() {
                 getMessage().editMessage(
@@ -183,7 +183,8 @@ public class Balance extends Command {
 
 
 
-    private static int getCount(ChemicalElement element, ArrayList<ChemicalElement> compound) {
+    private static int getCount(ChemicalElement element,
+                                ArrayList<ChemicalElement> compound) {
         int count = 0;
         for (ChemicalElement e:compound) {
             if (element==e) count++;

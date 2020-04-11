@@ -1,32 +1,23 @@
 package events.gameroom.mapTest;
 
 import events.gameroom.TextGame;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
 import feh.characters.HeroDatabase;
 import feh.characters.hero.Hero;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import java.awt.*;
-import java.io.File;
 import java.util.ArrayList;
 
 public class Game extends TextGame {
-    private final ArrayList<User> players;
-    private final MessageChannel channel;
-
     private Board board;
 
 
-
     Game(ArrayList<User> players, MessageChannel channel) {
-        this.players = players;
-        this.channel = channel;
+        super(players, channel);
         this.board = new Board(6, 8);
         startGame();
     }
-
 
 
     private void startGame() {
@@ -35,12 +26,20 @@ public class Game extends TextGame {
     private void addUnit() {
         String position = args[1];
         Point pos = getPosition(position);
-        if (!inBounds(pos)) { sendMessage("error: position index ("+position+") is out of bounds!"); return; }
+        if (!inBounds(pos)) {
+            sendMessage("error: position index " +
+                    "("+position+") is out of bounds!");
+            return;
+        }
         String name = args[2];
-        for (int i = 3; i<args.length; i++) name+= " "+args[i];
+        for (int i = 3; i<args.length; i++)
+            //noinspection StringConcatenationInLoop
+            name+= " "+args[i];
         if (board.getUnit(pos)!=null) {
-            sendMessage("cannot place a unit on top of an already existing unit!");
-            log("user attempted to place a unit on top of "+board.getUnit(pos));
+            sendMessage("cannot place a unit on top of " +
+                    "an already existing unit!");
+            log("user attempted to place a unit on top of " +
+                    board.getUnit(pos));
             return;
         }
         Hero chosen = null;
@@ -51,14 +50,15 @@ public class Game extends TextGame {
         }
 
         if (chosen==null) {
-            sendMessage("could not find your specified hero. please try again.");
+            sendMessage("could not find your specified hero. " +
+                    "please try again.");
         } else {
             board.addUnit(pos, chosen);
             sendFile(
                     board.drawBoard(),
                     "placed "+chosen+" at "+position);
             log(e.getAuthor()+" placed "+chosen+" at "+position);
-            return;
+            //return;
         }
     }
 
@@ -67,17 +67,27 @@ public class Game extends TextGame {
         String destination = args[3];
         Point s = getPosition(selection);
         Point d = getPosition(destination);
-        if (!inBounds(s)) { sendMessage("error: selector index ("+selection+") is out of bounds!"); return; }
-        if (!inBounds(d)) { sendMessage("error: destination index ("+destination+") is out of bounds!"); return; }
+        if (!inBounds(s)) {
+            sendMessage("error: selector index " +
+                    "("+selection+") is out of bounds!");
+            return;
+        }
+        if (!inBounds(d)) {
+            sendMessage("error: destination index " +
+                    "("+destination+") is out of bounds!");
+            return;
+        }
 
         //TODO: .equals()?
         if (s==d) {
-            sendMessage("you cannot move a unit to their current location! (at least not yet, there aren't any turns)");
+            sendMessage("you cannot move a unit to their current location! " +
+                    "(at least not yet, there aren't any turns)");
             return;
         }
         for (int i=1; i<4; i++) if (args[i].length()!=2) {
             sendMessage("incorrect format! please try again.");
-            log("incorrect moveUnit format: "+selection+" "+args[2]+" "+destination);
+            log("incorrect moveUnit format: " +
+                    selection+" "+args[2]+" "+destination);
             return;
         }
 
@@ -87,24 +97,29 @@ public class Game extends TextGame {
             log("could not find player's unit at "+selection);
             return;
         }
-        if (!board.canMove(unit, d) /*unit.getMoveType().getRange()<distanceTraveled(s, d)*/) {
+        if (!board.canMove(unit, d)
+            /*unit.getMoveType().getRange()<distanceTraveled(s, d)*/) {
             sendMessage("that unit cannot reach that tile! try again.");
             log(e.getAuthor()+" attempted to move "+
-                    unit+" ("+unit.getMoveType().getRange()+" mov) "+
+                    unit+" ("+unit.getMoveType().getRange()+" mov) " +
                     "from "+s+" to "+d);
             return;
         }
         Hero target = board.getUnit(d);
         if (target!=null) {
-            sendMessage("cannot place a unit on top of another! please try again.");
-            log(e.getAuthor()+" attempted to place "+unit+" on top of "+target+".");
+            sendMessage("cannot place a unit on top of another! " +
+                    "please try again.");
+            log(e.getAuthor()+" attempted to place " +
+                    unit+" on top of "+target+".");
             return;
         }
 
         board.moveUnit(unit, d);
 
-        sendFile(board.drawBoard(),unit+" moved from "+selection+" to "+destination+".\n");
-        log(e.getAuthor()+" moved "+unit+" from "+selection+" to "+destination+".");
+        sendFile(board.drawBoard(),
+                unit+" moved from "+selection+" to "+destination+".\n");
+        log(e.getAuthor()+" " +
+                "moved "+unit+" from "+selection+" to "+destination+".");
     }
 
 
@@ -147,7 +162,9 @@ public class Game extends TextGame {
     */
 
     private Point getPosition(String coordinates) {
-        return new Point(coordinates.charAt(0)-'a', coordinates.charAt(1)-'1');
+        return new Point(
+                coordinates.charAt(0)-'a',
+                coordinates.charAt(1)-'1');
     }
     private boolean inBounds(Point pos) {
         if (pos.getX()<0) return false;
@@ -157,7 +174,6 @@ public class Game extends TextGame {
 
         return true;
     }
-
 
 
     @Override
@@ -187,17 +203,5 @@ public class Game extends TextGame {
                 return true;
         }
         return false;
-    }
-
-    @Override
-    protected Message sendMessage(String message) {
-        return channel.sendMessage(message).complete();
-    }
-
-    protected Message sendFile(File file) {
-        return channel.sendFile(file).complete();
-    }
-    protected Message sendFile(File file, String message) {
-        return channel.sendFile(file, new MessageBuilder(message).build()).complete();
     }
 }

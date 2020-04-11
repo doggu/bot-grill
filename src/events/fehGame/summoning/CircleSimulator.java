@@ -9,11 +9,11 @@ import feh.players.Summoner;
 import feh.summoning.Banner;
 import feh.summoning.Stone;
 import main.BotMain;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.Emote;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -32,11 +32,13 @@ public class CircleSimulator extends ReactionListener {
 
 
 
-    CircleSimulator(MessageChannel messageChannel, Summoner summoner, Banner banner) {
+    CircleSimulator(MessageChannel messageChannel,
+                    Summoner summoner, Banner banner) {
         this.messageChannel = messageChannel;
         this.summoner = summoner;
         this.banner = banner;
-        this.circleMessage = messageChannel.sendMessage(generateMessage()).complete();
+        this.circleMessage =
+                messageChannel.sendMessage(generateMessage()).complete();
         this.stones = generateStones();
         this.stoneEmotes = generateEmotes();
     }
@@ -50,11 +52,14 @@ public class CircleSimulator extends ReactionListener {
 
 
     private Message generateMessage() {
-        MessageBuilder message = new MessageBuilder("your summons for: \n")
-                .append(banner.getName())
-                .append('\n')
-                .append("featured units: ");
-        for (Hero x:banner.getRarityFPool()) { //Character is not a good name for a class (changed to Hero)
+        MessageBuilder message =
+                new MessageBuilder("your summons for: \n")
+                        .append(banner.getName())
+                        .append('\n')
+                        .append("featured units: ");
+
+            //Character is not a good name for a class (changed to Hero)
+        for (Hero x:banner.getRarityFPool()) {
             message.append(x.getFullName().getName());
             if (x.getFullName().isAmbiguousName())
                 message
@@ -139,15 +144,23 @@ public class CircleSimulator extends ReactionListener {
     }
 
     private void addFinishButtons() {
-        newButton = new PersonalButton(circleMessage, "\uD83D\uDD04", summoner.getUser()) {
+        newButton = new PersonalButton(
+                circleMessage,
+                "\uD83D\uDD04",
+                summoner.getUser()) {
             @Override
             public void onCommand() {
-                //idk if there's some 4D hacking someone can do to break this but this error checking is unnecessary
+                //idk if there's some 4D hacking someone can do
+                // to break this but this error checking is unnecessary
                 if (canClose()) {
                     closeCircle();
-                    new CircleSimulator(messageChannel, summoner, banner).register();
+                    new CircleSimulator(
+                            messageChannel,
+                            summoner,
+                            banner).register();
                 } else {
-                    sendMessage("please choose at least one orb before starting a new session.");
+                    sendMessage("please choose at least one orb " +
+                            "before starting a new session.");
                     return;
                 }
 
@@ -157,13 +170,17 @@ public class CircleSimulator extends ReactionListener {
                 stopButton.removeButton();
             }
         };
-        stopButton = new PersonalButton(circleMessage, "❌", summoner.getUser()) {
+        stopButton = new PersonalButton(
+                circleMessage,
+                "❌",
+                summoner.getUser()) {
             @Override
             public void onCommand() {
                 if (canClose()) {
                     closeCircle();
                 } else {
-                    sendMessage("please choose at least one orb before starting a new session.");
+                    sendMessage("please choose at least one orb " +
+                            "before starting a new session.");
                     return;
                 }
 
@@ -182,8 +199,9 @@ public class CircleSimulator extends ReactionListener {
         return false;
     }
 
-    //for later reference, commitSuicide being called here will never cause a null pointer exception
-    //because they must have summoned a stone before they may close the circle.
+    // for later reference, commitSuicide being called here will never cause
+    // a null pointer exception because they must have summoned a stone before
+    // they may close the circle.
     void closeCircle() {
         summoner.stopSummoning();
         //circleMessage.clearReactions().complete();
@@ -215,13 +233,12 @@ public class CircleSimulator extends ReactionListener {
                     try {
                         hero = stones.get(i).pull();
                     } catch (Exception g) {
-                        sendMessage("cannot pull an orb that's already been pulled!");
+                        sendMessage("cannot pull an orb that's " +
+                                "already been pulled!");
                         log("user attempted to pull an already-pulled stone");
                         return;
                     }
 
-                    //summoner.openPrivateChannel().complete()
-                    // .sendMessage(FEHRetriever.printUnit(hero, true)).complete();
                     circleMessage.editMessage(
                             FEHPrinter.printUnit(hero)
                                     .build()).complete();

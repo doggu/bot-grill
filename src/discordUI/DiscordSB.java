@@ -1,10 +1,10 @@
 package discordUI;
 
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.User;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
@@ -36,13 +36,14 @@ public class DiscordSB extends MessageBuilder {
     }
 
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //                                                    MARKDOWN                                                    //
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////
+//                                  MARKDOWN                                  //
+////////////////////////////////////////////////////////////////////////////////
     //general formatting
     /**
-     * uses generally normal boxing shit to italicize a certain range in the StringBuilder.
+     * uses generally normal boxing shit to italicize
+     * a certain range in the StringBuilder.
      * @param start the first character to be italicizec
      * @param end the character after the last character to be italicized
      * @return this object.
@@ -110,10 +111,10 @@ public class DiscordSB extends MessageBuilder {
     }
 
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //                                                       UI                                                       //
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////
+//                                     UI                                     //
+////////////////////////////////////////////////////////////////////////////////
     public DiscordSB mention(@NotNull User user) {
         super.append(user.getAsMention());
         return this;

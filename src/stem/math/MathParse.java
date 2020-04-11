@@ -7,11 +7,13 @@ import java.util.function.Function;
 
 public class MathParse {
     private static final char
-            PLUS = '+', MINUS = '-', TIMES = '*', DIVIDE = '/', POWER = '^', MODULO = '%',
+            PLUS = '+', MINUS = '-',
+            TIMES = '*', DIVIDE = '/', MODULO = '%',
+            POWER = '^', LOG = '㏒', LN = '㏑', SQRT = '√',
             SIN = '∿', COS = 'Ϲ', TAN = 't',  //that is NOT a C
             ASIN = 'Ѕ', ACOS = 'Ͻ', ATAN = 'T',
             SINH = 'Ѓ', COSH = 'Ͼ', TANH = 'ţ',
-            LOG = '㏒', LN = '㏑', SQRT = '√', FLOOR = 'f', CEIL = 'r',
+            FLOOR = 'f', CEIL = 'r',
             VAR = 'x',
             PI = 'π', PHI = 'p', E = 'e', SoL = 'c', AVO = 'Ä', P_CONST = 'ל';
 
@@ -22,8 +24,10 @@ public class MathParse {
             PLA_N = 6.62607004E-34;
 
     private static final char[][] OoO /*order of operations*/ = {
-            //special functions come first, since they are the equivalent of 1*[fn](arg)
-            { SIN, COS, TAN, ASIN, ACOS, ATAN, SINH, COSH, TANH, LOG, LN, SQRT, FLOOR, CEIL },
+            // special functions come first, since
+            // they are the equivalent of 1*[fn](arg)
+            { SIN, COS, TAN, ASIN, ACOS, ATAN, SINH, COSH, TANH,
+                    LOG, LN, SQRT, FLOOR, CEIL },
             //pEmdas
             { POWER },
             //peMDas (multiplication and modulo)
@@ -33,12 +37,10 @@ public class MathParse {
     };
 
 
-
     private char[] f;
     private int i = 0;
     private ArrayList<Function<Double,Double>> fxns = new ArrayList<>();
     private ArrayList<Character> ops = new ArrayList<>();
-
 
 
     public MathParse(String problem) {
@@ -47,8 +49,10 @@ public class MathParse {
                 .replaceAll("sinh", String.valueOf(SINH))
                 .replaceAll("cosh", String.valueOf(COSH))
                 .replaceAll("tanh", String.valueOf(TANH))
-                //inverse trig functions (so the regular ones don't override them)
-                //(even though i could just have it replace "∿h" or something later)
+                //inverse trig functions
+                // (so the regular ones don't override them)
+                // (even though i could just have it
+                // replace "∿h" or something later)
                 .replaceAll("a(rc)?sin", String.valueOf(ASIN))
                 .replaceAll("a(rc)?cos", String.valueOf(ACOS))
                 .replaceAll("a(rc)?tan", String.valueOf(ATAN))
@@ -69,9 +73,9 @@ public class MathParse {
                 .replaceAll("h", String.valueOf(P_CONST))
                 .toCharArray();
     }
-    //for recursive calls which have already replaced functions with special characters
+    //for recursive calls which have already
+    //replaced functions with special characters
     private MathParse(char[] problem) { this.f = problem; }
-
 
 
     public Function<Double,Double> getFunction() throws Error {
@@ -98,7 +102,8 @@ public class MathParse {
                         System.out.println("imbalanced parentheses!");
                         throw new Error();
                     }
-                    fxns.add(new MathParse(Arrays.copyOfRange(f, start, i)).getFunction());
+                    fxns.add(new MathParse(Arrays.copyOfRange(f, start, i))
+                            .getFunction());
                     break;
                 case VAR:
                     insertImplTimes();

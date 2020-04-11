@@ -41,6 +41,7 @@ public class HeroConstructor {
     public void setArtist(String artist) { this.artist = artist; }
     public void setGender(Character gender) { this.gender = gender; }
     public void setWeaponType(String weaponType) {
+        //todo: rework WeaponClass to do this instead of doing it here twice
         switch (weaponType) {
             case "Red Sword":
                 this.weaponType = WeaponClass.SWORD;
@@ -59,6 +60,9 @@ public class HeroConstructor {
                 break;
             case "Green Tome":
                 this.weaponType = WeaponClass.GREEN_TOME;
+                break;
+            case "Colorless Tome":
+                this.weaponType = WeaponClass.COLORLESS_TOME;
                 break;
             case "Colorless Staff":
                 this.weaponType = WeaponClass.STAFF;

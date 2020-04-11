@@ -18,7 +18,8 @@ public enum Origin {
     FE14("Fire Emblem: Fates"),
     FE15("Fire Emblem: Echoes: Shadows of Valentia"),
     FE16("Fire Emblem: Three Houses"),
-    HEROES("Fire Emblem: Heroes");
+    HEROES("Fire Emblem: Heroes"),
+    ENCORE("Tokyo Mirage Sessions ♯FE Encore");
 
 
 
@@ -51,6 +52,7 @@ public enum Origin {
             case "Fire Emblem Echoes: Shadows of Valentia": return FE15;
             case "Fire Emblem: Three Houses": return FE16;
             case "Fire Emblem Heroes": return HEROES;
+            case "Tokyo Mirage Sessions ♯FE Encore": return ENCORE;
         }
 
         new Error("an unknown origin was discovered! \""+origin+"\"").printStackTrace();

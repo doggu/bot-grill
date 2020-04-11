@@ -171,6 +171,64 @@ public class Matrix {
     }
 
 
+    private static Fraction determinant(Fraction[][] matrix)
+            throws NotSquareException {
+        //TODONE: my object oriented brain isn't working today
+        // need to dereference all these fractions i'm multiplying
+        // so that they don't get affected in the original matrix
+
+        //TODO: that's done but it was sort of guess-and-check;
+        // clean up and rationalize duplications
+        System.out.println(new Matrix(matrix));
+        System.out.println();
+        if (matrix.length!=matrix[0].length)
+            throw new NotSquareException();
+        int s = matrix.length;
+
+        if (s==1) return matrix[0][0];
+        else if (s==2) {//ad-bc, could go to s = 1 but that's just expensive
+            return matrix[0][0].multiplyBy(matrix[1][1])
+                    .subtract(matrix[0][1].multiplyBy(matrix[1][0]));
+        }
+
+        Fraction determinant = new Fraction(0);
+
+        for (int i=0; i<s; i++) {
+            Fraction[][] mini = new Fraction[s-1][s-1];
+            int mRow = 0, mCol = 0;
+                        //do not do first row
+            for (int row=1; row<s; row++) {
+                for (int col=0; col<s; col++) {
+                    if (col==i) continue;
+                    Fraction get = matrix[row][col].duplicate();
+                    mini[mRow][mCol] = get;
+                    mCol++;
+                }
+                mRow++;
+                mCol = 0;
+            }
+
+            mini = new Matrix(mini).reduce().matrix;
+
+            Fraction mDet = matrix[0][i].duplicate()
+                    .multiplyBy(determinant(mini));
+
+            determinant.add(mDet.multiplyBy((i%2==0?1:-1)));
+
+            determinant.reduce();
+        }
+
+        return determinant;
+    }
+
+    public Fraction determinant() throws NotSquareException {
+        return determinant(this.matrix);
+    }
+
+    private boolean inversible() throws NotSquareException {
+        return !determinant().matches(0);}
+
+
     public static void main(String[] args) {
         Matrix m = new Matrix(new int[][]{
                 //C3H8O + O2 -> H2O + CO2
@@ -197,10 +255,24 @@ public class Matrix {
                 {0, 2, -2, -1}
         });
 
-        m.reducedRowEchelonForm()
-                .reduce()
-                .whole();
+        //m.reducedRowEchelonForm()
+        //        .reduce()
+        //        .whole();
 
-        System.out.println(m);
+        Matrix detTest = new Matrix(new int[][]{
+                {1, 3, 5, 9},
+                {1, 3, 1, 7},
+                {4, 3, 9, 7},
+                {5, 2, 0, 9}
+                //{1, 2, 3},
+                //{4, 1, 0},
+                //{5, 6, 1}
+        });
+
+        try {
+            System.out.println(detTest.determinant());
+        } catch (NotSquareException nse) {
+            System.out.println("houston");
+        }
     }
 }

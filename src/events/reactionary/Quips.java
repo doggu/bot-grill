@@ -1,7 +1,7 @@
 package events.reactionary;
 
-import net.dv8tion.jda.core.events.message.MessageReceivedEvent;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 public class Quips extends ListenerAdapter {
     @Override
@@ -11,8 +11,13 @@ public class Quips extends ListenerAdapter {
             event.getMessage().addReaction("\uD83D\uDC4C").complete();
 
         if (event.getAuthor().getId().equals("425348396015157258"))
-            if (event.getMessage().getContentRaw().toLowerCase().contains("okay"))
-                event.getMessage().addReaction(event.getJDA().getEmoteById("581366103872372738"))
+            if (event.getMessage().getContentRaw().toLowerCase()
+                    .contains("okay"))
+                //noinspection ConstantConditions
+                event.getMessage()
+                        .addReaction(
+                                event.getJDA()
+                                .getEmoteById("581366103872372738"))
                         .complete();
     }
 }

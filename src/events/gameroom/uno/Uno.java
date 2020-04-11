@@ -2,8 +2,8 @@ package events.gameroom.uno;
 
 import events.gameroom.Lobby;
 import events.gameroom.TextGame;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 
 public class Uno extends Lobby {
     public Uno(User author, MessageChannel channel) {

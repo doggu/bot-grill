@@ -1,13 +1,12 @@
 package events.commands;
-
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.entities.Emote;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Emote;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Girl extends Command {
-    private static String[] girlNames = {
+    private static final String[] girlNames = {
             //main
             "highlvlthinking",
             "we",
@@ -56,7 +55,7 @@ public class Girl extends Command {
             "trouble",
     };
 
-    private List<Emote> girls = new ArrayList<>();
+    private final List<Emote> girls = new ArrayList<>();
 
 
 
@@ -81,7 +80,8 @@ public class Girl extends Command {
             int pkgs = 0;
             for (int i=1; i<=times; i++) {
                 int r = (int) Math.floor(Math.random()*girls.size());
-                String emote = "<:"+girls.get(r).getName()+":"+girls.get(r).getId()+">";
+                String emote = "<:"+girls.get(r).getName()+
+                        ":"+girls.get(r).getId()+">";
                 msg.append(emote);
                 if (i%40==0) {
                     sendMessage(msg);
@@ -99,8 +99,7 @@ public class Girl extends Command {
     }
 
     public boolean isCommand() {
-        return args[0].equalsIgnoreCase("girl");
-    }
+        return args[0].equalsIgnoreCase("girl"); }
 
     private void compileList() {
         JDA jda = e.getJDA();
@@ -111,7 +110,8 @@ public class Girl extends Command {
                 System.out.println("broke");
                 System.out.println(name);
             } else if (e.size()>1) {
-                System.out.println("wtf, there are two emotes with the exact same name");
+                System.out.println("wtf, there are two emotes " +
+                                   "with the exact same name");
             } else {
                 girls.add(e.get(0));
             }
@@ -121,13 +121,15 @@ public class Girl extends Command {
 
 
     public String getName() { return "Girl"; }
-    public String getDescription() { return "Print a bunch of emotes of girls!"; }
+    public String getDescription() {
+        return "Print a bunch of emotes of girls!"; }
     public String getFullDescription() {
         return getDescription()+"\n" +
                 "Syntax: \"?Girl\" OR \"?Girl [number of girls]\"\n" +
-                "The first syntax will react to the command message with a random girl, while " +
-                "the second syntax will print as many girls as indicated. Too large a number " +
-                "will produce a serious amount of messages—please use wisely!";
+                "The first syntax will react to the command message with " +
+                "a random girl, while the second syntax will print as many " +
+                "girls as indicated. Too large a number will produce a " +
+                "serious amount of messages—please use wisely!";
 
     }
 }

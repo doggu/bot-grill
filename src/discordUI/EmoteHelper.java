@@ -1,15 +1,17 @@
 package discordUI;
 
 import main.BotMain;
-import net.dv8tion.jda.core.entities.Emote;
+import net.dv8tion.jda.api.entities.Emote;
 
 public class EmoteHelper {
     public static Emote getEmote(String name) {
         try {
-            return BotMain.bot_grill.getEmotesByName(name, true).get(0);
+            return BotMain.bot_grill.getEmotesByName(name, true)
+                    .get(0);
         } catch (IndexOutOfBoundsException ioobe) {
+            int r = (int)(Math.random()*BotMain.bot_grill.getEmotes().size());
             return BotMain.bot_grill.getEmotes()
-                    .get((int)(Math.random()*BotMain.bot_grill.getEmotes().size()));
+                    .get(r);
         }
     }
     //todo: put this in some lower level class

@@ -2,15 +2,14 @@ package main;
 
 import events.commands.Emotes;
 import events.commands.Girl;
+import events.commands.TimerListener;
 import events.commands.campus.CanIEatRightNow;
+import events.fehGame.analysis.UnitComparisonListener;
 import events.stem.chem.*;
 import events.commands.gamble.Chances;
 import events.commands.gamble.Roll;
 import events.commands.help.Help;
-import events.stem.math.FracCalcListener;
-import events.stem.math.GradientDescentListener;
-import events.stem.math.MathListener;
-import events.stem.math.SoftGCFListener;
+import events.stem.math.*;
 import events.stem.unitConverter.UnitConversionListener;
 import events.commands.mcserver.ServerInput;
 import events.devTools.DevTools;
@@ -31,10 +30,13 @@ import events.stem.unitConverter.UnitRemover;
 import feh.characters.HeroDatabase;
 import feh.characters.skills.SkillDatabase;
 import feh.summoning.BannerDatabase;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+//import net.dv8tion.jda.core.AccountType;
+//import net.dv8tion.jda.core.JDA;
+//import net.dv8tion.jda.core.JDABuilder;
+//import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import stem.science.chem.particles.ElementDatabase;
 import events.stem.unitConverter.UnitRegistrar;
 import utilities.Stopwatch;
@@ -46,6 +48,7 @@ import java.util.Scanner;
 
 public class BotMain {
     private static final boolean FEHEROES_UTILS = true;
+    private static final boolean CHEMISTRY = true;
     public static final boolean MCSERVER = false;
 
     public static final boolean DEBUG = true; //it's always debug time
@@ -87,7 +90,12 @@ public class BotMain {
         }
 
         fehTime.stop();
-        System.out.println("finished ("+fehTime.timeInSeconds()+")!");
+        System.out.println("finished ("+fehTime.timeInSeconds()+" s)!");
+    }
+
+    private static void preloadScience() {
+        int i = ElementDatabase.ELEMENTS.size();
+        System.out.println("ElementDatabase: "+i);
     }
 
     private static void loadDevTools() {
@@ -107,25 +115,29 @@ public class BotMain {
 
 
     public static void main(String[] rgs) throws Exception {
-        if (FEHEROES_UTILS)
+        if (FEHEROES_UTILS) {
             preloadFEHUtils();
+        }
 
-        bot_grill = new JDABuilder(AccountType.BOT)
-                .setToken(new Scanner(new File("./src/main/token.txt")).nextLine())
+        if (CHEMISTRY) {
+            preloadScience();
+        }
+
+        bot_grill = JDABuilder
+                .createDefault(new Scanner(new File("./src/main/token.txt")).nextLine())
                 .build();
 
-        bot_grill.awaitReady();
+//        bot_grill = new JDABuilder(AccountType.BOT)
+//                .setToken(new Scanner(new File("./src/main/token.txt")).nextLine())
+//                .build();
 
-        //science
-        addListener(new ElementRetriever());
-        addListener(new MolarMass());
-        addListener(new Electronegativity());
-        addListener(new PeriodicTableTrends());
-        addListener(new Balance());
+        bot_grill.awaitReady();
 
         addListener(new UnitConversionListener());
         addListener(new UnitRegistrar());
         addListener(new UnitRemover());
+
+        addListener(new TimerListener());
 
         //gamble
         addListener(new Chances());
@@ -134,6 +146,7 @@ public class BotMain {
         //math
         addListener(new MathListener());
         addListener(new GradientDescentListener());
+        addListener(new Determinant());
 
         addListener(new SoftGCFListener());
         addListener(new FracCalcListener());
@@ -164,11 +177,22 @@ public class BotMain {
             addListener(new OrbBalance());
 
             addListener(new Powercreep());
+            addListener(new UnitComparisonListener());
+        }
+
+        //science
+        if (CHEMISTRY) {
+            addListener(new ElementRetriever());
+            addListener(new MolarMass());
+            addListener(new Electronegativity());
+            addListener(new PeriodicTableTrends());
+            addListener(new Balance());
         }
 
         //minecraft
         addListener(new ServerInput());
 
+        //help
         addListener(new Help());
 
 
@@ -180,7 +204,8 @@ public class BotMain {
         //new Thread(() -> {
             Scanner console = new Scanner(System.in);
             String command;
-            while (!(command = console.nextLine()).toLowerCase().matches(("k(ill)?"))) {
+            while (!(command = console.nextLine()).toLowerCase()
+                    .matches(("k(ill)?"))) {
                 String[] args = command.toLowerCase().split(" ");
                 if (args.length==0) continue;
                 switch (args[0]) {
@@ -228,8 +253,6 @@ public class BotMain {
 
             console.close();
         //}).start();
-
-
 
         System.exit(0);
     }

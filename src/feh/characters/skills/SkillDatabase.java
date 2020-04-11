@@ -3,18 +3,16 @@ package feh.characters.skills;
 import feh.FEHeroesCache;
 import feh.characters.hero.WeaponClass;
 import feh.characters.skills.skillTypes.*;
-import feh.characters.skills.skillTypes.constructionSite.IncompleteDataException;
-import feh.characters.skills.skillTypes.constructionSite.SkillConstructor;
+import feh.characters.skills.skillTypes.constructionSite.*;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import utilities.Stopwatch;
 import utilities.data.Database;
 import utilities.data.WebCache;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -146,7 +144,9 @@ public class SkillDatabase extends Database<Skill> {
 
     protected ArrayList<Skill> getList() {
         System.out.print("processing skills... ");
-        long start = System.nanoTime();
+
+        Stopwatch pTime = new Stopwatch();
+        pTime.start();
 
         ArrayList<Skill> allSkills = new ArrayList<>();
 
@@ -168,10 +168,8 @@ public class SkillDatabase extends Database<Skill> {
 
 
 
-        System.out.println("done ("+
-                new BigDecimal((System.nanoTime()-start)/1000000000.0)
-                        .round(new MathContext(3))+
-                " s)!");
+        System.out.println(pTime.presentResult());
+
         return allSkills;
     }
 
@@ -190,11 +188,12 @@ public class SkillDatabase extends Database<Skill> {
 
         Elements tables = weaponsFile.select("table");
 
+        //TODO: this is literally on the page
         String[] weaponType = {
                 "Sword", "Red Tome",
                 "Lance", "Blue Tome",
                 "Axe", "Green Tome",
-                "Staff",
+                "Colorless Tome", "Staff",
                 "Beast", "Breath", "Bow", "Dagger",
         };
 
@@ -338,7 +337,7 @@ public class SkillDatabase extends Database<Skill> {
 
 
 
-        Elements tables = passivesFile.select("table[class=\'cargoTable noMerge sortable\']");
+        Elements tables = passivesFile.select("table[class='cargoTable noMerge sortable']");
 
         if (tables.size()!=4) {
             System.out.println("unknown table found (or one missing): "+tables.size());
@@ -653,7 +652,7 @@ public class SkillDatabase extends Database<Skill> {
         try {
             baseSkillsFile = Jsoup.parse(HERO_BASE_SKILLS_FILE, "UTF-8");
         } catch (IOException|NullPointerException e) {
-            System.out.println("doin it again because i don't understand priorities...");
+            System.out.println("doin' it again because i don't understand priorities...");
             HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS_PATH);
             if (HERO_BASE_SKILLS_FILE.update()) return getHeroSkills();
             System.out.println("base skills file not found!");

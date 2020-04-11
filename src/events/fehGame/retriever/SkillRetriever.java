@@ -5,7 +5,7 @@ import events.commands.Command;
 import feh.characters.skills.skillTypes.Skill;
 import feh.characters.skills.skillTypes.Weapon;
 import main.BotMain;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +29,8 @@ public class SkillRetriever extends Command {
         for (int i=0; i<nameArr.size(); i++) {
             String x = nameArr.get(i);
             int colon = x.indexOf(':');
-            if (colon>0&&colon<x.length()-1) { //exists and isn't start of string
+                //exists and isn't start of string
+            if (colon>0&&colon<x.length()-1) {
                 params.put(x.substring(0,colon).toLowerCase(),
                         x.substring(colon+1).toLowerCase());
                 nameArr.remove(i);
@@ -110,7 +111,8 @@ public class SkillRetriever extends Command {
             name.append(x).append(" ");
         name.delete(name.length()-1, name.length());
         for (Skill x:SKILLS) {
-            if (!x.getName().toLowerCase().contains(name.toString().toLowerCase())) {
+            if (!x.getName().toLowerCase()
+                    .contains(name.toString().toLowerCase())) {
                 candidates.remove(x);
             }
         }
@@ -127,14 +129,20 @@ public class SkillRetriever extends Command {
                         y = candidates.get(j);
                 if (x!=y) {
                     String xN = x.getName(), yN = y.getName();
-                    if (xN.substring(0,xN.length()-2).equals(yN.substring(0,yN.length()-2)) //same skill
-                            &&xN.charAt(xN.length()-1)!=yN.charAt(yN.length()-1)) { //different numbers
+                    if (xN.substring(0,xN.length()-2)
+                            .equals(yN.substring(0,yN.length()-2)) &&
+                            xN.charAt(xN.length()-1)
+                                    != yN.charAt(yN.length()-1)) {
+                        //different numbers
                         //example of something that would cause an error:
                         //comparing "bark" and "barf"
-                        int xLevel = Integer.parseInt(String.valueOf(xN.charAt(xN.length()-1)));
-                        int yLevel = Integer.parseInt(String.valueOf(yN.charAt(yN.length()-1)));
+                        int xLevel = Integer.parseInt(
+                                String.valueOf(xN.charAt(xN.length()-1)));
+                        int yLevel = Integer.parseInt(
+                                String.valueOf(yN.charAt(yN.length()-1)));
 
-                        if (xLevel==4||yLevel==4) continue; //one's tier 4 which is prolly different
+                        //one's tier 4 which is prolly different
+                        if (xLevel==4||yLevel==4) continue;
 
                         if (xLevel>yLevel) {
                             candidates.remove(y);
@@ -163,7 +171,8 @@ public class SkillRetriever extends Command {
 
 
         for (Skill x:candidates) {
-            //todo: menu for multiple results? (kind of cumbersome for stuff like this)
+            //todo: menu for multiple results?
+            // (kind of cumbersome for stuff like this)
             Message f = sendMessage(FEHPrinter.printSkill(x).build());
 
             if (x instanceof Weapon) {
@@ -227,9 +236,10 @@ public class SkillRetriever extends Command {
 
 
     public String getName() { return "SkillRetriever"; }
-    public String getDescription() { return "Get pertinent info on skills in Fire Emblem Heroes!"; }
+    public String getDescription() {
+        return "Get pertinent info on skills in Fire Emblem Heroes!"; }
     public String getFullDescription() {
         //TODO: this also needs to be written at some point
-        return "wooooooooooooooooooweeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
+        return "wooooooooooooooooooweeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee";
     }
 }

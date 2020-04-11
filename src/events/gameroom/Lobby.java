@@ -2,9 +2,9 @@ package events.gameroom;
 
 import events.ReactionListener;
 import main.BotMain;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import java.util.ArrayList;
 
@@ -22,8 +22,8 @@ public abstract class Lobby extends ReactionListener {
             startGame();
         else {
             joinMessage = sendMessage(
-                    "join " + host.getName() + " for a game of " + getName() + "!\n" +
-                            "current players: " + players.size() + "/" + getMaxPlayers());
+                    "join "+host.getName()+" for a game of "+getName()+"!\n" +
+                    "current players: "+players.size()+"/"+getMaxPlayers());
             joinMessage.addReaction("✅").complete();
             checkLobbyReady();
         }
@@ -72,13 +72,18 @@ public abstract class Lobby extends ReactionListener {
     @Override
     public void onCommand() {
         players.add(e.getUser());
-        e.getChannel().getMessageById(e.getMessageId()).complete().editMessage(
-                "join "+host.getName()+" for a game of "+getName()+"\n" +
-                        "current players: "+players.size()+"/"+getMaxPlayers()).queue();
+        e.getChannel().retrieveMessageById(e.getMessageId())
+                .complete()
+                .editMessage(
+                        "join "+host.getName() +
+                        " for a game of "+getName()+"\n" +
+                        "current players: "+players.size()+"/"+getMaxPlayers())
+                .queue();
         checkLobbyReady();
     }
 
-    public Message sendMessage(String message) { return channel.sendMessage(message).complete(); }
+    public Message sendMessage(String message) {
+        return channel.sendMessage(message).complete(); }
 
 
 

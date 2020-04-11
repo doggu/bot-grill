@@ -20,8 +20,8 @@ public abstract class Action {
     protected Action(FieldedUnit initiator, FieldedUnit receiver) {
         this.initiator = initiator;
         this.receiver = receiver;
-        this.backupInitiator = initiator.clone();
-        this.backupReceiver = receiver.clone();
+        this.backupInitiator = initiator.duplicate();
+        this.backupReceiver = receiver.duplicate();
 
         preview();
     }

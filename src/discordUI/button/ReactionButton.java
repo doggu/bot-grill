@@ -2,18 +2,17 @@ package discordUI.button;
 
 import events.ReactionListener;
 import main.BotMain;
-import net.dv8tion.jda.core.entities.Emote;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageReaction;
-import net.dv8tion.jda.core.events.message.react.MessageReactionAddEvent;
-import net.dv8tion.jda.core.events.message.react.MessageReactionRemoveEvent;
+import net.dv8tion.jda.api.entities.Emote;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageReaction;
+import net.dv8tion.jda.api.events.message.react.MessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.react.MessageReactionRemoveEvent;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class ReactionButton extends ReactionListener {
     private final Message message;
     private final Emote emote;
     private final String emoticon;
-
 
 
     @NotNull
@@ -35,26 +34,30 @@ public abstract class ReactionButton extends ReactionListener {
     }
 
 
-
     public Message getMessage() { return message; }
 
 
-
-    //if a user never uses the button, it may be destroyed by something outside the class
+    //if a user never uses the button, it may
+    //be destroyed by something outside the class
     public void removeButton() {
         if (emote!=null) {
-            for (MessageReaction reaction : e.getJDA().getTextChannelById(
-                    message.getChannel().getId()).getMessageById(message.getId()).complete().getReactions()) {
+            for (MessageReaction reaction : e.getJDA()
+                    .getTextChannelById(message.getChannel().getId())
+                    .retrieveMessageById(message.getId()).complete()
+                    .getReactions()) {
                 if (!reaction.getReactionEmote().isEmote()) continue;
                 if (reaction.getReactionEmote().getEmote().equals(emote)) {
                     reaction.removeReaction().queue();
                 }
             }
         } else {
-            for (MessageReaction reaction : e.getJDA().getTextChannelById(
-                    message.getChannel().getId()).getMessageById(message.getId()).complete().getReactions()) {
+            for (MessageReaction reaction : e.getJDA()
+                    .getTextChannelById(message.getChannel().getId())
+                    .retrieveMessageById(message.getId()).complete()
+                    .getReactions()) {
                 if (reaction.getReactionEmote().isEmote()) continue;
-                if (reaction.getReactionEmote().toString().equals("RE:"+emoticon+"(null)")) {
+                if (reaction.getReactionEmote().toString()
+                        .equals("RE:"+emoticon+"(null)")) {
                     reaction.removeReaction().queue();
                 }
             }
@@ -62,7 +65,6 @@ public abstract class ReactionButton extends ReactionListener {
 
         commitSuicide();
     }
-
 
 
     public void onMessageReactionAdd(MessageReactionAddEvent event) {
@@ -84,9 +86,11 @@ public abstract class ReactionButton extends ReactionListener {
         if (!e.getMessageId().equals(message.getId())) return false;
 
         if (emote!=null)
-            return e.getReactionEmote().getEmote().getId().equals(emote.getId());
+            return e.getReactionEmote().getEmote().getId()
+                    .equals(emote.getId());
         else
-            return e.getReactionEmote().toString().equals("RE:"+emoticon+"(null)");
+            return e.getReactionEmote().toString()
+                    .equals("RE:"+emoticon+"(null)");
     }
 
     public abstract void onCommand();

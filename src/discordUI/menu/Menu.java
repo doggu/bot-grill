@@ -2,10 +2,10 @@ package discordUI.menu;
 
 import events.ReactionListener;
 import main.BotMain;
-import net.dv8tion.jda.core.MessageBuilder;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import java.util.ArrayList;
 
@@ -32,7 +32,8 @@ public class Menu extends ReactionListener {
 
 
 
-    public Menu(User user, MessageChannel channel, Message header, ArrayList<MenuEntry> entries) {
+    public Menu(User user, MessageChannel channel,
+                Message header, ArrayList<MenuEntry> entries) {
         this.user = user;
         this.entries = entries;
         this.windows = generateWindows(header);
@@ -50,9 +51,9 @@ public class Menu extends ReactionListener {
         ArrayList<Message> windows = new ArrayList<>();
 
         MessageBuilder embed = new MessageBuilder(header).append("\n\n");
+
         for (int i=0; i<entries.size(); i++) {
             embed.append(i%5+1).append(". ").append(entries.get(i).getTitle());
-
             if ((i+1)%5==0) {
                 windows.add(embed.build());
                 embed = new MessageBuilder(header).append("\n\n");
@@ -60,7 +61,8 @@ public class Menu extends ReactionListener {
                 embed.append('\n');
         }
 
-        if (!embed.toString().equals(new MessageBuilder(header).append("\n\n").toString()))
+        if (!embed.toString()
+                .equals(new MessageBuilder(header).append("\n\n").toString()))
             windows.add(embed.build());
 
         return windows;
@@ -117,7 +119,8 @@ public class Menu extends ReactionListener {
         if (e.getUser().isBot()) return false;
         if (!e.getUser().getId().equals(user.getId())) return false;
 
-        return e.getChannel().getMessageById(e.getMessageId()).complete().equals(message);
+        return e.getChannel().retrieveMessageById(e.getMessageId()).complete()
+                .equals(message);
     }
 
     public void onCommand() {
@@ -157,7 +160,9 @@ public class Menu extends ReactionListener {
                             displayEntry(5);
                             break;
                         default:
-                            System.out.println(e.getReaction().getReactionEmote().toString());
+                            System.out.println(
+                                    e.getReaction().getReactionEmote()
+                                            .toString());
                             break;
                     }
                 } catch (IndexOutOfBoundsException ioobe) {

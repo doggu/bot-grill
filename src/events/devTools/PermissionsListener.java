@@ -1,7 +1,7 @@
 package events.devTools;
 
 import events.MessageListener;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.User;
 import utilities.permissions.DumbRequest;
 import utilities.permissions.InsufficientPermissionsException;
 import utilities.permissions.OverextendingPermissionException;
@@ -10,7 +10,8 @@ import utilities.permissions.Permissions;
 import java.io.IOException;
 
 public class PermissionsListener extends MessageListener {
-    public boolean isCommand() { return args[0].equalsIgnoreCase("Permissions"); }
+    public boolean isCommand() {
+        return args[0].equalsIgnoreCase("Permissions"); }
 
     public void onCommand() {
         if (args.length==1) {
@@ -22,7 +23,8 @@ public class PermissionsListener extends MessageListener {
         switch (args[1]) {
             case "set":
                 if (args.length!=4) {
-                    sendMessage("Syntax: `?Permissions set [target id] [level]`");
+                    sendMessage("Syntax: " +
+                            "'?Permissions set [target id] [level]'");
                 }
 
                 long idSet;
@@ -37,25 +39,33 @@ public class PermissionsListener extends MessageListener {
                 try {
                     pLevel = Integer.parseInt(args[3]);
                 } catch (NumberFormatException nfe) {
-                    sendMessage("incorrect permission format! please try again.");
+                    sendMessage("incorrect permission format! " +
+                            "please try again.");
                     return;
                 }
 
                 try {
-                    Permissions.setPermissions(e.getAuthor().getIdLong(), idSet, pLevel);
-                    sendMessage("successfully changed/added permissions for "+e.getJDA().getUserById(idSet));
+                    Permissions.setPermissions(
+                            e.getAuthor().getIdLong(),
+                            idSet,
+                            pLevel);
+                    sendMessage("successfully changed/added permissions for " +
+                            e.getJDA().getUserById(idSet));
                 } catch (InsufficientPermissionsException ipe) {
-                    sendMessage("you do not have sufficient permissions to modify the target!");
+                    sendMessage("you do not have sufficient permissions " +
+                            "to modify the target!");
                 } catch (OverextendingPermissionException ope) {
-                    sendMessage("you cannot elevate a target to a permission level higher than yours!");
+                    sendMessage("you cannot elevate a target to " +
+                            "a permission level higher than yours!");
                 } catch (DumbRequest dr) {
-                    sendMessage("the target is already at that permission level!");
+                    sendMessage("the target is already " +
+                            "at that permission level!");
                 }
                 break;
             case "get":
                 if (args.length<3) {
-                    sendMessage("please either specify the ID of the user or mention them " +
-                            "to see their permission level.");
+                    sendMessage("please either specify the ID of the user " +
+                            "or mention them to see their permission level.");
                     return;
                 }
                 long idGet;
@@ -72,7 +82,8 @@ public class PermissionsListener extends MessageListener {
                     return;
                 }
 
-                sendMessage("their permission level is: "+Permissions.getPermissions(idGet));
+                sendMessage("their permission level is: " +
+                        Permissions.getPermissions(idGet));
                 break;
             case "refresh":
                 try {

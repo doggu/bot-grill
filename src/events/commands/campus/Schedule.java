@@ -18,18 +18,28 @@ public class Schedule {
     static {
         try {
             PIONEER_HALL_HOURS = Jsoup.parse(
-                    new URL("http://www.dining.umn.edu/CampusRestaurants/ResidentialRestaurants/pioneer-eb.html"),
+                    new URL("http://www.dining.umn.edu" +
+                            "/CampusRestaurants" +
+                            "/ResidentialRestaurants" +
+                            "/pioneer-eb.html"),
                     3000);
             UCSB_HOURS = Jsoup.parse(
-                    new URL("https://www.housing.ucsb.edu/dining/dining-commons-hours%E2%80%94academic-year"),
+                    new URL("https://www.housing.ucsb.edu" +
+                            "/dining" +
+                            "/dining-commons-hours%E2%80%94academic-year"),
                     3000);
         } catch (Exception e) {
             try {
                 PIONEER_HALL_HOURS = Jsoup.parse(
-                        new URL("http://www.dining.umn.edu/CampusRestaurants/ResidentialRestaurants/pioneer-eb.html"),
+                        new URL("http://www.dining.umn.edu" +
+                                "/CampusRestaurants" +
+                                "/ResidentialRestaurants" +
+                                "/pioneer-eb.html"),
                         3000);
                 UCSB_HOURS = Jsoup.parse(
-                        new URL("https://www.housing.ucsb.edu/dining/dining-commons-hours%E2%80%94academic-year"),
+                        new URL("https://www.housing.ucsb.edu" +
+                                "/dining" +
+                                "/dining-commons-hours%E2%80%94academic-year"),
                         3000);
             } catch (Exception ex) {
                 throw new Error("well fuck");
@@ -44,7 +54,8 @@ public class Schedule {
     private static Schedule getPioneerHall() {
         Element t = PIONEER_HALL_HOURS.select("table").get(0);
         Elements rows = t.select("tr");
-        if (rows.size()!=7) throw new Error("this isn't the table i was expecting");
+        if (rows.size()!=7)
+            throw new Error("this isn't the table i was expecting");
         /*
         Elements
                 head = rows.get(0).select("td"),
@@ -189,7 +200,8 @@ public class Schedule {
     }
     private static TimeOfDay parseTime(String time) {
         time = time.toLowerCase();
-        if (time.equals("midnight")) return new TimeOfDay(23,59,59.999f);
+        if (time.equals("midnight"))
+            return new TimeOfDay(23,59,59.999f);
         String[] sections = time.split("[:ap]");
         int hour = Integer.parseInt(sections[0]),
                 minute = Integer.parseInt(sections[1]);

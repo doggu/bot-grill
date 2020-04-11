@@ -1,10 +1,9 @@
 package events.gameroom.ticTacToe;
 
-import events.commands.Command;
 import events.gameroom.Lobby;
 import events.gameroom.TextGame;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 
 public class TicTacToe extends Lobby {
     public TicTacToe(User host, MessageChannel channel) {

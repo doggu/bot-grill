@@ -38,7 +38,7 @@ public class SoftGCFListener extends Command {
 
     @Override
     public String getFullDescription() {
-        return "it usually ends up going to the lowest decimal place "+
-                "if the numbers are small enough so idk how useful this really is";
+        return "it usually ends up going to the lowest decimal place if the " +
+                "numbers are small enough so idk how useful this really is";
     }
 }

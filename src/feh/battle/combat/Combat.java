@@ -11,7 +11,8 @@ import feh.battle.FieldedUnit;
 import feh.characters.hero.WeaponClass;
 
 public class Combat extends Action {
-    private FieldedUnit lastAttacker = null; //declared after first doDamage is called
+    //declared after first doDamage is called
+    private FieldedUnit lastAttacker = null;
 
     private CombatPerformance
             initiatorStats = new CombatPerformance(super.initiator),
@@ -41,8 +42,9 @@ public class Combat extends Action {
     /**
      * calculates the damage inflicted by a unit's attack.
      *
-     * @param initiatorAttack whether the initiator or the defender
-     *                  of the combat sequence was the cause of this specific attack.
+     * @param initiatorAttack whether the initiator or the defender of the
+     *                        combat sequence was the cause of this specific
+     *                        attack.
      */
                                 //initiator's attack or not
     private void doDamage(boolean initiatorAttack) {
@@ -52,7 +54,6 @@ public class Combat extends Action {
 
         //for deflects and shit
         lastAttacker = attacker;
-
 
 
         //declare variables which would affect damage calculation
@@ -66,31 +67,37 @@ public class Combat extends Action {
                 //changes defense by a multiplier (e.g. Luna is 0.5)
         double  enemyDefMultiplier = 1.0,
                 //effectiveBonus = 1.0, //goes unused in original code
-                //multiplies calculated damage (not from special damage bonuses such as wo dao) (for astra and stuff)
+                //multiplies calculated damage
+                // (not from special damage bonuses such as wo dao)
+                // (for astra and stuff)
                 dmgMultiplier = 1.0,
-                //provides bonuses for damage (e.g. fire emblem = attacker.combatRes()*0.3)
+                //provides bonuses for damage
+                // (e.g. fire emblem = attacker.combatRes()*0.3)
                 dmgBoost = 0,
                 //adds arbitrary bonuses together (e.g. wo dao, wrath)
                 dmgBoostFlat = 0,
                 absorbPct = 0;
 
 
-        //declare output of battle sequence (not implemented here, but void can be String maybe)
+        //declare output of battle sequence
+        // (not implemented here, but void can be String maybe)
 
         //get defensive stat based on attacker's weapon
-        int relevantDefensiveStat = (attacker.getWeaponType().isPhysical()?defender.getDef():defender.getRes());
+        int relevantDefensiveStat =
+                attacker.getWeaponType().isPhysical()
+                        ? defender.getDef() : defender.getRes();
         //todo: implement adaptive damage
 
 
-
 ////////OFFENSIVE SPECIAL MODIFIERS APPLICATION
-
         boolean offensiveSpecialActivated = false;
 
         if (attacker.specialReady()) {
             //check name to manually calculate extra damage
-            //todo: ask SkillSet for a Function object that is applied in damage calculation?
-            // i'm saying do this later but adding an idea to not feel completely useless
+            //todo: ask SkillSet for a Function object
+            // that is applied in damage calculation?
+            // i'm saying do this later but adding an
+            // idea to not feel completely useless
             enemyDefMultiplier = 2;
             dmgMultiplier = 2;
             dmgBoost = 10;
@@ -101,9 +108,7 @@ public class Combat extends Action {
         }
 
 
-
 ////////WEAPON TRIANGLE ADVANTAGE CALCULATION
-
         int attackerColor = 0;
         switch (attacker.getColor()) {
             case 'g':

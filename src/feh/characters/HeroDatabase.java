@@ -11,14 +11,13 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import utilities.Stopwatch;
 import utilities.data.Database;
 import utilities.data.WebCache;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
@@ -269,10 +268,8 @@ public class HeroDatabase extends Database<Hero> {
     }
 
 
-
     public static HeroDatabase DATABASE;
     public static ArrayList<Hero> HEROES;
-
 
 
     private static final String HERO_SUBDIR = "/herodata/";
@@ -282,12 +279,12 @@ public class HeroDatabase extends Database<Hero> {
             GROWTH_RATES = "Growth_rate_table",
             HERO_LIST = "List_of_Heroes";
 
-    private static FEHeroesCache
+    private static final FEHeroesCache
             LV1_STATS_FILE,
             GROWTH_RATES_FILE,
             HERO_LIST_FILE;
 
-    private static FEHeroesCache[] HERO_FILES;
+    private static final FEHeroesCache[] HERO_FILES;
 
     static {
         LV1_STATS_FILE = new FEHeroesCache(LV1_STATS, HERO_SUBDIR);
@@ -307,21 +304,19 @@ public class HeroDatabase extends Database<Hero> {
     }
 
 
-
     @Override
     protected WebCache[] getOnlineResources() {
-        return HERO_FILES;
-    }
-
+        return HERO_FILES; }
 
     @Override
     public Hero getRandom() {
-        return HEROES.get((int) (Math.random()*HEROES.size()));
-    }
+        return HEROES.get((int) (Math.random()*HEROES.size())); }
 
     protected ArrayList<Hero> getList() {
         System.out.print("processing heroes... ");
-        long start = System.nanoTime();
+
+        Stopwatch pTime = new Stopwatch();
+        pTime.start();
 
         ArrayList<Hero> heroes = new ArrayList<>();
 
@@ -338,20 +333,27 @@ public class HeroDatabase extends Database<Hero> {
             return new ArrayList<>();
         }
 
-        Elements lv1StatsTable = lv1StatsFile.select("table").select("tbody").select("tr"),
-                growthRatesTable = growthRatesFile.select("table").select("tbody").select("tr"),
-                heroListTable = heroListFile.select("table").select("tbody").select("tr"),
-                artistsTable = heroListFile.select("table").select("tbody").select("tr");
+        Elements lv1StatsTable = lv1StatsFile
+                        .select("table").select("tbody").select("tr"),
+                growthRatesTable = growthRatesFile
+                        .select("table").select("tbody").select("tr"),
+                heroListTable = heroListFile
+                        .select("table").select("tbody").select("tr"),
+                artistsTable = heroListFile
+                        .select("table").select("tbody").select("tr");
 
         lv1StatsTable.remove(0);
         growthRatesTable.remove(0);
         heroListTable.remove(0); //why is it getting the header
 
-        if (lv1StatsTable.size()!=growthRatesTable.size()||growthRatesTable.size()!=heroListTable.size()) {
+        if (lv1StatsTable.size()!=growthRatesTable.size() ||
+                growthRatesTable.size()!=heroListTable.size()) {
             System.out.println("unevenness detected; some units will be missing!");
         }
 
-        while (lv1StatsTable.size()>0&&growthRatesTable.size()>0&&heroListTable.size()>0) {
+        while (lv1StatsTable.size()>0 &&
+                growthRatesTable.size()>0 &&
+                heroListTable.size()>0) {
             HeroConstructor
                     merge,
                     lv1StatsMerge = getLv1Constructor(lv1StatsTable.get(0)),
@@ -379,8 +381,10 @@ public class HeroDatabase extends Database<Hero> {
             merge.setArtist(ARTISTS.get(merge.getFullName().toString()));
 
             try {
-                merge.setGamepediaLink(new URL("https://feheroes.gamepedia.com/" +
-                        merge.getFullName().toString().replaceAll(" ", "_")));
+                merge.setGamepediaLink(
+                        new URL("https://feheroes.gamepedia.com/" +
+                        merge.getFullName().toString()
+                                .replace(" ", "_")));
             } catch (MalformedURLException murle) {
                 System.out.println(merge.toString()+" couldn't produce a link!");
                 merge.setGamepediaLink(null);
@@ -398,9 +402,7 @@ public class HeroDatabase extends Database<Hero> {
             artistsTable.remove(0);
         }
 
-        System.out.println("done (" +
-                new BigDecimal((System.nanoTime()-start)/1000000000.0).round(new MathContext(3)) +
-                " s)!");
+        System.out.println(pTime.presentResult());
         return heroes;
     }
 
@@ -490,7 +492,9 @@ public class HeroDatabase extends Database<Hero> {
             c.setRarity(Integer.parseInt(String.valueOf(r.charAt(0))));
         } catch (NumberFormatException nfe) {
             if (BotMain.DEBUG)
-                System.out.println("issues getting rarity for "+c.getFullName()+": "+nfe.getMessage());
+                System.out.println("issues getting rarity for " +
+                        c.getFullName()+": "+nfe.getMessage()+
+                        "\n\t\tsubstituting 3*-4*");
             c.setRarity(-1);
         }
 
@@ -581,13 +585,19 @@ public class HeroDatabase extends Database<Hero> {
     private static HashMap<String, String> getArtists() {
         Document artistsFile;
         try {
-            artistsFile = Jsoup.parse(new FEHeroesCache("Artists", HERO_SUBDIR), "UTF-8");
+            artistsFile = Jsoup.parse(
+                    new FEHeroesCache("List_of_artists", HERO_SUBDIR),
+                    "UTF-8");
         } catch (Exception e) {
             e.printStackTrace();
             return new HashMap<>();
         }
 
-        Elements rows = artistsFile.select("table").select("tbody").get(0).children();
+        Elements rows = artistsFile
+                .select("tr");
+        rows.remove(0); //remove header which is in body for some reason
+
+//        System.out.println(rows);
 
         HashMap<String, String> artists = new HashMap<>();
 
@@ -596,7 +606,7 @@ public class HeroDatabase extends Database<Hero> {
 
             String artist = items.get(0).text();
 
-            Elements characters = items.get(1).children().select("td");
+            Elements characters = items.get(1).children().get(0).children();
 
             for (Element character:characters) {
                 String name = character.select("a").get(0).attr("title");
@@ -605,17 +615,19 @@ public class HeroDatabase extends Database<Hero> {
         }
 
         //todo: retrieve individual artists manually each time this happens
-        artists.put("Lyn: Lady of the Beach", "teffish");
-        artists.put("Mareeta: The Blade's Pawn", "kiyu");
-        artists.put("Tanith: Forthright Heart", "mattsun! (まっつん！)");
-        artists.put("Ewan: Eager Student", "azu‐taro (azuタロウ)");
-        artists.put("Tethys: Beloved Dancer", "tokki");
-        artists.put("Mareeta: Sword of Stars", "idk lmao");
-        artists.put("Tanya: Dagdar's Kid", "idk lmao");
+//        artists.put("Lyn: Lady of the Beach", "teffish");
+//        artists.put("Mareeta: The Blade's Pawn", "kiyu");
+//        artists.put("Tanith: Forthright Heart", "mattsun! (まっつん！)");
+//        artists.put("Ewan: Eager Student", "azu‐taro (azuタロウ)");
+//        artists.put("Tethys: Beloved Dancer", "tokki");
+//        artists.put("Mareeta: Sword of Stars", "idk lmao");
+//        artists.put("Tanya: Dagdar's Kid", "idk lmao");
+//        artists.put("Jaffar: Angel of Night", "motsutsu");
+//        artists.put("Anna: Wealth-Wisher", "hanekoto (はねこと)");
+//        artists.put("Tsubasa: Madcap Idol", "azu‐taro (azuタロウ)");
 
         return artists;
     }
-
 
 
     private static GregorianCalendar parseDate(String date) throws NumberFormatException {
@@ -669,5 +681,14 @@ public class HeroDatabase extends Database<Hero> {
                                                             //(which is one less than the already-defined int)
         //yes
         return new GregorianCalendar(year, month, day);
+    }
+
+
+    public static void main(String[] args) {
+        HashMap<String, String> artists = getArtists();
+
+        for (String art : artists.keySet()) {
+            System.out.println(art);
+        }
     }
 }

@@ -1,15 +1,13 @@
 package events.gameroom.ticTacToe;
 
 import events.gameroom.TextGame;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import java.util.ArrayList;
 
 public class Game extends TextGame {
-    private final ArrayList<User> players;
-    private final MessageChannel channel;
     private User activePlayer;
     private User inactivePlayer;
     private char[] board = {
@@ -23,8 +21,7 @@ public class Game extends TextGame {
 
 
     public Game(ArrayList<User> players, MessageChannel channel) {
-        this.players = players;
-        this.channel = channel;
+        super(players, channel);
         activePlayer = players.get(0);
         inactivePlayer = players.get(1);
         startGame();
@@ -43,10 +40,12 @@ public class Game extends TextGame {
             //host is X; player 2 is O
             int boardPos = x*3+y;
             if (board[boardPos]!=' ') {
-                sendMessage("you can't mark a spot that's already been marked!");
+                sendMessage("you can't mark a spot " +
+                        "that's already been marked!");
                 return;
             } else {
-                board[boardPos] = (players.indexOf(activePlayer) == 0) ? 'X' : 'O';
+                board[boardPos] =
+                        (players.indexOf(activePlayer) == 0) ? 'X' : 'O';
             }
         } catch (IndexOutOfBoundsException oor) {
             sendMessage("incorrect format! please try again.");
@@ -61,17 +60,15 @@ public class Game extends TextGame {
             return;
         } else if (turns==9){
             sendMessage("it's a draw!");
-            //TODO: create a command for this line below and implement it throughout
-            e.getJDA().removeEventListener(this);
+            this.commitSuicide();
             return;
-            //continue
         }
 
         //swap active player and change turns
         User temp = activePlayer;
         activePlayer = inactivePlayer;
         inactivePlayer = temp;
-        sendMessage(activePlayer.getName()+"\'s turn!");
+        sendMessage(activePlayer.getName()+"'s turn!");
     }
     private boolean hasWon() {
         for (int i=0; i<3; i++) {
@@ -142,7 +139,9 @@ public class Game extends TextGame {
             case "mark":
                 if (args.length>1) {
                     if (args[1].length() != 2) {
-                        sendMessage("incorrect format! please indicate row and column as two conjoined characters " +
+                        sendMessage("incorrect format! " +
+                                "please indicate row and column " +
+                                "as two conjoined characters " +
                                 "(e.x. \"b2\")");
                         return;
                     } else playMove();
@@ -162,10 +161,5 @@ public class Game extends TextGame {
         if (args.length==0) return false;
 
         return true;
-    }
-
-    @Override
-    protected Message sendMessage(String message) {
-        return channel.sendMessage(message).complete();
     }
 }

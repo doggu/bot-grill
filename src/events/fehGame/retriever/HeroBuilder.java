@@ -93,10 +93,12 @@ public class HeroBuilder {
 
 
     private ArrayList<Hero> build() {
-        //gather parameters from scalpers, on each argument with each scalper (that doesn't destroy itself)
+        //gather parameters from scalpers, on each argument
+        //with each scalper (that doesn't destroy itself)
         for (i=0; i<args.size(); i++) {
             for (Function<String, Boolean> scalper:scalpers) {
-                if (scalper.apply(args.get(i))) { //scalper edits global fields during its process
+                    //scalper edits global fields during its process
+                if (scalper.apply(args.get(i))) {
                     //System.out.println(args.get(i));
 
                     args.remove(i);
@@ -106,7 +108,8 @@ public class HeroBuilder {
             }
         }
 
-        ArrayList<Hero> basics = HeroDatabase.DATABASE.findAll(StringUtil.join(args));
+        ArrayList<Hero> basics =
+                HeroDatabase.DATABASE.findAll(StringUtil.join(args));
 
         if (DEBUG) {///*
             System.out.println("\n\n");
@@ -129,7 +132,8 @@ public class HeroBuilder {
 
 
 
-    private final ArrayList<Function<String, Boolean>> scalpers = generateScalpers();
+    private final ArrayList<Function<String, Boolean>>
+            scalpers = generateScalpers();
 
     private ArrayList<Function<String, Boolean>> generateScalpers() {
         ArrayList<Function<String, Boolean>> scalpers = new ArrayList<>();
@@ -152,7 +156,8 @@ public class HeroBuilder {
                             lv1 = Integer.parseInt(s.substring(3)) == 1;
                         else
                             lv1 = Integer.parseInt(s.substring(2)) == 1;
-                    } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                    } catch (IndexOutOfBoundsException |
+                            NumberFormatException e) {
                         return false;
                     }
                     scalpers.remove(this); //heh
@@ -254,7 +259,8 @@ public class HeroBuilder {
                 StringBuilder skillName = new StringBuilder(s.substring(3));
 
                 if (skillName.indexOf("\"")>0) {
-                    skills.add(SkillDatabase.DATABASE.find(skillName.substring(0, skillName.length()-1)));
+                    skills.add(SkillDatabase.DATABASE.find(
+                            skillName.substring(0, skillName.length()-1)));
                     return true;
                 }
 
@@ -263,7 +269,8 @@ public class HeroBuilder {
                 while (i<args.size()) {
                     skillName.append(' ').append(args.get(i));
                     if (endsWith(args.get(i), '"')) {
-                        skillName.delete(skillName.length()-1, skillName.length());
+                        skillName.delete(skillName.length()-1,
+                                         skillName.length());
                         break;
                     }
                     args.remove(i);
@@ -335,19 +342,5 @@ public class HeroBuilder {
         }
 
         return stat;
-    }
-
-    public static void main(String[] args) {
-        SkillDatabase.DATABASE.getRandom();
-        ArrayList<Hero> heroes = new HeroBuilder("+s-h lv1 4* +10 df+5 blue caeda w/sss w/\"Juicy Wave+\"")
-                .build();
-
-        if (heroes==null) return;
-
-        for (Hero x:heroes) {
-            if (x instanceof Unit) {
-                System.out.println("unit");
-            }
-        }
     }
 }

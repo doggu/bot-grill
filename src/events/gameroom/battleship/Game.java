@@ -1,22 +1,15 @@
 package events.gameroom.battleship;
 
 import events.gameroom.TextGame;
-import net.dv8tion.jda.core.entities.MessageChannel;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.MessageChannel;
+import net.dv8tion.jda.api.entities.User;
 
 import java.util.ArrayList;
 
 public class Game extends TextGame {
-    private final ArrayList<User> players;
-    private final MessageChannel channel;
-
-
-
     public Game(ArrayList<User> players, MessageChannel channel) {
-        this.players = players;
-        this.channel = channel;
+        super(players, channel);
     }
-
 
 
     public boolean isCommand() {

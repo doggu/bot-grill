@@ -1,8 +1,8 @@
 package events.devTools;
 
 import events.MessageListener;
-import net.dv8tion.jda.core.entities.VoiceChannel;
-import net.dv8tion.jda.core.managers.AudioManager;
+import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.managers.AudioManager;
 
 public class DevTools extends MessageListener {
     private static AudioManager am = null;
@@ -24,7 +24,8 @@ public class DevTools extends MessageListener {
                 break;
             case "invade":
                 VoiceChannel channel = e.getGuild()
-                        .getVoiceChannelsByName("musak", true).get(0);
+                        .getVoiceChannelsByName("musak", true)
+                        .get(0);
                 am = e.getGuild().getAudioManager();
 
                 am.openAudioConnection(channel);

@@ -15,7 +15,8 @@ public class CreateLobby extends Command {
     @Override
     public void onCommand() {
         if (args.length==1) {
-            sendMessage("incorrect format! please indicate which game you would like to play.\n" +
+            sendMessage("incorrect format! " +
+                    "please indicate which game you would like to play.\n" +
                     "* format: \"?CreateLobby [game]\"");
             log("invalid lobby creation format");
             return;
@@ -38,7 +39,8 @@ public class CreateLobby extends Command {
                 break;
             default:
                 sendMessage("i don't recognize this game. sorry!");
-                log(e.getAuthor().getName()+" attempted to play unknown game \""+args[1]+"\"");
+                log(e.getAuthor().getName() +
+                        " attempted to play unknown game \""+args[1]+"\"");
                 return;
         }
 
@@ -47,8 +49,10 @@ public class CreateLobby extends Command {
 
 
 
-    public String getName() { return "CreateLobby"; }
-    public String getDescription() { return "Play games with other users!"; }
+    public String getName() {
+        return "CreateLobby"; }
+    public String getDescription() {
+        return "Play games with other users!"; }
     public String getFullDescription() {
         //TODO: write another description
         return "i got better stuff to do so ima write this later, sorry";

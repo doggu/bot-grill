@@ -1,10 +1,10 @@
 package events.stem.math;
 
 import events.commands.Command;
-import stem.math.GradientDescent;
 import stem.math.MathParse;
-
+import stem.math.GradientDescent;
 import java.util.function.Function;
+
 
 public class GradientDescentListener extends Command {
     private final double ACCURACY = 0.000001;
@@ -30,11 +30,12 @@ public class GradientDescentListener extends Command {
             return;
         }
 
-        Function<Double,Double> fxnPrime = x -> (fxn.apply(x)-fxn.apply(x-ACCURACY))/ACCURACY;
-
+        Function<Double,Double> fxnPrime =
+                x -> (fxn.apply(x)-fxn.apply(x-ACCURACY))/ACCURACY;
         double minimum = GradientDescent.gradientDescent(fxnPrime, start);
 
-        sendMessage("the minimum for f(x)="+args[2]+" near "+start+" is: "+minimum);
+        sendMessage("the minimum for f(x)="+args[2] +
+                " near "+start+" is: "+minimum);
     }
 
     public boolean isCommand() {
@@ -42,13 +43,16 @@ public class GradientDescentListener extends Command {
     }
 
 
+    public String getName() {
+        return "GradientDescent"; }
 
-    public String getName() { return "GradientDescent"; }
-    public String getDescription() { return "Find the local minimum of a function."; }
+    public String getDescription() {
+        return "Find the local minimum of a function."; }
+
     public String getFullDescription() {
         return getDescription()+"\n"+
                 "Syntax: \"?GD [function]\"\n" +
-                "similar to the math class, but processes the given function to find " +
-                "the local minimum.";
+                "operationally similar to the math class, but processes " +
+                "the given function to find the local minimum.";
     }
 }

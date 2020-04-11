@@ -9,7 +9,7 @@ import feh.characters.skills.analysis.SkillAnalysis;
 import feh.characters.skills.skillTypes.*;
 import feh.characters.unit.Unit;
 import main.BotMain;
-import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.api.EmbedBuilder;
 import utilities.Range;
 
 import java.awt.*;
@@ -22,13 +22,12 @@ import static feh.characters.HeroDatabase.HEROES;
 import static main.BotMain.DEBUG;
 
 public class FEHPrinter {
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //                                                      HEROES                                                    //
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//                                    HEROES                                  //
+////////////////////////////////////////////////////////////////////////////////
     public static EmbedBuilder printCharacter(Hero x, boolean lv1, int rarity,
-                                               ArrayList<Skill> skills) {
+                                              ArrayList<Skill> skills) {
         EmbedBuilder heroInfo = new EmbedBuilder();
-
         headingInformation(heroInfo, x);
 
         Color color;
@@ -43,15 +42,13 @@ public class FEHPrinter {
                 break;
         }
 
-        heroInfo.setColor(color); //i don't want it to be summonable rarity but idk how to fix it now
-
+        heroInfo.setColor(color); //i don't want it to be summonable rarity
+                                 //but idk how to fix it now
 
 
         String info = "```\n";
-
         info+= rarity + "* lv" + (lv1?1:40) + " stats: \n" +
                 "hp   atk  spd  def  res\n";
-
         String stats, bst;
         if (x.isSummonable()) {
             stats = printStats(x.getAllStats(lv1, rarity, skills));
@@ -60,15 +57,13 @@ public class FEHPrinter {
             stats = printStats(x.getAllStats(lv1, rarity, skills)[1]);
             bst = printBST(x.getAllStats(lv1, rarity)[1]);
         }
-
         info+= stats+"\n\n"+bst+"\n";
-
-        if (!x.isSummonable()) info+= "this unit does not have access to IVs.\n";
+        if (!x.isSummonable())
+            info+= "this unit does not have access to IVs.\n";
         info+= "```";
 
+
         heroInfo.addField("stats",info, false);
-
-
 
         StringBuilder baseKit = new StringBuilder();
         for (int i=0; i<x.getBaseKit().size(); i++) {
@@ -76,7 +71,8 @@ public class FEHPrinter {
             if (i+1!=x.getBaseKit().size()) baseKit.append(", ");
         }
 
-        heroInfo.addField("Base Skills", baseKit.toString(), false);
+        heroInfo.addField("Base Skills",
+                baseKit.toString(), false);
 
         footerInformation(heroInfo, x);
 
@@ -84,30 +80,23 @@ public class FEHPrinter {
     }
     public static EmbedBuilder printUnit(Unit x) {
         EmbedBuilder unitInfo = new EmbedBuilder();
-
         headingInformation(unitInfo, x);
 
         String info = "```\n";
-
         info+= x.getRarity() + "* lv" + x.getLevel() + " stats: \n" +
                 "hp   atk  spd  def  res\n";
-
-        String stats = printStats(x.getStatsArr()), bst = printBST(x.getStatsArr());
-
+        String stats = printStats(x.getStatsArr()),
+               bst = printBST(x.getStatsArr());
         info+= stats+"\n\n"+bst+"\n";
-
         info+= "```";
 
         unitInfo.addField("stats",info, false);
-
         footerInformation(unitInfo, x);
-
 
         return unitInfo;
     }
     public static EmbedBuilder printFieldedUnit(FieldedUnit x) {
         //todo: write FieldedUnit printer
-
 
 
         /*
@@ -119,14 +108,13 @@ public class FEHPrinter {
     }
 
 
-
     private static void headingInformation(EmbedBuilder builder, Hero x) {
-
         /*
         heroInfo.setAuthor(description.toString());
         heroInfo.setDescription('*'+x.getOrigin().toString()+"*\n" +
                 "Debuted "  +
-                (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" +//starts at 0 (january = 0)
+                                                //starts at 0 (january = 0)
+                (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" +
                 x.getReleaseDate().get(Calendar.DAY_OF_MONTH) + "-" +
                 x.getReleaseDate().get(Calendar.YEAR));
          */
@@ -137,8 +125,8 @@ public class FEHPrinter {
         builder.addField(description,
                 '*'+x.getOrigin().toString()+"*\n" +
                         "Artist: "+x.getArtist()+"\n" +
-                        "Debuted "  +
-                        (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" +//starts at 0 (january = 0)
+                        "Debuted "  +               //starts at 0 (january = 0)
+                        (x.getReleaseDate().get(Calendar.MONTH) + 1) + "-" +
                         x.getReleaseDate().get(Calendar.DAY_OF_MONTH) + "-" +
                         x.getReleaseDate().get(Calendar.YEAR),
                 false);
@@ -150,7 +138,10 @@ public class FEHPrinter {
     }
 
     private static void footerInformation(EmbedBuilder builder, Hero x) {
-        builder.addField("Links", "[gamepedia]("+x.getGamepediaLink().toString()+")", true);
+        builder.addField(
+                "Links",
+                "[gamepedia]("+x.getGamepediaLink().toString()+")",
+                true);
     }
 
 
@@ -179,7 +170,8 @@ public class FEHPrinter {
         Range<Integer> bstRange = new Range<>(bst, bst);
 
         bst = 0;
-        for (int i = 0; i < 5; i++) { //does not check neutral case, but it is not necessary
+            //does not check neutral case, but it is not necessary
+        for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
                 if (j == i) continue;
                 for (int k = 0; k < 5; k++) {
@@ -192,17 +184,16 @@ public class FEHPrinter {
             }
         }
 
-        if (bstRange.getMin().equals(bstRange.getMax())) return "BST: "+bstRange.getMin();
-        else return "BST: "+bstRange.getMin()+"-"+bstRange.getMax();
+        return "BST: " + bstRange.getMin()
+                + (bstRange.getMin().equals(bstRange.getMax()) ?
+                        "-" + bstRange.getMax() : "");
     }
 
 
 
-
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //                                                      SKILLS                                                    //
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+//                                    SKILLS                                  //
+////////////////////////////////////////////////////////////////////////////////
     private static final HashMap<Integer, String> SKILL_ICONS;
 
     static {
@@ -223,39 +214,44 @@ public class FEHPrinter {
         EmbedBuilder skill = new EmbedBuilder();
 
         skill.setColor(x.getColor());
-
         skill.setAuthor(x.getName(), x.getLink().toString());
         skill.setDescription(x.getDescription());
-
         skill.setThumbnail(SKILL_ICONS.get(x.getSlot()));
 
         if (x instanceof ActionSkill) { //instanceof targeting skill
             if (x instanceof Weapon) {
-                skill.addField("Might", String.valueOf(((Weapon) x).getMt()), true);
+                skill.addField(
+                        "Might",
+                        String.valueOf(((Weapon) x).getMt()),
+                        true);
             }
 
-            skill.addField("Range", String.valueOf(((ActionSkill) x).getRng()), true);
+            skill.addField(
+                    "Range",
+                    String.valueOf(((ActionSkill) x).getRng()),
+                    true);
         } else if (x instanceof Special) {
-            skill.addField("Cooldown", String.valueOf(((Special) x).getCooldown()), true);
+            skill.addField(
+                    "Cooldown",
+                    String.valueOf(((Special) x).getCooldown()),
+                    true);
         }
-
-
 
         if (x instanceof WeaponRefine) {
             skill.setThumbnail(((WeaponRefine) x).getIconURL().toString());
         }
-
-
 
         if (x instanceof Passive) {
             skill.setThumbnail(((Passive) x).getIcon().toString());
         }
 
 
-
         //something that a unit possesses
         if (!(x instanceof PassiveS)) {
-            skill.addField("Exclusive?", (x.isExclusive()?"Yes":"No"), false);
+            skill.addField(
+                    "Exclusive?",
+                    (x.isExclusive()?"Yes":"No"),
+                    false);
             StringBuilder owners = new StringBuilder();
             int ownerCount = 0;
             for (Hero n:HEROES) {
@@ -264,13 +260,17 @@ public class FEHPrinter {
                     ownerCount++;
                 }
             }
-            if (owners.length() > 0) owners = new StringBuilder(owners.substring(0, owners.length()-2));
-            skill.addField("Owner"+(ownerCount>1?"":"s"), owners.toString(), false);
+            if (owners.length() > 0)
+                owners = new StringBuilder(
+                        owners.substring(0, owners.length()-2));
+            skill.addField(
+                    "Owner"+(ownerCount>1?"s":""),
+                    owners.toString(),
+                    false);
         }
 
 
-
-        //test displays
+        //TESTDISPLAYS
         if (DEBUG) {
             SkillAnalysis analysis = x.getAnalysis();
 
@@ -329,32 +329,16 @@ public class FEHPrinter {
                     skill.addField("WhileUnitLives", analysis.getWhileUnitLives().toString(), false);
             }
         }
-
-
+        //END
 
         return skill;
     }
 
 
 
-
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //                                                    UTILITIES                                                   //
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    private static String printMovementClassEmote(MovementClass type) {
-        return printEmote(
-                BotMain.bot_grill.getEmotesByName("Icon_Move_"+type.toString(), true).get(0));
-    }
-
-    private static String printWeaponClassEmote(char color, WeaponClass type) {
-        return printEmote(
-                BotMain.bot_grill.getEmotesByName("Icon_Class_"+
-                (color=='r'?"Red":(color=='g'?"Green":(color=='b'?"Blue":"Colorless")))+"_"+type.toString(),
-                true).get(0));
-    }
-
-
-
+////////////////////////////////////////////////////////////////////////////////
+//                                  UTILITIES                                 //
+////////////////////////////////////////////////////////////////////////////////
     private static Color
             DEFAULT = Color.MAGENTA,
             HERO_1 = Color.DARK_GRAY,
@@ -364,6 +348,22 @@ public class FEHPrinter {
             HERO_5 = Color.YELLOW,
             HERO_5_10 = new Color(255, 255, 128);
 
+    private static String printMovementClassEmote(MovementClass type) {
+        return printEmote(
+                BotMain.bot_grill.getEmotesByName(
+                        "Icon_Move_"+type.toString(),
+                        true).get(0));
+    }
+
+    private static String printWeaponClassEmote(char color, WeaponClass type) {
+        return printEmote(
+                BotMain.bot_grill.getEmotesByName("Icon_Class_"+
+                        (color=='r'?"Red":
+                                (color=='g'?"Green":
+                                        (color=='b'?"Blue":"Colorless")))
+                        +"_"+type.toString(),
+                true).get(0));
+    }
 
     private static Color palatte(Object o) {
         Color color;

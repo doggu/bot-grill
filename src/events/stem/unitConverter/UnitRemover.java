@@ -1,8 +1,6 @@
 package events.stem.unitConverter;
 
-import discordUI.button.PersonalButton;
 import events.commands.Command;
-import net.dv8tion.jda.core.entities.Message;
 import stem.science.unitConverter.UnitDatabase;
 import stem.science.unitConverter.units.ComplexUnit;
 import stem.science.unitConverter.units.Unit;
@@ -13,7 +11,8 @@ public class UnitRemover extends Command {
     @Override
     public void onCommand() {
         if (args.length!=2) {
-            sendMessage("please only include one argument—the name or symbol of the unit.");
+            sendMessage("please only include one argument—" +
+                    "the name or symbol of the unit.");
             return;
         }
 
@@ -40,7 +39,8 @@ public class UnitRemover extends Command {
         }
         /*
         if (dependentUnits.size()>0) {
-            Message message = sendMessage("some units will are dependent and will have to be removed. continue?\n" +
+            Message message = sendMessage("some units are dependent " +
+                    "and will have to be removed. continue?\n" +
                     "```"+dependentUnits+"```");
 
             new PersonalButton(message,

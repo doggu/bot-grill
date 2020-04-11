@@ -6,7 +6,7 @@ import feh.characters.unit.Unit;
 import feh.players.relationships.Relationship;
 import feh.players.relationships.Relationships;
 import main.BotMain;
-import net.dv8tion.jda.core.entities.User;
+import net.dv8tion.jda.api.entities.User;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -63,7 +63,10 @@ public class Summoner {
         return orbsSpent;
     }
     public String getUserById() { return userId; }
-    public User getUser() { return BotMain.bot_grill.getUserById(userId); }
+
+    public User getUser() {
+        return BotMain.bot_grill.retrieveUserById(userId).complete();
+    }
     public boolean isSummoning() { return summoning; }
     public CircleSimulator getCurrentSession() { return currentSession; }
     public Barracks getBarracks() { return barracks; }

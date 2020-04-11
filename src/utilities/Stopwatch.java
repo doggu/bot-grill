@@ -13,16 +13,30 @@ public class Stopwatch {
     private long nanosecondsElapsed() { return stop-start; }
     public long timeInMilliseconds() {
         if (start==0) return 0L;
-        if (stop ==0) stop();
+        if (stop==0) stop();
 
         return nanosecondsElapsed()/1000000;
     }
 
     public double timeInSeconds() {
         if (start==0) return 0L;
-        if (stop ==0) stop();
+        if (stop==0) stop();
 
-        return new BigDecimal(nanosecondsElapsed()/1000000000.0)
+        return BigDecimal.valueOf(nanosecondsElapsed() / 1000000000.0)
                 .round(new MathContext(3)).doubleValue();
+    }
+
+    /**
+     * prints out the result of the timer, thereby also stopping it.
+     * @return a string formatted as: "done ([double] s)!"
+     */
+    public String presentResult() {
+        stop();
+        return "done ("+BigDecimal.valueOf(timeInSeconds()).round(new MathContext(3))+")!";
+    }
+
+
+    public double split() {
+        return (start-stop)/1000000000.0;
     }
 }

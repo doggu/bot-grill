@@ -279,12 +279,12 @@ public class HeroDatabase extends Database<Hero> {
             GROWTH_RATES = "Growth_rate_table",
             HERO_LIST = "List_of_Heroes";
 
-    private static FEHeroesCache
+    private static final FEHeroesCache
             LV1_STATS_FILE,
             GROWTH_RATES_FILE,
             HERO_LIST_FILE;
 
-    private static FEHeroesCache[] HERO_FILES;
+    private static final FEHeroesCache[] HERO_FILES;
 
     static {
         LV1_STATS_FILE = new FEHeroesCache(LV1_STATS, HERO_SUBDIR);
@@ -333,20 +333,27 @@ public class HeroDatabase extends Database<Hero> {
             return new ArrayList<>();
         }
 
-        Elements lv1StatsTable = lv1StatsFile.select("table").select("tbody").select("tr"),
-                growthRatesTable = growthRatesFile.select("table").select("tbody").select("tr"),
-                heroListTable = heroListFile.select("table").select("tbody").select("tr"),
-                artistsTable = heroListFile.select("table").select("tbody").select("tr");
+        Elements lv1StatsTable = lv1StatsFile
+                        .select("table").select("tbody").select("tr"),
+                growthRatesTable = growthRatesFile
+                        .select("table").select("tbody").select("tr"),
+                heroListTable = heroListFile
+                        .select("table").select("tbody").select("tr"),
+                artistsTable = heroListFile
+                        .select("table").select("tbody").select("tr");
 
         lv1StatsTable.remove(0);
         growthRatesTable.remove(0);
         heroListTable.remove(0); //why is it getting the header
 
-        if (lv1StatsTable.size()!=growthRatesTable.size()||growthRatesTable.size()!=heroListTable.size()) {
+        if (lv1StatsTable.size()!=growthRatesTable.size() ||
+                growthRatesTable.size()!=heroListTable.size()) {
             System.out.println("unevenness detected; some units will be missing!");
         }
 
-        while (lv1StatsTable.size()>0&&growthRatesTable.size()>0&&heroListTable.size()>0) {
+        while (lv1StatsTable.size()>0 &&
+                growthRatesTable.size()>0 &&
+                heroListTable.size()>0) {
             HeroConstructor
                     merge,
                     lv1StatsMerge = getLv1Constructor(lv1StatsTable.get(0)),
@@ -374,8 +381,10 @@ public class HeroDatabase extends Database<Hero> {
             merge.setArtist(ARTISTS.get(merge.getFullName().toString()));
 
             try {
-                merge.setGamepediaLink(new URL("https://feheroes.gamepedia.com/" +
-                        merge.getFullName().toString().replaceAll(" ", "_")));
+                merge.setGamepediaLink(
+                        new URL("https://feheroes.gamepedia.com/" +
+                        merge.getFullName().toString()
+                                .replace(" ", "_")));
             } catch (MalformedURLException murle) {
                 System.out.println(merge.toString()+" couldn't produce a link!");
                 merge.setGamepediaLink(null);
@@ -483,7 +492,8 @@ public class HeroDatabase extends Database<Hero> {
             c.setRarity(Integer.parseInt(String.valueOf(r.charAt(0))));
         } catch (NumberFormatException nfe) {
             if (BotMain.DEBUG)
-                System.out.println("issues getting rarity for "+c.getFullName()+": "+nfe.getMessage()+
+                System.out.println("issues getting rarity for " +
+                        c.getFullName()+": "+nfe.getMessage()+
                         "\n\t\tsubstituting 3*-4*");
             c.setRarity(-1);
         }

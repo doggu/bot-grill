@@ -1,18 +1,21 @@
 package feh.summoning;
 
 import feh.FEHeroesCache;
+import feh.characters.hero.Hero;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import feh.characters.hero.Hero;
 import utilities.data.Database;
 import utilities.data.WebCache;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Scanner;
 
 public class BannerDatabase extends Database<Banner> {
     public static BannerDatabase DATABASE;
@@ -20,7 +23,7 @@ public class BannerDatabase extends Database<Banner> {
 
     private static final String FOCUS_ARCHIVE = "Summoning_Focus_archive";
 
-    private static FEHeroesCache FOCUS_ARCHIVE_FILE;
+    private static final FEHeroesCache FOCUS_ARCHIVE_FILE;
 
     static {
         FOCUS_ARCHIVE_FILE = new FEHeroesCache(FOCUS_ARCHIVE);
@@ -54,8 +57,15 @@ public class BannerDatabase extends Database<Banner> {
 
         ArrayList<Banner> banners = new ArrayList<>();
 
+        int i = 0;
         for (Element table:tables) {
-            banners.add(createBanner(table)); //@Nullable
+            try {
+                banners.add(createBanner(table)); //@Nullable
+                i++;
+            } catch (Error e) { //todo: specialize errors
+                System.out.println("could not generate banner "+i);
+
+            }
         }
 
         while (banners.contains(null))
@@ -64,8 +74,8 @@ public class BannerDatabase extends Database<Banner> {
 
 
         System.out.println("done (" +
-                new BigDecimal((System.nanoTime()-start)/1000000000.0).round(new MathContext(3)) +
-                " s)!");
+                BigDecimal.valueOf((System.nanoTime()-start)/1000000000.0)
+                        .round(new MathContext(3)) + " s)!");
         return banners;
     }
 
@@ -77,21 +87,15 @@ public class BannerDatabase extends Database<Banner> {
         String name = rows.get(0).text();
 
         //1 is image, "Featured Units", and first row of heroes
-                    //second row, children, second item, children, first item, heroes
+        //second row, children, second item, children, first item, heroes
         Element h1 = rows.get(1).children().get(2).children().get(0);
 
         ArrayList<Hero> summonables;
         int i;
-        try {
-            summonables = getSummonables(h1);
-
-            for (i = 2; i<rows.size()-2; i++) {
-                Element h = rows.get(i).children().get(0).children().get(0);
-                summonables.addAll(getSummonables(h));
-            }
-        } catch (Error e) {
-            e.printStackTrace();
-            return null;
+        summonables = getSummonables(h1);
+        for (i = 2; i<rows.size()-2; i++) {
+            Element h = rows.get(i).children().get(0).children().get(0);
+            summonables.addAll(getSummonables(h));
         }
 
         GregorianCalendar startDate, endDate;
@@ -138,53 +142,30 @@ public class BannerDatabase extends Database<Banner> {
         return BANNERS.get((int)(Math.random()*BANNERS.size()));
     }
 
-    private static GregorianCalendar getDate(String date) throws IllegalArgumentException {
+    private static GregorianCalendar getDate(String date)
+            throws IllegalArgumentException {
         String[] endDateStr = date.split("-");
         int year = Integer.parseInt(endDateStr[0]);
-        int month;
+        int month = Integer.parseInt(endDateStr[1]);
         //this shit so fuckin useless (other than alerting of invalid numbers)
-        switch (Integer.parseInt(endDateStr[1])) {
-            case 1:
-                month = Calendar.JANUARY;
-                break;
-            case 2:
-                month = Calendar.FEBRUARY;
-                break;
-            case 3:
-                month = Calendar.MARCH;
-                break;
-            case 4:
-                month = Calendar.APRIL;
-                break;
-            case 5:
-                month = Calendar.MAY;
-                break;
-            case 6:
-                month = Calendar.JUNE;
-                break;
-            case 7:
-                month = Calendar.JULY;
-                break;
-            case 8:
-                month = Calendar.AUGUST;
-                break;
-            case 9:
-                month = Calendar.SEPTEMBER;
-                break;
-            case 10:
-                month = Calendar.OCTOBER;
-                break;
-            case 11:
-                month = Calendar.NOVEMBER;
-                break;
-            case 12:
-                month = Calendar.DECEMBER;
-                break;
-            default:
-                throw new Error();
+        switch (month) {
+            case 1:     month = Calendar.JANUARY;   break;
+            case 2:     month = Calendar.FEBRUARY;  break;
+            case 3:     month = Calendar.MARCH;     break;
+            case 4:     month = Calendar.APRIL;     break;
+            case 5:     month = Calendar.MAY;       break;
+            case 6:     month = Calendar.JUNE;      break;
+            case 7:     month = Calendar.JULY;      break;
+            case 8:     month = Calendar.AUGUST;    break;
+            case 9:     month = Calendar.SEPTEMBER; break;
+            case 10:    month = Calendar.OCTOBER;   break;
+            case 11:    month = Calendar.NOVEMBER;  break;
+            case 12:    month = Calendar.DECEMBER;  break;
+            default: throw new Error();
         }
         int day = Integer.parseInt(endDateStr[2]);
-        return new GregorianCalendar(year, month, day, 23, 59, 59);
+        int hour = 23, minute = 59, second = 59;
+        return new GregorianCalendar(year, month, day, hour, minute, second);
     }
 
 

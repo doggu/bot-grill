@@ -4,27 +4,45 @@ import feh.battle.map.Tile;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+                                            //TIL enums are naturally comparable
+public enum MovementClass implements HeroClass/*, Comparable<MovementClass>*/ {
+    INFANTRY("Infantry",
+            2,
+            false,
+            true,
+            false,
+            false),
+    ARMORED("Armor",
+            1,
+            false,
+            false,
+            false,
+            false),
+    CAVALRY("Cavalry",
+            3,
+            false,
+            true,
+            true,
+            true),
+    FLYING("Flier",
+            2,
+            true,
+            false,
+            false,
+            false);
 
-public enum MovementClass implements HeroClass {
-    INFANTRY(2, false, true, false, false, "Infantry"),
-    ARMORED(1, false, false, false, false, "Armor"),
-    CAVALRY(3, false, true, true, true, "Cavalry"),
-    FLYING(2, true, false, false, false, "Flier");
 
-
-
+    private final String name;
     private final int range;
     private final boolean
             ignoreTerrain,
             slowedByTrees,
             stoppedByTrees,
             slowedByTrenches;
-    private final String name;
 
-
-
-    MovementClass(int range, boolean ignoreTerrain, boolean slowedByTrees, boolean stoppedByTrees, boolean slowedByTrenches,
-                  String name) {
+    MovementClass(String name, int range,
+                  boolean ignoreTerrain, boolean slowedByTrees,
+                  boolean stoppedByTrees, boolean slowedByTrenches) {
         this.range = range;
         this.ignoreTerrain = ignoreTerrain;
         //technically stoppedByTrees and slowedByTrenches can be one boolean
@@ -33,7 +51,6 @@ public enum MovementClass implements HeroClass {
         this.slowedByTrenches = slowedByTrenches;
         this.name = name;
     }
-
 
 
     public int getRange() { return range; }
@@ -53,7 +70,6 @@ public enum MovementClass implements HeroClass {
     }
 
 
-
     public static MovementClass getClass(String input) {
         switch (input) {
             case "Infantry":
@@ -68,7 +84,6 @@ public enum MovementClass implements HeroClass {
                 return null;
         }
     }
-
 
 
     public String toString() { return name; }
@@ -93,17 +108,12 @@ public enum MovementClass implements HeroClass {
                 return (this.ignoreTerrain?1:-1);
             case TRENCHES:
             case TRENCHES_D:
-                return (this.slowedByTrenches?3:1); //horses must be adjacent to trenches to even move on top of them
+                //horses must be adjacent to trenches to even move on top of em
+                return (this.slowedByTrenches?3:1);
             case WALL:
                 return -1;
             default:
                 return Integer.MAX_VALUE;
         }
-    }
-
-
-
-    public static void main(String[] args) {
-        System.out.println(CAVALRY.getWeight(Tile.FOREST));
     }
 }

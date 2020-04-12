@@ -78,7 +78,8 @@ public enum WeaponClass implements HeroClass {
         if (!(o instanceof WeaponClass)) return false;
 
         //is this a workaround or a solution? find out next time
-        return o==this||(this==TOME&&(o==RED_TOME||o==BLUE_TOME||o==GREEN_TOME))||
+        return o==this ||
+                (this==TOME&&(o==RED_TOME||o==BLUE_TOME||o==GREEN_TOME)) ||
                 (o==TOME&&(this==RED_TOME||this==BLUE_TOME||this==GREEN_TOME));
     }
 }

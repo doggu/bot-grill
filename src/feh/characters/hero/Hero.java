@@ -21,7 +21,8 @@ public class Hero {
 
     //these stats are 3* lv1 (regardless of obtainable rarities)
     private final HeroStats stats;
-    private final int summonableRarity; //TODO: summonable rarity is very complicated these days
+    //TODO: summonable rarity is very complicated these days
+    private final int summonableRarity;
 
     private final Availability availability;
     private final GregorianCalendar dateReleased;
@@ -30,7 +31,9 @@ public class Hero {
     private final ArrayList<Skill> baseKit;
 
 
-    public Hero(HeroName fullName, Origin origin, URL gamepediaLink, URL portraitLink, String artist, char gender,
+    public Hero(HeroName fullName, Origin origin,
+                URL gamepediaLink, URL portraitLink,
+                String artist, char gender,
                 char color, WeaponClass weaponType, MovementClass moveType,
                 int summonableRarity, Availability availability,
                 GregorianCalendar dateReleased,
@@ -54,7 +57,8 @@ public class Hero {
     /**
      * creates a Hero according to the heroes currently in Fire Emblem Heroes
      *
-     * @param name - name of hero; MUST be in exact format: "[name]: [epithet]" (e.x. "Bartre: Fearless Warrior")
+     * @param name - name of hero; MUST be in exact format:
+     *             "[name]: [epithet]" (e.x. "Bartre: Fearless Warrior")
      */
     public Hero(String name) {
         if (name.indexOf(':') < 0) throw new Error("incorrect name format");
@@ -115,14 +119,16 @@ public class Hero {
 
     public HeroName getFullName() { return fullName; }
     public Origin getOrigin() { return origin; }
-    public URL getGamepediaLink() { return gamepediaLink; } //can technically be constructed from hero name
+    //can technically be constructed from hero name
     public URL getPortraitLink() { return portraitLink; }
+    public URL getGamepediaLink() { return gamepediaLink; }
     public String getArtist() { return artist; }
     public char getGender() { return gender; }
     public char getColor() { return color; }
     public WeaponClass getWeaponType() { return weaponType; }
     public MovementClass getMoveType() { return moveType; }
-    public boolean is(HeroClass type) { return weaponType == type || moveType == type; }
+    public boolean is(HeroClass type) {
+        return weaponType == type || moveType == type; }
     // TODO: change to lv40 stats using lv1 stats and growths
     public HeroStats getStats() { return stats; }
     public int getHP() { return stats.getHp(); }
@@ -147,15 +153,18 @@ public class Hero {
     public int[][] getAllStats(boolean lv1, int rarity) {
         return getAllStats(lv1, rarity, null);
     }
-    //todo: swap the trickle down here (skills param should be an offshoot of two-parameter call)
-    public int[][] getAllStats(boolean lv1, int rarity, ArrayList<Skill> skills) {
+    //todo: swap the trickle down here
+    // (skills param should be an offshoot of two-parameter call)
+    public int[][] getAllStats(boolean lv1, int rarity,
+                               ArrayList<Skill> skills) {
         int[][] finalStats = {
                 { stats.getHp(), stats.getAtk(), stats.getSpd(), stats.getDef(), stats.getRes() },
                 { stats.getHp(), stats.getAtk(), stats.getSpd(), stats.getDef(), stats.getRes() },
                 { stats.getHp(), stats.getAtk(), stats.getSpd(), stats.getDef(), stats.getRes() },
         };
 
-        for (int i = 0; i < 3; i++) { //technically (if i==1) return; would be more efficient here
+        for (int i = 0; i < 3; i++) {
+            //technically "if (i==1) continue;" would be more efficient here
             //TeChnicAlLY thIS iS SHiT
             for (int j=0; j<5; j++) {
                 finalStats[i][j] += (i - 1);
@@ -208,7 +217,13 @@ public class Hero {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 5; j++) {
                     //TODO: expand with steps
-                    finalStats[i][j]+= (int)(0.39*((this.stats.getGrowthsAsArray()[j]+5*(i-1))*rarityFactor/100));
+                    finalStats[i][j]+=
+                            (int)
+                                    (0.39*(
+                                            (this.stats.getGrowthsAsArray()[j] +
+                                                    5*(i-1))
+                                            *rarityFactor/100)
+                                    );
                 }
             }
         }
@@ -230,10 +245,11 @@ public class Hero {
 
     private static int[] getStatsSorted(HeroStats stats) {
         int[] statsSorted = {0, 1, 2, 3, 4};
+        int[] stats_a = stats.getStatsAsArray();
 
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 4; j++) {
-                if (stats.getStatsAsArray()[statsSorted[j]] < stats.getStatsAsArray()[statsSorted[j + 1]]) {
+                if (stats_a[statsSorted[j]] < stats_a[statsSorted[j + 1]]) {
                     int t = statsSorted[j + 1];
                     statsSorted[j + 1] = statsSorted[j];
                     statsSorted[j] = t;

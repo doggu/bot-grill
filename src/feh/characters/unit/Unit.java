@@ -15,9 +15,11 @@ public class Unit extends Hero {
     private int merges, dragonflowers;
 
     //skills in superclass becomes repository for all skills
-    private final ArrayList<Skill> allSkills;   //todo: learned and unlearned skills
-                                                // inherited (expensive) and natural skills
-    private final ArrayList<Skill> activeKit;   //todo: create ActiveKit class (with specific slots n shit)
+    //todo: learned and unlearned skills
+    // inherited (expensive) and natural skills
+    private final ArrayList<Skill> allSkills;
+    //todo: create ActiveKit class (with specific slots n shit)
+    private final ArrayList<Skill> activeKit;
 
     //private final Summoner owner
     //todo: this is somewhat redundant to the user's barracks
@@ -48,7 +50,8 @@ public class Unit extends Hero {
      */
     public Unit(Hero hero, int rarity, int boon, int bane,
                 int level, int supportLevels, int merges, int dragonflowers,
-                Blessing blessing, int sp, int hm, ArrayList<Skill> allSkills, ArrayList<Skill> activeKit) {
+                Blessing blessing, int sp, int hm, 
+                ArrayList<Skill> allSkills, ArrayList<Skill> activeKit) {
         super(hero);
         this.rarity = rarity;
         this.boon = boon;
@@ -75,16 +78,26 @@ public class Unit extends Hero {
     }
     public Unit(Hero hero, int rarity, int boon, int bane,
                 int level, int supportLevels, int merges, int dragonflowers) {
-        this(hero, rarity, boon, bane, level, supportLevels, merges, dragonflowers, null, 0, 0);
+        this(hero, rarity, boon, bane, 
+                level, supportLevels, merges, dragonflowers, 
+                null, 0, 0);
     }
-    public Unit(Hero hero, int rarity, int boon, int bane, int level, int supportLevels) {
-        this(hero, rarity, boon, bane, level, supportLevels, 0, 0);
+    public Unit(Hero hero, int rarity, int boon, int bane, 
+                int level, int supportLevels) {
+        this(hero, rarity, boon, bane, 
+                level, supportLevels, 
+                0, 0);
     }
-    public Unit(Hero hero, int rarity, int boon, int bane, int level, int supportLevels, int merges) {
-        this(hero, rarity, boon, bane, level, supportLevels, merges, 0);
+    public Unit(Hero hero, int rarity, int boon, int bane, 
+                int level, int supportLevels, int merges) {
+        this(hero, rarity, boon, bane, 
+                level, supportLevels, merges, 
+                0);
     }
     public Unit(Hero hero, int rarity, int boon, int bane, int level) {
-        this(hero, rarity, boon, bane, level, -1);
+        this(hero, rarity, boon, bane, 
+                level, 
+                -1);
     }
     //experimental, for creating FieldedUnits which extend this
     public Unit(Unit unit) {
@@ -170,35 +183,52 @@ public class Unit extends Hero {
             merges+= 1+u.merges;
         }
     }
-    public void addDF(int dragonflowers) { this.dragonflowers+= dragonflowers; }
-    public void giveSkill(Skill skill) { allSkills.add(skill); }
+    public void addDF(int dragonflowers) { 
+        this.dragonflowers+= dragonflowers; }
+    public void giveSkill(Skill skill) { 
+        allSkills.add(skill); }
     public void equip(ArrayList<Skill> skills) {
-        allSkills.addAll(skills);
-    }
-    public void setBlessing(Blessing blessing) { this.blessing = blessing; }
-    public void setNickname(String nickname) { this.nickname = nickname; }
+        allSkills.addAll(skills); }
+    public void setBlessing(Blessing blessing) {
+        this.blessing = blessing; }
+    public void setNickname(String nickname) {
+        this.nickname = nickname; }
 
 
 
-    public int getRarity() { return rarity; }
-    public int getBoon() { return boon; }
-    public int getBane() { return bane; }
-    public int getLevel() { return level; }
-    public int getMerges() { return merges; }
-    public int getDragonflowers() { return dragonflowers; }
-    public Blessing getBlessing() { return blessing; }
+    public int getRarity() {
+        return rarity; }
+    public int getBoon() {
+        return boon; }
+    public int getBane() {
+        return bane; }
+    public int getLevel() {
+        return level; }
+    public int getMerges() {
+        return merges; }
+    public int getDragonflowers() {
+        return dragonflowers; }
+    public Blessing getBlessing() {
+        return blessing; }
 
-    public ArrayList<Skill> getAllSkills() { return new ArrayList<>(allSkills); }
-    public ArrayList<Skill> getActiveKit() { return new ArrayList<>(activeKit); }
+    public ArrayList<Skill> getAllSkills() {
+        return new ArrayList<>(allSkills); }
+    public ArrayList<Skill> getActiveKit() {
+        return new ArrayList<>(activeKit); }
 
-    public int getHM() { return hm; }
-    public int getSP() { return sp; }
+    public int getHM() {
+        return hm; }
+    public int getSP() {
+        return sp; }
 
-    private boolean hasNickname() { return nickname!=null; }
-    public String getNickname() { return hasNickname()?nickname:getFullName().toString(); }
+    private boolean hasNickname() {
+        return nickname!=null; }
+    public String getNickname() {
+        return hasNickname()?nickname:getFullName().toString(); }
 
     //todo: should a dedicated support refresh button be added?
-    // it would be less intuitive but also remind me to regrab supports for each map
+    // it would be less intuitive but also
+    // remind me to regrab supports for each map
     private static final int
             LEVEL_C = 0,
             LEVEL_B = 8,
@@ -264,7 +294,8 @@ public class Unit extends Hero {
             statsSorted = getStatsSorted(finalStats);
         }
 
-        //this could be simpler in the finalStats creation but it's easier to read like this imo
+        //this could be simpler in the finalStats creation
+        // but it's easier to read like this imo
         if (merges > 0) { //neutralize the bane/add to neutral stats
             if (boon == -1 && bane == -1) {
                 finalStats[statsSorted[0]]++;

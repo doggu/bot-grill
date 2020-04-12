@@ -34,12 +34,18 @@ public class HeroConstructor {
 
 
 
-    public void setFullName(HeroName name) { this.fullName = name; }
-    public void setOrigin(Origin origin) { this.origin = origin; }
-    public void setGamepediaLink(URL gamepediaLink) { this.gamepediaLink = gamepediaLink; }
-    public void setPortraitLink(URL portraitLink) { this.portraitLink = portraitLink; }
-    public void setArtist(String artist) { this.artist = artist; }
-    public void setGender(Character gender) { this.gender = gender; }
+    public void setFullName(HeroName name) {
+        this.fullName = name; }
+    public void setOrigin(Origin origin) {
+        this.origin = origin; }
+    public void setGamepediaLink(URL gamepediaLink) {
+        this.gamepediaLink = gamepediaLink; }
+    public void setPortraitLink(URL portraitLink) {
+        this.portraitLink = portraitLink; }
+    public void setArtist(String artist) {
+        this.artist = artist; }
+    public void setGender(Character gender) {
+        this.gender = gender; }
     public void setWeaponType(String weaponType) {
         //todo: rework WeaponClass to do this instead of doing it here twice
         switch (weaponType) {
@@ -97,7 +103,8 @@ public class HeroConstructor {
 
         color = weaponType.toLowerCase().charAt(0);
     }
-    public void setWeaponType(WeaponClass weaponType) { this.weaponType = weaponType; }
+    public void setWeaponType(WeaponClass weaponType) {
+        this.weaponType = weaponType; }
     public void setMoveType(String moveType) {
         switch (moveType) {
             case "Infantry":
@@ -113,19 +120,29 @@ public class HeroConstructor {
                 this.moveType = MovementClass.FLYING;
                 break;
             default:
-                System.out.println("HeroConstructor got an unidentified move type: "+moveType);
+                System.out.println("HeroConstructor got " +
+                        "an unidentified move type: "+moveType);
                 throw new Error();
         }
     }
-    public void setMoveType(MovementClass moveType) { this.moveType = moveType; }
-    public void setColor(Character color) { this.color = color; }
-    public void setStats(HeroStats stats) { this.stats = stats; }
-    public void setStats(int[] stats) { this.statsArr = stats; }
-    public void setGrowths(int[] growths) { this.growthsArr = growths; }
-    public void setRarity(Integer rarity) { this.rarity = rarity; }
-    public void setAvailability(Availability availability) { this.availability = availability; }
-    public void setDateReleased(GregorianCalendar dateReleased) { this.dateReleased = dateReleased; }
-    public void setBaseKit(ArrayList<Skill> baseKit) { this.baseKit = baseKit; }
+    public void setMoveType(MovementClass moveType) {
+        this.moveType = moveType; }
+    public void setColor(Character color) {
+        this.color = color; }
+    public void setStats(HeroStats stats) {
+        this.stats = stats; }
+    public void setStats(int[] stats) {
+        this.statsArr = stats; }
+    public void setGrowths(int[] growths) {
+        this.growthsArr = growths; }
+    public void setRarity(Integer rarity) {
+        this.rarity = rarity; }
+    public void setAvailability(Availability availability) {
+        this.availability = availability; }
+    public void setDateReleased(GregorianCalendar dateReleased) {
+        this.dateReleased = dateReleased; }
+    public void setBaseKit(ArrayList<Skill> baseKit) {
+        this.baseKit = baseKit; }
 
 
 
@@ -221,20 +238,34 @@ public class HeroConstructor {
             throws MismatchedInputException /*, NullInputException*/ {
         HeroConstructor merge = new HeroConstructor();
 
-        Merger<HeroName> fullName = new Merger<>(h1.fullName, h2.fullName);
-        Merger<Origin> origin = new Merger<>(h1.origin, h2.origin);
-        Merger<URL> gamepediaLink = new Merger<>(h1.gamepediaLink, h2.gamepediaLink);
-        Merger<URL> portraitLink = new Merger<>(h1.portraitLink, h2.portraitLink);
-        Merger<String> artist = new Merger<>(h1.artist, h2.artist);
-        Merger<WeaponClass> weaponType = new Merger<>(h1.weaponType, h2.weaponType);
-        Merger<MovementClass> moveType = new Merger<>(h1.moveType, h2.moveType);
-        Merger<Character> color = new Merger<>(h1.color, h2.color);
-        Merger<Integer> rarity = new Merger<>(h1.rarity, h2.rarity);
-        Merger<Availability> availability = new Merger<>(h1.availability, h2.availability);
-        Merger<GregorianCalendar> dateReleased = new Merger<>(h1.dateReleased, h2.dateReleased);
-        Merger<int[]> stats = new Merger<>(h1.statsArr, h2.statsArr);
-        Merger<int[]> growths = new Merger<>(h1.growthsArr, h2.growthsArr);
-        Merger<ArrayList<Skill>> baseKit = new Merger<>(h1.baseKit, h2.baseKit);
+        Merger<HeroName> fullName = 
+                new Merger<>(h1.fullName, h2.fullName);
+        Merger<Origin> origin = 
+                new Merger<>(h1.origin, h2.origin);
+        Merger<URL> gamepediaLink =
+                new Merger<>(h1.gamepediaLink, h2.gamepediaLink);
+        Merger<URL> portraitLink =
+                new Merger<>(h1.portraitLink, h2.portraitLink);
+        Merger<String> artist =
+                new Merger<>(h1.artist, h2.artist);
+        Merger<WeaponClass> weaponType =
+                new Merger<>(h1.weaponType, h2.weaponType);
+        Merger<MovementClass> moveType =
+                new Merger<>(h1.moveType, h2.moveType);
+        Merger<Character> color =
+                new Merger<>(h1.color, h2.color);
+        Merger<Integer> rarity =
+                new Merger<>(h1.rarity, h2.rarity);
+        Merger<Availability> availability =
+                new Merger<>(h1.availability, h2.availability);
+        Merger<GregorianCalendar> dateReleased =
+                new Merger<>(h1.dateReleased, h2.dateReleased);
+        Merger<int[]> stats =
+                new Merger<>(h1.statsArr, h2.statsArr);
+        Merger<int[]> growths =
+                new Merger<>(h1.growthsArr, h2.growthsArr);
+        Merger<ArrayList<Skill>> baseKit =
+                new Merger<>(h1.baseKit, h2.baseKit);
 
         merge.setFullName(fullName.merge());
         merge.setGamepediaLink(gamepediaLink.merge());

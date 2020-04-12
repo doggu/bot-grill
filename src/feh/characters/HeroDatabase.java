@@ -29,7 +29,8 @@ public class HeroDatabase extends Database<Hero> {
 
         boolean newestOnly = false, oldestOnly = false;
 
-        ArrayList<String> args = new ArrayList<>(Arrays.asList(input.split(" ")));
+        ArrayList<String> args =
+                new ArrayList<>(Arrays.asList(input.split(" ")));
 
         for (int i=0; i<args.size(); i++) {
             String x = args.get(i);
@@ -60,10 +61,12 @@ public class HeroDatabase extends Database<Hero> {
             for (Hero c: HeroDatabase.HEROES) {
                 if (c.getFullName().getName().equalsIgnoreCase(x))
                     candidates.add(c);
-                if (c.getFullName().getName().toLowerCase().indexOf(x.toLowerCase())==0) {
+                if (c.getFullName().getName().toLowerCase()
+                        .indexOf(x.toLowerCase()) == 0) {
                     try {
                         if (c.getFullName().getName()
-                                .equalsIgnoreCase(x+" "+args.get(i+1))) {
+                                .equalsIgnoreCase(
+                                        x+" "+args.get(i+1))) {
                             candidates.add(c);
                         }
                     } catch (IndexOutOfBoundsException ioobe) {
@@ -80,7 +83,8 @@ public class HeroDatabase extends Database<Hero> {
                 while (!foundMatch&&i<args.size()) {
                     for (int j = 0; j < candidates.size(); j++) {
                         Hero c = candidates.get(j);
-                        if (!c.getFullName().getEpithet().toLowerCase().contains(args.get(i).toLowerCase())) {
+                        if (!c.getFullName().getEpithet().toLowerCase()
+                                .contains(args.get(i).toLowerCase())) {
                             candidates.remove(j);
                             j--;
                         }
@@ -97,7 +101,8 @@ public class HeroDatabase extends Database<Hero> {
             if (newestOnly) {
                 Hero newestHero = candidates.get(0);
                 for (Hero x:candidates) {
-                    if (x.getReleaseDate().getTimeInMillis()>newestHero.getReleaseDate().getTimeInMillis()) {
+                    if (x.getReleaseDate().getTimeInMillis() >
+                            newestHero.getReleaseDate().getTimeInMillis()) {
                         newestHero = x;
                     }
                 }
@@ -106,7 +111,8 @@ public class HeroDatabase extends Database<Hero> {
             } else if (oldestOnly) {
                 Hero oldestHero = candidates.get(0);
                 for (Hero x:candidates) {
-                    if (x.getReleaseDate().getTimeInMillis()<oldestHero.getReleaseDate().getTimeInMillis()) {
+                    if (x.getReleaseDate().getTimeInMillis() <
+                            oldestHero.getReleaseDate().getTimeInMillis()) {
                         oldestHero = x;
                     }
                 }
@@ -119,7 +125,8 @@ public class HeroDatabase extends Database<Hero> {
                     //find movement type hints
                     //TODO: use big brein to make this less "coincidental"
                     //these heroes have some of these keywords in their names:
-                    //Clair: Highborn Flier, Florina: Lovely Flier, Shanna: Sprightly Flier
+                    //Clair: Highborn Flier, Florina: Lovely Flier,
+                    //Shanna: Sprightly Flier
                     MovementClass move;
                     switch (x) {
                         case "infantry":
@@ -348,7 +355,8 @@ public class HeroDatabase extends Database<Hero> {
 
         if (lv1StatsTable.size()!=growthRatesTable.size() ||
                 growthRatesTable.size()!=heroListTable.size()) {
-            System.out.println("unevenness detected; some units will be missing!");
+            System.out.println("unevenness detected; " +
+                    "some units will be missing!");
         }
 
         while (lv1StatsTable.size()>0 &&
@@ -365,7 +373,8 @@ public class HeroDatabase extends Database<Hero> {
             } catch (MismatchedInputException mie) {
                 System.out.println("something was mismatched! (first)");
                 mie.printStackTrace();
-                greatest(greatest(lv1StatsTable, growthRatesTable), heroListTable).remove(0);
+                greatest(greatest(lv1StatsTable, growthRatesTable), heroListTable)
+                        .remove(0);
                 continue;
             }
 

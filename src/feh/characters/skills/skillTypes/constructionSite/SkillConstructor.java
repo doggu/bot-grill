@@ -61,7 +61,8 @@ public class SkillConstructor {
     public void setCooldown(Integer cooldown) {
         this.cooldown = cooldown;
     }
-    public void setDamagePattern(boolean[][] damagePattern) { this.damagePattern = damagePattern; }
+    public void setDamagePattern(boolean[][] damagePattern) {
+        this.damagePattern = damagePattern; }
 
     public void setIcon(URL icon) {
         this.icon = icon;
@@ -110,8 +111,10 @@ public class SkillConstructor {
 
 
 
-    private void exists(Object o, String fieldName) throws IncompleteDataException {
-        if (o==null) throw new IncompleteDataException("missing field "+fieldName);
+    private void exists(Object o, String fieldName)
+            throws IncompleteDataException {
+        if (o==null)
+            throw new IncompleteDataException("missing field "+fieldName);
     }
     private void vitalInfoReady() throws IncompleteDataException {
         exists(name, "name");
@@ -131,13 +134,19 @@ public class SkillConstructor {
         exists(type, "weapon type");
         //exists(refine, "weapon refine"); //hard to check but it can be null
 
-        return new Weapon(name, description, link, cost, exclusive, might, range, type, refine);
+        return new Weapon(
+                name, description, link,
+                cost, exclusive,
+                might, range, type, refine);
     }
     public Assist generateAssist() throws IncompleteDataException {
         vitalInfoReady();
         actionSkillReady();
 
-        return new Assist(name, description, link, cost, exclusive, range);
+        return new Assist(
+                name, description, link,
+                cost, exclusive,
+                range);
     }
     public Special generateSpecial() throws IncompleteDataException {
         vitalInfoReady();
@@ -148,7 +157,10 @@ public class SkillConstructor {
         }
          */
 
-        return new Special(name, description, link, cost, exclusive, cooldown, damagePattern);
+        return new Special(
+                name, description, link,
+                cost, exclusive,
+                cooldown, damagePattern);
     }
 
     private void passiveReady() throws IncompleteDataException {

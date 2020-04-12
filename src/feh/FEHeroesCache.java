@@ -16,7 +16,8 @@ public class FEHeroesCache extends WebCache {
 
     //TODO: replace old utilities with new jsoupy ones
     public FEHeroesCache(String wiki, String subdir) {
-        super(FEHEROES_URL+wiki, FEHEROES_SUBDIR+(subdir!=null?subdir:""));
+        super(  FEHEROES_URL+wiki,
+                FEHEROES_SUBDIR+(subdir!=null?subdir:""));
     }
     public FEHeroesCache(String wiki) {
         this(wiki, null);
@@ -36,18 +37,20 @@ public class FEHeroesCache extends WebCache {
 
         while (input.hasNextLine()) {
             line = input.nextLine();
-            if (line.contains("<table class=\"cargoTable noMerge sortable\">")) {
+            if (line.contains("<table class=\"cargoTable noMerge sortable\">"))
                 print = true;
-            }
+
             if (print) {
                 ArrayList<String> datum = getItems(line.chars());
-                if (datum.size()>0) table.addAll(datum);
+                if (datum.size()>0)
+                    table.addAll(datum);
             }
 
             if (line.contains("</tbody></table>")) {
                 print = false;
-                //apparently i DONT need to clone it
-                if (table.size()>0) data.add(/*(ArrayList<String>) */table/*.clone()*/);
+                if (table.size()>0)
+                    //apparently i DONT need to clone it
+                    data.add(/*(ArrayList<String>) */table/*.clone()*/);
                 table = new ArrayList<>();
             }
         }

@@ -29,7 +29,8 @@ public class Banner {
 
 
     //TODO: generate banner type based on name or request info?
-    public Banner(String name, List<Hero> focusUnits, GregorianCalendar startDate, GregorianCalendar endDate) {
+    public Banner(String name, List<Hero> focusUnits,
+                  GregorianCalendar startDate, GregorianCalendar endDate) {
         this.name = name;
         this.rarityFPool = focusUnits;
         this.startDate = startDate;
@@ -45,10 +46,14 @@ public class Banner {
 
 
     /**
-     * generates the summoning pools of a banner based on when the banner was released,
-     * determining which units were part of the normal summoning pool at that time
+     * generates the summoning pools of a banner based on when the banner was
+     * released, determining which units were part of the normal summoning pool
+     * at that time. directly modifies rarity pool fields.
      *
-     * directly modifies rarity pool fields
+     * @return A list of lists containing, in this order:
+     *              5-star heroes,
+     *              4-star heroes,
+     *              3-star heroes
      */
     private List<List<Hero>> generatePools() {
         //System.out.println("\nGenerating pools for: "+this.getName());
@@ -61,16 +66,19 @@ public class Banner {
         pools.add(rarity4Pool);
         pools.add(rarity3Pool);
 
-        //must have this date to accurately represent summoning pools for historical banners
+        //must have this date to accurately represent
+        // summoning pools for historical banners
         GregorianCalendar poolCutoff = (GregorianCalendar) startDate.clone();
 
         //creates a list of HEROES that could be summoned in normal pools
         for (Hero x: HeroDatabase.HEROES) {
-            GregorianCalendar characterReleaseDate = (GregorianCalendar) x.getReleaseDate().clone();
+            GregorianCalendar characterReleaseDate =
+                    (GregorianCalendar) x.getReleaseDate().clone();
             //TODO: this value is not always correct
-            // can be calculated by finding the release date of the hero (banners that do this begin with "New Heroes")
-            // however, BannerDatabase itself uses a completed hero list to create the banners and pools
-            // brain damage
+            // can be calculated by finding the release date of the hero
+            // (banners that do this begin with "New Heroes") however,
+            // BannerDatabase itself uses a completed hero list to create the
+            // banners and pools     b r a in  da ma ge
             characterReleaseDate.add(GregorianCalendar.DAY_OF_MONTH, 20);
             //if character is summonable
             if (!x.isInNormalPool()) {
@@ -86,9 +94,7 @@ public class Banner {
             GregorianCalendar gameRelease =
                     new GregorianCalendar(2017,Calendar.FEBRUARY,2);
             gameRelease.add(GregorianCalendar.DAY_OF_MONTH, 20);
-            if (characterReleaseDate.compareTo(gameRelease)==0) {
-                //it's k
-            } else {
+            if (characterReleaseDate.compareTo(gameRelease)!=0) {
                 if (characterReleaseDate.compareTo(poolCutoff)>=0) {
                     //System.out.println("skipped (too new): " + x.getName()+": " + x.getEpithet());
                     continue;
@@ -143,21 +149,24 @@ public class Banner {
                     rarity5rate--;
                 }
                 break;
-            //the banner feat. marth, lucina, robin, tiki doesn't register due to "Legendary" being args[1]
+            //the banner feat. marth, lucina, robin, tiki
+            // doesn't register due to "Legendary" being args[1]
             case "Legendary":
                 rarityFrate = 8;
                 rarity5rate = 0;
                 rarity4rate = 58;
                 rarity3rate = 34;
                 break;
-            //"Hero" works for hero fest since it's the only banner starting with "Hero"
+            //"Hero" works for hero fest since
+            // it's the only banner starting with "Hero"
             case "Hero":
                 rarityFrate = 5;
                 rarity5rate = 3;
                 rarity4rate = 58;
                 rarity3rate = 34;
                 break;
-            //surprisingly, the guaranteed summon events are the only banners with args[0] being "Special"
+            //surprisingly, the guaranteed summon events are
+            // the only banners with args[0] being "Special"
             case "Special":
                 rarityFrate = 100;
                 rarity5rate = 0;
@@ -165,12 +174,16 @@ public class Banner {
                 rarity3rate = 0;
         }
 
-        //this switch statement should probably be converted to a more absolute system for future-proofing
+        //this switch statement should probably be converted
+        // to a more absolute system for future-proofing
 
-        //TODO: create new class for banner instances? (for storing pity, summoner data, etc.)
+        //TODO: create new class for banner instances?
+        // (for storing pity, summoner data, etc.)
 
-        //TODO: KEEP NOTE: pity rates are added based on the ratio between focus and normal 5* pool (always 0.50% total)
-        //TODO: e.x. Hero Fest (the only real example here): 5%, 3% ---> 5.3125%, 3.1875% ---> 5.625%, 3.375%, etc.
+        //TODO: KEEP NOTE: pity rates are added based on the ratio between focus
+        // and normal 5* pool (always 0.50% total)
+        // e.x. Hero Fest (the only real example here):
+        //      5%, 3% ---> 5.3125%, 3.1875% ---> 5.625%, 3.375%, etc.
     }
 
 
@@ -191,29 +204,30 @@ public class Banner {
 
 
 
-    public static void main(String[] args) {
-        String name = "New Heroes: Farfetched Heroes";
-        List<Hero> focuses = new ArrayList<>();
-        focuses.add(new Hero("Mia: Lady of Blades"));
-        focuses.add(new Hero("Lute: Prodigy"));
-        focuses.add(new Hero("Dorcas: Serene Warrior"));
-        /*
-        GregorianCalendar start = new GregorianCalendar(2017,10,15),
-                end = new GregorianCalendar(2017,11,4);
-        */
-        //NOTE: MONTH IS ZERO BASED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        GregorianCalendar start = new GregorianCalendar(2018,8,14),
-                end = new GregorianCalendar(2018,9,10);
-
-
-        Banner g = new Banner(name, focuses, start, end);
-
-        int i;
-        for (i=0; end.compareTo(start)<=0; i++) {
-            System.out.println(end.compareTo(start));
-            start.add(Calendar.DAY_OF_MONTH, 1);
-        }
-
-        System.out.println(i);
-    }
+//    public static void main(String[] args) {
+//        String name = "New Heroes: Farfetched Heroes";
+//        List<Hero> focuses = new ArrayList<>();
+//        focuses.add(new Hero("Mia: Lady of Blades"));
+//        focuses.add(new Hero("Lute: Prodigy"));
+//        focuses.add(new Hero("Dorcas: Serene Warrior"));
+//        /*
+//        GregorianCalendar start = new GregorianCalendar(2017,10,15),
+//                end = new GregorianCalendar(2017,11,4);
+//        */
+//        //NOTE: MONTH IS ZERO BASED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//        GregorianCalendar
+//                start = new GregorianCalendar(2018,8,14),
+//                end = new GregorianCalendar(2018,9,10);
+//
+//
+//        Banner g = new Banner(name, focuses, start, end);
+//
+//        int i;
+//        for (i=0; end.compareTo(start)<=0; i++) {
+//            System.out.println(end.compareTo(start));
+//            start.add(Calendar.DAY_OF_MONTH, 1);
+//        }
+//
+//        System.out.println(i);
+//    }
 }

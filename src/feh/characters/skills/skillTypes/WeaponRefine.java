@@ -10,9 +10,13 @@ public class WeaponRefine extends Weapon {
 
 
 
-    public WeaponRefine(String name, String description, String specialEff, URL link, URL iconURL,
+    public WeaponRefine(String name, String description, String specialEff,
+                        URL link, URL iconURL,
                         int[] statModifiers, int cost, int mt, int rng) {
-        super(name, description, link, cost, true, mt, rng, null, null);
+        super(name, description,
+                link,
+                cost, true,
+                mt, rng, null, null);
         this.specialEff = specialEff;
         this.iconURL = iconURL;
         this.statModifiers = statModifiers;

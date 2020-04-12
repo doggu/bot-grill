@@ -110,7 +110,8 @@ public class SkillAnalysis {
                 for (i++; i < desc.length(); i++) {
                     char c = desc.charAt(i);
                     if (c == '.')
-                        desc = desc.substring(0, i) + "[p]" + desc.substring(i + 1);
+                        desc = desc.substring(0, i) + "[p]" +
+                                desc.substring(i + 1);
                     else if (c == ')')
                         break;
                 }
@@ -118,7 +119,8 @@ public class SkillAnalysis {
         }
 
 
-        ArrayList<String> sentences = new ArrayList<>(Arrays.asList(desc.split("\\. ")));
+        ArrayList<String> sentences =
+                new ArrayList<>(Arrays.asList(desc.split("\\. ")));
 
         for (int i=0; i<sentences.size(); i++) {
             String raw = sentences.get(i);
@@ -126,17 +128,19 @@ public class SkillAnalysis {
                 sentences.set(i, raw.replaceAll("\\[p]", "."));
         }
 
-        if (sentences.get(sentences.size()-1).charAt(sentences.get(sentences.size()-1).length()-1)=='.')
+        if (sentences.get(sentences.size()-1)
+                .charAt(sentences.get(sentences.size()-1).length()-1)=='.')
             sentences.set(
                     sentences.size()-1,
                     sentences.get(sentences.size()-1)
-                            .substring(0, sentences.get(sentences.size()-1).length()-1));
-
+                            .substring(0, sentences.get(sentences.size()-1)
+                                    .length()-1));
         return sentences;
     }
     private ArrayList<ArrayList<String>> generateClauses() {
         ArrayList<ArrayList<String>> sentences = new ArrayList<>();
-        //todo: keep track of this when those madlads add more than one parenthetical to a clause
+        //todo: keep track of this when those madlads add more than one
+        // parenthetical to a clause
         // FUCK HARSH COMMAND+ HAS TWO
         for (String rawSentence: this.sentences) {
             int p = rawSentence.indexOf('(');
@@ -144,17 +148,21 @@ public class SkillAnalysis {
                 for (p++; p<rawSentence.length(); p++) {
                     char c = rawSentence.charAt(p);
                     if (c==',')
-                        rawSentence = rawSentence.substring(0, p)+"[c]"+rawSentence.substring(p+1);
+                        rawSentence = rawSentence.substring(0, p)+"[c]" +
+                                rawSentence.substring(p+1);
                     else if (c==')')
                         break;
                 }
             }
 
-            ArrayList<String> sentence = new ArrayList<>(Arrays.asList(rawSentence
-                    .split(", ")));
+            ArrayList<String> sentence =
+                    new ArrayList<>(Arrays.asList(rawSentence
+                            .split(", ")));
             //it is TECHNICALLY a clause
             for (int i=0; i<sentence.size(); i++)
-                sentence.set(i, sentence.get(i).replaceAll("\\[c]", ","));
+                sentence.set(i,
+                        sentence.get(i)
+                                .replaceAll("\\[c]", ","));
 
             sentences.add(sentence);
         }
@@ -295,22 +303,27 @@ public class SkillAnalysis {
             case "dragon":
                 return BREATH;
             case "magic":
-                //todo: separate tome color from weapon type and just make it a conditional in skill inherit later jesus
-                // idk what this meant coming back to it but i'm going to solve it and leave this here
+                //todo: separate tome color from weapon type and just make it a
+                // conditional in skill inherit later jesus 
+                // idk what this meant coming back to it but i'm going to 
+                // solve it and leave this here
                 return TOME;
             default:
                 return null;
         }
     }
-    private HeroClass generateNeutralizesEffectivity() { //todo: magic and dragon foes
-        HeroClass effectivity = null;                    // the magic one doesn't exist yet tho
+    private HeroClass generateNeutralizesEffectivity() { 
+        //todo: magic and dragon foes
+        // the magic one doesn't exist yet tho
+        HeroClass effectivity = null;                    
         for (int i = 0; i< sentences.size(); i++) {
             String raw = sentences.get(i);
             if (raw.matches("Neutralizes \"effective against " +
                     "(infantry|flying|armored|cavalry|dragons)\" " +
                     "bonuses")) {
                 String[] words = sentences.get(i).split(" ");
-                effectivity = generateEffectiveAgainst(words[3].substring(0, words[3].length()-1));
+                effectivity = generateEffectiveAgainst(
+                        words[3].substring(0, words[3].length()-1));
 
                 sentences.remove(i);
                 clauses.remove(i);
@@ -322,9 +335,13 @@ public class SkillAnalysis {
     }
     private boolean generateTriangleAdept() {
         for (int i = 0; i< sentences.size(); i++) {
-            if (sentences.get(i).equals("If unit has weapon-triangle advantage, boosts Atk by 20%"))
+            if (sentences.get(i)
+                    .equals("If unit has weapon-triangle advantage, " +
+                            "boosts Atk by 20%")) {
                 try {
-                    if (sentences.get(i+1).equals("If unit has weapon-triangle disadvantage, reduces Atk by 20%")) {
+                    if (sentences.get(i+1)
+                            .equals("If unit has weapon-triangle disadvantage, " +
+                                    "reduces Atk by 20%")) {
                         sentences.remove(i);
                         sentences.remove(i+1);
                         return true;
@@ -332,6 +349,7 @@ public class SkillAnalysis {
                 } catch (IndexOutOfBoundsException ioobe) {
                     //nothin
                 }
+            }
         }
 
         return false;
@@ -349,46 +367,76 @@ public class SkillAnalysis {
 
         return incl;
     }
-    private ArrayList<String> generateStartOfTurn() { return findWith("at start of turn"); }
-    private ArrayList<String> generateStartOfTurn1() { return findWith("at the start of turn 1"); }
-    private ArrayList<String> generateStartOfEveryNthTurn() { return findWith("at the start of every"); }
-    private ArrayList<String> generateStartOfEven() { return findWith("at start of even-numbered turns"); }
-    private ArrayList<String> generateStartOfOdd() { return findWith("at start of odd-numbered turns"); }
+    private ArrayList<String> generateStartOfTurn() {
+        return findWith("at start of turn"); }
+    private ArrayList<String> generateStartOfTurn1() {
+        return findWith("at the start of turn 1"); }
+    private ArrayList<String> generateStartOfEveryNthTurn() {
+        return findWith("at the start of every"); }
+    private ArrayList<String> generateStartOfEven() {
+        return findWith("at start of even-numbered turns"); }
+    private ArrayList<String> generateStartOfOdd() {
+        return findWith("at start of odd-numbered turns"); }
 
-    //private ArrayList<String> generateDuringCombat() { return findWith("during combat"); }
-    private ArrayList<String> generateAtStartOfCombat() { return findWith("at start of combat"); }
+//    private ArrayList<String> generateDuringCombat() {
+//        return findWith("during combat"); }
+    private ArrayList<String> generateAtStartOfCombat() {
+        return findWith("at start of combat"); }
     private ArrayList<String> generateBeforeCombatUnitInitiates() {
         return findWith("before combat this unit initiates"); }
-    private ArrayList<String> generateAfterCombat() { return findWith("after combat"); }
-    private ArrayList<String> generateUnitInitiates() { return findWith("unit initiates combat"); }
-    private ArrayList<String> generateFoeInitiates() { return findWith("foe initiates combat"); }
+    private ArrayList<String> generateAfterCombat() {
+        return findWith("after combat"); }
+    private ArrayList<String> generateUnitInitiates() {
+        return findWith("unit initiates combat"); }
+    private ArrayList<String> generateFoeInitiates() {
+        return findWith("foe initiates combat"); }
     //really only for valor/exp skills
-    private ArrayList<String> generateWhileUnitLives() { return findWith("while unit lives"); }
-    private ArrayList<String> generateAfterMovementAssist() { return
-            findWith("If a movement Assist skill (like Reposition, Shove, Pivot, etc.) " +
+    private ArrayList<String> generateWhileUnitLives() {
+        return findWith("while unit lives"); }
+    private ArrayList<String> generateAfterMovementAssist() {
+        return findWith("If a movement Assist skill " +
+                "(like Reposition, Shove, Pivot, etc.) " +
                     "is used by unit or targets unit"); }
 
 
 
-    public int[] getStatModifiers() { return statModifiers; }
-    public int getCdModifier() { return cdModifier; }
-    public ArrayList<HeroClass> getEffective() { return effectiveAgainst; }
-    public HeroClass getNeutralizesEffectivity() { return neutralizes; }
-    public boolean getTriangleAdept() { return triangleAdept; }
+    public int[] getStatModifiers() {
+        return statModifiers; }
+    public int getCdModifier() {
+        return cdModifier; }
+    public ArrayList<HeroClass> getEffective() {
+        return effectiveAgainst; }
+    public HeroClass getNeutralizesEffectivity() {
+        return neutralizes; }
+    public boolean getTriangleAdept() {
+        return triangleAdept; }
     //int getTANeutralizingLevel
-    public ArrayList<String> getStartOfTurn() { return startOfTurn; }
-    public ArrayList<String> getStartOfTurn1() { return startOfTurn1; }
-    public ArrayList<String> getStartOfEveryNthTurn() { return startOfEveryNthTurn; }
-    public ArrayList<String> getStartOfEven() { return evenTurns; }
-    public ArrayList<String> getStartOfOdd() { return oddTurns; }
-    //public ArrayList<String> getDuringCombat() { return duringCombat; }
-    public ArrayList<String> getAtStartOfCombat() { return atStartOfCombat; }
-    public ArrayList<String> getBeforeCombatUnitInitiates() { return beforeCombatUnitInitiates; }
-    public ArrayList<String> getAfterCombat() { return afterCombat; }
-    public ArrayList<String> getUnitInitiates() { return unitInitiates; }
-    public ArrayList<String> getFoeInitiates() { return foeInitiates; }
-    public ArrayList<String> getAfterMovementAssist() { return afterMovementAssist; }
-    public ArrayList<String> getWhileUnitLives() { return whileUnitLives; }
+    public ArrayList<String> getStartOfTurn() {
+        return startOfTurn; }
+    public ArrayList<String> getStartOfTurn1() {
+        return startOfTurn1; }
+    public ArrayList<String> getStartOfEveryNthTurn() {
+        return startOfEveryNthTurn; }
+    public ArrayList<String> getStartOfEven() {
+        return evenTurns; }
+    public ArrayList<String> getStartOfOdd() {
+        return oddTurns; }
+//    public ArrayList<String> getDuringCombat() {
+//        return duringCombat; }
+    public ArrayList<String> getAtStartOfCombat() {
+        return atStartOfCombat; }
+    public ArrayList<String> getBeforeCombatUnitInitiates() {
+        return beforeCombatUnitInitiates; }
+    public ArrayList<String> getAfterCombat() {
+        return afterCombat; }
+    public ArrayList<String> getUnitInitiates() {
+        return unitInitiates; }
+    public ArrayList<String> getFoeInitiates() {
+        return foeInitiates; }
+    public ArrayList<String> getAfterMovementAssist() {
+        return afterMovementAssist; }
+    public ArrayList<String> getWhileUnitLives() {
+        return whileUnitLives; }
 
 
 
@@ -412,7 +460,8 @@ public class SkillAnalysis {
         for (SkillAnalysis x:analyses) {
             if (x.rawSentences!=null) {
                 if (x.rawSentences.size() > 0) {
-                    System.out.println(x.skill.getName() + "\'s unprocessed effects:");
+                    System.out.println(x.skill.getName() +
+                            "\'s unprocessed effects:");
                     for (String str : x.rawSentences) {
                         System.out.println(str);
                     }
@@ -473,8 +522,10 @@ public class SkillAnalysis {
 
         /*
         //beep boop random test:
-        //this proves that the new ArrayList has new instances of each of its Strings, meaning modifications won't
-        //carry back over into the old ArrayList (idk if this is obvious with some simple rule but i needed to know)
+        //this proves that the new ArrayList has new instances of each of its
+        //Strings, meaning modifications won't carry back over into the old
+        //ArrayList (idk if this is obvious with some simple rule but i needed
+        //to know)
         ArrayList<String> args = new ArrayList<>();
         args.add("ah");
         args.add("AH");

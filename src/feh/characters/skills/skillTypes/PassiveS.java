@@ -10,8 +10,13 @@ public class PassiveS extends Passive implements StatModifier {
 
 
 
-    public PassiveS(String name, String description, URL icon, URL link, int cost, boolean exclusive) {
-        super (name, description, icon, link, new Color(0xEDE500), 's', cost, exclusive);
+    public PassiveS(String name, String description,
+                    URL icon, URL link,
+                    int cost, boolean exclusive) {
+        super (name, description,
+                icon, link,
+                new Color(0xEDE500), 's',
+                cost, exclusive);
         this.statModifiers = StatModifier.parseStatModifiers(description);
     }
 

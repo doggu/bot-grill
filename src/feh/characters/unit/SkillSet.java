@@ -70,7 +70,8 @@ public class SkillSet extends ArrayList<Skill> implements List<Skill> {
         this.passiveC = null;
         this.passiveS = null;
 
-        for (int i=skills.size()-1; i>=0; i--) { //loop through backwards to only use the first item of each type
+        //loop through backwards to only use the first item of each type
+        for (int i=skills.size()-1; i>=0; i--) {
             Skill s = skills.get(i);
             if (s instanceof Weapon) {
                 weapon = (Weapon) s;
@@ -108,16 +109,19 @@ public class SkillSet extends ArrayList<Skill> implements List<Skill> {
         int[] modifiers = new int[5];
         for (Skill x:this) {
             if (x instanceof StatModifier) {
-                int[] xModifiers = ((StatModifier) x).getStatModifiers();
+                int[] xModifiers = ((StatModifier) x)
+                        .getStatModifiers();
 
-                for (int i=0; i<modifiers.length; i++) modifiers[i]+= xModifiers[i];
+                for (int i=0; i<modifiers.length; i++)
+                    modifiers[i]+= xModifiers[i];
             }
         }
 
         return modifiers;
     }
 
-    //todo: implement SkillAnalysis features (should probably merge into Skill before this happens)
+    //todo: implement SkillAnalysis features
+    // (should probably merge into Skill before this happens)
     public boolean hasTriangleAdept() {
         for (Skill x:this) {
             if (x.getAnalysis().getTriangleAdept()) {
@@ -144,7 +148,9 @@ public class SkillSet extends ArrayList<Skill> implements List<Skill> {
 
     public static void main(String[] args) {
         SkillDatabase d = SkillDatabase.DATABASE;
-        SkillSet f = new SkillSet(d.find("Falchion"), d.find("Fort. Def/Res 3"));
+        SkillSet f = new SkillSet(
+                d.find("Falchion"),
+                d.find("Fort. Def/Res 3"));
 
         System.out.println("hp\tatk\tspd\tdef\tres");
         for (int m:f.getStatModifiers())

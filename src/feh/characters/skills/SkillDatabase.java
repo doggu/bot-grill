@@ -72,14 +72,22 @@ public class SkillDatabase extends Database<Skill> {
     private static FEHeroesCache[] SKILL_FILES;
 
     static {
-        WEAPONS_FILE = new FEHeroesCache(WEAPONS_PATH, SKILLS_SUBDIR);
-        ASSISTS_FILE = new FEHeroesCache(ASSISTS_PATH, SKILLS_SUBDIR);
-        SPECIALS_FILE = new FEHeroesCache(SPECIALS_PATH, SKILLS_SUBDIR);
-        PASSIVES_FILE = new FEHeroesCache(PASSIVES_PATH, SKILLS_SUBDIR);
-        EXCLUSIVE_SKILLS_FILE = new FEHeroesCache(EXCLUSIVE_SKILLS_PATH, SKILLS_SUBDIR);
-        HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS_PATH, SKILLS_SUBDIR);
-        WEAPON_REFINES_FILE = new FEHeroesCache(WEAPON_REFINES_PATH, SKILLS_SUBDIR);
-        AOE_PATTERNS_FILE = new FEHeroesCache(AOE_PATTERNS_PATH, SKILLS_SUBDIR);
+        WEAPONS_FILE =
+                new FEHeroesCache(WEAPONS_PATH, SKILLS_SUBDIR);
+        ASSISTS_FILE =
+                new FEHeroesCache(ASSISTS_PATH, SKILLS_SUBDIR);
+        SPECIALS_FILE =
+                new FEHeroesCache(SPECIALS_PATH, SKILLS_SUBDIR);
+        PASSIVES_FILE =
+                new FEHeroesCache(PASSIVES_PATH, SKILLS_SUBDIR);
+        EXCLUSIVE_SKILLS_FILE =
+                new FEHeroesCache(EXCLUSIVE_SKILLS_PATH, SKILLS_SUBDIR);
+        HERO_BASE_SKILLS_FILE =
+                new FEHeroesCache(HERO_BASE_SKILLS_PATH, SKILLS_SUBDIR);
+        WEAPON_REFINES_FILE =
+                new FEHeroesCache(WEAPON_REFINES_PATH, SKILLS_SUBDIR);
+        AOE_PATTERNS_FILE =
+                new FEHeroesCache(AOE_PATTERNS_PATH, SKILLS_SUBDIR);
 
         SKILL_FILES = new FEHeroesCache[]{
                 WEAPONS_FILE,
@@ -179,8 +187,6 @@ public class SkillDatabase extends Database<Skill> {
         Document weaponsFile;
         try {
             weaponsFile = Jsoup.parse(WEAPONS_FILE, "UTF-8");
-                                                                //todo: make this a global variable
-                                                                // i've probably already written this somewhere before
         } catch (IOException ioe) {
             System.out.println("weapons file not found!");
             return new ArrayList<>();
@@ -261,7 +267,8 @@ public class SkillDatabase extends Database<Skill> {
         for (Element table:tables) {
             if (table.select("tr").size()>20) {
                 Element header = table.selectFirst("thead");
-                Elements rows = table.selectFirst("tbody").select("tr");
+                Elements rows = table.selectFirst("tbody")
+                        .select("tr");
 
                 for (Element row:rows) {
                     SkillConstructor x = new SkillConstructor();
@@ -337,10 +344,12 @@ public class SkillDatabase extends Database<Skill> {
 
 
 
-        Elements tables = passivesFile.select("table[class='cargoTable noMerge sortable']");
+        Elements tables = passivesFile
+                .select("table[class='cargoTable noMerge sortable']");
 
         if (tables.size()!=4) {
-            System.out.println("unknown table found (or one missing): "+tables.size());
+            System.out.println("unknown table found (or one missing): " +
+                    tables.size());
             System.out.println(tables);
             return new ArrayList<>();
         }
@@ -383,7 +392,8 @@ public class SkillDatabase extends Database<Skill> {
                             passives.add(x.generatePassiveS());
                             break;
                         default:
-                            System.out.println("this is not an expected table, how'd it even get this far");
+                            System.out.println("this is not an expected table, " +
+                                    "how'd it even get this far");
                             //continue;
                     }
                 } catch (Exception e) {
@@ -395,8 +405,10 @@ public class SkillDatabase extends Database<Skill> {
 
         return passives;
     }
-    private static void gatherBasicInformation(SkillConstructor x, Element header, Elements info) {
-        ArrayList<String> titles = new ArrayList<>(header.child(0).children().eachText());
+    private static void gatherBasicInformation(SkillConstructor x,
+                                               Element header, Elements info) {
+        ArrayList<String> titles =
+                new ArrayList<>(header.child(0).children().eachText());
 
         for (int i=0; i<titles.size(); i++) {
             switch (titles.get(i)) {
@@ -404,7 +416,12 @@ public class SkillDatabase extends Database<Skill> {
                 case "Weapon":
                     x.setName(info.get(i).text());
                     try {
-                        x.setLink(new URL(FEHEROES+info.get(i).children().get(0).attr("href")));
+                        x.setLink(new URL(
+                                FEHEROES +
+                                        info.get(i)
+                                            .children()
+                                            .get(0)
+                                            .attr("href")));
                     } catch (MalformedURLException murle) {
                         System.out.println("got a murle for "+x.getName());
                         x.setLink(null);
@@ -424,23 +441,30 @@ public class SkillDatabase extends Database<Skill> {
         ArrayList<String> list = new ArrayList<>();
         Document exclusivesFile;
         try {
-            exclusivesFile = Jsoup.parse(EXCLUSIVE_SKILLS_FILE, "UTF-8");
+            exclusivesFile =
+                    Jsoup.parse(EXCLUSIVE_SKILLS_FILE, "UTF-8");
         } catch (IOException ioe) {
             System.out.println("exclusive list not found!");
             return new ArrayList<>();
         }
 
-        Elements tables = exclusivesFile.select("table");
+        Elements tables = exclusivesFile
+                .select("table");
 
-        Elements headers = tables.select("thead").select("tr");
-        Elements bodies = exclusivesFile.select("table").select("tbody");
+        Elements headers = tables
+                .select("thead")
+                .select("tr");
+        Elements bodies = exclusivesFile
+                .select("table")
+                .select("tbody");
 
         for (int i=0; i<headers.size(); i++) {
             Elements labels = headers.get(i).select("th");
             Elements rows = bodies.get(i).children();
             int nameRow;
             for (nameRow=0; nameRow<labels.size(); nameRow++)
-                if (labels.get(nameRow).text().matches("(Weapon)|(Assist)|(Special)|(Name)"))
+                if (labels.get(nameRow).text()
+                        .matches("(Weapon)|(Assist)|(Special)|(Name)"))
                     break;
 
             for (Element row:rows)
@@ -504,9 +528,12 @@ public class SkillDatabase extends Database<Skill> {
             String specialEff = info.get(4).text();
             URL icon;
             try {
-                icon = new URL(info.get(1)
-                        .select("td").get(0)
-                        .select("img").attr("srcset")
+                icon = new URL(info
+                        .get(1)
+                        .select("td")
+                        .get(0)
+                        .select("img")
+                        .attr("srcset")
                         .split(" ")[2]);
             } catch (Exception murle) {
                 System.out.println("got a murle for "+name);
@@ -514,7 +541,13 @@ public class SkillDatabase extends Database<Skill> {
             }
             URL link;
             try {
-                link = new URL(FEHEROES+info.get(0).select("a").get(0).attr("href"));
+                link = new URL(
+                        FEHEROES +
+                                info
+                                        .get(0)
+                                        .select("a")
+                                        .get(0)
+                                        .attr("href"));
             } catch (MalformedURLException murle) {
                 System.out.println("got a murle for "+name);
                 link = null;
@@ -562,7 +595,8 @@ public class SkillDatabase extends Database<Skill> {
                         values[4] = e.getValue();
                         break;
                     default:
-                        new Error("unknown stat modifier: \""+e.getKey()+"\"").printStackTrace();
+                        new Error("unknown stat modifier: \""+e.getKey()+"\"")
+                                .printStackTrace();
                 }
             }
 
@@ -571,7 +605,11 @@ public class SkillDatabase extends Database<Skill> {
                 continue;
             }
 
-            refines.add(new WeaponRefine(name, description, specialEff, link, icon, values, 400, might, range));
+            refines.add(new WeaponRefine(
+                    name, description, specialEff,
+                    link, icon,
+                    values, 400,
+                    might, range));
         }
 
         return refines;
@@ -580,7 +618,8 @@ public class SkillDatabase extends Database<Skill> {
      * Used to associate refines with their base weapons.
      *
      * @param name name of the weapon in question
-     * @return the Weapon object of [name]'s refine, null if no refine was found.
+     * @return the Weapon object of [name]'s refine,
+     *         null if no refine was found.
      */
     private static WeaponRefine getRefine(String name) {
         for (WeaponRefine x:REFINES) if (name.equals(x.getName())) return x;
@@ -616,7 +655,9 @@ public class SkillDatabase extends Database<Skill> {
             Element blazing = items.get(1).selectFirst("table"),
                     growing = items.get(2).selectFirst("table");
 
-            boolean[][] blazingP = getPattern(blazing), growingP = getPattern(growing);
+            boolean[][] blazingP = getPattern(blazing),
+                        growingP = getPattern(growing);
+
             patterns.put("Rising "+type, blazingP);
             patterns.put("Blazing "+type, blazingP);
             patterns.put("Growing "+type, growingP);
@@ -633,7 +674,8 @@ public class SkillDatabase extends Database<Skill> {
             patternTable.add(row.children());
         }
 
-        boolean[][] pattern = new boolean[patternTable.size()][patternTable.get(0).size()];
+        boolean[][] pattern =
+                new boolean[patternTable.size()][patternTable.get(0).size()];
 
         for (int i=0; i<pattern.length; i++) {
             Elements row = patternTable.get(i);
@@ -650,9 +692,11 @@ public class SkillDatabase extends Database<Skill> {
 
         Document baseSkillsFile;
         try {
-            baseSkillsFile = Jsoup.parse(HERO_BASE_SKILLS_FILE, "UTF-8");
+            baseSkillsFile =
+                    Jsoup.parse(HERO_BASE_SKILLS_FILE, "UTF-8");
         } catch (IOException|NullPointerException e) {
-            System.out.println("doin' it again because i don't understand priorities...");
+            System.out.println("doin' it again because i " +
+                    "don't understand priorities...");
             HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS_PATH);
             if (HERO_BASE_SKILLS_FILE.update()) return getHeroSkills();
             System.out.println("base skills file not found!");

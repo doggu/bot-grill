@@ -17,7 +17,10 @@ public abstract class Skill {
 
 
 
-    public Skill(String name, String description, URL link, Color color, char slot, int cost, boolean exclusive) {
+    public Skill(String name, String description,
+                 URL link,
+                 Color color, char slot,
+                 int cost, boolean exclusive) {
         this.name = name;
         this.description = description;
         this.link = link;

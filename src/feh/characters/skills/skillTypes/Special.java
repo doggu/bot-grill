@@ -10,9 +10,14 @@ public class Special extends Skill {
 
 
 
-    public Special(String name, String description, URL link, int cost, boolean exclusive,
+    public Special(String name, String description,
+                   URL link,
+                   int cost, boolean exclusive,
                    int cd, boolean[][] damagePattern) {
-        super(name, description, link, new Color(0xF400E5), 'S', cost, exclusive);
+        super(name, description,
+                link,
+                new Color(0xF400E5), 'S',
+                cost, exclusive);
 
         this.cd = cd;
         this.damagePattern = damagePattern;
@@ -40,6 +45,7 @@ public class Special extends Skill {
         return table.substring(0, table.length()-1);
     }
     private String divider() {
-        return "+" + " - +".repeat(damagePattern[0].length) + "\n"; //the IDE totally owned me in efficiency
+        //the IDE totally owned me in efficiency
+        return "+" + " - +".repeat(damagePattern[0].length) + "\n";
     }
 }

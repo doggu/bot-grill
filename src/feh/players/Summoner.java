@@ -49,10 +49,10 @@ public class Summoner {
 
 
 
-    public void setSupportedUnit(Unit partner) { this.supportedUnit = partner; }
+    public void setSupportedUnit(Unit partner) {
+        this.supportedUnit = partner; }
     public boolean supportHeroes(Hero h1, Hero h2) {
-        return relationships.add(new Relationship(h1, h2));
-    }
+        return relationships.add(new Relationship(h1, h2)); }
 
 
 
@@ -97,9 +97,9 @@ public class Summoner {
 
 
 
-    public static void main(String[] args) {
-        serialize();
-    }
+//    public static void main(String[] args) {
+//        serialize();
+//    }
 
     private static void serialize() {
         File f = new File("./src/feh/players/barracks.txt");

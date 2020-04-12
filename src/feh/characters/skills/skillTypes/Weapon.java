@@ -12,13 +12,18 @@ public class Weapon extends ActionSkill implements StatModifier {
     private final int[] statModifiers;
 
     private final WeaponRefine refine;
-    //private final Evolution evolution; //i'd write a todo here but i dont really want to ugh it's already formatting
+    //private final Evolution evolution;
+    //i'd write a todo here but i dont really want to ugh it's already formatting
 
 
 
-    public Weapon(String name, String description, URL link, int cost, boolean exclusive,
+    public Weapon(String name, String description,
+                  URL link,
+                  int cost, boolean exclusive,
                   int mt, int rng, WeaponClass type, WeaponRefine refine) {
-        super(name, description, link, new Color(0xDE1336), 'W', cost, exclusive, rng);
+        super(name, description,
+                link, new Color(0xDE1336), 'W',
+                cost, exclusive, rng);
         this.mt = mt;
         this.type = type;
         int[] statModifiers = StatModifier.parseStatModifiers(description);

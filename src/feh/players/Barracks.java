@@ -9,12 +9,24 @@ import java.util.HashMap;
 
 public class Barracks extends ArrayList<Unit> {
     public static final Unit
-            ALFONSE = new Unit(new Hero("Alfonse: Prince of Askr"),4,-1,-1, 40),
-            SHARENA = new Unit(new Hero("Sharena: Princess of Askr"),4,-1,-1, 40),
-            ANNA =  new Unit(new Hero("Anna: Commander"),4,-1,-1, 40),
-            TAKUMI = new Unit(new Hero("Takumi: Wild Card"),4,-1,-1, 40),
-            VIRION = new Unit(new Hero("Virion: Elite Archer"),4,-1,-1, 40),
-            RAIGH = new Unit(new Hero("Raigh: Dark Child"),4,-1,-1, 40);
+            ALFONSE = new Unit(
+                    new Hero("Alfonse: Prince of Askr"),
+                    4,-1,-1, 40),
+            SHARENA = new Unit(
+                    new Hero("Sharena: Princess of Askr"),
+                    4,-1,-1, 40),
+            ANNA =  new Unit(
+                    new Hero("Anna: Commander"),
+                    4,-1,-1, 40),
+            TAKUMI = new Unit(
+                    new Hero("Takumi: Wild Card"),
+                    4,-1,-1, 40),
+            VIRION = new Unit(
+                    new Hero("Virion: Elite Archer"),
+                    4,-1,-1, 40),
+            RAIGH = new Unit(
+                    new Hero("Raigh: Dark Child"),
+                    4,-1,-1, 40);
 
 
 

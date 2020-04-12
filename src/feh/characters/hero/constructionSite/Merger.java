@@ -24,7 +24,8 @@ class Merger<T> {
                 if (a.equals(b))
                     return a;
                 else
-                    throw new MismatchedInputException("\"" + a + "\" != \"" + b + "\"");
+                    throw new MismatchedInputException(
+                            "\"" + a + "\" != \"" + b + "\"");
             else
                 return a;
     }

@@ -261,8 +261,7 @@ public class SkillAnalysis {
             String raw = sentences.get(i);
             if (raw.matches("Effective against " +
                     "(infantry|flying|armored|cavalry|dragon|beast|magic)" +
-                    "( and (infantry|flying|armored|cavala?ry|dragon|beast|magic))? foes") ||
-                                                        //todo: remove when Rapier typo gets fixed
+                    "( and (infantry|flying|armored|caval?ry|dragon|beast|magic))? foes") ||
                     raw.equals("Effective against dragons")) {
                 //System.out.println("oh yeah it's some movement");
 

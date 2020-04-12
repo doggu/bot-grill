@@ -15,10 +15,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageChannel;
 import net.dv8tion.jda.api.entities.User;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.*;
 
 public class CircleSimulator extends ReactionListener {
     private final MessageChannel messageChannel;
@@ -29,7 +26,6 @@ public class CircleSimulator extends ReactionListener {
     private final List<Emote> stoneEmotes;
     private PersonalButton newButton, stopButton;
     private int pulls = 0;
-
 
 
     CircleSimulator(MessageChannel messageChannel,
@@ -44,7 +40,6 @@ public class CircleSimulator extends ReactionListener {
     }
 
 
-
     public Summoner getSummoner() { return summoner; }
     public User getUser() { return summoner.getUser(); }
     Message getSessionMessage() { return circleMessage; }
@@ -53,6 +48,7 @@ public class CircleSimulator extends ReactionListener {
     /**
      * generates the central summoning message through which the user will
      * interact with the stones and obtain heroes.
+     *
      * @return a message of string format:
      *      your summons for:
      *      [banner name]
@@ -96,6 +92,13 @@ public class CircleSimulator extends ReactionListener {
         return message.build();
     }
 
+    /**
+     * generates non-user facing stone objects that uses the Circle's banner
+     * object to generate a single unit which will be represented by an emote
+     * in the circle message.
+     *
+     * @return the list of Stones which contain Unit objects.
+     */
     private List<Stone> generateStones() {
         List<Stone> stones = new ArrayList<>();
         for (int i=0; i<5; i++)
@@ -149,17 +152,38 @@ public class CircleSimulator extends ReactionListener {
         return stoneEmotes;
     }
 
+    /**
+     * generates the Emote object based on unit color (from a Stone) and level
+     * (how many of the same color came before it)
+     *
+     * @param color the color of the hidden unit
+     * @param level the number assigned to the emote to represent multiple
+     *              stones of a single color
+     * @return the Emote object generated through the API
+     */
     private Emote getStoneEmote(char color, int level) {
         return circleMessage.getJDA()
                 .getEmotesByName(color+"_stone_"+level, true)
                 .get(0);
     }
 
+    /**
+     * commences summoning for both the circle and the Summoner object that
+     * represents the target user. this is important for forcing users of the
+     * FEH mechanics into a linear set of instructions to prevent cheating or
+     * bugs.
+     */
     void register() {
         summoner.startSummoning(this);
         BotMain.addListener(this);
     }
 
+    /**
+     * creates PersonalButton objects represented by emoticons on the circle
+     * message which allow the user to either recycle the banner or close it.
+     * closing is not important yet, but will be when additional functionality
+     * comes in which barracks and other persistence stuff is important.
+     */
     private void addFinishButtons() {
         newButton = new PersonalButton(
                 circleMessage,
@@ -209,6 +233,17 @@ public class CircleSimulator extends ReactionListener {
         };
     }
 
+    /**
+     * determines whether or not a Summoner can close the banner and continue on
+     * to other things. just like in the original, circles can only be closed
+     * after at least one stone is pulled.
+     *
+     * this logic is a simplification of the transaction required to open the
+     * circle, and, originally, is consistent for all subsequent pulls. however,
+     * as this is not implemented yet, the implementation used here is adequate.
+     *
+     * @return true if closable, false otherwise
+     */
     boolean canClose() {
         for (Stone x:stones)
             if (x.isPulled())
@@ -226,7 +261,6 @@ public class CircleSimulator extends ReactionListener {
     }
 
 
-
     @Override
     public void commitSuicide() {
         newButton.removeButton();
@@ -237,8 +271,6 @@ public class CircleSimulator extends ReactionListener {
     @Override
     protected void onCommand() {
         //the summoner has selected a stone, and a unit must be presented
-
-
 
         //is not a custom emote or stop emote (i hope)
         if (e.getReaction().getReactionEmote().isEmote()) {

@@ -50,7 +50,15 @@ public class CircleSimulator extends ReactionListener {
     Message getSessionMessage() { return circleMessage; }
 
 
-
+    /**
+     * generates the central summoning message through which the user will
+     * interact with the stones and obtain heroes.
+     * @return a message of string format:
+     *      your summons for:
+     *      [banner name]
+     *      featured units: [name_1], [name_2], ... [name_n]
+     *      [start date "MM/DD/YYYY"]-[end date "MM/DD/YYYY"]
+     */
     private Message generateMessage() {
         MessageBuilder message =
                 new MessageBuilder("your summons for: \n")
@@ -90,14 +98,23 @@ public class CircleSimulator extends ReactionListener {
 
     private List<Stone> generateStones() {
         List<Stone> stones = new ArrayList<>();
-
-        for (int i=0; i<5; i++) {
+        for (int i=0; i<5; i++)
             stones.add(new Stone(banner));
-        }
 
         return stones;
     }
 
+    /**
+     * produces the five emotes that are needed to create a full circle of
+     * summoning stones. this is particularly important because each emote needs
+     * to be distinct, even though there could be 5 red stones, for example.
+     *
+     * The correct emote for each stone is simply the lowest number of each
+     * color that can be used based on other stones generated before it in this
+     * method.
+     *
+     * @return an (Array)List of Emote objects.
+     */
     private List<Emote> generateEmotes() {
         ArrayList<Emote> stoneEmotes = new ArrayList<>();
 

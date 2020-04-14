@@ -359,14 +359,91 @@ public class HeroDatabase extends Database<Hero> {
                     "some units will be missing!");
         }
 
+        //todo: temporary fixes in place while the growth rates table is missing
+        // all units including and after (alphabetically):
+        //      "Xander: Student Swimmer:"
+        // while i'm at it i should separte the whiles into foreach with mild
+        // near-sorted matching algorithm at the end instead to make stuff like
+        // this easier to account for
         while (lv1StatsTable.size()>0 &&
-                growthRatesTable.size()>0 &&
+//                growthRatesTable.size()>0 &&
                 heroListTable.size()>0) {
             HeroConstructor
                     merge,
                     lv1StatsMerge = getLv1Constructor(lv1StatsTable.get(0)),
-                    growthRatesMerge = getGrowthConstructor(growthRatesTable.get(0)),
                     heroListMerge = getListConstructor(heroListTable.get(0));
+
+            //todo: ^
+            HeroConstructor growthRatesMerge;
+            try {
+                growthRatesMerge = getGrowthConstructor(growthRatesTable.get(0));
+            } catch (IndexOutOfBoundsException ioobe) {
+                growthRatesMerge = new HeroConstructor();
+                int[] growths;
+                GregorianCalendar dateReleased;
+                switch (lv1StatsMerge.getFullName().toString()) {
+                    case "Xander: Student Swimmer":
+                        growths = new int[]{ 55, 55, 55, 65, 25 };
+                        dateReleased = new GregorianCalendar(
+                                2017,Calendar.JULY,28,
+                                23,59);
+                        break;
+                    case "Yarne: Timid Taguel":
+                        growths = new int[]{ 50, 60, 60, 55, 30 };
+                        dateReleased = new GregorianCalendar(
+                                2019,Calendar.JUNE,11,
+                                23,59);
+                        break;
+                    case "Ylgr: Breaking the Ice":
+                        growths = new int[]{ 60, 60, 55, 55, 45 };
+                        dateReleased = new GregorianCalendar(
+                                2019, Calendar.JUNE, 24,
+                                23,59);
+                        break;
+                    case "Ylgr: Fresh Snowfall":
+                        growths = new int[]{ 50, 60, 65, 35, 35 };
+                        dateReleased = new GregorianCalendar(
+                                2019, Calendar.JUNE, 24,
+                                23,59);
+                        break;
+                    case "Yune: Chaos Goddess":
+                        growths = new int[]{ 50, 55, 50, 25, 65 };
+                        dateReleased = new GregorianCalendar(
+                                2019, Calendar.MARCH, 29,
+                                23,59);
+                        break;
+                    case "Zelgius: Jet-Black General":
+                        growths = new int[]{ 55, 60, 60, 65, 35 };
+                        dateReleased = new GregorianCalendar(
+                                2018, Calendar.JANUARY, 12,
+                                23,59);
+                        break;
+                    case "Zephiel: The Liberator":
+                        growths = new int[]{ 70, 60, 30, 60, 45 };
+                        dateReleased = new GregorianCalendar(
+                                2017, Calendar.APRIL, 20,
+                                23,59);
+                        break;
+                    case "Zephiel: Winter's Crown":
+                        growths = new int[]{ 60, 65, 35, 70, 55 };
+                        dateReleased = new GregorianCalendar(
+                                2019, Calendar.DECEMBER, 16,
+                                23,59);
+                        break;
+                    default:
+                        System.out.println("HEY HEY HYE LISTEN LISTEN" +
+                                "THERE'S ANOTHER UNIT MISSING FROM GROWTHS\n" +
+                                "it's "+lv1StatsMerge.getFullName().toString() +
+                                " btw");
+                        growths = new int[5];
+                        dateReleased = new GregorianCalendar(
+                                1, Calendar.DECEMBER, 1,
+                                23,59);
+                }
+
+                growthRatesMerge.setGrowths(growths);
+                growthRatesMerge.setDateReleased(dateReleased);
+            }
 
             try {
                 merge = HeroConstructor.merge(lv1StatsMerge,growthRatesMerge);
@@ -405,8 +482,15 @@ public class HeroDatabase extends Database<Hero> {
                 e.printStackTrace();
             }
 
+
+            //todo: ^
+            try {
+                growthRatesTable.remove(0);
+            } catch (IndexOutOfBoundsException ioobe) {
+                //don't need that
+            }
+
             lv1StatsTable.remove(0);
-            growthRatesTable.remove(0);
             heroListTable.remove(0);
             artistsTable.remove(0);
         }
@@ -501,9 +585,9 @@ public class HeroDatabase extends Database<Hero> {
             c.setRarity(Integer.parseInt(String.valueOf(r.charAt(0))));
         } catch (NumberFormatException nfe) {
             if (BotMain.DEBUG)
-                System.out.println("issues getting rarity for " +
-                        c.getFullName()+": "+nfe.getMessage()+
-                        "\n\t\tsubstituting 3*-4*");
+                System.out.println(c.getFullName()+": " +
+                        "issues getting rarity " +nfe.getMessage() +
+                        "; substituting 3*-4*");
             c.setRarity(-1);
         }
 

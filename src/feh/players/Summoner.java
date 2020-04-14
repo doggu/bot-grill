@@ -60,8 +60,7 @@ public class Summoner {
         return getUser().getName();
     }
     public int getOrbsSpent() {
-        return orbsSpent;
-    }
+        return orbsSpent; }
     public String getUserById() { return userId; }
 
     public User getUser() {
@@ -93,66 +92,5 @@ public class Summoner {
     }
     public void spendOrbs(int orbs) {
         orbsSpent+= orbs;
-    }
-
-
-
-//    public static void main(String[] args) {
-//        serialize();
-//    }
-
-    private static void serialize() {
-        File f = new File("./src/feh/players/barracks.txt");
-
-        try {
-            if (f.createNewFile()) {
-                System.out.println("created a new file");
-            }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-            return;
-        }
-
-        for (int i=0; i<5; i++) {
-            SUMMONERS.add(new Summoner("heh"));
-        }
-
-        try {
-            FileOutputStream fos = new FileOutputStream(f);
-            ObjectOutputStream oos = new ObjectOutputStream(fos);
-
-            oos.writeObject(SUMMONERS);
-
-            System.out.println("serialized");
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
-    }
-
-    private static void deserialize() {
-        File f = new File("./src/feh/players/barracks.txt");
-
-        try {
-            if (f.createNewFile()) {
-                System.out.println("created a new file");
-            }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-            return;
-        }
-
-        try {
-            FileInputStream fos = new FileInputStream(f);
-            ObjectInputStream oos = new ObjectInputStream(fos);
-
-            Object o = oos.readObject();
-
-            if (o instanceof ArrayList)
-                SUMMONERS = (ArrayList) o;
-
-            System.out.println("serialized");
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
     }
 }

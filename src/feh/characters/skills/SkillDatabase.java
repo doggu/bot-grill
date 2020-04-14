@@ -4,6 +4,7 @@ import feh.FEHeroesCache;
 import feh.characters.hero.WeaponClass;
 import feh.characters.skills.skillTypes.*;
 import feh.characters.skills.skillTypes.constructionSite.*;
+import main.BotMain;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -59,7 +60,7 @@ public class SkillDatabase extends Database<Skill> {
 
 
 
-    private static FEHeroesCache
+    private static final FEHeroesCache
             WEAPONS_FILE,
             ASSISTS_FILE,
             SPECIALS_FILE,
@@ -69,7 +70,7 @@ public class SkillDatabase extends Database<Skill> {
             WEAPON_REFINES_FILE,
             AOE_PATTERNS_FILE;
 
-    private static FEHeroesCache[] SKILL_FILES;
+    private static final FEHeroesCache[] SKILL_FILES;
 
     static {
         WEAPONS_FILE =
@@ -151,32 +152,36 @@ public class SkillDatabase extends Database<Skill> {
 
 
     protected ArrayList<Skill> getList() {
-        System.out.print("processing skills... ");
+        System.out.println("processing skills... ");
 
         Stopwatch pTime = new Stopwatch();
         pTime.start();
 
         ArrayList<Skill> allSkills = new ArrayList<>();
 
-        System.out.print("processing weapons... ");
+        if (BotMain.DEBUG) System.out.print("processing weapons... ");
         ArrayList<Weapon> weapons = processWeapons();
-        System.out.print("processing assists... ");
-        ArrayList<Assist> assists = processAssists();
-        System.out.print("processing specials... ");
-        ArrayList<Special> specials = processSpecials();
-        System.out.print("processing passives... ");
-        ArrayList<Passive> passives = processPassives();
+        if (BotMain.DEBUG) System.out.println(weapons.size()+" ("+pTime.split()/1000000+" s)");
 
+        if (BotMain.DEBUG) System.out.print("processing assists... ");
+        ArrayList<Assist> assists = processAssists();
+        if (BotMain.DEBUG) System.out.println(assists.size()+" ("+pTime.split()/1000000+" s)");
+
+        if (BotMain.DEBUG) System.out.print("processing specials... ");
+        ArrayList<Special> specials = processSpecials();
+        if (BotMain.DEBUG) System.out.println(specials.size()+" ("+pTime.split()/1000000+" s)");
+
+        if (BotMain.DEBUG) System.out.print("processing passives... ");
+        ArrayList<Passive> passives = processPassives();
+        if (BotMain.DEBUG) System.out.println(passives.size()+" ("+pTime.split()/1000000+" s)");
 
 
         allSkills.addAll(weapons);
         allSkills.addAll(assists);
         allSkills.addAll(specials);
         allSkills.addAll(passives);
+        if (BotMain.DEBUG) System.out.println(pTime.presentResult());
 
-
-
-        System.out.println(pTime.presentResult());
 
         return allSkills;
     }
@@ -697,7 +702,8 @@ public class SkillDatabase extends Database<Skill> {
         } catch (IOException|NullPointerException e) {
             System.out.println("doin' it again because i " +
                     "don't understand priorities...");
-            HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS_PATH);
+            //todo: i got rid of this cuz it made yellow line in IDE ooga booga
+//            HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS_PATH);
             if (HERO_BASE_SKILLS_FILE.update()) return getHeroSkills();
             System.out.println("base skills file not found!");
             return new HashMap<>();

@@ -332,9 +332,12 @@ public class HeroDatabase extends Database<Hero> {
                 growthRatesFile,
                 heroListFile;
         try {
-            lv1StatsFile = Jsoup.parse(LV1_STATS_FILE, "UTF-8");
-            growthRatesFile = Jsoup.parse(GROWTH_RATES_FILE, "UTF-8");
-            heroListFile = Jsoup.parse(HERO_LIST_FILE, "UTF-8");
+            lv1StatsFile =
+                    Jsoup.parse(LV1_STATS_FILE, "UTF-8");
+            growthRatesFile =
+                    Jsoup.parse(GROWTH_RATES_FILE, "UTF-8");
+            heroListFile =
+                    Jsoup.parse(HERO_LIST_FILE, "UTF-8");
         } catch (IOException ioe) {
             ioe.printStackTrace();
             return new ArrayList<>();
@@ -376,7 +379,8 @@ public class HeroDatabase extends Database<Hero> {
             //todo: ^
             HeroConstructor growthRatesMerge;
             try {
-                growthRatesMerge = getGrowthConstructor(growthRatesTable.get(0));
+                growthRatesMerge =
+                        getGrowthConstructor(growthRatesTable.get(0));
             } catch (IndexOutOfBoundsException ioobe) {
                 growthRatesMerge = new HeroConstructor();
                 int[] growths;
@@ -450,7 +454,9 @@ public class HeroDatabase extends Database<Hero> {
             } catch (MismatchedInputException mie) {
                 System.out.println("something was mismatched! (first)");
                 mie.printStackTrace();
-                greatest(greatest(lv1StatsTable, growthRatesTable), heroListTable)
+                greatest(
+                        greatest(lv1StatsTable, growthRatesTable),
+                        heroListTable)
                         .remove(0);
                 continue;
             }
@@ -472,7 +478,8 @@ public class HeroDatabase extends Database<Hero> {
                         merge.getFullName().toString()
                                 .replace(" ", "_")));
             } catch (MalformedURLException murle) {
-                System.out.println(merge.toString()+" couldn't produce a link!");
+                System.out.println(merge.toString() +
+                        " couldn't produce a link!");
                 merge.setGamepediaLink(null);
             }
 
@@ -513,12 +520,14 @@ public class HeroDatabase extends Database<Hero> {
         /*
         String move = d.get(2).attributes().get("alt");
         System.out.println(move);
-        c.setMoveType(move.substring(move.indexOf("Icon Class ")+"Icon Class ".length(),
-                                move.indexOf(".png")));
+        c.setMoveType(move.substring(
+                move.indexOf("Icon Class ")+"Icon Class ".length(),
+                move.indexOf(".png")));
 
         String weapon = d.get(3).attributes().get("alt");
-        c.setWeaponType(weapon.substring(weapon.indexOf("Icon Move ")+"Icon Move ".length(),
-                                weapon.indexOf(".png")));
+        c.setWeaponType(weapon.substring(
+                weapon.indexOf("Icon Move ")+"Icon Move ".length(),
+                weapon.indexOf(".png")));
         */
 
         //c.setMoveType(row.attributes().get("data-move-type"));
@@ -702,7 +711,8 @@ public class HeroDatabase extends Database<Hero> {
             Elements characters = items.get(1).children().get(0).children();
 
             for (Element character:characters) {
-                String name = character.select("a").get(0).attr("title");
+                String name = character.select("a").get(0)
+                        .attr("title");
                 artists.put(name, artist);
             }
         }
@@ -723,7 +733,8 @@ public class HeroDatabase extends Database<Hero> {
     }
 
 
-    private static GregorianCalendar parseDate(String date) throws NumberFormatException {
+    private static GregorianCalendar parseDate(String date)
+            throws NumberFormatException {
         //TODO: make this less basic
         String[] nums = date.split("[-/]");
         int year, month, day;
@@ -770,8 +781,12 @@ public class HeroDatabase extends Database<Hero> {
                 throw new NumberFormatException("invalid integer: "+nums[0]);
         }
         day = Integer.parseInt(nums[2]);
-        //honestly am i really going to make a switch case for an int to find a field which is just another int
-                                                            //(which is one less than the already-defined int)
+        //honestly am i really going to make a switch case for
+        // an int to find a field which is just another int
+        // (which is one less than the already-defined int)
+
+
+
         //yes
         return new GregorianCalendar(year, month, day);
     }

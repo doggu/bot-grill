@@ -33,10 +33,6 @@ import feh.summoning.BannerDatabase;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-//import net.dv8tion.jda.core.AccountType;
-//import net.dv8tion.jda.core.JDA;
-//import net.dv8tion.jda.core.JDABuilder;
-//import net.dv8tion.jda.core.hooks.ListenerAdapter;
 import stem.science.chem.particles.ElementDatabase;
 import events.stem.unitConverter.UnitRegistrar;
 import utilities.Stopwatch;
@@ -54,23 +50,21 @@ public class BotMain {
     public static final boolean DEBUG = true; //it's always debug time
 
 
-
     public static JDA bot_grill;
-    private static List<ListenerAdapter> listeners = new ArrayList<>();
-
+    private static final List<ListenerAdapter> listeners = new ArrayList<>();
 
 
     public static void addListener(ListenerAdapter listener) {
         bot_grill.addEventListener(listener);
         listeners.add(listener);
     }
+
     public static void removeListener(ListenerAdapter listener) {
         bot_grill.removeEventListener(listener);
         listeners.remove(listener);
     }
 
     public static List<ListenerAdapter> getListeners() { return listeners; }
-
 
 
     private static void preloadFEHUtils() {
@@ -106,12 +100,12 @@ public class BotMain {
 
     private static void addShutdownThreads() {
         //assassinate the bot
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> bot_grill.shutdown()));
+        Runtime.getRuntime().addShutdownHook(
+                new Thread(() -> bot_grill.shutdown()));
 
         //TODO: add caching hooks which commit user persistence to storage
         // with hourly backups probably
     }
-
 
 
     public static void main(String[] rgs) throws Exception {
@@ -123,15 +117,10 @@ public class BotMain {
             preloadScience();
         }
 
-        bot_grill = JDABuilder
-                .createDefault(new Scanner(new File("./src/main/token.txt")).nextLine())
-                .build();
+        String token = new Scanner(new File("./src/main/token.txt"))
+                .nextLine();
 
-//        bot_grill = new JDABuilder(AccountType.BOT)
-//                .setToken(new Scanner(new File("./src/main/token.txt")).nextLine())
-//                .build();
-
-        bot_grill.awaitReady();
+        bot_grill = JDABuilder.createDefault(token).build();
 
         addListener(new UnitConversionListener());
         addListener(new UnitRegistrar());
@@ -195,9 +184,10 @@ public class BotMain {
         //help
         addListener(new Help());
 
+        bot_grill.awaitReady();
 
-
-        //todo: rewrite to allow reception of commands from other sources throughout the code
+        //todo: rewrite to allow reception of commands
+        // from other sources throughout the code
 
         addShutdownThreads();
         
@@ -244,9 +234,12 @@ public class BotMain {
                         break;
                     case "mem":
                     case "memory":
-                        System.out.println("Total:\t"+Runtime.getRuntime().totalMemory());
-                        System.out.println("Free:\t"+Runtime.getRuntime().freeMemory());
-                        System.out.println("Max:\t"+Runtime.getRuntime().maxMemory());
+                        System.out.println("Total:\t" +
+                                Runtime.getRuntime().totalMemory());
+                        System.out.println("Free:\t" +
+                                Runtime.getRuntime().freeMemory());
+                        System.out.println("Max:\t" +
+                                Runtime.getRuntime().maxMemory());
                         break;
                 }
             }

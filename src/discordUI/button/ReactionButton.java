@@ -77,7 +77,8 @@ public abstract class ReactionButton extends ReactionListener {
     }
 
     @Override
-    public void onMessageReactionRemove(MessageReactionRemoveEvent event) {
+    public void onMessageReactionRemove(
+            @NotNull MessageReactionRemoveEvent event) {
         this.e = event;
     }
 
@@ -90,7 +91,7 @@ public abstract class ReactionButton extends ReactionListener {
                     .equals(emote.getId());
         else
             return e.getReactionEmote().toString()
-                    .equals("RE:"+emoticon+"(null)");
+                    .equals("RE:"+emoticon);
     }
 
     public abstract void onCommand();

@@ -187,7 +187,7 @@ public class CircleSimulator extends ReactionListener {
     private void addFinishButtons() {
         newButton = new PersonalButton(
                 circleMessage,
-                "\uD83D\uDD04",
+                "U+1f504",  //🔄
                 summoner.getUser()) {
             @Override
             public void onCommand() {
@@ -213,7 +213,7 @@ public class CircleSimulator extends ReactionListener {
         };
         stopButton = new PersonalButton(
                 circleMessage,
-                "❌",
+                "U+274c",  //❌
                 summoner.getUser()) {
             @Override
             public void onCommand() {

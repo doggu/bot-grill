@@ -31,7 +31,6 @@ public class Menu extends ReactionListener {
     private int currentWindow = 0;
 
 
-
     public Menu(User user, MessageChannel channel,
                 Message header, ArrayList<MenuEntry> entries) {
         this.user = user;
@@ -73,13 +72,14 @@ public class Menu extends ReactionListener {
     }
 
     private static final String
-            L_ARROW = "◀",
-            R_ARROW = "▶",
-            ONE = "1⃣",
-            TWO = "2⃣",
-            THREE = "3⃣",
-            FOUR = "4⃣",
-            FIVE = "5⃣";
+            L_ARROW = "U+25c0",  //◀
+            R_ARROW = "U+25b6",  //▶
+            ONE = "U+31U+20e3",
+            TWO = "U+32U+20e3",
+            THREE = "U+33U+20e3",
+            FOUR = "U+34U+20e3",
+            FIVE = "U+35U+20e3";
+
     private void createReactions() {
         message.addReaction(L_ARROW).queue();
         message.addReaction(R_ARROW).queue();
@@ -89,7 +89,6 @@ public class Menu extends ReactionListener {
         message.addReaction(FOUR).queue();
         message.addReaction(FIVE).queue();
     }
-
 
 
     private void displayPrevPage() {
@@ -114,8 +113,9 @@ public class Menu extends ReactionListener {
     }
 
 
-
     public boolean isCommand() {
+        //source says getUser is Nullable, but constructor's arg is Nonnull...
+        //noinspection ConstantConditions
         if (e.getUser().isBot()) return false;
         if (!e.getUser().getId().equals(user.getId())) return false;
 
@@ -125,7 +125,7 @@ public class Menu extends ReactionListener {
 
     public void onCommand() {
         switch (e.getReaction().getReactionEmote().toString()) {
-            case "RE:◀(null)":
+            case "RE:"+L_ARROW:
                 try {
                     displayPrevPage();
                 } catch (IndexOutOfBoundsException ioobe) {
@@ -133,7 +133,7 @@ public class Menu extends ReactionListener {
                     currentWindow++;
                 }
                 break;
-            case "RE:▶(null)":
+            case "RE:"+R_ARROW:
                 try {
                     displayNextPage();
                 } catch (IndexOutOfBoundsException ioobe) {
@@ -144,19 +144,19 @@ public class Menu extends ReactionListener {
             default:
                 try {
                     switch (e.getReaction().getReactionEmote().toString()) {
-                        case "RE:1⃣(null)":
+                        case "RE:"+ONE:
                             displayEntry(1);
                             break;
-                        case "RE:2⃣(null)":
+                        case "RE:"+TWO:
                             displayEntry(2);
                             break;
-                        case "RE:3⃣(null)":
+                        case "RE:"+THREE:
                             displayEntry(3);
                             break;
-                        case "RE:4⃣(null)":
+                        case "RE:"+FOUR:
                             displayEntry(4);
                             break;
-                        case "RE:5⃣(null)":
+                        case "RE:"+FIVE:
                             displayEntry(5);
                             break;
                         default:

@@ -32,7 +32,8 @@ public abstract class MessageListener extends Listener {
         }
     }
 
-
+    //thought: change sendMessage to sendMsg so that "sendMsg(" is 8 chars long
+    // meaning hard-wrapped strings n stuff start on the same column
     protected Message sendMessage(Message message) {
         return e.getChannel().sendMessage(message).complete();
     }

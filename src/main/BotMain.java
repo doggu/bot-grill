@@ -47,7 +47,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class BotMain {
-    private static final boolean FEHEROES_UTILS = true;
+    public static final boolean FEHEROES_UTILS = true;
     private static final boolean CHEMISTRY = true;
     public static final boolean MCSERVER = false;
 

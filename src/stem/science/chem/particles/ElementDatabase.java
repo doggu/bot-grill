@@ -19,10 +19,13 @@ public class ElementDatabase extends Database<ChemicalElement> {
 
 
 
-    private static final String PERIODIC_TABLE_URL = "https://en.wikipedia.org/wiki/List_of_chemical_elements";
+    private static final String PERIODIC_TABLE_URL =
+            "https://en.wikipedia.org/wiki/List_of_chemical_elements";
 
     private static final WebCache PERIODIC_TABLE_FILE =
-            new WebCache("https://en.wikipedia.org/wiki/List_of_chemical_elements", "/chem");
+            new WebCache(
+                    "https://en.wikipedia.org/wiki/List_of_chemical_elements",
+                    "/chem");
 
     @Override
     protected WebCache[] getOnlineResources() {
@@ -34,7 +37,8 @@ public class ElementDatabase extends Database<ChemicalElement> {
     protected ArrayList<ChemicalElement> getList() {
         ArrayList<ChemicalElement> elements = new ArrayList<>();
 
-        WebCache elementCache = new WebCache(PERIODIC_TABLE_URL, "/chem/");
+        WebCache elementCache =
+                new WebCache(PERIODIC_TABLE_URL, "/chem/");
 
         Document file;
         try {
@@ -55,25 +59,29 @@ public class ElementDatabase extends Database<ChemicalElement> {
         try {
             for (Elements element : data) {
                 if (element.size()<13) continue;
-                int     atomicNumber = Integer.parseInt(sanitize(element.get(0).text()));
+                int     atomicNumber = Integer.parseInt(
+                                sanitize(element.get(0).text()));
                 String  symbol = element.get(1).text();
                 String  name = element.get(2).text();
                 String  origin = element.get(3).text();
 
                 int   group;
                 try {
-                    group = Integer.parseInt(sanitize(element.get(4).text()));
+                    group = Integer.parseInt(
+                            sanitize(element.get(4).text()));
                 } catch (NumberFormatException nfe) {
                     if (DEBUG)
                         System.out.println("group "+name);
                     group = 0;
                 }
 
-                int     period = Integer.parseInt(sanitize(element.get(5).text()));
+                int     period = Integer.parseInt(
+                        sanitize(element.get(5).text()));
 
                 double  atomicWeight;
                 try {
-                    atomicWeight = Double.parseDouble(sanitize(element.get(6).text()));
+                    atomicWeight = Double.parseDouble(
+                            sanitize(element.get(6).text()));
                 } catch (NumberFormatException nfe) {
                     if (DEBUG)
                         System.out.println("atomicWeight "+name);
@@ -82,7 +90,8 @@ public class ElementDatabase extends Database<ChemicalElement> {
 
                 double  density;
                 try {
-                    density = Double.parseDouble(sanitize(element.get(7).text()));
+                    density = Double.parseDouble(
+                            sanitize(element.get(7).text()));
                 } catch (NumberFormatException nfe) {
                     if (DEBUG)
                         System.out.println("density "+name);
@@ -91,7 +100,8 @@ public class ElementDatabase extends Database<ChemicalElement> {
 
                 double  meltingPoint;
                 try {
-                    meltingPoint = Double.parseDouble(sanitize(element.get(8).text()));
+                    meltingPoint = Double.parseDouble(
+                            sanitize(element.get(8).text()));
                 } catch (NumberFormatException nfe) {
                     if (DEBUG)
                         System.out.println("meltingPoint "+name);
@@ -100,7 +110,8 @@ public class ElementDatabase extends Database<ChemicalElement> {
 
                 double  boilingPoint;
                 try {
-                    boilingPoint = Double.parseDouble(sanitize(element.get(9).text()));
+                    boilingPoint = Double.parseDouble(
+                            sanitize(element.get(9).text()));
                 } catch (NumberFormatException nfe) {
                     if (DEBUG)
                         System.out.println("boilingPoint "+name);
@@ -109,7 +120,8 @@ public class ElementDatabase extends Database<ChemicalElement> {
 
                 double  C;
                 try {
-                    C = Double.parseDouble(sanitize(element.get(10).text()));
+                    C = Double.parseDouble(
+                            sanitize(element.get(10).text()));
                 } catch (NumberFormatException nfe) {
                     if (DEBUG)
                         System.out.println("C "+name);
@@ -118,7 +130,8 @@ public class ElementDatabase extends Database<ChemicalElement> {
 
                 double  electronegativity;
                 try {
-                    electronegativity = Double.parseDouble(sanitize(element.get(11).text()));
+                    electronegativity = Double.parseDouble(
+                            sanitize(element.get(11).text()));
                 } catch (NumberFormatException nfe) {
                     if (DEBUG)
                         System.out.println("electronegativity "+name);
@@ -127,7 +140,8 @@ public class ElementDatabase extends Database<ChemicalElement> {
 
                 double  earthAbundance;
                 try {
-                    earthAbundance = Double.parseDouble(sanitize(element.get(12).text()));
+                    earthAbundance = Double.parseDouble(
+                            sanitize(element.get(12).text()));
                 } catch (NumberFormatException nfe) {
                     if (DEBUG)
                         System.out.println("earthAbundance "+name);

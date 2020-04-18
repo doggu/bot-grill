@@ -46,7 +46,8 @@ public class Info {
         for (File x:origin) {
             if (x.isDirectory()) {
                 try {
-                    files.addAll(getFiles(new ArrayList<>(Arrays.asList(x.listFiles()))));
+                    files.addAll(getFiles(
+                            new ArrayList<>(Arrays.asList(x.listFiles()))));
                 } catch (NullPointerException npe) {
                     //it's empty
                 }

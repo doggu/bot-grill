@@ -14,7 +14,10 @@ public class Converter implements Function<Double, Double> {
         this.from = from;
         this.to = to;
 
-        if (!from.matches(to)) throw new InconversibleUnitsException(from.getBaseUnits(), to.getBaseUnits());
+        if (!from.matches(to))
+            throw new InconversibleUnitsException(
+                    from.getBaseUnits(),
+                    to.getBaseUnits());
     }
 
     @Override

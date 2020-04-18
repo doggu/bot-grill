@@ -168,7 +168,9 @@ public class ChemicalElement {
                     case 0:
                         return MTLD;
                     case 1:
-                        break; //return group==15?MTLD:NON_M; if this works i'm big brain
+                        break;
+                        //return group==15?MTLD:NON_M;
+                        // if this works i'm big brain
                 }
             case 5:
                 switch (Integer.compare(group, 15)) {

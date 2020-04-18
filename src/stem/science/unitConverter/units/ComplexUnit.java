@@ -10,7 +10,9 @@ public class ComplexUnit extends Unit {
 
 
 
-    public ComplexUnit(String name, String symbol, HashMap<Unit, Integer> units, double additionalScale) {
+    public ComplexUnit(String name, String symbol,
+                       HashMap<Unit, Integer> units,
+                       double additionalScale) {
         super(name, symbol,
                 absoluteConfiguration(units),
                 absoluteScaleToSI(units, additionalScale));
@@ -61,7 +63,9 @@ public class ComplexUnit extends Unit {
     public static ComplexUnit generateUnit(String unit) {
         return generateUnit(unit, unit, unit);
     }
-    public static ComplexUnit generateUnit(String name, String symbol, String unit) {
+    public static ComplexUnit generateUnit(String name,
+                                           String symbol,
+                                           String unit) {
         HashMap<Unit, Integer> units = generateChildUnits(unit);
 
         try {
@@ -71,7 +75,8 @@ public class ComplexUnit extends Unit {
         }
     }
 
-    private static double absoluteScaleToSI(HashMap<Unit, Integer> a, double additionalScale) {
+    private static double absoluteScaleToSI(HashMap<Unit, Integer> a,
+                                            double additionalScale) {
         double scale = 1;
         for (Unit u:a.keySet()) {
             int m = a.get(u);

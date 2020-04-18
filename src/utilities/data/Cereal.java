@@ -12,8 +12,8 @@ public class Cereal<T extends Serializable> {
     private boolean readable = true;
 
     /**
-     * creates an object which will help deserialize and reserialize objects which
-     * are serializable.
+     * creates an object which will help deserialize and reserialize objects
+     * which are serializable.
      *
      * @param filename the name of the file to store serialized objects in.
      *                 format: "[filename].[extension]"

@@ -34,9 +34,11 @@ public class WebCache extends File {
     public boolean update() {
         if (!delete()) {
             if (!exists()) {
-                if (!getParentFile().mkdirs()) //path already exists????? please????
+                //path already exists????? please????
+                if (!getParentFile().mkdirs())
                 try {
-                    if (!createNewFile()) throw new Error("createNewFile returned false");
+                    if (!createNewFile())
+                        throw new Error("createNewFile returned false");
                 } catch (IOException ioe) {
                     throw new Error("IOException while creating new file");
                 }
@@ -79,10 +81,12 @@ public class WebCache extends File {
 
 
     /**
-     * Constructs the full directory of a file based on local constants and a website URL.
+     * Constructs the full directory of a file based on local constants and a
+     * website URL.
      *
      * @param website full URL of the website.
-     * @param subdir a provided subdirectory, which may be null, in which the website directory will be contained.
+     * @param subdir a provided subdirectory, which may be null, in which the
+     *               website directory will be contained.
      *
      * @return the fully generated directory.
      */

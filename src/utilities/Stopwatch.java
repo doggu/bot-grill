@@ -25,7 +25,8 @@ public class Stopwatch {
      */
     public String presentResult() {
         stop();
-        return "done ("+BigDecimal.valueOf(timeInSeconds()).round(new MathContext(3))+")!";
+        return "done ("+BigDecimal.valueOf(timeInSeconds())
+                .round(new MathContext(3))+")!";
     }
 
     public double split() {

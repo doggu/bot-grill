@@ -34,13 +34,14 @@ public class FracCalc {
     	
     	//declare operands and operators
     	while (input.length()>0) {
-			String clause; 
-			
-    		if (input.indexOf(' ')==-1) clause = input; //the last term is all that's left
+			String clause;
+			//the last term is all that's left
+    		if (input.indexOf(' ')==-1) clause = input;
 			else clause = input.substring(0, input.indexOf(' '));
     		
-			//if not 0-9 unicode value						could be negative number
-			if ((clause.charAt(0)<'0'||clause.charAt(0)>'9')&&clause.length()==1)
+			//if not 0-9 unicode value
+			if ((clause.charAt(0)<'0'||clause.charAt(0)>'9') &&
+					clause.length()==1)  //could be negative number
 				operators.add(clause.charAt(0));
     		else {
     			int[] term = parse(clause);
@@ -49,7 +50,8 @@ public class FracCalc {
     		}
 			
 			
-    		if (input.indexOf(' ')==-1) input = ""; //kinda sucky but this is how i fenceposted correctly
+    		if (input.indexOf(' ')==-1) input = "";
+    		//kinda sucky but this is how i fenceposted correctly
     		else input = input.substring(input.indexOf(' ')+1);
     	}
     	
@@ -61,14 +63,19 @@ public class FracCalc {
     	for (int i=0; i<operators.size(); i++) {
     		char operator = operators.get(i);
     		if (operator=='*'||operator=='/') {
-        		//it's already stored in this iteration so we don't need it anymore
+        		//it's already stored in this iteration
+        		// so we don't need it anymore
     			operators.remove(i);
         		
     			//replace term 1 with the solution to this section
-        		operands.set(i, solve(operands.get(i), operands.get(i+1), operator));
+        		operands.set(
+        				i,
+        				solve(operands.get(i), operands.get(i+1),
+        				operator));
         		operands.remove(i+1); //remove term 2
         		
-        		//since the individual problem was solved/condensed, repeat at the same index
+        		//since the individual problem was solved/condensed,
+        		// repeat at the same index
         		i--;
     		}
     	}
@@ -76,7 +83,10 @@ public class FracCalc {
     	for (int i=0; i<operators.size(); i++) {
     		char operator = operators.get(i);
 			operators.remove(i);
-    		operands.set(i, solve(operands.get(i), operands.get(i+1), operator));
+    		operands.set(
+    				i,
+    				solve(operands.get(i), operands.get(i+1),
+					operator));
     		operands.remove(i+1);
     		System.out.println(i);
     		i--;
@@ -84,7 +94,10 @@ public class FracCalc {
     	*/
     	
     	while (operators.size()>0) {
-    		operands.set(0, solve(operands.get(0), operands.get(1), operators.get(0)));
+    		operands.set(
+    				0,
+					solve(operands.get(0), operands.get(1),
+					operators.get(0)));
     		operators.remove(0);
     		operands.remove(1);
     	}
@@ -130,13 +143,18 @@ public class FracCalc {
 
     	//declare numbers (whole, numerator, denominator)
     	if (term.indexOf('_')>0) {
-    		numbers[0] = Integer.parseInt(term.substring(0, term.indexOf('_')));
-        	numbers[1] = Integer.parseInt(term.substring(term.indexOf('_')+1, term.indexOf('/')));
-        	numbers[2] = Integer.parseInt(term.substring(term.indexOf('/')+1));
+    		numbers[0] = Integer.parseInt(
+    				term.substring(0, term.indexOf('_')));
+        	numbers[1] = Integer.parseInt(
+        			term.substring(term.indexOf('_')+1, term.indexOf('/')));
+        	numbers[2] = Integer.parseInt(
+        			term.substring(term.indexOf('/')+1));
     	} else {
     		if (term.indexOf('/')>0) {
-    			numbers[1] = Integer.parseInt(term.substring(0, term.indexOf('/')));
-            	numbers[2] = Integer.parseInt(term.substring(term.indexOf('/')+1));
+    			numbers[1] = Integer.parseInt(
+    					term.substring(0, term.indexOf('/')));
+            	numbers[2] = Integer.parseInt(
+            			term.substring(term.indexOf('/')+1));
     		} else {
     			numbers[0] = Integer.parseInt(term);
     		}
@@ -148,7 +166,8 @@ public class FracCalc {
     	return numbers;
     }
 
-    //changes (potential) complex fractions into improper ones so that they are easier to manipulate
+    //changes (potential) complex fractions into improper ones
+	// so that they are easier to manipulate
     private static int[] improperize(int[] term) {
     	if (term[0]<0) term[1]*= -1;
     	term[1]+= term[0]*term[2];

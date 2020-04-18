@@ -38,7 +38,8 @@ public class PrettyNumber {
 
 
     public String toString() {
-        StringBuilder number = new StringBuilder(n.round(new MathContext(16)).toPlainString());
+        StringBuilder number = new StringBuilder(
+                n.round(new MathContext(16)).toPlainString());
         int decimal = number.indexOf(String.valueOf('.'));
         if (decimal < 0) decimal = number.length();
 
@@ -52,7 +53,8 @@ public class PrettyNumber {
             int roughlyN = n.compareTo(new BigDecimal(1))+1;
             if (roughlyN>1) {
                 if (n.compareTo(new BigDecimal(Math.pow(10, SN_CUTOFF)))>0) {
-                    newN = new StringBuilder(String.valueOf(number.charAt(0))).append('.');
+                    newN = new StringBuilder(
+                            String.valueOf(number.charAt(0))).append('.');
 
                     for (int i = 1; i < 4 && i < number.length(); i++) {
                         if (number.charAt(i) == '.') continue;
@@ -62,13 +64,15 @@ public class PrettyNumber {
                     newN.append("×10");
                     String superscript = String.valueOf(decimal - 1);
                     for (int i = 0; i < superscript.length(); i++)
-                        newN.append(SUPERSCRIPT_DIGITS[superscript.charAt(i) - '0']);
+                        newN.append(SUPERSCRIPT_DIGITS[superscript.charAt(i)-'0']);
                 } else
                     newN = null;
             } else if (roughlyN<1) {
                 //get leading zeroes
                 int lZ;
-                for (lZ=0; (number.charAt(lZ)=='0'||number.charAt(lZ)=='.')&&lZ<number.length(); lZ++);
+                for (lZ=0;
+                        (number.charAt(lZ)=='0' || number.charAt(lZ)=='.') &&
+                        lZ<number.length(); lZ++);
                 lZ--; //period
 
                 if (lZ>SN_CUTOFF) {
@@ -88,18 +92,12 @@ public class PrettyNumber {
                 return "seriously the number is 0 omg get a life";
             }
 
-            if (newN==null) newN = new StringBuilder(n.round(new MathContext(3)).toString());
+            if (newN==null) newN = new StringBuilder(
+                    n.round(new MathContext(3)).toString());
 
             number = newN;
         }
 
         return number.toString();
-    }
-
-
-    public static void main(String[] args) {
-        System.out.println(new PrettyNumber(new BigDecimal(8957298457245.22458), false));
-        float f = Float.MAX_VALUE/4340564067380546565L/434046565L;
-        System.out.println(new PrettyNumber(new BigDecimal(f)));
     }
 }

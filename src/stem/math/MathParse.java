@@ -248,7 +248,8 @@ public class MathParse {
         while (!function.equals("quit")) {
 
             try {
-                Function<Double,Double> f = new MathParse(function).getFunction();
+                Function<Double,Double> f =
+                        new MathParse(function).getFunction();
                 for (int i=0; i<TV.length; i++)
                     OV[i] = f.apply(TV[i]);
 

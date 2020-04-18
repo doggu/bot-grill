@@ -50,7 +50,8 @@ public class UnitDatabase extends Database<Unit> implements Serializable {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             try {
                 if (DB_CEREAL==null)
-                    new Cereal<>("database.txt", FILEPATH).serialize(DATABASE);
+                    new Cereal<>("database.txt", FILEPATH)
+                            .serialize(DATABASE);
                 else
                     DB_CEREAL.serialize(DATABASE);
             } catch (IOException ioe) {
@@ -63,7 +64,8 @@ public class UnitDatabase extends Database<Unit> implements Serializable {
     protected ArrayList<Unit> getList() {
         ArrayList<Unit> units = new ArrayList<>();
 
-        //coincides with above 2d array (indexes of first dimensions correspond to each other)
+        //coincides with above 2d array
+        // (indexes of first dimensions correspond to each other)
         String[] nameSI = {
                 "second",
                 "meter",
@@ -232,7 +234,8 @@ public class UnitDatabase extends Database<Unit> implements Serializable {
             try {
                 System.out.println(
                         new BigDecimal(new Converter(s, e).apply(i))
-                                .round(new MathContext(5)).toPlainString()
+                                .round(new MathContext(5))
+                                .toPlainString()
                                 + " " + e.getSymbol());
             } catch (InconversibleUnitsException iue) {
                 iue.printStackTrace();

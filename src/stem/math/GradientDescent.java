@@ -9,7 +9,8 @@ public class GradientDescent {
     private static double precision = 0.00000001;
 
 
-    public static double gradientDescent(Function<Double,Double> f, double curX) {
+    public static double gradientDescent(
+            Function<Double,Double> f, double curX) {
         double previousStepSize = 1.0;
         double prevX;
 
@@ -35,7 +36,8 @@ public class GradientDescent {
             double start = Double.parseDouble(arguments[0]);
             String function = arguments[1];
             try {
-                Function<Double,Double> f = new MathParse(function).getFunction();
+                Function<Double,Double> f =
+                        new MathParse(function).getFunction();
                 System.out.println(GradientDescent.gradientDescent(f, start));
             } catch (Error format) {
                 System.out.println("incorrect format!");

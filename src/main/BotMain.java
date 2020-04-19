@@ -117,7 +117,7 @@ public class BotMain {
             preloadScience();
         }
 
-        String token = new Scanner(new File("./src/main/token.txt"))
+        String token = new Scanner(new File("token.txt"))
                 .nextLine();
 
         bot_grill = JDABuilder.createDefault(token).build();

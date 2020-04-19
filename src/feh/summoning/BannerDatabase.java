@@ -21,7 +21,8 @@ public class BannerDatabase extends Database<Banner> {
     public static BannerDatabase DATABASE;
     public static ArrayList<Banner> BANNERS;
 
-    private static final String FOCUS_ARCHIVE = "Summoning_Focus_archive";
+    private static final String FOCUS_ARCHIVE =
+            "https://feheroes.gamepedia.com/Summoning_Focus_archive";
 
     private static final FEHeroesCache FOCUS_ARCHIVE_FILE;
 

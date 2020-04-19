@@ -282,9 +282,10 @@ public class HeroDatabase extends Database<Hero> {
     private static final String HERO_SUBDIR = "/herodata/";
 
     private static final String
-            LV1_STATS = "Level_1_stats_table",
-            GROWTH_RATES = "Growth_rate_table",
-            HERO_LIST = "List_of_Heroes";
+            LV1_STATS = "https://feheroes.gamepedia.com/Level_1_stats_table",
+            GROWTH_RATES = "https://feheroes.gamepedia.com/Growth_rate_table",
+            HERO_LIST = "https://feheroes.gamepedia.com/List_of_Heroes",
+            ARTISTS_URL = "https://feheroes.gamepedia.com/List_of_artists";
 
     private static final FEHeroesCache
             LV1_STATS_FILE,
@@ -688,7 +689,7 @@ public class HeroDatabase extends Database<Hero> {
         Document artistsFile;
         try {
             artistsFile = Jsoup.parse(
-                    new FEHeroesCache("List_of_artists", HERO_SUBDIR),
+                    new FEHeroesCache(ARTISTS_URL, HERO_SUBDIR),
                     "UTF-8");
         } catch (Exception e) {
             e.printStackTrace();

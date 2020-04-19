@@ -39,25 +39,33 @@ public class SkillDatabase extends Database<Skill> {
     private static final String
             SKILLS_SUBDIR = "/skills/";
     private static final String
-            WEAPONS_PATH = "Weapons",
-            ASSISTS_PATH = "Assists",
-            SPECIALS_PATH = "Specials",
-            PASSIVES_PATH = "Passives",
-          //SACRED_SEALS_ALL = "Sacred_Seals",
-            EXCLUSIVE_SKILLS_PATH = "Exclusive_skills",
-          //SKILL_CHAINS_4_STARS = "https://feheroes.gamepedia.com/Skill_Chains_4_Stars_List",
-          //SKILL_CHAINS_5_STARS = "https://feheroes.gamepedia.com/Skill_Chains_5_Stars_List",
-          //LIST_OF_UPGRADABLE_WEAPONS = "https://feheroes.gamepedia.com/List_of_upgradable_weapons",
-          //LIST_OF_EVOLVING_WEAPONS = "https://feheroes.gamepedia.com/List_of_evolving_weapons",
-          //maybe a Skill thing
-          //LIST_OF_DESCRIPTION_TAGS = "https://feheroes.gamepedia.com/List_of_description_tags",
-            HERO_BASE_SKILLS_PATH = "Hero_skills_table",
-            WEAPON_REFINES_PATH = "Weapon_Refinery",
-            AOE_PATTERNS_PATH = "Area-of-effect_Specials";
-
-    private static final String
-            FEHEROES = "https://feheroes.gamepedia.com";
-
+            FEHEROES = "https://feheroes.gamepedia.com/",
+            WEAPONS_PATH = "https://feheroes.gamepedia.com/Weapons",
+            ASSISTS_PATH = "https://feheroes.gamepedia.com/Assists",
+            SPECIALS_PATH = "https://feheroes.gamepedia.com/Specials",
+            PASSIVES_PATH = "https://feheroes.gamepedia.com/Passives",
+            SACRED_SEALS_ALL = "Sacred_Seals",
+            EXCLUSIVE_SKILLS_PATH =
+                    "https://feheroes.gamepedia.com/Exclusive_skills",
+            INHERITABLE_SKILLS =
+                    "https://feheroes.gamepedia.com/List_of_inheritable_skills",
+            SKILL_CHAINS_4_STARS =
+                    "https://feheroes.gamepedia.com/Skill_Chains_4_Stars_List",
+            SKILL_CHAINS_5_STARS =
+                    "https://feheroes.gamepedia.com/Skill_Chains_5_Stars_List",
+            LIST_OF_UPGRADABLE_WEAPONS =
+                    "https://feheroes.gamepedia.com/List_of_upgradable_weapons",
+            LIST_OF_EVOLVING_WEAPONS =
+                    "https://feheroes.gamepedia.com/List_of_evolving_weapons",
+            //maybe a Skill thing
+            LIST_OF_DESCRIPTION_TAGS =
+                    "https://feheroes.gamepedia.com/List_of_description_tags",
+            HERO_BASE_SKILLS_PATH =
+                    "https://feheroes.gamepedia.com/Hero_skills_table",
+            WEAPON_REFINES_PATH =
+                    "https://feheroes.gamepedia.com/Weapon_Refinery",
+            AOE_PATTERNS_PATH =
+                    "https://feheroes.gamepedia.com/Area-of-effect_Specials";
 
 
     private static final FEHeroesCache

@@ -24,16 +24,6 @@ import java.util.Scanner;
 public class SkillDatabase extends Database<Skill> {
     public static SkillDatabase DATABASE;
     public static ArrayList<Skill> SKILLS;
-    /*
-    public static ArrayList<Weapon> WEAPONS;
-    public static ArrayList<Assist> ASSISTS;
-    public static ArrayList<Special> SPECIALS;
-    public static ArrayList<Passive> PASSIVES;
-    public static ArrayList<PassiveA> PASSIVES_A;
-    public static ArrayList<PassiveB> PASSIVES_B;
-    public static ArrayList<PassiveC> PASSIVES_C;
-    public static ArrayList<PassiveS> PASSIVES_S;
-     */
     public static HashMap<String, ArrayList<Skill>> HERO_SKILLS;
 
     private static final String
@@ -44,7 +34,7 @@ public class SkillDatabase extends Database<Skill> {
             ASSISTS_PATH = "https://feheroes.gamepedia.com/Assists",
             SPECIALS_PATH = "https://feheroes.gamepedia.com/Specials",
             PASSIVES_PATH = "https://feheroes.gamepedia.com/Passives",
-            SACRED_SEALS_ALL = "Sacred_Seals",
+            SACRED_SEALS_ALL = "https://feheroes.gamepedia.com/Sacred_Seals",
             EXCLUSIVE_SKILLS_PATH =
                     "https://feheroes.gamepedia.com/Exclusive_skills",
             INHERITABLE_SKILLS =
@@ -150,13 +140,10 @@ public class SkillDatabase extends Database<Skill> {
         HERO_SKILLS = DATABASE.getHeroSkills();
     }
 
-
-
     @Override
     protected WebCache[] getOnlineResources() {
         return SKILL_FILES;
     }
-
 
 
     protected ArrayList<Skill> getList() {
@@ -169,20 +156,15 @@ public class SkillDatabase extends Database<Skill> {
 
         if (BotMain.DEBUG) System.out.print("processing weapons... ");
         ArrayList<Weapon> weapons = processWeapons();
-        if (BotMain.DEBUG) System.out.println(weapons.size()+" ("+pTime.split()/1000000+" s)");
 
         if (BotMain.DEBUG) System.out.print("processing assists... ");
         ArrayList<Assist> assists = processAssists();
-        if (BotMain.DEBUG) System.out.println(assists.size()+" ("+pTime.split()/1000000+" s)");
 
         if (BotMain.DEBUG) System.out.print("processing specials... ");
         ArrayList<Special> specials = processSpecials();
-        if (BotMain.DEBUG) System.out.println(specials.size()+" ("+pTime.split()/1000000+" s)");
 
         if (BotMain.DEBUG) System.out.print("processing passives... ");
         ArrayList<Passive> passives = processPassives();
-        if (BotMain.DEBUG) System.out.println(passives.size()+" ("+pTime.split()/1000000+" s)");
-
 
         allSkills.addAll(weapons);
         allSkills.addAll(assists);
@@ -190,10 +172,18 @@ public class SkillDatabase extends Database<Skill> {
         allSkills.addAll(passives);
         if (BotMain.DEBUG) System.out.println(pTime.presentResult());
 
-
         return allSkills;
     }
 
+    /**
+     * a "sub-function" which uses https://feheroes.gamepedia.com/Weapons in
+     * order to create Weapon objects which describe their individual skills
+     * completely.
+     *
+     * @return a complete list of all passives given by the website, complete
+     * with polymorphism distinguishing the passive slots and data describing
+     * each individual skill
+     */
     private static ArrayList<Weapon> processWeapons() {
         ArrayList<Weapon> weapons = new ArrayList<>();
 
@@ -264,6 +254,15 @@ public class SkillDatabase extends Database<Skill> {
 
         return weapons;
     }
+
+    /**
+     * a "sub-function" which uses https://feheroes.gamepedia.com/Assists to
+     * generate Assist objects which describe the assists provided in the game
+     * completely.
+     *
+     * @return a complete list of all assists given by the website, encapsulated
+     * by a number of Assist objects
+     */
     private static ArrayList<Assist> processAssists() {
         ArrayList<Assist> assists = new ArrayList<>();
 
@@ -278,25 +277,26 @@ public class SkillDatabase extends Database<Skill> {
         Elements tables = assistsFile.select("table");
 
         for (Element table:tables) {
-            if (table.select("tr").size()>20) {
-                Element header = table.selectFirst("thead");
-                Elements rows = table.selectFirst("tbody")
-                        .select("tr");
+            if (table.select("tr").size()<20)
+                continue;
 
-                for (Element row:rows) {
-                    SkillConstructor x = new SkillConstructor();
-                    Elements info = row.children();
+            Element header = table.selectFirst("thead");
+            Elements rows = table.selectFirst("tbody")
+                    .select("tr");
 
-                    gatherBasicInformation(x, header, info);
+            for (Element row:rows) {
+                SkillConstructor x = new SkillConstructor();
+                Elements info = row.children();
 
-                    x.setRange(Integer.parseInt(info.get(3).text()));
-                    x.setExclusive(isExclusive(x.getName()));
+                gatherBasicInformation(x, header, info);
 
-                    try {
-                        assists.add(x.generateAssist());
-                    } catch (IncompleteDataException ide) {
-                        ide.printStackTrace();
-                    }
+                x.setRange(Integer.parseInt(info.get(3).text()));
+                x.setExclusive(isExclusive(x.getName()));
+
+                try {
+                    assists.add(x.generateAssist());
+                } catch (IncompleteDataException ide) {
+                    ide.printStackTrace();
                 }
             }
         }
@@ -305,6 +305,14 @@ public class SkillDatabase extends Database<Skill> {
 
         return assists;
     }
+
+    /**
+     * a "sub-function" which uses https://feheroes.gamepedia.com/Specials to
+     * create Special skills based on the table provided
+     *
+     * @return a complete list of all specials provided by the website,
+     * encapsulated by individual Special objects
+     */
     private static ArrayList<Special> processSpecials() {
         ArrayList<Special> specials = new ArrayList<>();
 
@@ -342,10 +350,17 @@ public class SkillDatabase extends Database<Skill> {
 
         return specials;
     }
+
+    /**
+     * a "sub-function" which uses https://feheroes.gamepedia.com/Weapons in
+     * order to create Passive skills based on the tables it sees.
+     *
+     * @return a complete list of all passives given by the website, complete
+     * with polymorphism distinguishing the passive slots and data describing
+     * each individual skill
+     */
     private static ArrayList<Passive> processPassives() {
         ArrayList<Passive> passives = new ArrayList<>();
-
-
 
         Document passivesFile;
         try {
@@ -354,8 +369,6 @@ public class SkillDatabase extends Database<Skill> {
             System.out.println("passives file not found!");
             return new ArrayList<>();
         }
-
-
 
         Elements tables = passivesFile
                 .select("table[class='cargoTable noMerge sortable']");
@@ -372,57 +385,74 @@ public class SkillDatabase extends Database<Skill> {
             Element header = tables.get(i).selectFirst("thead");
 
             for (Element row : rows) {
+                SkillConstructor x = new SkillConstructor();
+                Elements info = row.children();
+
+                gatherBasicInformation(x, header, info);
+
+                String[] urlSet = info.get(0).select("a")
+                        .get(0).select("img")
+                        .get(0).attr("srcset")
+                        .split(" ");
                 try {
-                    SkillConstructor x = new SkillConstructor();
-                    Elements info = row.children();
-
-                    gatherBasicInformation(x, header, info);
-
-                    String[] urlSet = info.get(0).select("a")
-                            .get(0).select("img")
-                            .get(0).attr("srcset")
-                            .split(" ");
+                    x.setIcon(new URL(urlSet[2]));
+                } catch (MalformedURLException murle) {
+                    System.out.println("got a murle for icon "+x.getName());
+                    x.setIcon(null);
+                } catch (IndexOutOfBoundsException ioobe) {
+                    System.out.println("did not have a third resolution " +
+                            "(or probably any resolution)\n" +
+                            info.get(0).select("a")
+                                    .get(0).select("img"));
                     try {
-                        x.setIcon(new URL(urlSet[2]));
-                    } catch (MalformedURLException murle) {
-                        System.out.println("got a murle for icon "+x.getName());
-                        x.setIcon(null);
+                        x.setIcon(new URL(
+                                "https://lh3.googleusercontent.com/" +
+                                        "xRh1UsbatdDxkorrhNmMFpqINzq5R7M" +
+                                        "pd-AWuc5b9Q6JxhBRLae8PE7RM1Zp1n" +
+                                        "29tUxzGdkCGOrTw38MQXmn7w=s400"));
+                    } catch (MalformedURLException e) {
+                        e.printStackTrace();
                     }
+                }
 
-                    x.setExclusive(info.get(4).text().equals("Yes"));
-
-                    switch (i) {
-                        case 0:
-                            passives.add(x.generatePassiveA());
-                            break;
-                        case 1:
-                            passives.add(x.generatePassiveB());
-                            break;
-                        case 2:
-                            passives.add(x.generatePassiveC());
-                            break;
-                        case 3:
-                            passives.add(x.generatePassiveS());
-                            break;
-                        default:
-                            System.out.println("this is not an expected table, " +
-                                    "how'd it even get this far");
-                            //continue;
+                x.setExclusive(info.get(4).text().equals("Yes"));
+                try {
+                    if (i==0) {
+                        passives.add(x.generatePassiveA());
+                    } else if (i==1) {
+                        passives.add(x.generatePassiveB());
+                    } else if (i==2) {
+                        passives.add(x.generatePassiveC());
+                    } else if (i==3) {
+                        passives.add(x.generatePassiveS());
+                    } else {
+                        System.out.println(
+                                "this is not an expected table, "+
+                                        "how'd it even get this far");
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    //let's not talk about that one
+                } catch (IncompleteDataException ide) {
+                    ide.printStackTrace();
                 }
             }
         }
 
         return passives;
     }
+
+    /**
+     * a helper function which helps to generalize the data collected from
+     * tables, gathering common items such as name, description, cost, etc.
+     * (actually that's all it does so far)
+     *
+     * @param x the SkillConstructor object to push data into
+     * @param header the title for each column read
+     * @param info the value of a certain row of the table which corresponds to
+     *             the SkillConstructor in question
+     */
     private static void gatherBasicInformation(SkillConstructor x,
                                                Element header, Elements info) {
         ArrayList<String> titles =
                 new ArrayList<>(header.child(0).children().eachText());
-
         for (int i=0; i<titles.size(); i++) {
             switch (titles.get(i)) {
                 case "Name":
@@ -444,7 +474,14 @@ public class SkillDatabase extends Database<Skill> {
                     x.setDescription(info.get(i).text());
                     break;
                 case "SP":
-                    x.setCost(Integer.parseInt(info.get(i).text()));
+                    int cost;
+                    try {
+                        cost = Integer.parseInt(info.get(i).text());
+                    } catch (NumberFormatException nfe) {
+                        cost = -1;
+                    }
+                    x.setCost(cost);
+                    break;
             }
         }
     }
@@ -519,7 +556,8 @@ public class SkillDatabase extends Database<Skill> {
             }
         }
 
-        //the first table is stuck for some reason despite my VERY SPECIFIC qualifier
+        //the first table is stuck for some reason
+        // despite my VERY SPECIFIC qualifier
         tables.remove(0);
 
         ArrayList<WeaponRefine> refines = new ArrayList<>();
@@ -556,11 +594,10 @@ public class SkillDatabase extends Database<Skill> {
             try {
                 link = new URL(
                         FEHEROES +
-                                info
-                                        .get(0)
-                                        .select("a")
-                                        .get(0)
-                                        .attr("href"));
+                                info.get(0)
+                                    .select("a")
+                                    .get(0)
+                                    .attr("href"));
             } catch (MalformedURLException murle) {
                 System.out.println("got a murle for "+name);
                 link = null;
@@ -627,6 +664,7 @@ public class SkillDatabase extends Database<Skill> {
 
         return refines;
     }
+
     /**
      * Used to associate refines with their base weapons.
      *
@@ -640,7 +678,16 @@ public class SkillDatabase extends Database<Skill> {
     }
     //todo: evolutions
 
+
     private static final HashMap<String, boolean[][]> AOE_PATTERNS;
+
+    /**
+     * reads from https://feheroes.gamepedia.com/Area-of-effect_Specials in
+     * order to produce the correct AoE pattern for a given skill.
+     *
+     * @return a map of strings to 2d boolean arrays which describe an AoE
+     *         pattern, centered on the target (see the website for visuals)
+     */
     private static HashMap<String, boolean[][]> getAOEPatternList() {
         Document patternsFile;
         try {
@@ -743,7 +790,6 @@ public class SkillDatabase extends Database<Skill> {
 
         return heroSkills;
     }
-
 
 
     public ArrayList<Skill> findAll(String name) {

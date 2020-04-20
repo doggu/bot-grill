@@ -43,6 +43,7 @@ Brunnya: Devoted General	f
 Bruno: Masked Hare	m
 Byleth: Proven Professor	f
 Byleth: Tested Professor	m
+Caeda: Princess of Talys	f
 Caeda: Talys's Bride	f
 Caeda: Talys's Heart	f
 Cain: The Bull	m
@@ -310,10 +311,12 @@ Marth: Altean Groom	m
 Marth: Altean Prince	m
 Marth: Enigmatic Blade	f
 Marth: Hero-King	m
+Marth: Legacied Hero	m
 Marth: Royal Altean Duo	m
 Mathilda: Legendary Knight	f
 Matthew: Faithful Spy	m
 Mercedes: Kindly Devotee	f
+Merric: Changing Winds	m
 Merric: Wind Mage	m
 Mia: Lady of Blades	f
 Mia: Moonlit Witch	f
@@ -323,6 +326,7 @@ Micaiah: Summer's Dawn	f
 Michalis: Ambitious King	m
 Midori: Reliable Chemist	f
 Mikoto: Caring Mother	f
+Minerva: Princess-Knight	f
 Minerva: Red Dragoon	f
 Mist: Helpful Sister	f
 Mist: Purest Spirit	f
@@ -370,6 +374,7 @@ Osian: Scolded Soldier	m
 Owain: Chosen One	m
 Palla: Eldest Bun-Bun	f
 Palla: Eldest Whitewing	f
+Palla: Sisterly Trio	f
 Panne: Proud Taguel	f
 Pent: Fancy Fiancé	m
 Peony: Sweet Dream	f

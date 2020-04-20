@@ -771,42 +771,18 @@ public class HeroDatabase extends Database<Hero> {
         int year, month, day;
         year = Integer.parseInt(nums[0]);
         switch (Integer.parseInt(nums[1])-1) {
-            case Calendar.JANUARY:
-                month = Calendar.JANUARY;
-                break;
-            case Calendar.FEBRUARY:
-                month = Calendar.FEBRUARY;
-                break;
-            case Calendar.MARCH:
-                month = Calendar.MARCH;
-                break;
-            case Calendar.APRIL:
-                month = Calendar.APRIL;
-                break;
-            case Calendar.MAY:
-                month = Calendar.MAY;
-                break;
-            case Calendar.JUNE:
-                month = Calendar.JUNE;
-                break;
-            case Calendar.JULY:
-                month = Calendar.JULY;
-                break;
-            case Calendar.AUGUST:
-                month = Calendar.AUGUST;
-                break;
-            case Calendar.SEPTEMBER:
-                month = Calendar.SEPTEMBER;
-                break;
-            case Calendar.OCTOBER:
-                month = Calendar.OCTOBER;
-                break;
-            case Calendar.NOVEMBER:
-                month = Calendar.NOVEMBER;
-                break;
-            case Calendar.DECEMBER:
-                month = Calendar.DECEMBER;
-                break;
+            case Calendar.JANUARY:      month = Calendar.JANUARY;   break;
+            case Calendar.FEBRUARY:     month = Calendar.FEBRUARY;  break;
+            case Calendar.MARCH:        month = Calendar.MARCH;     break;
+            case Calendar.APRIL:        month = Calendar.APRIL;     break;
+            case Calendar.MAY:          month = Calendar.MAY;       break;
+            case Calendar.JUNE:         month = Calendar.JUNE;      break;
+            case Calendar.JULY:         month = Calendar.JULY;      break;
+            case Calendar.AUGUST:       month = Calendar.AUGUST;    break;
+            case Calendar.SEPTEMBER:    month = Calendar.SEPTEMBER; break;
+            case Calendar.OCTOBER:      month = Calendar.OCTOBER;   break;
+            case Calendar.NOVEMBER:     month = Calendar.NOVEMBER;  break;
+            case Calendar.DECEMBER:     month = Calendar.DECEMBER;  break;
             default:
                 //well shit
                 throw new NumberFormatException("invalid integer: "+nums[0]);

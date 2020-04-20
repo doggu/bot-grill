@@ -365,7 +365,7 @@ public class HeroDatabase extends Database<Hero> {
 
         //todo: temporary fixes in place while the growth rates table is missing
         // all units including and after (alphabetically):
-        //      "Xander: Student Swimmer:"
+        //      "Wolt: Sunbeam Archer"
         // while i'm at it i should separte the whiles into foreach with mild
         // near-sorted matching algorithm at the end instead to make stuff like
         // this easier to account for
@@ -387,6 +387,36 @@ public class HeroDatabase extends Database<Hero> {
                 int[] growths;
                 GregorianCalendar dateReleased;
                 switch (lv1StatsMerge.getFullName().toString()) {
+                    case "Wolt: Sunbeam Archer":
+                        growths = new int[]{ 50, 60, 60, 45, 30 };
+                        dateReleased = new GregorianCalendar(
+                                2019,Calendar.JULY,9,
+                                23,59);
+                        break;
+                    case "Wrys: Kindly Priest":
+                        growths = new int[]{ 55, 45, 40, 40, 60 };
+                        dateReleased = new GregorianCalendar(
+                                2017,Calendar.FEBRUARY,2,
+                                23,59);
+                        break;
+                    case "Xander: Dancing Knight":
+                        growths = new int[]{ 50, 65, 30, 65, 30 };
+                        dateReleased = new GregorianCalendar(
+                                2018, Calendar.AUGUST, 10,
+                                23,59);
+                        break;
+                    case "Xander: Paragon Knight":
+                        growths = new int[]{ 55, 55, 45, 65, 30 };
+                        dateReleased = new GregorianCalendar(
+                                2017,Calendar.FEBRUARY,2,
+                                23,59);
+                        break;
+                    case "Xander: Spring Prince":
+                        growths = new int[]{ 50, 45, 50, 60, 45 };
+                        dateReleased = new GregorianCalendar(
+                                2017,Calendar.MARCH,30,
+                                23,59);
+                        break;
                     case "Xander: Student Swimmer":
                         growths = new int[]{ 55, 55, 55, 65, 25 };
                         dateReleased = new GregorianCalendar(

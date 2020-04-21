@@ -6,7 +6,7 @@ import feh.characters.unit.Unit;
 
 import java.util.ArrayList;
 
-public class Assist extends Action {
+public class AssistAction extends Action {
     /*
     an interaction between allies during a map; generally beneficiary.
         movement assist skills
@@ -17,7 +17,7 @@ public class Assist extends Action {
 
 
 
-    public Assist(FieldedUnit initiator, FieldedUnit receiver) {
+    public AssistAction(FieldedUnit initiator, FieldedUnit receiver) {
         super(initiator, receiver);
     }
 

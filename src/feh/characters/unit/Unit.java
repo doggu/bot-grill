@@ -299,12 +299,12 @@ public class Unit extends Hero {
 
         //this could be simpler in the finalStats creation
         // but it's easier to read like this imo
-        if (merges > 0) { //neutralize the bane/add to top neutral stats
-            if (boon == -1 && bane == -1) {
+        if (merges > 0) {
+            if (boon == -1 && bane == -1) {  //add to top neutral stats
                 finalStats[statsSorted[0]]++;
                 finalStats[statsSorted[1]]++;
                 finalStats[statsSorted[2]]++;
-            } else if (bane>=0) {
+            } else if (bane>=0) {  //neutralize the bane
                 finalStats[bane] = rawStats[1][bane];
             }
         }

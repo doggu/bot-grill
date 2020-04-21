@@ -62,16 +62,17 @@ public class HeroDatabase extends Database<Hero> {
                 if (c.getFullName().getName().equalsIgnoreCase(x))
                     candidates.add(c);
                 if (c.getFullName().getName().toLowerCase()
-                        .indexOf(x.toLowerCase()) == 0) {
-                    try {
-                        if (c.getFullName().getName()
-                                .equalsIgnoreCase(
-                                        x+" "+args.get(i+1))) {
-                            candidates.add(c);
-                        }
-                    } catch (IndexOutOfBoundsException ioobe) {
-                        //break;
+                        .indexOf(x.toLowerCase()) != 0)
+                      //account for incompletely constructed hero names
+                    continue;
+
+                try {
+                    if (c.getFullName().getName()
+                            .equalsIgnoreCase(x+" "+args.get(i+1))) {
+                        candidates.add(c);
                     }
+                } catch (IndexOutOfBoundsException ioobe) {
+                    //there was no epithet after all
                 }
             }
 
@@ -736,11 +737,9 @@ public class HeroDatabase extends Database<Hero> {
 
         for (Element row:rows) {
             Elements items = row.children();
-
             String artist = items.get(0).text();
 
             Elements characters = items.get(1).children().get(0).children();
-
             for (Element character:characters) {
                 String name = character.select("a").get(0)
                         .attr("title");

@@ -268,25 +268,28 @@ public class Unit extends Hero {
     }
 
 
-
+    //todo: produces the stats even when circumstances are impossible
+    // may want to change this later with exceptions near HeroRetriever
     public int[] getStatsArr() {
         //duplicate
         int[][] rawStats = getAllStats(level==1, rarity);
 
         //i can't believe i failed java 101
         int[] finalStats = Arrays.copyOf(rawStats[1],5);
-        if (boon>=0&&bane>=0) {
+        if (boon>=0) {
             finalStats[boon] = rawStats[2][boon];
-            finalStats[bane] = rawStats[0][bane];
+            if (bane>=0)
+                finalStats[bane] = rawStats[0][bane];
         }
 
         int[] statsSorted;
         if (level!=1) {
             int[][] rawStatsLv1 = getAllStats(true, rarity);
             int[] statsLv1 = rawStatsLv1[1];
-            if (boon>=0&&bane>=0) {
+            if (boon>=0) {
                 statsLv1[boon] = rawStatsLv1[2][boon];
-                statsLv1[bane] = rawStatsLv1[0][bane];
+                if (bane>=0)
+                    statsLv1[bane] = rawStatsLv1[0][bane];
             }
 
             statsSorted = getStatsSorted(statsLv1);
@@ -296,12 +299,12 @@ public class Unit extends Hero {
 
         //this could be simpler in the finalStats creation
         // but it's easier to read like this imo
-        if (merges > 0) { //neutralize the bane/add to neutral stats
+        if (merges > 0) { //neutralize the bane/add to top neutral stats
             if (boon == -1 && bane == -1) {
                 finalStats[statsSorted[0]]++;
                 finalStats[statsSorted[1]]++;
                 finalStats[statsSorted[2]]++;
-            } else {
+            } else if (bane>=0) {
                 finalStats[bane] = rawStats[1][bane];
             }
         }

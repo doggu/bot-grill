@@ -28,7 +28,11 @@ public class HeroBuilder {
     }
     public ArrayList<Unit> getUnits()
             throws MissingBaneException, InvalidIVException {
-        if (needsMerges && merges==0)
+        //merges/dragonflowers must be a multiple of 5 in order to be
+        // irrespective of lv1 stat order, since merges/dragonflowers increment
+        // stats from greatest to least, and increases will only be uniform
+        // every 5 merges/dragonflowers
+        if (needsMerges && (merges<=0 || merges%5!=0 || dragonflowers%5!=0))
             throw new MissingBaneException();
 
         ArrayList<Unit> units = new ArrayList<>();

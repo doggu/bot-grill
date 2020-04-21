@@ -1,10 +1,14 @@
 package events.fehGame.retriever;
 
+import discordUI.button.PersonalButton;
 import discordUI.feh.FEHPrinter;
 import events.commands.Command;
 import feh.characters.hero.Hero;
 import feh.characters.skills.skillTypes.Skill;
 import feh.characters.unit.Unit;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.MessageBuilder;
+import net.dv8tion.jda.api.entities.Message;
 import utilities.StringUtil;
 
 import java.util.ArrayList;
@@ -311,8 +315,44 @@ public class HeroRetriever extends Command {
             ArrayList<Unit> units;
             try {
                 units = f.getUnits();
-            } catch (MissingBaneException | InvalidIVException e) {
-                sendMessage(e.getMessage());
+            } catch (MissingBaneException | InvalidIVException ex) {
+                Message m = sendMessage(ex.getMessage());
+                if (ex instanceof MissingBaneException) {
+                    new PersonalButton(
+                            m,      //❔
+                            "U+2754",
+                            this.e.getAuthor()) {
+                        @Override
+                        public void onCommand() {
+                            getMessage().editMessage(
+                                    new MessageBuilder(getMessage())
+                                    .setEmbed(
+                                            new EmbedBuilder()
+                                            .addField(
+                                                    "why?",
+                                "merges add stats to a unit in a " +
+                                "specific order. this order is based on " +
+                                "the unit's lv1 stats, adding stats to " +
+                                "the unit from highest to lowest.\n" +
+                                "because IVs affect lv1 stats, IVs will " +
+                                "change the order in which merges affect " +
+                                "stats, even at lv40.\n" +
+                                "that said, 5 merges results in the top " +
+                                "5 stats getting +2, meaning the bane of " +
+                                "a unit is irrelevant under these " +
+                                "circumstances. this also applies to " +
+                                "+10 units.\n" +
+                                "the same principles can be applied to " +
+                                "dragonflowers, so make sure, if you " +
+                                "omit the bane, that your dragonflowers " +
+                                "on the unit are also a multiple of 5.",
+                                                    true)
+                                            .build())
+                                    .build())
+                                    .complete();
+                        }
+                    };
+                }
                 return;
             }
 

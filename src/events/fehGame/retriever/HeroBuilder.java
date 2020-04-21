@@ -5,36 +5,49 @@ import feh.characters.hero.Hero;
 import feh.characters.skills.SkillDatabase;
 import feh.characters.skills.skillTypes.Skill;
 import feh.characters.unit.Unit;
+import main.BotMain;
 import utilities.StringUtil;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.function.Function;
 
 public class HeroBuilder {
-    private static final boolean DEBUG = false;
-
+    //shut yo ass up IDE
+    @SuppressWarnings("PointlessBooleanExpression")
+    private static final boolean DEBUG = BotMain.DEBUG && true;
 
 
     boolean producingHeroes() {
-        return boon<0&&bane<0&&merges<0&&dragonflowers<0&&support<0;
+        return boon<0 && bane<0 && merges<0 && dragonflowers<0 && support<0;
     }
     public ArrayList<Hero> getHeroes() {
         return heroes;
     }
     boolean producingUnits() {
+        //remember to update this when the FieldedUnits hit
         return !producingHeroes();
     }
-    public ArrayList<Unit> getUnits() {
-        ArrayList<Unit> units = new ArrayList<>();
+    public ArrayList<Unit> getUnits()
+            throws MissingBaneException, InvalidIVException {
+        if (needsMerges && merges==0)
+            throw new MissingBaneException();
 
-        if (heroes==null) return new ArrayList<>();
+        ArrayList<Unit> units = new ArrayList<>();
+        if (heroes==null)
+            return new ArrayList<>();
 
         for (Hero x:heroes) {
-            units.add(new Unit(x, rarity, boon, bane, (lv1?1:40),
+            if (!x.isSummonable() && boon>=0)
+                continue;
+
+            units.add(new Unit(x, rarity, boon, bane, (lv1 ? 1:40),
                     support, merges, dragonflowers,
                     null, 0, 0,
-                    skills, skills));
+                    null, skills));
+        }
+        //guaranteed to have units unless an unsummonable unit was weeded out
+        if (units.size()==0) {
+            throw new InvalidIVException();
         }
 
         if (baseKit) {
@@ -45,7 +58,6 @@ public class HeroBuilder {
 
         return units;
     }
-
 
 
     //hero args
@@ -60,36 +72,34 @@ public class HeroBuilder {
     }
      */
 
-    private ArrayList<Hero> heroes;
+
+    private final ArrayList<Hero> heroes;
 
     private int i;
-    private ArrayList<String> args;
+    private final ArrayList<String> args;
 
     //produce Hero
     private boolean lv1 = false;
     private int rarity = 5;
     private boolean getAll = true;
-    private ArrayList<Skill> skills = new ArrayList<>();
+    private final ArrayList<Skill> skills = new ArrayList<>();
     private boolean baseKit = false;
 
     //produce Unit
     private int boon = -1,
-            bane = -1,
-            merges = -1,
-            dragonflowers = -1,
-            support = -1;
+                bane = -1,
+                merges = 0,
+                dragonflowers = 0,
+                support = 0;
+    //user can supply just "+atk" if they have merges on their unit
+    //functionally identical to (boon>=0 && bane<0)
+    private boolean needsMerges = false;
 
 
-
-    public HeroBuilder(String args) {
-        this(new ArrayList<>(Arrays.asList(args.split(" "))));
-    }
     public HeroBuilder(ArrayList<String> args) {
         this.args = args;
-
         heroes = build();
     }
-
 
 
     private ArrayList<Hero> build() {
@@ -100,7 +110,6 @@ public class HeroBuilder {
                     //scalper edits global fields during its process
                 if (scalper.apply(args.get(i))) {
                     //System.out.println(args.get(i));
-
                     args.remove(i);
                     i--;
                     break;
@@ -111,7 +120,8 @@ public class HeroBuilder {
         ArrayList<Hero> basics =
                 HeroDatabase.DATABASE.findAll(StringUtil.join(args));
 
-        if (DEBUG) {///*
+        ///*
+        if (DEBUG) {
             System.out.println("\n\n");
             System.out.println("args\t\t\t"+args);
             System.out.println("lv1\t\t\t\t"+lv1);
@@ -122,86 +132,70 @@ public class HeroBuilder {
             System.out.println("merges\t\t\t"+merges);
             System.out.println("dragonflowers\t"+dragonflowers);
             System.out.println("support\t\t\t"+support);
+            System.out.println("needsMerges\t\t"+needsMerges);
             System.out.println("skills\t\t\t"+skills);
             System.out.println("baseKit\t\t"+ baseKit);
         }
-        //*/
+        /**/
 
         return basics;
     }
 
 
-
     private final ArrayList<Function<String, Boolean>>
             scalpers = generateScalpers();
 
+    @SuppressWarnings("SuspiciousMethodCalls")
     private ArrayList<Function<String, Boolean>> generateScalpers() {
         ArrayList<Function<String, Boolean>> scalpers = new ArrayList<>();
-        /*
-        level ~
-        IVs?
-        merges/dragonflowers ~
-        rarity ~
-        support ~
-        skills ~
-         */
-
         //todo: create Scalper object to reduce duplicates
+
         //level
         scalpers.add(s -> {
-            if (s.charAt(0)=='l') {
-                if (s.charAt(1) == 'v') {
-                    try {
-                        if (s.charAt(2) == 'l')
-                            lv1 = Integer.parseInt(s.substring(3)) == 1;
-                        else
-                            lv1 = Integer.parseInt(s.substring(2)) == 1;
-                    } catch (IndexOutOfBoundsException |
-                            NumberFormatException e) {
-                        return false;
-                    }
-                    scalpers.remove(this); //heh
-                    return true;
-                }
+            if (s.matches("lvl?\\d\\d?")) {
+                lv1 = Integer.parseInt(s.replaceAll("lvl?", ""))
+                        ==1;
+                scalpers.remove(this); //heh
+                return true;
             }
-
-            return false;
-        });
-        //IVs
-        scalpers.add(s -> {
-            int boonI = s.indexOf('+'),
-                baneI = s.indexOf('-');
-
-            if (boonI>=0&&baneI>=0) {
-                int boon = getStat(s.charAt(boonI+1));
-                int bane = getStat(s.charAt(baneI+1));
-
-                if (boon>=0&&bane>=0) {
-                    this.boon = boon;
-                    this.bane = bane;
-
-                    getAll = false;
-                    scalpers.remove(this); //heh
-                    return true;
-                }
-            }
-
             return false;
         });
         //rarity
         scalpers.add(s -> {
-            if (s.charAt(1)=='*') {
+            if (s.matches("\\d\\*")) {
                 rarity = Integer.parseInt(String.valueOf(s.charAt(0)));
-
                 scalpers.remove(this); //heh
                 return true;
             }
 
             return false;
         });
-        //merges
+        //IVs
         scalpers.add(s -> {
-            if (startsWith(s, '+')) {
+            //string pertains to merges
+            if (s.matches("\\+\\d\\d?"))
+                return false;
+
+            int boon = s.indexOf('+'),
+                bane = s.indexOf('-');
+
+            if (boon>=0) {
+                this.boon = getStat(s.charAt(boon+1));
+                if (bane>=0) {
+                    this.bane = getStat(s.charAt(bane+1));
+                } else {
+                    needsMerges = true;
+                }
+
+                getAll = false;
+                scalpers.remove(this); //heh
+                return true;
+            }
+            return false;
+        });
+        //IVs/merges
+        scalpers.add(s -> {
+            if (s.startsWith("+")) {
                 try {
                     merges = Integer.parseInt(s.substring(1));
                     getAll = false;
@@ -209,7 +203,8 @@ public class HeroBuilder {
                     scalpers.remove(this);
                     return true;
                 } catch (NumberFormatException nfe) {
-                    //nothin
+                    System.out.println(s);
+                    //nothing
                 }
             }
 
@@ -217,7 +212,7 @@ public class HeroBuilder {
         });
         //dragonflowers
         scalpers.add(s -> {
-            if (startsWith(s, 'd','f','+')) {
+            if (s.startsWith("df+")) {
                 try {
                     dragonflowers = Integer.parseInt(s.substring(3));
                     getAll = false;
@@ -225,7 +220,7 @@ public class HeroBuilder {
                     scalpers.remove(this);
                     return true;
                 } catch (NumberFormatException nfe) {
-                    //nothin
+                    //nothing
                 }
             }
 
@@ -235,7 +230,7 @@ public class HeroBuilder {
         });
         //support
         scalpers.add(s -> {
-            if (startsWith(s, 'w', '/')) {
+            if (s.startsWith("w/ss")) {
                 switch (s) {
                     case "w/sss":
                         support+=48;
@@ -245,7 +240,6 @@ public class HeroBuilder {
                         support+=8;
                     case "w/ssc":
                         support+=1;
-
                         scalpers.remove(this);
                         return true;
                 }
@@ -255,7 +249,7 @@ public class HeroBuilder {
         });
         //skills
         scalpers.add(s -> {
-            if (startsWith(s, 'w', '/', '"')) {
+            if (s.startsWith("w/\"")) {
                 StringBuilder skillName = new StringBuilder(s.substring(3));
 
                 if (skillName.indexOf("\"")>0) {
@@ -268,7 +262,7 @@ public class HeroBuilder {
 
                 while (i<args.size()) {
                     skillName.append(' ').append(args.get(i));
-                    if (endsWith(args.get(i), '"')) {
+                    if (args.get(i).endsWith("\"")) {
                         skillName.delete(skillName.length()-1,
                                          skillName.length());
                         break;
@@ -296,51 +290,18 @@ public class HeroBuilder {
             return false;
         });
 
-
-
         return scalpers;
     }
 
-    private static boolean startsWith(String arg, char ... check) {
-        try {
-            for (int i = 0; i < check.length; i++) {
-                if (arg.charAt(i)!=check[i])
-                    return false;
-            }
-        } catch (IndexOutOfBoundsException ioobe) {
-            return false;
-        }
-
-        return true;
-    }
-    private static boolean endsWith(String arg, char ... check) {
-        try {
-            for (int i=0; i<check.length; i++) {
-                if (arg.charAt(arg.length()-(i+1))!=check[check.length-(i+1)]) {
-                    return false;
-                }
-            }
-        } catch (IndexOutOfBoundsException ioobe) {
-            return false;
-        }
-
-        return true;
-    }
     private static int getStat(char val) {
         int stat = -1;
         switch (val) {
-            case 'r':
-                stat++;
-            case 'd':
-                stat++;
-            case 's':
-                stat++;
-            case 'a':
-                stat++;
-            case 'h':
-                stat++;
+            case 'r': stat++;
+            case 'd': stat++;
+            case 's': stat++;
+            case 'a': stat++;
+            case 'h': stat++;
         }
-
         return stat;
     }
 }

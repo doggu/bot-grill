@@ -259,7 +259,7 @@ public class HeroRetriever extends Command {
 
     public boolean isCommand() {
         return super.args[0].toLowerCase()
-                .matches("(g(et)?st(ats?)?)|(g(et)?ivs?)");
+                .matches("g(et)?st(ats?)?"); //gs reserved for getSkills
     }
 
     public void onCommand() {
@@ -305,10 +305,16 @@ public class HeroRetriever extends Command {
                 sendMessage("could not find your character.");
                 log("could not find "+e.getAuthor()+"'s character: " +
                         StringUtil.join(args));
-                return;
+//                return;
             }
         } else if (f.producingUnits()) {
-            ArrayList<Unit> units = f.getUnits();
+            ArrayList<Unit> units;
+            try {
+                units = f.getUnits();
+            } catch (MissingBaneException | InvalidIVException e) {
+                sendMessage(e.getMessage());
+                return;
+            }
 
             if (units.size()!=0) {
                 for (Unit unit : units) {
@@ -316,11 +322,11 @@ public class HeroRetriever extends Command {
                     log.append("\n\t\t").append(unit.getFullName());
                 }
             } else {
-
+                sendMessage("could not create your unit. " +
+                        "perhaps some parameters were conflicting? " +
+                        "(e.g. GHB units with IVs)");
             }
         }
-
-
     }
 
 

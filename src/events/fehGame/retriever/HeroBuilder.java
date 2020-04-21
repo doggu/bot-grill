@@ -9,7 +9,6 @@ import main.BotMain;
 import utilities.StringUtil;
 
 import java.util.ArrayList;
-import java.util.function.Function;
 
 public class HeroBuilder {
     //shut yo ass up IDE
@@ -18,7 +17,7 @@ public class HeroBuilder {
 
 
     boolean producingHeroes() {
-        return boon<0 && bane<0 && merges<0 && dragonflowers<0 && support<0;
+        return boon<0 && bane<0 && merges==0 && dragonflowers==0 && support<0;
     }
     public ArrayList<Hero> getHeroes() {
         return heroes;
@@ -90,7 +89,7 @@ public class HeroBuilder {
                 bane = -1,
                 merges = 0,
                 dragonflowers = 0,
-                support = 0;
+                support = -1;
     //user can supply just "+atk" if they have merges on their unit
     //functionally identical to (boon>=0 && bane<0)
     private boolean needsMerges = false;
@@ -106,14 +105,9 @@ public class HeroBuilder {
         //gather parameters from scalpers, on each argument
         //with each scalper (that doesn't destroy itself)
         for (i=0; i<args.size(); i++) {
-            for (Function<String, Boolean> scalper:scalpers) {
-                    //scalper edits global fields during its process
-                if (scalper.apply(args.get(i))) {
-                    //System.out.println(args.get(i));
-                    args.remove(i);
-                    i--;
-                    break;
-                }
+            if (scalpers.apply(args.get(i))) {
+                args.remove(i);
+                i--;
             }
         }
 
@@ -122,7 +116,6 @@ public class HeroBuilder {
 
         ///*
         if (DEBUG) {
-            System.out.println("\n\n");
             System.out.println("args\t\t\t"+args);
             System.out.println("lv1\t\t\t\t"+lv1);
             System.out.println("rarity\t\t\t"+rarity);
@@ -142,13 +135,12 @@ public class HeroBuilder {
     }
 
 
-    private final ArrayList<Function<String, Boolean>>
+    private final Scalpers
             scalpers = generateScalpers();
 
     @SuppressWarnings("SuspiciousMethodCalls")
-    private ArrayList<Function<String, Boolean>> generateScalpers() {
-        ArrayList<Function<String, Boolean>> scalpers = new ArrayList<>();
-        //todo: create Scalper object to reduce duplicates
+    private Scalpers generateScalpers() {
+        Scalpers scalpers = new Scalpers();
 
         //level
         scalpers.add(s -> {

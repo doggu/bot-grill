@@ -315,9 +315,10 @@ public class HeroRetriever extends Command {
             ArrayList<Unit> units;
             try {
                 units = f.getUnits();
-            } catch (MissingBaneException | InvalidIVException ex) {
+            } catch (HeroBuilder.MissingBaneException |
+                    HeroBuilder.InvalidIVException ex) {
                 Message m = sendMessage(ex.getMessage());
-                if (ex instanceof MissingBaneException) {
+                if (ex instanceof HeroBuilder.MissingBaneException) {
                     new PersonalButton(
                             m,      //❔
                             "U+2754",

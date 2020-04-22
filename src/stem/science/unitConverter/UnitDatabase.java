@@ -2,62 +2,29 @@ package stem.science.unitConverter;
 
 import stem.science.unitConverter.units.InconversibleUnitsException;
 import stem.science.unitConverter.units.Unit;
-import utilities.data.Cereal;
 import utilities.data.Database;
 import utilities.data.WebCache;
 
-import java.io.IOException;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class UnitDatabase extends Database<Unit> implements Serializable {
-    private static final String FILEPATH = "/units/";
+public class UnitDatabase extends Database<Unit> {
     private static final int[][] BASE;
 
     public static UnitDatabase DATABASE;
     public static ArrayList<Unit> UNITS;
 
-    private static final Cereal<UnitDatabase> DB_CEREAL;
-
     static {
-        Cereal<UnitDatabase> DB_CEREAL1;
-        boolean deserialized = false;
-        try {
-            DB_CEREAL1 = new Cereal<>("database.txt", FILEPATH);
-            if ((DATABASE = DB_CEREAL1.deserialize())!=null) {
-                deserialized = true;
-            }
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-            DB_CEREAL1 = null;
-        }
-
-        DB_CEREAL = DB_CEREAL1;
         BASE = new int[7][7];
         for (int i = 0; i < 7; i++) {
             BASE[i][i] = 1;
         }
 
-        if (!deserialized) {
-            System.out.println("constructing new UnitDatabase");
-            DATABASE = new UnitDatabase();
-            UNITS = DATABASE.getList();
-        }
-
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            try {
-                if (DB_CEREAL==null)
-                    new Cereal<>("database.txt", FILEPATH)
-                            .serialize(DATABASE);
-                else
-                    DB_CEREAL.serialize(DATABASE);
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-            }
-        }));
+        System.out.println("constructing new UnitDatabase");
+        DATABASE = new UnitDatabase();
+        UNITS = DATABASE.getList();
     }
 
     @Override
@@ -204,7 +171,6 @@ public class UnitDatabase extends Database<Unit> implements Serializable {
     }
 
 
-
     public static void main(String[] a) {
         Scanner input = new Scanner(System.in);
 
@@ -233,7 +199,7 @@ public class UnitDatabase extends Database<Unit> implements Serializable {
 
             try {
                 System.out.println(
-                        new BigDecimal(new Converter(s, e).apply(i))
+                        BigDecimal.valueOf(new Converter(s, e).apply(i))
                                 .round(new MathContext(5))
                                 .toPlainString()
                                 + " " + e.getSymbol());

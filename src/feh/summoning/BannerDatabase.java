@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
@@ -33,13 +32,10 @@ public class BannerDatabase extends Database<Banner> {
         BANNERS = DATABASE.getList();
     }
 
-
-
     @Override
     protected WebCache[] getOnlineResources() {
         return new WebCache[] { FOCUS_ARCHIVE_FILE };
     }
-
 
 
     protected ArrayList<Banner> getList() {
@@ -54,7 +50,8 @@ public class BannerDatabase extends Database<Banner> {
             return new ArrayList<>();
         }
 
-        Elements tables = bannersFile.select("table");
+        Elements tables = bannersFile
+                .select("table[class=wikitable default]");
 
         ArrayList<Banner> banners = new ArrayList<>();
 
@@ -72,8 +69,6 @@ public class BannerDatabase extends Database<Banner> {
         while (banners.contains(null))
             banners.remove(null);
 
-
-
         System.out.println("done (" +
                 BigDecimal.valueOf((System.nanoTime()-start)/1000000000.0)
                         .round(new MathContext(3)) + " s)!");
@@ -83,10 +78,7 @@ public class BannerDatabase extends Database<Banner> {
     private static Banner createBanner(Element table) {
         Elements rows = table.select("tr");
 
-
-
         String name = rows.get(0).text();
-
         //1 is image, "Featured Units", and first row of heroes
         //second row, children, second item, children, first item, heroes
         Element h1 = rows.get(1).children().get(2).children().get(0);
@@ -114,6 +106,7 @@ public class BannerDatabase extends Database<Banner> {
 
         return new Banner(name, summonables, startDate, endDate);
     }
+
     private static ArrayList<Hero> getSummonables(Element heroes) {
         Elements items = heroes.select("div").get(0).children();
         ArrayList<Hero> summonables = new ArrayList<>();
@@ -147,28 +140,12 @@ public class BannerDatabase extends Database<Banner> {
             throws IllegalArgumentException {
         String[] endDateStr = date.split("-");
         int year = Integer.parseInt(endDateStr[0]);
-        int month = Integer.parseInt(endDateStr[1]);
-        //this shit so fuckin useless (other than alerting of invalid numbers)
-        switch (month) {
-            case 1:     month = Calendar.JANUARY;   break;
-            case 2:     month = Calendar.FEBRUARY;  break;
-            case 3:     month = Calendar.MARCH;     break;
-            case 4:     month = Calendar.APRIL;     break;
-            case 5:     month = Calendar.MAY;       break;
-            case 6:     month = Calendar.JUNE;      break;
-            case 7:     month = Calendar.JULY;      break;
-            case 8:     month = Calendar.AUGUST;    break;
-            case 9:     month = Calendar.SEPTEMBER; break;
-            case 10:    month = Calendar.OCTOBER;   break;
-            case 11:    month = Calendar.NOVEMBER;  break;
-            case 12:    month = Calendar.DECEMBER;  break;
-            default: throw new Error();
-        }
+        int month = Integer.parseInt(endDateStr[1])-1;
         int day = Integer.parseInt(endDateStr[2]);
         int hour = 23, minute = 59, second = 59;
+        //noinspection MagicConstant
         return new GregorianCalendar(year, month, day, hour, minute, second);
     }
-
 
 
     public static void main(String[] args) {

@@ -11,17 +11,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class UnitDatabase extends Database<Unit> {
-    private static final int[][] BASE;
-
     public static UnitDatabase DATABASE;
     public static ArrayList<Unit> UNITS;
 
     static {
-        BASE = new int[7][7];
-        for (int i = 0; i < 7; i++) {
-            BASE[i][i] = 1;
-        }
-
         System.out.println("constructing new UnitDatabase");
         DATABASE = new UnitDatabase();
         UNITS = DATABASE.getList();
@@ -99,6 +92,10 @@ public class UnitDatabase extends Database<Unit> {
                 "Z", null, null,
                 "Y",
         };
+        int[][] base_unit = new int[7][7];
+        for (int i=0; i<7; i++) {
+            base_unit[i][i] = 1;
+        }
 
         for (int i=0; i<nameSI.length; i++) {
             for (int j=0; j<prefixSI.length; j++) {
@@ -119,7 +116,7 @@ public class UnitDatabase extends Database<Unit> {
                 units.add(new Unit(
                         prefixSI[j]+nameSI[i],
                         prefixSymbolSI[j]+symbolSI[i],
-                        BASE[i],
+                        base_unit[i],
                         scale));
             }
         }

@@ -120,18 +120,18 @@ public class HeroBuilder {
 
         ///*
         if (DEBUG) {
-            System.out.println("args\t\t\t"+args);
-            System.out.println("lv1\t\t\t\t"+lv1);
-            System.out.println("rarity\t\t\t"+rarity);
-            System.out.println("getAll\t\t\t"+getAll);
-            System.out.println("boon\t\t\t"+boon);
-            System.out.println("bane\t\t\t"+bane);
-            System.out.println("merges\t\t\t"+merges);
-            System.out.println("dragonflowers\t"+dragonflowers);
-            System.out.println("support\t\t\t"+support);
-            System.out.println("needsMerges\t\t"+needsMerges);
-            System.out.println("skills\t\t\t"+skills);
-            System.out.println("baseKit\t\t"+ baseKit);
+            System.out.println("args           " + args);
+            System.out.println("lv1            " + lv1);
+            System.out.println("rarity         " + rarity);
+            System.out.println("getAll         " + getAll);
+            System.out.println("boon           " + boon);
+            System.out.println("bane           " + bane);
+            System.out.println("merges         " + merges);
+            System.out.println("dragonflowers  " + dragonflowers);
+            System.out.println("support        " + support);
+            System.out.println("needsMerges    " + needsMerges);
+            System.out.println("skills         " + skills);
+            System.out.println("baseKit        " + baseKit);
         }
         /**/
 
@@ -168,8 +168,8 @@ public class HeroBuilder {
         });
         //IVs
         scalpers.add(s -> {
-            //string pertains to merges
-            if (s.matches("\\+\\d\\d?"))
+            //string pertains to merges/dragonflowers
+            if (s.matches("(df)?\\+\\d\\d?"))
                 return false;
 
             int boon = s.indexOf('+'),
@@ -189,7 +189,7 @@ public class HeroBuilder {
             }
             return false;
         });
-        //IVs/merges
+        //merges
         scalpers.add(s -> {
             if (s.startsWith("+")) {
                 try {

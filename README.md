@@ -23,6 +23,9 @@ features
   * roll
   * chances (percentage "chance" version of roll)
   * games (tic-tac-toe, flow)
+  
+TIL you need to add multiple returns
+
 planned
 * Fire Emblem Heroes:
   * turn expandable model into complete model

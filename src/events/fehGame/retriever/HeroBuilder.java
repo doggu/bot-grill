@@ -11,6 +11,18 @@ import utilities.StringUtil;
 import java.util.ArrayList;
 
 public class HeroBuilder {
+    public static class InvalidIVException extends Exception {
+        InvalidIVException() {
+            super("IVs cannot be applied to GHB/TT units.");
+        }
+    }
+    public static class MissingBaneException extends Exception {
+        MissingBaneException() {
+            super("you must include a bane or add merges " +
+                    "to create a valid hero.");
+        }
+    }
+
     //shut yo ass up IDE
     @SuppressWarnings("PointlessBooleanExpression")
     private static final boolean DEBUG = BotMain.DEBUG && true;

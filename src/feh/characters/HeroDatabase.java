@@ -388,6 +388,12 @@ public class HeroDatabase extends Database<Hero> {
                 int[] growths;
                 GregorianCalendar dateReleased;
                 switch (lv1StatsMerge.getFullName().toString()) {
+                    case "Walhart: The Conqueror":
+                        growths = new int[]{ 50, 60, 50, 65, 30 };
+                        dateReleased = new GregorianCalendar(
+                                2018,Calendar.JULY,29,
+                                23,59);
+                        break;
                     case "Wolt: Sunbeam Archer":
                         growths = new int[]{ 50, 60, 60, 45, 30 };
                         dateReleased = new GregorianCalendar(

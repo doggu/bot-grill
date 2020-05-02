@@ -15,10 +15,10 @@ public class FieldedUnit extends Unit {
     // ok i figured it out again
 
     //TODO: not sure if there's a way to create a super object based on an
-    // existing instance the current solution is to just copy all that shit into
-    // another instance and create a new Unit instance on the spot, but that
-    // will probably lead to a bunch of inheritance headaches that will require
-    // not-so-obvious replacing.
+    // existing instance, the current solution is to just copy all that shit
+    // into another instance and create a new Unit instance on the spot, but
+    // that will probably lead to a bunch of inheritance headaches that will
+    // require not-so-obvious replacing.
     // this is mostly related to SP and HM, since the Unit instance the
     // FieldedUnit is based off of must replace the one sitting in the barracks;
     // they are different objects.
@@ -32,7 +32,16 @@ public class FieldedUnit extends Unit {
     private final Unit unit;
     private int currentHP;
     private int specialCD;
-    private int atkBonus, spdBonus, defBonus, resBonus;
+    private int
+            atkBonus = 0,
+            spdBonus = 0,
+            defBonus = 0,
+            resBonus = 0;
+    private int
+            atkSpur = 0,
+            spdSpur = 0,
+            defSpur = 0,
+            resSpur = 0;
 
     //heroes should know their own location
     // (to make allocating drives/ploys easier)

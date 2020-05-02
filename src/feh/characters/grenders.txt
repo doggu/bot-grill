@@ -106,6 +106,7 @@ Dozla: Harvest Attendant	m
 Draug: Gentle Giant	m
 Duma: God of Strength	m
 Echidna: Unyielding Idealist	f
+Edelgard: Flame Emperor	f
 Edelgard: The Future	f
 Effie: Army of One	f
 Eir: Merciful Death	f

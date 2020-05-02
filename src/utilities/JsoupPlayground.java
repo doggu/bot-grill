@@ -1,5 +1,6 @@
 package utilities;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayer;
 import com.sedmelluq.discord.lavaplayer.player.AudioPlayerManager;
@@ -11,18 +12,33 @@ import com.sedmelluq.discord.lavaplayer.tools.FriendlyException;
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist;
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack;
 import net.dv8tion.jda.api.audio.AudioSendHandler;
+import netscape.javascript.JSObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
 import javax.annotation.Nullable;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class JsoupPlayground {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, URISyntaxException {
+        InputStream is = new URL("https://feheroes.gamepedia.com/api.php").openStream();//new URL("https://en.wikipedia.org/w/api.php?action=query&generator=allpages&gaplimit=3&gapfrom=Ba&prop=links%7Ccategories&format=json").openStream();
+
+        Scanner s = new Scanner(is);
+
+        while (s.hasNextLine()) {
+            System.out.println(s.nextLine());
+        }
+
+        /*
         Document anna = Jsoup.parse(new URL(
                 "https://feheroes.gamepedia.com/" +
                         "Anna:_Wealth-Wisher/Quotes"),
@@ -87,5 +103,7 @@ public class JsoupPlayground {
         for (String set: audio_paths) {
             System.out.println(set);
         }
+
+        /**/
     }
 }

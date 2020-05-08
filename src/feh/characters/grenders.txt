@@ -16,6 +16,7 @@ Arden: Strong and Tough	m
 Ares: Black Knight	m
 Arthur: Hapless Hero	m
 Arvis: Emperor of Flame	m
+Ashnard: Mad King	m
 Astram: Midia's Hero	m
 Athena: Borderland Sword	f
 Aversa: Dark One	f
@@ -86,6 +87,7 @@ Cordelia: Knight Paradise	f
 Cordelia: Knight Paragon	f
 Cordelia: Perfect Bride	f
 Cormag: Aloof Lanceman	m
+Corrin: Bloodbound Beast	m
 Corrin: Dream Prince	m
 Corrin: Dream Princess	f
 Corrin: Enjoying Tradition	m
@@ -205,6 +207,7 @@ Ike: Brave Mercenary	m
 Ike: Stalwart Heart	m
 Ike: Vanguard Legend	m
 Ike: Young Mercenary	m
+Ike: Zeal Unleashed	m
 Ilyana: Treat Harvester	f
 Inigo: Indigo Dancer	m
 Innes: Flawless Form	m
@@ -221,6 +224,7 @@ Jamke: Prince of Verdane	m
 Jeorge: Perfect Shot	m
 Joshua: Tempest King	m
 Julia: Crusader of Light	f
+Julia: Heart Usurped	f
 Julia: Naga's Blood	f
 Julius: Scion of Darkness	m
 Kaden: Kitsune Braggart	m
@@ -299,6 +303,7 @@ Lyn: Lady of the Plains	f
 Lyn: Lady of the Wind	f
 Lyn: Wind's Embrace	f
 Lyon: Shadow Prince	m
+Lyon: Demon King	m
 Lysithea: Child Prodigy	f
 Mae: Bundle of Energy	f
 Mamori: Microwavin' Idol	f

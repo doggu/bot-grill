@@ -390,11 +390,12 @@ public class SkillDatabase extends Database<Skill> {
 
                 gatherBasicInformation(x, header, info);
 
-                String[] urlSet = info.get(0).select("a")
-                        .get(0).select("img")
-                        .get(0).attr("srcset")
-                        .split(" ");
                 try {
+                    String[] urlSet = info.get(0).select("a")
+                            .get(0).select("img")
+                            .get(0).attr("srcset")
+                            .split(" ");
+
                     x.setIcon(new URL(urlSet[2]));
                 } catch (MalformedURLException murle) {
                     System.out.println("got a murle for icon "+x.getName());

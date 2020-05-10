@@ -15,13 +15,15 @@ public class MathParse {
             SINH = 'Ѓ', COSH = 'Ͼ', TANH = 'ţ',
             FLOOR = 'f', CEIL = 'r',
             VAR = 'x',
-            PI = 'π', PHI = 'p', E = 'e', SoL = 'c', AVO = 'Ä', P_CONST = 'ל';
+            PI = 'π', PHI = 'p', E = 'e', SoL = 'c',
+            AVO = 'Ä', P_CONST = 'ל', FARADAY = 'F';
 
     private static final double
             PHI_N = (1+Math.sqrt(5))/2,
             SoL_N = 299792458.0, //m/s
             AVO_N = 6.02214086E23,
-            PLA_N = 6.62607004E-34;
+            PLA_N = 6.62607004E-34,
+            FAR_N = 96485.33212;
 
     private static final char[][] OoO /*order of operations*/ = {
             // special functions come first, since
@@ -109,7 +111,8 @@ public class MathParse {
                     insertImplTimes();
                     fxns.add(x -> x);
                     break;
-                case PI: case E: case PHI: case SoL: case AVO: case P_CONST:
+                case PI: case E: case PHI: case SoL:
+                case AVO: case P_CONST: case FARADAY:
                     addVal(c);
                     break;
                 case MINUS: //special for negative numbers
@@ -193,6 +196,7 @@ public class MathParse {
             case SoL: n = SoL_N; break;
             case AVO: n = AVO_N; break;
             case P_CONST: n = PLA_N; break;
+            case FARADAY: n = FAR_N; break;
             default:
                 //PANIC
                 throw new Error();

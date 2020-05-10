@@ -68,9 +68,8 @@ public class HeroDatabase extends Database<Hero> {
 
                 try {
                     if (c.getFullName().getName()
-                            .equalsIgnoreCase(x+" "+args.get(i+1))) {
+                            .equalsIgnoreCase(x+" "+args.get(i+1)))
                         candidates.add(c);
-                    }
                 } catch (IndexOutOfBoundsException ioobe) {
                     //there was no epithet after all
                 }
@@ -367,7 +366,7 @@ public class HeroDatabase extends Database<Hero> {
         //todo: temporary fixes in place while the growth rates table is missing
         // all units including and after (alphabetically):
         //      "Wolt: Sunbeam Archer"
-        // while i'm at it i should separte the whiles into foreach with mild
+        // while i'm at it i should separate the whiles into foreach with mild
         // near-sorted matching algorithm at the end instead to make stuff like
         // this easier to account for
         while (lv1StatsTable.size()>0 &&
@@ -388,6 +387,12 @@ public class HeroDatabase extends Database<Hero> {
                 int[] growths;
                 GregorianCalendar dateReleased;
                 switch (lv1StatsMerge.getFullName().toString()) {
+                    //todo: actually fill in proper values
+                    case "Valter: Dark Moonstone":
+                    case "Velouria: Wolf Cub":
+                    case "Veronica: Brave Princess":
+                    case "Veronica: Spring Princess":
+                    case "Virion: Elite Archer":
                     case "Walhart: The Conqueror":
                         growths = new int[]{ 50, 60, 50, 65, 30 };
                         dateReleased = new GregorianCalendar(
@@ -764,6 +769,7 @@ public class HeroDatabase extends Database<Hero> {
 //        artists.put("Jaffar: Angel of Night", "motsutsu");
 //        artists.put("Anna: Wealth-Wisher", "hanekoto (はねこと)");
 //        artists.put("Tsubasa: Madcap Idol", "azu‐taro (azuタロウ)");
+        artists.put("Lyon: Demon King", "Yone Kazuki");
 
         return artists;
     }

@@ -157,7 +157,7 @@ public class BotMain {
         loadDevTools();
 
         //FEH
-        if (FEHEROES_UTILS) {
+//        if (FEHEROES_UTILS) {
             addListener(new SkillRetriever());
             addListener(new HeroRetriever());
             addListener(new SummonSimulator());
@@ -167,7 +167,7 @@ public class BotMain {
 
             addListener(new Powercreep());
             addListener(new UnitComparisonListener());
-        }
+//        }
 
         //science
         if (CHEMISTRY) {

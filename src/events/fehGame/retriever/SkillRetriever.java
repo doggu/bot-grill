@@ -1,7 +1,7 @@
 package events.fehGame.retriever;
 
 import discordUI.feh.FEHPrinter;
-import events.commands.Command;
+import events.fehGame.FEHCommand;
 import feh.characters.skills.skillTypes.Skill;
 import feh.characters.skills.skillTypes.Weapon;
 import main.BotMain;
@@ -14,7 +14,7 @@ import java.util.List;
 
 import static feh.characters.skills.SkillDatabase.SKILLS;
 
-public class SkillRetriever extends Command {
+public class SkillRetriever extends FEHCommand {
     public void onCommand() {
         List<String> nameArr = new ArrayList<>(Arrays.asList(args));
         nameArr.remove(0);

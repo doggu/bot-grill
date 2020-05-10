@@ -2,7 +2,7 @@ package events.fehGame.retriever;
 
 import discordUI.button.PersonalButton;
 import discordUI.feh.FEHPrinter;
-import events.commands.Command;
+import events.fehGame.FEHCommand;
 import feh.characters.hero.Hero;
 import feh.characters.skills.skillTypes.Skill;
 import feh.characters.unit.Unit;
@@ -14,7 +14,7 @@ import utilities.StringUtil;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class HeroRetriever extends Command {
+public class HeroRetriever extends FEHCommand {
     /*
     private ArrayList<String> args;
     private int i;

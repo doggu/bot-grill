@@ -1,8 +1,9 @@
 package feh.characters.hero;
 
 public class HeroStats {
-    //these are lv1, 3* and neutral
+    //these are lv1, 5* and neutral
     private final int hp, atk, spd, def, res;
+    //these are lv1, 3* and neutral
     private final int hpG, atkG, spdG, defG, resG;
 
 

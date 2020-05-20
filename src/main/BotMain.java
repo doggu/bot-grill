@@ -1,6 +1,7 @@
 package main;
 
 import events.commands.Emotes;
+import events.commands.Esprechen;
 import events.commands.Girl;
 import events.commands.TimerListener;
 import events.commands.campus.CanIEatRightNow;
@@ -149,6 +150,8 @@ public class BotMain {
         addListener(new Emotes());
         addListener(new Girl());
         addListener(new Vote());
+
+        addListener(new Esprechen());
 
         //campus help
         addListener(new CanIEatRightNow());

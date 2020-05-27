@@ -5,24 +5,24 @@ import java.net.URL;
 public class WeaponRefine extends Weapon {
     private final String specialEff;
     private final URL iconURL;
-    private final int[] statModifiers;
-    private final int cost, mt, rng;
+    private final int[] refStatModifiers;
+    private final int refCost, refMt, refRng;
 
 
 
     public WeaponRefine(String name, String description, String specialEff,
                         URL link, URL iconURL,
-                        int[] statModifiers, int cost, int mt, int rng) {
+                        int[] refStatModifiers, int refCost, int refMt, int refRng) {
         super(name, description,
                 link,
-                cost, true,
-                mt, rng, null, null);
+                refCost, true,
+                refMt, refRng, null, null);
         this.specialEff = specialEff;
         this.iconURL = iconURL;
-        this.statModifiers = statModifiers;
-        this.cost = cost;
-        this.mt = mt;
-        this.rng = rng;
+        this.refStatModifiers = refStatModifiers;
+        this.refCost = refCost;
+        this.refMt = refMt;
+        this.refRng = refRng;
     }
 
 
@@ -31,10 +31,10 @@ public class WeaponRefine extends Weapon {
     public String getDescription() { return super.getDescription()+'\n'+getSpecialEff(); }
     /*public*/ private String getSpecialEff() { return specialEff; }
     public URL getIconURL() { return iconURL; }
-    public int getCost() { return cost; }
-    public int getMt() { return mt; }
-    public int getRng() { return rng; }
-    public int[] getStatModifiers() {
-        return super.getStatModifiers();
+    public int getRefCost() { return refCost; }
+    public int getRefMt() { return refMt; }
+    public int getRefRng() { return refRng; }
+    public int[] getRefStatModifiers() {
+        return refStatModifiers;
     }
 }

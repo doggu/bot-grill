@@ -91,10 +91,13 @@ public class WebCache extends File {
      * @return the fully generated directory.
      */
     private static String generateDirectory(String website, String subdir) {
+        if (website.length()>80)
+            website = website.substring(0, 80);
+
         return DIRECTORY + //if forward slashes are missing
                 (subdir!=null?(subdir.charAt(0)!='/'?'/':"")+subdir:"") +
-                '/' + website.replaceAll("[/.:]", "_") +
-                ".txt";
+                '/' + website.replaceAll("[/.:?]", "_") +
+                ".txt";                         //i think this is comprehensive
     }
 
     private static BufferedReader readWebsite(String website) {

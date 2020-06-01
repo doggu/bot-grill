@@ -196,7 +196,7 @@ public class Unit extends Hero {
 
 
 
-    public int getRarity() {
+    public int getSummonableRarity() {
         return rarity; }
     public int getBoon() {
         return boon; }

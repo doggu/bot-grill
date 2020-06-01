@@ -83,7 +83,7 @@ public class FEHPrinter {
         headingInformation(unitInfo, x);
 
         String info = "```\n";
-        info+= x.getRarity() + "* lv" + x.getLevel() + " stats: \n" +
+        info+= x.getSummonableRarity() + "* lv" + x.getLevel() + " stats: \n" +
                 "hp   atk  spd  def  res\n";
         String stats = printStats(x.getStatsArr()),
                bst = printBST(x.getStatsArr());
@@ -371,7 +371,7 @@ public class FEHPrinter {
         if (o instanceof FieldedUnit) {
             color = HERO_5;
         } else if (o instanceof Unit) {
-            int rarity = ((Unit) o).getRarity();
+            int rarity = ((Unit) o).getSummonableRarity();
             switch (rarity) {
                 case 1:
                     color = HERO_1;

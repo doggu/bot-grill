@@ -1,26 +1,23 @@
 package feh.characters;
 
+import com.google.gson.stream.JsonReader;
 import feh.FEHeroesCache;
 import feh.characters.hero.*;
 import feh.characters.hero.constructionSite.HeroConstructor;
 import feh.characters.hero.constructionSite.MismatchedInputException;
 import feh.characters.skills.SkillDatabase;
-import feh.characters.skills.skillTypes.Skill;
-import main.BotMain;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import utilities.Stopwatch;
 import utilities.data.Database;
 import utilities.data.WebCache;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
 
 public class HeroDatabase extends Database<Hero> {
     @Override
@@ -282,33 +279,57 @@ public class HeroDatabase extends Database<Hero> {
     private static final String HERO_SUBDIR = "/herodata/";
 
     private static final String
-            LV1_STATS = "https://feheroes.gamepedia.com/Level_1_stats_table",
-            GROWTH_RATES = "https://feheroes.gamepedia.com/Growth_rate_table",
-            HERO_LIST = "https://feheroes.gamepedia.com/List_of_Heroes",
-            ARTISTS_URL = "https://feheroes.gamepedia.com/List_of_artists";
+            /*
+            "page", name, title (epithet), wikiname, person (?),
+             origin, entries (array), TagID, IntID, gender, weapontype,
+             movetype, growthmod, artist (with spooky moon runes not rōmaji),
+             actorEN (array), actorJP (array),
+             addition date (release), release date (idk),
+             "properties" (useful, tells if read unit was demoted or an enemy)
+             description
+             precision stuff???
+                    i will probably eventually filter out the stuff i don't want
+             */
+            HERO_INFO = "https://feheroes.gamepedia.com/index.php?title=Special:CargoExport&tables=Units&&fields=_pageName%3DPage%2CName%3DName%2CTitle%3DTitle%2CWikiName%3DWikiName%2CPerson%3DPerson%2COrigin%3DOrigin%2CEntries__full%3DEntries%2CTagID%3DTagID%2CIntID%3DIntID%2CGender%3DGender%2CWeaponType%3DWeaponType%2CMoveType%3DMoveType%2CGrowthMod%3DGrowthMod%2CArtist%3DArtist%2CActorEN__full%3DActorEN%2CActorJP__full%3DActorJP%2CAdditionDate%3DAdditionDate%2CReleaseDate%3DReleaseDate%2CProperties__full%3DProperties%2CDescription%3DDescription&&order+by=%60_pageName%60%2C%60Name%60%2C%60Title%60%2C%60WikiName%60%2C%60Person%60&limit=1024&format=json",
+
+            // (Hero and WikiName) lv1 5* stats and 3* growth rates
+            HERO_STATS = "https://feheroes.gamepedia.com/index.php?title=Special:CargoExport&tables=UnitStats&&fields=_pageName%3DHero%2CWikiName%3DWikiName%2CLv1HP5%3DLv1HP5%2CLv1Atk5%3DLv1Atk5%2CLv1Spd5%3DLv1Spd5%2CLv1Def5%3DLv1Def5%2CLv1Res5%3DLv1Res5%2CHPGR3%3DHPGR3%2CAtkGR3%3DAtkGR3%2CSpdGR3%3DSpdGR3%2CDefGR3%3DDefGR3%2CResGR3%3DResGR3&&order+by=%60_pageName%60%2C%60WikiName%60%2C%60Lv1HP5%60%2C%60Lv1Atk5%60%2C%60Lv1Spd5%60&limit=1000&format=json",
+            // complete rarity info, each object entry represents a period of
+            // for a hero's rarity during a given time.
+            HERO_RARITY = "https://feheroes.gamepedia.com/index.php?title=Special:CargoExport&tables=SummoningAvailability&&fields=_pageName%3DPage%2CRarity%3DRarity%2CNewHeroes%3DNewHeroes%2CStartTime%3DStartTime%2CEndTime%3DEndTime&&order+by=%60_pageName%60%2C%60Rarity%60%2C%60NewHeroes%60%2C%60StartTime%60%2C%60EndTime%60&limit=5000&format=json";
+
+//            ARTISTS_URL = "https://feheroes.gamepedia.com/index.php?title=Special:CargoExport&tables=Artists&&fields=_pageName%3DPage%2CNameUSEN%3DNameUSEN%2CName%3DName%2CCompany%3DCompany&&order+by=%60_pageName%60%2C%60NameUSEN%60%2C%60Name%60%2C%60Company%60&limit=1024&format=json";
+//            LV1_STATS = "https://feheroes.gamepedia.com/Level_1_stats_table",
+//            GROWTH_RATES = "https://feheroes.gamepedia.com/Growth_rate_table",
+//            HERO_LIST = "https://feheroes.gamepedia.com/List_of_Heroes",
+//            ARTISTS_URL = "https://feheroes.gamepedia.com/List_of_artists";
 
     private static final FEHeroesCache
-            LV1_STATS_FILE,
-            GROWTH_RATES_FILE,
-            HERO_LIST_FILE;
+            HERO_STATS_FILE,
+            HERO_INFO_FILE,
+            HERO_RARITY_FILE;
+//            LV1_STATS_FILE = null,
+//            GROWTH_RATES_FILE = null,
+//            HERO_LIST_FILE = null;
 
     private static final FEHeroesCache[] HERO_FILES;
 
     static {
-        LV1_STATS_FILE = new FEHeroesCache(LV1_STATS, HERO_SUBDIR);
-        GROWTH_RATES_FILE = new FEHeroesCache(GROWTH_RATES, HERO_SUBDIR);
-        HERO_LIST_FILE = new FEHeroesCache(HERO_LIST, HERO_SUBDIR);
+        HERO_STATS_FILE = new FEHeroesCache(HERO_STATS, HERO_SUBDIR);
+        HERO_INFO_FILE = new FEHeroesCache(HERO_INFO, HERO_SUBDIR);
+        HERO_RARITY_FILE = new FEHeroesCache(HERO_RARITY, HERO_SUBDIR);
 
-        HERO_GENDERS = getGenders();
-        ARTISTS = getArtists();
+        HERO_FILES = new FEHeroesCache[]{
+                HERO_STATS_FILE,
+                HERO_INFO_FILE,
+                HERO_RARITY_FILE,
+//                LV1_STATS_FILE,
+//                GROWTH_RATES_FILE,
+//                HERO_LIST_FILE,
+        };
 
         DATABASE = new HeroDatabase();
         HEROES = DATABASE.getList();
-        HERO_FILES = new FEHeroesCache[]{
-                LV1_STATS_FILE,
-                GROWTH_RATES_FILE,
-                HERO_LIST_FILE,
-        };
     }
 
 
@@ -328,6 +349,55 @@ public class HeroDatabase extends Database<Hero> {
 
         ArrayList<Hero> heroes = new ArrayList<>();
 
+        ArrayList<HeroConstructor> infoMerges, statMerges;
+        HashMap<String, Integer> rarities;
+
+        try {
+            infoMerges = getHeroInfo();
+            statMerges = getHeroStats();
+            rarities = getHeroRarities();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return null;
+        }
+
+        if (infoMerges.size()!=statMerges.size()) {
+            System.out.println("unequal constructor list sizes; aborting");
+            System.out.println("\t\t("+infoMerges.size()+", "+statMerges.size()+")");
+            return null;
+        }
+
+        for (int i=0; i<infoMerges.size(); i++) {
+            try {
+                HeroConstructor merge = HeroConstructor.merge(
+                        infoMerges.get(i),
+                        statMerges.get(i));
+
+                Integer rarity = rarities.get(merge.getFullName().toString());
+
+                if (rarity==null) {
+                    //it's actually a special unit (seasonal, legendary, etc.)
+                    merge.setSummonableRarity(5);
+                    //not right but who cares im just tryna compile bro
+                    merge.setAvailability(Availability.LEGENDARY);
+//                    System.out.println("rarity not found for " +
+//                            merge.getFullName());
+//                    continue;
+                } else {
+                    merge.setSummonableRarity(rarity);
+                    merge.setAvailability(Availability.NORMAL);
+                }
+
+                merge.setPortraitLink(
+                        new URL("https://i.redd.it/a8ezuq39lvn21.jpg"));
+
+                heroes.add(merge.createHero());
+            } catch (MismatchedInputException|MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+
+        /*
         Document
                 lv1StatsFile,
                 growthRatesFile,
@@ -546,232 +616,292 @@ public class HeroDatabase extends Database<Hero> {
         }
 
         System.out.println(pTime.presentResult());
+         */
+
         return heroes;
     }
 
-    private static Elements greatest(Elements a, Elements b) {
-        return a.size()>b.size()?a:b;
+    private ArrayList<HeroConstructor> getHeroInfo() throws IOException {
+        ArrayList<HeroConstructor> merges = new ArrayList<>();
+
+        JsonReader infoReader = new JsonReader(new FileReader(HERO_INFO_FILE));
+        infoReader.beginArray();
+        while (infoReader.hasNext()) {
+            //open new hero
+            infoReader.beginObject();
+
+            //page
+            infoReader.nextName();
+            infoReader.nextString();
+
+            //name
+            infoReader.nextName();
+            String name = infoReader.nextString();
+            //epithet
+            infoReader.nextName();
+            String epithet = infoReader.nextString();
+            //honestly fuck this not gonna import an entire fucking library so i
+            //can fix Tharja: "Normal Girl"
+            epithet = epithet.replaceAll("&quot;", "\"");
+
+            //wikiname
+            infoReader.nextName();
+            infoReader.nextString();
+
+            //"person"
+            infoReader.nextName();
+            infoReader.nextString();
+
+            //origin
+            infoReader.nextName();
+            String origin = infoReader.nextString();
+
+            //"entries"
+            infoReader.nextName();
+            infoReader.skipValue();
+//            infoReader.beginArray();
+//            //idk what this means, seems identical to origin so far
+//            while (infoReader.hasNext())
+//                infoReader.skipValue();
+//            infoReader.endArray();
+
+            //"TagID"
+            infoReader.nextName();
+            infoReader.nextString();
+
+            //"IntID"
+            infoReader.nextName();
+            infoReader.nextInt();
+
+            //gender
+            infoReader.nextName();
+            String gender = infoReader.nextString(); //Male, Female, MF or N
+
+            //weapon type
+            infoReader.nextName();
+            String weaponType = infoReader.nextString();
+
+            //move type
+            infoReader.nextName();
+            String moveType = infoReader.nextString();
+
+            //"GrowthMod"
+            infoReader.nextName();
+            infoReader.nextString();
+
+            //artist (unicode)
+            infoReader.nextName();
+            String artist = infoReader.nextString();
+
+            //english VA
+            infoReader.nextName();
+            infoReader.skipValue();
+//            infoReader.beginArray();
+//            while (infoReader.hasNext())
+//                infoReader.skipValue();
+//            infoReader.endArray();
+
+            //japanese VA
+            infoReader.nextName();
+            infoReader.skipValue();
+//            infoReader.beginArray();
+//            while (infoReader.hasNext())
+//                infoReader.skipValue();
+//            infoReader.endArray();
+
+            //"AdditionDate" (probably when assets were first made available)
+            infoReader.nextName();
+            String additionDate = infoReader.nextString();
+
+            //release date
+            infoReader.nextName();
+            String releaseDate = infoReader.nextString();
+
+            //properties
+            infoReader.nextName();
+            infoReader.beginArray();
+            ArrayList<String> properties = new ArrayList<>();
+            while (infoReader.hasNext())
+                properties.add(infoReader.nextString());
+            infoReader.endArray();
+            if (properties.contains("enemy") || properties.contains("generic")) {
+                while (infoReader.hasNext())
+                    infoReader.skipValue();
+                infoReader.endObject();
+                continue;
+            }
+
+            //description
+            infoReader.nextName();
+            String description = infoReader.nextString();
+
+            //"AdditionDate__precision"
+            infoReader.nextName();
+            infoReader.nextString(); //i sure hope numbers resolve to strings
+
+            //"ReleaseDate__precision
+            infoReader.nextName();
+            infoReader.nextString();
+
+            infoReader.endObject();
+
+            HeroConstructor merge = new HeroConstructor();
+
+            merge.setFullName(new HeroName(name, epithet));
+//            merge.setWikiName(wikiname);
+            merge.setOrigin(Origin.getOrigin(origin));
+            merge.setGender(gender.equals("Male") ? 'M' : 'F'); //uM
+            merge.setWeaponType(weaponType);
+            merge.setMoveType(moveType);
+            merge.setArtist(artist);
+
+            GregorianCalendar trueRelease;
+            try {
+                trueRelease = parseDate(releaseDate);
+            } catch (Error | Exception e) {
+                try {
+                    trueRelease = parseDate(additionDate);
+                } catch (Error | Exception ee) {
+                    trueRelease = null;
+//                    ee.printStackTrace();
+//                    continue; //safe to continue for reader
+                }
+            }
+            merge.setDateReleased(trueRelease);
+
+//            merge.setDescription(description);
+
+            //heavy interpretation starts here
+//            merge.setPortraitLink(new URL(
+//                    "https://feheroes.gamepedia.com/File:" +
+//                            merge.getFullName().toString()
+//                                    .replace(":","")
+//                                    .replace(" ", "_") +
+//                            "_Face_FC.webp"
+//            ));
+            //it didn't work
+
+            merges.add(merge);
+        }
+
+        return merges;
     }
 
-    private static HeroConstructor getLv1Constructor(Element row) {
-        Elements d = row.select("td");
-        HeroConstructor c = new HeroConstructor();
+    private ArrayList<HeroConstructor> getHeroStats() throws IOException {
+        ArrayList<HeroConstructor> merges = new ArrayList<>();
 
-        //0 is portrait
-        c.setFullName(new HeroName(d.get(1).text()));
+        JsonReader infoReader = new JsonReader(new FileReader(HERO_STATS_FILE));
+        infoReader.beginArray();
+        while (infoReader.hasNext()) {
+//            System.out.println("ReADInG sOmE stATs");
 
-        /*
-        String move = d.get(2).attributes().get("alt");
-        System.out.println(move);
-        c.setMoveType(move.substring(
-                move.indexOf("Icon Class ")+"Icon Class ".length(),
-                move.indexOf(".png")));
+            //open new hero
+            infoReader.beginObject();
 
-        String weapon = d.get(3).attributes().get("alt");
-        c.setWeaponType(weapon.substring(
-                weapon.indexOf("Icon Move ")+"Icon Move ".length(),
-                weapon.indexOf(".png")));
-        */
+            //name
+            infoReader.nextName();
+            String name = infoReader.nextString();
+            //honestly fuck this not gonna import an entire fucking library so i
+            //can fix Tharja: "Normal Girl"
+            name = name.replaceAll("&quot;", "\"");
 
-        //c.setMoveType(row.attributes().get("data-move-type"));
-        //c.setWeaponType(row.attributes().get("data-weapon-type"));
+            //wikiname
+            infoReader.nextName();
+            String wikiname = infoReader.nextString();
+            if (wikiname.contains("ENEMY")) {
+//                System.out.println("NeveRMINd");
+                while (infoReader.hasNext())
+                    infoReader.skipValue();
+                infoReader.endObject();
+                continue;
+            }
 
-        int[] stats = new int[5];
-        stats[0] = Integer.parseInt(d.get(4).text());
-        stats[1] = Integer.parseInt(d.get(5).text());
-        stats[2] = Integer.parseInt(d.get(6).text());
-        stats[3] = Integer.parseInt(d.get(7).text());
-        stats[4] = Integer.parseInt(d.get(8).text());
-        c.setStats(stats);
+            //lv1 5* stats
+            int[] stats = new int[5];
+            for (int i=0; i<5; i++) {
+                infoReader.nextName();
+                stats[i] = infoReader.nextInt();
+            }
 
-        //9 is total
+            //3* growths
+            int[] growths = new int[5];
+            for (int i=0; i<5; i++) {
+                infoReader.nextName();
+                growths[i] = infoReader.nextInt();
+            }
 
-        return c;
-    }
-    private static HeroConstructor getGrowthConstructor(Element row) {
-        Elements d = row.select("td");
-        HeroConstructor c = new HeroConstructor();
+            infoReader.endObject();
 
+            HeroConstructor merge = new HeroConstructor();
 
-        c.setFullName(new HeroName(d.get(1).text()));
-        //2 is move
-        //3 is weapon (already covered)
-        //4 is lv1 totals
-        //5 is total growths
-        //6 is both of those for some reason
-        int[] growths = new int[5];
-        for (int i=0; i<growths.length; i++) { //7-11
-            String t = d.get(i+7).text();
-            growths[i] = Integer.parseInt(t.substring(0, t.indexOf('%')));
+            merge.setFullName(new HeroName(name));
+            merge.setStats(stats);
+            merge.setGrowths(growths);
+
+            merge.setGamepediaLink(
+                    new URL("https://feheroes.gamepedia.com/" +
+                            merge.getFullName().toString()
+                                    .replace(" ", "_")));
+
+            merge.setBaseKit(
+                    SkillDatabase.HERO_SKILLS.get(
+                            merge.getFullName().toString()));
+
+            merges.add(merge);
         }
 
-        c.setGrowths(growths);
-        c.setDateReleased(parseDate(d.get(12).text()));
-
-        return c;
-    }
-    private static HeroConstructor getListConstructor(Element row) {
-        Elements d = row.select("td");
-        HeroConstructor c = new HeroConstructor();
-
-        String[] urlSet = d.get(0).select("a")
-                .get(0).select("img")
-                .get(0).attr("srcset")
-                .split(" ");
-
-        try {
-            c.setPortraitLink(new URL(urlSet[2]));
-        } catch (MalformedURLException murle) {
-            murle.printStackTrace();
-        }
-
-        c.setFullName(new HeroName(d.get(1).text()));
-        c.setOrigin(Origin.getOrigin(d.get(2).text()));
-
-        c.setMoveType(row.attributes().get("data-move-type"));
-        c.setWeaponType(row.attributes().get("data-weapon-type"));
-        //4 is weapon
-
-        String r = d.get(5).text();
-        try {
-            c.setRarity(Integer.parseInt(String.valueOf(r.charAt(0))));
-        } catch (NumberFormatException nfe) {
-            if (BotMain.DEBUG)
-                System.out.println(c.getFullName()+": " +
-                        "issues getting rarity " +nfe.getMessage() +
-                        "; substituting 3*-4*");
-            c.setRarity(-1);
-        }
-
-        Availability availability;
-
-        try {
-            if (r.indexOf('–') >= 0)
-                r = r.substring(r.indexOf('–') + 4);
-            else
-                if (r.indexOf(' ')>=0)
-                    r = r.substring(r.indexOf(' ') + 1);
-                else r = "";
-        } catch (IndexOutOfBoundsException ioobe) {
-            r = "";
-        }
-
-        switch (r) { //reassigns to the same value a lot but whatever
-            case "":
-                availability = Availability.NORMAL;
-                break;
-            case "*":
-                availability = Availability.NORMAL_RARITY_CHANGED;
-                break;
-            case "Story":
-                availability = Availability.STORY;
-                break;
-            case "Grand Hero Battle":
-                availability = Availability.GHB;
-                break;
-            case "Tempest Trials":
-                availability = Availability.TT;
-                break;
-            //seasonal/legendary/MyThIC heroes are not part of normal pools
-            case "Special":
-                availability = Availability.SEASONAL;
-                break;
-            case "Legendary":
-                availability = Availability.LEGENDARY;
-                break;
-            case "Mythic": //hopefully one day
-                availability = Availability.MYTHIC;
-                break;
-            default:
-                throw new Error("obtaining method wasn't accounted for: " +
-                        "\""+r+"\" of \""+d.get(1).text()+"\"");
-        }
-
-        c.setAvailability(availability);
-
-        //6 is release
-
-        return c;
+        return merges;
     }
 
-    private ArrayList<Skill> addBaseKit(HeroName heroName) {
-        ArrayList<Skill> baseKit;
+    //todo: temporarily just a hashmap of hero names and integers until i get
+    // all the rarity stuff figured out and compiled
+    private HashMap<String, Integer> getHeroRarities() throws IOException {
+        HashMap<String, Integer> rarities = new HashMap<>();
 
-        try {
-            baseKit = SkillDatabase.HERO_SKILLS.get(heroName.toString());
-        } catch (NoSuchElementException f) {
-            throw new Error("could not find base kit for "+heroName);
-        }
+        JsonReader infoReader = new JsonReader(new FileReader(HERO_RARITY_FILE));
+        infoReader.beginArray();
+        while (infoReader.hasNext()) {
+            //open new hero
+            infoReader.beginObject();
 
-        return baseKit;
-    }
+            //page
+            infoReader.nextName();
+            String name = infoReader.nextString();
+            //honestly fuck this not gonna import an entire fucking library so i
+            //can fix Tharja: "Normal Girl"
+            name = name.replaceAll("&quot;", "\"");
 
-    private static final HashMap<String, Character> HERO_GENDERS;
-    private static HashMap<String, Character> getGenders() {
-        File f = new File("./src/feh/characters/grenders.txt");
-        HashMap<String, Character> genders = new HashMap<>();
+            //rarity
+            infoReader.nextName();
+            int rarity = infoReader.nextInt();
 
-        Scanner input;
-        try {
-            input = new Scanner(f);
-        } catch (FileNotFoundException fnfe) {
-            throw new Error();
-        }
+            //"NewHeroes" (special?)
+            infoReader.nextName();
+            boolean newHeroes = infoReader.nextInt()==1;
 
-        while (input.hasNextLine()) {
-            String[] items = input.nextLine().split("\t");
-            genders.put(items[0], items[1].charAt(0));
-        }
+            //start time
+            infoReader.nextName();
+            String startDate = infoReader.nextString();
 
-        return genders;
-    }
+            //end time
+            infoReader.nextName();
+            String endDate = infoReader.nextString();
 
-    private static final HashMap<String, String> ARTISTS;
-    private static HashMap<String, String> getArtists() {
-        Document artistsFile;
-        try {
-            artistsFile = Jsoup.parse(
-                    new FEHeroesCache(ARTISTS_URL, HERO_SUBDIR),
-                    "UTF-8");
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new HashMap<>();
-        }
+            //date precision data or smtg
+            infoReader.nextName();
+            infoReader.nextInt();
+            infoReader.nextName();
+            infoReader.nextInt();
 
-        Elements rows = artistsFile
-                .select("tr");
-        rows.remove(0); //remove header which is in body for some reason
+            infoReader.endObject();
 
-//        System.out.println(rows);
-
-        HashMap<String, String> artists = new HashMap<>();
-
-        for (Element row:rows) {
-            Elements items = row.children();
-            String artist = items.get(0).text();
-
-            Elements characters = items.get(1).children().get(0).children();
-            for (Element character:characters) {
-                String name = character.select("a").get(0)
-                        .attr("title");
-                artists.put(name, artist);
+            Integer currentRarity = rarities.get(name);
+            if (currentRarity==null || currentRarity>rarity) {
+                rarities.put(name, rarity);
             }
         }
 
-        //todo: retrieve individual artists manually each time this happens
-//        artists.put("Lyn: Lady of the Beach", "teffish");
-//        artists.put("Mareeta: The Blade's Pawn", "kiyu");
-//        artists.put("Tanith: Forthright Heart", "mattsun! (まっつん！)");
-//        artists.put("Ewan: Eager Student", "azu‐taro (azuタロウ)");
-//        artists.put("Tethys: Beloved Dancer", "tokki");
-//        artists.put("Mareeta: Sword of Stars", "idk lmao");
-//        artists.put("Tanya: Dagdar's Kid", "idk lmao");
-//        artists.put("Jaffar: Angel of Night", "motsutsu");
-//        artists.put("Anna: Wealth-Wisher", "hanekoto (はねこと)");
-//        artists.put("Tsubasa: Madcap Idol", "azu‐taro (azuタロウ)");
-        artists.put("Lyon: Demon King", "Yone Kazuki");
-
-        return artists;
+        return rarities;
     }
 
 
@@ -788,10 +918,6 @@ public class HeroDatabase extends Database<Hero> {
 
 
     public static void main(String[] args) {
-        HashMap<String, String> artists = getArtists();
 
-        for (String art : artists.keySet()) {
-            System.out.println(art);
-        }
     }
 }

@@ -27,7 +27,7 @@ public class HeroConstructor {
     private int[] statsArr;
     private int[] growthsArr;
     private HeroStats stats;
-    private Integer rarity;
+    private Integer summonableRarity;
     private Availability availability;
     private GregorianCalendar dateReleased;
     private ArrayList<Skill> baseKit;
@@ -135,8 +135,8 @@ public class HeroConstructor {
         this.statsArr = stats; }
     public void setGrowths(int[] growths) {
         this.growthsArr = growths; }
-    public void setRarity(Integer rarity) {
-        this.rarity = rarity; }
+    public void setSummonableRarity(Integer summonableRarity) {
+        this.summonableRarity = summonableRarity; }
     public void setAvailability(Availability availability) {
         this.availability = availability; }
     public void setDateReleased(GregorianCalendar dateReleased) {
@@ -158,7 +158,7 @@ public class HeroConstructor {
     public WeaponClass getWeaponType() { return weaponType; }
     public MovementClass getMoveType() { return moveType; }
     public HeroStats getStats() { return stats; }
-    public int getRarity() { return rarity; }
+    public int getSummonableRarity() { return summonableRarity; }
     public Availability getAvailability() { return availability; }
     public GregorianCalendar getDateReleased() { return dateReleased; }
     public ArrayList<Skill> getBaseKit() { return baseKit; }
@@ -202,7 +202,7 @@ public class HeroConstructor {
         } else {
             throw new Error("missing stats: "+fullName);
         }
-        if (rarity==null) {
+        if (summonableRarity==null) {
             throw new Error("missing rarity: "+fullName);
         }
         if (availability==null) {
@@ -227,7 +227,7 @@ public class HeroConstructor {
                         color,
                         weaponType,
                         moveType,
-                        rarity,
+                        summonableRarity,
                         availability,
                         dateReleased,
                         stats,
@@ -248,6 +248,8 @@ public class HeroConstructor {
                 new Merger<>(h1.portraitLink, h2.portraitLink);
         Merger<String> artist =
                 new Merger<>(h1.artist, h2.artist);
+        Merger<Character> gender =
+                new Merger<>(h1.gender, h2.gender);
         Merger<WeaponClass> weaponType =
                 new Merger<>(h1.weaponType, h2.weaponType);
         Merger<MovementClass> moveType =
@@ -255,7 +257,7 @@ public class HeroConstructor {
         Merger<Character> color =
                 new Merger<>(h1.color, h2.color);
         Merger<Integer> rarity =
-                new Merger<>(h1.rarity, h2.rarity);
+                new Merger<>(h1.summonableRarity, h2.summonableRarity);
         Merger<Availability> availability =
                 new Merger<>(h1.availability, h2.availability);
         Merger<GregorianCalendar> dateReleased =
@@ -271,11 +273,12 @@ public class HeroConstructor {
         merge.setGamepediaLink(gamepediaLink.merge());
         merge.setPortraitLink(portraitLink.merge());
         merge.setArtist(artist.merge());
+        merge.setGender(gender.merge());
         merge.setOrigin(origin.merge());
         merge.setWeaponType(weaponType.merge());
         merge.setMoveType(moveType.merge());
         merge.setColor(color.merge());
-        merge.setRarity(rarity.merge());
+        merge.setSummonableRarity(rarity.merge());
         merge.setAvailability(availability.merge());
         merge.setDateReleased(dateReleased.merge());
         merge.setStats(stats.merge());

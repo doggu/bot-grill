@@ -7,11 +7,23 @@ import java.net.URL;
 
 import static main.BotMain.DEBUG;
 
+/*
+todo: allow multithreading to be encapsulated in the structure of WebCache
+    this would entail creating a thread whenever non-querying actions are
+    performed on instances of this (e.g. update() or readWebsite()) when
+    querying data (accessing any of the File methods inherited) there could be
+    an override function over them which wraps the normal implementation, but
+    waits for the website-reading or file-writing thread to join.
+ */
+
+/**
+ * creates a three-way link between a URL, its data, and the cache created on
+ * disk.
+ */
 public class WebCache extends File {
     private static final String DIRECTORY = "./webCache";
 
     private final String website;
-
 
 
     public WebCache(String website, String subdir) {

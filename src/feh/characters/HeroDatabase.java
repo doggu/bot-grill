@@ -20,6 +20,9 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 
 public class HeroDatabase extends Database<Hero> {
+
+    //todo: rewrite with scalper objects like the other listeners
+    // maybe even create an abstraction to that whole process too
     @Override
     public ArrayList<Hero> findAll(String input) {
         ArrayList<Hero> candidates = new ArrayList<>();
@@ -490,6 +493,11 @@ public class HeroDatabase extends Database<Hero> {
             infoReader.nextName();
             infoReader.nextString();
 
+            //todo: create name relationship between different identifiers
+            //e.x.  Subaki: Perfect Expert
+            //      Subaki Perfect Expert
+            //      the tagID thing idk
+
             //name
             infoReader.nextName();
             String name = infoReader.nextString();
@@ -546,6 +554,7 @@ public class HeroDatabase extends Database<Hero> {
             infoReader.nextString();
 
             //artist (unicode)
+            //todo: create artist class with normal and romanized name
             infoReader.nextName();
             String artist = infoReader.nextString();
 

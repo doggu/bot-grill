@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Unit extends Hero {
+    //todo: move to Summoner
     private String nickname = null;
+
     private final int rarity, boon, bane; //I refuse to call it asset/flaw
     private int level; //can only be 1 or 40 right now
     private int supportLevels;

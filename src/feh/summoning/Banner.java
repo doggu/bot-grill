@@ -105,11 +105,12 @@ public class Banner {
 
             int bannerRarity = x.getSummonableRarity();
 
-            GregorianCalendar rarityChangeDate =
-                    new GregorianCalendar(2018, GregorianCalendar.APRIL, 10);
-            if (x.getAvailability()==Availability.NORMAL_RARITY_CHANGED &&
-                    startDate.getTimeInMillis() <= rarityChangeDate.getTimeInMillis())
-                bannerRarity++;
+            //todo: use SummonableRarity class to reimplement this properly
+//            GregorianCalendar rarityChangeDate =
+//                    new GregorianCalendar(2018, GregorianCalendar.APRIL, 10);
+//            if (x.getAvailability()==Availability.NORMAL_RARITY_CHANGED &&
+//                    startDate.getTimeInMillis() <= rarityChangeDate.getTimeInMillis())
+//                bannerRarity++;
 
             switch (bannerRarity) {
                 case 1:

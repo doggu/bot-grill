@@ -290,27 +290,107 @@ public class HeroDatabase extends Database<Hero> {
              precision stuff???
                     i will probably eventually filter out the stuff i don't want
              */
-            HERO_INFO = "https://feheroes.gamepedia.com/index.php?title=Special:CargoExport&tables=Units&&fields=_pageName%3DPage%2CName%3DName%2CTitle%3DTitle%2CWikiName%3DWikiName%2CPerson%3DPerson%2COrigin%3DOrigin%2CEntries__full%3DEntries%2CTagID%3DTagID%2CIntID%3DIntID%2CGender%3DGender%2CWeaponType%3DWeaponType%2CMoveType%3DMoveType%2CGrowthMod%3DGrowthMod%2CArtist%3DArtist%2CActorEN__full%3DActorEN%2CActorJP__full%3DActorJP%2CAdditionDate%3DAdditionDate%2CReleaseDate%3DReleaseDate%2CProperties__full%3DProperties%2CDescription%3DDescription&&order+by=%60_pageName%60%2C%60Name%60%2C%60Title%60%2C%60WikiName%60%2C%60Person%60&limit=1024&format=json",
+            HERO_INFO = "https://feheroes.gamepedia.com/index.php" +
+                    "?title=Special:CargoExport&tables=Units" +
+                    "&&fields=" +
+                            "_pageName%3D" +
+                            "Page%2C" +
+                            "Name%3D" +
+                            "Name%2C" +
+                            "Title%3D" +
+                            "Title%2C" +
+                            "WikiName%3D" +
+                            "WikiName%2C" +
+                            "Person%3D" +
+                            "Person%2C" +
+                            "Origin%3D" +
+                            "Origin%2C" +
+                            "Entries__full%3D" +
+                            "Entries%2C" +
+                            "TagID%3D" +
+                            "TagID%2C" +
+                            "IntID%3D" +
+                            "IntID%2C" +
+                            "Gender%3D" +
+                            "Gender%2C" +
+                            "WeaponType%3D" +
+                            "WeaponType%2C" +
+                            "MoveType%3D" +
+                            "MoveType%2C" +
+                            "GrowthMod%3D" +
+                            "GrowthMod%2C" +
+                            "Artist%3D" +
+                            "Artist%2C" +
+                            "ActorEN__full%3D" +
+                            "ActorEN%2C" +
+                            "ActorJP__full%3D" +
+                            "ActorJP%2C" +
+                            "AdditionDate%3D" +
+                            "AdditionDate%2C" +
+                            "ReleaseDate%3D" +
+                            "ReleaseDate%2C" +
+                            "Properties__full%3D" +
+                            "Properties%2C" +
+                            "Description%3D" +
+                            "Description" +
+                    "&&order+by=" +
+                            "%60_pageName%60%2C" +
+                            "%60Name%60%2C" +
+                            "%60Title%60%2C" +
+                            "%60WikiName%60%2C" +
+                            "%60Person%60" +
+                    "&limit=1024" +
+                    "&format=json",
 
             // (Hero and WikiName) lv1 5* stats and 3* growth rates
-            HERO_STATS = "https://feheroes.gamepedia.com/index.php?title=Special:CargoExport&tables=UnitStats&&fields=_pageName%3DHero%2CWikiName%3DWikiName%2CLv1HP5%3DLv1HP5%2CLv1Atk5%3DLv1Atk5%2CLv1Spd5%3DLv1Spd5%2CLv1Def5%3DLv1Def5%2CLv1Res5%3DLv1Res5%2CHPGR3%3DHPGR3%2CAtkGR3%3DAtkGR3%2CSpdGR3%3DSpdGR3%2CDefGR3%3DDefGR3%2CResGR3%3DResGR3&&order+by=%60_pageName%60%2C%60WikiName%60%2C%60Lv1HP5%60%2C%60Lv1Atk5%60%2C%60Lv1Spd5%60&limit=1000&format=json",
+            HERO_STATS = "https://feheroes.gamepedia.com/index.php" +
+                    "?title=Special:CargoExport" +
+                    "&tables=UnitStats" +
+                    "&fields=" +
+                            "_pageName%3DHero%2C" +
+                            "WikiName%3DWikiName%2C" +
+                            "Lv1HP5%3DLv1HP5%2C" +
+                            "Lv1Atk5%3DLv1Atk5%2C" +
+                            "Lv1Spd5%3DLv1Spd5%2C" +
+                            "Lv1Def5%3DLv1Def5%2C" +
+                            "Lv1Res5%3DLv1Res5%2C" +
+                            "HPGR3%3DHPGR3%2C" +
+                            "AtkGR3%3DAtkGR3%2C" +
+                            "SpdGR3%3DSpdGR3%2C" +
+                            "DefGR3%3DDefGR3%2C" +
+                            "ResGR3%3DResGR3" +
+                    "&order+by=" +
+                            "%60_pageName%60%2C" +
+                            "%60WikiName%60%2C" +
+                            "%60Lv1HP5%60%2C" +
+                            "%60Lv1Atk5%60%2C" +
+                            "%60Lv1Spd5%60" +
+                    "&limit=1000" +
+                    "&format=json",
             // complete rarity info, each object entry represents a period of
             // for a hero's rarity during a given time.
-            HERO_RARITY = "https://feheroes.gamepedia.com/index.php?title=Special:CargoExport&tables=SummoningAvailability&&fields=_pageName%3DPage%2CRarity%3DRarity%2CNewHeroes%3DNewHeroes%2CStartTime%3DStartTime%2CEndTime%3DEndTime&&order+by=%60_pageName%60%2C%60Rarity%60%2C%60NewHeroes%60%2C%60StartTime%60%2C%60EndTime%60&limit=5000&format=json";
-
-//            ARTISTS_URL = "https://feheroes.gamepedia.com/index.php?title=Special:CargoExport&tables=Artists&&fields=_pageName%3DPage%2CNameUSEN%3DNameUSEN%2CName%3DName%2CCompany%3DCompany&&order+by=%60_pageName%60%2C%60NameUSEN%60%2C%60Name%60%2C%60Company%60&limit=1024&format=json";
-//            LV1_STATS = "https://feheroes.gamepedia.com/Level_1_stats_table",
-//            GROWTH_RATES = "https://feheroes.gamepedia.com/Growth_rate_table",
-//            HERO_LIST = "https://feheroes.gamepedia.com/List_of_Heroes",
-//            ARTISTS_URL = "https://feheroes.gamepedia.com/List_of_artists";
+            HERO_RARITY = "https://feheroes.gamepedia.com/index.php" +
+                    "?title=Special:CargoExport" +
+                    "&tables=SummoningAvailability" +
+                    "&fields=" +
+                            "_pageName%3DPage%2C" +
+                            "Rarity%3DRarity%2C" +
+                            "NewHeroes%3DNewHeroes%2C" +
+                            "StartTime%3DStartTime%2C" +
+                            "EndTime%3DEndTime" +
+                    "&order+by=" +
+                            "%60_pageName%60%2C" +
+                            "%60Rarity%60%2C" +
+                            "%60NewHeroes%60%2C" +
+                            "%60StartTime%60%2C" +
+                            "%60EndTime%60" +
+                    "&limit=5000" +
+                    "&format=json";
 
     private static final FEHeroesCache
             HERO_STATS_FILE,
             HERO_INFO_FILE,
             HERO_RARITY_FILE;
-//            LV1_STATS_FILE = null,
-//            GROWTH_RATES_FILE = null,
-//            HERO_LIST_FILE = null;
 
     private static final FEHeroesCache[] HERO_FILES;
 
@@ -323,9 +403,6 @@ public class HeroDatabase extends Database<Hero> {
                 HERO_STATS_FILE,
                 HERO_INFO_FILE,
                 HERO_RARITY_FILE,
-//                LV1_STATS_FILE,
-//                GROWTH_RATES_FILE,
-//                HERO_LIST_FILE,
         };
 
         DATABASE = new HeroDatabase();
@@ -396,227 +473,6 @@ public class HeroDatabase extends Database<Hero> {
                 e.printStackTrace();
             }
         }
-
-        /*
-        Document
-                lv1StatsFile,
-                growthRatesFile,
-                heroListFile;
-        try {
-            lv1StatsFile =
-                    Jsoup.parse(LV1_STATS_FILE, "UTF-8");
-            growthRatesFile =
-                    Jsoup.parse(GROWTH_RATES_FILE, "UTF-8");
-            heroListFile =
-                    Jsoup.parse(HERO_LIST_FILE, "UTF-8");
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-            return new ArrayList<>();
-        }
-
-        Elements lv1StatsTable = lv1StatsFile
-                        .select("table").select("tbody").select("tr"),
-                growthRatesTable = growthRatesFile
-                        .select("table").select("tbody").select("tr"),
-                heroListTable = heroListFile
-                        .select("table").select("tbody").select("tr"),
-                artistsTable = heroListFile
-                        .select("table").select("tbody").select("tr");
-
-        lv1StatsTable.remove(0);
-        growthRatesTable.remove(0);
-        heroListTable.remove(0); //why is it getting the header
-
-        if (lv1StatsTable.size()!=growthRatesTable.size() ||
-                growthRatesTable.size()!=heroListTable.size()) {
-            System.out.println("unevenness detected; " +
-                    "some units will be missing!");
-        }
-
-        //todo: temporary fixes in place while the growth rates table is missing
-        // all units including and after (alphabetically):
-        //      "Wolt: Sunbeam Archer"
-        // while i'm at it i should separate the whiles into foreach with mild
-        // near-sorted matching algorithm at the end instead to make stuff like
-        // this easier to account for
-        while (lv1StatsTable.size()>0 &&
-//                growthRatesTable.size()>0 &&
-                heroListTable.size()>0) {
-            HeroConstructor
-                    merge,
-                    lv1StatsMerge = getLv1Constructor(lv1StatsTable.get(0)),
-                    heroListMerge = getListConstructor(heroListTable.get(0));
-
-            //todo: ^
-            HeroConstructor growthRatesMerge;
-            try {
-                growthRatesMerge =
-                        getGrowthConstructor(growthRatesTable.get(0));
-            } catch (IndexOutOfBoundsException ioobe) {
-                growthRatesMerge = new HeroConstructor();
-                int[] growths;
-                GregorianCalendar dateReleased;
-                switch (lv1StatsMerge.getFullName().toString()) {
-                    //todo: actually fill in proper values
-                    case "Valter: Dark Moonstone":
-                    case "Velouria: Wolf Cub":
-                    case "Veronica: Brave Princess":
-                    case "Veronica: Spring Princess":
-                    case "Virion: Elite Archer":
-                    case "Walhart: The Conqueror":
-                        growths = new int[]{ 50, 60, 50, 65, 30 };
-                        dateReleased = new GregorianCalendar(
-                                2018,Calendar.JULY,29,
-                                23,59);
-                        break;
-                    case "Wolt: Sunbeam Archer":
-                        growths = new int[]{ 50, 60, 60, 45, 30 };
-                        dateReleased = new GregorianCalendar(
-                                2019,Calendar.JULY,9,
-                                23,59);
-                        break;
-                    case "Wrys: Kindly Priest":
-                        growths = new int[]{ 55, 45, 40, 40, 60 };
-                        dateReleased = new GregorianCalendar(
-                                2017,Calendar.FEBRUARY,2,
-                                23,59);
-                        break;
-                    case "Xander: Dancing Knight":
-                        growths = new int[]{ 50, 65, 30, 65, 30 };
-                        dateReleased = new GregorianCalendar(
-                                2018, Calendar.AUGUST, 10,
-                                23,59);
-                        break;
-                    case "Xander: Paragon Knight":
-                        growths = new int[]{ 55, 55, 45, 65, 30 };
-                        dateReleased = new GregorianCalendar(
-                                2017,Calendar.FEBRUARY,2,
-                                23,59);
-                        break;
-                    case "Xander: Spring Prince":
-                        growths = new int[]{ 50, 45, 50, 60, 45 };
-                        dateReleased = new GregorianCalendar(
-                                2017,Calendar.MARCH,30,
-                                23,59);
-                        break;
-                    case "Xander: Student Swimmer":
-                        growths = new int[]{ 55, 55, 55, 65, 25 };
-                        dateReleased = new GregorianCalendar(
-                                2017,Calendar.JULY,28,
-                                23,59);
-                        break;
-                    case "Yarne: Timid Taguel":
-                        growths = new int[]{ 50, 60, 60, 55, 30 };
-                        dateReleased = new GregorianCalendar(
-                                2019,Calendar.JUNE,11,
-                                23,59);
-                        break;
-                    case "Ylgr: Breaking the Ice":
-                        growths = new int[]{ 60, 60, 55, 55, 45 };
-                        dateReleased = new GregorianCalendar(
-                                2019, Calendar.JUNE, 24,
-                                23,59);
-                        break;
-                    case "Ylgr: Fresh Snowfall":
-                        growths = new int[]{ 50, 60, 65, 35, 35 };
-                        dateReleased = new GregorianCalendar(
-                                2019, Calendar.JUNE, 24,
-                                23,59);
-                        break;
-                    case "Yune: Chaos Goddess":
-                        growths = new int[]{ 50, 55, 50, 25, 65 };
-                        dateReleased = new GregorianCalendar(
-                                2019, Calendar.MARCH, 29,
-                                23,59);
-                        break;
-                    case "Zelgius: Jet-Black General":
-                        growths = new int[]{ 55, 60, 60, 65, 35 };
-                        dateReleased = new GregorianCalendar(
-                                2018, Calendar.JANUARY, 12,
-                                23,59);
-                        break;
-                    case "Zephiel: The Liberator":
-                        growths = new int[]{ 70, 60, 30, 60, 45 };
-                        dateReleased = new GregorianCalendar(
-                                2017, Calendar.APRIL, 20,
-                                23,59);
-                        break;
-                    case "Zephiel: Winter's Crown":
-                        growths = new int[]{ 60, 65, 35, 70, 55 };
-                        dateReleased = new GregorianCalendar(
-                                2019, Calendar.DECEMBER, 16,
-                                23,59);
-                        break;
-                    default:
-                        System.out.println("HEY HEY HYE LISTEN LISTEN" +
-                                "THERE'S ANOTHER UNIT MISSING FROM GROWTHS\n" +
-                                "it's "+lv1StatsMerge.getFullName().toString() +
-                                " btw");
-                        growths = new int[5];
-                        dateReleased = new GregorianCalendar(
-                                1, Calendar.DECEMBER, 1,
-                                23,59);
-                }
-
-                growthRatesMerge.setGrowths(growths);
-                growthRatesMerge.setDateReleased(dateReleased);
-            }
-
-            try {
-                merge = HeroConstructor.merge(lv1StatsMerge,growthRatesMerge);
-            } catch (MismatchedInputException mie) {
-                System.out.println("something was mismatched! (first)");
-                mie.printStackTrace();
-                greatest(
-                        greatest(lv1StatsTable, growthRatesTable),
-                        heroListTable)
-                        .remove(0);
-                continue;
-            }
-
-            try {
-                merge = HeroConstructor.merge(merge,heroListMerge);
-            } catch (MismatchedInputException mie) {
-                System.out.println("something was mismatched! (second)");
-                heroListTable.remove(0);
-            }
-
-            merge.setBaseKit(addBaseKit(merge.getFullName()));
-            merge.setGender(HERO_GENDERS.get(merge.getFullName().toString()));
-            merge.setArtist(ARTISTS.get(merge.getFullName().toString()));
-
-            try {
-                merge.setGamepediaLink(
-                        new URL("https://feheroes.gamepedia.com/" +
-                        merge.getFullName().toString()
-                                .replace(" ", "_")));
-            } catch (MalformedURLException murle) {
-                System.out.println(merge.toString() +
-                        " couldn't produce a link!");
-                merge.setGamepediaLink(null);
-            }
-
-            try {
-                heroes.add(merge.createHero());
-            } catch (Error e) {
-                e.printStackTrace();
-            }
-
-
-            //todo: ^
-            try {
-                growthRatesTable.remove(0);
-            } catch (IndexOutOfBoundsException ioobe) {
-                //don't need that
-            }
-
-            lv1StatsTable.remove(0);
-            heroListTable.remove(0);
-            artistsTable.remove(0);
-        }
-
-        System.out.println(pTime.presentResult());
-         */
 
         return heroes;
     }

@@ -15,10 +15,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
+import java.util.*;
 
 public class HeroDatabase extends Database<Hero> {
 
@@ -457,20 +454,9 @@ public class HeroDatabase extends Database<Hero> {
 
                 Integer rarity = rarities.get(merge.getFullName().toString());
 
-                if (rarity==null) {
-                    //it's actually a special unit (seasonal, legendary, etc.)
-                    merge.setSummonableRarity(5);
-                    //not right but who cares im just tryna compile bro
-                    //todo: fix this once all that is figured out
-                    merge.setAvailability(Availability.LEGENDARY);
-//                    System.out.println("rarity not found for " +
-//                            merge.getFullName());
-//                    continue;
-                } else {
-                    merge.setSummonableRarity(rarity);
-                    //todo: fix this once all that is figured out
-                    merge.setAvailability(Availability.NORMAL);
-                }
+                //it's actually a special unit (seasonal, legendary, etc.)
+                merge.setSummonableRarity(
+                        Objects.requireNonNullElse(rarity, 5));
 
                 merge.setPortraitLink(
                         new URL("https://i.redd.it/a8ezuq39lvn21.jpg"));
@@ -608,6 +594,7 @@ public class HeroDatabase extends Database<Hero> {
             }
             allProperties.addAll(properties);
             reader.endArray();
+            Availability availability = Availability.NORMAL;
             boolean addToList = true;
             for (String s:properties) {
                 switch(s) {
@@ -618,14 +605,20 @@ public class HeroDatabase extends Database<Hero> {
                     case "story":
                         //alfonse?
 //                        System.out.println("me "+s+"\n"+name+": "+epithet);
-                        break;
+                        //break;
                     case "prologue":
                         //mask man? no actually just matthew and takumi i guess
 //                        System.out.println("me "+s+"\n"+name+": "+epithet);
+                        availability = Availability.STORY;
                         break;
                     case "special":
+                        availability = Availability.SEASONAL;
+                        break;
                     case "legendary":
+                        availability = Availability.LEGENDARY;
+                        break;
                     case "mythic":
+                        availability = Availability.MYTHIC;
                         break;
                     case "limited":
                         //describes units who have a finite number of copies
@@ -633,7 +626,10 @@ public class HeroDatabase extends Database<Hero> {
 //                        System.out.println("me "+s+"\n"+name+": "+epithet);
                         break;
                     case "ghb":
+                        availability = Availability.GHB;
+                        break;
                     case "tempest":
+                        availability = Availability.TT;
                         break;
                     case "brave":
 //                        System.out.println("me "+s+"\n"+name+": "+epithet);
@@ -654,6 +650,7 @@ public class HeroDatabase extends Database<Hero> {
                     case "demoted_240":
                     case "demoted_201904":
                     case "demoted_202004":
+                        availability = Availability.NORMAL_RARITY_CHANGED;
 //                        System.out.println("me "+s+"\n"+name+": "+epithet);
                         break;
                     case "removed_201904":
@@ -703,6 +700,7 @@ public class HeroDatabase extends Database<Hero> {
             merge.setWeaponType(weaponType);
             merge.setMoveType(moveType);
             merge.setArtist(artist);
+            merge.setAvailability(availability);
             merge.setDescription(description);
 
             GregorianCalendar trueRelease;

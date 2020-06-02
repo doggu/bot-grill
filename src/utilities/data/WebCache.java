@@ -104,7 +104,7 @@ public class WebCache extends File {
      */
     private static String generateDirectory(String website, String subdir) {
         if (website.length()>80)
-            website = website.substring(0, 80);
+            website = website.substring(0, 60)+website.hashCode();
 
         return DIRECTORY + //if forward slashes are missing
                 (subdir!=null?(subdir.charAt(0)!='/'?'/':"")+subdir:"") +

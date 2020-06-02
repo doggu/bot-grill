@@ -6,6 +6,7 @@ import feh.characters.hero.*;
 import feh.characters.hero.constructionSite.HeroConstructor;
 import feh.characters.hero.constructionSite.MismatchedInputException;
 import feh.characters.skills.SkillDatabase;
+import org.jetbrains.annotations.NotNull;
 import utilities.Stopwatch;
 import utilities.data.Database;
 import utilities.data.WebCache;
@@ -24,7 +25,7 @@ public class HeroDatabase extends Database<Hero> {
     //todo: rewrite with scalper objects like the other listeners
     // maybe even create an abstraction to that whole process too
     @Override
-    public ArrayList<Hero> findAll(String input) {
+    public ArrayList<Hero> findAll(@NotNull String input) {
         ArrayList<Hero> candidates = new ArrayList<>();
 
         boolean newestOnly = false, oldestOnly = false;
@@ -294,7 +295,8 @@ public class HeroDatabase extends Database<Hero> {
                     i will probably eventually filter out the stuff i don't want
              */
             HERO_INFO = "https://feheroes.gamepedia.com/index.php" +
-                    "?title=Special:CargoExport&tables=Units" +
+                    "?title=Special:CargoExport" +
+                    "&tables=Units" +
                     "&&fields=" +
                             "_pageName%3D" +
                             "Page%2C" +
@@ -459,18 +461,21 @@ public class HeroDatabase extends Database<Hero> {
                     //it's actually a special unit (seasonal, legendary, etc.)
                     merge.setSummonableRarity(5);
                     //not right but who cares im just tryna compile bro
+                    //todo: fix this once all that is figured out
                     merge.setAvailability(Availability.LEGENDARY);
 //                    System.out.println("rarity not found for " +
 //                            merge.getFullName());
 //                    continue;
                 } else {
                     merge.setSummonableRarity(rarity);
+                    //todo: fix this once all that is figured out
                     merge.setAvailability(Availability.NORMAL);
                 }
 
                 merge.setPortraitLink(
                         new URL("https://i.redd.it/a8ezuq39lvn21.jpg"));
 
+                merge.setBaseKit(SkillDatabase.HERO_SKILLS.get(merge.getFullName().toString()));
                 heroes.add(merge.createHero());
             } catch (MismatchedInputException|MalformedURLException e) {
                 e.printStackTrace();
@@ -481,17 +486,21 @@ public class HeroDatabase extends Database<Hero> {
     }
 
     private ArrayList<HeroConstructor> getHeroInfo() throws IOException {
+        //noinspection MismatchedQueryAndUpdateOfCollection
+        ArrayList<String> allProperties = new ArrayList<>();
+
         ArrayList<HeroConstructor> merges = new ArrayList<>();
 
-        JsonReader infoReader = new JsonReader(new FileReader(HERO_INFO_FILE));
-        infoReader.beginArray();
-        while (infoReader.hasNext()) {
+        JsonReader reader = new JsonReader(new FileReader(HERO_INFO_FILE));
+        reader.beginArray();
+        while (reader.hasNext()) {
+
             //open new hero
-            infoReader.beginObject();
+            reader.beginObject();
 
             //page
-            infoReader.nextName();
-            infoReader.nextString();
+            reader.nextName();
+            reader.nextString();
 
             //todo: create name relationship between different identifiers
             //e.x.  Subaki: Perfect Expert
@@ -499,123 +508,198 @@ public class HeroDatabase extends Database<Hero> {
             //      the tagID thing idk
 
             //name
-            infoReader.nextName();
-            String name = infoReader.nextString();
+            reader.nextName();
+            String name = reader.nextString();
             //epithet
-            infoReader.nextName();
-            String epithet = infoReader.nextString();
+            reader.nextName();
+            String epithet = reader.nextString();
             //honestly fuck this not gonna import an entire fucking library so i
             //can fix Tharja: "Normal Girl"
             epithet = epithet.replaceAll("&quot;", "\"");
 
+
             //wikiname
-            infoReader.nextName();
-            infoReader.nextString();
+            reader.nextName();
+            String wikiname = reader.nextString();
+            //merge.setWikiName(wikiname);
 
             //"person"
-            infoReader.nextName();
-            infoReader.nextString();
+            reader.nextName();
+            reader.nextString();
 
             //origin
-            infoReader.nextName();
-            String origin = infoReader.nextString();
+            reader.nextName();
+            String origin = reader.nextString();
 
             //"entries"
-            infoReader.nextName();
-            infoReader.skipValue();
-//            infoReader.beginArray();
+            reader.nextName();
+//            reader.skipValue();
+            reader.beginArray();
 //            //idk what this means, seems identical to origin so far
-//            while (infoReader.hasNext())
-//                infoReader.skipValue();
-//            infoReader.endArray();
+            while (reader.hasNext()) {
+                String entry = reader.nextString();
+                if (!origin.equals(entry)) {
+                    System.out.println("found inequality for " +
+                            "\""+name+": "+epithet+"\": " +
+                            origin+" vs. "+entry);
+                }
+            }
+            reader.endArray();
 
             //"TagID"
-            infoReader.nextName();
-            infoReader.nextString();
+            reader.nextName();
+            reader.nextString();
 
             //"IntID"
-            infoReader.nextName();
-            infoReader.nextInt();
+            reader.nextName();
+            reader.nextInt();
 
             //gender
-            infoReader.nextName();
-            String gender = infoReader.nextString(); //Male, Female, MF or N
+            reader.nextName();
+            String gender = reader.nextString(); //Male, Female, MF or N
 
             //weapon type
-            infoReader.nextName();
-            String weaponType = infoReader.nextString();
+            reader.nextName();
+            String weaponType = reader.nextString();
 
             //move type
-            infoReader.nextName();
-            String moveType = infoReader.nextString();
+            reader.nextName();
+            String moveType = reader.nextString();
 
-            //"GrowthMod"
-            infoReader.nextName();
-            infoReader.nextString();
+            //"GrowthMod" (contains hidden growth info such as trainee status)
+            reader.nextName();
+            reader.nextString();
 
             //artist (unicode)
             //todo: create artist class with normal and romanized name
-            infoReader.nextName();
-            String artist = infoReader.nextString();
+            reader.nextName();
+            String artist = reader.nextString();
 
             //english VA
-            infoReader.nextName();
-            infoReader.skipValue();
-//            infoReader.beginArray();
-//            while (infoReader.hasNext())
-//                infoReader.skipValue();
-//            infoReader.endArray();
+            reader.nextName();
+            reader.skipValue();
+//            reader.beginArray();
+//            while (reader.hasNext())
+//                reader.skipValue();
+//            reader.endArray();
 
             //japanese VA
-            infoReader.nextName();
-            infoReader.skipValue();
-//            infoReader.beginArray();
-//            while (infoReader.hasNext())
-//                infoReader.skipValue();
-//            infoReader.endArray();
+            reader.nextName();
+            reader.skipValue();
+//            reader.beginArray();
+//            while (reader.hasNext())
+//                reader.skipValue();
+//            reader.endArray();
 
             //"AdditionDate" (probably when assets were first made available)
-            infoReader.nextName();
-            String additionDate = infoReader.nextString();
+            reader.nextName();
+            String additionDate = reader.nextString();
 
             //release date
-            infoReader.nextName();
-            String releaseDate = infoReader.nextString();
+            reader.nextName();
+            String releaseDate = reader.nextString();
 
             //properties
-            infoReader.nextName();
-            infoReader.beginArray();
+            reader.nextName();
+            reader.beginArray();
             ArrayList<String> properties = new ArrayList<>();
-            while (infoReader.hasNext())
-                properties.add(infoReader.nextString());
-            infoReader.endArray();
-            if (properties.contains("enemy") || properties.contains("generic")) {
-                while (infoReader.hasNext())
-                    infoReader.skipValue();
-                infoReader.endObject();
+            while (reader.hasNext()) {
+                properties.add(reader.nextString());
+            }
+            allProperties.addAll(properties);
+            reader.endArray();
+            boolean addToList = true;
+            for (String s:properties) {
+                switch(s) {
+                    case "enemy":
+                    case "generic":
+                        addToList = false;
+                        break;
+                    case "story":
+                        //alfonse?
+//                        System.out.println("me "+s+"\n"+name+": "+epithet);
+                        break;
+                    case "prologue":
+                        //mask man? no actually just matthew and takumi i guess
+//                        System.out.println("me "+s+"\n"+name+": "+epithet);
+                        break;
+                    case "special":
+                    case "legendary":
+                    case "mythic":
+                        break;
+                    case "limited":
+                        //describes units who have a finite number of copies
+                        //per barracks (ghb, tempest, story, etc.)
+//                        System.out.println("me "+s+"\n"+name+": "+epithet);
+                        break;
+                    case "ghb":
+                    case "tempest":
+                        break;
+                    case "brave":
+//                        System.out.println("me "+s+"\n"+name+": "+epithet);
+                        break;
+                    case "refresher":
+                        //this'll be useful to keep for game logic
+                        // (no dancing dancers)
+                        // (though you can unequip their refresh skill)
+//                        System.out.println("me "+s+"\n"+name+": "+epithet);
+                        break;
+                    case "duo":
+                        break;
+                    case "revivalOnly":
+                        //denotes units who were cut from the 5* random pool
+                        // (they'll only appear in revival banners)
+//                        System.out.println("me "+s+"\n"+name+": "+epithet);
+                        break;
+                    case "demoted_240":
+                    case "demoted_201904":
+                    case "demoted_202004":
+//                        System.out.println("me "+s+"\n"+name+": "+epithet);
+                        break;
+                    case "removed_201904":
+                        //units who were removed from 5* random pool
+//                        System.out.println("me "+s+"\n"+name+": "+epithet);
+                        break;
+                    case "resplendent":
+//                        System.out.println("me "+s+"\n"+name+": "+epithet);
+                        break;
+                    case "specDisplay":
+//                        System.out.println("me "+s+"\n"+name+": "+epithet);
+                        break;
+                    case "hair":
+                    case "hat":
+                    case "tiara":
+//                        System.out.println("me "+s+"\n"+name+": "+epithet);
+                        break;
+                }
+            }
+            if (!addToList) {
+                while (reader.hasNext()) {
+                    reader.skipValue();
+                }
+                reader.endObject();
                 continue;
             }
 
             //description
-            infoReader.nextName();
-            String description = infoReader.nextString();
+            reader.nextName();
+            String description = reader.nextString();
 
             //"AdditionDate__precision"
-            infoReader.nextName();
-            infoReader.nextString(); //i sure hope numbers resolve to strings
+            reader.nextName();
+            reader.nextString(); //i sure hope numbers resolve to strings
 
             //"ReleaseDate__precision
-            infoReader.nextName();
-            infoReader.nextString();
+            reader.nextName();
+            reader.nextString();
 
-            infoReader.endObject();
+            reader.endObject();
 
             HeroConstructor merge = new HeroConstructor();
 
             merge.setFullName(new HeroName(name, epithet));
-//            merge.setWikiName(wikiname);
             merge.setOrigin(Origin.getOrigin(origin));
-            merge.setGender(gender.equals("Male") ? 'M' : 'F'); //uM
+            merge.setGender(gender.equals("M")?'m':'f');
             merge.setWeaponType(weaponType);
             merge.setMoveType(moveType);
             merge.setArtist(artist);
@@ -634,8 +718,6 @@ public class HeroDatabase extends Database<Hero> {
             }
             merge.setDateReleased(trueRelease);
 
-//            merge.setDescription(description);
-
             //heavy interpretation starts here
 //            merge.setPortraitLink(new URL(
 //                    "https://feheroes.gamepedia.com/File:" +
@@ -648,6 +730,26 @@ public class HeroDatabase extends Database<Hero> {
 
             merges.add(merge);
         }
+
+//        for (int i=0; i<allProperties.size(); i++) {
+//            if (allProperties.get(i).equals("")) {
+//                allProperties.remove(i);
+//                i--;
+//            }
+//        }
+//
+//        for (int i=0; i<allProperties.size(); i++) {
+//            String iS = allProperties.get(i);
+//            for (int j=i+1; j<allProperties.size(); j++) {
+//                if (iS.equals(allProperties.get(j))) {
+//                    allProperties.remove(j);
+//                    j--;
+//                }
+//            }
+//        }
+
+//        for (String s:allProperties)
+//            System.out.println(s);
 
         return merges;
     }
@@ -783,6 +885,6 @@ public class HeroDatabase extends Database<Hero> {
 
 
     public static void main(String[] args) {
-
+        System.out.println("hello, world!");
     }
 }

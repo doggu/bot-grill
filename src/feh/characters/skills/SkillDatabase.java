@@ -1,24 +1,21 @@
 package feh.characters.skills;
 
+import com.google.gson.stream.JsonReader;
 import feh.FEHeroesCache;
 import feh.characters.hero.WeaponClass;
-import feh.characters.skills.skillTypes.*;
-import feh.characters.skills.skillTypes.constructionSite.*;
+import feh.characters.skills.skillTypes.Skill;
+import feh.characters.skills.skillTypes.constructionSite.IncompleteDataException;
+import feh.characters.skills.skillTypes.constructionSite.SkillConstructor;
 import main.BotMain;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import utilities.Stopwatch;
 import utilities.data.Database;
 import utilities.data.WebCache;
 
+import java.io.FileReader;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class SkillDatabase extends Database<Skill> {
@@ -28,116 +25,149 @@ public class SkillDatabase extends Database<Skill> {
 
     private static final String
             SKILLS_SUBDIR = "/skills/";
+
+
+    //the only one i need to keep
+    // (though i could just add it manually really)
+    // nah this is more fun
+//            AOE_PATTERNS_PATH =
+//                    "https://feheroes.gamepedia.com/Area-of-effect_Specials";
     private static final String
-            FEHEROES = "https://feheroes.gamepedia.com/",
-            WEAPONS_PATH = "https://feheroes.gamepedia.com/Weapons",
-            ASSISTS_PATH = "https://feheroes.gamepedia.com/Assists",
-            SPECIALS_PATH = "https://feheroes.gamepedia.com/Specials",
-            PASSIVES_PATH = "https://feheroes.gamepedia.com/Passives",
-            SACRED_SEALS_ALL = "https://feheroes.gamepedia.com/Sacred_Seals",
-            EXCLUSIVE_SKILLS_PATH =
-                    "https://feheroes.gamepedia.com/Exclusive_skills",
-            INHERITABLE_SKILLS =
-                    "https://feheroes.gamepedia.com/List_of_inheritable_skills",
-            SKILL_CHAINS_4_STARS =
-                    "https://feheroes.gamepedia.com/Skill_Chains_4_Stars_List",
-            SKILL_CHAINS_5_STARS =
-                    "https://feheroes.gamepedia.com/Skill_Chains_5_Stars_List",
-            LIST_OF_UPGRADABLE_WEAPONS =
-                    "https://feheroes.gamepedia.com/List_of_upgradable_weapons",
-            LIST_OF_EVOLVING_WEAPONS =
-                    "https://feheroes.gamepedia.com/List_of_evolving_weapons",
-            //maybe a Skill thing
-            LIST_OF_DESCRIPTION_TAGS =
-                    "https://feheroes.gamepedia.com/List_of_description_tags",
-            HERO_BASE_SKILLS_PATH =
-                    "https://feheroes.gamepedia.com/Hero_skills_table",
-            WEAPON_REFINES_PATH =
-                    "https://feheroes.gamepedia.com/Weapon_Refinery",
-            AOE_PATTERNS_PATH =
-                    "https://feheroes.gamepedia.com/Area-of-effect_Specials";
+            /*
+            sites this new query renders obsolete:
+                slot-specific tables
+                exclusive skills table
+                inheritable skills table
+                upgradable weapons table
+                evolving weapons table
+             */
+            SKILLS_PATH = "https://feheroes.gamepedia.com/index.php" +
+                    "?title=Special:CargoExport" +
+                    "&tables=Skills" +
+                    "&&fields=" +
+                            "_pageName%3DPage%2C" +
+                            "GroupName%3DGroupName%2C" +
+                            "Name%3DName%2C" +
+                            "WikiName%3DWikiName%2C" +
+                            "TagID%3DTagID%2C" +
+                            "Scategory%3DScategory%2C" +
+                            "UseRange%3DUseRange%2C" +
+                            "Icon%3DIcon%2C" +
+                            "RefinePath%3DRefinePath%2C" +
+                            "Description%3DDescription%2C" +
+                            "Required__full%3DRequired%2C" +
+                            "Next%3DNext%2C" +
+                            "PromotionRarity%3DPromotionRarity%2C" +
+                            "PromotionTier%3DPromotionTier%2C" +
+                            "Exclusive%3DExclusive%2C" +
+                            "SP%3DSP%2C" +
+                            "CanUseMove__full%3DCanUseMove%2C" +
+                            "CanUseWeapon__full%3DCanUseWeapon%2C" +
+                            "Might%3DMight%2C" +
+                            "StatModifiers%3DStatModifiers%2C" +
+                            "Cooldown%3DCooldown%2C" +
+                            "WeaponEffectiveness%3DWeaponEffectiveness%2C" +
+                            "SkillBuildCost%3DSkillBuildCost%2C" +
+                            "Properties__full%3DProperties" +
+                    "&&order+by=" +
+                            "%60_pageName%60%2C" +
+                            "%60GroupName%60%2C" +
+                            "%60Name%60%2C" +
+                            "%60WikiName%60%2C" +
+                            "%60TagID%60" +
+                    "&limit=5000" +
+                    "&format=json",
+            /*
+            sites this new query renders obsolete:
+                hero skills table
+                i'm gonna stop writing this shit and actually start implementing
+             */
+            //todo: i need to query this twice, limit 4096, and offset 4096 for
+            // the second time
+            HERO_SKILLS_PATH_ONE = "https://feheroes.gamepedia.com/index.php" +
+                    "?title=Special:CargoExport" +
+                    "&tables=UnitSkills" +
+                    "&&fields=" +
+                            "_pageName%3DPage%2C" +
+                            "WikiName%3DWikiName%2C" +
+                            "skill%3Dskill%2C" +
+                            "skillPos%3DskillPos%2C" +
+                            "defaultRarity%3DdefaultRarity%2C" +
+                            "unlockRarity%3DunlockRarity" +
+                    "&&order+by=" +
+                            "%60_pageName%60%2C" +
+                            "%60WikiName%60%2C" +
+                            "%60skill%60%2C" +
+                            "%60skillPos%60%2C" +
+                            "%60defaultRarity%60" +
+                    "&limit=4096" +
+                    "&format=json",
+
+            HERO_SKILLS_PATH_TWO = "https://feheroes.gamepedia.com/index.php" +
+                    "?title=Special:CargoExport" +
+                    "&tables=UnitSkills" +
+                    "&&fields=" +
+                            "_pageName%3DPage%2C" +
+                            "WikiName%3DWikiName%2C" +
+                            "skill%3Dskill%2C" +
+                            "skillPos%3DskillPos%2C" +
+                            "defaultRarity%3DdefaultRarity%2C" +
+                            "unlockRarity%3DunlockRarity" +
+                    "&&order+by=" +
+                            "%60_pageName%60%2C" +
+                            "%60WikiName%60%2C" +
+                            "%60skill%60%2C" +
+                            "%60skillPos%60%2C" +
+                            "%60defaultRarity%60" +
+                    "&limit=4096" +
+                    "&offset=4096" +
+                    "&format=json";
 
 
     private static final FEHeroesCache
-            WEAPONS_FILE,
-            ASSISTS_FILE,
-            SPECIALS_FILE,
-            PASSIVES_FILE,
-            EXCLUSIVE_SKILLS_FILE,
-            HERO_BASE_SKILLS_FILE,
-            WEAPON_REFINES_FILE,
-            AOE_PATTERNS_FILE;
+            SKILLS_FILE,
+            HERO_SKILLS_FILE_ONE,
+            HERO_SKILLS_FILE_TWO;
 
     private static final FEHeroesCache[] SKILL_FILES;
 
     static {
-        WEAPONS_FILE =
-                new FEHeroesCache(WEAPONS_PATH, SKILLS_SUBDIR);
-        ASSISTS_FILE =
-                new FEHeroesCache(ASSISTS_PATH, SKILLS_SUBDIR);
-        SPECIALS_FILE =
-                new FEHeroesCache(SPECIALS_PATH, SKILLS_SUBDIR);
-        PASSIVES_FILE =
-                new FEHeroesCache(PASSIVES_PATH, SKILLS_SUBDIR);
-        EXCLUSIVE_SKILLS_FILE =
-                new FEHeroesCache(EXCLUSIVE_SKILLS_PATH, SKILLS_SUBDIR);
-        HERO_BASE_SKILLS_FILE =
-                new FEHeroesCache(HERO_BASE_SKILLS_PATH, SKILLS_SUBDIR);
-        WEAPON_REFINES_FILE =
-                new FEHeroesCache(WEAPON_REFINES_PATH, SKILLS_SUBDIR);
-        AOE_PATTERNS_FILE =
-                new FEHeroesCache(AOE_PATTERNS_PATH, SKILLS_SUBDIR);
+        SKILLS_FILE =
+                new FEHeroesCache(SKILLS_PATH, SKILLS_SUBDIR);
+        HERO_SKILLS_FILE_ONE =
+                new FEHeroesCache(HERO_SKILLS_PATH_ONE, SKILLS_SUBDIR);
+        HERO_SKILLS_FILE_TWO =
+                new FEHeroesCache(HERO_SKILLS_PATH_TWO, SKILLS_SUBDIR);
+//        WEAPONS_FILE =
+//                new FEHeroesCache(WEAPONS_PATH, SKILLS_SUBDIR);
+//        ASSISTS_FILE =
+//                new FEHeroesCache(ASSISTS_PATH, SKILLS_SUBDIR);
+//        SPECIALS_FILE =
+//                new FEHeroesCache(SPECIALS_PATH, SKILLS_SUBDIR);
+//        PASSIVES_FILE =
+//                new FEHeroesCache(PASSIVES_PATH, SKILLS_SUBDIR);
+//        EXCLUSIVE_SKILLS_FILE =
+//                new FEHeroesCache(EXCLUSIVE_SKILLS_PATH, SKILLS_SUBDIR);
+//        HERO_BASE_SKILLS_FILE =
+//                new FEHeroesCache(HERO_BASE_SKILLS_PATH, SKILLS_SUBDIR);
+//        WEAPON_REFINES_FILE =
+//                new FEHeroesCache(WEAPON_REFINES_PATH, SKILLS_SUBDIR);
+//        AOE_PATTERNS_FILE =
+//                new FEHeroesCache(AOE_PATTERNS_PATH, SKILLS_SUBDIR);
 
         SKILL_FILES = new FEHeroesCache[]{
-                WEAPONS_FILE,
-                ASSISTS_FILE,
-                SPECIALS_FILE,
-                PASSIVES_FILE,
-                EXCLUSIVE_SKILLS_FILE,
-                HERO_BASE_SKILLS_FILE,
-                WEAPON_REFINES_FILE,
-                AOE_PATTERNS_FILE,
+                SKILLS_FILE,
+                HERO_SKILLS_FILE_ONE,
+                HERO_SKILLS_FILE_TWO,
         };
 
-        EXCLUSIVE = getExclusiveList();
-        REFINES = getRefineableList();
-        AOE_PATTERNS = getAOEPatternList();
-
         DATABASE = new SkillDatabase();
-        /*
-        WEAPONS = processWeapons();
-        ASSISTS = processAssists();
-        SPECIALS = processSpecials();
-        PASSIVES = processPassives();
-        ArrayList<PassiveA> aPassives = new ArrayList<>();
-        ArrayList<PassiveB> bPassives = new ArrayList<>();
-        ArrayList<PassiveC> cPassives = new ArrayList<>();
-        ArrayList<PassiveS> sPassives = new ArrayList<>();
-
-        for (Passive x:PASSIVES) {
-            if (x instanceof PassiveA) {
-                aPassives.add((PassiveA) x);
-            } else if (x instanceof PassiveB) {
-                bPassives.add((PassiveB) x);
-            } else if (x instanceof PassiveC) {
-                cPassives.add((PassiveC) x);
-            } else if (x instanceof PassiveS) {
-                sPassives.add((PassiveS) x);
-            }
-        }
-
-        PASSIVES_A = aPassives;
-        PASSIVES_B = bPassives;
-        PASSIVES_C = cPassives;
-        PASSIVES_S = sPassives;
-        SKILLS = new ArrayList<>(); //DATABASE.getList();
-        SKILLS.addAll(WEAPONS);
-        SKILLS.addAll(ASSISTS);
-        SKILLS.addAll(SPECIALS);
-        SKILLS.addAll(PASSIVES);
-         */
         SKILLS = DATABASE.getList();
-        HERO_SKILLS = DATABASE.getHeroSkills();
+        try {
+            HERO_SKILLS = DATABASE.getHeroSkills();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -152,641 +182,282 @@ public class SkillDatabase extends Database<Skill> {
         Stopwatch pTime = new Stopwatch();
         pTime.start();
 
-        ArrayList<Skill> allSkills = new ArrayList<>();
+        ArrayList<Skill> allSkills;
 
-        if (BotMain.DEBUG) System.out.print("processing weapons... ");
-        ArrayList<Weapon> weapons = processWeapons();
+        try {
+             allSkills = getSkills();
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+            return null;
+        }
 
-        if (BotMain.DEBUG) System.out.print("processing assists... ");
-        ArrayList<Assist> assists = processAssists();
+//        allSkills.addAll(weapons);
+//        allSkills.addAll(assists);
+//        allSkills.addAll(specials);
+//        allSkills.addAll(passives);
 
-        if (BotMain.DEBUG) System.out.print("processing specials... ");
-        ArrayList<Special> specials = processSpecials();
-
-        if (BotMain.DEBUG) System.out.print("processing passives... ");
-        ArrayList<Passive> passives = processPassives();
-
-        allSkills.addAll(weapons);
-        allSkills.addAll(assists);
-        allSkills.addAll(specials);
-        allSkills.addAll(passives);
         if (BotMain.DEBUG) System.out.println(pTime.presentResult());
 
         return allSkills;
     }
 
-    /**
-     * a "sub-function" which uses https://feheroes.gamepedia.com/Weapons in
-     * order to create Weapon objects which describe their individual skills
-     * completely.
-     *
-     * @return a complete list of all passives given by the website, complete
-     * with polymorphism distinguishing the passive slots and data describing
-     * each individual skill
-     */
-    private static ArrayList<Weapon> processWeapons() {
-        ArrayList<Weapon> weapons = new ArrayList<>();
+    private ArrayList<Skill> getSkills() throws IOException {
+        ArrayList<Skill> skills = new ArrayList<>();
 
-        Document weaponsFile;
-        try {
-            weaponsFile = Jsoup.parse(WEAPONS_FILE, "UTF-8");
-        } catch (IOException ioe) {
-            System.out.println("weapons file not found!");
-            return new ArrayList<>();
-        }
+        JsonReader reader = new JsonReader(new FileReader(SKILLS_FILE));
+        reader.beginArray();
+        while (reader.hasNext()) {
+//            System.out.println("ReADInG sOmE stATs");
 
-        Elements tables = weaponsFile.select("table");
+            //open new skill
+            reader.beginObject();
 
-        //TODO: this is literally on the page
-        String[] weaponType = {
-                "Sword", "Red Tome",
-                "Lance", "Blue Tome",
-                "Axe", "Green Tome",
-                "Colorless Tome", "Staff",
-                "Beast", "Breath", "Bow", "Dagger",
-        };
+            //page
+            reader.nextName();
+            String page = reader.nextString();
 
-        for (int i=0; i<tables.size(); i++) {
-            Element table = tables.get(i);
+            //groupname
+            reader.nextName();
+            String groupname = reader.nextString();
 
-            Element header;
-            try {
-                header = table.selectFirst("thead");
-            } catch (NullPointerException npe) {
-                //npe.printStackTrace();
-                continue;
+            //name
+            reader.nextName();
+            String name = reader.nextString();
+
+            //wikiname
+            reader.nextName();
+            String wikiname = reader.nextString();
+
+            //TagID
+            reader.nextName();
+            String tagID = reader.nextString();
+
+            //skill category
+            reader.nextName();
+            String category = reader.nextString();
+
+            //todo: i think i need to branch out from here
+            // nevermind it just doesn't fill in anything
+            //useRange
+            reader.nextName();
+            String useRange = reader.nextString();
+
+            //icon
+            reader.nextName();
+            String icon = reader.nextString();
+
+            //refinePath
+            reader.nextName();
+            String refinePath = reader.nextString();
+
+            //description
+            reader.nextName();
+            String description = reader.nextString();
+
+            //required
+            reader.nextName();
+            reader.beginArray();
+            ArrayList<String> prereqs = new ArrayList<>();
+            while (reader.hasNext()) {
+                String prereq = reader.nextString();
+                prereqs.add(prereq);
             }
+            reader.endArray();
 
-            if (header==null) {
-                tables.remove(i);
-                i--;
-                continue;
+            //next
+            //todo: this probably becomes an array
+            reader.nextName();
+            String next = reader.nextString();
+
+            //promotion rarity
+            reader.nextName();
+            String promotionRarity = reader.nextString();
+
+            //promotion tier
+            reader.nextName();
+            String promotionTier = reader.nextString();
+
+            //exclusive
+            reader.nextName();
+            boolean exclusive = reader.nextInt()!=0;
+
+            //SP
+            reader.nextName();
+            int sp = reader.nextInt();
+
+            //can use movement classes
+            reader.nextName();
+            reader.beginArray();
+            ArrayList<String> canUseMove = new ArrayList<>();
+            while (reader.hasNext()) {
+                String canUse = reader.nextString();
+                canUseMove.add(canUse.trim());
             }
+            reader.endArray();
 
-            Elements rows = table.selectFirst("tbody").select("tr");
-            for (Element row:rows) {
-                SkillConstructor x = new SkillConstructor();
-                Elements info = row.children();
-
-                gatherBasicInformation(x, header, info);
-
-                if (info.size()!=6) {
-                    //not a weapon table
-                    i--;
-                    tables.remove(0);
-                    break;
-                }
-
-                x.setMight(Integer.parseInt(info.get(1).text()));
-                x.setRange(Integer.parseInt(info.get(2).text()));
-                x.setExclusive(info.get(5).text().equals("Yes"));
-                x.setType(WeaponClass.getClass(weaponType[i]));
-                x.setRefine(getRefine(x.getName()));
-
-                try {
-                    weapons.add(x.generateWeapon());
-                } catch (IncompleteDataException ide) {
-                    ide.printStackTrace();
-                    //continue
-                }
+            //can use weapon classes
+            reader.nextName();
+            reader.beginArray();
+            ArrayList<String> canUseWeapon = new ArrayList<>();
+            while (reader.hasNext()) {
+                String canUse = reader.nextString();
+                canUseWeapon.add(canUse.trim());
             }
-        }
+            reader.endArray();
 
-        return weapons;
-    }
+            //might
+            reader.nextName();
+            String mt = reader.nextString();
 
-    /**
-     * a "sub-function" which uses https://feheroes.gamepedia.com/Assists to
-     * generate Assist objects which describe the assists provided in the game
-     * completely.
-     *
-     * @return a complete list of all assists given by the website, encapsulated
-     * by a number of Assist objects
-     */
-    private static ArrayList<Assist> processAssists() {
-        ArrayList<Assist> assists = new ArrayList<>();
+            //stat modifiers
+            reader.nextName();
+            String statModifiers = reader.nextString();
 
-        Document assistsFile;
-        try {
-            assistsFile = Jsoup.parse(ASSISTS_FILE, "UTF-8");
-        } catch (IOException ioe) {
-            System.out.println("assists file not found!");
-            return new ArrayList<>();
-        }
+            //cooldown
+            reader.nextName();
+            String cd = reader.nextString();
 
-        Elements tables = assistsFile.select("table");
+            //weapon effectiveness
+            //note: comma-separated (e.g. "armored,cavalry")
+            reader.nextName();
+            String eff = reader.nextString();
 
-        for (Element table:tables) {
-            if (table.select("tr").size()<20)
-                continue;
+            //"SkillBuildCost"
+            reader.nextName();
+            String skillBuildCost = reader.nextString();
 
-            Element header = table.selectFirst("thead");
-            Elements rows = table.selectFirst("tbody")
-                    .select("tr");
-
-            for (Element row:rows) {
-                SkillConstructor x = new SkillConstructor();
-                Elements info = row.children();
-
-                gatherBasicInformation(x, header, info);
-
-                x.setRange(Integer.parseInt(info.get(3).text()));
-                x.setExclusive(isExclusive(x.getName()));
-
-                try {
-                    assists.add(x.generateAssist());
-                } catch (IncompleteDataException ide) {
-                    ide.printStackTrace();
-                }
+            //"Properties"
+            reader.nextName();
+            reader.beginArray();
+            while (reader.hasNext()) {
+                reader.nextString();
             }
-        }
+            reader.endArray();
 
 
 
-        return assists;
-    }
 
-    /**
-     * a "sub-function" which uses https://feheroes.gamepedia.com/Specials to
-     * create Special skills based on the table provided
-     *
-     * @return a complete list of all specials provided by the website,
-     * encapsulated by individual Special objects
-     */
-    private static ArrayList<Special> processSpecials() {
-        ArrayList<Special> specials = new ArrayList<>();
+            reader.endObject();
 
-        Document specialsFile;
-        try {
-            specialsFile = Jsoup.parse(SPECIALS_FILE, "UTF-8");
-        } catch (IOException ioe) {
-            System.out.println("specials file not found!");
-            return new ArrayList<>();
-        }
+            Skill skill;
 
-        Element table = specialsFile.select("table").get(1),
-                header = table.selectFirst("thead");
-        Elements rows = table.select("tbody").select("tr");
+            URL link = new URL("https://feheroes.gamepedia.com/"+groupname.replace(' ','_'));
+            URL image_link = new URL("https://feheroes.gamepedia.com/"+groupname.replace(' ','_'));
 
-        for (Element row:rows) {
-            SkillConstructor x = new SkillConstructor();
-            Elements info = row.children();
+            SkillConstructor s = new SkillConstructor();
 
-            gatherBasicInformation(x, header, info);
-
-            x.setCooldown(Integer.parseInt(info.get(3).text()));
-            x.setExclusive(isExclusive(x.getName()));
-
-            x.setDamagePattern(AOE_PATTERNS.get(x.getName()));
+            s.setName(wikiname);
+            s.setDescription(description);
+            //todo: i got no idea what to do about this
+            s.setIcon(image_link);
+            s.setLink(link);
+            s.setCost(sp);
+            s.setExclusive(exclusive);
 
             try {
-                specials.add(x.generateSpecial());
-            } catch (IncompleteDataException ide) {
-                ide.printStackTrace();
-            }
-        }
-
-
-
-        return specials;
-    }
-
-    /**
-     * a "sub-function" which uses https://feheroes.gamepedia.com/Weapons in
-     * order to create Passive skills based on the tables it sees.
-     *
-     * @return a complete list of all passives given by the website, complete
-     * with polymorphism distinguishing the passive slots and data describing
-     * each individual skill
-     */
-    private static ArrayList<Passive> processPassives() {
-        ArrayList<Passive> passives = new ArrayList<>();
-
-        Document passivesFile;
-        try {
-            passivesFile = Jsoup.parse(PASSIVES_FILE, "UTF-8");
-        } catch (IOException ioe) {
-            System.out.println("passives file not found!");
-            return new ArrayList<>();
-        }
-
-        Elements tables = passivesFile
-                .select("table[class='cargoTable noMerge sortable']");
-
-        if (tables.size()!=4) {
-            System.out.println("unknown table found (or one missing): " +
-                    tables.size());
-            System.out.println(tables);
-            return new ArrayList<>();
-        }
-
-        for (int i=0; i<tables.size(); i++) {
-            Elements rows = tables.get(i).select("tbody").select("tr");
-            Element header = tables.get(i).selectFirst("thead");
-
-            for (Element row : rows) {
-                SkillConstructor x = new SkillConstructor();
-                Elements info = row.children();
-
-                gatherBasicInformation(x, header, info);
-
-                try {
-                    String[] urlSet = info.get(0).select("a")
-                            .get(0).select("img")
-                            .get(0).attr("srcset")
-                            .split(" ");
-
-                    x.setIcon(new URL(urlSet[2]));
-                } catch (MalformedURLException murle) {
-                    System.out.println("got a murle for icon "+x.getName());
-                    x.setIcon(null);
-                } catch (IndexOutOfBoundsException ioobe) {
-                    System.out.println("did not have a third resolution " +
-                            "(or probably any resolution)\n" +
-                            info.get(0).select("a")
-                                    .get(0).select("img"));
-                    try {
-                        x.setIcon(new URL(
-                                "https://lh3.googleusercontent.com/" +
-                                        "xRh1UsbatdDxkorrhNmMFpqINzq5R7M" +
-                                        "pd-AWuc5b9Q6JxhBRLae8PE7RM1Zp1n" +
-                                        "29tUxzGdkCGOrTw38MQXmn7w=s400"));
-                    } catch (MalformedURLException e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                x.setExclusive(info.get(4).text().equals("Yes"));
-                try {
-                    if (i==0) {
-                        passives.add(x.generatePassiveA());
-                    } else if (i==1) {
-                        passives.add(x.generatePassiveB());
-                    } else if (i==2) {
-                        passives.add(x.generatePassiveC());
-                    } else if (i==3) {
-                        passives.add(x.generatePassiveS());
-                    } else {
-                        System.out.println(
-                                "this is not an expected table, "+
-                                        "how'd it even get this far");
-                    }
-                } catch (IncompleteDataException ide) {
-                    ide.printStackTrace();
-                }
-            }
-        }
-
-        return passives;
-    }
-
-    /**
-     * a helper function which helps to generalize the data collected from
-     * tables, gathering common items such as name, description, cost, etc.
-     * (actually that's all it does so far)
-     *
-     * @param x the SkillConstructor object to push data into
-     * @param header the title for each column read
-     * @param info the value of a certain row of the table which corresponds to
-     *             the SkillConstructor in question
-     */
-    private static void gatherBasicInformation(SkillConstructor x,
-                                               Element header, Elements info) {
-        ArrayList<String> titles =
-                new ArrayList<>(header.child(0).children().eachText());
-        for (int i=0; i<titles.size(); i++) {
-            switch (titles.get(i)) {
-                case "Name":
-                case "Weapon":
-                    x.setName(info.get(i).text());
-                    try {
-                        x.setLink(new URL(
-                                FEHEROES +
-                                        info.get(i)
-                                            .children()
-                                            .get(0)
-                                            .attr("href")));
-                    } catch (MalformedURLException murle) {
-                        System.out.println("got a murle for "+x.getName());
-                        x.setLink(null);
-                    }
-                    break;
-                case "Description":
-                    x.setDescription(info.get(i).text());
-                    break;
-                case "SP":
-                    int cost;
-                    try {
-                        cost = Integer.parseInt(info.get(i).text());
-                    } catch (NumberFormatException nfe) {
-                        cost = -1;
-                    }
-                    x.setCost(cost);
-                    break;
-            }
-        }
-    }
-
-    private static final ArrayList<String> EXCLUSIVE;
-    private static ArrayList<String> getExclusiveList() {
-        ArrayList<String> list = new ArrayList<>();
-        Document exclusivesFile;
-        try {
-            exclusivesFile =
-                    Jsoup.parse(EXCLUSIVE_SKILLS_FILE, "UTF-8");
-        } catch (IOException ioe) {
-            System.out.println("exclusive list not found!");
-            return new ArrayList<>();
-        }
-
-        Elements tables = exclusivesFile
-                .select("table");
-
-        Elements headers = tables
-                .select("thead")
-                .select("tr");
-        Elements bodies = exclusivesFile
-                .select("table")
-                .select("tbody");
-
-        for (int i=0; i<headers.size(); i++) {
-            Elements labels = headers.get(i).select("th");
-            Elements rows = bodies.get(i).children();
-            int nameRow;
-            for (nameRow=0; nameRow<labels.size(); nameRow++)
-                if (labels.get(nameRow).text()
-                        .matches("(Weapon)|(Assist)|(Special)|(Name)"))
-                    break;
-
-            for (Element row:rows)
-                list.add(row.children().get(nameRow).text());
-        }
-
-
-
-        return list;
-    }
-    private static boolean isExclusive(String name) {
-        for (String x : EXCLUSIVE) if (x.equals(name)) return true;
-        return false;
-    }
-
-    private static final ArrayList<WeaponRefine> REFINES;
-    private static ArrayList<WeaponRefine> getRefineableList() {
-        Document refinesFile;
-        try {
-            refinesFile = Jsoup.parse(WEAPON_REFINES_FILE, "UTF-8");
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-            return new ArrayList<>();
-        }
-
-        Elements rawTables = refinesFile.select("table");
-        Elements tables = refinesFile.select("table");
-        for (Element table:rawTables) {
-            if (!table.attributes().get("style").equals("")) {
-                if (table.attributes().get("style")
-                        .equals("display:inline-table;" +
-                                "border:1px solid #a2a9b1;" +
-                                "border-collapse:collapse;" +
-                                "width:24em;" +
-                                "margin:0.5em 0;" +
-                                "background-color:#f8f9fa")) {
-                    tables.add(table);
-                }
-            }
-        }
-
-        //the first table is stuck for some reason
-        // despite my VERY SPECIFIC qualifier
-        tables.remove(0);
-
-        ArrayList<WeaponRefine> refines = new ArrayList<>();
-
-        for (Element table:tables) {
-            Elements info = table.select("tr");
-
-            if (info.size()!=6) {
-                //it's not a unit's refine
-                //new Error("unexpected table size found!").printStackTrace();
-                //System.out.println(info);
-                continue;
-            }
-
-            //0 is owner portrait(s)
-            String name = info.get(1).text();
-            String stats = info.get(2).text();
-            String description = info.get(3).text();
-            String specialEff = info.get(4).text();
-            URL icon;
-            try {
-                icon = new URL(info
-                        .get(1)
-                        .select("td")
-                        .get(0)
-                        .select("img")
-                        .attr("srcset")
-                        .split(" ")[2]);
-            } catch (Exception murle) {
-                System.out.println("got a murle for "+name);
-                icon = null;
-            }
-            URL link;
-            try {
-                link = new URL(
-                        FEHEROES +
-                                info.get(0)
-                                    .select("a")
-                                    .get(0)
-                                    .attr("href"));
-            } catch (MalformedURLException murle) {
-                System.out.println("got a murle for "+name);
-                link = null;
-            } catch (IndexOutOfBoundsException ioobe) {
-                System.out.println("portrait not found for "+name);
-                link = null;
-            }
-            //String cost = info.get(5).text(); //it's always 400SP, 200 Dew™
-
-            String[] items = stats.split(" ");
-            HashMap<String, Integer> modifiers = new HashMap<>();
-
-
-            for (int i=0; i+1<items.length; i+=2) {
-                if (items[i+1].contains(","))
-                    items[i+1] = items[i+1].substring(0,items[i+1].length()-1);
-
-                modifiers.put(items[i], Integer.parseInt(items[i + 1]));
-            }
-
-            Integer might = null, range = null;
-            int[] values = new int[5];
-
-            for (Map.Entry<String, Integer> e:modifiers.entrySet()) {
-                switch (e.getKey()) {
-                    case "Might:":
-                        might = e.getValue();
+                switch (category) {
+                    case "weapon":
+                        WeaponClass weaponType =
+                                WeaponClass.getClass(canUseWeapon.get(0));
+                        s.setType(weaponType);
+                        s.setMight(Integer.parseInt(mt));
+                        s.setRange(Integer.parseInt(useRange));
+                        skill = s.generateWeapon();
                         break;
-                    case "Range:":
-                        range = e.getValue();
+                    case "assist":
+                        s.setRange(Integer.parseInt(useRange));
+                        skill = s.generateAssist();
                         break;
-                    case "HP":
-                        values[0] = e.getValue();
+                    case "special":
+                        s.setCooldown(Integer.parseInt(cd));
+                        skill = s.generateSpecial();
                         break;
-                    case "Atk":
-                        values[1] = e.getValue();
+                    case "passivea":
+                        skill = s.generatePassiveA();
                         break;
-                    case "Spd":
-                        values[2] = e.getValue();
+                    case "passiveb":
+                        skill = s.generatePassiveB();
                         break;
-                    case "Def":
-                        values[3] = e.getValue();
+                    case "passivec":
+                        skill = s.generatePassiveC();
                         break;
-                    case "Res":
-                        values[4] = e.getValue();
+                    case "sacredseal":
+                        skill = s.generatePassiveS();
                         break;
                     default:
-                        new Error("unknown stat modifier: \""+e.getKey()+"\"")
-                                .printStackTrace();
+                        System.out.println("unknown skill type: "+category);
+                        return null;
                 }
+            } catch (IncompleteDataException ide) {
+                ide.printStackTrace();
+                return null;
             }
 
-            if (might==null||range==null) {
-                System.out.println("no might/range provided for "+name+"!");
-                continue;
-            }
-
-            refines.add(new WeaponRefine(
-                    name, description, specialEff,
-                    link, icon,
-                    values, 400,
-                    might, range));
+            skills.add(skill);
         }
 
-        return refines;
+        return skills;
     }
 
-    /**
-     * Used to associate refines with their base weapons.
-     *
-     * @param name name of the weapon in question
-     * @return the Weapon object of [name]'s refine,
-     *         null if no refine was found.
-     */
-    private static WeaponRefine getRefine(String name) {
-        for (WeaponRefine x:REFINES) if (name.equals(x.getName())) return x;
-        return null;
-    }
-    //todo: evolutions
+    private HashMap<String, ArrayList<Skill>> getHeroSkills()
+            throws IOException {
+        HashMap<String, ArrayList<Skill>>
+                list1 = getHeroSkills(HERO_SKILLS_FILE_ONE),
+                list2 = getHeroSkills(HERO_SKILLS_FILE_TWO);
 
-
-    private static final HashMap<String, boolean[][]> AOE_PATTERNS;
-
-    /**
-     * reads from https://feheroes.gamepedia.com/Area-of-effect_Specials in
-     * order to produce the correct AoE pattern for a given skill.
-     *
-     * @return a map of strings to 2d boolean arrays which describe an AoE
-     *         pattern, centered on the target (see the website for visuals)
-     */
-    private static HashMap<String, boolean[][]> getAOEPatternList() {
-        Document patternsFile;
-        try {
-            patternsFile = Jsoup.parse(AOE_PATTERNS_FILE, "UTF-8");
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-            return new HashMap<>();
+        for (String hero:list2.keySet()) {
+            ArrayList<Skill> skills =
+                    list1.computeIfAbsent(hero, k -> new ArrayList<>());
+            skills.addAll(list2.get(hero));
         }
 
-        Element table = patternsFile.selectFirst("tbody");
-        Elements elements = table.children();
-        elements.remove(0); //header that's not actually a thead
-
-        if (elements.size()!=4) {
-            System.out.println("there aren't four elements of AoE!\n"+elements);
-        }
-
-        HashMap<String, boolean[][]> patterns = new HashMap<>();
-
-        for (Element element:elements) {
-            Elements items = element.children();
-
-            String type = items.get(0).text();
-
-            Element blazing = items.get(1).selectFirst("table"),
-                    growing = items.get(2).selectFirst("table");
-
-            boolean[][] blazingP = getPattern(blazing),
-                        growingP = getPattern(growing);
-
-            patterns.put("Rising "+type, blazingP);
-            patterns.put("Blazing "+type, blazingP);
-            patterns.put("Growing "+type, growingP);
-        }
-
-        return patterns;
-    }
-    private static boolean[][] getPattern(Element table) {
-        Elements rows = table.select("tr");
-
-        ArrayList<Elements> patternTable = new ArrayList<>();
-
-        for (Element row:rows) {
-            patternTable.add(row.children());
-        }
-
-        boolean[][] pattern =
-                new boolean[patternTable.size()][patternTable.get(0).size()];
-
-        for (int i=0; i<pattern.length; i++) {
-            Elements row = patternTable.get(i);
-            for (int j=0; j<pattern[i].length; j++) {
-                pattern[i][j] = row.get(j).children().size()>0;
-            }
-        }
-
-        return pattern;
+        return list1;
     }
 
-    private HashMap<String, ArrayList<Skill>> getHeroSkills() {
+    private HashMap<String, ArrayList<Skill>> getHeroSkills(FEHeroesCache file)
+            throws IOException {
         HashMap<String, ArrayList<Skill>> heroSkills = new HashMap<>();
 
-        Document baseSkillsFile;
-        try {
-            baseSkillsFile =
-                    Jsoup.parse(HERO_BASE_SKILLS_FILE, "UTF-8");
-        } catch (IOException|NullPointerException e) {
-            System.out.println("doin' it again because i " +
-                    "don't understand priorities...");
-            //todo: i got rid of this cuz it made yellow line in IDE ooga booga
-//            HERO_BASE_SKILLS_FILE = new FEHeroesCache(HERO_BASE_SKILLS_PATH);
-            if (HERO_BASE_SKILLS_FILE.update()) return getHeroSkills();
-            System.out.println("base skills file not found!");
-            return new HashMap<>();
-        }
+        JsonReader reader =
+                new JsonReader(new FileReader(file));
+        reader.beginArray();
 
-        Element table = baseSkillsFile.select("table").get(0);
-        Elements rows = table.select("tbody").select("tr");
+        while (reader.hasNext()) {
+            //open new entry
+            reader.beginObject();
 
-        for (Element row:rows) {
-            Elements info = row.children();
+            //page
+            reader.nextName();
+            String page = reader.nextString();
 
-            //0 is an image
-            String name = info.get(1).text();
-            //2 is move type
-            //3 is weapon type
-            ArrayList<Skill> baseKit = new ArrayList<>();
-            for (int i=4; i<info.size(); i++) {
-                if (info.get(i).text().equals("—")) continue;
+            //wikiName
+            reader.nextName();
+            String wikiName = reader.nextString();
 
-                Elements skills = info.get(i).select("a");
-                for (Element skill:skills) {
-                    String skillName = skill.text();
-                    baseKit.add(DATABASE.find(skillName));
-                }
-            }
+            //skill
+            reader.nextName();
+            String skill = reader.nextString();
 
-            heroSkills.put(name, baseKit);
+            //skillPos
+            reader.nextName();
+            String skillPos = reader.nextString();
+
+            //defaultRarity
+            reader.nextName();
+            String defaultRarity = reader.nextString();
+
+            //unlockRarity
+            reader.nextName();
+            String unlockRarity = reader.nextString();
+
+            reader.endObject();
+
+            Skill skillObj = DATABASE.find(skill);
+
+            ArrayList<Skill> skills = heroSkills
+                    .computeIfAbsent(page, k -> new ArrayList<>());
+            if (!skills.contains(skillObj))
+            skills.add(skillObj);
         }
 
         return heroSkills;
@@ -812,32 +483,17 @@ public class SkillDatabase extends Database<Skill> {
 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-
+        System.out.println(SKILLS);
         while (input.hasNextLine()) {
-            String chunk = input.nextLine();//.toLowerCase();
+            Skill s = DATABASE.find(input.nextLine());
 
-            HashMap<Skill, String> descPortion = new HashMap<>();
-
-            for (Skill x:SKILLS) {
-                String[] description;
-                try {
-                description = x.getDescription()
-                            .substring(0, x.getDescription().length() - 1)
-                            //.toLowerCase()
-                            .split("\\. ");
-                } catch (IndexOutOfBoundsException ioobe) {
-                    //stpid silver sowrd
-                    continue;
-                }
-
-                for (String b:description) {
-                    if (b.matches(chunk)) {
-                        descPortion.put(x, b);
-                    }
+            for (String hero:HERO_SKILLS.keySet()) {
+                if (HERO_SKILLS.get(hero).contains(s)) {
+                    System.out.println(hero+"\n\t"+HERO_SKILLS.get(hero));
                 }
             }
-
-            System.out.println(descPortion);
         }
+
+        input.close();
     }
 }

@@ -16,6 +16,7 @@ import java.util.GregorianCalendar;
 public class HeroConstructor {
     private HeroName fullName;
     private Origin origin;
+    private String description;
     private URL gamepediaLink;
     private URL portraitLink;
     private String artist;
@@ -38,6 +39,8 @@ public class HeroConstructor {
         this.fullName = name; }
     public void setOrigin(Origin origin) {
         this.origin = origin; }
+    public void setDescription(String description) {
+        this.description = description; }
     public void setGamepediaLink(URL gamepediaLink) {
         this.gamepediaLink = gamepediaLink; }
     public void setPortraitLink(URL portraitLink) {
@@ -150,6 +153,7 @@ public class HeroConstructor {
     public String getName() { return fullName.getName(); }
     public String getEpithet() { return fullName.getEpithet(); }
     public Origin getOrigin() { return origin; }
+    public String getDescription() { return description; }
     public URL getPortraitLink() { return portraitLink; }
     public URL getGamepediaLink() { return gamepediaLink; }
     public String getArtist() { return artist; }
@@ -171,6 +175,9 @@ public class HeroConstructor {
         }
         if (origin==null) {
             throw new Error("missing origin: "+fullName);
+        }
+        if (description==null) {
+            throw new Error("missing description: "+fullName);
         }
         if (gamepediaLink==null) {
             throw new Error("missing gamepediaLink: "+fullName);
@@ -220,6 +227,7 @@ public class HeroConstructor {
 
         return new Hero(fullName,
                         origin,
+                        description,
                         gamepediaLink,
                         portraitLink,
                         artist,
@@ -240,8 +248,10 @@ public class HeroConstructor {
 
         Merger<HeroName> fullName = 
                 new Merger<>(h1.fullName, h2.fullName);
-        Merger<Origin> origin = 
+        Merger<Origin> origin =
                 new Merger<>(h1.origin, h2.origin);
+        Merger<String> description =
+                new Merger<>(h1.description, h2.description);
         Merger<URL> gamepediaLink =
                 new Merger<>(h1.gamepediaLink, h2.gamepediaLink);
         Merger<URL> portraitLink =
@@ -271,6 +281,7 @@ public class HeroConstructor {
 
         merge.setFullName(fullName.merge());
         merge.setGamepediaLink(gamepediaLink.merge());
+        merge.setDescription(description.merge());
         merge.setPortraitLink(portraitLink.merge());
         merge.setArtist(artist.merge());
         merge.setGender(gender.merge());

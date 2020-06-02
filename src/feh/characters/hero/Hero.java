@@ -11,6 +11,7 @@ import java.util.GregorianCalendar;
 public class Hero {
     private final HeroName fullName;
     private final Origin origin;
+    private final String description;
     private final URL gamepediaLink, portraitLink;
     private final String artist;
     private final char gender;
@@ -31,7 +32,7 @@ public class Hero {
     private final ArrayList<Skill> baseKit;
 
 
-    public Hero(HeroName fullName, Origin origin,
+    public Hero(HeroName fullName, Origin origin, String description,
                 URL gamepediaLink, URL portraitLink,
                 String artist, char gender,
                 char color, WeaponClass weaponType, MovementClass moveType,
@@ -40,6 +41,7 @@ public class Hero {
                 HeroStats stats, ArrayList<Skill> baseKit) {
         this.fullName = fullName;
         this.origin = origin;
+        this.description = description;
         this.gamepediaLink = gamepediaLink;
         this.portraitLink = portraitLink;
         this.artist = artist;
@@ -85,6 +87,7 @@ public class Hero {
         Hero j = correctName.get(0);
         this.fullName = j.fullName;
         this.origin = j.origin;
+        this.description = j.description;
         this.gamepediaLink = j.gamepediaLink;
         this.portraitLink = j.portraitLink;
         this.artist = j.artist;
@@ -102,6 +105,7 @@ public class Hero {
     public Hero(Hero j) {
         this.fullName = j.fullName;
         this.origin = j.origin;
+        this.description = j.description;
         this.gamepediaLink = j.gamepediaLink;
         this.portraitLink = j.portraitLink;
         this.artist = j.artist;
@@ -120,6 +124,7 @@ public class Hero {
     public HeroName getFullName() { return fullName; }
     public Origin getOrigin() { return origin; }
     //can technically be constructed from hero name
+    public String getDescription() { return description; }
     public URL getPortraitLink() { return portraitLink; }
     public URL getGamepediaLink() { return gamepediaLink; }
     public String getArtist() { return artist; }

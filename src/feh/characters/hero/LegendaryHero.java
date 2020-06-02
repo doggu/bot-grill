@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 public class LegendaryHero extends Hero {
-    public LegendaryHero(HeroName fullName, Origin origin,
+    public LegendaryHero(HeroName fullName, Origin origin, String description,
                          URL gamepediaLink, URL portraitLink,
                          String artist, char gender,
                          char color,
@@ -15,7 +15,7 @@ public class LegendaryHero extends Hero {
                          int summonableRarity, Availability availability,
                          GregorianCalendar dateReleased,
                          HeroStats stats, ArrayList<Skill> baseKit) {
-        super(fullName, origin,
+        super(fullName, origin, description,
                 gamepediaLink, portraitLink,
                 artist, gender,
                 color,

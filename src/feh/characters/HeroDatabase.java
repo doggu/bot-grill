@@ -703,6 +703,7 @@ public class HeroDatabase extends Database<Hero> {
             merge.setWeaponType(weaponType);
             merge.setMoveType(moveType);
             merge.setArtist(artist);
+            merge.setDescription(description);
 
             GregorianCalendar trueRelease;
             try {

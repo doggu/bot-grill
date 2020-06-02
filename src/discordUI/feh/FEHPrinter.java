@@ -131,6 +131,8 @@ public class FEHPrinter {
                         x.getReleaseDate().get(Calendar.YEAR),
                 false);
 
+        builder.addField("description", x.getDescription(), false);
+
         Color rColor = palatte(x);
         builder.setColor(rColor);
 

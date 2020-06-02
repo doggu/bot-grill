@@ -42,11 +42,11 @@ public enum WeaponClass implements HeroClass {
 
     public static WeaponClass getClass(String name) {
         switch(name) {
-            case "Sword":
+            case "Red Sword":
                 return SWORD;
-            case "Lance":
+            case "Blue Lance":
                 return LANCE;
-            case "Axe":
+            case "Green Axe":
                 return AXE;
             case "Red Tome":
                 return RED_TOME;
@@ -57,13 +57,26 @@ public enum WeaponClass implements HeroClass {
             case "Colorless Tome":
                 return COLORLESS_TOME;
             case "Staff":
+            case "Colorless Staff":
                 return STAFF;
+            case "Red Beast":
+            case "Blue Beast":
+            case "Green Beast":
             case "Beast":
                 return BEAST;
+            case "Red Breath":
+            case "Blue Breath":
+            case "Green Breath":
             case "Breath":
                 return BREATH;
+            case "Red Dagger":
+            case "Blue Dagger":
+            case "Green Dagger":
             case "Dagger":
                 return DAGGER;
+            case "Red Bow":
+            case "Blue Bow":
+            case "Green Bow":
             case "Bow":
                 return BOW;
             case "Tome":

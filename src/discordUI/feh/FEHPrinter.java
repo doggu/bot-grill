@@ -95,17 +95,17 @@ public class FEHPrinter {
 
         return unitInfo;
     }
-    public static EmbedBuilder printFieldedUnit(FieldedUnit x) {
-        //todo: write FieldedUnit printer
-
-
-        /*
-        buffs, penalties
-        status effects
-        live cooldown and hp
-         */
-        return null;
-    }
+//    public static EmbedBuilder printFieldedUnit(FieldedUnit x) {
+//        //todo: write FieldedUnit printer
+//
+//
+//        /*
+//        buffs, penalties
+//        status effects
+//        live cooldown and hp
+//         */
+//        return null;
+//    }
 
 
     private static void headingInformation(EmbedBuilder builder, Hero x) {

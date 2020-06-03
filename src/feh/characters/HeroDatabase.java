@@ -206,13 +206,13 @@ public class HeroDatabase extends Database<Hero> {
                     WeaponClass weapon;
                     switch (x) {
                         case "sword":
-                            weapon = WeaponClass.SWORD;
+                            weapon = WeaponClass.RED_SWORD;
                             break;
                         case "lance":
-                            weapon = WeaponClass.LANCE;
+                            weapon = WeaponClass.BLUE_LANCE;
                             break;
                         case "axe":
-                            weapon = WeaponClass.AXE;
+                            weapon = WeaponClass.GREEN_AXE;
                             break;
                         case "tome":
                         case "magic":

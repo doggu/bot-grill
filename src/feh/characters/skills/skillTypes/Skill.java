@@ -10,7 +10,6 @@ import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static feh.characters.hero.MovementClass.*;
 import static feh.characters.hero.WeaponClass.*;
@@ -85,22 +84,33 @@ public abstract class Skill {
             ARMORED,
             CAVALRY,
             FLYING,
-            SWORD,
-            LANCE,
-            AXE,
-            TOME,
+            RED_SWORD,
+            BLUE_LANCE,
+            GREEN_AXE,
             RED_TOME,
             BLUE_TOME,
             GREEN_TOME,
             COLORLESS_TOME,
             COLORLESS_STAFF,
-            BEAST,
-            BREATH,
-            DAGGER,
-            BOW,
+            RED_BEAST,
+            BLUE_BEAST,
+            GREEN_BEAST,
+            COLORLESS_BEAST,
+            RED_BREATH,
+            BLUE_BREATH,
+            GREEN_BREATH,
+            COLORLESS_BREATH,
+            RED_DAGGER,
+            BLUE_DAGGER,
+            GREEN_DAGGER,
+            COLORLESS_DAGGER,
+            RED_BOW,
+            BLUE_BOW,
+            GREEN_BOW,
+            COLORLESS_BOW,
     };
-    public List<HeroClass> canNotUse() {
-        List<HeroClass> full = Arrays.asList(FULL_LIST);
+    public ArrayList<HeroClass> canNotUse() {
+        ArrayList<HeroClass> full = new ArrayList<>(Arrays.asList(FULL_LIST));
 
         for (HeroClass heroClass:canUse) {
             full.remove(heroClass);

@@ -50,59 +50,7 @@ public class HeroConstructor {
     public void setGender(Character gender) {
         this.gender = gender; }
     public void setWeaponType(String weaponType) {
-        //todo: rework WeaponClass to do this instead of doing it here twice
-        switch (weaponType) {
-            case "Red Sword":
-                this.weaponType = WeaponClass.SWORD;
-                break;
-            case "Blue Lance":
-                this.weaponType = WeaponClass.LANCE;
-                break;
-            case "Green Axe":
-                this.weaponType = WeaponClass.AXE;
-                break;
-            case "Red Tome":
-                this.weaponType = WeaponClass.RED_TOME;
-                break;
-            case "Blue Tome":
-                this.weaponType = WeaponClass.BLUE_TOME;
-                break;
-            case "Green Tome":
-                this.weaponType = WeaponClass.GREEN_TOME;
-                break;
-            case "Colorless Tome":
-                this.weaponType = WeaponClass.COLORLESS_TOME;
-                break;
-            case "Colorless Staff":
-                this.weaponType = WeaponClass.COLORLESS_STAFF;
-                break;
-            case "Red Beast":
-            case "Blue Beast":
-            case "Green Beast":
-            case "Colorless Beast":
-                this.weaponType = WeaponClass.BEAST;
-                break;
-            case "Red Breath":
-            case "Blue Breath":
-            case "Green Breath":
-            case "Colorless Breath":
-                this.weaponType = WeaponClass.BREATH;
-                break;
-            case "Red Bow":
-            case "Blue Bow":
-            case "Green Bow":
-            case "Colorless Bow":
-                this.weaponType = WeaponClass.BOW;
-                break;
-            case "Red Dagger":
-            case "Blue Dagger":
-            case "Green Dagger":
-            case "Colorless Dagger":
-                this.weaponType = WeaponClass.DAGGER;
-                break;
-            default:
-                throw new Error("weaponType wasn't correct: "+weaponType);
-        }
+        this.weaponType = WeaponClass.getClass(weaponType);
 
         color = weaponType.toLowerCase().charAt(0);
     }

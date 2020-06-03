@@ -132,7 +132,7 @@ public class FEHPrinter {
 
         builder.addField("description", x.getDescription(), false);
 
-        Color rColor = palatte(x);
+        Color rColor = palette(x);
         builder.setColor(rColor);
 
         builder.setThumbnail(x.getPortraitLink().toString());
@@ -294,7 +294,7 @@ public class FEHPrinter {
         }
 
 
-        //TESTDISPLAYS
+        //TEST DISPLAYS
         if (DEBUG) {
             SkillAnalysis analysis = x.getAnalysis();
 
@@ -379,7 +379,7 @@ public class FEHPrinter {
                 true).get(0));
     }
 
-    private static Color palatte(Object o) {
+    private static Color palette(Object o) {
         Color color;
 
         if (o instanceof FieldedUnit) {

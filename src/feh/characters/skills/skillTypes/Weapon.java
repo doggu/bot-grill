@@ -1,10 +1,12 @@
 package feh.characters.skills.skillTypes;
 
+import feh.characters.hero.HeroClass;
 import feh.characters.hero.WeaponClass;
 import feh.characters.skills.analysis.StatModifier;
 
 import java.awt.*;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class Weapon extends ActionSkill implements StatModifier {
     private final int mt;
@@ -20,10 +22,12 @@ public class Weapon extends ActionSkill implements StatModifier {
     public Weapon(String name, String description,
                   URL link,
                   int cost, boolean exclusive,
+                  ArrayList<HeroClass> canUse,
                   int mt, int rng, WeaponClass type, WeaponRefine refine) {
         super(name, description,
                 link, new Color(0xDE1336), 'W',
-                cost, exclusive, rng);
+                cost, exclusive, canUse,
+                rng);
         this.mt = mt;
         this.type = type;
         int[] statModifiers = StatModifier.parseStatModifiers(description);

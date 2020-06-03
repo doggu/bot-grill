@@ -1,9 +1,11 @@
 package feh.characters.skills.skillTypes.constructionSite;
 
+import feh.characters.hero.HeroClass;
 import feh.characters.hero.WeaponClass;
 import feh.characters.skills.skillTypes.*;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 public class SkillConstructor {
     private String name;
@@ -11,6 +13,7 @@ public class SkillConstructor {
     private URL link;
     private Integer cost;
     private Boolean exclusive;
+    private ArrayList<HeroClass> canUse;
     
     //ActionSkill (weapon and assist)
     private Integer range;
@@ -42,6 +45,9 @@ public class SkillConstructor {
     }
     public void setExclusive(Boolean exclusive) {
         this.exclusive = exclusive;
+    }
+    public void setCanUse(ArrayList<HeroClass> canUse) {
+        this.canUse = canUse;
     }
 
     public void setRange(Integer range) {
@@ -122,6 +128,7 @@ public class SkillConstructor {
         exists(link, "link");
         exists(cost, "cost");
         exists(exclusive, "exclusive");
+        exists(canUse, "canUse");
     }
     private void actionSkillReady() throws IncompleteDataException {
         exists(range, "range");
@@ -136,7 +143,7 @@ public class SkillConstructor {
 
         return new Weapon(
                 name, description, link,
-                cost, exclusive,
+                cost, exclusive, canUse,
                 might, range, type, refine);
     }
     public Assist generateAssist() throws IncompleteDataException {
@@ -145,7 +152,7 @@ public class SkillConstructor {
 
         return new Assist(
                 name, description, link,
-                cost, exclusive,
+                cost, exclusive, canUse,
                 range);
     }
     public Special generateSpecial() throws IncompleteDataException {
@@ -159,7 +166,7 @@ public class SkillConstructor {
 
         return new Special(
                 name, description, link,
-                cost, exclusive,
+                cost, exclusive, canUse,
                 cooldown, damagePattern);
     }
 
@@ -170,24 +177,28 @@ public class SkillConstructor {
         vitalInfoReady();
         passiveReady();
 
-        return new PassiveA(name, description, icon, link, cost, exclusive);
+        return new PassiveA(name, description, icon, link,
+                cost, exclusive, canUse);
     }
     public PassiveB generatePassiveB() throws IncompleteDataException {
         vitalInfoReady();
         passiveReady();
 
-        return new PassiveB(name, description, icon, link, cost, exclusive);
+        return new PassiveB(name, description, icon, link,
+                cost, exclusive, canUse);
     }
     public PassiveC generatePassiveC() throws IncompleteDataException {
         vitalInfoReady();
         passiveReady();
 
-        return new PassiveC(name, description, icon, link, cost, exclusive);
+        return new PassiveC(name, description, icon, link,
+                cost, exclusive, canUse);
     }
     public PassiveS generatePassiveS() throws IncompleteDataException {
         vitalInfoReady();
         passiveReady();
 
-        return new PassiveS(name, description, icon, link, cost, exclusive);
+        return new PassiveS(name, description, icon, link,
+                cost, exclusive, canUse);
     }
 }

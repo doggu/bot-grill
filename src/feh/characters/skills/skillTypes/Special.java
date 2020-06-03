@@ -1,7 +1,10 @@
 package feh.characters.skills.skillTypes;
 
+import feh.characters.hero.HeroClass;
+
 import java.awt.*;
 import java.net.URL;
+import java.util.ArrayList;
 
 public class Special extends Skill {
     private final int cd;
@@ -13,11 +16,12 @@ public class Special extends Skill {
     public Special(String name, String description,
                    URL link,
                    int cost, boolean exclusive,
+                   ArrayList<HeroClass> canUse,
                    int cd, boolean[][] damagePattern) {
         super(name, description,
                 link,
                 new Color(0xF400E5), 'S',
-                cost, exclusive);
+                cost, exclusive, canUse);
 
         this.cd = cd;
         this.damagePattern = damagePattern;

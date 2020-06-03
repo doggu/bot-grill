@@ -221,22 +221,23 @@ public class FEHPrinter {
         skill.setThumbnail(SKILL_ICONS.get(x.getSlot()));
 
         if (x instanceof ActionSkill) { //instanceof targeting skill
+            boolean inline = false;
             if (x instanceof Weapon) {
+                inline = true;
                 skill.addField(
                         "Might",
                         String.valueOf(((Weapon) x).getMt()),
                         true);
             }
-
             skill.addField(
                     "Range",
                     String.valueOf(((ActionSkill) x).getRng()),
-                    true);
+                    inline);
         } else if (x instanceof Special) {
             skill.addField(
                     "Cooldown",
                     String.valueOf(((Special) x).getCooldown()),
-                    true);
+                    false);
         }
 
         if (x instanceof WeaponRefine) {
@@ -253,7 +254,14 @@ public class FEHPrinter {
             skill.addField(
                     "Exclusive?",
                     (x.isExclusive()?"Yes":"No"),
-                    false);
+                    true);
+            if (!x.isExclusive()) {
+                skill.addField(
+                        "Can Use",
+                        x.canUse().toString(),
+                        true);
+            }
+
             StringBuilder owners = new StringBuilder();
             int ownerCount = 0;
             for (Hero n:HEROES) {

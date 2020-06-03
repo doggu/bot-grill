@@ -74,7 +74,7 @@ public class HeroConstructor {
                 this.weaponType = WeaponClass.COLORLESS_TOME;
                 break;
             case "Colorless Staff":
-                this.weaponType = WeaponClass.STAFF;
+                this.weaponType = WeaponClass.COLORLESS_STAFF;
                 break;
             case "Red Beast":
             case "Blue Beast":

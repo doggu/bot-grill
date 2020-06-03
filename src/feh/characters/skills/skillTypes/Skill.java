@@ -1,9 +1,19 @@
 package feh.characters.skills.skillTypes;
 
+import feh.characters.hero.Hero;
+import feh.characters.hero.HeroClass;
+import feh.characters.hero.MovementClass;
+import feh.characters.hero.WeaponClass;
 import feh.characters.skills.analysis.SkillAnalysis;
 
 import java.awt.*;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import static feh.characters.hero.MovementClass.*;
+import static feh.characters.hero.WeaponClass.*;
 
 public abstract class Skill {
     private final String name, description;
@@ -15,12 +25,15 @@ public abstract class Skill {
     protected final int cost;
     protected final boolean exclusive;
 
+    protected final ArrayList<HeroClass> canUse;
+
 
 
     public Skill(String name, String description,
                  URL link,
                  Color color, char slot,
-                 int cost, boolean exclusive) {
+                 int cost, boolean exclusive,
+                 ArrayList<HeroClass> canUse) {
         this.name = name;
         this.description = description;
         this.link = link;
@@ -41,6 +54,7 @@ public abstract class Skill {
         }
         this.cost = cost;
         this.exclusive = exclusive;
+        this.canUse = canUse;
 
         this.analysis = new SkillAnalysis(this);
     }
@@ -56,12 +70,49 @@ public abstract class Skill {
     public boolean isExclusive() { return exclusive; }
     public SkillAnalysis getAnalysis() { return analysis; }
 
+    public boolean canUse(Hero x) {
+        MovementClass heroMove = x.getMoveType();
+        WeaponClass heroWeapon = x.getWeaponType();
+
+        return canUse.contains(heroMove) && canUse.contains(heroWeapon);
+    }
+
+    public ArrayList<HeroClass> canUse() {
+        return canUse;
+    }
+    private static final HeroClass[] FULL_LIST = {
+            INFANTRY,
+            ARMORED,
+            CAVALRY,
+            FLYING,
+            SWORD,
+            LANCE,
+            AXE,
+            TOME,
+            RED_TOME,
+            BLUE_TOME,
+            GREEN_TOME,
+            COLORLESS_TOME,
+            COLORLESS_STAFF,
+            BEAST,
+            BREATH,
+            DAGGER,
+            BOW,
+    };
+    public List<HeroClass> canNotUse() {
+        List<HeroClass> full = Arrays.asList(FULL_LIST);
+
+        for (HeroClass heroClass:canUse) {
+            full.remove(heroClass);
+        }
+
+        return full;
+    }
 
 
     public String toString() {
         return name;
     }
-
 
 
     private final SkillAnalysis analysis;

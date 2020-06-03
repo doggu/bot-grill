@@ -2,6 +2,8 @@ package feh.characters.skills;
 
 import com.google.gson.stream.JsonReader;
 import feh.FEHeroesCache;
+import feh.characters.hero.HeroClass;
+import feh.characters.hero.MovementClass;
 import feh.characters.hero.WeaponClass;
 import feh.characters.skills.skillTypes.Skill;
 import feh.characters.skills.skillTypes.constructionSite.IncompleteDataException;
@@ -335,6 +337,15 @@ public class SkillDatabase extends Database<Skill> {
             s.setLink(link);
             s.setCost(sp);
             s.setExclusive(exclusive);
+
+            ArrayList<HeroClass> canUse = new ArrayList<>();
+            for (String move:canUseMove) {
+                canUse.add(MovementClass.getClass(move));
+            }
+            for (String weap:canUseWeapon) {
+                canUse.add(WeaponClass.getClass(weap));
+            }
+            s.setCanUse(canUse);
 
             try {
                 switch (category) {

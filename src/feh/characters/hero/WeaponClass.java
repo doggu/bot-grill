@@ -9,7 +9,7 @@ public enum WeaponClass implements HeroClass {
     BLUE_TOME       (2, false, "Tome"),
     GREEN_TOME      (2, false, "Tome"),
     COLORLESS_TOME  (2, false, "Tome"),
-    STAFF           (2, false, "Staff"),
+    COLORLESS_STAFF (2, false, "Staff"),
     BEAST           (1, true, "Beast"),
     BREATH          (1, false, "Breath"),
     DAGGER          (2, true, "Dagger"),
@@ -58,26 +58,30 @@ public enum WeaponClass implements HeroClass {
                 return COLORLESS_TOME;
             case "Staff":
             case "Colorless Staff":
-                return STAFF;
+                return COLORLESS_STAFF;
             case "Red Beast":
             case "Blue Beast":
             case "Green Beast":
+            case "Colorless Beast":
             case "Beast":
                 return BEAST;
             case "Red Breath":
             case "Blue Breath":
             case "Green Breath":
+            case "Colorless Breath":
             case "Breath":
                 return BREATH;
             case "Red Dagger":
             case "Blue Dagger":
             case "Green Dagger":
-            case "Dagger":
+            case "Colorless Dagger":
+//            case "Dagger":
                 return DAGGER;
             case "Red Bow":
             case "Blue Bow":
             case "Green Bow":
-            case "Bow":
+            case "Colorless Bow":
+//            case "Bow":
                 return BOW;
             case "Tome":
                 System.out.println("ambiguous weapon name");

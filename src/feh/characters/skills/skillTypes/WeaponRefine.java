@@ -1,6 +1,9 @@
 package feh.characters.skills.skillTypes;
 
+import feh.characters.hero.HeroClass;
+
 import java.net.URL;
+import java.util.ArrayList;
 
 public class WeaponRefine extends Weapon {
     private final String specialEff;
@@ -11,11 +14,11 @@ public class WeaponRefine extends Weapon {
 
 
     public WeaponRefine(String name, String description, String specialEff,
-                        URL link, URL iconURL,
+                        URL link, URL iconURL, ArrayList<HeroClass> canUse,
                         int[] statModifiers, int cost, int mt, int rng) {
         super(name, description,
                 link,
-                cost, true,
+                cost, true, canUse,
                 mt, rng, null, null);
         this.specialEff = specialEff;
         this.iconURL = iconURL;

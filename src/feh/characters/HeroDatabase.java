@@ -220,7 +220,7 @@ public class HeroDatabase extends Database<Hero> {
                             break;
                         case "staff":
                         case "stave":
-                            weapon = WeaponClass.STAFF;
+                            weapon = WeaponClass.COLORLESS_STAFF;
                             break;
                         case "bow":
                         case "archer":
@@ -696,7 +696,7 @@ public class HeroDatabase extends Database<Hero> {
 
             merge.setFullName(new HeroName(name, epithet));
             merge.setOrigin(Origin.getOrigin(origin));
-            merge.setGender(gender.equals("M")?'m':'f');
+            merge.setGender(gender.equals("Male")?'m':'f');
             merge.setWeaponType(weaponType);
             merge.setMoveType(moveType);
             merge.setArtist(artist);

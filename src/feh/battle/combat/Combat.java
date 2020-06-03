@@ -194,10 +194,10 @@ public class Combat extends Action {
 
 
 
-////////STAFF DAMAGE SHIT
+////////COLORLESS_STAFF DAMAGE SHIT
 
         float weaponModifier = 1;
-        if (attacker.getWeaponType()== WeaponClass.STAFF) {
+        if (attacker.getWeaponType()== WeaponClass.COLORLESS_STAFF) {
             weaponModifier = 0.5f;
 
             //todo: add wrathful staff in skill analysis

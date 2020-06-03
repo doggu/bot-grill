@@ -30,6 +30,7 @@ public class SkillDatabase extends Database<Skill> {
     //the only one i need to keep
     // (though i could just add it manually really)
     // nah this is more fun
+//    private static final String
 //            AOE_PATTERNS_PATH =
 //                    "https://feheroes.gamepedia.com/Area-of-effect_Specials";
     private static final String
@@ -138,20 +139,6 @@ public class SkillDatabase extends Database<Skill> {
                 new FEHeroesCache(HERO_SKILLS_PATH_ONE, SKILLS_SUBDIR);
         HERO_SKILLS_FILE_TWO =
                 new FEHeroesCache(HERO_SKILLS_PATH_TWO, SKILLS_SUBDIR);
-//        WEAPONS_FILE =
-//                new FEHeroesCache(WEAPONS_PATH, SKILLS_SUBDIR);
-//        ASSISTS_FILE =
-//                new FEHeroesCache(ASSISTS_PATH, SKILLS_SUBDIR);
-//        SPECIALS_FILE =
-//                new FEHeroesCache(SPECIALS_PATH, SKILLS_SUBDIR);
-//        PASSIVES_FILE =
-//                new FEHeroesCache(PASSIVES_PATH, SKILLS_SUBDIR);
-//        EXCLUSIVE_SKILLS_FILE =
-//                new FEHeroesCache(EXCLUSIVE_SKILLS_PATH, SKILLS_SUBDIR);
-//        HERO_BASE_SKILLS_FILE =
-//                new FEHeroesCache(HERO_BASE_SKILLS_PATH, SKILLS_SUBDIR);
-//        WEAPON_REFINES_FILE =
-//                new FEHeroesCache(WEAPON_REFINES_PATH, SKILLS_SUBDIR);
 //        AOE_PATTERNS_FILE =
 //                new FEHeroesCache(AOE_PATTERNS_PATH, SKILLS_SUBDIR);
 
@@ -191,11 +178,6 @@ public class SkillDatabase extends Database<Skill> {
             return null;
         }
 
-//        allSkills.addAll(weapons);
-//        allSkills.addAll(assists);
-//        allSkills.addAll(specials);
-//        allSkills.addAll(passives);
-
         if (BotMain.DEBUG) System.out.println(pTime.presentResult());
 
         return allSkills;
@@ -216,9 +198,9 @@ public class SkillDatabase extends Database<Skill> {
             reader.nextName();
             String page = reader.nextString();
 
-            //groupname
+            //groupName
             reader.nextName();
-            String groupname = reader.nextString();
+            String groupName = reader.nextString();
 
             //name
             reader.nextName();
@@ -341,8 +323,8 @@ public class SkillDatabase extends Database<Skill> {
 
             Skill skill;
 
-            URL link = new URL("https://feheroes.gamepedia.com/"+groupname.replace(' ','_'));
-            URL image_link = new URL("https://feheroes.gamepedia.com/"+groupname.replace(' ','_'));
+            URL link = new URL("https://feheroes.gamepedia.com/"+groupName.replace(' ','_'));
+            URL image_link = new URL("https://feheroes.gamepedia.com/"+groupName.replace(' ','_'));
 
             SkillConstructor s = new SkillConstructor();
 
@@ -453,10 +435,8 @@ public class SkillDatabase extends Database<Skill> {
             reader.endObject();
 
             Skill skillObj = DATABASE.find(skill);
-
             ArrayList<Skill> skills = heroSkills
                     .computeIfAbsent(page, k -> new ArrayList<>());
-            if (!skills.contains(skillObj))
             skills.add(skillObj);
         }
 

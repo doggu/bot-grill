@@ -4,7 +4,6 @@ import feh.battle.FieldedUnit;
 import feh.characters.hero.Hero;
 import feh.characters.hero.HeroClass;
 import feh.characters.hero.MovementClass;
-import feh.characters.hero.WeaponClass;
 import feh.characters.skills.analysis.SkillAnalysis;
 import feh.characters.skills.skillTypes.*;
 import feh.characters.unit.Unit;
@@ -119,8 +118,8 @@ public class FEHPrinter {
                 x.getReleaseDate().get(Calendar.YEAR));
          */
 
-        String description = printMovementClassEmote(x.getMoveType()) +
-                printWeaponClassEmote(x.getColor(), x.getWeaponType()) +
+        String description = printHeroClassEmote(x.getMoveType()) +
+                printHeroClassEmote(x.getWeaponType()) +
                 x.getFullName().toString();
         builder.addField(description,
                 '*'+x.getOrigin().toString()+"*\n" +
@@ -248,19 +247,34 @@ public class FEHPrinter {
             skill.setThumbnail(((Passive) x).getIcon().toString());
         }
 
-
-        //something that a unit possesses
-        if (!(x instanceof PassiveS)) {
+        if (!(x instanceof PassiveS))
             skill.addField(
                     "Exclusive?",
                     (x.isExclusive()?"Yes":"No"),
                     true);
-            if (!x.isExclusive()) {
-                skill.addField(
-                        "Can Use",
-                        x.canUse().toString(),
-                        true);
+
+        if (!x.isExclusive()) {
+            String fieldName;
+            ArrayList<HeroClass> canUseTypes;
+            if (x.canUse().size()<x.canNotUse().size()) {
+                fieldName = "Can Use";
+                canUseTypes = x.canUse();
+            } else {
+                fieldName = "Cannot Use";
+                canUseTypes = x.canNotUse();
             }
+
+            StringBuilder canUse = new StringBuilder();
+            for (HeroClass type:canUseTypes)
+                canUse.append(printHeroClassEmote(type));
+            skill.addField(
+                    fieldName,
+                    canUse.toString(),
+                    true);
+        }
+
+        //something that a unit possesses
+        if (!(x instanceof PassiveS)) {
 
             StringBuilder owners = new StringBuilder();
             int ownerCount = 0;
@@ -349,7 +363,7 @@ public class FEHPrinter {
 ////////////////////////////////////////////////////////////////////////////////
 //                                  UTILITIES                                 //
 ////////////////////////////////////////////////////////////////////////////////
-    private static Color
+    private static final Color
             DEFAULT = Color.MAGENTA,
             HERO_1 = Color.DARK_GRAY,
             HERO_2 = Color.GRAY,
@@ -358,20 +372,10 @@ public class FEHPrinter {
             HERO_5 = Color.YELLOW,
             HERO_5_10 = new Color(255, 255, 128);
 
-    private static String printMovementClassEmote(MovementClass type) {
-        return printEmote(
-                BotMain.bot_grill.getEmotesByName(
-                        "Icon_Move_"+type.toString(),
-                        true).get(0));
-    }
-
-    private static String printWeaponClassEmote(char color, WeaponClass type) {
-        return printEmote(
-                BotMain.bot_grill.getEmotesByName("Icon_Class_"+
-                        (color=='r'?"Red":
-                                (color=='g'?"Green":
-                                        (color=='b'?"Blue":"Colorless")))
-                        +"_"+type.toString(),
+    private static String printHeroClassEmote(HeroClass type) {
+        return printEmote(BotMain.bot_grill.getEmotesByName(
+                ((type instanceof MovementClass)?"Icon_Move_":"Icon_Class_") +
+                        type.toString().replace(' ', '_'),
                 true).get(0));
     }
 

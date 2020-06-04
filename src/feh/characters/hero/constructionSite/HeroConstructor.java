@@ -99,20 +99,27 @@ public class HeroConstructor {
 
     public HeroName getFullName() { return fullName; }
     public String getName() { return fullName.getName(); }
+    @SuppressWarnings("unused")
     public String getEpithet() { return fullName.getEpithet(); }
     public Origin getOrigin() { return origin; }
     public String getDescription() { return description; }
+    @SuppressWarnings("unused")
     public URL getPortraitLink() { return portraitLink; }
+    @SuppressWarnings("unused")
     public URL getGamepediaLink() { return gamepediaLink; }
     public String getArtist() { return artist; }
     public Character getGender() { return gender; }
     public Character getColor() { return color; }
+    @SuppressWarnings("unused")
     public WeaponClass getWeaponType() { return weaponType; }
     public MovementClass getMoveType() { return moveType; }
     public HeroStats getStats() { return stats; }
+    @SuppressWarnings("unused")
     public int getSummonableRarity() { return summonableRarity; }
     public Availability getAvailability() { return availability; }
+    @SuppressWarnings("unused")
     public GregorianCalendar getDateReleased() { return dateReleased; }
+    @SuppressWarnings("unused")
     public ArrayList<Skill> getBaseKit() { return baseKit; }
 
 

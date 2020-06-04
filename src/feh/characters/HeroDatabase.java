@@ -506,8 +506,7 @@ public class HeroDatabase extends Database<Hero> {
 
             //wikiname
             reader.nextName();
-            String wikiname = reader.nextString();
-            //merge.setWikiName(wikiname);
+            reader.skipValue(); //String wikiname = reader.nextString();
 
             //"person"
             reader.nextName();
@@ -518,21 +517,23 @@ public class HeroDatabase extends Database<Hero> {
             String origin = reader.nextString();
 
             //"entries"
+            //Lif: Unifier of Thracia and Naga: Dragon Divinity are the only
+            //units who have multiple cameos in the franchise (3 June 2020)
             reader.nextName();
-//            reader.skipValue();
-            reader.beginArray();
-//            //idk what this means, seems identical to origin so far
-            while (reader.hasNext()) {
-                String entry = reader.nextString();
-                if (!origin.equals(entry)) {
-                    System.out.println("found inequality for " +
-                            "\""+name+": "+epithet+"\": " +
-                            origin+" vs. "+entry);
-                }
-            }
-            reader.endArray();
+            reader.skipValue();
+//            reader.beginArray();
+//            while (reader.hasNext()) {
+//                String entry = reader.nextString();
+//                if (!origin.equals(entry)) {
+//                    System.out.println("found inequality for " +
+//                            "\""+name+": "+epithet+"\": " +
+//                            origin+" vs. "+entry);
+//                }
+//            }
+//            reader.endArray();
 
             //"TagID"
+            //todo: use this data to write a top-level "FEHObject" class
             reader.nextName();
             reader.nextString();
 
@@ -554,7 +555,7 @@ public class HeroDatabase extends Database<Hero> {
 
             //"GrowthMod" (contains hidden growth info such as trainee status)
             reader.nextName();
-            reader.nextString();
+            reader.skipValue(); //reader.nextString();
 
             //artist (unicode)
             //todo: create artist class with normal and romanized name
@@ -824,42 +825,43 @@ public class HeroDatabase extends Database<Hero> {
     private HashMap<String, Integer> getHeroRarities() throws IOException {
         HashMap<String, Integer> rarities = new HashMap<>();
 
-        JsonReader infoReader = new JsonReader(new FileReader(HERO_RARITY_FILE));
-        infoReader.beginArray();
-        while (infoReader.hasNext()) {
+        JsonReader reader = new JsonReader(new FileReader(HERO_RARITY_FILE));
+        reader.beginArray();
+        while (reader.hasNext()) {
             //open new hero
-            infoReader.beginObject();
+            reader.beginObject();
 
             //page
-            infoReader.nextName();
-            String name = infoReader.nextString();
+            reader.nextName();
+            String name = reader.nextString();
             //honestly fuck this not gonna import an entire fucking library so i
             //can fix Tharja: "Normal Girl"
             name = name.replaceAll("&quot;", "\"");
 
             //rarity
-            infoReader.nextName();
-            int rarity = infoReader.nextInt();
+            reader.nextName();
+            int rarity = reader.nextInt();
 
             //"NewHeroes" (special?)
-            infoReader.nextName();
-            boolean newHeroes = infoReader.nextInt()==1;
+            reader.nextName();
+            reader.skipValue();
+//            boolean newHeroes = reader.nextInt()==1;
 
             //start time
-            infoReader.nextName();
-            String startDate = infoReader.nextString();
+            reader.nextName();
+            String startDate = reader.nextString();
 
             //end time
-            infoReader.nextName();
-            String endDate = infoReader.nextString();
+            reader.nextName();
+            String endDate = reader.nextString();
 
             //date precision data or smtg
-            infoReader.nextName();
-            infoReader.nextInt();
-            infoReader.nextName();
-            infoReader.nextInt();
+            reader.nextName();
+            reader.nextInt();
+            reader.nextName();
+            reader.nextInt();
 
-            infoReader.endObject();
+            reader.endObject();
 
             Integer currentRarity = rarities.get(name);
             if (currentRarity==null || currentRarity>rarity) {

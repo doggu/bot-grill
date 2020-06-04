@@ -228,38 +228,40 @@ public class SkillDatabase extends Database<Skill> {
 
             //icon
             reader.nextName();
-            String icon = reader.nextString();
+            //i have no idea how to use this value
+            reader.skipValue(); //String icon = reader.nextString();
 
             //refinePath
             reader.nextName();
+            //can be skill1, skill2 (if available), atk, spd, def, or res
             String refinePath = reader.nextString();
 
             //description
             reader.nextName();
             String description = reader.nextString();
 
-            //required
+            //prerequisites ("required")
             reader.nextName();
             reader.beginArray();
-            ArrayList<String> prereqs = new ArrayList<>();
+            ArrayList<String> prerequisites = new ArrayList<>();
             while (reader.hasNext()) {
-                String prereq = reader.nextString();
-                prereqs.add(prereq);
+                String prerequisite = reader.nextString();
+                prerequisites.add(prerequisite);
             }
             reader.endArray();
 
-            //next
-            //todo: this probably becomes an array
+            //next                             darting blow or death blow, neat
+            //even if there are multiple possibilities (e.g. db2 ->ss1)
             reader.nextName();
-            String next = reader.nextString();
+            reader.skipValue(); //String next = reader.nextString();
 
             //promotion rarity
             reader.nextName();
-            String promotionRarity = reader.nextString();
+            reader.skipValue(); //String promotionRarity = reader.nextString();
 
             //promotion tier
             reader.nextName();
-            String promotionTier = reader.nextString();
+            reader.skipValue(); //String promotionTier = reader.nextString();
 
             //exclusive
             reader.nextName();
@@ -276,8 +278,8 @@ public class SkillDatabase extends Database<Skill> {
             while (reader.hasNext()) {
                 String canUse = reader.nextString();
                 canUseMove.add(canUse.trim());
-            }
-            reader.endArray();
+            }                       //subsequent items in list have
+            reader.endArray();      //leading spaces for some reason
 
             //can use weapon classes
             reader.nextName();
@@ -286,7 +288,7 @@ public class SkillDatabase extends Database<Skill> {
             while (reader.hasNext()) {
                 String canUse = reader.nextString();
                 canUseWeapon.add(canUse.trim());
-            }
+            }                         //^
             reader.endArray();
 
             //might
@@ -295,7 +297,7 @@ public class SkillDatabase extends Database<Skill> {
 
             //stat modifiers
             reader.nextName();
-            String statModifiers = reader.nextString();
+            reader.skipValue(); //String statModifiers = reader.nextString();
 
             //cooldown
             reader.nextName();
@@ -304,11 +306,13 @@ public class SkillDatabase extends Database<Skill> {
             //weapon effectiveness
             //note: comma-separated (e.g. "armored,cavalry")
             reader.nextName();
-            String eff = reader.nextString();
+            reader.skipValue(); //String eff = reader.nextString();
+            //i think this would be easier to let my parser to figure it out
+            //rather than dig up a bunch of constructors again
 
             //"SkillBuildCost"
             reader.nextName();
-            String skillBuildCost = reader.nextString();
+            reader.skipValue(); //String skillBuildCost = reader.nextString();
 
             //"Properties"
             reader.nextName();

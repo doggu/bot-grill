@@ -624,7 +624,6 @@ public class HeroDatabase extends Database<Hero> {
                     case "limited":
                         //describes units who have a finite number of copies
                         //per barracks (ghb, tempest, story, etc.)
-//                        System.out.println("me "+s+"\n"+name+": "+epithet);
                         break;
                     case "ghb":
                         availability = Availability.GHB;
@@ -633,15 +632,16 @@ public class HeroDatabase extends Database<Hero> {
                         availability = Availability.TT;
                         break;
                     case "brave":
-//                        System.out.println("me "+s+"\n"+name+": "+epithet);
+                        //this could be included in a hero search algorithm
                         break;
                     case "refresher":
                         //this'll be useful to keep for game logic
                         // (no dancing dancers)
                         // (though you can unequip their refresh skill)
-//                        System.out.println("me "+s+"\n"+name+": "+epithet);
                         break;
                     case "duo":
+                        //i guess this would have to be linked up with a duo
+                        //skill table of some sort
                         break;
                     case "revivalOnly":
                         //denotes units who were cut from the 5* random pool
@@ -651,15 +651,15 @@ public class HeroDatabase extends Database<Hero> {
                     case "demoted_240":
                     case "demoted_201904":
                     case "demoted_202004":
+                        //todo: provide complete rarity info
+                        // (goes with changes to Availability class)
                         availability = Availability.NORMAL_RARITY_CHANGED;
-//                        System.out.println("me "+s+"\n"+name+": "+epithet);
                         break;
                     case "removed_201904":
                         //units who were removed from 5* random pool
-//                        System.out.println("me "+s+"\n"+name+": "+epithet);
                         break;
                     case "resplendent":
-//                        System.out.println("me "+s+"\n"+name+": "+epithet);
+                        //todo: monetize my bot
                         break;
                     case "specDisplay":
 //                        System.out.println("me "+s+"\n"+name+": "+epithet);
@@ -718,15 +718,7 @@ public class HeroDatabase extends Database<Hero> {
             }
             merge.setDateReleased(trueRelease);
 
-            //heavy interpretation starts here
-//            merge.setPortraitLink(new URL(
-//                    "https://feheroes.gamepedia.com/File:" +
-//                            merge.getFullName().toString()
-//                                    .replace(":","")
-//                                    .replace(" ", "_") +
-//                            "_Face_FC.webp"
-//            ));
-            //it didn't work
+            //todo: source hero face icons from somewhere
 
             merges.add(merge);
         }
@@ -757,47 +749,46 @@ public class HeroDatabase extends Database<Hero> {
     private ArrayList<HeroConstructor> getHeroStats() throws IOException {
         ArrayList<HeroConstructor> merges = new ArrayList<>();
 
-        JsonReader infoReader = new JsonReader(new FileReader(HERO_STATS_FILE));
-        infoReader.beginArray();
-        while (infoReader.hasNext()) {
-//            System.out.println("ReADInG sOmE stATs");
+        JsonReader reader = new JsonReader(new FileReader(HERO_STATS_FILE));
+        reader.beginArray();
+        while (reader.hasNext()) {
 
             //open new hero
-            infoReader.beginObject();
+            reader.beginObject();
 
             //name
-            infoReader.nextName();
-            String name = infoReader.nextString();
+            reader.nextName();
+            String name = reader.nextString();
             //honestly fuck this not gonna import an entire fucking library so i
             //can fix Tharja: "Normal Girl"
             name = name.replaceAll("&quot;", "\"");
 
             //wikiname
-            infoReader.nextName();
-            String wikiname = infoReader.nextString();
+            reader.nextName();
+            String wikiname = reader.nextString();
             if (wikiname.contains("ENEMY")) {
 //                System.out.println("NeveRMINd");
-                while (infoReader.hasNext())
-                    infoReader.skipValue();
-                infoReader.endObject();
+                while (reader.hasNext())
+                    reader.skipValue();
+                reader.endObject();
                 continue;
             }
 
             //lv1 5* stats
             int[] stats = new int[5];
             for (int i=0; i<5; i++) {
-                infoReader.nextName();
-                stats[i] = infoReader.nextInt();
+                reader.nextName();
+                stats[i] = reader.nextInt();
             }
 
             //3* growths
             int[] growths = new int[5];
             for (int i=0; i<5; i++) {
-                infoReader.nextName();
-                growths[i] = infoReader.nextInt();
+                reader.nextName();
+                growths[i] = reader.nextInt();
             }
 
-            infoReader.endObject();
+            reader.endObject();
 
             HeroConstructor merge = new HeroConstructor();
 

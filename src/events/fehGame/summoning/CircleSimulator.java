@@ -263,7 +263,7 @@ public class CircleSimulator extends ReactionListener {
 
     @Override
     public void commitSuicide() {
-        newButton.removeButton();
+//        newButton.removeButton();
         stopButton.removeButton();
         super.commitSuicide();
     }

@@ -3,6 +3,7 @@ package feh.summoning;
 import com.google.gson.stream.JsonReader;
 import feh.FEHeroesCache;
 import feh.characters.hero.Hero;
+import utilities.StringUtil;
 import utilities.data.Database;
 import utilities.data.WebCache;
 
@@ -16,8 +17,6 @@ public class BannerDatabase extends Database<Banner> {
     public static BannerDatabase DATABASE;
     public static ArrayList<Banner> BANNERS;
 
-    private static final String FOCUS_ARCHIVE =
-            "https://feheroes.gamepedia.com/Summoning_Focus_archive";
 
     private static final String
             /*
@@ -70,11 +69,11 @@ public class BannerDatabase extends Database<Banner> {
                     "&limit=4096" +
                     "&format=json";
 
-    private static final FEHeroesCache FOCUS_ARCHIVE_FILE,
+    private static final FEHeroesCache //FOCUS_ARCHIVE_FILE,
     BANNERS_INFO_FILE, BANNER_HEROES_FILE;
 
     static {
-        FOCUS_ARCHIVE_FILE = new FEHeroesCache(FOCUS_ARCHIVE);
+//        FOCUS_ARCHIVE_FILE = new FEHeroesCache(FOCUS_ARCHIVE);
         BANNERS_INFO_FILE = new FEHeroesCache(BANNERS_INFO);
         BANNER_HEROES_FILE = new FEHeroesCache(BANNER_HEROES);
 
@@ -86,7 +85,7 @@ public class BannerDatabase extends Database<Banner> {
     @Override
     protected WebCache[] getOnlineResources() {
         return new WebCache[] {
-                FOCUS_ARCHIVE_FILE,
+//                FOCUS_ARCHIVE_FILE,
                 BANNERS_INFO_FILE,
                 BANNER_HEROES_FILE
         };
@@ -113,15 +112,18 @@ public class BannerDatabase extends Database<Banner> {
         final String BANNER_DATE_FORMAT = "YYYY-MM-DD HH:MM:SS";
         ArrayList<Banner> banners = new ArrayList<>();
 
-        JsonReader infoReader = new JsonReader(new FileReader(BANNERS_INFO_FILE)),
-                   heroReader = new JsonReader(new FileReader(BANNER_HEROES_FILE));
+        JsonReader
+                infoReader = new JsonReader(new FileReader(BANNERS_INFO_FILE)),
+                heroReader = new JsonReader(new FileReader(BANNER_HEROES_FILE));
 
         infoReader.beginArray();
 
         heroReader.beginArray();
         //create "buffers" for hero info to push into banner lists as needed
-        String heroBannerPage, heroBannerWikiname, heroName;
-        int heroRarity;
+        String  heroBannerPage,
+                heroBannerWikiname,
+                heroName;
+        int     heroRarity;
 
         while (infoReader.hasNext()) {
             /*
@@ -198,104 +200,32 @@ public class BannerDatabase extends Database<Banner> {
                     break; //gah
                 }
             } while (heroReader.hasNext());
-
-            GregorianCalendar
-                    startDate = new GregorianCalendar(
-                            1945, 1, 1,
-                            0, 0, 0),
-                    endDate = new GregorianCalendar(
-                            1945, 1, 1,
-                            0, 0, 0);
-
-
+            GregorianCalendar startDate, endDate;
+            startDate = StringUtil.getDate(startTime, BANNER_DATE_FORMAT);
+            try {
+                endDate = StringUtil.getDate(endTime, BANNER_DATE_FORMAT);
+            } catch (IndexOutOfBoundsException ioobe) {
+                switch(page.toLowerCase()) {
+                    case "new heroes: arrival of the brave":
+                    case "new heroes: brave echoes":
+//                        endDate = null; //this would require a big refactoring
+                                          //but, as usual, would be more correct
+                        endDate = StringUtil.getDate(
+                                "2038-01-19 03:14:07",
+                                BANNER_DATE_FORMAT);
+                        break;
+                    default:
+                        System.out.println(page);
+                        throw new Error();
+                }
+            }
             Banner banner = new Banner(page, focusUnits, startDate, endDate);
 
             banners.add(banner);
         }
 
-
         return banners;
     }
-
-    //    protected ArrayList<Banner> getList() {
-//        System.out.print("processing banners... ");
-//        long start = System.nanoTime();
-//
-//        Document bannersFile;
-//        try {
-//            bannersFile = Jsoup.parse(FOCUS_ARCHIVE_FILE, "UTF-8");
-//        } catch (IOException ioe) {
-//            ioe.printStackTrace();
-//            return new ArrayList<>();
-//        }
-//
-//        Elements tables = bannersFile
-//                .select("table[class=wikitable default]");
-//
-//        ArrayList<Banner> banners = new ArrayList<>();
-//
-//        int i = 0;
-//        for (Element table:tables) {
-//            try {
-//                banners.add(createBanner(table)); //@Nullable
-//                i++;
-//            } catch (Error e) { //todo: specialize errors
-//                System.out.println("could not generate banner "+i);
-//
-//            }
-//        }
-//
-//        while (banners.contains(null))
-//            banners.remove(null);
-//
-//        System.out.println("done (" +
-//                BigDecimal.valueOf((System.nanoTime()-start)/1000000000.0)
-//                        .round(new MathContext(3)) + " s)!");
-//        return banners;
-//    }
-//
-//    private static Banner createBanner(Element table) {
-//        Elements rows = table.select("tr");
-//
-//        String name = rows.get(0).text();
-//        //1 is image, "Featured Units", and first row of heroes
-//        //second row, children, second item, children, first item, heroes
-//        Element h1 = rows.get(1).children().get(2).children().get(0);
-//
-//        ArrayList<Hero> summonables;
-//        int i;
-//        summonables = getSummonables(h1);
-//        for (i = 2; i<rows.size()-2; i++) {
-//            Element h = rows.get(i).children().get(0).children().get(0);
-//            summonables.addAll(getSummonables(h));
-//        }
-//
-//        GregorianCalendar startDate, endDate;
-//
-//        try {
-//            startDate = getDate(rows.get(i).children().get(1).text());
-//        } catch (IllegalArgumentException iae) {
-//            startDate = null;
-//        }
-//        try {
-//            endDate = getDate(rows.get(i + 1).children().get(1).text());
-//        } catch (IllegalArgumentException iae) {
-//            endDate = null;
-//        }
-//
-//        return new Banner(name, summonables, startDate, endDate);
-//    }
-//
-//    private static ArrayList<Hero> getSummonables(Element heroes) {
-//        Elements items = heroes.select("div").get(0).children();
-//        ArrayList<Hero> summonables = new ArrayList<>();
-//
-//        for (Element hero:items) {
-//            summonables.add(new Hero(hero.text()));
-//        }
-//
-//        return summonables;
-//    }
 
 
     @Override

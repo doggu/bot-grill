@@ -114,22 +114,58 @@ public class Misc {
     }
 
 
-    public static void main(String[] args) {
-        int[] arr = {12, 16, 28, 24};
 
-        System.out.println(gcf(arr));
 
-        Scanner in = new Scanner(System.in);
+    //everything below this is being used to probe through the source code to
+    //determine length, non-space chars, etc.
+    private static ArrayList<File> getAllFiles(File topDir) {
+        ArrayList<File> files =
+                new ArrayList<>(Arrays.asList(topDir.listFiles()));
 
-        String line;
-        while (!(line = in.nextLine()).equalsIgnoreCase("quit")) {
-            String[] strs = line.split(" ");
-            double[] dbls = new double[strs.length];
-
-            for (int i=0; i<strs.length; i++)
-                dbls[i] = Double.parseDouble(strs[i]);
-
-            System.out.println(softGCF(dbls));
+        for (int i=0; i<files.size(); i++) {
+            File file = files.get(i);
+            if (file.isDirectory()) {
+                files.remove(i);
+                i--;
+                files.addAll(getAllFiles(file));
+            }
         }
+
+        return files;
+    }
+    public static void main(String[] args) {
+        ArrayList<File> files = getAllFiles(new File("./src"));
+
+        for (int i=0; i<files.size(); i++) {
+             if (!files.get(i).getName().endsWith(".java")) {
+                files.remove(i);
+                i--;
+            }
+        }
+
+        Scanner in;
+        int lines = 0;
+        int chars = 0;
+
+        for (File file:files) {
+            try {
+                in = new Scanner(file);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                return;
+            }
+            while (in.hasNextLine()) {
+                String line = in.nextLine();
+                for (int i=0; i<line.length(); i++) {
+                    if (line.charAt(i)!=' ') {
+                        chars++;
+                    }
+                }
+                lines++;
+            }
+        }
+
+        System.out.println(lines);
+        System.out.println(chars);
     }
 }

@@ -63,12 +63,20 @@ public class Hero {
      *             "[name]: [epithet]" (e.x. "Bartre: Fearless Warrior")
      */
     public Hero(String name) {
-        if (name.indexOf(':') < 0) throw new Error("incorrect name format");
+//        if (name.indexOf(':') < 0) throw new Error("incorrect name format");
         ArrayList<Hero> list = HeroDatabase.HEROES;
         ArrayList<Hero> correctName = new ArrayList<>();
 
         for (Hero j : list)
             if (j.getFullName().toString().equals(name))
+                correctName.add(j);
+            else if (j.getFullName().toString()
+                    .replaceAll("[:'\"]", "")
+                    .replace('í', 'i')
+                    .replace('é', 'e')
+                    .replace('ç', 'c')
+                    .replace('á', 'a')
+                    .equals(name))              //how to cause global warming
                 correctName.add(j);
 
         if (correctName.size() == 0) {

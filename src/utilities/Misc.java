@@ -120,6 +120,31 @@ public class Misc {
 
 
 
+    ///*
+    private static class PassByReference<T> {
+        public T data;
+
+        public PassByReference(T data) { this.data = data; }
+    }
+
+
+    public static void manipulate(PassByReference<Integer> i) {
+        i.data++;
+    }
+
+    public static void main(String[] args) {
+        PassByReference<Integer> i = new PassByReference<>(3);
+
+        manipulate(i);
+
+        System.out.println(i.data);
+    }
+    /**/
+
+
+
+
+    /*
     //everything below this is being used to probe through the source code to
     //determine length, non-space chars, etc.
     private static ArrayList<File> getAllFiles(File topDir) {
@@ -172,4 +197,5 @@ public class Misc {
         System.out.println(lines);
         System.out.println(chars);
     }
+    /**/
 }
